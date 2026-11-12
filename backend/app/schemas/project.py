@@ -15,6 +15,10 @@ class ProjectBase(BaseModel):
         default="one-to-many",
         description="大纲章节模式: one-to-one(传统模式,1大纲→1章节) 或 one-to-many(细化模式,1大纲→N章节)"
     )
+    language: str = Field(default="pt-BR", description="Idioma do projeto")
+    project_type: Literal["fiction", "lowticket"] = Field(default="fiction", description="Tipo de projeto")
+    series_id: Optional[str] = Field(None, description="ID da série")
+    volume_number: Optional[int] = Field(None, description="Número do volume na série")
 
 
 class ProjectCreate(ProjectBase):
@@ -38,6 +42,10 @@ class ProjectUpdate(BaseModel):
     chapter_count: Optional[int] = None
     narrative_perspective: Optional[str] = None
     character_count: Optional[int] = None
+    language: Optional[str] = None
+    project_type: Optional[Literal["fiction", "lowticket"]] = None
+    series_id: Optional[str] = None
+    volume_number: Optional[int] = None
     # current_words 由章节内容自动计算，不允许手动修改
 
 

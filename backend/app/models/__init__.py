@@ -22,8 +22,15 @@ from app.models.background_task import BackgroundTask
 from app.models.announcement import Announcement
 from app.models.project_agent import AgentConversation, AgentMessage, AgentToolCall, AgentExecutionStep
 from app.models.knowledge import KnowledgeBase, KnowledgeDocument, KnowledgeChunk
+from app.models.series import Series
+from app.models.niche_research import NicheResearch
+from app.models.offer import Offer, OfferItem
 
 __all__ = [
+    "Series",
+    "NicheResearch",
+    "Offer",
+    "OfferItem",
     "Project",
     "Outline",
     "Chapter",

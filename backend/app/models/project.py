@@ -1,5 +1,5 @@
 """项目数据模型"""
-from sqlalchemy import Column, String, Text, DateTime, Integer, CheckConstraint
+from sqlalchemy import Column, String, Text, DateTime, Integer, CheckConstraint, ForeignKey
 from sqlalchemy.sql import func
 from app.database import Base
 import uuid
@@ -33,6 +33,12 @@ class Project(Base):
     narrative_perspective = Column(String(50), comment="叙事视角：first_person/third_person/omniscient")
     character_count = Column(Integer, default=5, comment="角色数量")
 
+    # Fábrica de ebooks
+    language = Column(String(10), nullable=False, default="pt-BR", server_default="pt-BR", comment="Idioma do projeto")
+    project_type = Column(String(20), nullable=False, default="fiction", server_default="fiction", comment="fiction/lowticket")
+    series_id = Column(String(36), ForeignKey("series.id", ondelete="SET NULL"), nullable=True, index=True, comment="Série")
+    volume_number = Column(Integer, nullable=True, comment="Número do volume na série")
+
     # 封面字段
     cover_image_url = Column(String(1000), comment="封面图片访问地址")
     cover_prompt = Column(Text, comment="最近一次生成封面使用的提示词")
@@ -51,6 +57,10 @@ class Project(Base):
         CheckConstraint(
             "cover_status IN ('none', 'generating', 'ready', 'failed')",
             name='check_cover_status'
+        ),
+        CheckConstraint(
+            "project_type IN ('fiction', 'lowticket')",
+            name='check_project_type'
         ),
     )
     
