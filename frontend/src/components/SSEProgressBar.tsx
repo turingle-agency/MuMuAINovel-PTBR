@@ -1,5 +1,6 @@
 import React from 'react';
 import { theme } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 interface SSEProgressBarProps {
   loading: boolean;
@@ -12,6 +13,7 @@ export const SSEProgressBar: React.FC<SSEProgressBarProps> = ({
   progress,
   message
 }) => {
+  const { t } = useTranslation('sse');
   const { token } = theme.useToken();
 
   if (!loading) return null;
@@ -43,7 +45,7 @@ export const SSEProgressBar: React.FC<SSEProgressBarProps> = ({
         fontSize: 14
       }}>
         <span style={{ color: token.colorTextSecondary }}>
-          {message || '准备生成...'}
+          {message || t('preparandoGeracao')}
         </span>
         <span style={{ 
           fontWeight: 'bold',

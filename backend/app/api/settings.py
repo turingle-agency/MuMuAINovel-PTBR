@@ -766,7 +766,7 @@ class ApiTestRequest(BaseModel):
     api_key: Optional[str] = ""
     api_base_url: Optional[str] = ""
     provider: str
-    llm_model: str
+    llm_model: Optional[str] = ""
     temperature: Optional[float] = None
     max_tokens: Optional[int] = None
 
@@ -792,7 +792,7 @@ async def check_function_calling_support(data: ApiTestRequest):
     api_key = resolved_config["api_key"]
     api_base_url = resolved_config["api_base_url"]
     provider = resolved_config["api_provider"]
-    llm_model = data.llm_model
+    llm_model = data.llm_model or ""
     
     try:
         start_time = time.time()
@@ -1010,7 +1010,7 @@ async def test_api_connection(data: ApiTestRequest):
     api_key = resolved_config["api_key"]
     api_base_url = resolved_config["api_base_url"]
     provider = resolved_config["api_provider"]
-    llm_model = data.llm_model
+    llm_model = data.llm_model or ""
     # 使用前端传递的参数，如果未传递则使用默认值
     temperature = data.temperature if data.temperature is not None else 0.7
     max_tokens = data.max_tokens if data.max_tokens is not None else 2000

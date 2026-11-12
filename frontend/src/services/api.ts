@@ -937,6 +937,7 @@ export const wizardStreamApi = {
       theme: string;
       genre: string | string[];
       narrative_perspective?: string;
+      language?: string;
       target_words?: number;
       chapter_count?: number;
       character_count?: number;

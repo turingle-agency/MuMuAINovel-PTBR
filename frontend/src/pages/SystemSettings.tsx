@@ -3,6 +3,7 @@ import { Alert, Button, Card, Col, Form, Input, InputNumber, Row, Select, Space,
 import { CheckCircleOutlined, MailOutlined, ReloadOutlined, SaveOutlined, SendOutlined, SettingOutlined } from '@ant-design/icons';
 import { authApi, settingsApi } from '../services/api';
 import type { SystemSMTPSettings, SystemSMTPSettingsUpdate, User } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
@@ -16,6 +17,7 @@ const qqDefaults: Pick<SystemSMTPSettings, 'smtp_provider' | 'smtp_host' | 'smtp
 };
 
 export default function SystemSettingsPage() {
+  const { t } = useTranslation('systemSettings');
   const { token } = theme.useToken();
   const [form] = Form.useForm<SystemSMTPSettingsUpdate>();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -38,8 +40,8 @@ export default function SystemSettingsPage() {
       setCurrentUser(user);
       form.setFieldsValue(smtpSettings);
     } catch (error) {
-      console.error('加载系统设置失败:', error);
-      message.error('加载系统设置失败');
+      console.error(t('falhaAoCarregarAsConfiguracoes'), error);
+      message.error(t('falhaAoCarregarAsConfiguracoes2'));
     } finally {
       setInitialLoading(false);
     }
@@ -75,10 +77,10 @@ export default function SystemSettingsPage() {
         : values;
       const result = await settingsApi.updateSystemSMTPSettings(payload);
       form.setFieldsValue(result);
-      message.success('系统 SMTP 设置已保存');
+      message.success(t('configuracoesDeSmtpDoSistema'));
     } catch (error) {
-      console.error('保存系统设置失败:', error);
-      message.error('保存系统设置失败');
+      console.error(t('falhaAoSalvarAsConfiguracoes'), error);
+      message.error(t('falhaAoSalvarAsConfiguracoes2'));
     } finally {
       setSaving(false);
     }
@@ -87,7 +89,7 @@ export default function SystemSettingsPage() {
   const handleTest = async () => {
     const toEmail = testTargetEmail.trim();
     if (!toEmail) {
-      message.warning('请先填写测试目标邮箱');
+      message.warning(t('informePrimeiroOEMail'));
       return;
     }
 
@@ -97,11 +99,11 @@ export default function SystemSettingsPage() {
       if (result.success) {
         message.success(result.message);
       } else {
-        message.error(result.message || 'SMTP 测试失败');
+        message.error(result.message || t('falhaNoTesteDeSmtp'));
       }
     } catch (error) {
-      console.error('测试 SMTP 配置失败:', error);
-      message.error('测试 SMTP 配置失败');
+      console.error(t('falhaAoTestarAConfiguracao'), error);
+      message.error(t('falhaAoTestarAConfiguracao2'));
     } finally {
       setTesting(false);
     }
@@ -118,7 +120,7 @@ export default function SystemSettingsPage() {
   if (!currentUser?.is_admin) {
     return (
       <div style={{ padding: 24 }}>
-        <Alert type="error" showIcon message="无权限访问" description="只有管理员可以访问系统设置。" />
+        <Alert type="error" showIcon message={t('semPermissaoDeAcesso')} description={t('somenteAdministradoresPodemAcessarAs')} />
       </div>
     );
   }
@@ -148,10 +150,9 @@ export default function SystemSettingsPage() {
           <Space direction="vertical" size={6}>
             <Space>
               <SettingOutlined />
-              <Title level={3} style={{ color: '#fff', margin: 0 }}>系统设置</Title>
+              <Title level={3} style={{ color: '#fff', margin: 0 }}>{t('configuracoesDoSistema')}</Title>
             </Space>
-            <Paragraph style={{ color: 'rgba(255,255,255,0.88)', margin: 0 }}>
-              仅管理员可见，用于维护 SMTP 发信能力、邮箱注册参数。
+            <Paragraph style={{ color: 'rgba(255,255,255,0.88)', margin: 0 }}>{t('visivelApenasParaAdministradoresUsado')}
             </Paragraph>
           </Space>
         </div>
@@ -164,59 +165,58 @@ export default function SystemSettingsPage() {
             key: 'smtp',
             label: (
               <Space>
-                <MailOutlined />
-                SMTP 配置
+                <MailOutlined />{t('configuracaoDeSmtp')}
               </Space>
             ),
             children: (
               <Form form={form} layout="vertical" onFinish={handleSave}>
                 <Row gutter={24}>
                   <Col xs={24} xl={16}>
-                    <Card title="邮件服务配置" bordered={false} style={{ borderRadius: 16 }}>
+                    <Card title={t('configuracaoDoServicoDeE')} bordered={false} style={{ borderRadius: 16 }}>
                       <Alert
                         type="info"
                         showIcon
                         style={{ marginBottom: 20 }}
-                        message="QQ 邮箱配置说明"
-                        description="如果选择 QQ 邮箱，请使用完整 QQ 邮箱地址作为用户名，密码处填写 SMTP 授权码，而不是 QQ 登录密码。默认推荐 smtp.qq.com + SSL 465。"
+                        message={t('comoConfigurarOQqMail')}
+                        description={t('aoEscolherOQqMail')}
                       />
 
                       <Row gutter={16}>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_provider" label="邮件服务商" rules={[{ required: true, message: '请选择邮件服务商' }]}>
+                          <Form.Item name="smtp_provider" label={t('provedorDeEMail')} rules={[{ required: true, message: t('selecioneOProvedorDeE') }]}>
                             <Select onChange={handleProviderChange}>
-                              <Option value="qq">QQ 邮箱</Option>
-                              <Option value="custom">自定义 SMTP</Option>
+                              <Option value="qq">{t('qqMail')}</Option>
+                              <Option value="custom">{t('smtpPersonalizado')}</Option>
                             </Select>
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_host" label="SMTP 主机" rules={[{ required: true, message: '请输入 SMTP 主机' }]}>
-                            <Input placeholder="例如：smtp.qq.com" />
+                          <Form.Item name="smtp_host" label={t('servidorSmtp')} rules={[{ required: true, message: t('informeOServidorSmtp') }]}>
+                            <Input placeholder={t('porExemploSmtpQqCom')} />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_port" label="SMTP 端口" rules={[{ required: true, message: '请输入 SMTP 端口' }]}>
+                          <Form.Item name="smtp_port" label={t('portaSmtp')} rules={[{ required: true, message: t('informeAPortaSmtp') }]}>
                             <InputNumber style={{ width: '100%' }} min={1} max={65535} />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_username" label="SMTP 用户名" rules={[{ required: true, message: '请输入 SMTP 用户名' }]}>
-                            <Input placeholder="完整邮箱地址" />
+                          <Form.Item name="smtp_username" label={t('usuarioSmtp')} rules={[{ required: true, message: t('informeOUsuarioSmtp') }]}>
+                            <Input placeholder={t('enderecoDeEMailCompleto')} />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_password" label="SMTP 密码 / 授权码" rules={[{ required: true, message: '请输入 SMTP 授权码' }]}>
-                            <Input.Password placeholder="QQ 邮箱请填写授权码" />
+                          <Form.Item name="smtp_password" label={t('senhaSmtpCodigoDeAutorizacao')} rules={[{ required: true, message: t('informeOCodigoDeAutorizacao') }]}>
+                            <Input.Password placeholder={t('paraOQqMailInforme')} />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_from_email" label="发件人邮箱">
-                            <Input placeholder="默认可与用户名一致" />
+                          <Form.Item name="smtp_from_email" label={t('eMailDoRemetente')}>
+                            <Input placeholder={t('porPadraoPodeSerIgual')} />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_from_name" label="发件人名称" rules={[{ required: true, message: '请输入发件人名称' }]}>
+                          <Form.Item name="smtp_from_name" label={t('nomeDoRemetente')} rules={[{ required: true, message: t('informeONomeDoRemetente') }]}>
                             <Input placeholder="MuMuAINovel" />
                           </Form.Item>
                         </Col>
@@ -224,12 +224,12 @@ export default function SystemSettingsPage() {
 
                       <Row gutter={16}>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_use_ssl" label="启用 SSL" valuePropName="checked">
+                          <Form.Item name="smtp_use_ssl" label={t('ativarSsl')} valuePropName="checked">
                             <Switch />
                           </Form.Item>
                         </Col>
                         <Col xs={24} md={12}>
-                          <Form.Item name="smtp_use_tls" label="启用 TLS" valuePropName="checked">
+                          <Form.Item name="smtp_use_tls" label={t('ativarTls')} valuePropName="checked">
                             <Switch />
                           </Form.Item>
                         </Col>
@@ -238,43 +238,40 @@ export default function SystemSettingsPage() {
                   </Col>
 
                   <Col xs={24} xl={8}>
-                    <Card title="注册与验证码策略" bordered={false} style={{ borderRadius: 16, marginBottom: 24 }}>
-                      <Form.Item name="email_auth_enabled" label="启用邮箱认证" valuePropName="checked">
+                    <Card title={t('politicaDeCadastroECodigos')} bordered={false} style={{ borderRadius: 16, marginBottom: 24 }}>
+                      <Form.Item name="email_auth_enabled" label={t('ativarAutenticacaoPorEMail')} valuePropName="checked">
                         <Switch />
                       </Form.Item>
-                      <Form.Item name="email_register_enabled" label="启用邮箱注册" valuePropName="checked">
+                      <Form.Item name="email_register_enabled" label={t('ativarCadastroPorEMail')} valuePropName="checked">
                         <Switch />
                       </Form.Item>
-                      <Form.Item name="verification_code_ttl_minutes" label="验证码有效期（分钟）" rules={[{ required: true, message: '请输入验证码有效期' }]}>
+                      <Form.Item name="verification_code_ttl_minutes" label={t('validadeDoCodigoMinutos')} rules={[{ required: true, message: t('informeAValidadeDoCodigo') }]}>
                         <InputNumber style={{ width: '100%' }} min={1} max={120} />
                       </Form.Item>
-                      <Form.Item name="verification_resend_interval_seconds" label="验证码重发间隔（秒）" rules={[{ required: true, message: '请输入验证码重发间隔' }]}>
+                      <Form.Item name="verification_resend_interval_seconds" label={t('intervaloParaReenviarOCodigo')} rules={[{ required: true, message: t('informeOIntervaloParaReenviar') }]}>
                         <InputNumber style={{ width: '100%' }} min={10} max={3600} />
                       </Form.Item>
                     </Card>
 
-                    <Card title="操作" bordered={false} style={{ borderRadius: 16 }}>
+                    <Card title={t('acoes')} bordered={false} style={{ borderRadius: 16 }}>
                       <Space direction="vertical" style={{ width: '100%' }} size={12}>
                         <Input
                           value={testTargetEmail}
                           onChange={(e) => setTestTargetEmail(e.target.value)}
-                          placeholder="请输入测试目标邮箱，如 123456@qq.com"
+                          placeholder={t('informeOEMailDe')}
                         />
-                        <Button icon={<ReloadOutlined />} onClick={loadData} block>
-                          重新加载
+                        <Button icon={<ReloadOutlined />} onClick={loadData} block>{t('recarregar')}
                         </Button>
-                        <Button icon={<SendOutlined />} loading={testing} onClick={handleTest} block>
-                          发送测试邮件
+                        <Button icon={<SendOutlined />} loading={testing} onClick={handleTest} block>{t('enviarEMailDeTeste')}
                         </Button>
-                        <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving} block onClick={() => form.submit()}>
-                          保存系统设置
+                        <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving} block onClick={() => form.submit()}>{t('salvarConfiguracoesDoSistema')}
                         </Button>
                         <Alert
                           type="success"
                           showIcon
                           icon={<CheckCircleOutlined />}
-                          message="建议使用 QQ 默认配置"
-                          description={<Text type="secondary">先保存 SMTP 配置，再填写测试目标邮箱，点击“发送测试邮件”后由后端通过 SMTP 实际发信。</Text>}
+                          message={t('recomendamosUsarAConfiguracaoPadrao')}
+                          description={<Text type="secondary">{t('salvePrimeiroAConfiguracaoDe')}</Text>}
                         />
                       </Space>
                     </Card>

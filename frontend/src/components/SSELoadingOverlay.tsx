@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spin, theme } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface SSELoadingOverlayProps {
   loading: boolean;
@@ -13,6 +14,7 @@ export const SSELoadingOverlay: React.FC<SSELoadingOverlayProps> = ({
   progress,
   message
 }) => {
+  const { t } = useTranslation('sse');
   const { token } = theme.useToken();
 
   if (!loading) return null;
@@ -51,8 +53,7 @@ export const SSELoadingOverlay: React.FC<SSELoadingOverlayProps> = ({
             fontWeight: 'bold',
             marginTop: 16,
             color: token.colorTextHeading
-          }}>
-            AI生成中...
+          }}>{t('gerandoComIa')}
           </div>
         </div>
 
@@ -99,7 +100,7 @@ export const SSELoadingOverlay: React.FC<SSELoadingOverlayProps> = ({
           minHeight: 24,
           padding: '0 20px'
         }}>
-          {message || '准备生成...'}
+          {message || t('preparandoGeracao')}
         </div>
 
         {/* 提示文字 */}
@@ -108,8 +109,7 @@ export const SSELoadingOverlay: React.FC<SSELoadingOverlayProps> = ({
           fontSize: 13,
           color: token.colorTextTertiary,
           marginTop: 16
-        }}>
-          请勿关闭页面,生成过程需要一定时间
+        }}>{t('naoFecheAPaginaA')}
         </div>
       </div>
     </div>

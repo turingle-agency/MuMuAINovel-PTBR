@@ -70,6 +70,9 @@ export interface SystemSMTPSettingsUpdate {
 }
 
 // 设置类型定义
+// Providers de LLM suportados; 'codex' usa a CLI oficial (sem chave nem URL).
+export type ApiProvider = 'openai' | 'azure' | 'anthropic' | 'gemini' | 'codex' | (string & {});
+
 export interface Settings {
   id: string;
   user_id: string;
@@ -86,6 +89,10 @@ export interface Settings {
   cover_api_base_url?: string;
   cover_image_model?: string;
   cover_enabled?: boolean;
+  fallback_api_provider?: string;
+  fallback_api_key?: string;
+  fallback_api_base_url?: string;
+  fallback_llm_model?: string;
   preferences?: string;
   created_at: string;
   updated_at: string;
@@ -105,6 +112,10 @@ export interface SettingsUpdate {
   cover_api_base_url?: string;
   cover_image_model?: string;
   cover_enabled?: boolean;
+  fallback_api_provider?: string;
+  fallback_api_key?: string;
+  fallback_api_base_url?: string;
+  fallback_llm_model?: string;
   preferences?: string;
 }
 
@@ -167,6 +178,8 @@ export interface Project {
   chapter_count?: number;
   narrative_perspective?: string;
   character_count?: number;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   cover_image_url?: string;
   cover_prompt?: string;
   cover_status?: 'none' | 'generating' | 'ready' | 'failed';
@@ -183,6 +196,8 @@ export interface ProjectCreate {
   genre?: string;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式,默认one-to-many
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   wizard_status?: 'incomplete' | 'completed';
   wizard_step?: number;
   world_time_period?: string;
@@ -205,6 +220,8 @@ export interface ProjectUpdate {
   chapter_count?: number;
   narrative_perspective?: string;
   character_count?: number;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   // current_words 由章节内容自动计算，不在此接口中
 }
 
@@ -221,6 +238,7 @@ export interface ProjectWizardRequest {
   genre?: string;
   chapter_count: number;
   narrative_perspective: string;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
   character_count?: number;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式
@@ -695,6 +713,7 @@ export interface WizardBasicInfo {
   genre: string | string[];
   chapter_count: number;
   narrative_perspective: string;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
   character_count?: number;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式

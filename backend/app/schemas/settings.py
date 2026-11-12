@@ -96,9 +96,9 @@ class APIKeyPresetConfig(BaseModel):
     model_config = ConfigDict(protected_namespaces=())
     
     api_provider: str = Field(..., description="Provedor da API")
-    api_key: str = Field(..., description="Chave da API")
+    api_key: Optional[str] = Field(default="", description="Chave da API (vazia para o provider codex)")
     api_base_url: Optional[str] = Field(None, description="URL personalizada da API")
-    llm_model: str = Field(..., description="Nome do modelo")
+    llm_model: Optional[str] = Field(default="", description="Nome do modelo (vazio = padrão do provider)")
     temperature: float = Field(default=0.7, ge=0.0, le=2.0, description="Parâmetro de temperatura")
     max_tokens: int = Field(default=2000, ge=1, description="Máximo de tokens")
     system_prompt: Optional[str] = Field(default=None, description="Prompt de nível de sistema")
