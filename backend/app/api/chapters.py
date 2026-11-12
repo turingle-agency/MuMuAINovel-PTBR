@@ -9,6 +9,7 @@ from typing import Awaitable, Callable, Optional
 from datetime import datetime, timedelta
 from asyncio import Queue, Lock
 
+from app.utils.narrative import narrative_perspective_pt
 from app.database import get_db, get_engine
 from app.utils.text_metrics import count_words, estimate_max_tokens
 from app.api.common import verify_project_access
@@ -1634,10 +1635,8 @@ async def generate_chapter_content_stream(
                 yield await tracker.loading("Contexto montado", 0.8)
                 
                 # 🎭 确定使用的叙事人称（临时指定 > 项目默认 > 系统默认）
-                chapter_perspective = (
-                    temp_narrative_perspective or
-                    project.narrative_perspective or
-                    'Terceira pessoa'
+                chapter_perspective = narrative_perspective_pt(
+                    temp_narrative_perspective or project.narrative_perspective
                 )
                 logger.info(f"📝 使用叙事人称: {chapter_perspective}")
                 
@@ -2185,10 +2184,8 @@ async def _run_chapter_generation_bg(
     await tracker.loading("Contexto montado", 0.8)
 
     # 确定叙事人称
-    chapter_perspective = (
-        temp_narrative_perspective or
-        project.narrative_perspective or
-        'Terceira pessoa'
+    chapter_perspective = narrative_perspective_pt(
+        temp_narrative_perspective or project.narrative_perspective
     )
 
     # === 准备提示词 ===
@@ -2701,10 +2698,8 @@ async def _run_chapter_generation_bg(
     await tracker.loading("Contexto montado", 0.8)
 
     # 确定叙事人称
-    chapter_perspective = (
-        temp_narrative_perspective or
-        project.narrative_perspective or
-        'Terceira pessoa'
+    chapter_perspective = narrative_perspective_pt(
+        temp_narrative_perspective or project.narrative_perspective
     )
 
     # === 准备提示词 ===
@@ -4248,7 +4243,7 @@ async def generate_single_chapter_for_batch(
                 chapter_outline=chapter_context.chapter_outline,
                 target_word_count=target_word_count,
                 genre=project.genre or 'Não definido',
-                narrative_perspective=temp_narrative_perspective or project.narrative_perspective or 'Terceira pessoa',
+                narrative_perspective=narrative_perspective_pt(temp_narrative_perspective or project.narrative_perspective),
                 previous_chapter_content=chapter_context.continuation_point,
                 characters_info=chapter_context.chapter_characters or 'Nenhuma informação de personagens',
                 chapter_careers=chapter_context.chapter_careers or 'Nenhuma informação de carreiras',
@@ -4269,7 +4264,7 @@ async def generate_single_chapter_for_batch(
                 chapter_outline=chapter_context.chapter_outline,
                 target_word_count=target_word_count,
                 genre=project.genre or 'Não definido',
-                narrative_perspective=temp_narrative_perspective or project.narrative_perspective or 'Terceira pessoa',
+                narrative_perspective=narrative_perspective_pt(temp_narrative_perspective or project.narrative_perspective),
                 characters_info=chapter_context.chapter_characters or 'Nenhuma informação de personagens',
                 chapter_careers=chapter_context.chapter_careers or 'Nenhuma informação de carreiras',
                 foreshadow_reminders=chapter_context.foreshadow_reminders or 'Nenhum foreshadowing que exija atenção',
@@ -4298,7 +4293,7 @@ async def generate_single_chapter_for_batch(
                 target_word_count=target_word_count,
                 continuation_point=chapter_context.continuation_point,
                 genre=project.genre or 'Não definido',
-                narrative_perspective=temp_narrative_perspective or project.narrative_perspective or 'Terceira pessoa',
+                narrative_perspective=narrative_perspective_pt(temp_narrative_perspective or project.narrative_perspective),
                 characters_info=chapter_context.chapter_characters or 'Nenhuma informação de personagens',
                 chapter_careers=chapter_context.chapter_careers or 'Nenhuma informação de carreiras',
                 foreshadow_reminders=chapter_context.foreshadow_reminders or 'Nenhum foreshadowing que exija atenção',
@@ -4318,7 +4313,7 @@ async def generate_single_chapter_for_batch(
                 chapter_outline=chapter_context.chapter_outline,
                 target_word_count=target_word_count,
                 genre=project.genre or 'Não definido',
-                narrative_perspective=temp_narrative_perspective or project.narrative_perspective or 'Terceira pessoa',
+                narrative_perspective=narrative_perspective_pt(temp_narrative_perspective or project.narrative_perspective),
                 characters_info=chapter_context.chapter_characters or 'Nenhuma informação de personagens',
                 chapter_careers=chapter_context.chapter_careers or 'Nenhuma informação de carreiras',
                 foreshadow_reminders=chapter_context.foreshadow_reminders or 'Nenhum foreshadowing que exija atenção',
@@ -4632,7 +4627,7 @@ async def regenerate_chapter_stream(
                 'project_title': project.title if project else 'Desconhecido',
                 'genre': project.genre if project else 'Não definido',
                 'theme': project.theme if project else 'Não definido',
-                'narrative_perspective': project.narrative_perspective if project else 'Terceira pessoa',
+                'narrative_perspective': narrative_perspective_pt(project.narrative_perspective if project else None),
                 'time_period': project.world_time_period if project else 'Não definido',
                 'location': project.world_location if project else 'Não definido',
                 'atmosphere': project.world_atmosphere if project else 'Não definido',

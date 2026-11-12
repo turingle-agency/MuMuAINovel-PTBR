@@ -5,6 +5,7 @@ from sqlalchemy import select, func, delete
 from typing import List, AsyncGenerator, Dict, Any
 import json
 
+from app.utils.narrative import narrative_perspective_pt
 from app.database import get_db
 from app.api.common import verify_project_access
 from app.models.outline import Outline
@@ -477,7 +478,7 @@ async def _build_outline_continue_context(
             f"Localização: {project.world_location or 'Não definido'}",
             f"Atmosfera e tom: {project.world_atmosphere or 'Não definido'}",
             f"Regras do mundo: {project.world_rules or 'Não definido'}",
-            f"Ponto de vista narrativo: {project.narrative_perspective or 'Terceira pessoa'}"
+            f"Ponto de vista narrativo: {narrative_perspective_pt(project.narrative_perspective)}"
         ]
         context['project_info'] = "\n".join(project_info_parts)
         
@@ -1091,7 +1092,7 @@ async def new_outline_generator(
             theme=data.get("theme") or project.theme or "Não definido",
             genre=data.get("genre") or project.genre or "Geral",
             chapter_count=chapter_count,
-            narrative_perspective=data.get("narrative_perspective") or "Terceira pessoa",
+            narrative_perspective=narrative_perspective_pt(data.get("narrative_perspective")),
             time_period=project.world_time_period or "Não definido",
             location=project.world_location or "Não definido",
             atmosphere=project.world_atmosphere or "Não definido",
@@ -1552,7 +1553,7 @@ async def continue_outline_generator(
                 title=project.title,
                 theme=project.theme or "Não definido",
                 genre=project.genre or "Geral",
-                narrative_perspective=project.narrative_perspective or "Terceira pessoa",
+                narrative_perspective=narrative_perspective_pt(project.narrative_perspective),
                 time_period=project.world_time_period or "Não definido",
                 location=project.world_location or "Não definido",
                 atmosphere=project.world_atmosphere or "Não definido",
@@ -1925,7 +1926,7 @@ async def _run_new_outline_bg(
         theme=data.get("theme") or project.theme or "Não definido",
         genre=data.get("genre") or project.genre or "Geral",
         chapter_count=chapter_count,
-        narrative_perspective=data.get("narrative_perspective") or "Terceira pessoa",
+        narrative_perspective=narrative_perspective_pt(data.get("narrative_perspective")),
         time_period=project.world_time_period or "Não definido",
         location=project.world_location or "Não definido",
         atmosphere=project.world_atmosphere or "Não definido",
@@ -2162,7 +2163,7 @@ async def _run_continue_outline_bg(
             output_language=language_name(project.language),
             title=project.title, theme=project.theme or "Não definido",
             genre=project.genre or "Geral",
-            narrative_perspective=project.narrative_perspective or "Terceira pessoa",
+            narrative_perspective=narrative_perspective_pt(project.narrative_perspective),
             time_period=project.world_time_period or "Não definido",
             location=project.world_location or "Não definido",
             atmosphere=project.world_atmosphere or "Não definido",
@@ -2306,7 +2307,7 @@ async def generate_outline_stream(
         "theme": "故事主题",  // new模式必需
         "story_direction": "故事发展方向",  // continue模式可选
         "plot_stage": "development",  // continue模式：development/climax/ending
-        "narrative_perspective": "第三人称",
+        "narrative_perspective": "terceira pessoa",
         "requirements": "其他要求",
         "provider": "openai",  // 可选
         "model": "gpt-4"  // 可选

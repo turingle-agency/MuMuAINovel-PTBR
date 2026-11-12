@@ -6,6 +6,7 @@ from typing import Dict, Any, AsyncGenerator
 import json
 import re
 
+from app.utils.narrative import narrative_perspective_pt
 from app.database import get_db
 from app.models.project import Project
 from app.models.character import Character
@@ -234,7 +235,7 @@ async def world_building_generator(
             world_location=world_data.get("location"),
             world_atmosphere=world_data.get("atmosphere"),
             world_rules=world_data.get("rules"),
-            narrative_perspective=narrative_perspective,
+            narrative_perspective=narrative_perspective_pt(narrative_perspective),
             target_words=target_words,
             chapter_count=chapter_count,
             character_count=character_count,
@@ -1344,7 +1345,7 @@ async def outline_generator(
             theme=project.theme or "Não definido",
             genre=project.genre or "Geral",
             chapter_count=outline_count,
-            narrative_perspective=narrative_perspective,
+            narrative_perspective=narrative_perspective_pt(narrative_perspective),
             target_words=target_words // 10,  # 开局约占总字数的1/10
             time_period=project.world_time_period or "Não definido",
             location=project.world_location or "Não definido",
@@ -1506,7 +1507,7 @@ async def outline_generator(
         # 更新项目信息
         # wizard_step: 0=未开始, 1=世界观已完成, 2=职业体系已完成, 3=角色已完成, 4=大纲已完成
         project.chapter_count = len(created_chapters)  # 记录实际创建的章节数
-        project.narrative_perspective = narrative_perspective
+        project.narrative_perspective = narrative_perspective_pt(narrative_perspective)
         project.target_words = target_words
         project.status = "writing"
         project.wizard_status = "completed"
