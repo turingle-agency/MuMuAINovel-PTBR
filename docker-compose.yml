@@ -62,7 +62,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mumujie/mumuainovel:latest
+    image: mumuainovel-ptbr:local
     container_name: mumuainovel
     depends_on:
       postgres:
