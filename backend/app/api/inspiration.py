@@ -137,8 +137,8 @@ async def generate_options(
             }
             
             # 格式化提示词
-            system_prompt = system_template.format(**format_params)
-            user_prompt = user_template.format(**format_params)
+            system_prompt = PromptService.format_prompt(system_template, **format_params)
+            user_prompt = PromptService.format_prompt(user_template, **format_params)
             
             # 如果是重试，在提示词中强调格式要求
             if attempt > 0:
@@ -297,8 +297,8 @@ async def refine_options(
             }
             
             # 格式化提示词
-            system_prompt = system_template.format(**format_params)
-            user_prompt = user_template.format(**format_params)
+            system_prompt = PromptService.format_prompt(system_template, **format_params)
+            user_prompt = PromptService.format_prompt(user_template, **format_params)
             
             # 添加反馈信息到提示词
             feedback_instruction = f"""

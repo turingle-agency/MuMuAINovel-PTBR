@@ -1,4 +1,4 @@
-"""提示词管理服务"""
+"""Serviço de gerenciamento de prompts."""
 from typing import Dict, Any, Optional
 import json
 import string
@@ -28,7 +28,7 @@ class WritingStyleManager:
             追加输出指令后的提示词
         """
         # 写作风格已在 system_prompt 中注入，此处只追加输出格式指令
-        return f"{base_prompt}\n\n请直接输出章节正文内容，不要包含章节标题和其他说明文字。"
+        return f"{base_prompt}\n\nEscreva diretamente o texto do capítulo, sem incluir o título do capítulo nem outras observações."
 
 
 class PromptService:
@@ -57,27 +57,20 @@ class PromptService:
     PLOT_ANALYSIS = prompts.PLOT_ANALYSIS
     OUTLINE_EXPAND_SINGLE = prompts.OUTLINE_EXPAND_SINGLE
     OUTLINE_EXPAND_MULTI = prompts.OUTLINE_EXPAND_MULTI
-
-    NOVEL_COVER_PROMPT_TEMPLATE = """创作一幅高质量小说封面插图，适用于竖版书籍封面。
-
-小说标题是：“{title}”。
-类型为 {genre}。核心主题是 {theme}。故事摘要如下：{description}
-
-画面应具有电影感、精致、富有氛围和情感表现力，并具备清晰的视觉焦点和强烈的象征性意象。请优先展现符合小说类型的视觉叙事和情绪，而不是死板地描绘具体场景。
-
-这必须看起来像一幅专业的网络小说或实体出版物风格的封面。
-
-硬性要求：
-- 必须在画面醒目位置包含小说标题文字：“{title}”，文字排版需极具艺术感，并与小说的 {genre} 类型风格完美融合。
-- 适用于标准小说封面的竖版构图（2:3 比例）。
-- 画面中只能出现标题文字，绝不能出现作者名字、副标题或其他无关的随机字母。
-- 无标志 (Logo)。
-- 无水印。
-- 无边框。
-- 无 UI 元素。
-- 无样机展示效果 (Mockup)。
-
-最终图像必须是一张完整、专业的书籍封面艺术作品，背景插画与标题排版需相得益彰。"""
+    BOOK_IMPORT_REVERSE_OUTLINES = prompts.BOOK_IMPORT_REVERSE_OUTLINES
+    BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION = prompts.BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION
+    NOVEL_COVER_PROMPT_TEMPLATE = prompts.NOVEL_COVER_PROMPT_TEMPLATE
+    INSPIRATION_DESCRIPTION_SYSTEM = prompts.INSPIRATION_DESCRIPTION_SYSTEM
+    INSPIRATION_DESCRIPTION_USER = prompts.INSPIRATION_DESCRIPTION_USER
+    INSPIRATION_GENRE_SYSTEM = prompts.INSPIRATION_GENRE_SYSTEM
+    INSPIRATION_GENRE_USER = prompts.INSPIRATION_GENRE_USER
+    INSPIRATION_QUICK_COMPLETE = prompts.INSPIRATION_QUICK_COMPLETE
+    INSPIRATION_THEME_SYSTEM = prompts.INSPIRATION_THEME_SYSTEM
+    INSPIRATION_THEME_USER = prompts.INSPIRATION_THEME_USER
+    INSPIRATION_TITLE_SYSTEM = prompts.INSPIRATION_TITLE_SYSTEM
+    INSPIRATION_TITLE_USER = prompts.INSPIRATION_TITLE_USER
+    MCP_TOOL_TEST = prompts.MCP_TOOL_TEST
+    MCP_TOOL_TEST_SYSTEM = prompts.MCP_TOOL_TEST_SYSTEM
 
     @classmethod
     async def build_novel_cover_prompt(
@@ -86,11 +79,12 @@ class PromptService:
         user_id: str = None,
         db = None,
     ) -> str:
-        """基于项目基础信息构建小说封面提示词，支持用户自定义模板"""
-        title = (getattr(project, "title", "") or "未命名小说").strip()
-        genre = (getattr(project, "genre", "") or "未指定类型").strip()
-        theme = (getattr(project, "theme", "") or "未指定主题").strip()
-        description = (getattr(project, "description", "") or "无额外简介").strip()
+        """Monta o prompt da capa a partir dos dados do projeto (aceita modelo personalizado)."""
+        title = (getattr(project, "title", "") or "Sem título").strip()
+        genre = (getattr(project, "genre", "") or "Gênero não informado").strip()
+        theme = (getattr(project, "theme", "") or "Tema não informado").strip()
+        description = (getattr(project, "description", "") or "Sem sinopse adicional").strip()
+        output_language = language_name(getattr(project, "language", None))
 
         compact_description = description[:300]
         template = await cls.get_template_with_fallback(
@@ -98,272 +92,15 @@ class PromptService:
             user_id=user_id,
             db=db,
         )
-        return template.format(
+        return cls.format_prompt(
+            template,
+            output_language=output_language,
             title=title,
             genre=genre,
             theme=theme,
             description=compact_description,
         )
     
-    # ========== V2版本提示词模板（RTCO框架）==========
-    
-    # MCP工具测试提示词
-    MCP_TOOL_TEST = """你是MCP插件测试助手，需要测试插件 '{plugin_name}' 的功能。
-
-⚠️ 重要规则：生成参数时，必须严格使用工具 schema 中定义的原始参数名称，不要转换为 snake_case 或其他格式。
-例如：如果 schema 中是 'nextThoughtNeeded'，就必须使用 'nextThoughtNeeded'，不能改成 'next_thought_needed'。
-
-请选择一个合适的工具进行测试，优先选择搜索、查询类工具。
-生成真实有效的测试参数（例如搜索"人工智能最新进展"而不是"test"）。
-
-现在开始测试这个插件。"""
-
-    MCP_TOOL_TEST_SYSTEM = """你是专业的API测试工具。当给定工具列表时，选择一个工具并使用合适的参数调用它。
-
-⚠️ 关键规则：调用工具时，必须严格使用 schema 中定义的原始参数名，不要自行转换命名风格。
-- 如果参数名是 camelCase（如 nextThoughtNeeded），就使用 camelCase
-- 如果参数名是 snake_case（如 next_thought），就使用 snake_case
-- 保持与 schema 中定义的完全一致，包括大小写和命名风格"""
-    
-    # 灵感模式 - 书名生成（系统提示词）
-    INSPIRATION_TITLE_SYSTEM = """你是一位专业的小说创作顾问。
-用户的原始想法：{initial_idea}
-
-请根据用户的想法，生成6个吸引人的书名建议，要求：
-1. 紧扣用户的原始想法和核心故事构思
-2. 富有创意和吸引力
-3. 涵盖不同的风格倾向
-4. 书名中不要带有"《》"符号
-
-返回JSON格式：
-{{
-    "prompt": "根据你的想法，我为你准备了几个书名建议：",
-    "options": ["书名1", "书名2", "书名3", "书名4", "书名5", "书名6"]
-}}
-
-只返回纯JSON，不要有其他文字。"""
-
-    # 灵感模式 - 书名生成（用户提示词）
-    INSPIRATION_TITLE_USER = "用户的想法：{initial_idea}\n请生成6个书名建议"
-
-    # 灵感模式 - 简介生成（系统提示词）
-    INSPIRATION_DESCRIPTION_SYSTEM = """你是一位专业的小说创作顾问。
-用户的原始想法：{initial_idea}
-已确定的书名：{title}
-
-请生成6个精彩的小说简介，要求：
-1. 必须紧扣用户的原始想法，确保简介是原始想法的具体展开
-2. 符合已确定的书名风格
-3. 简洁有力，每个50-100字
-4. 包含核心冲突
-5. 涵盖不同的故事走向，但都基于用户的原始构思
-
-返回JSON格式：
-{{"prompt":"选择一个简介：","options":["简介1","简介2","简介3","简介4","简介5","简介6"]}}
-
-只返回纯JSON，不要有其他文字，不要换行。"""
-
-    # 灵感模式 - 简介生成（用户提示词）
-    INSPIRATION_DESCRIPTION_USER = "原始想法：{initial_idea}\n书名：{title}\n请生成6个简介选项"
-
-    # 灵感模式 - 主题生成（系统提示词）
-    INSPIRATION_THEME_SYSTEM = """你是一位专业的小说创作顾问。
-用户的原始想法：{initial_idea}
-小说信息：
-- 书名：{title}
-- 简介：{description}
-
-请生成6个深刻的主题选项，要求：
-1. 必须与用户的原始想法保持高度一致
-2. 符合书名和简介的风格
-3. 有深度和思想性
-4. 每个50-150字
-5. 涵盖不同角度（如：成长、复仇、救赎、探索等），但都围绕用户的核心构思
-
-返回JSON格式：
-{{"prompt":"这本书的核心主题是什么？","options":["主题1","主题2","主题3","主题4","主题5","主题6"]}}
-
-只返回纯JSON，不要有其他文字，不要换行。"""
-
-    # 灵感模式 - 主题生成（用户提示词）
-    INSPIRATION_THEME_USER = "原始想法：{initial_idea}\n书名：{title}\n简介：{description}\n请生成6个主题选项"
-
-    # 灵感模式 - 类型生成（系统提示词）
-    INSPIRATION_GENRE_SYSTEM = """你是一位专业的小说创作顾问。
-用户的原始想法：{initial_idea}
-小说信息：
-- 书名：{title}
-- 简介：{description}
-- 主题：{theme}
-
-请生成6个合适的类型标签（每个2-4字），要求：
-1. 必须符合用户原始想法中暗示的类型倾向
-2. 符合小说整体风格
-3. 可以多选组合
-
-常见类型：玄幻、都市、科幻、武侠、仙侠、历史、言情、悬疑、奇幻、修仙等
-
-返回JSON格式：
-{{"prompt":"选择类型标签（可多选）：","options":["类型1","类型2","类型3","类型4","类型5","类型6"]}}
-
-只返回紧凑的纯JSON，不要换行，不要有其他文字。"""
-
-    # 灵感模式 - 类型生成（用户提示词）
-    INSPIRATION_GENRE_USER = "原始想法：{initial_idea}\n书名：{title}\n简介：{description}\n主题：{theme}\n请生成6个类型标签"
-
-    # 灵感模式智能补全提示词
-    INSPIRATION_QUICK_COMPLETE = """你是一位专业的小说创作顾问。用户提供了部分小说信息，请补全缺失的字段。
-
-用户已提供的信息：
-{existing}
-
-请生成完整的小说方案，包含：
-1. title: 书名（3-6字，如果用户已提供则保持原样）
-2. description: 简介（50-100字，必须基于用户提供的信息，不要偏离原意）
-3. theme: 核心主题（30-50字，必须与用户提供的信息保持一致）
-4. genre: 类型标签数组（2-3个）
-
-重要：所有补全的内容都必须与用户提供的信息保持高度关联，确保前后一致性。
-
-返回JSON格式：
-{{
-    "title": "书名",
-    "description": "简介内容...",
-    "theme": "主题内容...",
-    "genre": ["类型1", "类型2"]
-}}
-
-只返回纯JSON，不要有其他文字。"""
-    # 拆书导入-反向项目提炼提示词
-    BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION = """<system>
-你是资深网文策划编辑，擅长从小说正文中反向提炼项目立项信息。
-</system>
-
-<task>
-【任务】
-基于提供的前3章内容，提炼该小说的核心立项信息，用于创建新项目。
-
-【目标】
-在不偏离原文的前提下，输出可直接用于项目初始化的结构化信息。
-</task>
-
-<input priority="P0">
-【输入信息】
-书名：{title}
-前3章内容：
-{sampled_text}
-</input>
-
-<output priority="P0">
-【输出格式】
-仅输出一个纯JSON对象（不要markdown、不要代码块、不要解释）：
-
-{{
-  "description": "小说简介",
-  "theme": "核心主题",
-  "genre": "小说类型",
-  "narrative_perspective": "第一人称/第三人称/全知视角",
-  "target_words": 100000
-}}
-
-【字段要求】
-1) description：120-260字，聚焦主角、核心冲突、主线目标与故事张力。
-2) theme：120-260字，提炼作品想表达的核心命题。
-3) genre：2-12字，如都市、玄幻、悬疑、科幻、言情等。
-4) narrative_perspective：只能是“第一人称”或“第三人称”或“全知视角”。
-5) target_words：整数。按网文体量合理预估；无法判断时返回100000。
-</output>
-
-<constraints>
-【必须遵守】
-✅ 严格基于已给正文内容，不凭空添加关键设定
-✅ 保持信息自洽，避免互相矛盾
-✅ 输出必须是可解析JSON对象
-✅ 小说的genre可以由多个类型组成
-
-【禁止事项】
-❌ 输出JSON以外的任何文字
-❌ 使用markdown标记或代码块包裹
-❌ narrative_perspective输出枚举值之外的内容
-❌ target_words输出非整数
-</constraints>"""
-
-    # 拆书导入-反向生成章节大纲（严格对齐 OUTLINE_CREATE 结构）
-    BOOK_IMPORT_REVERSE_OUTLINES = """<system>
-你是资深网文总编与剧情策划，擅长基于已完成章节反向提炼标准化章节大纲。
-</system>
-
-<task>
-【任务】
-基于给定的章节正文（每批最多5章），为每章反向生成对应大纲结构。
-
-【核心目标】
-输出结构必须与系统现有大纲生成结构严格一致（与 OUTLINE_CREATE 字段一致），用于直接入库。
-</task>
-
-<project priority="P0">
-【项目信息】
-书名：{title}
-类型：{genre}
-主题：{theme}
-叙事视角：{narrative_perspective}
-</project>
-
-<input priority="P0">
-【批次范围】
-第{start_chapter}章 - 第{end_chapter}章（共{expected_count}章）
-
-【章节内容】
-{chapters_text}
-</input>
-
-<output priority="P0">
-【输出格式】
-仅输出纯JSON数组（不要markdown、不要代码块、不要解释）。
-数组长度必须严格等于 {expected_count}。
-
-每个对象字段必须严格为：
-[
-  {{
-    "chapter_number": 1,
-    "title": "章节标题",
-    "summary": "章节概要（200-600字）：主要情节、角色互动、关键事件、冲突与转折",
-    "scenes": ["场景1描述", "场景2描述"],
-    "characters": [
-      {{"name": "角色名1", "type": "character"}},
-      {{"name": "组织/势力名1", "type": "organization"}}
-    ],
-    "key_points": ["情节要点1", "情节要点2"],
-    "emotion": "本章情感基调",
-    "goal": "本章叙事目标"
-  }}
-]
-
-【字段约束】
-- chapter_number：必须与输入章节号一致
-- title：必须与输入章节标题一致
-- summary：根据本章正文反向提炼，不得臆造未出现关键事件
-- scenes：2-6条
-- characters：可为空；type 仅允许 character 或 organization
-- key_points：2-6条
-- emotion：一句话
-- goal：一句话
-</output>
-
-<constraints>
-【必须遵守】
-✅ 严格一章对应一个对象，数量与顺序完全一致
-✅ 字段名、字段层级、字段类型严格一致
-✅ 仅基于输入正文提炼，不擅自扩展设定
-✅ 输出必须可被JSON直接解析
-
-【禁止事项】
-❌ 输出JSON之外任何文本
-❌ 缺失字段或新增字段
-❌ chapter_number/title 与输入不一致
-❌ 使用 markdown 或代码块
-</constraints>"""
-
     @staticmethod
     def format_prompt(template: str, *, output_language: str = DEFAULT_OUTPUT_LANGUAGE, **kwargs) -> str:
         """
@@ -419,13 +156,13 @@ class PromptService:
         prompt_parts = [system_template]
         
         # 原始章节信息
-        prompt_parts.append(f"""## 📖 原始章节信息
+        prompt_parts.append(f"""## 📖 Informações do capítulo original
 
-**章节**：第{chapter_number}章
-**标题**：{title}
-**字数**：{word_count} palavras
+**Capítulo**: {chapter_number}
+**Título**: {title}
+**Extensão**: {word_count} palavras
 
-**原始内容**：
+**Conteúdo original**:
 {content}
 
 ---
@@ -436,23 +173,23 @@ class PromptService:
         prompt_parts.append("\n---\n")
         
         # 项目背景信息
-        prompt_parts.append(f"""## 🌍 项目背景信息
+        prompt_parts.append(f"""## 🌍 Contexto do projeto
 
-**小说标题**：{project_context.get('project_title', '未知')}
-**题材**：{project_context.get('genre', '未设定')}
-**主题**：{project_context.get('theme', '未设定')}
-**叙事视角**：{project_context.get('narrative_perspective', '第三人称')}
-**世界观设定**：
-- 时代背景：{project_context.get('time_period', '未设定')}
-- 地理位置：{project_context.get('location', '未设定')}
-- 氛围基调：{project_context.get('atmosphere', '未设定')}
+**Título do livro**: {project_context.get('project_title', 'Desconhecido')}
+**Gênero**: {project_context.get('genre', 'Não definido')}
+**Tema**: {project_context.get('theme', 'Não definido')}
+**Ponto de vista narrativo**: {project_context.get('narrative_perspective', 'Terceira pessoa')}
+**Mundo**:
+- Época: {project_context.get('time_period', 'Não definida')}
+- Local: {project_context.get('location', 'Não definido')}
+- Atmosfera: {project_context.get('atmosphere', 'Não definida')}
 
 ---
 """)
         
         # 角色信息
         if project_context.get('characters_info'):
-            prompt_parts.append(f"""## 👥 角色信息
+            prompt_parts.append(f"""## 👥 Personagens
 
 {project_context['characters_info']}
 
@@ -461,7 +198,7 @@ class PromptService:
         
         # 章节大纲
         if project_context.get('chapter_outline'):
-            prompt_parts.append(f"""## 📝 本章大纲
+            prompt_parts.append(f"""## 📝 Esboço deste capítulo
 
 {project_context['chapter_outline']}
 
@@ -470,7 +207,7 @@ class PromptService:
         
         # 前置章节上下文
         if project_context.get('previous_context'):
-            prompt_parts.append(f"""## 📚 前置章节上下文
+            prompt_parts.append(f"""## 📚 Contexto dos capítulos anteriores
 
 {project_context['previous_context']}
 
@@ -479,38 +216,39 @@ class PromptService:
         
         # 写作风格要求
         if style_content:
-            prompt_parts.append(f"""## 🎨 写作风格要求
+            prompt_parts.append(f"""## 🎨 Requisitos de estilo de escrita
 
 {style_content}
 
-请在重新创作时严格遵循上述写作风格。
+Siga rigorosamente o estilo de escrita acima ao reescrever.
 
 ---
 """)
         
         # 创作要求
-        prompt_parts.append(f"""## ✨ 创作要求
+        prompt_parts.append(f"""## ✨ Requisitos de criação
 
-1. **解决问题**：针对上述修改指令中提到的所有问题进行改进
-2. **保持连贯**：确保与前后章节的情节、人物、风格保持一致
-3. **提升质量**：在节奏、情感、描写等方面明显优于原版
-4. **保留精华**：保持原章节中优秀的部分和关键情节
-5. **字数控制**：目标长度约 {target_word_count} palavras（可适当浮动±10%）
-{f'6. **风格一致**：严格按照上述写作风格进行创作' if style_content else ''}
+1. **Resolver os problemas**: corrija todos os pontos apontados nas instruções de modificação acima
+2. **Manter a coerência**: garanta consistência de enredo, personagens e estilo com os capítulos anteriores e seguintes
+3. **Elevar a qualidade**: supere claramente a versão original em ritmo, emoção e descrição
+4. **Preservar o melhor**: mantenha as partes excelentes e os acontecimentos-chave do capítulo original
+5. **Controle de extensão**: extensão-alvo de cerca de {target_word_count} palavras (pode variar ±10%)
+{f'6. **Estilo consistente**: escreva seguindo rigorosamente o estilo de escrita acima' if style_content else ''}
+7. **Idioma**: escreva todo o conteúdo em {output_language}
 
 ---
 
-## 🎬 开始创作
+## 🎬 Comece a escrever
 
-请现在开始创作改进后的新版本章节内容。
+Escreva agora a nova versão aprimorada do capítulo.
 
-**重要提示**：
-- 直接输出章节正文内容，从故事内容开始写
-- **不要**输出章节标题（如"第X章"、"第X章：XXX"等）
-- **不要**输出任何额外的说明、注释或元数据
-- 只需要纯粹的故事正文内容
+**Observações importantes**:
+- Produza diretamente o texto do capítulo, começando pelo conteúdo da história
+- **Não** escreva o título do capítulo (como "Capítulo X" ou "Capítulo X: XXX")
+- **Não** escreva explicações, comentários ou metadados adicionais
+- Escreva apenas o texto puro da história
 
-现在开始：
+Comece agora:
 """)
         
         return "\n".join(prompt_parts)
@@ -523,15 +261,15 @@ class PromptService:
         db = None
     ) -> Dict[str, str]:
         """
-        获取MCP工具测试的提示词（支持自定义）
-        
+        Obtém os prompts de teste de ferramentas MCP (aceita modelos personalizados).
+
         Args:
-            plugin_name: 插件名称
-            user_id: 用户ID（可选）
-            db: 数据库会话（可选）
-            
+            plugin_name: nome do plugin
+            user_id: ID do usuário (opcional)
+            db: sessão do banco de dados (opcional)
+
         Returns:
-            包含user和system提示词的字典
+            Dicionário com os prompts "user" e "system"
         """
         # 获取用户自定义或系统默认的user提示词
         if user_id and db:
@@ -635,9 +373,9 @@ class PromptService:
         # 定义所有模板及其元信息
         template_definitions = {
             "NOVEL_COVER_PROMPT_TEMPLATE": {
-                "name": "小说封面生成",
+                "name": "Geração de capa do livro",
                 "category": "Capa",
-                "description": "根据项目基础信息生成小说封面绘制提示词，适用于竖版书籍封面",
+                "description": "Gera o prompt de ilustração da capa a partir dos dados do projeto, em formato vertical, sem texto na imagem",
                 "parameters": ["title", "genre", "theme", "description"]
             },
             "WORLD_BUILDING": {
@@ -647,15 +385,15 @@ class PromptService:
                 "parameters": ["title", "theme", "genre", "description"]
             },
             "BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION": {
-                "name": "拆书导入-反向项目提炼",
+                "name": "Importação de livro - extração do projeto",
                 "category": "Importação de livro",
-                "description": "基于前3章内容反向提炼简介、主题、类型、叙事视角与目标字数",
+                "description": "Extrai sinopse, tema, gênero, ponto de vista narrativo e meta de palavras a partir dos 3 primeiros capítulos",
                 "parameters": ["title", "sampled_text"]
             },
             "BOOK_IMPORT_REVERSE_OUTLINES": {
-                "name": "拆书导入-反向章节大纲",
+                "name": "Importação de livro - esboço dos capítulos",
                 "category": "Importação de livro",
-                "description": "基于章节正文反向生成与OUTLINE_CREATE一致结构的大纲（单批次5章）",
+                "description": "Gera, a partir do texto dos capítulos, um esboço com a mesma estrutura de OUTLINE_CREATE (lotes de 5 capítulos)",
                 "parameters": [
                     "title", "genre", "theme", "narrative_perspective",
                     "start_chapter", "end_chapter", "expected_count", "chapters_text"
@@ -765,15 +503,15 @@ class PromptService:
                              "end_index", "target_chapter_count", "scene_instruction", "scene_field"]
             },
             "MCP_TOOL_TEST": {
-                "name": "MCP工具测试(用户提示词)",
+                "name": "Teste de ferramentas MCP (prompt do usuário)",
                 "category": "Teste MCP",
-                "description": "用于测试MCP插件功能的用户提示词",
+                "description": "Prompt do usuário usado para testar as funções de um plugin MCP",
                 "parameters": ["plugin_name"]
             },
             "MCP_TOOL_TEST_SYSTEM": {
-                "name": "MCP工具测试(系统提示词)",
+                "name": "Teste de ferramentas MCP (prompt de sistema)",
                 "category": "Teste MCP",
-                "description": "用于测试MCP插件功能的系统提示词",
+                "description": "Prompt de sistema usado para testar as funções de um plugin MCP",
                 "parameters": []
             },
             "MCP_WORLD_BUILDING_PLANNING": {
@@ -823,57 +561,57 @@ class PromptService:
                 "parameters": ["title", "genre", "theme", "description", "time_period", "location", "atmosphere", "rules"]
             },
             "INSPIRATION_TITLE_SYSTEM": {
-                "name": "灵感模式-书名生成(系统提示词)",
+                "name": "Modo inspiração - geração de título (prompt de sistema)",
                 "category": "Modo inspiração",
-                "description": "根据用户的原始想法生成6个书名建议的系统提示词",
+                "description": "Prompt de sistema que gera 6 sugestões de título a partir da ideia original do usuário",
                 "parameters": ["initial_idea"]
             },
             "INSPIRATION_TITLE_USER": {
-                "name": "灵感模式-书名生成(用户提示词)",
+                "name": "Modo inspiração - geração de título (prompt do usuário)",
                 "category": "Modo inspiração",
-                "description": "根据用户的原始想法生成6个书名建议的用户提示词",
+                "description": "Prompt do usuário que pede 6 sugestões de título a partir da ideia original",
                 "parameters": ["initial_idea"]
             },
             "INSPIRATION_DESCRIPTION_SYSTEM": {
-                "name": "灵感模式-简介生成(系统提示词)",
+                "name": "Modo inspiração - geração de sinopse (prompt de sistema)",
                 "category": "Modo inspiração",
-                "description": "根据用户想法和书名生成6个简介选项的系统提示词",
+                "description": "Prompt de sistema que gera 6 opções de sinopse a partir da ideia e do título",
                 "parameters": ["initial_idea", "title"]
             },
             "INSPIRATION_DESCRIPTION_USER": {
-                "name": "灵感模式-简介生成(用户提示词)",
+                "name": "Modo inspiração - geração de sinopse (prompt do usuário)",
                 "category": "Modo inspiração",
-                "description": "根据用户想法和书名生成6个简介选项的用户提示词",
+                "description": "Prompt do usuário que pede 6 opções de sinopse a partir da ideia e do título",
                 "parameters": ["initial_idea", "title"]
             },
             "INSPIRATION_THEME_SYSTEM": {
-                "name": "灵感模式-主题生成(系统提示词)",
+                "name": "Modo inspiração - geração de tema (prompt de sistema)",
                 "category": "Modo inspiração",
-                "description": "根据书名和简介生成6个深刻的主题选项的系统提示词",
+                "description": "Prompt de sistema que gera 6 opções de tema profundas a partir do título e da sinopse",
                 "parameters": ["initial_idea", "title", "description"]
             },
             "INSPIRATION_THEME_USER": {
-                "name": "灵感模式-主题生成(用户提示词)",
+                "name": "Modo inspiração - geração de tema (prompt do usuário)",
                 "category": "Modo inspiração",
-                "description": "根据书名和简介生成6个深刻的主题选项的用户提示词",
+                "description": "Prompt do usuário que pede 6 opções de tema a partir do título e da sinopse",
                 "parameters": ["initial_idea", "title", "description"]
             },
             "INSPIRATION_GENRE_SYSTEM": {
-                "name": "灵感模式-类型生成(系统提示词)",
+                "name": "Modo inspiração - geração de gênero (prompt de sistema)",
                 "category": "Modo inspiração",
-                "description": "根据小说信息生成6个合适的类型标签的系统提示词",
+                "description": "Prompt de sistema que gera 6 etiquetas de gênero adequadas às informações do livro",
                 "parameters": ["initial_idea", "title", "description", "theme"]
             },
             "INSPIRATION_GENRE_USER": {
-                "name": "灵感模式-类型生成(用户提示词)",
+                "name": "Modo inspiração - geração de gênero (prompt do usuário)",
                 "category": "Modo inspiração",
-                "description": "根据小说信息生成6个合适的类型标签的用户提示词",
+                "description": "Prompt do usuário que pede 6 etiquetas de gênero a partir das informações do livro",
                 "parameters": ["initial_idea", "title", "description", "theme"]
             },
             "INSPIRATION_QUICK_COMPLETE": {
-                "name": "灵感模式-智能补全",
+                "name": "Modo inspiração - preenchimento automático",
                 "category": "Modo inspiração",
-                "description": "根据用户提供的部分信息智能补全完整的小说方案",
+                "description": "Completa a proposta do livro a partir das informações parciais fornecidas pelo usuário",
                 "parameters": ["existing"]
             }
         }

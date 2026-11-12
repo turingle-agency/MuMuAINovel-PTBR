@@ -1575,6 +1575,14 @@ class BookImportService:
         if "全知" in raw or "上帝视角" in raw:
             return "全知视角"
 
+        # Valores em português devolvidos pelos prompts de importação
+        if "primeira pessoa" in raw_lower.replace("_", " "):
+            return "第一人称"
+        if "terceira pessoa" in raw_lower.replace("_", " "):
+            return "第三人称"
+        if "onisciente" in raw_lower:
+            return "全知视角"
+
         return fallback
 
     def _normalize_target_words(self, value: Any, fallback: int = 100000) -> int:
