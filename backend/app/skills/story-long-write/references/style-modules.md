@@ -1,12 +1,12 @@
 # Módulos de estilo e técnica de prosa
 
-> **Origem** (adaptação em português do material original, ~175 KB). Seções omitidas de propósito:
-> - "Estilos por plataforma" (diferenças entre sites e apps de leitura chineses) e a seção de "pressão natural x social" voltada a faixas etárias de plataformas específicas: mecânica e público de plataformas chinesas.
-> - "Desenho de heroínas de harém / método do sapo na água morna", "estrutura de romance masculino minimalista de herói que salva a donzela" e "gradação de comportamento de casal em sete níveis" (esta última foi mantida como técnica geral de escalada afetiva): convenções de harém sem equivalente de uso geral.
-> - "Mentalidade do escritor profissional / dois livros" e "mentalidade de quem entende o mercado": psicologia de autor de plataforma; o essencial está em `writer-psychology.md`.
-> - Estilos de nicho de plataforma sem equivalente ocidental: "lista/curiosidades (pandian)" foi mantido como "ficção de curiosidades", "chamada à aventura" foi mantido onde havia lógica geral.
-> - Exemplos com nomes de obras chinesas foram substituídos por exemplos genéricos ocidentais.
-> - **Limite honesto desta passagem**: os blocos mais extensos de "fundamentos" do final do original (cerca de 2.000 linhas de variações e exemplos adicionais) foram condensados; as técnicas distintas estão aqui, mas nem todo exemplo foi transposto.
+> **Origem** (adaptação em português do material original, ~175 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - "Estilos por plataforma" e "diferenças entre sites e apps de leitura chineses" (mecânica de plataforma).
+> - Desenho de heroínas de harém e "método do sapo na água morna" (convenção de harém sem equivalente ocidental de uso geral); "romance masculino minimalista de herói que salva a donzela", mantido como seção 3.
+> - Listas de rankings, taxas de plataforma, e "retrospectivas de lives" de autores chineses.
+> - Exemplos com nomes de obras chinesas foram trocados por exemplos genéricos ocidentais; o "como fazer" de cada técnica foi mantido.
+> - A pressão "natural x social" por faixa etária de leitores de plataforma chinesa foi omitida; a ideia geral (pressionar a situação, não a pessoa) está em `story-structure.md`.
+> - A seção de "gradação de comportamento de casal em sete níveis" **foi mantida** (seção 3).
 
 ## Sumário
 
@@ -30,6 +30,20 @@
 18. Estilos de subgênero: light novel, comédia absurda, cyberpunk, curiosidades, simulação
 19. Luta e duelo de inteligência (coração, corpo e técnica)
 20. Escrita em câmera; diálogo; método das três câmeras
+21. Fundamentos de escrita (mentalidade, câmera, estilo, velocidade, descrição seca, cinco sentidos, descrição dinâmica, diálogo, transições, três câmeras, imersão, ponto de vista, travar, abstrato x concreto, inteligência emocional, palco)
+22. Conceito central: extração e escala de poder
+23. Despertar do iniciante e mentalidade do autor profissional
+24. Comédia: lógica e piadas
+25. Estilo: três elementos e controle de "água"
+26. Contradição em três níveis e desalinhamento de percepção
+27. Uso da piada, do ritmo e da emoção; primeira impressão e efeito pico-fim
+28. Repetição, antipadrão e o limite do atrativo
+29. Como aprender: pensar, saber e fazer
+30. Elementos do gênero e escolha de material
+31. Abertura de baixa posição
+32. Fluxo do iniciante: quatro leituras e etapas
+33. Salto de classe e imersão
+34. Compensação e atração (remissão)
 
 ---
 
@@ -355,3 +369,148 @@ Ruim:
 ```
 
 **Método das três câmeras**: alterne três planos para controlar ritmo e sensação de imagem: *plano geral* (o ambiente e a posição dos personagens), *plano médio* (a ação e o diálogo entre eles), *plano de detalhe* (o gesto, o objeto, o olhar que carrega a emoção). Comece pelo geral, aproxime-se no médio e crave o detalhe significativo; troque de plano quando a emoção muda.
+
+
+---
+
+## 21. Fundamentos de escrita
+
+> Mentalidade central: escrever é responder ao "e depois?"; cada palavra serve ao próximo gancho; descrição indireta vence descrição direta; reação vence declaração.
+
+### 21.1 Mentalidade central
+**O princípio do "e depois?"**: o que o leitor quer ver cabe numa pergunta: "e depois?". Ponha o ponto de apoio da escrita no "depois": todo texto serve a uma informação, uma frase, um ponto; escrito um "depois", recomece a matrioska: isso é ritmo. *Exemplo*: depois de a detetive abrir o cofre vazio, a próxima linha já mostra o segurança suando; a pergunta "e agora?" nunca fica sem resposta.
+**Descrição indireta**: não escreva a explosão; escreva as reações de várias pessoas ao ver a cena. O protagonista, depois de usar a vantagem, olha as montanhas e dá um golpe de espada: corte seco, e depois só reações de espectadores. Mostrar o poder pela reação é mais eficaz que descrevê-lo.
+**Ler muito é a base**: sem volume de leitura, toda teoria é castelo no ar; primeiro leia, ache o livro de referência, analise, escreva, e só depois abstraia a teoria; devagar é rápido, escrever é trabalho de paciência.
+
+### 21.2 Câmera e imagem
+**Ligação de planos**: objetos parecidos, sensações parecidas e emoções parecidas servem de transição; o movimento de câmera em escala menor é o mais difícil. *Como treinar*: analise cenas de filmes e animações quadro a quadro. **Aprender com o audiovisual**: a ficção é um "filme em texto" e precisa de imagem; vídeos que analisam lutas servem para estudar cenas de ação; estude clássicos (por exemplo, romances de costumes) para construir personagens de alta inteligência emocional.
+
+### 21.3 Melhorar o estilo
+**A natureza do estilo**: não é floreio, é *precisão* e *ritmo*: o máximo de informação e emoção com o mínimo de palavras; toda descrição tem função (avançar a trama, mostrar caracterização, criar emoção).
+**Problemas comuns**: longas descrições de ambiente sem emoção; excesso de pensamento interior que derruba o ritmo; diálogo sem informação, só conversa fiada; descrição desligada da narração.
+**Como melhorar**: ao analisar livros de sucesso, observe como cada parágrafo é escrito; aprenda a **descrição seca**; faça o diálogo o mais "limpo" possível, sem rebuscar; dê densidade de informação à narração: cada parágrafo traz algo novo.
+
+### 21.4 Velocidade de escrita
+**Como acelerar**: a prática vem primeiro (quem escreve muito escreve rápido); escolha boas ferramentas de digitação; quanto mais detalhado o esboço, mais rápida a escrita (não saber o que escrever é o maior freio); não revise enquanto escreve, escreva e depois revise. **Hábitos**: horário fixo; use os intervalos para planejar e os blocos longos para escrever; o rascunho sem divisão de capítulos rende mais, depois divida.
+
+### 21.5 Descrição seca (baimiao)
+**A essência**: a descrição seca diz o mais exato com o mínimo de palavras; não empilha adjetivos nem floreios, e desenha a imagem com verbos e substantivos precisos. *Exemplo clássico*: o haikai "velha lagoa / uma rã salta / som de água": três imagens, uma cena inteira. Em prosa: "A cozinha cheirava a alho. Alguém mexia a panela. Lá fora, a chuva." A força da descrição seca está no **espaço em branco**: dar ao leitor lugar para imaginar vale mais que preencher tudo.
+
+### 21.6 Os cinco sentidos a serviço da emoção
+Use pelo menos dois ou três sentidos (visão, audição, tato, olfato, paladar); não escreva só "o que se vê", escreva "o que se sente"; **toda descrição sensorial serve à emoção**: no medo, frio, escuro e silêncio; na euforia, claridade, rapidez e barulho. *Exemplo*: antes da revelação, "o corredor cheirava a álcool e papel velho, e o bebedouro gorgolejava sozinho".
+
+### 21.7 Descrição dinâmica melhor que estática
+Não empilhe adjetivos para o personagem ("ela era linda"); mostre por ação e reação: *quando todos a viram, as vozes baixaram sem que ninguém percebesse*. Não faça grandes blocos de cenário: salpique-o na ação dos personagens.
+
+### 21.8 Pontos do diálogo
+O diálogo precisa de densidade de informação: toda fala avança a trama, mostra caracterização ou cria conflito; sinal de diálogo vazio: os dois só confirmam o que o leitor já sabe; use tom, gesto e elipse para sugerir subtexto, mais eficaz que dizer direto; deixe o diálogo "limpo": linguagem do dia a dia, nada de tom de livro.
+
+### 21.9 Cortes de cena e transições
+Objetos, sentidos ou emoções parecidos fazem a ponte. *Salto de tempo*: ligue por um gesto ou objeto (largar a xícara → manhã seguinte). *Salto de espaço*: ligue por som ou luz (o sino distante → o crepúsculo em outra cidade).
+
+### 21.10 Pensar em planos (storyboard)
+**Princípio**: cada parágrafo é um plano, com "objeto filmado" claro. Tipos: *geral* (ambiente/atmosfera) → *médio* (relação entre personagens) → *close* (expressão/detalhe) → *plano de detalhe* (objeto-chave/emoção). Lógica de troca: do grande ao pequeno para focar a atenção, ou do pequeno ao grande para revelar o todo. **Ritmo dos planos**: rápido = frases curtas, parágrafos curtos, ação densa, troca rápida; lento = frases longas, descrição de ambiente, pensamento, imagem parada. Em luta, planos rápidos e, no momento decisivo, câmera lenta no detalhe (a ponta da lâmina parada a um palmo da garganta).
+**Cena e plano (base)**: uma cena = um lugar + um tempo + um grupo de personagens; dentro dela ocorre ao menos um evento significativo (avança a trama, aprofunda a relação ou revela informação); ao fim, gancho (informação, suspense ou conflito novo). **Troca de ponto de vista**: não muito frequente; escreva um ponto de enredo completo antes de passar ao próximo; transições naturais (por semelhança, sentidos, emoção); dentro de uma cena, de preferência um só ponto de vista. **Treino de imagem**: "decupar" cenas de filme em planos escritos; alterne três camadas (ambiente → ação → close); antes de escrever, "projete" a cena na cabeça e decida câmera e imagem.
+
+### 21.11 Imersão e ressonância
+**Construir imersão**: o objetivo do protagonista é claro e o leitor o aprova; as ações são compreensíveis (pode não concordar, mas entende); os valores são aceitáveis; **o autor não pode julgar o protagonista com olhar de deus: fique do lado dele**. **A "corda" da ressonância**: antes de escrever, descubra qual é a corda do leitor-alvo e faça todo texto dançar nela: satisfação pela virada depois da opressão, valor de ser reconhecido, segurança de ter o controle; gêneros diferentes têm cordas diferentes (sobrevivência e crescimento; doçura e coração acelerado). **Vontade de se expressar como motor**: ache o que você relê sem parar e pergunte por quê; a emoção que você quer passar é o motor da escrita; com vontade de se expressar sobrando, velocidade e qualidade sobem naturalmente.
+
+### 21.12 Duas direções de aprofundamento
+*Aprofundar a história*: conspirações complexas, raciocínio em camadas, duelos de inteligência bem desenhados: teto alto, difícil. *Aprofundar o personagem*: ache o drama nas relações e interações, em estrutura simples e familiar; ponto: o leitor "vem ver a confusão", a química entre personagens já basta; operação: organize como os personagens se relacionam e o enredo aparece. **Exemplo**: um mestre obriga a discípula a seduzir o protagonista; ela tem namorado; o namorado sofre por fora e se diverte por dentro: a interação dos três rende uma dúzia de capítulos. Aprofundar a história pode custar três dias para 700 palavras; aprofundar o personagem, algumas horas para o esboço de capítulos.
+
+### 21.13 Evitar pontos de rejeição
+Ponto de rejeição = tudo que estraga a experiência do leitor, e muda por gênero. **Comuns**: ações do protagonista incompreensíveis; valores do protagonista em choque com o público; atmosfera quebrada (piada fora de hora, diálogo que tira da história); expectativa não satisfeita por muito tempo; desvio do atrativo central (o imperador fantoche cuja trama é retomar o poder e que vai impressionar fidalgos no campo); reviravolta só por reviravolta. **Princípios**: escreva o protagonista como alguém que você ama; todo ato dele, bom ou mau, deve render consequência depois; observe a expectativa do público e satisfaça quando é hora; atmosfera e imersão valem cem vezes mais que uma piada fora de lugar; temas polêmicos de gênero e política: nem toque.
+
+### 21.14 Escolha do ponto de vista narrativo
+
+| Ponto de vista | Característica | Indicado |
+|------|------|------|
+| Terceira pessoa limitada | Segue o protagonista, só sabe o que ele sabe | O mais comum, a maior imersão |
+| Primeira pessoa | "Eu" narra, imersão forte, mas limitado | Suspense, cotidiano |
+| Terceira pessoa objetiva | Só ações externas, sem interior | Elenco, técnica de roteirista |
+| Ponto de vista saltado | Alterna entre personagens | Criar assimetria, ponto de vista do antagonista |
+| Onisciente | Sabe tudo de todos | Literatura tradicional, raro na ficção comercial |
+
+**Uso**: a terceira limitada é a mais recomendada; o ponto de vista saltado serve sobretudo para passar ao antagonista e criar assimetria ("o leitor sabe, o protagonista não"); ao trocar, use marcador claro, sem saltar dentro do mesmo parágrafo; primeira pessoa com cuidado: limita a informação e dificulta o desenvolvimento tardio.
+
+### 21.15 Como lidar com "travar"
+Sente e escreva à força: a ideia vem escrevendo; tome banho ou caminhe e deixe o subconsciente trabalhar; releia o esboço e o texto, ache um ponto para desdobrar; leia livros do mesmo tipo: a exposição a material é o melhor suplemento; não tema: continue e o caminho aparece.
+
+### 21.16 Hábitos de eficiência e caminho de melhoria do estilo
+Horário fixo, intervalos para planejar e blocos para escrever; o rascunho contínuo rende mais; depois de escrever o dia, estude teoria (muito melhor que só estudar sem escrever); com um ano de produção contínua os resultados vêm: devagar é rápido. **Caminho do estilo**: ao analisar livros de sucesso, veja como cada parágrafo é escrito; pratique a descrição seca (descrever uma cena com o mínimo de palavras); cada parágrafo dá algo novo (densidade de informação é o principal indicador de estilo); não busque floreio: precisão e ritmo valem cem vezes mais; o poder de escrita não é o fator decisivo da ficção comercial, mas bom estilo é o "toque final".
+
+### 21.17 Abstrato x concreto
+**O resumo apaga a individualidade**: descrever "maçã" por traços gerais capta o comum e apaga cada maçã; quem nunca viu uma maçã não a reconhece só pelo conceito "fruta". Em escrita: a fórmula é o comum, mas a individualidade de cada livro é a razão de o leitor ficar; aprenda fórmulas sem ser preso por elas. **Pensamento de pincelada solta**: como na pintura em tinta, bambu e camarão valem pelo espírito, não pela semelhança; deixe o espaço em branco onde cabe, use a tinta onde cabe; encher tudo tira a participação do leitor. **Equilíbrio entre lógica e experiência**: tenha lógica, mas não demais; no absurdo, a lógica pode ficar de lado se o leitor se diverte; teoria pode ser esquecida: a prática a internaliza. **O poder da linguagem simples**: à primeira vista simples, à segunda tem nível; escreva pensando no leitor de escolaridade média; floreio constante cansa e soa pedante; dizer algo complexo de modo simples e claro é uma técnica difícil.
+
+### 21.18 Personagens de alta inteligência emocional
+Observação de quem lê o ambiente, improvisa e controla a conversa; se há alguém assim entre amigos ou colegas, use e adapte; a boa personagem inteligente parece "caso real adaptado"; mostre a inteligência em cena (comportamento), não pelo narrador dizer que ela é esperta.
+
+### 21.19 Montar o palco
+**Duas dimensões**: *tamanho* = número de espectadores (colegas de quarto → transmissão com milhares → todo o campeonato → o mundo); *altura* = identidade do adversário + importância da disputa (rodada comum → final do mundial). **Prática**: a cada virada de mesa, pergunte: o palco pode ser maior e mais alto? *Ampliar*: acrescente personagens (colegas de quarto de nível modesto boquiabertos vendo o protagonista decolar); *elevar*: acrescente enredo de preparação (a história de domínio do adversário, a despedida do colega, os pais que passam do ceticismo à presença no estádio). No limite do plausível, puxe todos os espectadores e todo o significado possível.
+
+## 22. Conceito central: extração e escala de poder
+
+### 22.1 Extração do conceito central
+Só ao entender o conceito central se define a trilha e o público; imitar às cegas é fracasso. Passos: 1) escreva o que o livro promete em uma frase; 2) separe emoção (o que o leitor sente) de forma (como é entregue); 3) teste: se tirar o cenário, a promessa continua? Exemplos: "resolver confrontos por favores e relações para subir" (tom leve, recursos por rede de contatos e não por violência); "o sobrevivente que planeja cada passo" (prazer de cálculo). **O conceito decide**: como a vantagem obtém recursos (matar, matar, matar x construir rede), o tom (leve x sério) e o ritmo.
+
+### 22.2 Escala de poder (níveis)
+O teto de escala depende do controle do autor: não escreva o que não consegue sustentar. Princípios: abaixo do "poder cósmico individual" quase sempre basta; evite capacidades de regra que fogem do controle (leitura de futuro absoluta, reescrita da realidade); a escala deve combinar com a fronteira do gênero (um thriller contemporâneo não precisa de multiverso); escale **apostas** antes de escalar **números**: ameaça pessoal → local → regional → global.
+
+## 23. Despertar do iniciante e mentalidade do autor profissional
+
+**Despertar**: entender que "a recompensa é o núcleo de tudo": deixe de lado as ideias estranhas e as relações comoventes até entrar no jogo. *Estratégia mínima*: escreva um livro de recompensa extrema, com personagens e enredo apontando ao prazer; abandone floreios; o núcleo da recompensa: **o protagonista é incrível**; pode até dispensar preparação no capítulo 1. **Sinal contrário**: protagonista humilhado e sem brilho, a não ser como linha de coadjuvante. **Escrever é transmitir informação**: cada frase tem propósito (dar poder ao protagonista diz "ele é forte, relaxe"; um mestre que o vigia diz "ele corre perigo"); nenhuma frase inútil.
+**Dois livros**: divida a pressão psicológica: o *livro de renda* ("sou contador de histórias": render o máximo, mesmo que o meio do livro canse) e o *livro de treino ou de interesse* ("quero escrever isto": treinar técnica sem ligar para números). O custo de silêncio de escrever é invisível: leitura, volume, estética, mercado, conhecimento do leitor, memes, inovação. **Posição central**: quem quer ganhar dinheiro não deve incluir "mercadoria própria"; quem quer incluir não deve esperar ganhar: os dois nem sempre são compatíveis.
+
+
+## 24. Comédia: lógica e piadas
+
+### 24.1 Graça não é loucura: a lógica é a base
+O enredo engraçado precisa ser engraçado dentro de uma lógica (um meio dentro das regras, mas fora do esperado). O protagonista sem lógica, "maluco", é divertido no começo; depois o leitor não acompanha a cabeça dele e sente vergonha alheia. *Exemplo*: o governador "muda" a cidade rica da região vizinha para a sua: um grande mago de fato move montanhas, e o ato do governador de fato aumenta a economia: absurdo coerente.
+
+### 24.2 Regras para usar piadas prontas (memes)
+Piada forçada é pior que nenhuma: meme tem prazo de validade e, passado o auge, só resta constrangimento; muitos comentários de parágrafo não devem alegrar o autor: outros leitores só veem um meme velho; **forma correta**: extraia a lógica interna da graça e adapte à situação do livro (o leitor vê a origem, mas isso não prejudica a graça).
+
+## 25. Estilo: três elementos e controle de "água"
+
+### 25.1 Três elementos do estilo
+**Precisão**: não use uma frase onde uma palavra basta; o verbo decide a imagem ("encarou furioso" é dez vezes mais preciso que "olhou muito bravo"). **Ritmo**: alterne frases longas e curtas; curtas são urgentes e fortes, longas suaves e delicadas; depois de três frases curtas seguidas, venha uma longa, e vice-versa. **Imagem**: ative os cinco sentidos; não escreva só "ver", escreva som, cheiro, tato e temperatura, e o leitor completa a imagem.
+
+### 25.2 A natureza da "água" (enrolação)
+"Água" ≠ quantidade de palavras: água = conteúdo que não faz a trama avançar nem constrói personagem, puro enchimento. *Água razoável*: preparação de pistas, construção de atmosfera, interação de personagens: parecem não avançar a trama, mas movem uma corrente subterrânea. *Água prejudicial*: repetir informação conhecida, descrição de ambiente sem sentido, monólogo interior solitário. **Teste**: se cortar o trecho o leitor fica confuso? Se não, é água; se sim, não é.
+
+### 25.3 Estilo, ambiente e hierarquia
+Os conceitos de "três partes da habilidade de escrever", "quatro elementos do estilo", "níveis de expressão emocional", "interação com o ambiente", "um traço, muitos usos" e "conceito central no estilo" se resumem assim: o estilo tem três partes (enredo, personagens, texto), o texto tem quatro elementos (precisão, ritmo, imagem, informação), a emoção se expressa em níveis (dizer → mostrar → deixar sentir) e o ambiente deve interagir com a emoção da cena (um traço serve a vários usos: descrever a chuva e a solidão ao mesmo tempo). O peso do estilo muda por fase: no começo, clareza e ritmo bastam; adiante, o estilo põe o "toque final".
+
+## 26. Contradição em três níveis e desalinhamento de percepção
+**Três níveis de contradição**: histórias comuns: a contradição fica entre personagens (conflito básico); histórias boas: a contradição está no pano de fundo (atmosfera); histórias engenhosas: a contradição está **entre a obra e o leitor** (desalinhamento de percepção): atração constante.
+**Dois modos de desalinhamento**: *mesmo fundo cognitivo + protagonista de percepção diferente* (negócios/assassinos/máfia: o protagonista fora do padrão atrai); *mesmo protagonista + fundo cognitivo diferente* (viagem no tempo, apocalipse, Idade Média: o leitor adota o ponto de vista do protagonista contra o mundo); quando a lógica do ambiente choca com a do leitor, cada frase e ação traz conflito, e não é preciso criar prazer o tempo todo.
+**Tratamento do conflito**: complique o conflito, abra subtramas por vários lados (no romance, um segundo casal; na guerra, não só combate: disputas em vários planos).
+
+## 27. Uso da piada, do ritmo e da emoção; primeira impressão e efeito pico-fim
+**Três elementos de escrita**: *piada/ideia*: iniciantes devem seguir as fórmulas dos antecessores, e fazer algo "especial" sem base é suicídio; uma boa ideia é o toque de mestre; não ache a ideia velha: o ciclo de escrita é longo e a ideia que funciona agora é a que vale. *Ritmo*: parece místico, mas rende e se treina: não se aprende só imitando; erros de iniciante: diálogos inúteis, detalhes "geniais", longas preparações; solução: **corte**; conte primeiro a história; diálogo só do útil; se uma frase basta, não use duas; faça o leitor saber: que ambiente + que tipo de pessoa + que história (personagem + enredo + ambiente). *Emoção* (ver seção 16 de `style-modules.md` e `expectation-techniques.md`).
+**Efeito de primazia e efeito pico-fim**: *primazia*: ao formar a percepção, a informação que vem primeiro pesa mais: "serviu fielmente por anos, só hoje deixou um civil escapar" cai melhor que "deixou um civil escapar, embora tenha servido por anos"; *negação antecipada*: "o que gosto não é esse estilo" soa mais negativo que "não gosto desse estilo"; título, sinopse e reputação do autor = primeira impressão: muito importantes. **Reforço emocional**: construa o conhecimento por exemplos (sem tratar nuances como conhecimento velho); pense por que usa a técnica (não por usar); a produção ativa serve para compreender, não para decorar; a percepção é um fardo: afeta o julgamento de ganhos e perdas e as expectativas.
+
+## 28. Repetição, antipadrão e limite do atrativo
+**Atrativo ≠ chamariz**: alguns conceitos só têm atração de uma vez: servem de chamariz e depois passam à virada de mesa (não é atrativo verdadeiro); outros ainda não foram plenamente desenvolvidos e só depois se vê que havia mais formas de escrevê-los (tetos diferentes); raramente um atrativo sustenta centenas de milhares de palavras até o fim: é preciso que enredo, mundo e personagens sustentem. **Não tema repetir**: o que se repete não é só a ideia do atrativo, mas pontos de personagem, de padrão e de enredo, em valor crescente; se você não fixa o atrativo, os números caem; se troca o atrativo, o desempenho some: o leitor queria justamente aquele ponto repetido; repetir cansa, sim, mas é cansando que se aprende a melhorar: escreva em direção ao enjoo para achar o equilíbrio que não enjoa.
+
+## 29. Como aprender: pensar, saber e fazer
+**Aprender é aprender o raciocínio**: conhecimento (livros de grandes nomes) → compreensão (ver como outros analisam) → prática (escrever) → retorno (números) → síntese (revisão) → troca (conversa com pares); os quatro últimos aprofundam a "compreensão"; posts de fórum não são livro didático, no máximo "material de apoio": confiar demais é pior que não ler; ao ler, não ligue demais para a teoria: observe a mudança de raciocínio do autor. **Aprender o raciocínio** = ver, por um livro, o que passava na cabeça do grande nome (que cortes, que iterações); aprender fórmulas, técnicas e material é só a superfície; pergunte: como fez o esboço? Por que a estrutura é assim? Qual o raciocínio por trás de cada atualização?
+**Saber ≠ fazer**: muitos conhecem recompensa/personagem/emoção/ritmo, mas ao escrever sai tudo diferente: são coisas distintas; o problema central é falta de repertório (de recompensas, de poder de escrita, de domínio de fórmulas, de ritmo, de conhecimento do mercado); ver mais aulas não adianta: só se "acorda" depois de errar várias vezes. **O único caminho eficaz: ler muito, anotar muito, usar muito**: ler 2 a 3 horas por dia com propósito (como a recompensa é desenhada); anotar (sem anotar, esquece no instante seguinte); usar (o anotado e não usado não é seu: adapte à sua obra e deixe o leitor validar); leitor aprova = sucesso; leitor reprova = ache o problema e refaça; é a repetição que internaliza.
+**Três princípios de aprendizado de técnicas de escrita**: 1) **sem livro escrito, não leia técnica** (muita teoria e pouca capacidade = olhos grandes e mãos fracas); 2) **escreva e leia juntos** (de vez em quando escreva para testar); 3) **quem muito abarca pouco aperta**: técnica útil é a que funciona; algumas leituras bastam. **Dois tipos de técnica**: as que ensinam a *atrair o leitor* (título, sinopse, abertura, recompensa, chamariz) e as que ensinam a *mantê-lo* (mundo, personagem, sensação de progresso, ritmo, expectativa, imersão); erro comum: usar a técnica de *manter* para escrever a *abertura*: os objetivos são diferentes.
+
+## 30. Elementos do gênero e escolha de material
+**A natureza do gênero**: todo gênero é combinação de elementos: elemento ≠ vantagem, elemento ≠ categoria; elemento = o que o leitor curte + o que já foi popular na ficção (fórmula de "check-in": cautela + ganho intenso + forte expectativa; "sistema" não é elemento, é vantagem; "fantasia + urbano" não é elemento, é categoria). **Maturidade da escolha**: quanto mais iniciante, pior escolhe material: veja a escolha de trilha; **escolher vale mais que se esforçar**; gêneros com dois elementos em ruptura (fantasia de cultivo + tecnologia) são muito difíceis: primeiro justifique e crie graça; iniciantes não devem entrar em trilhas onde veteranos se acumulam.
+
+## 31. Abertura de baixa posição
+O núcleo é a **fluidez**, sem precisar de reviravolta ou puxa-e-empurra: traga toda a informação mantendo o fluxo, de modo que o pensamento do leitor acompanhe o texto; não despeje toda a pressão sobre o protagonista: dê-a aos poucos; passe informação por diálogo, menos por narração de fundo; depois de dar a vantagem, deve haver mudança imediata (o leitor vê o processo, não "a vantagem chegou e acabou"); a vantagem deve chegar quando o protagonista reage com empenho à crise e mesmo assim não basta (assim ele não é um inútil). **Cada identidade faz certas coisas**: o cavalariço não tem "direito" à moral, não pode gritar, falar ou agir: passos grandes demais quebram a estrutura; ao escrever grandes enredos, pergunte: o nível do protagonista basta? Um livro bem-sucedido de investigação funcionou porque o protagonista é executor da lei e faz o que combina com a posição, não é um subalterno que enfrenta o poder.
+
+## 32. Fluxo do iniciante: quatro leituras e etapas
+**Fluxo de escolha**: a palavra-chave do gênero funciona como "apito de cachorro" (aciona a informação do leitor de imediato, ele "entende" o que você escreve)? O gênero tem muita leitura e discussão? **Microinovação**: casca nova em gênero clássico (fantasia urbana + "involução" à moda local; fantasia clássica + simulador); **fórmula de gênero**: elemento novo + elemento velho + veículo popular = gênero novo. **Atração**: título (conflito e revanche + o que eu tenho e os outros não + frase de graça, ou listar logo os atrativos); título de contraste ("começar como menina mágica e dominar o mundo por mil anos"): se dá vontade de comentar, funcionou.
+**Quatro leituras (do imitar ao superar)**: 1) *como leitor*: aproveite a história, anote o que o fez gostar/emocionar/ficar tenso, a sensação mais intuitiva; 2) *como autor*: desmonte a estrutura: como esta recompensa foi desenhada? Por que aqui é tenso? Quando a pista foi plantada?; 3) *como editor*: ache problemas: onde arrasta, onde há ponto de rejeição, que personagem sobra; treina a correção; 4) *como você*: pense em substituir: se eu escrevesse aqui, como mudaria? Dá para escrever melhor? Internalize.
+**Etapas de carreira**: iniciante (0 a ~300 mil palavras em português): imitar, ache o livro de que mais gosta, analise, imite, termine o primeiro; crescimento (300 mil a 1,2 milhão): começa o estilo próprio, teste gêneros, ache a direção em que é melhor; maturidade (acima de 1,2 milhão): produz com estabilidade, tem leitores próprios, busca romper; cada fase tem gargalo: sair dele não é "escrever mais", é escrever + pensar + ler, os três juntos.
+
+## 33. Salto de classe e imersão
+**Salto de classe como recompensa**: descrever a conquista do primeiro capital e o salto de classe é o mais prazeroso; não torne o protagonista bilionário depressa demais: poucos autores sabem descrever a vida de um rico com vivacidade e ficam só nos números, o que resseca; de pobre a "com um pouco de dinheiro" gera mais ressonância e é mais fácil dar realismo. **Imersão**: o núcleo é mover a emoção do leitor (recompensa para a de recompensa, dor para a de drama): o princípio dos modelos; **realidade e rigor do pano de fundo** (o cuidado de um livro com a Idade Média aumenta muito a imersão); iniciantes busquem pontos de ressonância na vida real: memes conhecidos, personagens e cenas familiares ao grande público.
+
+## 34. Compensação e atração (remissão)
+A teoria "atrair = compensação + atalho", a escolha de gênero pelo "apito de cachorro" e a lógica de leitura e discussão estão em `hook-techniques.md`, seções 20.9 e 20.11. A "teoria da necessidade" e o desvio do atrativo estão em `outline-arrangement.md`, seção 36.

@@ -1,9 +1,9 @@
 # Fórmulas de escrita por gênero (contos)
 
-> **Origem** (adaptação em português do material original, ~72 KB). Seções omitidas ou adaptadas de propósito:
-> - As fórmulas 7 a 21 originais (época de bairro chinesa/reencarnação com medicina, intriga de palácio com imperatriz, "história alternativa com inversão de gênero de plataforma", "voz interior de falsa herdeira", "fórmulas de plataformas específicas") foram **adaptadas a equivalentes ocidentais** em esqueleto + batidas emocionais + cenas obrigatórias + escrita-chave; os esqueletos dessas fórmulas foram reescritos a partir das categorias do original, não traduzidos linha a linha.
-> - Análise de "história de velhas que renascem" (mercado de baixa renda chinês), "bastidores de plataformas" e "tabelas de títulos de plataformas": mercado específico.
-> - Exemplos de contos chineses e termos de plataforma foram trocados por modelos genéricos.
+> **Origem** (adaptação em português do material original, ~72 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - A análise de "histórias de idosas que renascem" (mercado de baixa renda chinês), as tabelas de títulos e "formas de bastidores de plataforma".
+> - Exemplos de contos chineses e termos de plataforma foram trocados por modelos genéricos; o esqueleto, as batidas, as cenas obrigatórias e a escrita-chave de **todas as 21 fórmulas** foram transpostos (nomes de época/gênero adaptados a equivalentes ocidentais onde preciso).
+> - O restante do original está nas seções 2 a 11 abaixo.
 
 ## Sumário
 
@@ -95,152 +95,232 @@ Abertura [panorama da morte anterior] → volta ao ponto-chave → age de modo d
 **Batidas**: aflição (vida passada) → recompensa (volta e não se contém) → suspense (por que não se importa?) → mais recompensa (o adversário se perde) → tensão (duelo) → calor (fecho).
 **Cenas obrigatórias**: 1) a morte da vida anterior descrita com detalhe e crueldade, para despertar a raiva do leitor; 2) a primeira coisa depois de voltar é "anormal": fazer o que na outra vida jamais faria; 3) o adversário se enrola sozinho; 4) a figura-chave que entra na hora certa.
 
-### Fórmula 7: renascer em época passada com dupla vingança
+### Fórmula 7: renascimento em época passada com dupla vingança (19 capítulos)
 ```
-1. [Injustiça antiga] → culpada de um crime que não cometeu → perdeu tudo
-2. [Retorno] → volta ao dia anterior à armação → faz algo inesperado
-3. [Primeira vitória] → desarma a armação com uma informação do futuro
-4. [Primeira vingança] → o culpado verdadeiro cai em público
-5. [Segunda vingança] → um aliado antigo traiu: revela-se a traição
-6. [Dupla virada] → duas rodadas de acerto de contas se encontram
-7. [Nova vida] → escolhe outro caminho, sem pagar o preço da primeira vez
+Abertura [panorama da vida anterior em que foi usada] → os dois renascem → ela escolhe um caminho totalmente diferente → entra o protagonista masculino (tido como "defeituoso", gentil) → expõe aos poucos os crimes do canalha na vida passada → o canalha acha que venceu → nova virada → acerto final → o canalha, na ruína, sente o arrependimento
 ```
-**Cenas obrigatórias**: o momento do retorno (o objeto/lugar que marca o ponto); a vantagem da informação (uma coisa que só ela sabe); a primeira frase calma diante de quem a acusava. **Escrita-chave**: duas vinganças com formas diferentes; o leitor sente prazer na reparação das duas injustiças.
+**Batidas**: raiva → alívio → doçura → tensão → recompensa máxima (virada) → ressonância + prazer.
+**Cenas obrigatórias**: 1) o sacrifício da vida passada explicado já na abertura (assumir culpa alheia, prisão ou trabalho forçado, ser difamada); 2) o renascimento duplo dá mais jogo: os dois sabem da vida anterior, cada um com a sua jogada; 3) os detalhes da época são a alma (camisa de tecido da época, preços, o médico do bairro, o galpão); 4) o par masculino parece "defeituoso" e na verdade é perfeito (o defeito é fachada, a gentileza é real); 5) o colapso final do canalha precisa ser pleno: ele percebe que perdeu mais que todos; 6) termine pelo ponto de vista do canalha arrependido: tem mais impacto que mostrar a felicidade dela.
+**Escrita-chave**: a imersão de histórias de época vem de **detalhes históricos reais** (preços, políticas, vocabulário); o "bode expiatório" tem mais impacto que a "traição" (ir para a prisão por outro é pior que ser traída); duplo renascimento = dupla guerra de informação, cada embate é jogo psicológico; o final pelo ponto de vista do canalha é o toque final: o desespero dele realça a leveza dela.
 
-### Fórmula 8: intriga de corte e ascensão feminina
+### Fórmula 8: intriga de corte e ascensão feminina (19 capítulos)
 ```
-1. [Perseguição] → é humilhada na corte → aceita em silêncio
-2. [Paciência] → faz pequenos favores e conquista aliados
-3. [Primeiro golpe] → expõe uma intriga menor
-4. [Reação] → o adversário a ataca e ela já previa
-5. [Ponto de virada] → mostra uma carta que ninguém conhecia
-6. [Ascensão] → ganha posição e poder real
-7. [Coroa] → o último adversário cai
+Família destruída → casamento forçado em lugar de outra → obediência por fora, plano em silêncio → leva todos os recursos e parte → acumula força numa nova facção → descobre uma conspiração maior → aliança com novos aliados → ofensiva contra a capital → coroa
 ```
-**Batidas**: opressão → paciência → liberação gradual → liberação máxima. **Escrita-chave**: contenção, ação calculada, nada de explosões fora de hora; cada aliado entra com motivo; os adversários nunca são tolos.
+**Batidas**: dor e raiva → paciência → suspense (o que ela planeja?) → recompensa (o plano se revela) → recompensa máxima (ofensiva) → satisfação (coroação).
+**Cenas obrigatórias**: 1) a destruição da família na abertura precisa ser cruel (pai e irmãos mortos em combate, a mãe morre cuspindo sangue); 2) o casamento forçado mostra a inteligência dela: não aceita às cegas, usa-o para se posicionar; 3) "levar o patrimônio" é o ponto de virada: obediente por fora, esvazia o outro por dentro; 4) cada passo do plano tem motivo razoável (ao reler, o leitor vê pistas); 5) na ofensiva, uma grande cena de impacto (como "tomar o palácio"); 6) as reformas depois da coroa mostram a estatura da protagonista: mais que vingança, mudar a instituição.
+**Escrita-chave**: ela **nunca explica** o plano: deixe o leitor adivinhar, e acertar é mais prazeroso que ser avisado; o diálogo de época tem sabor antigo, sem exagerar na linguagem formal; cada passo do plano deve ter o efeito "ao reler, tudo se encaixa"; o antagonista não é só mau, é "frio por interesse": mais real e mais odioso.
 
-### Fórmula 9: suspense moderno com perspectiva sobrenatural
+### Fórmula 9: suspense moderno com perspectiva sobrenatural (18 capítulos)
 ```
-1. [Elemento estranho] → um objeto/ocorrência fora de lugar
-2. [Investigação] → o protagonista (humano ou espírito) segue pistas
-3. [Falsa explicação] → parece um crime comum
-4. [Segunda camada] → a explicação sobrenatural
-5. [Reviravolta] → quem parecia vítima é o centro do enigma
+Configuração [um fantasma que se passa por gente] → é enganada e entra no jogo → descobre que o ressentimento a faz evoluir → deixa rolar (não tem pressa de fugir) → revela a rede criminosa aos poucos → o poder do fantasma cresce → derrota os capangas → descobre a causa da própria morte → pune o mandante
 ```
-**Escrita-chave**: o **ponto de vista do fantasma** é o atrativo (o leitor vê o mundo pelo espírito, não pelo humano); respeite os limites sobrenaturais (o que a alma vê e não faz); revele em camadas.
+**Batidas**: curiosidade (ponto de vista do fantasma) → tensão (enganada) → recompensa (fantasma x vilões) → mais recompensa (evolui e castiga) → choque (a causa da morte) → prazer (castigo duplo).
+**Cenas obrigatórias**: 1) a configuração cabe em uma frase: "sou uma assombração de vestido vermelho vivendo disfarçada de gente"; 2) depois de enganada, a reação é "sem pânico, até contente": ela precisa do ressentimento para evoluir; 3) assimetria própria do fantasma: sente ressentimento e vê memórias dos mortos; 4) cada evolução desbloqueia uma memória da vida anterior: é poder e é avanço da trama; 5) a reação dos vilões é o núcleo da graça/prazer ("ela não tem órgãos!"); 6) castigo duplo vale mais que só matar: julgamento da lei + tormento eterno do fantasma.
+**Escrita-chave**: o **ponto de vista do fantasma** é o atrativo (o leitor vê o mundo pelo espírito, não pelo humano); "o fantasma não teme os maus, os maus temem o fantasma" cria recompensa natural; linha de suspense e de vingança se entrelaçam (revela o crime enquanto recupera a memória da vida anterior); cada capítulo termina em reviravolta ou descoberta: 18 capítulos, 18 bombas de informação.
 
-### Fórmula 10: história alternativa com inversão de papéis
+### Fórmula 10: história alternativa com inversão de gênero (19 capítulos)
 ```
-1. [Inversão] → mulher no lugar de poder ou homem no lugar de submissão
-2. [Obstáculos próprios] → a sociedade resiste
-3. [Descoberta] → o parceiro descobre quem ela é
-4. [Partida] → ela vai embora
-5. [Arrependimento] → o outro lado entende o que perdeu
+Violência doméstica/incompreensão → o cônjuge protege um estranho → o protagonista, decepcionado, desiste → decide partir → o cônjuge não leva a sério → a vida melhora depois da partida → o cônjuge começa a se arrepender → procura desesperadamente / tenta se redimir → final
 ```
-**Escrita-chave**: nunca troque os papéis só por troca: a inversão precisa gerar conflitos novos; final de alívio, com o arrependimento do outro lado.
+**Batidas**: sufoco → mais sufoco → alívio (desistir) → leveza (partir) → prazer discreto (o outro se arrepende) → amargura sem resolução (final).
+**Cenas obrigatórias**: 1) a abertura já é ser injustiçado/agredido: a primeira cena estabelece a injustiça; 2) a rival "luz da lua" precisa ser branca e hipócrita o bastante para o leitor detestar; 3) a partida é o ponto de virada: limpa, sem um fio de hesitação; 4) o arrependimento do cônjuge escala: de "tanto faz" a "começa a sentir falta" a "desespero"; 5) a recusa em perdoar é a atitude do livro todo: nem todo arrependimento merece perdão; 6) final **sem final feliz**: esse final triste tem mais ressonância que um final feliz forçado.
+**Escrita-chave**: a inversão de gênero é a casca; o núcleo é "quem não é valorizado escolhe partir"; o protagonista masculino num mundo matriarcal é a projeção da leitora no mundo real; cada vez que um coadjuvante diz "aguente, vai passar", soma raiva ao leitor; quanto mais detalhado o arrependimento do cônjuge, mais firme a recusa do leitor em perdoar; a tragédia do final vem de "tarde demais", não de "impossível".
 
-### Fórmula 11: voz interior de herdeira trocada
+### Fórmula 11: voz interior de herdeira trocada (10 capítulos)
 ```
-1. [Dom] → a protagonista escuta pensamentos dos outros
-2. [Pistas] → descobre planos pelo que pensam
-3. [Antecipação] → age antes do plano dar certo
-4. [Cadeia] → cada ação revela mais um plano
-5. [Revelação pública] → a verdade vem à tona diante de todos
+Abertura de tortura extrema [asfixiada em um caixão] → ponto de vista da alma observando → a frieza da família e a maldade da falsa herdeira → a alma vê mais verdades → expõe uma a uma as traições da família → verdade final
 ```
-**Escrita-chave**: o recurso dos pensamentos precisa de limites (o que ouve, o que não ouve); a graça está no contraste entre o que as pessoas dizem e o que pensam.
+**Batidas**: raiva extrema → sufoco → coração partido → recompensa (a verdade) → recompensa máxima (a família enlouquece de arrependimento) → desolação/alívio.
+**Cenas obrigatórias**: 1) a abertura "tortura ao extremo": asfixia no caixão, enterrada viva, tomada por atuação; 2) o ponto de vista da alma é a fonte da assimetria: ela vê a verdadeira face de todos; 3) toda vez que a família diz "ela está fingindo", é um soco psicológico no leitor; 4) a satisfação da falsa herdeira precisa ser bem escrita: cada fala dela dá vontade de bater; 5) as revelações são progressivas: um irmão se arrepende mais que o outro; 6) o final pode ter reencarne ou não: a tragédia da alma é mais forte sem.
+**Escrita-chave**: a alma = ponto de vista onisciente que cria o desespero de "ver e não poder mudar"; cada familiar reage diferente (o mais velho violento, o do meio hesitante, o caçula zombeteiro); a maldade da falsa herdeira é "refinada" (inocente por fora, venenosa por dentro); o tema "só amada depois de morrer" derruba as defesas do leitor; use o arrependimento da família para "pagar a dívida": quanto mais doloroso para eles, mais satisfatório para o leitor.
 
-### Fórmula 12: segunda chance e divórcio
+### Fórmula 12: segunda chance, vingança e divórcio (10 capítulos)
 ```
-1. [Volta ao dia do pedido de casamento (ou antes)] → decide diferente
-2. [Planejamento silencioso] → organiza as finanças e provas
-3. [Ruptura] → o marido não entende por que ela mudou
-4. [Reação] → tenta controlar
-5. [Virada] → ela mostra as provas e sai
-6. [Vida nova] → profissão e vida independentes
+Revisão da vida passada → volta ao ponto-chave → aceita o divórcio com calma → leva o que lhe é devido → investe num projeto de sucesso conhecido da vida passada → estuda com um sistema/método para se elevar → o ex começa a se arrepender → recusa completa
 ```
-**Escrita-chave**: o contraste entre a vida anterior e a nova; evite que a protagonista dependa de outro homem para ter a nova vida.
+**Batidas**: aperto (vida anterior) → alívio (assina) → prazer (investimento) → mais prazer (o ex se arrepende) → máximo (recusa total) → satisfação (vida nova).
+**Cenas obrigatórias**: 1) a morte da vida anterior ligada diretamente ao ex (ele estava ao lado escolhendo convites com outra); 2) a primeira reação depois de voltar não é choro, é rir: o contraste cria a nova imagem; 3) divórcio seco: dinheiro e direitos sim, a pessoa não; 4) a decisão de investir mostra a inteligência dela: o conhecimento da vida passada é a vantagem; 5) o arrependimento do ex escala: "tanto faz" → "quer voltar" → colapso; 6) a transformação final precisa ser concreta: não só dinheiro, também capacidade e estatura.
+**Escrita-chave**: o núcleo da segunda chance: "conheço o fim, agora mudo o processo"; a calma da protagonista é a maior arma: quanto mais calma, mais o ex se desespera; cada decisão tem sustentação na memória da vida passada: o leitor sente que "ela realmente aprendeu"; o ex não é só mau, é "o que ignora como se fosse natural": mais real e mais odioso; separe a linha de investimento da romântica: primeiro dinheiro, depois sentimento.
 
-### Fórmula 13: milionário e amor impossível (ex idealizado)
+### Fórmula 13: milionário e amor impossível (ex idealizado), 8 a 11 capítulos
 ```
-1. [Contrato] → casamento por conveniência
-2. [Convivência] → afeto cresce sem declaração
-3. [Ex idealizado] → volta e abala
-4. [Mal-entendido] → ela vai embora
-5. [Arrependimento] → ele procura e entende
-6. [Final] → só com mudança real dele
+Caps. 1-2 [Dor: estabelecer a contradição] → o dano escala (palavras → atitudes → corpo) → dor
+Caps. 3-4 [Despertar: coração morto e partida] → evento crítico (vê a traição / limite do corpo) → decisão
+Caps. 5-6 [Virada: verdade revelada] → câmera/provas expostas / a ex idealizada se denuncia → recompensa
+Caps. 7-8 [Castigo: arrependimento recusado] → o canalha desaba / o antagonista cai → recompensa máxima
+Caps. 9-10 [Cura: vida nova] → a protagonista independente / novo amor → final caloroso
 ```
-**Escrita-chave**: o ex idealizado é prova de caráter, não vilão; a dor nasce do que não se diz.
+**Batidas**: dor (30%) → despertar (15%) → recompensa (35%) → cura (20%); a dor em três níveis (dano verbal → de atitudes → físico); a recompensa em ordem: verdade revelada → colapso do canalha → queda do antagonista → novo amor.
+**Cenas obrigatórias**: 1) a traição na abertura: a primeira frase já é uma bomba de informação ("há três anos, dei à luz um filho com deficiência numa maternidade e virei piada da alta sociedade"); 2) entra a "luz da lua" (a ex idealizada): metade das obras a tem, e cada fala dela é uma humilhação para a protagonista; 3) o evento crítico: um instante que mata o coração dela (ver a gravação / a mãe morre e o marido viaja com a secretária); 4) a "morte fingida"/desaparecimento: em cerca de 30% das obras, só depois de "morta" a verdade aflora; 5) o canalha arrependido recusado: o prazer central ("e por que você não morre?"); 6) sugestão de novo amor: metade das obras termina com um.
+**Fórmula de sinopse em seis passos**: 1) situação (1-2 frases): "meu namorado não gosta de limites"; 2) estouro do conflito (2-3 frases): "para me castigar, ele viaja o mundo com a secretária"; 3) frase-chave de diálogo (1-2 frases): "uma pescadora ordinária acha que pode ocupar o lugar de Ana?"; 4) a virada da protagonista (1 frase): "não aguentei e dei um riso frio"; 5) gancho de suspense (1 frase): "comprei a passagem para o país F"; 6) prévia de identidade (1 frase, opcional): "pela hierarquia, ela ainda teria de me chamar de tia!".
+**Três funções do diálogo (27,7% do texto)**: *mostrar o dano* (40%): violência fria + negação de valores, não xingamento, mas golpe preciso; *criar reviravolta* (30%): câmeras, escuta, grupos de conversa, telefone explodem a verdade; *mostrar crescimento* (30%): falas dela "curtas, frias, duras": quanto menos, mais força. **Imagens frequentes**: a ex idealizada (50%), gravidez/aborto (40%), câmeras/gravações (30%), hospital (60%), incêndio (20%).
+**Escrita-chave**: 100% em primeira pessoa; o dano é "golpe preciso" (frieza + negação de valores); a reviravolta ocorre com a protagonista **ausente** (câmeras, escuta, grupo de conversa, telefone); o despertar é um instante: não é refletir devagar, é um evento concreto que mata o coração; a recompensa em ordem: pequena → média → grande → calor, sem inverter.
 
-### Fórmula 14: vingança feminina e masculina (diferenças)
-*Feminina*: foco em relações, reconhecimento e justiça emocional; reação calma e planejada; o prazer vem de quem a subestimava reconhecer. *Masculina*: foco em poder, posição e exibição de capacidade; reação direta e demonstração de força. Ambas precisam de provas e consequências claras; escolha o modelo do seu público e não os misture.
+### Fórmula 14: vingança feminina x masculina
 
-### Fórmula 15: intriga com personagem paciente e calculista
+**Fórmula universal feminina**
 ```
-1. [Humilhação aceita] → obediência por fora
-2. [Plano] → cada concessão é um movimento
-3. [Aliados] → recruta quem foi prejudicado
-4. [Ataque] → no momento certo, todas as peças se fecham
+Abertura (primeiros 10%):
+  - narração em primeira pessoa "eu"
+  - em 3 frases, a contradição central (dedicação x traição / acusada injustamente x verdade)
+  - se há segunda chance, a tragédia anterior em até 80 palavras
+Desenvolvimento (10-50%):
+  - o antagonista piora sem parar (escalada a cada 250 palavras)
+  - a protagonista aguenta e coopera na superfície
+  - a voz interior cria assimetria
+  - a cada 400 palavras, uma pequena virada (muda de cor, fica sem fala)
+Clímax (50-80%):
+  - verdade/identidade revelada
+  - virada em julgamento público
+  - os antagonistas são acertados um a um
+  - a cada 250 palavras, uma grande virada (de joelhos, colapso, súplica)
+Fechamento (80-100%):
+  - o antagonista recebe o que merece
+  - vida nova / sugestão de um futuro melhor
+  - fecho caloroso de até 100 palavras
 ```
-**Escrita-chave**: o leitor sabe do plano (assimetria) e espera; as concessões têm lógica; o fecho é rápido.
+**Fórmula universal masculina**
+```
+Abertura (primeiros 10%):
+  - o primeiro parágrafo já mostra a maior humilhação (de preferência em diálogo)
+  - sem preparação, entra a cena mais explosiva
+  - dados específicos (189 mil, nove mil reais, três da madrugada)
+Desenvolvimento (10-40%):
+  - o protagonista aguenta/planeja (mais curto que no feminino)
+  - o antagonista continua arrogante (escalada mais rápida)
+  - mostra a capacidade por ações, não por voz interior
+Contra-ataque (40-70%):
+  - primeira demonstração de poder (esmaga direto, sem explicar)
+  - o antagonista não acredita → esmagado de novo
+  - chave: o esmagamento tem de ser em público
+Clímax (70-90%):
+  - identidade escondida/poder final revelado
+  - fala-chave no formato "X... Sr. X?!" (a mudança de tratamento revela a identidade)
+  - todos se chocam juntos
+Fechamento (90-100%):
+  - o antagonista é aniquilado
+  - 100 a 200 palavras da linha afetiva (família, esposa, filhos no cotidiano)
+```
 
-### Fórmula 16: arrependimento sem perdão
-```
-1. [Ruptura] → ela sai
-2. [Tentativas] → ele tenta reparar (presentes, gestos, explicações)
-3. [Recusas] → cada tentativa é recusada com mais firmeza
-4. [Limite] → a última recusa
-5. [Final] → ele aceita o limite dela
-```
-**Escrita-chave**: o final respeita o limite; o arrependimento do outro não obriga a protagonista a perdoar.
+| Indicador | Feminino | Masculino |
+|------|------|------|
+| Densidade de gatilhos emocionais | 3,23 por mil palavras | 2,50 |
+| Densidade de reviravoltas | 1,77 por mil palavras | 1,21 |
+| Densidade de diálogo | 14,76 falas por mil | 14,29 |
+| Tipo de reviravolta | Assimetria (voz interior/verdade) | Força (identidade/poder) |
+| Tipo de antagonista | Canalha + falsa boazinha + pais parciais | Irmão + chefe + esnobe |
+| Forma de vingança | Por assimetria (verdade que humilha) | Por força (poder/identidade esmaga) |
 
-### Fórmula 17: renascer em outra época com ofício
-```
-1. [Injustiça] → perde tudo por causa de um crime armado
-2. [Retorno] → volta ao começo, com uma habilidade (medicina, culinária, direito)
-3. [Uso da habilidade] → resolve problemas que todos achavam sem solução
-4. [Reconhecimento] → pessoas importantes a procuram
-5. [Acerto de contas] → os culpados caem pela própria armação
-```
-**Escrita-chave**: a habilidade é a ferramenta de vingança; mostrar o domínio por cenas concretas.
+**Escrita-chave**: o prazer central da virada feminina é o instante em que a verdade é revelada (o leitor espera ver o antagonista descoberto); o da masculina é a inversão da correlação de forças (o leitor espera ver o protagonista mostrar poder); a feminina tem uma pequena oscilação emocional a cada 150-250 palavras; a masculina pode oprimir por 500-1.000 palavras antes de uma grande explosão; "escolher outro/ir embora" x "revidar": duas filosofias de reação totalmente diferentes.
 
-### Fórmula 18: drama familiar com narrador-espírito
+### Fórmula 15: intriga de corte, paciência e cálculo (8 capítulos)
 ```
-1. [Morte] → a alma vê a família depois da morte
-2. [Reações] → cada parente reage de um jeito
-3. [Revelações] → a alma descobre o que escondiam
-4. [Arrependimento] → quem a maltratou entende tarde demais
-5. [Silêncio] → final em ressonância
+Cap. 1 [Entra no jogo de propósito] → sabendo que o marido ama a viúva do irmão, casa-se por vontade própria → comportamento fora do comum desperta curiosidade
+Cap. 2 [Recuar para avançar] → diante da sogra, é mais prestimosa que a rival → a rival se descontrola de inveja
+Cap. 3 [Usar a força do outro] → a rival finge desmaio para enganar o marido → o marido descobre → começa a se decepcionar com a rival
+Cap. 4 [Esperar a autodestruição] → a rival fala demais em evento social e se mete em encrenca → a protagonista observa
+Cap. 5 [Surpresa feliz] → a rival engravida → a protagonista fica feliz → o filho é entregue a ela para criar
+Cap. 6 [Tirar a lenha do fogo] → a rival nunca mais poderá ter filhos depois do parto → a protagonista vira oficialmente a mãe da criança
+Cap. 7 [Armar e fechar a rede] → aproveita um banquete para afastar o marido → a rival mata a sogra → a protagonista "por acaso" presencia
+Cap. 8 [Reviravolta final] → revela-se que a protagonista manipulou tudo desde o começo → fica sozinha com o patrimônio
 ```
-**Escrita-chave**: a alma vê, mas não age; cada parente é diferente; o final termina em imagem, não em lição.
+**Batidas**: curiosidade (por que ela casou?) → prazer (cada autodestruição da rival) → mais prazer (a protagonista sem se mexer) → choque (a virada final).
+**Cenas obrigatórias**: 1) o comportamento fora do comum na abertura: sabendo que o marido não a ama, casa-se e, no primeiro dia, manda-o procurar a rival; 2) a tríade de autodestruição da rival (desmaio falso → gafe em evento social → matar a sogra, em escalada); 3) cada "cedência" da protagonista é jogada (deixa o marido acompanhar a rival, deixa a rival brilhar, deixa o filho ficar com ela); 4) a reviravolta no final revela que cada gesto "prestimoso" tinha um propósito profundo.
+**Escrita-chave**: a protagonista **nunca ataca**, todos os golpes são buscados pela rival; sempre que a rival erra, a protagonista é "vítima" ou "boazinha"; o leitor acha, no começo, que é uma mulher que sofre calada e só no fim vê que é calculista; o final precisa de monólogo interior da protagonista que revele a verdade e crie reviravolta cognitiva.
 
-### Fórmula 19: vingança por pistas
+### Fórmula 16: arrependimento sem perdão (8 capítulos)
 ```
-1. [Detalhe pequeno] → plantado desde a abertura
-2. [Acúmulo] → cada capítulo, um detalhe parece irrelevante
-3. [Prova final] → os detalhes juntos formam a prova
-4. [Confronto] → o antagonista é desmentido pelos próprios detalhes
+Cap. 1 [Descobre a verdade] → 999 tentativas de seduzir a esposa falham → descobre que ela ama em segredo o padrasto → decide divorciar-se
+... [Calma: decide partir] → [Recomeço: conhece um novo amor] → [Prazer: a esposa se arrepende] → [Desolação: não perdoa]
 ```
-**Escrita-chave**: pistas visíveis, mas não óbvias; ao reler, tudo se encaixa.
+**Batidas**: desespero (descobre a verdade) → calma (decide partir) → renascimento (novo amor) → prazer (a esposa se arrepende) → desolação (não perdoa).
+**Cenas obrigatórias**: 1) lista de tentativas fracassadas ("a enésima vez") cria desespero progressivo; 2) flagrar a verdade: vê o outro lado da esposa (no quarto escuro, a sós, chama outro nome); 3) o "tanto faz" da esposa: depois que ele sai, ela acha que ele volta: preparação do arrependimento; 4) a baixeza do padrasto: na hora decisiva a entrega, acelerando o colapso dela; 5) o contraste do novo amor: gentil e atento x a esposa que nunca se importou; 6) confronto final/no terraço: final triste: nem todo arrependimento merece perdão.
+**Escrita-chave**: o protagonista é **mais forte quanto mais calmo**: sem choro nem escândalo, vai embora; quanto mais detalhado o arrependimento da esposa, mais o leitor acha "bem feito"; o novo amor não existe para criar triângulo, mas para provar que "alguém me valorizaria"; o final sem perdão é mais forte que um final feliz forçado: "nem todo pedido de desculpa merece perdão".
 
-### Fórmula 20: armadilha invertida
+### Fórmula 17: renascer em outra época com medicina (8 capítulos)
 ```
-1. [Plano dos outros] → o protagonista descobre que vão armá-lo
-2. [Aceita] → finge cair
-3. [Redireciona] → usa o plano contra o autor
-4. [Resultado] → o autor cai na própria armadilha
+Cap. 1 [Vida passada cruel + renascimento] → vendida por 500 → vira instrumento de reprodução → expulsa para a montanha → queimada → volta ao tempo antes do casamento
+Cap. 2 [Mostrar a vantagem] → medicina (agulhas) → trata o marido em coma → desfaz a crise anterior
+Cap. 3 [Recuar para avançar] → diante da provocação da cunhada, não se irrita → ganha a confiança de uma benfeitora pela medicina
+Cap. 4 [Virada-chave] → o marido acorda → usa as ações dadas pela benfeitora para cobrar → obtém participação na empresa
+Cap. 5 [Passo a passo] → a proteção do marido → ela baixa a guarda aos poucos → avança a linha afetiva
+Cap. 6 [Fecha a rede] → descobre que o sogro foi envenenado → o marido confessa que foi ele → revela-se que o marido também se vingava
+Cap. 7 [Clímax da vingança] → velório do sogro → a empresa de navegação não dá nada ao ramo maior → a polícia prende o ramo maior → o ramo maior foge
+Cap. 8 [Final triste, porém completo] → o marido morre de câncer → vingança feita → filhos e negócio ficam para a protagonista
 ```
-**Escrita-chave**: o leitor percebe o redirecionamento um pouco antes do antagonista; o antagonista cai por escolhas dele.
+**Batidas**: raiva (vida anterior) → prazer (revide depois de renascer) → tensão (passo a passo) → prazer máximo (vingança cumprida) → desolação (morte do protagonista masculino).
+**Cenas obrigatórias**: 1) a vida passada precisa ser cruel, em camadas: vendida → instrumento → expulsa → queimada; 2) a primeira anomalia depois de renascer: não tem mais medo, enfrenta com calma; 3) a vantagem da medicina (agulhas, receitas, diagnóstico): um ofício é a base da vingança; 4) a benfeitora: alguém importante conhecido pela medicina; 5) a reviravolta do marido: o "em coma" na verdade finge/está semiconsciente e arma seus planos; 6) final triste: vingança cumprida, mas afeto incompleto: o final característico desse gênero.
+**Escrita-chave**: o sabor da época vem de detalhes (500 reais, casamento para afastar a má sorte, agulhas, galo no lugar do noivo); a medicina da protagonista precisa ter **rigor profissional** (pontos das agulhas, processo diagnóstico); a maldade do ramo maior precisa ser **concreta**: cada ação má específica, sem dizer "é mau"; a dupla identidade do marido é uma surpresa: ele também se vingava pela família; final triste não é fracasso: "obteve tudo, perdeu a pessoa mais importante".
 
-### Fórmula 21: julgamento público
+### Fórmula 18: drama familiar com alma observadora (5 capítulos)
 ```
-1. [Acusação] → o protagonista é acusado em público
-2. [Calma] → pede para apresentar provas
-3. [Prova 1] → desmonta a primeira acusação
-4. [Prova 2] → desmonta a segunda e implica o acusador
-5. [Prova final] → a mais letal, que muda a percepção de todos
-6. [Veredito] → o público muda de lado
+Cap. 1 [Maltratada doente] → forçada a trabalhar depois de cirurgia grave → humilhada em público → o corpo cede → a alma se ergue
+Cap. 2 [Verdade observada] → a alma vê a frieza da família → um coadjuvante atiça → a mãe, por "imagem", piora
+Cap. 3 [Provas afloram] → uma figura-chave (o pai) descobre → celular/diário/câmera expõem a verdade → a família desaba
+Cap. 4 [Julgamento e acerto] → uma autoridade expulsa do clã → o coadjuvante é punido → o antagonista recebe castigo
+Cap. 5 [Renascimento caloroso] → nasce numa família carinhosa → um detalhe terno ecoa a falta da vida passada
 ```
-**Escrita-chave**: provas em camadas; o público reage em estágios; a prova final tem o maior impacto.
+**Batidas**: sufoco (obrigada) → coração partido (a alma observa) → liberação (verdade revelada) → prazer (acerto) → cura (renascimento).
+**Cenas obrigatórias**: 1) **maltrato na doença**: obrigada a participar de um ritual depois de cirurgia na coluna, a cozinhar depois da cesárea, trancada num depósito durante uma crise de asma: o dano maior quando o corpo está mais frágil; 2) **o instante em que a alma se ergue**: "minha alma se levantou devagar" marca a troca de ponto de vista e é a virada mais importante; 3) **o coadjuvante que atiça**: uma prima/cunhada ao lado soprando o fogo, cada fala deixa a mãe mais furiosa; 4) **a obsessão da mãe pela "imagem"**: a mãe não é má por ser má, é por "reputação da família", o que gera mais empatia que o mal puro; 5) **celular/diário como prova**: o que a morta deixou vira a prova do julgamento; 6) **renascer numa família calorosa**: a nova mãe diz "filha, está apertado? Incomoda?", em contraste fatal com a vida anterior ("fique reta!").
+**Escrita-chave**: a força da alma: ver a verdade de todos sem poder impedir: "tudo o que eu queria era ouvir 'dói?'"; **detalhes físicos concretos**: o estalo da coluna fora do lugar, o rasgar da cinta ortopédica, a pupila dilatada: cada detalhe físico é uma bomba emocional; **o arrependimento da mãe precisa ser longo**: de "impossível, ela é ótima em fingir" a "filha, a mamãe chegou" a uivos de colapso; **final de contraste**: vida anterior "mãos frias e fortes arrancaram a cinta" x agora "gestos suaves, perguntando de novo e de novo se está apertado"; **a última frase tem de ser calorosa**: dissolve a dor e dá saída: "nesta vida, a cinta é quente e a mamãe é boa".
+**Modelos de abertura**: *doença*: "Eu tinha acabado de fazer uma cirurgia na coluna, o médico mandou repousar três meses. Minha mãe apertou meu pulso: anda logo, o ritual vai começar."; *pós-parto*: "Fazia sete dias da minha cesárea, a cicatriz doía. Meu marido abriu a porta: hoje tem visita, vá fazer uns pratos."; *alergia*: "Acabei de sair da cirurgia, fui pegar a bombinha, minha prima tomou: tia, olha, ela finge doença para fugir do serviço!"; *doação forçada*: "Mamãe me levou para doar sangue ao meu irmão; na porta do hospital procurei o doce de emergência. A nora tomou e jogou no lixo."
+
+### Fórmula 19: vingança movida por pista de detalhe (8 a 13 capítulos de poucas palavras)
+```
+Cap. 1 [Descobre a anomalia] → um detalhe mínimo (chaveiro/marca do preservativo/perfume) → reage com calma
+Caps. 2-3 [Investigação em segredo] → usa a vantagem profissional para reunir provas → descobre uma conspiração maior por trás da traição
+Caps. 4-5 [Prepara o contra-ataque] → prepara documentos legais em segredo → armadilhas de provas → pressão de terceiros
+Caps. 6-7 [Confronto público] → entrega documentos em público → o outro colapsa → a verdade aflora
+Cap. 8+ [Contra-ataque em cadeia] → o outro reage → ela desmonta tudo → o adversário cai de vez → ela recomeça
+```
+**Batidas**: alerta (acha a pista) → opressão (reúne em segredo) → calma (arma) → prazer (entrega a bomba) → prazer máximo (contra-ataques em cadeia) → desprendimento (vida nova).
+**Cenas obrigatórias**: 1) **um detalhe-gatilho**: não vem do nada, é um objeto concreto, cotidiano, discreto (chaveiro, marca, nota fiscal, cheiro de perfume); 2) **vantagem profissional**: a diretora jurídica escreve a denúncia, a médica sabe de um tipo sanguíneo raro, a executiva do banco consulta o extrato: esmaga pela competência; 3) **cadeia de provas construída com sistema**: não uma ou duas, uma cadeia completa: transferências + imagens de câmera + extratos de compras + depoimentos; 4) **o momento do "sorriso e aceno"**: depois da verdade, a primeira reação não é desabar, é calma: quanto mais calma, mais o leitor espera a explosão; 5) **usar os peões do outro lado**: contratar atores para fazer os pais da amante, usar a ganância dela como armadilha; 6) **encerrar com "o calor humano é caro"**: ela não é fria: guarda o calor para quem merece, até ajuda a antiga amante a endireitar a vida.
+**Escrita-chave**: **capítulos curtíssimos** (500-1.000 palavras, 13 capítulos em dez mil palavras: ritmo que não deixa parar); **a protagonista sempre calma**: nunca perde o controle, cada passo tem plano; **as provas saem capítulo a capítulo**: nunca todas juntas (chaveiro → clínica → extrato bancário → câmera → rede social, uma descoberta por capítulo); **escrita de dupla face**: toda mensagem de cuidado do outro é cópia de modelo, todo "te amo para sempre" esconde engano; **a traição em camadas**: não só infidelidade: a mãe morreu porque o sangue foi desviado, e no velório ele jantava com os pais da amante; **grande emoção por "descrição fria"**: não escreva "doeu", escreva "as unhas se cravaram na palma".
+**Modelo de cadeia de investigação**: `objeto anômalo → busca de confirmação → investigação de campo → coleta sistemática (banco/câmeras/redes) → plano de contra-ataque → julgamento público`.
+
+### Fórmula 20: armadilha invertida em segunda chance (7 capítulos)
+```
+Cap. 1 [Renasce + falsa submissão] → volta ao ponto-chave → sabe que a herança é uma armadilha → finge aceitar transferi-la → "se você quer, leve tudo"
+Cap. 2 [Preparação em segredo] → assume a herança e confirma a identidade do herdeiro → prepara a documentação de imigração → finge aproximar-se do canalha
+Cap. 3 [Primeiro teste] → não aguenta mais a "luz da lua" → mostra comportamento fora do comum (sabe dirigir, não cede mais) → cria suspense
+Cap. 4 [Conflito escala] → é incriminada pela "luz da lua" → castigada → contra-ataca com condições ("se você ajoelhar cinco horas, eu salvo")
+Cap. 5 [Identidade revelada] → no momento-chave surge uma autoridade → "a chefe da casa é, claramente, fulana" → o outro lado colapsa
+Cap. 6 [Fecha a rede] → dá ao outro a escolha "quero os dois" → vê o outro cavar a própria cova → observa friamente
+Cap. 7 [Saída esplêndida] → o último golpe revela toda a verdade → emigra → não olha para trás
+```
+**Batidas**: lucidez (sabe tudo) → prazer (falsa submissão) → mais prazer (não cede mais) → prazer máximo (identidade revelada) → satisfação (vê o outro se arruinar) → desprendimento (parte).
+**Cenas obrigatórias**: 1) **o momento do "tome"**: depois de renascer, não confronta: obedece, porque sabe que o que o outro quer é veneno; 2) **a tríplice sondagem da "luz da lua"**: dengo → choro → ameaça, cada vez revertida pela protagonista; 3) **o canalha "quer os dois"**: quer a herança e a ex idealizada, e perde as duas; 4) **a grande cena de revelação**: uma autoridade (o avô/o grande ancião) chega e uma frase reescreve tudo; 5) **ver o outro se destruir**: a protagonista não age diretamente: a ganância do outro destrói tudo; 6) **sair "sem olhar para trás"**: nada de insistir, vingar ou voltar: o maior desprezo é a indiferença.
+**Escrita-chave**: **técnica central: "dar é o maior castigo"**: a herança é uma maldição, quem a pegar morre: ceder na superfície é o contra-ataque mais duro; **contraste entre leal e traidor**: o guardião fiel x o que usa e trai, o mesmo sobrenome e destinos opostos; **memórias da vida passada** entram aos poucos, uma pequena por capítulo, para o leitor entender de onde vem o ódio; **cada escolha do canalha escrita por inteiro**: cada vez que ele escolhe a ex idealizada é uma facada nela: "como esperado: entre a vida e a morte, ele ainda escolhe a outra"; **emoção da protagonista = sorriso desolado**: não é raiva nem tristeza, é a calma de quem "viu tudo".
+
+### Fórmula 21: julgamento público (cena central)
+```
+1. Defina a "arena": assembleia de acionistas / banquete da família / saguão da empresa / corredor do hospital: precisa ser público
+2. O antagonista "vence" primeiro: anuncia a vitória, ostenta, humilha o protagonista
+3. Calma marcante do protagonista: pegar o copo e beber / ajeitar o paletó / sorrir
+4. Revelação em camadas: não tudo de uma vez, uma prova por vez
+5. O antagonista desmorona por degraus: convencido → inquieto → desesperado → colapsado
+6. Fala de expulsão marcante: "cães não entram" / "a partir de hoje ela é pessoa não bem-vinda de nível máximo"
+7. Saída de costas: no silêncio de morte do salão, vai embora sem olhar para trás
+```
+**Biblioteca de gestos marcantes**
+
+| Gesto | Efeito |
+|------|------|
+| Pegar o copo e beber um gole | Calma assustadora: quanto mais calmo, mais prazer |
+| Ajeitar uma dobra inexistente no paletó | Sentenciar com elegância |
+| Girar a chave do carro e entrar devagar | A tranquilidade de quem venceu |
+| Pegar uma taça de champanhe | A elegância no campo de batalha |
+| Agachar-se devagar, olhos na altura dos dela | A piedade de quem olha de cima |
+
+**Biblioteca de falas de expulsão**
+
+| Fala | Cena |
+|------|------|
+| "Cães não entram" | Expulsão da empresa |
+| "A partir de hoje, ela não pode pisar nem na porta deste prédio" | Banimento permanente |
+| "Os canais que a sua rede pode ver, não precisa avisar a ele" | Oferecer trabalho sem se envolver |
+| "A pesada porta acústica se fechou e isolou os dois mundos para sempre" | Saída final |
 
 ---
 

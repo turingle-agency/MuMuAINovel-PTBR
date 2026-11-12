@@ -1,9 +1,10 @@
 # Técnicas de expectativa, preparação e recompensa
 
-> **Origem** (adaptação em português do material original, ~34 KB). Seções omitidas de propósito:
-> - "Desenho de título e sinopse para plataforma" (9.1, parte da lógica de título/sinopse de plataformas chinesas): a lógica geral está em `genre-opening-database.md`.
-> - Os nomes de quatro caracteres das "86 técnicas" foram trocados por rótulos descritivos em português (a tabela cobre as oito categorias com as técnicas distintas; técnicas quase idênticas foram fundidas).
-> - Exemplo de música/talent show chinês foi trocado por um exemplo genérico; casos de plataformas (taxas de leitura de livros) foram removidos.
+> **Origem** (adaptação em português do material original, ~34 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - Os conselhos de "feilu"/plataformas dentro da seção "oito métodos de expectativa" (o que funciona em plataformas específicas de leitores jovens); a técnica em si foi mantida.
+> - Citações de títulos chineses e de métricas de leitura de plataforma foram trocadas por exemplos genéricos.
+> - Os nomes de quatro caracteres das "86 técnicas" viraram rótulos descritivos; técnicas quase idênticas foram fundidas.
+> - Todas as demais seções do original estão cobertas nas seções 1 a 9 e 10 a 22 abaixo (mapeamento por título no relatório de correção).
 
 ## Sumário
 
@@ -16,6 +17,19 @@
 7. Construção de conflito
 8. Escrita das reações dos personagens
 9. Técnicas práticas
+10. Antipadrões e erros comuns
+11. Como usar a expectativa ao analisar livros
+12. Imersão e ressonância
+13. Sistema de liberação gradual de informação
+14. Atrativo e expectativa na prática
+15. Tensão em nível de cena
+16. Preparação da escassez para recompensas fortes
+17. Cadeia ininterrupta de expectativas
+18. Mecanismos de suspense: trava de tempo e penhasco
+19. Como um autor mantém a expectativa (evitar repetição)
+20. Ponto de interesse e de recompensa em linguagem simples
+21. Oito métodos de criar expectativa
+22. Preparação e expectativa: a cadeia causal
 
 ---
 
@@ -201,3 +215,142 @@ Pista não é expectativa. Escreva-a com clareza (nada de menção de passagem),
 
 ### 9.3 O jeito certo de "encher linguiça"
 Piso: antes de completar a primeira estrutura de primeiro nível, nunca encha; o conteúdo de enchimento precisa trazer ou reforçar expectativa ou recompensa; não mude por muito tempo para pontos de vista que não sejam do protagonista. *Caminhos viáveis*: transmitir pela fala o que estava na narração; inserir, entre dois enredos, uma pequena história leve; entre recompensas, intercalar até 60 palavras de graça da vida.
+
+
+## 10. Antipadrões e erros comuns
+
+### 10.1 Quebra de expectativa
+O maior pecado da ficção serial. *Manifestações*: o protagonista sai da fase inicial sem objetivo novo; o grande clímax acaba e nada liga à expectativa seguinte; na mudança de cenário as relações antigas se rompem e as novas não existem; o atrativo se desvia e o público é filtrado.
+
+### 10.2 Satisfação cedo demais
+Chamariz forte satisfeito no começo não tem como ser retomado e o livro cai; uma grande recompensa cedo eleva o limiar do leitor e tudo depois fica sem graça; usar chamariz forte já na primeira estrutura de primeiro nível não deixa espaço de progressão.
+
+### 10.3 Atrativo central pouco claro
+O leitor termina o título e a sinopse sem saber o que o livro vende; no meio do texto o autor se afasta do conceito; o conceito é mal entendido (por exemplo, confundir "sensação de ganho" com outra coisa); o atrativo nebuloso deixa o público indefinido.
+
+### 10.4 Reações mal escritas
+Quando deveria haver espanto, só um "leve espanto"; o protagonista mostra a carta e o antagonista ainda contra-ataca; sacrifica-se a satisfação por plausibilidade. **Princípio**: pense "como, a partir da satisfação, fazer o leitor esquecer de questionar a plausibilidade", e não "como satisfazer sendo plausível".
+
+### 10.5 Escrever fora do núcleo
+Buscar material para encaixar o conceito e adiar a operação do conceito (inchaço); o conceito não roda no começo e o leitor foge antes de vê-lo; subtramas sem relação com a principal por muito tempo; subtramas sem ligação com o protagonista (perda de imersão).
+
+### 10.6 Pressionar demais o protagonista
+Cada pequeno evento o oprime (o leitor cansa); a força da pressão mal controlada (a corda rompe); não se dá ao protagonista uma solução (ansiedade); o modo de pressão é irracional (o leitor abandona furioso).
+
+## 11. Como usar a expectativa ao analisar livros
+
+### 11.1 O que observar
+Em cada capítulo: o tipo de expectativa (das 86 técnicas); o ritmo e a frequência da subida e descida emocionais; como a assimetria é montada e usada; a mudança de reação dos personagens; o paralelo e o cruzamento de várias linhas de expectativa; o modo de rodar o ciclo do conceito central; o desenho da elevação do limiar de recompensa.
+
+### 11.2 Exemplo de análise de linhas de expectativa
+**Fase 1 (início)**: trama principal = crescimento + caminho de evolução de habilidades; antagonista = sofrer injustiça → criar oposição → reagir; relações = vínculos com personagens-chave (família, amizade, mestre); mundo = configuração nova que desperta exploração.
+**Fase 2 (novo mapa)**: ligação = pistas não resolvidas do mapa antigo; assimetria = personagens antigos não sabem do novo estado do protagonista; nova principal = meta e desafios de nível mais alto; novas relações = forças, rivais e aliados novos.
+
+### 11.3 Expectativa em eventos reais
+Acontecimentos reais também contêm todo o princípio: revelação gradual (assimetria), alternância vale-pico emocional (linha quebrada), reviravolta final (recompensa), reações progressivas das partes (três viradas e quatro choques).
+
+## 12. Imersão e ressonância
+
+### 12.1 O segredo da imersão
+Não é "desenhar" a emoção do personagem, é **tornar-se** o personagem para sentir. Não falta técnica: falta a sensação de que o personagem existe de verdade.
+
+### 12.2 Empatia do autor ("entrar no jogo")
+**Largar-se**: as decisões do autor não podem substituir as do personagem; só assim se partilha emoção com o leitor. **Manter lucidez**: antes de entrar, pergunte: que emoção expressa este trecho? A caracterização combina? Posso sentir junto e, logo, sair? Depois de sentir, saia, ou o núcleo emocional desmorona. **Entrar**: quanto mais importante o personagem, mais o conheça; na cena, funda-se a ele e sinta o que ele pensa. **Dois caminhos**: 1) pensar o enredo e depois entrar; 2) entrar e depois pensar o enredo; ambos têm a empatia como pré-condição.
+
+### 12.3 Lógica de fundo da ressonância
+Ressonância = o leitor acha na própria vida algo correspondente; o desejo do leitor é maior quando está prestes a ser satisfeito e não é. *Traços do leitor de hoje*: falta de intimidade profunda (por isso o romance doce vende), desejo de retorno claro (por isso a ficção de superação tem mercado), incerteza como ansiedade comum.
+
+### 12.4 Verdade do personagem
+Comportamento com motivação psicológica razoável: não "porque o enredo precisa", mas "porque sou assim"; a reação de superfície pode divergir do sentimento real; comédia que esconde tristeza, tensão com humor: as camadas enriquecem a emoção.
+
+### 12.5 Construir o enredo a partir da emoção
+Defina primeiro o núcleo emocional → desenhe os eventos e personagens que geram essa emoção → garanta que a caracterização combine com a direção emocional → lapide com ponto de vista, imagem e atmosfera.
+
+### 12.6 Lista de autoverificação da imersão
+- A cena segue o ponto de vista do protagonista? O leitor tem a mesma informação que ele?
+- Há imagem, feita de detalhes de ação e não de pilhas de adjetivos?
+- A descrição do ambiente serve à emoção atual?
+- Entrei no personagem e senti com ele? A emoção dele está fielmente reproduzida?
+- Mantive a lucidez? Deixei alguma emoção se espalhar sem fim?
+- Os detalhes cotidianos estão presentes? O leitor acha neles a própria experiência?
+- A cadeia emocional está completa? Há explosões emocionais fragmentadas?
+- Cada parágrafo sabe que expectativa do leitor está conduzindo?
+
+## 13. Sistema de liberação gradual de informação
+
+### 13.1 A natureza do suspense
+Suspense = mecanismo de recompensa (como o sorteio de personagem em edição limitada): o alvo é o personagem-estrela, a garantia é a gestão de expectativa, a distribuição dos recursos de sorteio é o ritmo do enredo.
+
+### 13.2 Princípios de liberação
+O autor desenha ativamente o ritmo de liberação; dilua a configuração com eventos (a informação sai pelo retorno das ações); termos inventados e jargão precisam ser diluídos em ação natural, diálogo e interação com o ambiente; o compasso dinâmico (ação) vem antes, o estático (informação) depois; navalha de Ockham: a configuração citada por um coadjuvante deve ter relação direta com o próximo objetivo do protagonista.
+
+### 13.3 Controle da densidade de informação na abertura
+Quebre o sistema de configuração completo e ponha cada peça num evento; foque na situação atual do protagonista por ações simples; passe a informação necessária por descrições de comportamento que não exigem esforço mental.
+
+### 13.4 Método do estado crítico (puxa a leitura)
+Estabeleça um objetivo central claro e ainda não alcançado + situação atual muito baixa; divida em pequenas tarefas, e ao fim de cada capítulo crie o estado de "quase lá". *Exemplos de final*: menciona a posição do tesouro → prepara a partida; atravessa o labirinto → surge um concorrente.
+
+### 13.5 Risco de gastar a expectativa antecipadamente
+O poder do protagonista inflando rápido demais = expectativa gasta antes da hora; o leitor diz "enrolação" quando o objetivo central não avança. Solução: planeje a rota de evolução e a cumpra à risca.
+
+### 13.6 Do confronto de números ao confronto de mecânica
+Confronto de números (bater em caranguejo) cansa a estética; confronto de mecânica (estilo "caçador" ou outras obras de regras engenhosas) cansa menos. *Rota*: socos e chutes → magia → mecânica de regras → duelo de inteligência; intercale afeto, intriga e vida simples para aliviar a fadiga.
+
+## 14. Atrativo e expectativa na prática
+
+### 14.1 Definir e manter o conceito central
+Antes de escrever, esclareça o atrativo; use a "ficha de história" para conferir desvios; a queda de assinantes costuma ser desvio do conceito. **Vantagem e conceito**: a vantagem define o tom; escolher a vantagem errada é escolher o conceito errado; uma boa vantagem já traz expectativa. **Virada em cinco passos**: 1) o protagonista é forte, mas ninguém sabe; 2) dê peso à dificuldade; 3) coadjuvantes não confiam no protagonista; 4) ele resolve com facilidade pela vantagem; 5) todos se chocam. **Manter a expectativa**: lembre o objetivo; em cada fase, metas curta, média e longa; metas ligadas entre si.
+
+### 14.2 Sinais de desvio do atrativo
+Manifestações: queda de leitores enquanto o autor acha que escreve bem; comentários "depois ficou ruim"; ganhos do protagonista estagnados. **Princípios dos cinco "nunca"**: objetivo nunca ausente, atrativo nunca reduzido, relações sociais nunca em branco, posição de topo nunca ausente, ganhos de posição nunca parados.
+
+### 14.3 A abertura é o atrativo
+O valor da obra se vê nas primeiras 18 mil palavras (cerca de 30 mil em português); a abertura precisa mostrar o conceito: o leitor deve saber o que se vende nos três primeiros capítulos.
+
+## 15. Tensão em nível de cena
+**Declaração do objetivo da cena**: no começo da cena, uma frase que diga o objetivo do protagonista, repetida de várias formas. **Três alavancas de tensão**: motivação + consequência do fracasso; limite de tempo (contagem regressiva); obstáculo progressivo (mais grave que o imaginado). **Ritmo rápido** (ação/fuga): parágrafos, frases e palavras curtas, sem adjetivos e advérbios, cortando o supérfluo para dar fôlego. **Ritmo lento** (espera/suspense): parágrafos médios e longos, frases de tamanhos alternados, vários sentidos, ruído de fundo constrói suspense; quanto mais delicada a descrição, mais ansioso o leitor.
+
+## 16. Preparação da escassez para recompensas fortes
+**Quatro passos**: 1) definir o núcleo da recompensa; 2) retratar a escassez em camadas (sem escassez, não há prazer); 3) resolver o problema com a vantagem; 4) reações de espanto de todos os lados + o próximo gancho.
+**Escassez em camadas (exemplo "o protagonista ganha dinheiro")**: no nível alto, o governo precisa de uma soma enorme e o rival arma uma armadilha para o pai; no médio, a família deve, os operários esperam salário, há provas contra eles; no baixo, a viúva do benfeitor morre por falta de dinheiro; no pessoal, ele também está sem dinheiro. Ganho o dinheiro, resolve todas as camadas de uma vez: cada camada resolvida é uma liberação de prazer. **Princípio do "extremo"**: a recompensa é mais intensa quando a escassez é retratada no ponto máximo; toda a preparação aponta ao mesmo resultado B, e o pensamento do leitor flui até a recompensa.
+
+## 17. Cadeia ininterrupta de expectativas
+**Regra central**: a expectativa é máxima quando o protagonista está prestes a conseguir; ao conseguir, a leitura cai. Antes de ele obter A, prenda o gancho de B. **Operação**: grande expectativa (trama principal) + pequenas subtramas intercaladas, garantindo ao menos duas linhas em qualquer momento; plante ganchos longos (semeia-se e faz outra coisa; colhe-se muito depois). **Aplicação em fantasia**: divida o grande objetivo em pequenos; antes de o protagonista atingir um nível, descreva as vantagens, mas não o faça avançar de pronto: antes, um tesouro numa região secreta, crie expectativa pelo tesouro, e só depois a ruptura: um gancho prende o seguinte, sem fim.
+
+## 18. Mecanismos de suspense: trava de tempo e penhasco
+**Surpresa x suspense**: surpresa é a bomba que explode de repente; suspense é ouvir o relógio tiquetaqueando: o suspense é muito mais forte. **Penhasco** (base da teoria de cortar capítulo): em cada final de capítulo o personagem enfrenta um perigo não resolvido, e o leitor precisa voltar. **Trava de tempo**: no começo, ponha um evento que precisa ocorrer em prazo limitado, comprimindo o tempo e aumentando a tensão (exemplos clássicos: três anos para provar-se; o herói que não passará dos vinte anos). *Truque de abertura*: prazo para quitar a dívida em poucos dias ou romper o limite em tempo limitado.
+**Expectativa > recompensa**: preparar a expectativa vale muito mais que mostrar a recompensa; a satisfação é o processo de liberação, não a emoção em si: tensão, curiosidade, preocupação, raiva e aperto duram mais que a "satisfação"; o segredo do romance longo é a gratificação adiada.
+**"O problema desaparece" é a causa raiz da perda de leitores**: a fantasia de terror que sobe rápido demais e vira invencibilidade, a vida simples que avança demais e vira passeio: tudo é "problema que some". Agradar o gosto de curto prazo do leitor (não matar personagens, nunca falhar) pode prejudicar a expectativa de longo prazo.
+
+## 19. Como um autor mantém a expectativa (evitar repetição)
+**Evitar recompensas repetidas**: o mesmo tipo de recompensa se repete no máximo 3 vezes antes de precisar escalar ou mudar; planeje os picos do meio e do fim já no esboço. **Mecanismo de retorno do clímax**: a reação dos coadjuvantes é essencial: clímax sem reação de coadjuvante é clímax de autoindulgência. **Várias linhas aliviam a fadiga**: em um enredo longo, insira meio capítulo de subtrama do ponto de vista de um coadjuvante, trocando com naturalidade por ligação de personagem ou cena. **Por que a leitura cai no meio e no fim**: recompensa repetida (fadiga estética) e falta de expectativa de longo prazo (esboço mal planejado); solução: defina o final primeiro e desenhe os picos do meio e do fim em torno dele.
+
+## 20. Ponto de interesse e de recompensa em linguagem simples
+**Estrutura da recompensa**: recompensa = o ponto de choque entre duas lógicas: a **lógica geral** (o que uma pessoa normal faria) e a **lógica do protagonista** (ele, justamente, não faz isso); o leitor se coloca na lógica geral, o protagonista a quebra, o leitor ganha mais do que esperava: esse é o prazer. *Exemplo*: lógica geral = quem é humilhado aguenta; lógica do protagonista = vira a mesa na hora → choque → prazer.
+**Os três elementos do tripé, nenhum pode faltar**: *protagonista* (quem executa o esmagamento; precisa de carisma para o leitor se identificar); *adversário* (quem é esmagado; precisa ser "odiável" para o leitor querer vê-lo cair); *plateia* (quem reage; sem espanto da plateia, o esmagamento é só autoindulgência e o prazer cai pela metade).
+**Ritmo é matrioska, não colar de contas**: no colar, A → B → C em paralelo e falta acúmulo; na matrioska, as pequenas recompensas se aninham na grande, cada uma acumula força para ela, subindo até a grande explosão.
+
+## 21. Oito métodos de criar expectativa
+
+> Do mais simples ao mais complexo. É preciso entender o público: plataformas e gêneros diferentes têm leitores diferentes, e a força de cada método muda.
+
+**1. Expectativa de clímax (a mais simples, indispensável para iniciantes)**: o leitor percebe que a história vai ao clímax e passa a esperar mais que o normal; antes do lançamento ou de um ponto comercial: "vai haver um grande clímax", e quem quer ver tem de continuar. Fácil de entender, porque o clímax se vê até na vida cotidiana.
+**2. Expectativa de curiosidade**: livros de ideias originais despertam a curiosidade já nas primeiras linhas; a curiosidade vem de configuração criativa, desenvolvimento, exploração do mundo e passado de personagens. *Exemplo*: um mundo cuja evolução mágica é um sistema de poções e cujas criaturas são do horror cósmico; uma vila secreta de mestres com deficiências: por que se reuniram? Cada um tem uma história. Livros de antologias também usam curiosidade: "qual será a próxima cena marcante?"
+**3. Expectativa de conflito**: abrir o conflito ou antecipar que ele vem; dois modos: (1) abrir direto; (2) fazer o leitor saber que o conflito virá. *Exemplo*: o genro cuja sogra e família o humilham; quanto mais o conflito se acirra, mais o leitor espera a virada. *Outro*: abrir em torno de uma grande batalha anunciada, com vários pequenos clímax pelo caminho. Núcleo: o debate coletivo gera polêmica, o evento fermenta, o conflito cresce, a expectativa sobe.
+**4. Expectativa de crise (usar com cuidado)**: *crise de coadjuvante*: monstros atacam, os heróis caem um a um, a crise chega ao máximo, e o leitor espera o protagonista; *crise do protagonista*: depois de renascer, descobre que o palácio é cheio de traidores e que precisa provar inocência no cárcere: leva o leitor rápido à posição do protagonista. Cuidado: maltratar o protagonista exige moderação, sobretudo para público jovem que quer prazer, não realismo; bem escrita é um efeito mágico, mal escrita causa queda brusca.
+**5. Expectativa de imersão**: o leitor se coloca no protagonista, e evolução, ganho, fortalecimento, brilho e fama viram expectativas; dois caminhos: (1) acha que é o protagonista; (2) trata o protagonista como filho. Trocas de mapa com progressão atraem jovens; aberturas de sofrimento para o público mais velho: são caminhos diferentes de imersão.
+**6. Expectativa de aspiração**: a vida que o leitor quer viver ou a sensação que quer ter; aspirar a ganhar mais e ter muitos pares românticos faz o gênero de harém vender; estudantes querem namorar a mais popular da escola; jogo e riqueza satisfazem "aspirar a ser incrível". Chave: cada público aspira a coisas diferentes: é preciso conhecê-lo.
+**7. Expectativa de sedução (mais difícil)**: somar, com propósito, um tipo de expectativa, forçando o leitor a esperar; quando as expectativas não surgem fácil, "acrescente carne". *Exemplos*: um mundo que, ao se revelar, tem acontecimentos estranhos cada vez mais elevados e exagerados, e a curiosidade se soma; histórias de riqueza que primeiro mostram a família no desespero e depois dão dinheiro de repente. *Risco*: seduzir demais quebra o enredo; sem carne suficiente, o leitor acha "enrolação". A expressão da expectativa tem nota de 1 a 10: a mesma trama é 8 para um autor e 1 para outro.
+**8. Expectativa movida por sistema**: sistema de check-in (o protagonista vai a locais e ganha prêmios, e cada local tem evento); sistema de escolhas (cada escolha dá prêmio, o leitor espera que ele escolha a mais prazerosa); sistema de retorno em N vezes (ensina o aluno: o aluno ganha 1, o protagonista 10; ganho + subida + enredo de discípulos). **Sistema inútil**: se tirá-lo não afeta a história, é inútil; melhor tirar e ficar com um bônus de 30%. Núcleo: o sistema deve impulsionar a história, não ser enfeite.
+
+## 22. Preparação e expectativa: a cadeia causal
+**Cadeia central**: `caracterização + preparação → expectativa → satisfazer a expectativa = recompensa`.
+
+### 22.1 Como a expectativa nasce, concretamente
+Escrever a beleza de alguém e quantos a perseguem → espera-se que o protagonista a conquiste (aspiração); escrever o quanto o antagonista é odioso e arrogante → espera-se a queda (oposição); escrever que o protagonista ganhou uma capacidade e não a mostrou → espera-se a demonstração (curiosidade); escrever que o protagonista é subestimado e o leitor conhece a força real → espera-se a verdade vir à tona (assimetria).
+
+### 22.2 Notícias já trazem a caracterização pronta
+Temas sociais já trazem preparação: o irmão parasita (aversão natural → oposição); quem ajuda um idoso e é processado (empatia natural → imersão); bullying escolar (raiva natural → necessidade de virada). Economiza muita preparação inicial, mas no meio e no fim é preciso construir a expectativa sozinho.
+
+### 22.3 Princípio de correspondência preparação-expectativa
+Quanto mais forte a preparação, mais alta a expectativa e maior a explosão da recompensa; preparação fraca com expectativa alta e recompensa pequena é decepção ("só isso?"); melhor não preparar do que preparar e pagar pouco.

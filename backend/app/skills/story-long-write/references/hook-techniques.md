@@ -1,11 +1,10 @@
 # Técnicas de gancho, suspense e expectativa
 
-> **Origem** (adaptação em português do material original, ~87 KB). Seções omitidas de propósito:
-> - "Fórmulas de título" (13 tipos com exemplos de títulos chineses) e palavras-chave de plataforma: específicas de plataformas chinesas; a lógica de título está em `genre-opening-database.md`.
-> - "Vento de plataforma" (Feilu) e ritmo de capítulos públicos/VIP: mecânica de plataforma e de assinatura chinesas.
-> - Exemplos de "ativação de sistema" e de subgêneros sem equivalente ocidental (cultivo, sistema de pontos) foram trocados por equivalentes (chegada do extraordinário, regra do mundo que se revela).
-> - Catálogos de exemplos de obras chinesas foram substituídos por exemplos ocidentais genéricos.
-> - "Estrutura grande tipo Pinduoduo" (isca principal que não avança): sem equivalente de uso geral; a ideia foi incorporada ao item sobre "isca de trama principal".
+> **Origem** (adaptação em português do material original, ~87 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - "Fórmulas de título" de 13 tipos com exemplos de títulos chineses e as palavras-chave de plataforma (a técnica de título foi mantida como seção 20.8, com exemplos ocidentais).
+> - "Vento de plataforma" (Feilu) e o ritmo de capítulos públicos/VIP (mecânica de assinatura chinesa).
+> - Catálogos de exemplos de obras chinesas (trocados por exemplos ocidentais genéricos); exemplos de "ativação de sistema" foram trocados por equivalentes (chegada do extraordinário, regra do mundo que se revela).
+> - Todo o resto do original tem seção correspondente abaixo (inclusive "estrutura Pinduoduo", mantida como "isca de trama principal" na seção 11).
 
 ## Sumário
 
@@ -23,7 +22,7 @@
 12. Conflito com o antagonista: três tipos, cinco elementos, estrutura em três fases
 13. Manipulação das expectativas do leitor; alavancas; quebra de previsão
 14. Clímax, ondas emocionais, estrutura da linha profissional, reações dos personagens
-15. Erros de expectativa, núcleo do gênero e verificação de ruptura
+15. Erros de expectativa, núcleo do gênero (tabela), três gerações do conceito central
 16. Ciclos da linha profissional, rede de choque, mudança de cenário (avançado)
 17. Sistema de "quebra de expectativa": seis proibições e remédios
 18. "Recuar para avançar", diferenciação do conceito central, modelo da torre
@@ -335,45 +334,109 @@ Chave: cada satisfação é seguida de novo vale; a intensidade final é a soma 
 
 As reações dos dois grupos se entrelaçam, formando um **choque em rede**.
 
-## 15. Erros de expectativa, núcleo do gênero, ruptura
+## 15. Erros de expectativa, núcleo do gênero e verificação de ruptura
+
+### 15.1 Erros comuns de expectativa
 
 | Erro | Explicação | Correção |
 |------|------|------|
-| Expectativa dirigida ao alvo errado | Prepara "invadir o acampamento", mas o importante é a sobrevivência | A expectativa deve mirar a vida e os interesses centrais do personagem |
+| Expectativa dirigida ao alvo errado | Prepara "invadir o acampamento", mas o importante é a sobrevivência do protagonista | A expectativa deve mirar a vida e os interesses centrais do personagem, não um objetivo abstrato |
 | Antagonista some | O objetivo foi dado e o antagonista desaparece | "Vence o pequeno, vem o velho": pressão contínua |
 | Linha de expectativa quebrada | Depois de subir, o protagonista perde objetivo e crise | Introduza nova ameaça logo depois |
 | Antagonista ignora o crescimento | O protagonista fica forte e ninguém se opõe | Conflitos repetidos e crescentes até a queda do antagonista |
 
-**Núcleo por gênero**: suspense (suspense encadeado + atmosfera; nunca eliminar o suspense nem fazer terror sem solução); progressão (vencer inimigos e subir + contraste; nunca trama principal vaga); romance contemporâneo (amar no mundo urbano; nunca transportar para um mundo de fantasia); ficção histórica (mudar a história e o destino de figuras históricas; nunca abandonar o contexto); jogo (interação e mecânica; nunca ficar muito tempo lutando contra NPCs); fanfic (choque com o mundo original e interação com personagens; nunca abandonar os elementos do original).
+### 15.2 Tabela de núcleo por gênero (o que o leitor espera e o que nunca fazer)
 
-**Sinais de desvio do núcleo**: comentários "mudou o sabor"; queda de leitores num ponto, fora do declínio natural; o mesmo evento provoca reações diferentes conforme o gênero.
+| Gênero | Expectativa central do leitor | O que nunca fazer |
+|------|------|------|
+| Suspense | Suspense encadeado + atmosfera de tensão | Eliminar o suspense no fim; terror sem solução |
+| Progressão (subir de nível) | Vencer inimigos, subir, contraste e choque | Trama principal vaga; subir repetidamente sem novidade |
+| Romance contemporâneo | Amar no mundo urbano | Transportar o casal para um mundo de fantasia para matar monstros |
+| Ficção histórica | Mudar a história e o destino de figuras históricas | Abandonar por completo o contexto histórico |
+| Jogo (LitRPG) | Interação entre jogadores e mecânica | Lutar contra NPCs por tempo demais |
+| Fantasia urbana de poder (equivalente do "alta arte marcial urbana") | Contraste "comum x extraordinário" + progressão marcial/mágica | Mudar o ponto de comparação para outro mundo e perder a identificação |
+| Fantasia de opressão brutal ("jidao" ocidentalizado: sobrevivência sob regime opressor e progressão violenta) | Opressão de classe + virada violenta + ganho violento de poder | Reduzir a opressão ou dar ao protagonista um ambiente confortável |
+| Fanfic | Choque com o mundo original e interação com os personagens originais | Descolar dos elementos do original e virar obra original |
 
-**Extensão do conceito central** (exemplo "vantagem que chegou cedo"): por quantidade de tarefas; por dificuldade/quantidade de recompensas; por gatilhos escondidos em níveis; pelo contraste prévio (a recompensa cria tarefas dramáticas novas). Só os dois primeiros esgotam depressa; é preciso o terceiro e o quarto para mudanças estruturais.
+### 15.3 Sinais de desvio do núcleo do gênero
+1) comentários dizendo "mudou o sabor", "não é o que era"; 2) queda de leitores num ponto, fora do declínio natural; 3) o mesmo evento provoca reações opostas conforme o gênero em que aparece.
 
-**Autoverificação de ruptura da emoção central**: depois de cada trecho, pergunte 1) qual é a emoção central do trecho?; 2) combina com o conceito do livro?; 3) se o leitor só lesse este trecho, sentiria a emoção que vendo? Se uma resposta falha, houve desvio.
+### 15.4 Extensão do conceito central na prática (exemplo "vantagem que chegou cedo")
+Quando o drama do conceito se esgota, estenda em quatro dimensões:
+
+| Dimensão | Como | Efeito |
+|------|------|------|
+| Quantidade de tarefas | Planejar o drama pela quantidade | A mudança de quantidade cria novo contraste |
+| Dificuldade/quantidade de recompensas | Planejar pela recompensa | A mudança de qualidade cria nova expectativa |
+| Gatilhos escondidos por nível | A diferença de nível dispara tarefas ocultas | Drama inesperado |
+| Contraste antes-depois | Recompensas criam tarefas dramáticas novas | Novo ciclo de contraste |
+
+Chave: só as duas primeiras esgotam o drama rápido (contraste homogêneo dura pouco); só a terceira e a quarta trazem mudança estrutural.
+
+### 15.5 Autoverificação de ruptura da emoção central
+Depois de cada trecho, três perguntas: 1) qual é a emoção central do trecho? 2) combina com o conceito central do livro? 3) se o leitor só lesse este trecho, sentiria a emoção que estou vendendo? Se uma resposta falha, houve desvio.
+
+### 15.6 Conceito central em três gerações
+O núcleo de um livro é a fusão de **2 a 4** conceitos de gerações diferentes:
+
+| Geração | Nome | Função | Exemplo (fantasia de superação) |
+|------|------|------|------|
+| 1ª | Tema | Dá objetivo e sentido | Mudar o destino |
+| 2ª | Núcleo do gênero | Filtra leitores, delimita a fronteira, cria atmosfera | Subir de nível |
+| 3ª | Emoção central | Filtra leitores, aumenta a dramaticidade | "Nunca subestime quem começa por baixo" |
+
+Princípios: conceito central = cadeia emocional básica + emoção central mais concreta; **desviar do núcleo do gênero é abandonar o maior trunfo de atração** e a leitura despenca; **ordem de construção**: atrativo central → padrão emocional → enredo.
+**Fluxo padrão do "subestimado que revela o talento"** (adaptado do "porco que come o tigre"): 1) dê um objetivo difícil e um passante competente para mostrar a dificuldade; 2) o protagonista entra como figurante (o leitor conhece a força real, nasce a expectativa); 3) finge curiosidade e pede para tentar (puxa a emoção); 4) o passante zomba (a emoção desce, aumenta a lacuna); 5) o protagonista se desculpa, mas insiste (mais zombaria); 6) entrega um objeto pesado ao passante, que não consegue segurar (a emoção começa a subir); 7) cumpre com facilidade e todos se chocam; 8) declara modéstia e some, sem alarde.
 
 ## 16. Ciclos da linha profissional, rede de choque, mudança de cenário
 
-**Ciclo padrão de progressão**: pequeno evento → solução → ganho (dinheiro/material/receita/ferramenta/relação) → informação de progressão por troca ou convívio → subir de nível → desafio maior → ciclo → grande clímax final. **Pontos**: o ganho não é só nível; fontes de informação variadas; cada ciclo traz pelo menos uma variável nova (personagem, força, regra); controle a densidade de subtramas.
+### 16.1 Ciclo padrão de progressão
+`pequeno evento → solução → ganho (dinheiro/material/receita/objeto/relação) → informação de progressão por troca ou convívio → subir de nível → desafio maior → ciclo → grande clímax final.` O núcleo da linha profissional é a **mudança de posição e de relações**; subir é meio, não fim.
+**Pontos**: o ganho não é só nível (dinheiro, equipamento, rede, informação contam); fontes de informação variadas (troca, convívio, exploração, prêmio de missão); cada ciclo traz ao menos uma variável nova (personagem, força, regra); controle a densidade de subtramas (eventos pequenos e personagens demais viram trivialidade).
+*Exemplo*: a aprendiz de ferreira conserta uma espada de um mercenário (evento) → ele paga com uma pedra rara (ganho) → um colega diz que a pedra serve para uma liga nova (informação) → ela forja a liga (subir) → o mestre da corporação a convoca (desafio maior).
 
-**Banco de eventos de ação urbana** (adaptável): escola (turma de talentos, torneio virtual, provas, valentões), academia (reconhecimento do mestre, técnica herdada, campeonato), segurança pública (assaltantes, criaturas, chefes), competição (bolsas, seleções, recrutamento militar). Todos os objetivos devem se ligar a dinheiro, repetidamente: sem dinheiro não se anda; é a base da identificação com um personagem comum.
+### 16.2 Banco de eventos (fantasia urbana de poder)
 
-**Choque em rede**: o choque depende do número e da qualidade dos presentes e da profundidade do vínculo com o protagonista.
+| Fase | Eventos possíveis |
+|------|------|
+| Escola | Turma de talentos, torneio virtual, ataque de monstros à escola, provas, valentão, torneios regionais, vestibular |
+| Academia/dojo | Reconhecimento do mestre, técnica herdada, irmãos mais velhos, liga de dojos (cidade → estado → país) |
+| Segurança pública | Assaltantes, criaturas, instâncias, chefes na cidade |
+| Competição | Contratos de dojo, bolsas, seleção de elite, recrutamento militar, rede de simulação, ligas de estrelas |
+
+Todos os objetivos devem se ligar a **dinheiro**, repetidamente: sem dinheiro não se anda, com dinheiro vence-se tudo: esse é o núcleo da identificação com o personagem comum.
+
+### 16.3 Choque em rede
 
 | Nível | Quem se choca | Força | Valor posterior |
 |------|------|------|------|
-| Desconhecido | passantes | fraca | só satisfação |
-| Conhecido | coadjuvante com interação | média | pode mudar de atitude |
-| Personagem importante | quem tem cenas depois | forte | traz informação, avanço de relação e expectativa |
-| Alto status | grande nome | máxima | levanta a expectativa do leitor sobre o protagonista |
+| Desconhecido | Passantes, figurantes | Fraca | Só satisfação, sem sequência |
+| Conhecido | Coadjuvante com interação | Média | Pode mudar de atitude |
+| Personagem importante | Quem tem cenas depois | Forte | Traz informação, avanço de relação e expectativa |
+| Alto status | Grande nome do setor | Máxima | Levanta a expectativa do leitor sobre o protagonista |
 
-Chocar conhecidos vale mais: já têm relação carregada de emoção. O ponto da assimetria é a **reviravolta emocional da rede** de personagens depois da informação, não a informação em si. Por isso fanfic rende: o leitor conhece o original, e o choque dos personagens originais vale mais.
+### 16.4 Por que chocar conhecidos rende mais
+Os conhecidos já têm relação carregada de emoção; o ponto da assimetria é a **reviravolta emocional da rede** depois da informação, não a informação em si; por isso fanfic rende: o leitor conhece o original, e o choque dos personagens originais vale mais.
 
-**Mudança de cenário (avançado)**: é o momento em que a expectativa mais se rompe; prepare a linha do novo cenário antes de encerrar o antigo. *Erros*: eliminar todos antes de trocar (rompe a emoção central); trocar o tom (de sobrevivência cautelosa para estrada sem fim). *Acertos*: 1) só mude se o protagonista chegou ao topo e esgotou o potencial; 2) leve coadjuvantes centrais; 3) tenha um objetivo que atravessa o livro; 4) crie personagens-ponte; 5) deixe um gancho de motivação; 6) subir não é aumentar número: a recompensa vem da mudança de posição e relações. *Alternativa*: o "jogo de favores e relações" como conceito central (resolver confrontos por relações, tom leve; conheça o seu público).
+### 16.5 Mudança de cenário: casos de fracasso
 
-## 17. Quebra de expectativa: seis proibições
+| Caso | Problema | Resultado |
+|------|------|------|
+| Matar todos do cenário antigo antes de trocar | Rompe a emoção central | Queda forte de leitores |
+| Mudar de tom (de sobrevivência cautelosa para estrada sem fim) | Troca de gênero no meio | Perda de muitos leitores |
 
-Fórmula da recompensa: tensão emocional → o leitor cria expectativa → a trama a satisfaz → recompensa. Se a corrente de expectativa colapsa, o leitor abandona.
+### 16.6 Mudança de cenário: o jeito certo
+1) só mude se o protagonista chegou ao topo e esgotou o potencial; 2) leve os coadjuvantes centrais; 3) tenha um objetivo que atravessa o livro (como o grande inimigo final); 4) crie personagens-ponte; 5) deixe um gancho como motor até o novo enredo começar; 6) subir não é aumentar o número: a recompensa vem da mudança de posição e relações.
+
+### 16.7 O "jogo de favores" como conceito central
+Resolver confrontos por relações, tom leve; recursos vêm de gerir forças e redes e não de matar; o que muda é a relação entre personagens; **premissa**: conheça o seu público e a sua promessa.
+
+## 17. Sistema de "quebra de expectativa": seis proibições e remédios
+
+### 17.1 Fórmula da recompensa e do colapso
+tensão emocional → o leitor cria expectativa → a trama a satisfaz → recompensa; se a corrente de expectativa colapsa, o leitor abandona.
+
+### 17.2 As seis proibições
 
 | Proibição | Manifestação | Consequência |
 |------|------|------|
@@ -384,102 +447,197 @@ Fórmula da recompensa: tensão emocional → o leitor cria expectativa → a tr
 | Objetivo vago | Protagonista sem meta clara | O leitor não sabe o que acompanha |
 | Níveis sem diferença | Antes e depois da evolução nada muda | O avanço perde sentido |
 
-**Remédios**: 1) *objetivo*: antes de cumprir o atual, dê pistas do próximo; cumprido o curto, converta o longo em novo curto; logo depois, uma virada intensa para criar nova expectativa. 2) *personagem*: apresente o novo antes de esmaecer o antigo; leve o personagem divertido ao novo mundo; antes da troca, faça o novo cenário tocar o protagonista (ou sua lenda); ligue redes por uma vantagem (grupo de chat, círculo). 3) *diferenciação*: faça bem a emoção de cada camada de coadjuvantes e a diferença entre níveis (humano comum inútil → mago lança feitiços → voa → molda o céu), inclusive a diferença nas relações (parentes arrogantes → iguais → admiração → lenda). A paciência do leitor é limitada: gratificação adiada também precisa ser paga; compra antecipada exige quitação.
+### 17.3 Remédio 1: ligar objetivos
+Antes de cumprir o objetivo atual, plante pistas do próximo; cumprido o curto, converta o longo em novo curto; logo depois, uma virada intensa para criar nova expectativa. *Exemplo*: antes de a heroína ganhar o campeonato, a carta do pai desaparecido chega com um endereço; ao erguer o troféu ela já está olhando o mapa.
 
-## 18. Recuar para avançar; diferenciação do conceito central; modelo da torre
+### 17.4 Remédio 2: ligar personagens
+Apresente o novo antes de esmaecer o antigo; leve o personagem divertido ao novo mundo; antes da troca, faça o novo cenário tocar o protagonista (ou sua lenda); ligue redes por uma vantagem (grupo de chat, círculo de jogo). *Exemplo*: o taverneiro do cenário antigo muda-se para a capital e abre a primeira loja onde o protagonista chega.
 
-**"Recuar para avançar"**: transforma o sacrifício do protagonista de ponto de rejeição em recompensa.
+### 17.5 Remédio 3: reforçar a diferença
+Faça bem a emoção de cada camada de coadjuvantes; diferencie os níveis de poder (humano comum inútil → mago lança feitiços → voa → molda o céu); diferencie a rede por nível (parentes arrogantes → iguais → admiração → lenda). *Exemplo*: no nível 1 a tia fecha a porta na cara dele; no nível 3 a mesma tia o convida para jantar; no nível 5 pede que apadrinhe o filho.
+**Chave**: a paciência do leitor é limitada, e uma expectativa só gera uma quantidade limitada de motivação: gratificação adiada também precisa ser paga; compra antecipada exige quitação.
+
+## 18. "Recuar para avançar", diferenciação do conceito central, modelo da torre
+
+### 18.1 "Recuar para avançar": o problema
+O sacrifício do protagonista costuma ser ponto de rejeição. Três erros:
 
 | Erro | Manifestação | Reação do leitor |
 |------|------|------|
-| Confundir o principal | O salvo se mostra miserável e chantageia moralmente | Antipatia pelo salvo |
+| Confundir o principal | O salvo se mostra miserável e chantageia moralmente o protagonista | Antipatia pelo salvo |
 | Sem identificação | Protagonista melancólico, longos monólogos | Pieguice, rompe o vínculo |
 | Fugir do sacrifício | Transformar a entrega em cena de virada | O leitor sente que o sacrifício foi ignorado |
 
-**Núcleo**: para o sacrifício virar recompensa, o leitor deve esperar por ele, e para isso é preciso uma lacuna emocional preparada. **Operação**: 1) nada de monólogo excessivo, sem prolongar o sofrimento do salvo; 2) concentre-se em preparar a lacuna, usando falas de coadjuvantes e a trama para o leitor sentir que "o protagonista deve agir"; 3) o ato em si é breve e forte; 4) a recompensa (reação dos outros, ganho do protagonista) é o ponto de explosão. **Limite**: não use na abertura. **Caso extremo**: sacrifício de alto custo exige trabalhar o segundo nível da estrutura e combinar "recuar para avançar" com tragédia convertida em recompensa e viradas de trama.
+### 18.2 "Recuar para avançar": o núcleo
+Para o sacrifício virar recompensa, o leitor precisa **esperar por ele**, e para isso é preciso uma lacuna emocional preparada. **Operação**: 1) nada de monólogo, sem prolongar o sofrimento do salvo; 2) concentre-se em preparar a lacuna por falas de coadjuvantes e pela trama, para o leitor sentir que "o protagonista deve agir"; 3) o ato é breve e forte; 4) a recompensa (reação dos outros, ganho do protagonista) é o ponto de explosão.
+*Exemplo*: o time de futebol da vila vai perder a quadra; vizinhos comentam que só o treinador poderia comprar o terreno e ele guarda dinheiro para a cirurgia do joelho; na reunião, ele assina o cheque em uma frase; só depois: o prefeito, o rival e as crianças reagem, e o terreno vira patrocínio inesperado.
+**Limite**: não use na abertura. **Caso extremo**: sacrifício de alto custo exige trabalhar o segundo nível da estrutura e combinar "recuar para avançar" com tragédia convertida em recompensa e viradas de trama.
 
-**Diferenciar o conceito central**: repetir o mesmo conceito esgota o drama. 1) *variar a expressão*: mau exemplo: três vezes "matar inimigo e ganhar rancor"; bom exemplo: na primeira, matar a família do inimigo; na segunda, fingir ser da facção A e ir criar problemas com B, e depois se passar por B diante de A. 2) *alternar vários conceitos*: A (dicas de tarô e mistério), B (investigação sobrenatural), C (subir de nível), D (decifrar o mundo), de modo que o leitor não prevê qual vem. 3) *segundo nível para criar suspense*: segredos e conspirações do mundo, deixando névoa; o leitor só enxerga um pedaço da estrada. Cuidado para não virar enigma nem saltar informação.
+### 18.3 Diferenciar o conceito central: três métodos
+1) **Variar a expressão**: mau exemplo: três vezes "matar inimigo e ganhar rancor"; bom exemplo: na primeira, matar a família do inimigo; na segunda, fingir ser da facção A e criar problemas com B; na terceira, fingir ser de B diante de A. 2) **Alternar vários conceitos**: A (dicas de tarô e mistério), B (investigação sobrenatural), C (subir de nível), D (decifrar o mundo), de modo que o leitor não prevê qual vem. 3) **Segundo nível para criar suspense**: segredos e conspirações do mundo deixam névoa; o leitor só vê um pedaço da estrada; cuidado para não virar enigma nem saltar informação.
 
-**Modelo da torre**: se o leitor só vê o exterior, a estrutura o distrai; se for levado ao interior, a decoração o prende e a pergunta "o que há no andar de cima?" o faz subir. Aumente as expectativas **longas** (como tarefas sempre disponíveis), e não, às cegas, as curtas (como eventos de tempo limitado; de preferência uma por vez).
+### 18.4 Modelo da torre (evitar a quebra de expectativa)
+Se o leitor só vê o exterior da torre, a estrutura o distrai; se for levado ao interior, a decoração o prende e a pergunta "o que há no andar de cima?" o faz subir. **Aumente as expectativas longas** (como tarefas sempre disponíveis) e não, às cegas, as curtas (como eventos de tempo limitado; de preferência uma por vez). *Exemplo*: cada andar do mistério de uma mansão revela um objeto que só faz sentido no andar seguinte; o leitor sobe sem notar.
 
 ## 19. "Duas longas e uma curta" na prática; ampliação em segundo nível
 
-**Método de uma estrutura de primeiro nível só**: use um único objetivo claro do protagonista para levantar várias expectativas. 1) alongue a primeira estrutura de abertura; 2) com o objetivo explícito, levante ao mesmo tempo: curto (resolver o evento atual), longo 1 (direção de crescimento do protagonista) e longo 2 (grande mistério/segredo do mundo); 3) quando a primeira estrutura acaba, a curta é satisfeita e as duas longas viram a motivação seguinte. **Princípios**: longas são tarefas disponíveis; curtas são eventos de tempo limitado (uma por vez; duas curtas sem relação confundem); construída a base, aumente as longas, não as curtas; satisfeita uma longa, vira explosão curta e abre-se outra longa.
+### 19.1 Método de uma estrutura de primeiro nível só
+Use um único objetivo claro do protagonista para levantar várias expectativas: 1) alongue a primeira estrutura de abertura; 2) com o objetivo explícito, levante ao mesmo tempo: curto (resolver o evento atual), longo 1 (direção de crescimento) e longo 2 (grande mistério do mundo); 3) quando a primeira estrutura acaba, a curta é satisfeita e as duas longas viram a motivação seguinte. *Exemplo*: a protagonista precisa vencer a regata (curta), quer ser capitã da frota (longa 1) e sabe que o naufrágio do pai foi sabotagem (longa 2).
 
-**Ampliação em segundo nível (virada de mesa avançada)**: o básico resolve "como e diante de quem"; o avançado amplia a recompensa fazendo o ato do protagonista afetar objetivos ou interesses de **vários grupos**, chamando a atenção de "grandes nomes" e gerando reações e expectativas.
+### 19.2 Princípios de gestão
+Longas = tarefas disponíveis; curtas = eventos de tempo limitado (uma por vez; duas curtas sem relação confundem); construída a base, aumente as longas, não as curtas; satisfeita uma longa, vira explosão curta e abre-se outra longa.
+
+### 19.3 Virada de mesa em segundo nível: ideia central
+O básico resolve "como e diante de quem"; o avançado amplia a recompensa fazendo o ato do protagonista afetar os objetivos ou interesses de **vários grupos**, chamando a atenção de "grandes nomes".
+
+### 19.4 Princípio de camadas de espectadores
 
 | Dimensão | Mais é melhor | Explicação |
 |------|------|------|
-| Tipos | vários > um | cada tipo reage de um jeito e acrescenta satisfação |
-| Quantidade | muitos > poucos | escolha cenas com muita gente |
-| Níveis | vários > um | passantes, colegas, mestres, antagonista reagem diferente |
-| Profundidade do vínculo | conhecidos > estranhos | |
+| Tipos | Vários > um | Cada tipo reage de um jeito e acrescenta satisfação |
+| Quantidade | Muitos > poucos | Escolha cenas com muita gente |
+| Níveis | Vários > um | Passantes, colegas, mestres, antagonista reagem diferente |
+| Profundidade do vínculo | Conhecidos > estranhos | |
 
-**Criar contraste**: o essencial é a diferença entre dois estados do coadjuvante (primeiro zomba, depois se choca vale mais que choque direto). Quanto mais tempo o protagonista fica num mesmo cenário e mais a caracterização se desdobra, maior o espaço de contraste.
+### 19.5 Criar contraste
+O essencial é a diferença entre dois estados do coadjuvante (primeiro zomba, depois se choca vale mais que choque direto). Quanto mais tempo o protagonista fica num mesmo cenário e mais a caracterização se desdobra, maior o espaço de contraste.
 
-**Modos para virar a mesa em série** (alterne para não repetir; podem se combinar): 1) choque em cadeia (A se choca, B, de status maior, também); 2) choque por explicação (o narrador explica o princípio, depois o outro se choca); 3) choque por imagem (o ambiente muda, o personagem se abala); 4) choque por comparação (o outro se compara e se sente pequeno); 5) choque por pergunta (o outro se pergunta se conseguiria e confirma o abismo); 6) choque por contraste de caráter (quem desprezava o protagonista é desmentido).
+### 19.6 Modos para brilhar em série
+Alterne (e combine) para não repetir: 1) choque em cadeia (A, depois B de status maior); 2) choque por explicação (o narrador explica o princípio, depois o outro se choca); 3) choque por imagem (o ambiente muda, o personagem se abala); 4) choque por comparação (o outro se compara e se sente pequeno); 5) choque por pergunta (o outro se pergunta se conseguiria e confirma o abismo); 6) choque por contraste de caráter (quem desprezava o protagonista é desmentido).
 
 ## 20. Abertura
 
-**Crise em cinco palavras**: a crise de abertura deve ser tão simples que dá para explicar em até cinco palavras ao leitor-alvo (o que é, por que existe e o que acontece se não for resolvida) sem explicações adicionais. Eventos comuns (ser demitido, enganado, intimidado) têm identificação natural. Se exige muita explicação, o leitor sai.
+### 20.1 Crise em cinco palavras
+A crise de abertura deve ser tão simples que dá para explicá-la em até cinco palavras ao leitor-alvo (o que é, por que existe e o que acontece se não for resolvida). Eventos comuns (ser demitido, enganado, intimidado) têm identificação natural. *Exemplo*: "Despejada, sem dinheiro, hoje." Se a crise exige muita explicação, o leitor sai.
 
-**"Esquerda antes da direita"**: a expectativa cresce quando se dá primeiro a direção oposta. Três modos: 1) *contenção e explosão* (o protagonista tem trunfo e não age de imediato; o leitor sabe, os coadjuvantes não); 2) *vencer com o inesperado* (satisfazer primeiro a expectativa básica e depois dar uma surpresa); 3) *leitor prevê* (anunciar ao leitor o grande evento que o protagonista ignora). **Telescópio**: faça o leitor ver o perigo se aproximar (como o objeto misterioso que cai em direção ao protagonista). **Carta antecipada**: mostre a carta antes do conflito.
+### 20.2 "Esquerda antes da direita"
+A expectativa cresce quando se dá primeiro a direção oposta. Três modos: 1) *contenção e explosão* (o protagonista tem trunfo e não age de imediato; o leitor sabe, os coadjuvantes não); 2) *vencer com o inesperado* (satisfazer primeiro a expectativa básica e depois dar uma surpresa); 3) *leitor prevê* (anunciar ao leitor o grande evento que o protagonista ignora).
+- **Telescópio (leitor prevê)**: faça o leitor ver o perigo se aproximar (como o objeto misterioso que cai em direção ao protagonista).
+- **Carta antecipada**: mostre a carta antes do conflito; "carta + conflito iminente" são as duas informações que criam expectativa.
 
-**Desenho de pontos de ansiedade**: 1) defina uma ansiedade razoável (falta de dinheiro, perseguição, falta de tempo); 2) depois de evoluir, mostre várias diferenças em relação a antes (tratamento, recursos); 3) antes de evoluir, mostre a miséria anterior para ter base de contraste; 4) mantenha a ansiedade viva, sem que um único passo a dissolva. Ela deve ser razoável e compartilhável; a evolução em si não é o maior prazer, **a evolução diferente da comum é**.
+### 20.3 Desenho de pontos de ansiedade
+1) defina uma ansiedade razoável (falta de dinheiro, perseguição, falta de tempo); 2) depois de evoluir, mostre várias diferenças em relação a antes (tratamento, recursos); 3) antes de evoluir, mostre a miséria anterior para ter base de contraste; 4) mantenha a ansiedade viva, sem que um único passo a dissolva. Ela precisa ser compartilhável; a evolução em si não é o maior prazer, **a evolução diferente da comum é**. *Exemplo*: antes de ganhar a bolsa, o protagonista conta moedas para a passagem; depois, a mesma moeda que sobrou paga o café de quem o humilhou.
 
-**Contagem regressiva do telescópio**: (técnica de abertura com um evento enorme) 1) no capítulo 1, um grande evento descrito com imponência; 2) a cada 1-2 capítulos, um pequeno avanço, como contagem regressiva; 3) o leitor sobe em expectativa; 4) detona. Exemplo: capítulo 1 um evento misterioso → fim do 2 novo avanço → início do 4 atualização → 6 explosão.
+### 20.4 Objetos como medidor de choque
+Use mudanças concretas em objetos no lugar de abstrações: feito 1, uma rachadura no braço da cadeira; feito 2, a cadeira toda racha; feito 3, o braço é esmagado. Vale para taças, canetas, chá derramado, rosto que muda de cor.
 
-**Atração e retenção**. *Atração*: **compensação** (preenche uma falta da realidade: segurança, poder, amor) e **atalho** (máximo ganho com mínimo esforço). *Retenção*: **emoção** (imersão rápida, montanha-russa) e **fome** (assimetria planta pontos de interrogação; o cérebro odeia o inacabado). *Nas primeiras 200-350 palavras*: situação atual (nada a perder ou algo precioso prestes a ser tomado), origem do perigo (visível e compartilhável), esperança de saída (algo que mude a situação). O conflito mais intenso do primeiro ato é a "morte": física, social ou psíquica.
+### 20.5 Contagem regressiva do telescópio
+Técnica de abertura com um evento enorme: 1) no capítulo 1, descreva o grande evento com imponência; 2) a cada 1-2 capítulos, um pequeno avanço, como contagem regressiva; 3) a expectativa sobe; 4) detona. Exemplo: capítulo 1 evento misterioso → fim do 2 novo avanço → início do 4 atualização → 6 explosão.
 
-**Modelo do hábito (quatro ganchos)**
+### 20.6 Método da alavanca emocional (oito etapas)
+Cada puxão é uma alavanca: 1) mostrar a força do objeto (+1); 2) o coadjuvante, por assimetria, acha que é inútil (expectativa de tapa +1); 3) entra o antagonista, que o objeto neutraliza (+1); 4) um coadjuvante com equipamento melhor falha (+1); 5) o protagonista otimiza (+1); 6) ele entra, ninguém acredita (+1); 7) vence → choque → comentários posteriores; 8) novo ganho e nova expectativa. A essência: cada puxão soma expectativa e a recompensa final dobra.
+
+### 20.7 Duas vias de criar expectativa
+*Interna* (pela trama e interações): comentários laterais de passantes sobre o que pode acontecer entre o casal; leitores de harém completam sozinhos, mas leitores de progressão precisam de preparação extra; bem preparada, serve aos dois públicos. *Externa* (pelo conhecimento do leitor): personagens-tipo (decidido, cauteloso) que o leitor segue de cara; fórmulas conhecidas despertam a expectativa de uma recompensa específica. **Duas longas e uma curta**: duas longas (identidade misteriosa do mestre, o prazo de três anos), uma curta (a cena atual de virada), puxando logo uma nova longa quando uma é satisfeita; no máximo 4 ou 5 linhas.
+
+### 20.8 Títulos: mecânica (adaptada)
+
+| Tipo | Fórmula | Exemplo adaptado |
+|------|------|------|
+| Contraste de identidade | Identidade fraca + ação forte | "Saiu da prisão e o banco mandou o jatinho" |
+| Contraste de ação | Tarefa comum + execução absurda | "Mandaram consertar o piano; ela tocou no Carnegie" |
+| Contraste de resultado | Opressão antes + virada depois | "Depois do divórcio, o ex implora" |
+| Números | Número extremo + resultado contraintuitivo | "Perdeu 500 mil em um segundo e hoje fatura três milhões" |
+| Suspense emocional | Dor + virada de prazer | "No jantar de Ano-Novo, o grupo da família anunciou a minha contagem regressiva" |
+| Vantagem especial | Pessoa comum + sistema absurdo | "Um metro quadrado por dia: em 90 dias comprei o prédio" |
+| Pergunta | Fato + pergunta que cria conflito | "Pago cem milhões de imposto e você chama isso de microempresa?" |
+| Perspectiva trocada | Eu sei, os outros não | "A ordem toda achava que eu era inútil, até o mestre se ajoelhar" |
+| Atitude relaxada | Ambiente de pressão + protagonista preguiçoso | "O apocalipse chegou e eu fui plantar horta" |
+| Alto nível, cena baixa | Profissão elevada + cenário banal | "Física nuclear, chamado ao colégio da filha" |
+
+**Cuidados**: título isca que não entrega faz o leitor abandonar; palavras-chave populares (segunda chance, sistema, divórcio, virada) ajudam na descoberta.
+
+### 20.9 Atração e retenção
+*Atração*: **compensação** (preenche uma falta da realidade: segurança, poder, amor) e **atalho** (máximo ganho com mínimo esforço). *Retenção*: **emoção** (imersão rápida, montanha-russa) e **fome** (assimetria planta pontos de interrogação; o cérebro odeia o inacabado). *Nas primeiras 200-350 palavras*: situação atual (nada a perder ou algo precioso prestes a ser tomado), origem do perigo (visível e compartilhável), esperança de saída (algo que mude a situação). O conflito mais intenso do primeiro ato é a "morte": física, social ou psíquica.
+
+### 20.10 Modelo do hábito (quatro ganchos)
 
 | Elemento | Gancho | Fraqueza humana | Na ficção |
 |------|------|------|------|
-| Gatilho | desejo | fantasia | ponto de entrada que lembra o leitor do que ele quer |
-| Ação | simplicidade | preguiça | abertura enxuta, sem barreira |
-| Recompensa | sorte | cobiça | ganho variável: o previsível é monótono, o aleatório gera expectativa pelo "próximo" |
-| Investimento | riqueza | apego | equipamento, ranking, aliados: custo afundado |
+| Gatilho | Desejo | Fantasia | Ponto de entrada que lembra o leitor do que ele quer |
+| Ação | Simplicidade | Preguiça | Abertura enxuta, sem barreira |
+| Recompensa | Sorte | Cobiça | Ganho variável: o previsível é monótono, o aleatório gera expectativa pelo "próximo" |
+| Investimento | Riqueza | Apego | Equipamento, ranking, aliados: custo afundado |
 
-A recompensa deve surpreender: espera-se experiência e dinheiro, e o resultado é um ovo de dragão. Gêneros de construção de domínio nunca saem de moda: a riqueza crescente é o atrativo. No gatilho, se o assunto em alta não corresponde à emoção real do leitor, o apelo não funciona.
+A recompensa deve surpreender: espera-se experiência e dinheiro e o resultado é um ovo de dragão. Gêneros de construção de domínio nunca saem de moda: a riqueza crescente é o atrativo. No gatilho, se o assunto em alta não corresponde à emoção real do leitor, o apelo não funciona.
 
-**Apito de cachorro (o chamariz)**: o chamariz é uma palavra-chave que o grupo certo reconhece de imediato (uma marca de franquia, uma figura conhecida, um tropo). Sem chamariz, não há sinal; chamariz errado é pior que nenhum. Os três primeiros capítulos servem para **dar o tom**, administrar expectativas e corresponder a elas; não cumprir a expectativa é quebrar a confiança.
+### 20.11 Apito de cachorro (o chamariz)
+O chamariz é uma palavra-chave que o grupo certo reconhece de imediato (uma franquia, uma figura conhecida, um tropo). Sem chamariz, não há sinal; chamariz errado é pior que nenhum. Os três primeiros capítulos servem para **dar o tom**, administrar expectativas e corresponder a elas; não cumprir a expectativa quebra a confiança.
 
-**Três níveis do tom**: 1) atmosfera emocional (pesada, leve, romântica); 2) rumo da história (construção, conquista, aventura, romance); 3) orientação de valores. **Fórmula da abertura**: situação inquietante + posição que precisa subir + vantagem cheia de esperança + futuro que se possa vislumbrar. **Controle de informação**: abertura limpa, controlada; foco no presente por ações simples (abrir os olhos, falar sozinho, observar); navalha de Ockham: configuração tem que ser usada logo.
+### 20.12 Os três níveis do tom
+1) atmosfera emocional (pesada, leve, romântica); 2) rumo da história (construção, conquista, aventura, romance); 3) orientação de valores.
 
-**Cinco elementos (primeiro capítulo)**: quem (protagonista), onde (mundo), o que tem (vantagem), por quê (conflito), para quê (direção principal). **Cinco regras**: simples (nada de prólogo enigmático); sem desvio (a abertura serve ao atrativo principal); rápida (entrada ágil e preparação resumida); com impacto (sem choque em cinco capítulos é fracasso); sem monotonia (sem conflito é fracasso).
+### 20.13 Fórmula da abertura e controle de informação
+Situação inquietante + posição que precisa subir + vantagem cheia de esperança + futuro vislumbrável. Abertura limpa, com a vontade de se expressar contida; foco no presente por ações simples (abrir os olhos, falar sozinho, observar); navalha de Ockham: configuração tem que ser usada logo.
 
-**Ponto de entrada (de 0 a e)**: uma trama = origem (sem recompensa) → processo (ondas) → resultado (virada de mesa) → depois (ganho/gancho). 0 = começar pela chegada (mais lento); a = preparar-se para o concurso (lento); **b = na fila antes de subir ao palco (recomendado)**; **c = no palco, prestes a cantar (mais rápido, fortemente recomendado)**; d = no meio da apresentação (muito apressado); e = depois do prêmio (perde o processo). Melhor: b ou c. **Elipse**: a origem deve ser enxuta; abrir um detalhe obriga a abrir todos; no limite, duzentas ou trezentas palavras pulam tudo no primeiro capítulo. **Conflito em sentido amplo**: não exige inimigo; é o choque entre a situação real e a necessidade esperada (crise, conflito oculto como "quer brilhar mas não pode", conflito macro).
+### 20.14 Cinco elementos do primeiro capítulo e cinco regras
+Quem (protagonista), onde (mundo), o que tem (vantagem), por quê (conflito), para quê (direção principal). **Cinco regras**: simples (nada de prólogo enigmático); sem desvio (a abertura serve ao atrativo principal); rápida (entrada ágil e preparação resumida); com impacto (sem choque em cinco capítulos é fracasso); sem monotonia (sem conflito é fracasso).
 
-**Palco: tamanho e altura.** *Tamanho* (número de espectadores): partida sem plateia < transmissão com milhares < estádio com milhões; amplie com mais personagens/testemunhas (colegas que partem do mesmo ponto fazem o salto parecer um "muro cruel"). *Altura* (força do oponente): amplie com enredo que prepara a força do rival, a missão e os apoios (colega eliminado que confia seu sonho, pais céticos na plateia, expectativa do país). Quando o protagonista puder brilhar, puxe tudo o que puder, desde que a plausibilidade se mantenha. Evite a partida "de água": acordar, ir ao ginásio, vencer, voltar.
+### 20.15 Ponto de entrada (de 0 a e)
+Uma trama = origem (sem recompensa) → processo (ondas) → resultado (virada de mesa) → depois (ganho/gancho).
 
-**Objetivo de cena, quatro elementos de tensão, ritmo.** Objetivo em uma frase, cedo e repetido de várias formas ("preciso achar minha irmã para salvá-la"). Quatro elementos: **motivação** (por que importa, consequência do fracasso), **limite de tempo**, **obstáculo** (pior do que o previsto, sem revelar cedo), **perigo progressivo** (acha que escapou → o assassino estava no carro). *Ritmo rápido*: ação veloz, poucas palavras, poucos adjetivos e advérbios, frases curtas e até incompletas ("De repente, ela riu." / "Mãos frias agarraram o pescoço dele."). *Ritmo lento*: espera ou impotência; parágrafos médios e longos, frases de tamanhos variados, vários sentidos, ruído de fundo (afiar de faca no escuro; porta que se abre devagar no corredor silencioso). Atenção humana em ciclos de 15-20 minutos; o alívio depois da tensão não passa de dois capítulos, e deve digerir, preparar e aprofundar relações.
+| Entrada | Onde começa | Efeito |
+|------|------|------|
+| 0 | Chegada ao mundo, tudo em ordem | O mais lento |
+| a | Preparar-se para o concurso | Lento |
+| **b** | Na fila antes de subir ao palco | **Recomendado** |
+| **c** | No palco, prestes a cantar | **Mais rápido, fortemente recomendado** |
+| d | No meio da apresentação | Apressado demais |
+| e | Depois do prêmio | Perde o processo |
 
-**Cola do conflito (fórmula de suspense)**: conflito (possibilidade de morte) + enredo (medidas concretas para evitá-la) + suspense (tensão não liberada) = experiência emocionalmente satisfatória. Três "mortes": física, de carreira, psíquica; escolha uma principal. **Cola**: o que impede os lados de se separarem facilmente (razão para matar, dever profissional, responsabilidade moral, espaço físico como uma instância ou uma sala). *Surpresa x suspense*: surpresa é a bomba que estoura sob a mesa; suspense é ouvir o tique-taque sem saber quando explode; o suspense é mais forte porque o leitor participa. *Cliffhanger* (fim de capítulo pendurado); *relógio* (prazo comprimido).
+**Elipse**: a origem deve ser enxuta; abrir um detalhe obriga a abrir todos; no limite, duzentas ou trezentas palavras pulam tudo no primeiro capítulo. **Conflito em sentido amplo**: não exige inimigo; é o choque entre a situação real e a necessidade esperada (crise, conflito oculto como "quer brilhar mas não pode", conflito macro).
+
+### 20.16 Palco: tamanho e altura
+*Tamanho* (espectadores): partida sem plateia < transmissão com milhares < estádio com milhões; amplie com mais personagens/testemunhas. *Altura* (força do adversário): amplie com enredo que prepara a força do rival, a missão e os apoios. Evite a partida "de água": acordar, ir ao ginásio, vencer, voltar.
+
+### 20.17 Objetivo de cena e quatro elementos de tensão
+Objetivo em uma frase, cedo e repetido de várias formas ("preciso achar minha irmã para salvá-la"). Quatro elementos: **motivação** (consequência do fracasso), **limite de tempo**, **obstáculo** (pior do que o previsto, sem revelar cedo), **perigo progressivo** (acha que escapou → o assassino estava no carro).
+
+### 20.18 Ritmo rápido e lento
+*Rápido*: ação veloz, poucas palavras, poucos adjetivos e advérbios, frases curtas e incompletas ("De repente, ela riu." / "Mãos frias agarraram o pescoço dele."). *Lento*: espera ou impotência; parágrafos médios e longos, frases de tamanhos variados, vários sentidos, ruído de fundo (afiar de faca no escuro). Atenção humana em ciclos de 15-20 minutos; o alívio depois da tensão não passa de dois capítulos e deve digerir, preparar e aprofundar relações.
+
+### 20.19 Cola do conflito (fórmula de suspense)
+Conflito (possibilidade de morte) + enredo (medidas concretas para evitá-la) + suspense (tensão não liberada) = experiência emocionalmente satisfatória. Três "mortes": física, de carreira, psíquica; escolha uma principal. **Cola**: o que impede os lados de se separarem (razão para matar, dever profissional, responsabilidade moral, espaço físico). *Surpresa x suspense*: surpresa é a bomba que estoura sob a mesa; suspense é ouvir o tique-taque sem saber quando explode. *Cliffhanger*: fim de capítulo pendurado; *relógio*: prazo comprimido.
 
 ## 21. Pontos de interesse e de recompensa em dupla lógica e demais técnicas
 
-**Dupla lógica**: ponto de interesse = o que levanta a expectativa; ponto de recompensa = o que a satisfaz; correspondem um a um. **Lógica geral** (convencional: o adversário é imbatível → medo) x **lógica do protagonista** (coça a mão, desdém); quanto maior a diferença, maior o interesse. **Tripé**: protagonista + adversário + **plateia**; a plateia eleva a expectativa (comentários que valorizam o adversário) e completa a virada de mesa (o espanto é a recompensa). A essência da ficção de recompensa = **criar contraste e escrever a reação**: o leitor não espera o contraste, espera a reação depois dele; a plateia fornece a maior parte. Prepare o interesse ao extremo e na recompensa dê o doce sem satisfazer por completo.
+### 21.1 Dupla lógica
+Ponto de interesse = o que levanta a expectativa; ponto de recompensa = o que a satisfaz; correspondem um a um. **Lógica geral** (o adversário é imbatível → medo) x **lógica do protagonista** (coça a mão, desdém); quanto maior a diferença, maior o interesse. **Tripé**: protagonista + adversário + **plateia**; a plateia eleva a expectativa (comentários que valorizam o adversário) e completa a virada (o espanto é a recompensa). A essência da ficção de recompensa = **criar contraste e escrever a reação**. Prepare o interesse ao extremo e na recompensa dê o doce sem satisfazer por completo.
 
-**Fluxo de surpresa**: primeiro baixe a expectativa ("não tem solução"), depois resolva de forma mais elevada, num tapa e doce. Com assimetria: o vendedor recebe uma ligação do chefe sobre um VIP; confunde o antagonista com o VIP e humilha o protagonista; quando a identidade aparece, fica apavorado. **Pressão**: natural (o protagonista é incrível, mas ninguém sabe) x social (injustiça do cotidiano; o leitor adulto precisa de mais pressão); quanto mais se pressiona, maior o tapa, mas distinga "pressão de raiva" de "pressão de desprezo".
+### 21.2 Fluxo de surpresa
+Primeiro baixe a expectativa ("não tem solução"), depois resolva de forma mais elevada, num tapa e doce. Com assimetria: o vendedor recebe do chefe a notícia de um VIP; confunde o antagonista com o VIP e humilha o protagonista; quando a identidade aparece, fica apavorado. **Pressão**: natural (o protagonista é incrível, mas ninguém sabe) x social (injustiça do cotidiano; o leitor adulto precisa de mais pressão); distinga "pressão de raiva" de "pressão de desprezo".
 
-**Fórmula do motor**: surge a demanda → dá-se esperança → esforço → realização. *Demanda* (criar incômodo): posição baixa, dilema, ameaça iminente, algo que nunca se teve; ver injustiça gera "não devia ser assim". *Esperança*: a vantagem do protagonista = capacidade difícil de ter na vida real; sem esperança, a dor é insuportável. *Esforço e ritmo*: não satisfaça rápido demais; dois modos: "melhora gradual" (dividir o dilema em níveis) e "novo dilema" (resolvido um, vem outro de nível maior). *Suspenso*: mantenha o "não resolvido" (assimetria).
+### 21.3 Fórmula do motor
+Surge a demanda → dá-se esperança → esforço → realização. *Demanda*: posição baixa, dilema, ameaça iminente; ver injustiça gera "não devia ser assim". *Esperança*: a vantagem do protagonista = capacidade difícil de ter na vida real. *Esforço e ritmo*: não satisfaça rápido demais; "melhora gradual" (dividir o dilema em níveis) ou "novo dilema" (resolvido um, vem outro de nível maior). *Suspenso*: mantenha o "não resolvido".
 
-**Assimetria em três níveis**: 1) o leitor sabe e o protagonista não (o leitor sua frio); 2) o protagonista sabe e os outros não (expectativa da revelação); 3) nenhum sabe, mas o leitor sente que há perigo (suspense). Quando a assimetria se desfaz, o leitor respira: recompensa. *Descascar a cebola*: suspense central na sinopse, perguntas pequenas no início de cada capítulo e informação-chave segurada no fim.
+### 21.4 Assimetria em três níveis
 
-**Expectativa contínua e corrente de ganchos**: a expectativa é maior que o ganho: quando o protagonista está prestes a conseguir, a atenção é máxima; depois que consegue, cai. Antes de ele conseguir, prenda outro gancho. Exemplo: antes de virar o campeão, descobre quem matou o pai; depois, nova expectativa (vingança); no caminho conhece alguém (romance); grande (trama principal) e pequena (subtrama) se intercalam em cadeia. Mantenha sempre duas ou mais linhas. *Gancho longo*: plante uma árvore (precisa de tempo); antes de cada meta pequena, mostre o que acontecerá depois, quem reagirá, que privilégio dará, e encaixe nova expectativa.
+| Nível | Estado da informação | Efeito |
+|------|------|------|
+| 1 | O leitor sabe, o protagonista não | O leitor sua frio (a armadilha do antagonista) |
+| 2 | O protagonista sabe, os outros não | Expectativa da revelação |
+| 3 | Ninguém sabe, mas o leitor sente perigo | Suspense (calma que esconde perigo) |
 
-**Ritmo do capítulo de virada de mesa.** Recompensa = (caracterização + preparação) + choque entre personagens. **Pré-invencibilidade**: antes da cena, deixe prontos itens, pessoas e poder; sem isso o leitor teme pelo protagonista e lê a zombaria como tortura. **A preparação vale mais que o tapa**: o clímax pode ter mil palavras e a preparação dezenas de milhares; bem preparado, ele pode ficar parado em silêncio e a virada funciona. **Modelo de capítulos** (em ciclo de cinco): caracterização (1), preparação (2), tapa (1), arrumação (1); em publicação mais longa, preparação ainda maior. **Estatura**: um rico não se mostra a qualquer um; o nível de quem recebe o tapa define o nível da satisfação.
+Quando a assimetria se desfaz, o leitor respira: recompensa. *Descascar a cebola*: suspense central na sinopse, perguntas pequenas no início de cada capítulo e informação-chave segurada no fim.
 
-**Cinco modos de substituir a vantagem especial** (a lógica geral: incidente → desejo → objetivo → ação → obstáculo → superação → prêmio; a vantagem substitui um elo)
+### 21.5 Expectativa contínua e corrente de ganchos
+A expectativa é maior que o ganho: quando o protagonista está prestes a conseguir, a atenção é máxima; depois que consegue, cai. Antes de ele conseguir, prenda outro gancho. *Exemplo*: antes de virar o campeão, descobre quem matou o pai; depois, vingança; no caminho conhece alguém (romance); grande (trama principal) e pequena (subtrama) se intercalam. Mantenha sempre duas ou mais linhas. *Gancho longo*: plante uma árvore (precisa de tempo); antes de cada meta pequena, mostre o que acontecerá depois, quem reagirá, que privilégio dará, e encaixe nova expectativa.
+
+### 21.6 Ritmo do capítulo de virada de mesa
+Recompensa = (caracterização + preparação) + choque entre personagens. **Pré-invencibilidade**: antes da cena, deixe prontos itens, pessoas e poder; senão o leitor teme pelo protagonista e lê a zombaria como tortura. **A preparação vale mais que o tapa**: o clímax pode ter mil palavras e a preparação dezenas de milhares. **Modelo** (ciclo de cinco): caracterização 1, preparação 2, tapa 1, arrumação 1; em publicação mais longa, preparação ainda maior. **Estatura**: um rico não se mostra a qualquer um; o nível de quem recebe o tapa define o nível da satisfação.
+
+### 21.7 Cinco modos de substituir a vantagem especial
+Lógica geral: incidente → desejo → objetivo → ação → obstáculo → superação → prêmio; a vantagem substitui um elo.
 
 | Modo | Elo substituído | Efeito |
 |------|------|------|
-| Sistema clássico | definição de objetivo | o sistema dá a missão e o prêmio |
-| Sistema disfarçado | superação | ajuda a resolver, com custo/limite |
-| Pular recursos | preparação | recursos prontos, vai direto ao obstáculo |
-| Futuro | incidente | viagem ao futuro dá motivo para mudar o presente |
-| Prêmio substituído | recompensa | ganha algo por atos de valor sem retorno mundano |
+| Sistema clássico | Definição de objetivo | O sistema dá a missão e o prêmio |
+| Sistema disfarçado | Superação | Ajuda a resolver, com custo/limite |
+| Pular recursos | Preparação | Recursos prontos, vai direto ao obstáculo |
+| Futuro | Incidente | Viagem ao futuro dá motivo para mudar o presente |
+| Prêmio substituído | Recompensa | Ganha algo por atos de valor sem retorno mundano |
 
-A vantagem como "sistema" cobre mais complexidade que o objeto simples; o essencial é o **desenho de limites**: com limite, há estrutura de história; sem limite, é narrativa plana. Um bom limite faz do obstáculo outra linha de história (investigar, romance).
+A vantagem como "sistema" cobre mais complexidade que o objeto simples; o essencial é o **desenho de limites**: com limite, há estrutura de história; sem limite, narrativa plana; um bom limite faz do obstáculo outra linha de história (investigar, romance).
 
-**Duelo de inteligência (cinco passos)**: 1) definir as regras (elas criam limite e pressão); 2) explorar as regras (revela o caráter dos colegas e a lucidez do protagonista); 3) separar linha interna e externa (primeiro as disputas entre jogadores, depois o enigma); 4) separar facções por escolha (quem se une, quem explora); 5) fechar decifrando (reunir a resposta, verificar, enfrentar o chefe). **Fórmula do enigma**: dar regras → explorar e obter informação e dúvidas → conversar e obter informação extra → deduzir uma verdade próxima → desfazer a dúvida e montar a resposta → verificar e lutar. **Mostrar a inteligência**: em reuniões, três opiniões decisivas, cada uma mostrando uma dimensão; o protagonista finge ser vítima para pescar, criando assimetria que o leitor percebe. **Cotidiano** = caracterização + cotidiano com propósito + informação; cada cena avança um objetivo (testar habilidades, plantar pistas, apresentar configuração).
+### 21.8 Duelo de inteligência: cinco passos
+1) definir as regras (criam limite e pressão); 2) explorar as regras (revela o caráter dos colegas e a lucidez do protagonista); 3) separar linha interna e externa (primeiro as disputas entre jogadores, depois o enigma); 4) separar facções por escolha (quem se une, quem explora); 5) fechar decifrando (reunir a resposta, verificar, enfrentar o chefe). **Fórmula do enigma**: regras → explorar e obter informação e dúvidas → conversar e obter informação extra → deduzir uma verdade próxima → desfazer a dúvida e montar a resposta → verificar e lutar. **Mostrar a inteligência**: em reuniões, três opiniões decisivas, cada uma mostrando uma dimensão; o protagonista finge ser vítima para pescar, criando assimetria que o leitor percebe. **Cotidiano** = caracterização + cotidiano com propósito + informação.

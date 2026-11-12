@@ -1,10 +1,10 @@
 # Arcabouços de gênero (romance longo e conto)
 
-> **Origem** (adaptação em português do material original, ~80 KB). Seções omitidas de propósito:
-> - "Pátio quadrado/ficção de época de bairro" (gênero de época e vizinhança chinesa), "novelas de plataforma de notícias/novas mídias" e "o vento de plataforma (Feilu), o fórum Hedgehog e mercado de reportagens": convenções e plataformas sem equivalente ocidental.
-> - "Sistema de nomes de subgêneros de poder" de cultivo (cultivador mortal, "mortal que sobe"), mantido apenas como "sobrevivente comum que ascende".
-> - **Limite honesto desta passagem**: dos 20 gêneros originais, as visões de **romance longo (8 nós) e de conto (três atos)** foram transpostas integralmente para os seis primeiros (romance de arrependimento, segunda chance com vingança, divórcio/traição, drama de costumes, fantasia de progressão e espírito observador) e, de forma resumida, para os demais; as seções finais de "complementos de gênero" do original (história, fantasia, urbano, entretenimento, romance masculino, heroína única, classificação de ideias, transição de trilha) foram condensadas em "Notas de gênero" e na seção de escolha de gênero.
-> - Exemplos tirados de obras chinesas foram trocados por modelos genéricos.
+> **Origem** (adaptação em português do material original, ~80 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - "Pátio quadrado/ficção de época de bairro" chinesa, "novelas de plataforma de notícias/novas mídias", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
+> - A convenção de "cultivador mortal" como gênero (mantida só como "sobrevivente comum que ascende").
+> - As visões **conto (três atos)** dos gêneros 5 a 8 foram escritas de forma compacta (as de 1 a 4 e 6 estão completas); as listas de títulos de plataformas e os exemplos de obras chinesas foram trocados por modelos genéricos.
+> - Todas as demais seções do original têm seção correspondente (mapeamento por título no relatório de correção), inclusive os complementos finais (seções 14 a 22 abaixo).
 
 ## Sumário
 
@@ -21,6 +21,15 @@
 11. Conceito central: definição, uso e exemplos
 12. Desenho das linhas profissional e romântica
 13. Lembretes gerais para analisar livros
+14. Eras da ficção: livre, de jogo e de vida cotidiana
+15. Fantasia: três núcleos e ciclo de vida do gênero
+16. Ficção urbana: quatro elementos da ambiguidade, vantagem e conquista
+17. Romance voltado a leitor masculino: barra de afinidade e assimetria
+18. Heroína única: duas linhas e família em quatro direções
+19. Classificação de ideias (remissão)
+20. Escolha de trilha e transição suave
+21. Diferenças entre públicos e comércio
+22. Imersão e "sensação de plástico"
 
 Convenção: cada gênero traz **visão de romance longo** (modelo de configuração, personagens, estrutura em 8 nós, dimensões de análise) e **visão de conto** (três atos comprimidos, técnicas, distribuição de palavras, pontos de análise).
 
@@ -258,3 +267,37 @@ A primeira frase já revela a morte (a maior bomba de informação). A alma vê 
 - Verifique se a maior recompensa está entre 70% e 85% do texto
 - Veja o que é gênero (convenção) e o que é voz do autor (diferenciação)
 - Ao copiar a estrutura, troque o material: extraia a ficha de linha e a ficha de história (ver `outline-arrangement.md`, seção 24)
+
+
+## 14. Eras da ficção: livre, de jogo e de vida cotidiana
+**Três eras**: *livre* (sem estilo fixo; inspiração de literatura tradicional e quadrinhos); *de jogo* (depois do modelo pago por capítulo: níveis + fases + chefes + instâncias + equipamento; a cobrança contínua exige guiar o consumo); *de vida cotidiana* (atual: mais história que subida de nível, com detalhes de vida, próxima da época, **anti-jogo**).
+**Obras de jogo** seguiram o processo de gamificação: níveis detalhados, instâncias completas, chefes em série. **Reformar para vida cotidiana**: faça o oposto do jogo, com os pés no chão e detalhes de vida; não é só "anticlichê": o anticlichê só troca o enredo de fórmula, e subir de nível e lutar continua na essência.
+*Exemplos de reforma por gênero*: **retorno da magia ao mundo atual**: sobretudo urbano, magia só um tempero; força não pode ser alta demais (a sociedade desmonta e a identificação cai); profissões de nicho (caçador de fantasmas, invocador com bichinhos, escritor/calígrafo) combinam mais; **segunda chance**: gente comum no dia a dia + ganhar pouco dinheiro para melhorar a vida + histórias típicas da época; chave: "ter lastro" para escrever os detalhes da vida.
+
+## 15. Fantasia: três núcleos e ciclo de vida do gênero
+**Três núcleos**: *imersão* (dinastias de fantasia têm cinco mil anos de preparação, mais imersivas que o ciberpunk; o corpo que vira santo, soco a soco, imersiona mais que duelos de magia); *expectativa* (se a expectativa de um livro não desaba e atravessa o texto, a perda de leitores é lenta; quando o protagonista chega a um nível-chave ele "entra no período de fita adesiva" e tudo o que sofreu antes é cobrado); *aprovação* (o leitor se coloca no protagonista e aprova seus atos: ama o protagonista = fã fiel difícil de perder; o protagonista costuma ser "pode falhar no pequeno, jamais no grande").
+**Pontos de progressão**: sem forte opressão emocional nem forte pressão de crise; o sistema de evolução bem desenhado e o topo com estatura (a estatura do imperador e do artefato pesa até 30% no desempenho: se você faz um nível ter estatura, cada passagem do protagonista por ele vira grande recompensa).
+**Ciclo de vida do gênero**: cada gênero novo cria um pico de leitura, mas um padrão escrito em um ou dois livros explode, atinge o pico e depois cai: leitores antigos cansam e os novos não bastam; superar o pico é muito difícil: exige transformar-se, e a transformação costuma falhar; **contramedida**: ache um ponto de entrada novo que chame a atenção: só o padrão já não basta.
+
+## 16. Ficção urbana: quatro elementos da ambiguidade, vantagem e conquista
+**Quatro elementos da ambiguidade** (a ficção urbana não vive sem ela; a ambiguidade lógica é o primeiro passo para prender): 1) **a mulher** (sem personagem feminina não há ficção urbana de público masculino); 2) **leveza** (o leitor busca prazer, sem drama pesado); 3) **interação** (entre personagens + o "segredo" entre leitor e protagonista: o leitor sabe, os outros do livro não); 4) **privacidade** (esconder a capacidade do protagonista, um segredinho só do leitor com ele).
+**Princípios da vantagem**: deve ter relação direta com a vida/profissão do protagonista, sem juntar coisas desconexas: médico + manual de medicina = razoável; médico + invisibilidade/parar o tempo = forçado; ligada à trama principal e evoluindo com o enredo; uma habilidade pode gerar efeitos diversos; não abra vantagens novas toda hora.
+**Desenho da conquista**: o mais fascinante não é cena erótica, é o conflito de histórias criado pela diferença de personalidades do casal; **conquista > fluidez natural**; mude sem parar o "iceberg" a conquistar, mas sem mudar de uma vez: quando está quase mudado, volte de modo dramático: é o que mais rende conversa.
+
+## 17. Romance voltado a leitor masculino: barra de afinidade e assimetria
+O mais atraente é o processo de ambiguidade e puxa-e-empurra, não o resultado. **Barra de afinidade**: desconhecido → pessoa boa → pessoa boa, íntegra e corajosa → bom amigo → gosta, mas não percebe; cada evento é uma evolução, por conflito, resolução, compreensão e ressonância, e a afinidade cresce aos poucos. **Assimetria dos ritmos** (técnica central): duas linhas: *social* (desconhecido → amigo → casal → noivo) e *emocional* (afinidade interior); elas não andam juntas: a assimetria é contradição. *Emocional à frente*: afinidade máxima, mas nenhum se declara: dúvida e conjectura = tensão; *social à frente*: casamento arranjado, mas a afinidade dela é zero: o vínculo externo faz o sentimento esquentar. **Assimetria de informação**: identidade dupla (virtual x real), sem que se conheçam, e o leitor espera a reação ao desmascarar.
+
+## 18. Heroína única: duas linhas e família em quatro direções
+**Separar as duas linhas**: afeto + carreira com o mesmo objetivo = ao atingir o objetivo a trama principal quebra e o livro vira "água". **Solução**: as linhas podem se entrelaçar, mas não se confundir, e os objetivos finais devem ser deslocados; o objetivo final da carreira deve ter forte relação com o protagonista e ser separado da conquista da heroína, e os nós intermediários podem impulsionar a conquista. **Família em quatro direções**: do lado dele/dela × ajuda/obstáculo = quatro combinações; *ajuda*: recursos e posição, atua antes do clímax e depois só vira cotidiano; *obstáculo*: meta a ser superada, serve antes e depois do nó e rende mais enredo. **Competidor = bagre**: pressiona o par e acelera, antes do clímax, na preparação; depois do clímax serve pouco.
+
+## 19. Classificação de ideias (remissão)
+Os quatro tipos de ideia (vantagem, enredo, configuração, personagem) e as cinco fases de criação estão em `micro-innovation.md`, na seção "Quatro tipos de ideia e como desenvolvê-las".
+
+## 20. Escolha de trilha e transição suave
+**Estratégia para iniciantes: nicho + diferenciação**: não vá direto às trilhas de massa (fantasia épica/romance clássico): a concorrência é cruel e o iniciante sem vantagem de estilo dificilmente aparece; escolha uma trilha que já traga tráfego próprio e tenha pouca concorrência, de modo que mesmo mal escrito atraia alguns leitores; dentro dela, diferencie: se todos escrevem o treinador, escreva o criador: mercado vazio e destaque imediato. **Estratégia avançada: ampliar a trilha com suavidade**: o nicho logo atinge teto e gargalo; é preciso ampliar; não salte do gênero A para o B no livro seguinte (espanta os leitores antigos); o essencial: o livro novo e o antigo devem ter elementos que se sobreponham, mantendo os leitores antigos e atraindo novos. *Caminho de exemplo*: uma série animada de criaturas → versão urbana (sai da animação e atrai passantes) → versão urbana original (livre da restrição de fanfic) → versão de fantasia de domadores → fantasia pura; cada passo tem elementos de sobreposição. **Princípio da estabilidade**: renda de escritor é instável (um livro de grande sucesso e o seguinte sem garantia); primeiro estabilidade financeira, depois o sonho literário; ampliar a trilha é uma melhora segura, não uma aposta.
+
+## 21. Diferenças entre públicos e comércio
+**Públicos de plataformas diferentes**: de leitura rápida: jovens, só querem prazer, sem miséria real; de leitura paciente: custo de filtro alto, leitores mais pacientes, aceitam ritmo lento; de leitores acima de 30: preferem histórias próximas do real, a vida que apanha é o normal. **Comércio = respeitar quem paga**: pode haver expressão pessoal, mas sem arrogância sobre o conjunto; comércio não é enojar o leitor de propósito, o que você publica deve ser algo que você mesmo leria. **Origem da emoção**: nasce da "injustiça" e do "por quê": tratamento desigual → o leitor naturalmente sente injustiça: é a raiz da emoção. *Exemplo urbano*: pequeno sucesso no trabalho → o pai quer abrir um negócio → a mãe quer comprar casa para o irmão → a sensação de injustiça nasce sozinha.
+
+## 22. Imersão e "sensação de plástico"
+**Imersão e prazer se sobrepõem muito**: com imersão baixa, nada que o protagonista faça dá prazer; quanto mais imersão, mais prazer, e quanto mais prazer, mais se quer ler. **Origem da sensação de plástico**: fantasia que não é fantástica, artes marciais sem marcial, estilo visual rachado (mundo de cultivo com pesquisa científica). **Tirar o plástico**: faça o mundo parecer existir de verdade, e não de papel machê. **Por que fanfic começa com leitura alta**: mundo sólido e imersão inicial alta; exceção: comédia/de piadas: o núcleo não é prazer, é diversão, pede ponto de vista de observador e não imersão forte. **Varredura eficaz**: olhe livros novos com bom desempenho (o termômetro recente); livros antigos servem pouco; **não imite aberturas de grandes nomes**: eles têm fãs e expectativa próprios e o leitor engole o início; quem não é grande nome precisa decidir na abertura, em dez mil palavras.
