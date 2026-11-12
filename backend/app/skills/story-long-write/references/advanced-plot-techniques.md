@@ -3,7 +3,7 @@
 > **Origem** (adaptação em português do material original, ~44 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
 > - O jogo de algoritmo e tráfego de plataformas chinesas na seção sobre chamarizes (a técnica de tipos de chamariz e extensibilidade está na seção 13) e o trecho de "varredura de rankings" da seção sobre análise de livros.
 > - Exemplos de livros e de músicas chinesas foram trocados por exemplos genéricos; os "sistemas" chineses de pontos (cultivo, "entrar na torre") foram adaptados a "vantagem especial".
-> - O "sistema detalhado de classificação de fichas de história" do original **foi relocado** para `outline-arrangement.md`, seção 24, onde estão os níveis de abstração e as fichas (herói que salva, virada de mesa, pequeno contra grande, pedra em ouro, olho clínico).
+> - O "sistema detalhado de classificação de fichas de história" do original **foi relocado integralmente** (menos exemplos específicos de plataforma) para `outline-arrangement.md`, seção 24: níveis de abstração e cinco fórmulas (24), arquitetura (24.1), fichas pequenas (24.2: cena de rivais, contagem regressiva, mágoa e dívida, dupla identidade, tratamento especial, mudança de afeto, mal-entendido, aprofundamentos de pose e pequeno contra grande), doze fichas de elemento (24.3), fichas de técnica (24.4), dicas de enigma (24.5), combinação e refinamento (24.6) e fichas de expectativa concretas (24.7).
 
 ## Sumário
 

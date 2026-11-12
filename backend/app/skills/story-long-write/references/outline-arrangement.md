@@ -31,7 +31,7 @@
 21. Vantagem especial: modelo condição-retorno; da ideia ao livro; esboço por propósito
 22. Como analisar livros e acumular material
 23. Ordem da transmissão de informação; mudança de valor; eventos como motor
-24. Sistema de fichas de história e fórmulas (herói que salva, virada de mesa, pequeno contra grande, pedra em ouro, olho clínico)
+24. Sistema de fichas de história e fórmulas (níveis de abstração, cinco fórmulas, fichas pequenas, doze fichas de elemento, fichas de técnica, enigmas, combinação, expectativa concreta)
 25. Abertura dos cinco primeiros capítulos; enxugar a abertura; piso de ritmo
 26. Diagnóstico e reparo da quebra de expectativa
 27. Conceito central em três tipos; quatro fases do romance; método das três etapas e duas linhas (duelo de inteligência)
@@ -270,6 +270,97 @@ O objetivo da análise é estudar o "raciocínio" ou os pontos fortes; não impo
 **Pedra em ouro** — `algo/alguém subestimado + transformação do protagonista (ativa ou inconsciente) + gera valor`. Diferença de **olho clínico**: a pedra em ouro não exige que o protagonista soubesse o valor, ele cria valor por mudança ativa; o olho clínico exige assimetria (ele já sabe que é tesouro) e a usa para revelar o valor.
 
 **Olho clínico** — `o protagonista sabe do valor (cognição elevada) + os outros desconfiam (cognição baixa) + informação que só ele tem + verdade revelada + choque/arrependimento`.
+
+### 24.1 Arquitetura do sistema de fichas
+- **Fichas grandes/médias** = fichas de linha de história (abstração dramática); dão o tom de um livro inteiro ou de um grande bloco de trama.
+- **Fichas pequenas** = abstração do núcleo emocional; correspondem a pontos concretos de prazer/emoção.
+- **Fichas de elemento e de técnica** (juntas, "fichas-ferramenta"): não formam uma história completa sozinhas, só funcionam dentro de um arcabouço. Elemento = ingrediente especial dentro da história; técnica = ajuste ao arcabouço.
+- **Drama desgasta, emoção não.** O leitor não se cansa do arquétipo, e sim da *repetição idêntica* dele. Para evitar a mesmice: ajuste o arcabouço com fichas de técnica e acrescente variação com fichas de elemento; ao variar a estrutura nas partes seguintes, mesmo o arquétipo com o mesmo nome vira outra história.
+- **Modelo de uso**: `ficha grande (tom) + ficha pequena (emoção) + ficha de elemento (tempero) + ficha de técnica (ajuste)`. Exemplo: tom de "dívida e culpa" (grande) + "herói que salva" (pequena) + "segredo" (elemento) + "triângulo dramático" (técnica).
+
+### 24.2 Fichas pequenas (complementos)
+
+**Cena de rivais (disputa pelo mesmo alvo afetivo)** — vários querem a mesma pessoa e, diante dela, se exibem, sabotam e competem.
+- *Como*: escolha o tom (leve: ciúme discreto e "chá" de personagem; intenso: tensão emocional forte) e o formato (1 contra vários, 4-6 pretendentes com papéis distintos; ou 1 contra 2, focado na rivalidade de duas pessoas). Planeje escalada em três degraus.
+- *Modelo*: `degrau 1 (flagra leve) -> degrau 2 (flagra comprometedor) -> degrau 3 (confronto aberto)`.
+- *Exemplo*: Marina sai para passear com Caio e é vista por Rafael (1); semanas depois ela beija Rafael e Caio presencia (2); no fim, os dois brigam fisicamente no estacionamento enquanto ela tenta separá-los (3).
+
+**Contagem regressiva** — precisa haver um relógio e algo tem de acontecer quando ele zera.
+- *Como*: marque o relógio com números (hora, recurso restante) ou com urgência dos eventos; reforce "algo que não pode acontecer está prestes a acontecer". Combina bem com luta de forças desiguais: "não dá para vencer, mas é preciso lutar, ou o inaceitável acontece".
+- *Modelo*: `evento inevitável + prazo visível + obstáculo + custo se zerar`.
+- *Exemplo*: a represa cede em 40 minutos; a engenheira tem de reiniciar a comporta manual enquanto o chefe tenta impedi-la; cada capítulo mostra o relógio descendo.
+
+**Mágoa e dívida (ficha grande/média: "rancor e laço")** — por um evento ou configuração, um lado carrega sobre o outro um peso emocional ou moral.
+- *Como*: o foco não é o *processo* de gerar a mágoa, mas as ações e sentimentos *depois* dela. Como ficha grande, é um tom, uma "névoa" sobre o livro todo, não um fato que se narra de modo linear como as fichas pequenas.
+- *Modelo*: `evento-origem (breve) + relação carregada de dívida/culpa + ações que a expressam em cada cena`.
+- *Exemplo*: o irmão que assumiu a culpa de um acidente; cada encontro dos dois é filtrado por gratidão, ressentimento e silêncio.
+
+**Dupla identidade** — o instante em que duas identidades se encontram causa surpresa e revela complexidade e motivação.
+- *Como*: três peças: construção cotidiana da identidade A + informação oculta (pistas) + o impacto da revelação da identidade B.
+- *Modelo*: `A rotineira + pistas plantadas + revelação de B no pior/melhor momento`.
+- *Exemplo*: o entregador simpático que todos tratam com condescendência é, na reunião do conselho, o investidor que decide o destino da empresa.
+
+**Tratamento especial** — a ficha que "salva" o personagem do OOC: justifica um desvio de comportamento por uma razão específica.
+- *Como*: dê ao personagem um motivo concreto para tratar o protagonista de modo diferente do habitual.
+- *Modelo*: `persona habitual + razão especial + comportamento fora do padrão apenas com ele/ela`.
+- *Exemplo*: a chefe gélida que nunca perdoa atrasos tolera os de Tomás porque ele a ajudou a sair do pior dia da carreira; todos estranham, e o leitor entende.
+
+**Mudança de afeto** — o núcleo é mostrar a mudança *qualitativa* na cadeia emocional (afinidade sobe), seja em carreira ou romance. "Herói que salva" é só um veículo: o que importa é a relação mudar, não *como* se salva.
+- *Modelo*: `relação inicial + evento de contato + percepção nova do outro + relação alterada`.
+- *Exemplo (ajuste)*: básico: ele salva a moça e ela passa a gostar dele. Ajustado: ela já estava armando uma emboscada para colher provas contra os valentões; ele estraga o plano; ela se irrita e parte para cima; ele derrota todos sem esforço; ela fica chocada, atraída e dividida. **Evitar repetição**: se todo volume tem um resgate, o resgate não pode ser só "salvar a moça": a complexidade e o ganho sobem a cada volume, a emoção em espiral ascendente.
+
+**Mal-entendido** — série de equívocos com regras de solução.
+- *Como (passos)*: definir o mal-entendido central e sua causa; derivar naturalmente os pequenos; definir condições e modo de desfazer; dar ao protagonista uma razão para precisar desfazê-lo; desenhar obstáculos.
+- *Regra*: mal-entendido que prejudica a linha de carreira/romance **deve** ser resolvido; o inócuo ou benéfico pode ficar. Variante divertida: "brigar com o ar" (o protagonista age contra um adversário que não existe).
+- *Exemplo*: ela acha que o novo sócio a denunciou; na verdade ele a protegia. Cada tentativa de explicação é interrompida por uma nova pista falsa, até o dia em que os dois ficam presos no elevador.
+
+**Aprofundamentos de fichas já vistas**
+- *Pose de "foda" (virada de mesa)*: o centro é o **contraste** entre ser e não ser extraordinário; a reviravolta é só uma ferramenta. Dá para contrastar com "quanto da força usei" (depois do golpe, dizer que usou 20%; fazer algo perigoso de olhos vendados). Preparação: emoção reprimida por zombarias; o protagonista que se faz de bobo e depois surpreende. Fusões: "queda de expectativa" (mais itens de comparação) e "agitar o jogo" (o ato do protagonista significa coisas diferentes para cada personagem).
+- *Pequeno contra grande*: a razão custo/ganho tem de ser enorme (pagar 50 com 1% de chance de ganhar 10.000 > pagar 50 com 20% de ganhar 5.000). Custo = o que o protagonista paga + o que sofre se falhar. O processo precisa de aleatoriedade e iniciativa (o leitor não deve ter certeza de 100% de sucesso). Pode falhar, desde que o vazio emocional seja compensado por acaso feliz, benfeitor ou boa ação recompensada.
+
+### 24.3 Doze fichas de elemento
+Cada ficha traz: *como usar* + *modelo* + *exemplo*.
+
+1. **Peão (personagem-ferramenta)** — personagem que cumpre uma necessidade narrativa numa cena. Funções: *ambientar* (mostrar dificuldade, perigo, desprezo pelo protagonista); *empurrar* (atender a uma necessidade do protagonista ou do vilão); *dar informação* (explicar evento, mundo, facções, personagens). Modelo: `função + aparição curta + saída`. Exemplo: o porteiro que, ao barrar o protagonista, mostra o prestígio do prédio e deixa escapar o nome do dono.
+2. **Garota misteriosa (pista em cena irreal)** — pista ou sugestão decisiva que surge em sonho, lembrança ou alucinação; pode ser um telescópio especial. Não a ponha na abertura: o começo pede concisão e continuidade, e cena irreal quebra isso. Uso clássico: no clímax o protagonista desmaia, em sonho uma figura misteriosa lhe entrega um objeto simbólico, ele acorda com força nova e salvá-la vira a trama seguinte.
+3. **Incapacitação (ficha de restrição)** — o personagem não controla o próprio corpo/objeto de modo consciente. Causas: patológica (loucura), farmacológica (embriaguez, veneno), efeito ou custo de habilidade/objeto. Tipos: perda permanente; perda temporária com recuperação sob condição; ativação sob condição. Não desafie o limite estético da maioria dos leitores e respeite o tom da obra; é possível ligar a incapacitação à persona como defeito. Exemplo: a espadachim que perde a mão da espada quando sente medo real.
+4. **Relação** — configuração específica entre dois personagens (mestre-aprendiz, rivais, amor secreto, inimigos jurados); define o padrão básico de interação. Modelo: `tipo de relação + assimetria + o que cada um quer do outro`. Exemplo: mentora e aprendiz que competem pela mesma vaga.
+5. **Segredo** — três usos: o personagem *guarda* um segredo; *busca* o segredo de outro; *descobre sem querer* o segredo alheio (bom motivo: entrar num lugar onde não deveria estar). Exemplo: ela entra no arquivo para devolver uma chave e encontra o dossiê do pai.
+6. **Briga** — desenho: opinião divergente sobre o mesmo assunto; mal-entendido; um magoa o outro, de propósito ou não. Manifestação: discussão, confronto, desfazer a equipe (temporário ou não). Reconciliação: arrependimento, mediador, negociação, crise que só os dois juntos resolvem, fim da causa. Resultado: a relação muda (aproxima ou afasta) e há crescimento pessoal. Exemplo: dois sócios brigam por um contrato, se separam e só voltam quando o cliente ameaça processar ambos.
+7. **Ligação entre dois mundos** — dois mundos muito diferentes se conectam em três formas: travessia (de um mundo ao outro, a mais comum), contato (dois mundos relacionados), fusão. Exemplo: um armário em Lisboa abre para um mercado de outro reino.
+8. **Perseguição** — três níveis: perseguição aberta e intensa; rastreamento (com investigação); seguimento (discreto). Exemplo: a repórter segue o carro à distância e anota cada parada.
+9. **Ação encoberta** — o personagem age às escondidas (quanto maior o ganho em caso de sucesso, ou o dano em caso de falha, maior a expectativa); investiga a ação encoberta de outros; ou outros agem contra ele sem que saiba (a assimetria de informação gera tensão). Exemplo: o contador copia as planilhas à noite, sem saber que a câmera do corredor foi religada.
+10. **Espiar o futuro** — vias: profecia, memória de vidas passadas, mensagens de sistema. Reações: evitar um futuro; buscar um futuro; deixar acontecer; agir com a informação; trocar a informação por vantagem. "Voltar ao passado/mudar o passado" é variante. Exemplo: ela vê a própria demissão em sonho e usa o aviso para negociar uma saída vantajosa antes.
+11. **Tabu** — tipos: tabus de um indivíduo, de um grupo, de um objeto, de um lugar, de uma atividade. É preciso mostrar ou sugerir a consequência de violá-lo. Modos de violação: voluntária, por necessidade; involuntária; quase certa e evitada com esforço. Exemplo: no vilarejo é proibido cantar após o pôr do sol; a forasteira canta sem saber.
+12. **Novo ambiente (interpretar/disfarçar/testar)** — um dos lados, ou ao menos o protagonista, desconhece o outro; vai testando, coletando informação. Usos: infiltração, sequestro, acolhida por mestre, amnésia, transmigração. Itens a confirmar: origem do outro, personalidade e gostos, habilidades, fraquezas. Exemplo: o agente disfarçado de novo funcionário testa cada colega para descobrir quem é o informante.
+
+### 24.4 Fichas de técnica
+- **Avaliação diferencial** — duas aplicações: *pressionar* (rebaixar) e *virar* (reverter); "pelas mãos de outro" é uma variante. Modelo: `avaliação X dada por A + avaliação Y dada por B + fato que decide`. Exemplo: o professor chama o aluno de medíocre, a banca o chama de promessa; o desempenho final dá razão à banca.
+- **Triângulo dramático** — perseguidor, vítima e salvador se alternam conforme situação e tempo. Modelo: `papéis iniciais -> evento -> inversão de papéis`. Exemplo: a mãe que "salvava" a filha da dívida vira perseguidora ao esconder o dinheiro; a filha se torna a salvadora quando a descobre e paga a conta.
+- **Agitar o jogo** — o ato do protagonista tem significado e efeitos diferentes para cada personagem; eleva expectativa e prazer. Exemplo: uma única fala do herói tranquiliza a equipe, assusta o rival e dá ao chefe o motivo que ele buscava.
+
+### 24.5 Dicas de desenho de enigma
+Método de lógica proposicional para esconder a solução:
+1. Fixe duas proposições verdadeiras, P1 e P2.
+2. Com um grupo de premissas, derive P3.
+3. Negando uma premissa do grupo, derive P4.
+4. Combinando várias, derive P5.
+5. **Esconda P3** e mostre só P1, P2, P4 e P5: o leitor se engana naturalmente.
+6. Use a conclusão como premissa de novos raciocínios; com uma trama paralela, esconda totalmente a linha principal.
+- *Exemplo*: P1 "a porta estava trancada por dentro", P2 "o morto tinha a chave no bolso"; P3 (escondida) "existe uma segunda chave"; P4 "se a segunda chave existe, o zelador mentiu"; mostra-se só o fato de o zelador ter mentido, e o leitor conclui culpa direta.
+
+### 24.6 Combinação e refinamento de fichas
+- **Refinamento de 1º nível**: extrair de obras bem-sucedidas o padrão narrativo básico (arcabouço mais geral). **De 2º nível**: acrescentar ao arcabouço elementos de um gênero específico; fica mais fácil escrever direto.
+- **Regras de combinação**: fichas de tipos diferentes se empilham; `ficha de conceito central + ficha de relação + ficha de restrição = uma unidade de trama completa`; a técnica serve à expressão, então misture várias se a cena ficar melhor; descarte a que não serve, nunca use técnica por usar.
+- **Reconstruir x ajustar**: *reconstruir* mantém o nome do material e troca o rumo (trocar "beldade conquistada + herói que salva" por "caminho de vingança"); *ajustar* mantém o rumo e acrescenta novas fichas no 3º nível de refinamento.
+- **Empilhamento de estruturas**: estrutura grande contém pequenas; fichas pequenas formam A+B+C; **espiral ascendente**: cada reaparição do mesmo padrão sobe em complexidade e ganho; emoção pequena se libera rápido, a grande pede preparação e explosão.
+- **Relação com o conceito central**: são conceitos semelhantes ou idênticos; cada ficha é uma estrutura abstrata com cadeia emocional; uma ficha grande pode servir direto de conceito central; extrair conceito central ao desmontar livros e fazer fichas são exercícios que se treinam juntos.
+
+### 24.7 Fichas de expectativa em forma concreta
+- Faça cartões físicos (ou cartões em planilha) para ajudar a escrita.
+- Modelo de cartão: `ponto de expectativa | modo de preparação | modo de colheita`.
+- Durante a escrita, deixe os cartões relevantes à vista para não esquecer nada.
+- *Exemplo*: cartão "revelação do disfarce" — expectativa: o público sabe que o entregador é o investidor; preparação: três cenas em que o tratam com desprezo; colheita: reunião do conselho no capítulo 30.
 
 ## 25. Abertura: cinco capítulos, enxugar, piso de ritmo
 

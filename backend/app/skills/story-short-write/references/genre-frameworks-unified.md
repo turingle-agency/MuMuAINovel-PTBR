@@ -1,8 +1,8 @@
 # Arcabouços de gênero (romance longo e conto)
 
 > **Origem** (adaptação em português do material original, ~80 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês, sem equivalente de mercado ocidental:
-> - "Ficção de vizinhança de época (siheyuan)", "novelas de plataformas de notícias/novas mídias", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
-> - "Cultivador mortal" como gênero (mantido como "sobrevivente comum que ascende", seção 9.3), "transmissão ao vivo de autores" e as listas de títulos de plataformas.
+> - "Ficção de vizinhança de época (siheyuan)", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
+> - "Transmissão ao vivo de autores" e as listas de títulos de plataformas.
 > - Os nomes de IPs chinesas dos subtipos de fanfic foram trocados por equivalentes ocidentais.
 > - Todos os demais gêneros e blocos finais têm seção própria (seções 1 a 22) com estrutura, pontos e exemplo; o mapeamento por título está no relatório de correção.
 
@@ -16,7 +16,7 @@
 6. Espírito observador (narrador pós-morte)
 7. Fantasia urbana de poder
 8. Romance de milionário e romance doce
-9. Demais gêneros (fanfic, alto conceito, sobrevivente comum, histórico, entretenimento, horror de regras, saga longeva, fantasia medieval, comédia)
+9. Demais gêneros (fanfic, alto conceito, sobrevivente comum, histórico, entretenimento, horror de regras, saga longeva, fantasia medieval, comédia, ficção curta de alto impacto emocional)
 10. Princípios gerais de escolha de gênero
 11. Conceito central: definição, uso, ciclo e análise
 12. Desenho das linhas profissional e romântica
@@ -362,8 +362,15 @@ Forças de resistência:
 **Histórico em profundidade**: três núcleos: assimetria do conhecimento (o protagonista sabe o que vem), textura (detalhes de preço, comida, vocabulário) e risco de ser descoberto (o protagonista é "anacrônico"); para conto, concentre num evento histórico único.
 **Entretenimento em profundidade**: o centro é a cena de exibição em camadas (juiz, público, rival, crítico); alterne cenas de bastidor (relações) e de palco (exibição); o antagonista é um rival com carreira própria, não um vilão de papel; use "comparação" (o protagonista se compara a uma estrela e a supera por um traço específico).
 
-### 9.11 Gêneros sem mercado ocidental (omitidos)
-A ficção de "vizinhança de época" (siheyuan) e a ficção de plataformas de notícias/novas mídias chinesas não têm equivalente de mercado ocidental e não foram transpostas.
+### 9.11 Ficção curta de alto impacto emocional (histórias virais)
+**Núcleo**: tudo serve à emoção; o enredo é secundário e a execução vem primeiro. **Par emocional primário**: impotência/injustiça -> catarse (pose de poder ou raiva -> ajuste de contas); quanto mais forte a pressão, mais intenso o alívio, mas dosado.
+**Estrutura bilateral "forte + atormentado"**: um arcabouço completo = um lado de força + um lado de dor/contraste; olhar só a dor é impreciso. Modelo: `força oculta/prestigiosa + sofrimento de quem ama -> assimetria de informação máxima -> revelação`. Quanto mais o antagonista ignora o perigo e castiga, maior a assimetria e a emoção.
+**Conflito com lógica realista**: o conflito deve nascer de uma lógica plausível, para o leitor se identificar. *Mau*: o chefe diz do nada "não vou com a sua cara, vou te bater" (conflito solto, pressão por pressão). *Bom*: o chefe acusa o funcionário de entregar dinheiro falso (que ele próprio trocou), pois lucra com o golpe; o conflito nasce sozinho.
+**Três focos**: *uso de clichês* (iniciante segue o padrão dos antecessores, sem inventar); *ritmo* (corte diálogos e descrições inúteis, conte a história de modo simples e claro; ritmo rápido não é trama rápida, é continuidade, onda de prazer atrás de onda); *emoção* (decide se viraliza: comece reprimindo a emoção, quanto pior a situação do protagonista, maior a oscilação).
+**Assimetria de informação e expectativa**: assimetria máxima = expectativa máxima; a pressão serve à expectativa e é o que torna a revelação de identidade deliciosa. **Mini-exemplo**: uma general aposentada trabalha como faxineira de hospital; a filha é humilhada pela diretora, que ignora quem a faxineira é; o leitor sabe e espera pelo momento em que a diretora descobre.
+
+### 9.12 Gêneros sem mercado ocidental (omitidos)
+A ficção de "vizinhança de época" (siheyuan) não tem equivalente de mercado ocidental e não foi transposta.
 
 ## 10. Princípios gerais de escolha de gênero
 
