@@ -551,10 +551,10 @@ async def career_system_generator(
                     logger.error(f"❌ 职业体系保存失败（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）: {e}")
                     career_retry_count += 1
                     if career_retry_count < MAX_CAREER_RETRIES:
-                    yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "Falha ao salvar")
+                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "Falha ao salvar")
                         continue
                     else:
-                    yield await tracker.error("Falha ao salvar o sistema de carreiras (limite de tentativas atingido)")
+                        yield await tracker.error("Falha ao salvar o sistema de carreiras (limite de tentativas atingido)")
                         return
             
             except Exception as e:
