@@ -1972,7 +1972,7 @@ class BookImportService:
 
         rel_type_result = await db.execute(select(RelationshipType))
         relationship_type_map: dict[str, int] = {
-            rel_type.name: rel_type.id
+            rel_type.name.strip().lower(): rel_type.id
             for rel_type in rel_type_result.scalars().all()
             if rel_type.name
         }
@@ -2142,7 +2142,7 @@ class BookImportService:
                 if pair in relationship_pairs:
                     continue
 
-                relationship_name = (rel.get("relationship_type") or "未知关系").strip()[:100]
+                relationship_name = (rel.get("relationship_type") or "relação desconhecida").strip()[:100]
                 intimacy_level = max(-100, min(_to_int(rel.get("intimacy_level", 50), 50), 100))
                 status = (rel.get("status") or "active")[:20]
                 description = rel.get("description")
@@ -2154,7 +2154,7 @@ class BookImportService:
                         project_id=project.id,
                         character_from_id=character.id,
                         character_to_id=target_char.id,
-                        relationship_type_id=relationship_type_map.get(relationship_name),
+                        relationship_type_id=relationship_type_map.get(relationship_name.lower()),
                         relationship_name=relationship_name,
                         intimacy_level=intimacy_level,
                         status=status,

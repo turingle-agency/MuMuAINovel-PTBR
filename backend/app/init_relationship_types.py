@@ -2,48 +2,55 @@
 import asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
-from app.database import AsyncSessionLocal
 from app.models.relationship import RelationshipType
 from app.logger import get_logger
 
 logger = get_logger(__name__)
 
 
+# Tipos de relação semeados (PT-BR). Estes nomes são o vocabulário que os prompts
+# pedem à IA em `relationship_type`; os parsers casam por nome exato
+# (sem diferenciar maiúsculas/minúsculas), então mantenha prompts e lista em sincronia.
+RELATIONSHIP_TYPES = [
+    # Família
+    {"name": "pai", "category": "family", "reverse_name": "filho(a)", "intimacy_range": "high", "icon": "👨", "description": "Relação de pai com filho ou filha"},
+    {"name": "mãe", "category": "family", "reverse_name": "filho(a)", "intimacy_range": "high", "icon": "👩", "description": "Relação de mãe com filho ou filha"},
+    {"name": "irmão", "category": "family", "reverse_name": "irmão", "intimacy_range": "high", "icon": "👬", "description": "Relação entre irmãos"},
+    {"name": "irmã", "category": "family", "reverse_name": "irmã", "intimacy_range": "high", "icon": "👭", "description": "Relação entre irmãs"},
+    {"name": "filho(a)", "category": "family", "reverse_name": "pai/mãe", "intimacy_range": "high", "icon": "👶", "description": "Relação de filho ou filha com os pais"},
+    {"name": "cônjuge", "category": "family", "reverse_name": "cônjuge", "intimacy_range": "high", "icon": "💑", "description": "Relação de casamento"},
+    {"name": "par romântico", "category": "family", "reverse_name": "par romântico", "intimacy_range": "high", "icon": "💕", "description": "Relação amorosa"},
+
+    # Social
+    {"name": "mestre", "category": "social", "reverse_name": "discípulo", "intimacy_range": "high", "icon": "🎓", "description": "Relação de mestre e discípulo (ponto de vista do mestre)"},
+    {"name": "discípulo", "category": "social", "reverse_name": "mestre", "intimacy_range": "high", "icon": "📚", "description": "Relação de mestre e discípulo (ponto de vista do discípulo)"},
+    {"name": "amigo", "category": "social", "reverse_name": "amigo", "intimacy_range": "medium", "icon": "🤝", "description": "Relação de amizade"},
+    {"name": "colega de classe", "category": "social", "reverse_name": "colega de classe", "intimacy_range": "medium", "icon": "🎒", "description": "Relação entre colegas de escola ou turma"},
+    {"name": "vizinho", "category": "social", "reverse_name": "vizinho", "intimacy_range": "low", "icon": "🏘️", "description": "Relação entre vizinhos"},
+    {"name": "confidente", "category": "social", "reverse_name": "confidente", "intimacy_range": "high", "icon": "💙", "description": "Amigo próximo, de total confiança"},
+
+    # Profissional
+    {"name": "chefe", "category": "professional", "reverse_name": "subordinado", "intimacy_range": "low", "icon": "👔", "description": "Relação hierárquica (ponto de vista do chefe)"},
+    {"name": "subordinado", "category": "professional", "reverse_name": "chefe", "intimacy_range": "low", "icon": "💼", "description": "Relação hierárquica (ponto de vista do subordinado)"},
+    {"name": "colega de trabalho", "category": "professional", "reverse_name": "colega de trabalho", "intimacy_range": "medium", "icon": "🤵", "description": "Relação entre colegas de trabalho"},
+    {"name": "parceiro de negócios", "category": "professional", "reverse_name": "parceiro de negócios", "intimacy_range": "medium", "icon": "🤜🤛", "description": "Relação de cooperação"},
+
+    # Hostil
+    {"name": "inimigo", "category": "hostile", "reverse_name": "inimigo", "intimacy_range": "low", "icon": "⚔️", "description": "Relação de inimizade"},
+    {"name": "inimigo mortal", "category": "hostile", "reverse_name": "inimigo mortal", "intimacy_range": "low", "icon": "💢", "description": "Relação de ódio profundo"},
+    {"name": "rival", "category": "hostile", "reverse_name": "rival", "intimacy_range": "low", "icon": "🎯", "description": "Relação de competição"},
+    {"name": "nêmesis", "category": "hostile", "reverse_name": "nêmesis", "intimacy_range": "low", "icon": "⚡", "description": "Inimigo predestinado"},
+]
+
+
 async def init_relationship_types():
     """初始化预置的关系类型数据"""
     
-    # 预置关系类型数据
-    relationship_types = [
-        # 家族关系
-        {"name": "父亲", "category": "family", "reverse_name": "子女", "intimacy_range": "high", "icon": "👨"},
-        {"name": "母亲", "category": "family", "reverse_name": "子女", "intimacy_range": "high", "icon": "👩"},
-        {"name": "兄弟", "category": "family", "reverse_name": "兄弟", "intimacy_range": "high", "icon": "👬"},
-        {"name": "姐妹", "category": "family", "reverse_name": "姐妹", "intimacy_range": "high", "icon": "👭"},
-        {"name": "子女", "category": "family", "reverse_name": "父母", "intimacy_range": "high", "icon": "👶"},
-        {"name": "配偶", "category": "family", "reverse_name": "配偶", "intimacy_range": "high", "icon": "💑"},
-        {"name": "恋人", "category": "family", "reverse_name": "恋人", "intimacy_range": "high", "icon": "💕"},
-        
-        # 社交关系
-        {"name": "师父", "category": "social", "reverse_name": "徒弟", "intimacy_range": "high", "icon": "🎓"},
-        {"name": "徒弟", "category": "social", "reverse_name": "师父", "intimacy_range": "high", "icon": "📚"},
-        {"name": "朋友", "category": "social", "reverse_name": "朋友", "intimacy_range": "medium", "icon": "🤝"},
-        {"name": "同学", "category": "social", "reverse_name": "同学", "intimacy_range": "medium", "icon": "🎒"},
-        {"name": "邻居", "category": "social", "reverse_name": "邻居", "intimacy_range": "low", "icon": "🏘️"},
-        {"name": "知己", "category": "social", "reverse_name": "知己", "intimacy_range": "high", "icon": "💙"},
-        
-        # 职业关系
-        {"name": "上司", "category": "professional", "reverse_name": "下属", "intimacy_range": "low", "icon": "👔"},
-        {"name": "下属", "category": "professional", "reverse_name": "上司", "intimacy_range": "low", "icon": "💼"},
-        {"name": "同事", "category": "professional", "reverse_name": "同事", "intimacy_range": "medium", "icon": "🤵"},
-        {"name": "合作伙伴", "category": "professional", "reverse_name": "合作伙伴", "intimacy_range": "medium", "icon": "🤜🤛"},
-        
-        # 敌对关系
-        {"name": "敌人", "category": "hostile", "reverse_name": "敌人", "intimacy_range": "low", "icon": "⚔️"},
-        {"name": "仇人", "category": "hostile", "reverse_name": "仇人", "intimacy_range": "low", "icon": "💢"},
-        {"name": "竞争对手", "category": "hostile", "reverse_name": "竞争对手", "intimacy_range": "low", "icon": "🎯"},
-        {"name": "宿敌", "category": "hostile", "reverse_name": "宿敌", "intimacy_range": "low", "icon": "⚡"},
-    ]
-    
+    # Import tardio: app.database carrega todos os modelos e não é necessário para ler RELATIONSHIP_TYPES.
+    from app.database import AsyncSessionLocal
+
+    relationship_types = RELATIONSHIP_TYPES
+
     async with AsyncSessionLocal() as session:
         try:
             # 检查是否已经有数据

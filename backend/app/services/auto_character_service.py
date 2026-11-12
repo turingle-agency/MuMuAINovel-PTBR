@@ -1,7 +1,7 @@
 """自动角色服务 - 大纲生成后校验并自动补全缺失角色"""
 from typing import List, Dict, Any, Optional, Callable, Awaitable
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 import json
 
 from app.models.character import Character
@@ -326,7 +326,7 @@ class AutoCharacterService:
                     project_id=project_id,
                     character_from_id=new_character.id,
                     character_to_id=target_char.id,
-                    relationship_name=rel_spec.get("relationship_type", "未知关系"),
+                    relationship_name=rel_spec.get("relationship_type", "relação desconhecida"),
                     intimacy_level=rel_spec.get("intimacy_level", 50),
                     description=rel_spec.get("description", ""),
                     status=rel_spec.get("status", "active"),
@@ -338,10 +338,10 @@ class AutoCharacterService:
                 if rel_type_name:
                     rel_type_result = await db.execute(
                         select(RelationshipType).where(
-                            RelationshipType.name == rel_type_name
+                            func.lower(RelationshipType.name) == str(rel_type_name).strip().lower()
                         )
                     )
-                    rel_type = rel_type_result.scalar_one_or_none()
+                    rel_type = rel_type_result.scalars().first()
                     if rel_type:
                         relationship.relationship_type_id = rel_type.id
                 

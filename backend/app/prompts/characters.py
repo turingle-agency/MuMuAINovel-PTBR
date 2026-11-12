@@ -55,7 +55,7 @@ Retorne um array JSON puro, em que cada objeto contém:
   "relationships_array": [
     {{
       "target_character_name": "Nome de um personagem já gerado",
-      "relationship_type": "Tipo de relação",
+      "relationship_type": "Um dos tipos permitidos (copie o nome exato): pai, mãe, irmão, irmã, filho(a), cônjuge, par romântico, mestre, discípulo, amigo, colega de classe, vizinho, confidente, chefe, subordinado, colega de trabalho, parceiro de negócios, inimigo, inimigo mortal, rival, nêmesis",
       "intimacy_level": 75,
       "description": "Descrição da relação"
     }}
@@ -163,7 +163,7 @@ Gere um objeto JSON com a ficha completa do personagem:
   "relationships": [
     {{
       "target_character_name": "Nome de um personagem existente",
-      "relationship_type": "Tipo de relação",
+      "relationship_type": "Um dos tipos permitidos (copie o nome exato): pai, mãe, irmão, irmã, filho(a), cônjuge, par romântico, mestre, discípulo, amigo, colega de classe, vizinho, confidente, chefe, subordinado, colega de trabalho, parceiro de negócios, inimigo, inimigo mortal, rival, nêmesis",
       "intimacy_level": 75,
       "description": "Descrição detalhada da relação",
       "started_at": "Momento da história em que a relação começou (opcional)"
@@ -419,7 +419,7 @@ Retorne um objeto JSON puro (um dos dois casos):
       "relationship_suggestions": [
         {{
           "target_character": "Nome de um personagem existente",
-          "relationship_type": "Tipo de relação sugerido",
+          "relationship_type": "Um dos tipos permitidos (copie o nome exato): pai, mãe, irmão, irmã, filho(a), cônjuge, par romântico, mestre, discípulo, amigo, colega de classe, vizinho, confidente, chefe, subordinado, colega de trabalho, parceiro de negócios, inimigo, inimigo mortal, rival, nêmesis",
           "reason": "Por que estabelecer essa relação"
         }}
       ]
@@ -535,7 +535,7 @@ Retorne um objeto JSON puro:
   "relationships": [
     {{
       "target_character_name": "Nome de um personagem existente",
-      "relationship_type": "Tipo de relação",
+      "relationship_type": "Um dos tipos permitidos (copie o nome exato): pai, mãe, irmão, irmã, filho(a), cônjuge, par romântico, mestre, discípulo, amigo, colega de classe, vizinho, confidente, chefe, subordinado, colega de trabalho, parceiro de negócios, inimigo, inimigo mortal, rival, nêmesis",
       "intimacy_level": 75,
       "description": "Descrição específica da relação",
       "status": "active"

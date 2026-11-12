@@ -1242,7 +1242,7 @@ async def generate_character_stream(
                                     project_id=request.project_id,
                                     character_from_id=character.id,
                                     character_to_id=target_char.id,
-                                    relationship_name=rel.get("relationship_type", "未知关系"),
+                                    relationship_name=rel.get("relationship_type", "relação desconhecida"),
                                     intimacy_level=rel.get("intimacy_level", 50),
                                     description=rel.get("description", ""),
                                     started_at=rel.get("started_at"),
@@ -1252,10 +1252,10 @@ async def generate_character_stream(
                                 # 匹配预定义关系类型
                                 rel_type_result = await db.execute(
                                     select(RelationshipType).where(
-                                        RelationshipType.name == rel.get("relationship_type")
+                                        func.lower(RelationshipType.name) == str(rel.get("relationship_type") or "").strip().lower()
                                     )
                                 )
-                                rel_type = rel_type_result.scalar_one_or_none()
+                                rel_type = rel_type_result.scalars().first()
                                 if rel_type:
                                     relationship.relationship_type_id = rel_type.id
                                 

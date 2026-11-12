@@ -5,6 +5,7 @@ from sqlalchemy import select, or_, and_
 from app.models.character import Character
 from app.models.relationship import CharacterRelationship, Organization, OrganizationMember
 from app.logger import get_logger
+import re
 import uuid
 
 logger = get_logger(__name__)
@@ -24,6 +25,23 @@ INTIMACY_ADJUSTMENTS = {
     # 特殊变化
     "初识": 0, "相遇": 0, "结盟": +10, "分离": -5,
 }
+
+# Radicais em PT-BR (casam no início de palavra)
+INTIMACY_ADJUSTMENTS_PT = {
+    # positivo
+    "melhor": +10, "confian": +10, "aproxima": +15, "amizade": +10,
+    "gratid": +10, "agradec": +10, "perdo": +20, "perdã": +20, "reconcilia": +20,
+    "amor": +20, "apaixon": +20, "carinho": +10, "lealdade": +10, "alian": +10,
+    # negativo
+    "trai": -30, "conflito": -15, "desconfian": -15,
+    "ódio": -25, "odio": -25, "rompiment": -30, "rompeu": -30, "ciúm": -10, "ciume": -10,
+    "rivalidade": -15, "ressentiment": -10, "afasta": -15, "distanci": -15,
+    "hostil": -25, "briga": -10, "discuss": -5,
+}
+_INTIMACY_PT_PATTERNS = [
+    (re.compile(r"(?<!\w)" + re.escape(stem)), adj)
+    for stem, adj in INTIMACY_ADJUSTMENTS_PT.items()
+]
 
 
 class CharacterStateUpdateService:
@@ -390,7 +408,9 @@ class CharacterStateUpdateService:
                 existing_rel = existing_rel_result.scalar_one_or_none()
 
                 # 计算亲密度调整
-                intimacy_delta = CharacterStateUpdateService._calculate_intimacy_delta(change_desc)
+                intimacy_delta = CharacterStateUpdateService._calculate_intimacy_delta(
+                    change_info if isinstance(change_info, dict) else change_desc
+                )
 
                 if existing_rel:
                     # 更新已有关系
@@ -805,16 +825,29 @@ class CharacterStateUpdateService:
         return result
 
     @staticmethod
-    def _calculate_intimacy_delta(change_desc: str) -> int:
+    def _calculate_intimacy_delta(change) -> int:
         """
-        根据变化描述计算亲密度调整值
-        
+        Calcula o ajuste de intimidade de uma mudança de relação.
+
         Args:
-            change_desc: 关系变化描述文本
-            
+            change: texto da mudança, ou dict {"change": str, "intimacy_delta": int}.
+                O `intimacy_delta` numérico tem prioridade (limitado a -30..30);
+                sem ele, soma o mapa de palavras-chave (PT-BR e chinês).
+
         Returns:
-            亲密度调整值
+            Ajuste de intimidade
         """
+        if isinstance(change, dict):
+            raw = change.get("intimacy_delta")
+            if raw is not None and not isinstance(raw, bool):
+                try:
+                    return max(-30, min(30, int(float(raw))))
+                except (TypeError, ValueError, OverflowError):
+                    pass
+            change_desc = str(change.get("change") or "")
+        else:
+            change_desc = str(change or "")
+
         delta = 0
         matched = False
         for keyword, adjustment in INTIMACY_ADJUSTMENTS.items():
@@ -822,7 +855,13 @@ class CharacterStateUpdateService:
                 delta += adjustment
                 matched = True
 
-        # 限制单次调整幅度
+        lowered = change_desc.lower()
+        for pattern, adjustment in _INTIMACY_PT_PATTERNS:
+            if pattern.search(lowered):
+                delta += adjustment
+                matched = True
+
+        # Limita a amplitude de um único ajuste
         if matched:
             delta = max(-30, min(30, delta))
 

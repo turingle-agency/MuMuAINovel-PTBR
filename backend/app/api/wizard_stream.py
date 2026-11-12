@@ -1,7 +1,7 @@
 """项目创建向导流式API - 使用SSE避免超时"""
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 from typing import Dict, Any, AsyncGenerator
 import json
 import re
@@ -905,7 +905,7 @@ async def characters_generator(
                 rel_descriptions = []
                 for rel in relationships_array:
                     target = rel.get("target_character_name", "未知")
-                    rel_type = rel.get("relationship_type", "关系")
+                    rel_type = rel.get("relationship_type", "relação")
                     desc = rel.get("description", "")
                     rel_descriptions.append(f"{target}({rel_type}): {desc}")
                 relationships_text = "; ".join(rel_descriptions)
@@ -1111,7 +1111,7 @@ async def characters_generator(
                                 project_id=project_id,
                                 character_from_id=character.id,
                                 character_to_id=target_char.id,
-                                relationship_name=rel.get("relationship_type", "未知关系"),
+                                relationship_name=rel.get("relationship_type", "relação desconhecida"),
                                 intimacy_level=rel.get("intimacy_level", 50),
                                 description=rel.get("description", ""),
                                 started_at=rel.get("started_at"),
@@ -1121,10 +1121,10 @@ async def characters_generator(
                             # 匹配预定义关系类型
                             rel_type_result = await db.execute(
                                 select(RelationshipType).where(
-                                    RelationshipType.name == rel.get("relationship_type")
+                                    func.lower(RelationshipType.name) == str(rel.get("relationship_type") or "").strip().lower()
                                 )
                             )
-                            rel_type = rel_type_result.scalar_one_or_none()
+                            rel_type = rel_type_result.scalars().first()
                             if rel_type:
                                 relationship.relationship_type_id = rel_type.id
                             

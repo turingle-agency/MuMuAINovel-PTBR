@@ -120,7 +120,7 @@ async def get_relationship_graph(
         RelationshipGraphLink(
             source=r.character_from_id,
             target=r.character_to_id,
-            relationship=r.relationship_name or "未知关系",
+            relationship=r.relationship_name or "relação desconhecida",
             intimacy=r.intimacy_level,
             status=r.status
         )
