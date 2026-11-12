@@ -11,7 +11,7 @@ class SettingsBase(BaseModel):
     api_provider: Optional[str] = Field(default="openai", description="Provedor da API")
     api_key: Optional[str] = Field(default=None, description="Chave da API")
     api_base_url: Optional[str] = Field(default=None, description="URL personalizada da API")
-    llm_model: Optional[str] = Field(default="gpt-4", description="Nome do modelo")
+    llm_model: Optional[str] = Field(default=None, description="Nome do modelo")
     temperature: Optional[float] = Field(default=0.7, ge=0.0, le=2.0, description="Parâmetro de temperatura")
     max_tokens: Optional[int] = Field(default=2000, ge=1, description="Máximo de tokens")
     system_prompt: Optional[str] = Field(default=None, description="Prompt de nível de sistema, usado em toda chamada de IA")

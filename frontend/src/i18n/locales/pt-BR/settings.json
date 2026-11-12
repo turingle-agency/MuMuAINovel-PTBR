@@ -173,6 +173,5 @@
   "chaveDaApiDeReserva": "Chave da API de reserva",
   "urlDaApiDeReserva": "URL da API de reserva",
   "modeloDaApiDeReserva": "Modelo da API de reserva",
-  "porExemploGpt4o": "Por exemplo: gpt-4o",
   "codexCapaDescricao": "A imagem de capa é gerada pelo Codex por meio da CLI oficial no servidor. Não é necessário informar chave de API, URL nem modelo."
 }

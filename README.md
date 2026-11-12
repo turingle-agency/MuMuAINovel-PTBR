@@ -59,6 +59,8 @@ Ctrl+C encerra os dois.
 
 Em **Configurações**, escolha "Codex (assinatura ChatGPT)" como provider. Configure também a **API de reserva** (provider, chave e modelo): se o Codex falhar no meio de uma geração (cota esgotada, login expirado, tempo limite), a geração continua pela API de reserva sem perder o pedido. Sem reserva configurada, você recebe uma mensagem clara em português, sem stack trace. Capas também podem ser geradas pelo Codex; a reserva da capa é Gemini ou Grok com chave de API.
 
+Os modelos de IA padrão ficam em `backend/app/constants/models.py` (e `frontend/src/constants/models.ts`), conferidos na documentação oficial em 12/11/2026; atualize esses arquivos quando surgirem modelos novos.
+
 **Isolamento do Codex.** Cada chamada roda `codex exec` com `--ignore-user-config` (não carrega o seu `config.toml`: nada de MCPs pessoais, hooks ou instruções próprias; a autenticação continua valendo), `--ignore-rules`, `--disable hooks/memories/plugins/apps`, `-c mcp_servers={}` e `-c project_doc_max_bytes=0`, em um diretório temporário vazio. Limitação: não existe flag para ignorar o `AGENTS.md` global em `~/.codex`; se você mantém instruções pessoais ali, elas podem ser lidas pelo Codex. O Codex não suporta ferramentas/MCP: chamadas com ferramentas (Assistente de Criação) usam a API de reserva, e sem reserva retornam um erro claro.
 
 O Gemini é usado só por chave de API, nunca pelo login da assinatura.

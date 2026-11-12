@@ -85,7 +85,7 @@ class Settings(BaseSettings):
     codex_max_concurrency: int = 2
     # Espera (s) sem chamar o Codex após falha de cota/login/timeout; 0 desliga.
     codex_failure_cooldown_s: int = 300
-    default_model: str = "gpt-4"
+    default_model: str = "gpt-6.1-terra"
     default_temperature: float = 0.7
     default_max_tokens: int = 32000
     # Allow Ollama / local Llama / Docker host.docker.internal as AI base URLs.

@@ -79,7 +79,7 @@ async def test_codex_stream_entrega_tudo_de_uma_vez(monkeypatch):
     assert chunks == ["resposta falsa"]
 
 
-@pytest.mark.parametrize("modelo,passa", [("", False), ("gpt-4", False), ("gpt-5-codex", True)])
+@pytest.mark.parametrize("modelo,passa", [("", False), ("gpt-4", False), ("gpt-6.1-terra", False), ("gpt-5-codex", True)])
 async def test_codex_ignora_modelo_padrao_de_outro_provider(monkeypatch, tmp_path, modelo, passa):
     args_file = tmp_path / "args.txt"
     monkeypatch.setenv("FAKE_CODEX_MODE", "ok")

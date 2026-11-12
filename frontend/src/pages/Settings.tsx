@@ -5,6 +5,7 @@ import { settingsApi, mcpPluginApi } from '../services/api';
 import type { SettingsUpdate, APIKeyPreset, PresetCreateRequest, APIKeyPresetConfig } from '../types';
 import { eventBus, EventNames } from '../store/eventBus';
 import { useTranslation } from 'react-i18next';
+import { DEFAULT_COVER_MODELS, defaultTextModel } from '../constants/models';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -118,7 +119,7 @@ export default function SettingsPage() {
         form.setFieldsValue({
           api_provider: 'openai',
           api_base_url: 'https://api.openai.com/v1',
-          llm_model: 'gpt-4',
+          llm_model: '',
           temperature: 0.7,
           max_tokens: 2000,
           disable_thinking: false,
@@ -271,7 +272,7 @@ export default function SettingsPage() {
           api_provider: 'openai',
           api_key: '',
           api_base_url: 'https://api.openai.com/v1',
-          llm_model: 'gpt-4',
+          llm_model: '',
           temperature: 0.7,
           max_tokens: 2000,
           disable_thinking: false,
@@ -326,6 +327,7 @@ export default function SettingsPage() {
   ];
 
   const selectedProvider = Form.useWatch('api_provider', form);
+  const selectedFallbackProvider = Form.useWatch('fallback_api_provider', form);
   const selectedCoverProvider = Form.useWatch('cover_api_provider', form);
   const selectedPresetProvider = Form.useWatch('api_provider', presetForm);
 
@@ -1294,12 +1296,12 @@ export default function SettingsPage() {
                               </Space>
                             }
                             name="llm_model"
-                            rules={isKeyless(selectedProvider) ? [] : [{ required: true, message: t('digiteOuSelecioneONome') }]}
+                            
                           >
                             <Select
                               size={isMobile ? 'middle' : 'large'}
                               showSearch
-                              placeholder={isMobile ? t('digiteOuSelecioneOModelo') : t('digiteONomeDoModelo')}
+                              placeholder={selectedProvider === 'codex' ? (isMobile ? t('digiteOuSelecioneOModelo') : t('digiteONomeDoModelo')) : defaultTextModel(selectedProvider)}
                               optionFilterProp="label"
                               loading={fetchingModels}
                               onFocus={handleModelSelectFocus}
@@ -1537,7 +1539,7 @@ export default function SettingsPage() {
                           </Form.Item>
 
                           <Form.Item label={t('modeloDaApiDeReserva')} name="fallback_llm_model">
-                            <Input size={isMobile ? 'middle' : 'large'} placeholder={t('porExemploGpt4o')} />
+                            <Input size={isMobile ? 'middle' : 'large'} placeholder={defaultTextModel(selectedFallbackProvider)} />
                           </Form.Item>
 
                           {/* 测试结果展示 */}
@@ -1799,7 +1801,7 @@ export default function SettingsPage() {
                             <Form.Item label={t('modeloDaImagemDeCapa')} name="cover_image_model" rules={[{ required: true, message: t('informeONomeDoModelo') }]}>
                               <Input
                                 size={isMobile ? 'middle' : 'large'}
-                                placeholder={selectedCoverProvider === 'grok' ? 'grok-2-image' : 'gemini-2.0-flash-exp-image-generation'}
+                                placeholder={DEFAULT_COVER_MODELS[selectedCoverProvider] ?? DEFAULT_COVER_MODELS.gemini}
                               />
                             </Form.Item>
                           </>

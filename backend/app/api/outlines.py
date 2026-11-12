@@ -2310,7 +2310,7 @@ async def generate_outline_stream(
         "narrative_perspective": "terceira pessoa",
         "requirements": "其他要求",
         "provider": "openai",  // 可选
-        "model": "gpt-4"  // 可选
+        "model": "gpt-6.1-terra"  // 可选
     }
     """
     # 验证用户权限
@@ -2937,7 +2937,7 @@ async def expand_outline_to_chapters_stream(
         "auto_create_chapters": false,  // 是否自动创建章节
         "enable_scene_analysis": true,  // 是否启用场景分析
         "provider": "openai",  // 可选
-        "model": "gpt-4"  // 可选
+        "model": "gpt-6.1-terra"  // 可选
     }
     
     进度阶段：
@@ -3325,7 +3325,7 @@ async def batch_expand_outlines_stream(
         "auto_create_chapters": false,  // 是否自动创建章节
         "enable_scene_analysis": true,  // 是否启用场景分析
         "provider": "openai",  // 可选
-        "model": "gpt-4"  // 可选
+        "model": "gpt-6.1-terra"  // 可选
     }
     """
     # 验证用户权限

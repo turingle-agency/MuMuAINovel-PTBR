@@ -105,7 +105,7 @@ def gen_chapter(c, cid: str, words: int):
 def phase_main(c: httpx.Client) -> None:
     # 2. Configurações: Codex + reserva deliberadamente inválida
     set_settings(c, fallback_api_provider="openai", fallback_api_key="sk-invalido-e2e",
-                 fallback_llm_model="gpt-4o-mini")
+                 fallback_llm_model="gpt-6.1-terra")
 
     # 3. Projeto es-MX pelo assistente (1 chamada ao Codex)
     events = sse(c, "/api/wizard-stream/world-building", {
@@ -166,7 +166,7 @@ def phase_fail(c: httpx.Client) -> None:
     pt_msg = re.compile(r"(Codex|reserva|configur|conex|falh|indispon)", re.I)
 
     for label, kw in (("com reserva inválida", dict(fallback_api_provider="openai", fallback_api_key="sk-invalido-e2e",
-                                                      fallback_llm_model="gpt-4o-mini")),
+                                                      fallback_llm_model="gpt-6.1-terra")),
                       ("sem reserva", dict(fallback_api_provider=None, fallback_api_key=None, fallback_llm_model=None))):
         set_settings(c, **kw)
         events, _ = gen_chapter(c, cid, 500)

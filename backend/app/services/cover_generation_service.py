@@ -15,6 +15,7 @@ from sqlalchemy import select, update as sql_update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import PROJECT_ROOT, settings as app_settings
+from app.constants.models import DEFAULT_COVER_MODELS
 from app.logger import get_logger
 from app.models.project import Project
 from app.models.settings import Settings
@@ -299,6 +300,7 @@ class CoverGenerationService:
     ) -> CoverGenerationResult:
         """Codex falhou: tenta a API de reserva (Gemini/Grok com chave) ou levanta 503 em PT-BR."""
         fallback_provider = (settings.fallback_api_provider or "").lower().strip()
+        fallback_model = settings.fallback_llm_model or DEFAULT_COVER_MODELS.get(fallback_provider, "")
         motivo_codex = codex_reason(codex_error)
         if fallback_provider and settings.fallback_api_key:
             if fallback_provider not in ("gemini", "grok"):
@@ -309,19 +311,19 @@ class CoverGenerationService:
                         f"({fallback_provider}) não gera imagens. Use Gemini ou Grok como reserva em Configurações."
                     ),
                 ) from codex_error
-            if "imag" not in (settings.fallback_llm_model or "").lower():
+            if "imag" not in fallback_model.lower():
                 raise HTTPException(
                     status_code=503,
                     detail=(
                         f"O Codex não gerou a capa ({motivo_codex}) e o modelo da API de reserva "
-                        f"({settings.fallback_llm_model or 'não definido'}) não parece gerar imagens. "
+                        f"({fallback_model or 'não definido'}) não parece gerar imagens. "
                         "Configure um modelo de imagem (nome com \"image\" ou \"imagen\") em Configurações."
                     ),
                 ) from codex_error
         if (
             fallback_provider in ("gemini", "grok")
             and settings.fallback_api_key
-            and settings.fallback_llm_model
+            and fallback_model
         ):
             logger.warning("Codex falhou ao gerar capa (%s); usando API de reserva %s", codex_error, fallback_provider)
             provider = self._build_provider_from_values(
@@ -332,7 +334,7 @@ class CoverGenerationService:
             try:
                 return await provider.generate_cover(
                     prompt=prompt,
-                    model=settings.fallback_llm_model,
+                    model=fallback_model,
                     width=COVER_WIDTH,
                     height=COVER_HEIGHT,
                 )

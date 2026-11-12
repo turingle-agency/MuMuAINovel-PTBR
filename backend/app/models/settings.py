@@ -14,7 +14,7 @@ class Settings(Base):
     api_provider = Column(String(50), default="openai", comment="Provedor da API")
     api_key = Column(String(500), comment="Chave da API")
     api_base_url = Column(String(500), comment="URL personalizada da API")
-    llm_model = Column(String(100), default="gpt-4", comment="Nome do modelo")
+    llm_model = Column(String(100), nullable=True, comment="Nome do modelo (vazio = padrão do provedor)")
     temperature = Column(Float, default=0.7, comment="Parâmetro de temperatura")
     max_tokens = Column(Integer, default=2000, comment="Máximo de tokens")
     system_prompt = Column(Text, comment="Prompt de nível de sistema, usado em toda chamada de IA")

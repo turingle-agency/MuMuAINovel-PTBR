@@ -11,6 +11,7 @@ from typing import Optional, AsyncGenerator, List, Dict, Any, Union
 from fastapi import HTTPException
 
 from app.config import settings as app_settings
+from app.constants.models import LEGACY_DEFAULT_MODELS, default_text_model
 from app.logger import get_logger
 from app.services.ai_config import AIClientConfig, default_config
 from app.services.ai_metrics import AICallMetrics, TokenUsage, ToolCallMetrics
@@ -135,7 +136,11 @@ class AIService:
             # Modelo vazio = padrão do Codex; nunca herdar o modelo padrão de outro provider.
             self.default_model = default_model or ""
         else:
-            self.default_model = default_model or app_settings.default_model
+            # Vazio ou padrão antigo do upstream (LEGACY_DEFAULT_MODELS) -> padrão atual do provedor.
+            if not default_model or default_model in LEGACY_DEFAULT_MODELS:
+                self.default_model = default_text_model(self.api_provider)
+            else:
+                self.default_model = default_model
         self.default_temperature = default_temperature or app_settings.default_temperature
         self.default_max_tokens = default_max_tokens or app_settings.default_max_tokens
         self.default_system_prompt = default_system_prompt

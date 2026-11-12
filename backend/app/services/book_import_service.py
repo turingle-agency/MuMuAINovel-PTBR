@@ -1631,7 +1631,7 @@ class BookImportService:
                 api_provider=default_provider,
                 api_key=default_key,
                 api_base_url=default_base_url,
-                llm_model=app_settings.default_model,
+                llm_model=None,
                 temperature=app_settings.default_temperature,
                 max_tokens=app_settings.default_max_tokens,
             )

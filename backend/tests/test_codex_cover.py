@@ -96,9 +96,9 @@ async def test_capa_nunca_passa_flag_m(monkeypatch, tmp_path):
     args_file = tmp_path / "args.txt"
     monkeypatch.setenv("FAKE_CODEX_MODE", "image")
     monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
-    r = await CodexCoverProvider(FAKE, 5).generate_cover(**{**ARGS, "model": "gpt-image-1"})
+    r = await CodexCoverProvider(FAKE, 5).generate_cover(**{**ARGS, "model": "gpt-image-2.6-sunburst"})
     argv = args_file.read_text().split("\n")
-    assert "-m" not in argv and "gpt-image-1" not in argv
+    assert "-m" not in argv and "gpt-image-2.6-sunburst" not in argv
     assert r["model"] == "codex"
 
 
@@ -117,7 +117,7 @@ async def test_capa_comando_isolado_e_com_geracao_de_imagem(monkeypatch, tmp_pat
 async def test_reserva_de_capa_com_modelo_de_texto_da_503_pt_br():
     with pytest.raises(HTTPException) as ei:
         await CoverGenerationService()._generate_with_fallback(
-            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-2.5-pro"),
+            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-3.8-flash"),
             prompt="x", codex_error=_Quota("limite"),
         )
     assert ei.value.status_code == 503
@@ -127,7 +127,7 @@ async def test_reserva_de_capa_com_modelo_de_texto_da_503_pt_br():
 async def test_reserva_de_capa_com_provedor_sem_imagem_da_503_pt_br():
     with pytest.raises(HTTPException) as ei:
         await CoverGenerationService()._generate_with_fallback(
-            settings=_settings(fallback_api_provider="openai", fallback_api_key="k", fallback_llm_model="gpt-4o"),
+            settings=_settings(fallback_api_provider="openai", fallback_api_key="k", fallback_llm_model="gpt-6.1-terra"),
             prompt="x", codex_error=_Quota("limite"),
         )
     assert ei.value.status_code == 503 and "não gera imagens" in ei.value.detail
@@ -147,7 +147,7 @@ async def test_reserva_de_capa_que_falha_da_503_pt_br(monkeypatch):
     monkeypatch.setattr("app.services.cover_generation_service.GeminiCoverProvider", Quebrada)
     with pytest.raises(HTTPException) as ei:
         await CoverGenerationService()._generate_with_fallback(
-            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-2.5-flash-image"),
+            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-3.1-flash-image"),
             prompt="x", codex_error=_Quota("limite"),
         )
     assert ei.value.status_code == 503

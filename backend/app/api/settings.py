@@ -25,6 +25,7 @@ from app.schemas.settings import (
 from app.user_manager import User
 from app.logger import get_logger, safe_preview
 from app.config import settings as app_settings, PROJECT_ROOT
+from app.constants.models import default_text_model
 from app.services.ai_service import AIService, FallbackConfig, create_user_ai_service, create_user_ai_service_with_mcp, normalize_provider
 from app.services.ai_providers.codex_provider import reset_codex_cooldown
 from app.services.email_service import email_service
@@ -50,7 +51,7 @@ def read_env_defaults() -> Dict[str, Any]:
         "api_provider": default_provider,
         "api_key": provider_defaults["api_key"],
         "api_base_url": provider_defaults["api_base_url"],
-        "llm_model": app_settings.default_model,
+        "llm_model": default_text_model(default_provider),
         "temperature": app_settings.default_temperature,
         "max_tokens": app_settings.default_max_tokens,
     }
@@ -169,7 +170,7 @@ def _build_ai_service_from_config(
         api_provider=resolved_config["api_provider"],
         api_key=resolved_config["api_key"],
         api_base_url=resolved_config["api_base_url"],
-        model_name=config.get('llm_model') or app_settings.default_model,
+        model_name=config.get('llm_model') or '',
         temperature=config.get('temperature') if config.get('temperature') is not None else app_settings.default_temperature,
         max_tokens=config.get('max_tokens') if config.get('max_tokens') is not None else app_settings.default_max_tokens,
         user_id=user_id,
