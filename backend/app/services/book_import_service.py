@@ -45,6 +45,7 @@ from app.schemas.book_import import (
 )
 from app.services.ai_service import AIService, create_user_ai_service_with_mcp
 from app.services.prompt_service import PromptService
+from app.constants.languages import language_name
 from app.services.txt_parser_service import txt_parser_service
 
 logger = get_logger(__name__)
@@ -1704,6 +1705,7 @@ class BookImportService:
             template = await PromptService.get_template("WORLD_BUILDING", user_id, db)
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 title=project.title or "拆书导入项目",
                 genre=project.genre or "通用",
                 theme=project.theme or "未设定",
@@ -1771,6 +1773,7 @@ class BookImportService:
         template = await PromptService.get_template("CAREER_SYSTEM_GENERATION", user_id, db)
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             genre=project.genre or "未设定",
             theme=project.theme or "未设定",
@@ -1906,6 +1909,7 @@ class BookImportService:
 
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             count=target_count,
             time_period=project.world_time_period or "未设定",
             location=project.world_location or "未设定",

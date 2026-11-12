@@ -18,6 +18,7 @@ from app.models.project_default_style import ProjectDefaultStyle
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, language_name
 from app.services.plot_expansion_service import PlotExpansionService
 from app.logger import get_logger, safe_preview
 from app.utils.sse_response import SSEResponse, create_sse_response, WizardProgressTracker
@@ -79,6 +80,7 @@ async def world_building_generator(
         template = await PromptService.get_template("WORLD_BUILDING", user_id, db)
         base_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(data.get("language")),
             title=title,
             theme=theme,
             genre=genre or "通用类型",
@@ -237,6 +239,7 @@ async def world_building_generator(
             chapter_count=chapter_count,
             character_count=character_count,
             outline_mode=outline_mode,  # 设置大纲模式
+            language=data.get("language") if data.get("language") in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE,
             wizard_status="incomplete",
             wizard_step=1,
             status="planning"
@@ -373,6 +376,7 @@ async def career_system_generator(
         template = await PromptService.get_template("CAREER_SYSTEM_GENERATION", user_id, db)
         career_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             genre=project.genre or '未设定',
             theme=project.theme or '未设定',
@@ -736,6 +740,7 @@ async def characters_generator(
                     # 构建基础提示词
                     base_prompt = PromptService.format_prompt(
                         template,
+                        output_language=language_name(project.language),
                         count=current_batch_size,  # 传递精确数量
                         time_period=world_context.get("time_period", ""),
                         location=world_context.get("location", ""),
@@ -1334,6 +1339,7 @@ async def outline_generator(
         template = await PromptService.get_template("OUTLINE_CREATE", user_id, db)
         outline_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             theme=project.theme or "未设定",
             genre=project.genre or "通用",
@@ -1612,6 +1618,7 @@ async def world_building_regenerate_generator(
         template = await PromptService.get_template("WORLD_BUILDING", user_id, db)
         base_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             theme=project.theme or "未设定",
             genre=project.genre or "通用",

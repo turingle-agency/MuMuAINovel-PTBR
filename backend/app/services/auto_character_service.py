@@ -9,6 +9,7 @@ from app.models.relationship import CharacterRelationship, Organization, Organiz
 from app.models.project import Project
 from app.services.ai_service import AIService
 from app.services.prompt_service import PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.logger import get_logger
 
@@ -67,7 +68,7 @@ class AutoCharacterService:
             sub_careers = [c for c in careers if c.type == 'sub']
             
             if main_careers:
-                careers_info += "\n\n可用主职业列表（请在career_info中填写职业名称和阶段）：\n"
+                careers_info += "\n\nLista de carreiras principais disponíveis (preencha em career_info o nome da carreira e o estágio):\n"
                 for career in main_careers:
                     careers_info += f"- 名称: {career.name}, 最高阶段: {career.max_stage}阶"
                     if career.description:
@@ -75,7 +76,7 @@ class AutoCharacterService:
                     careers_info += "\n"
             
             if sub_careers:
-                careers_info += "\n可用副职业列表（请在career_info中填写职业名称和阶段）：\n"
+                careers_info += "\nLista de carreiras secundárias disponíveis (preencha em career_info o nome da carreira e o estágio):\n"
                 for career in sub_careers[:5]:
                     careers_info += f"- 名称: {career.name}, 最高阶段: {career.max_stage}阶"
                     if career.description:
@@ -95,6 +96,7 @@ class AutoCharacterService:
         
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             genre=project.genre or "未设定",
             theme=project.theme or "未设定",

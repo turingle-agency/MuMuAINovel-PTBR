@@ -9,6 +9,7 @@ from app.models.relationship import Organization, OrganizationMember
 from app.models.project import Project
 from app.services.ai_service import AIService
 from app.services.prompt_service import PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.logger import get_logger
 
@@ -74,6 +75,7 @@ class AutoOrganizationService:
         
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             genre=project.genre or "未设定",
             theme=project.theme or "未设定",

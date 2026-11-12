@@ -26,6 +26,7 @@ from app.schemas.character import CharacterResponse
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.logger import get_logger, safe_preview
 from app.api.settings import get_user_ai_service
@@ -489,6 +490,7 @@ async def generate_organization_stream(
             # 格式化提示词
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_context=project_context,
                 user_input=user_input
             )

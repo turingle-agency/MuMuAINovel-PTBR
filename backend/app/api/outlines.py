@@ -29,6 +29,7 @@ from app.schemas.outline import (
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.services.memory_service import memory_service
 from app.services.plot_expansion_service import PlotExpansionService
@@ -1085,6 +1086,7 @@ async def new_outline_generator(
         template = await PromptService.get_template("OUTLINE_CREATE", user_id_for_mcp, db)
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
             theme=data.get("theme") or project.theme or "未设定",
             genre=data.get("genre") or project.genre or "通用",
@@ -1545,6 +1547,7 @@ async def continue_outline_generator(
             template = await PromptService.get_template("OUTLINE_CONTINUE", user_id, db)
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 # 基础信息
                 title=project.title,
                 theme=project.theme or "未设定",
@@ -1917,6 +1920,7 @@ async def _run_new_outline_bg(
     template = await PromptService.get_template("OUTLINE_CREATE", user_id_for_mcp, db)
     prompt = PromptService.format_prompt(
         template,
+        output_language=language_name(project.language),
         title=project.title,
         theme=data.get("theme") or project.theme or "未设定",
         genre=data.get("genre") or project.genre or "通用",
@@ -2155,6 +2159,7 @@ async def _run_continue_outline_bg(
         template = await PromptService.get_template("OUTLINE_CONTINUE", user_id, db)
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title, theme=project.theme or "未设定",
             genre=project.genre or "通用",
             narrative_perspective=project.narrative_perspective or "第三人称",

@@ -22,6 +22,7 @@ from app.schemas.character import (
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.services.import_export_service import ImportExportService
 from app.schemas.import_export import CharactersExportRequest, CharactersImportResult
@@ -875,7 +876,7 @@ async def generate_character_stream(
                 sub_careers = [c for c in careers if c.type == 'sub']
                 
                 if main_careers:
-                    careers_info += "\n\n可用主职业列表（请在career_info中填写职业名称，系统会自动匹配ID）：\n"
+                    careers_info += "\n\nLista de carreiras principais disponíveis (preencha em career_info o nome da carreira; o sistema encontra o ID automaticamente):\n"
                     for career in main_careers:
                         # 解析阶段信息
                         import json as json_lib
@@ -894,7 +895,7 @@ async def generate_character_stream(
                         careers_info += f", 阶段: {stage_info}\n"
                 
                 if sub_careers:
-                    careers_info += "\n可用副职业列表（请在career_info中填写职业名称，系统会自动匹配ID）：\n"
+                    careers_info += "\nLista de carreiras secundárias disponíveis (preencha em career_info o nome da carreira; o sistema encontra o ID automaticamente):\n"
                     for career in sub_careers[:5]:  # 最多显示5个副职业
                         careers_info += f"- 名称: {career.name}"
                         if career.description:
@@ -933,6 +934,7 @@ async def generate_character_stream(
             # 格式化提示词
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_context=project_context,
                 user_input=user_input
             )
