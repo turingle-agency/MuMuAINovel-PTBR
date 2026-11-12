@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 /**
  * 后台任务服务 - 轮询任务进度，替代SSE
  */
@@ -67,7 +69,7 @@ interface ActiveBatchTaskResponse {
 export async function getTaskStatus(taskId: string): Promise<TaskStatus> {
   const response = await fetch(`${API_BASE}/${taskId}`);
   if (!response.ok) {
-    throw new Error(`查询任务状态失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaConsultarEstadoTarefa', { statusText: response.statusText }));
   }
   return response.json();
 }
@@ -84,7 +86,7 @@ export async function getProjectTasks(
   if (taskType) params.set('task_type', taskType);
   const response = await fetch(`${API_BASE}?${params}`);
   if (!response.ok) {
-    throw new Error(`获取任务列表失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaObterListaTarefas', { statusText: response.statusText }));
   }
   return response.json();
 }
@@ -95,7 +97,7 @@ export async function getProjectTasks(
 export async function getActiveBatchTasks(projectId: string): Promise<BatchTaskStatus[]> {
   const response = await fetch(`/api/chapters/project/${projectId}/batch-generate/active`);
   if (!response.ok) {
-    throw new Error(`获取批量生成任务失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaObterTarefasGeracao', { statusText: response.statusText }));
   }
   const data: ActiveBatchTaskResponse = await response.json();
   return data.has_active_task && data.task ? [data.task] : [];
@@ -108,7 +110,7 @@ export async function cancelBatchTask(batchId: string): Promise<void> {
   const response = await fetch(`/api/chapters/batch-generate/${batchId}/cancel`, { method: 'POST' });
   if (!response.ok) {
     const err = await response.json().catch(() => ({ detail: response.statusText }));
-    throw new Error(`取消批量生成任务失败: ${err.detail || response.statusText}`);
+    throw new Error(i18n.t('errors:falhaCancelarTarefaGeracao', { detail: err.detail || response.statusText }));
   }
 }
 
@@ -118,7 +120,7 @@ export async function cancelBatchTask(batchId: string): Promise<void> {
 export async function cancelTask(taskId: string): Promise<void> {
   const response = await fetch(`${API_BASE}/${taskId}/cancel`, { method: 'POST' });
   if (!response.ok) {
-    throw new Error(`取消任务失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaCancelarTarefa', { statusText: response.statusText }));
   }
 }
 
@@ -128,7 +130,7 @@ export async function cancelTask(taskId: string): Promise<void> {
 export async function clearProjectTasks(projectId: string): Promise<{ deleted_count: number }> {
   const response = await fetch(`${API_BASE}/project/${projectId}/clear`, { method: 'DELETE' });
   if (!response.ok) {
-    throw new Error(`清理任务记录失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaLimparRegistrosTarefas', { statusText: response.statusText }));
   }
   return response.json();
 }
@@ -139,7 +141,7 @@ export async function clearProjectTasks(projectId: string): Promise<{ deleted_co
 export async function deleteTask(taskId: string): Promise<void> {
   const response = await fetch(`${API_BASE}/${taskId}`, { method: 'DELETE' });
   if (!response.ok) {
-    throw new Error(`删除任务失败: ${response.statusText}`);
+    throw new Error(i18n.t('errors:falhaExcluirTarefa', { statusText: response.statusText }));
   }
 }
 
@@ -183,12 +185,12 @@ export function pollTaskUntilComplete(
       }
 
       if (status.status === 'failed') {
-        onError(status.error_message || '任务失败', status);
+        onError(status.error_message || i18n.t('errors:falhaNaTarefa'), status);
         return;
       }
 
       if (status.status === 'cancelled') {
-        onError('任务已取消', status);
+        onError(i18n.t('errors:tarefaCancelada'), status);
         return;
       }
 
@@ -197,7 +199,7 @@ export function pollTaskUntilComplete(
       timerId = setTimeout(poll, nextInterval);
     } catch (err) {
       if (!cancelled) {
-        onError(err instanceof Error ? err.message : '查询任务状态失败', {} as TaskStatus);
+        onError(err instanceof Error ? err.message : i18n.t('errors:falhaConsultarEstadoTarefa2'), {} as TaskStatus);
       }
     }
   };
@@ -236,7 +238,7 @@ export async function generateOutlineBackground(
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({ detail: response.statusText }));
-    onError(err.detail || '创建任务失败', {} as TaskStatus);
+    onError(err.detail || i18n.t('errors:falhaCriarTarefa'), {} as TaskStatus);
     return () => {};
   }
 
@@ -277,7 +279,7 @@ export async function generateChapterBackground(
 
   if (!response.ok) {
     const err = await response.json().catch(() => ({ detail: response.statusText }));
-    onError(err.detail || '创建章节生成任务失败', {} as TaskStatus);
+    onError(err.detail || i18n.t('errors:falhaCriarTarefaGeracao'), {} as TaskStatus);
     return () => {};
   }
 

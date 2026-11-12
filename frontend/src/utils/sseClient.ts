@@ -1,3 +1,5 @@
+import i18n from '../i18n';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SSEMessage {
   type: 'progress' | 'chunk' | 'result' | 'error' | 'done';
@@ -42,17 +44,17 @@ export class SSEClient {
             const message: SSEMessage = JSON.parse(event.data);
             this.handleMessage(message, resolve, reject);
           } catch (error) {
-            console.error('解析SSE消息失败:', error);
+            console.error('Falha ao interpretar a mensagem SSE:', error);
           }
         };
 
         this.eventSource.onerror = (error) => {
-          console.error('SSE连接错误:', error);
+          console.error('Erro de conexão SSE:', error);
           if (this.options.onConnectionError) {
             this.options.onConnectionError(error);
           }
           this.close();
-          reject(new Error('SSE连接失败'));
+          reject(new Error(i18n.t('errors:falhaConexaoSse')));
         };
 
       } catch (error) {
@@ -91,10 +93,10 @@ export class SSEClient {
 
       case 'error':
         if (this.options.onError) {
-          this.options.onError(message.error || '未知错误', message.code);
+          this.options.onError(message.error || i18n.t('errors:erroDesconhecido'), message.code);
         }
         this.close();
-        reject(new Error(message.error || '未知错误'));
+        reject(new Error(message.error || i18n.t('errors:erroDesconhecido')));
         break;
 
       case 'done':
@@ -147,7 +149,7 @@ export class SSEPostClient {
   private async connectInternal(resolve: (value: any) => void, reject: (reason?: any) => void) {
       try {
         if (this.options.signal?.aborted) {
-          throw new DOMException('请求已取消', 'AbortError');
+          throw new DOMException(i18n.t('errors:requisicaoCancelada'), 'AbortError');
         }
 
         this.abortController = new AbortController();
@@ -175,7 +177,7 @@ export class SSEPostClient {
         const decoder = new TextDecoder();
 
         if (!reader) {
-          throw new Error('无法获取响应流');
+          throw new Error(i18n.t('errors:naoFoiPossivelObter'));
         }
 
         let buffer = '';
@@ -207,19 +209,19 @@ export class SSEPostClient {
                 await this.handleMessage(message, resolve, reject);
               }
             } catch (error) {
-              console.error('解析SSE消息失败:', error, line);
+              console.error('Falha ao interpretar a mensagem SSE:', error, line);
             }
           }
         }
 
       } catch (error: any) {
         if (error.name === 'AbortError') {
-          console.log('请求已取消');
+          console.log('Requisição cancelada');
           reject(error);
         } else {
-          console.error('SSE POST请求失败:', error);
+          console.error('Falha na requisição SSE POST:', error);
           if (this.options.onError) {
-            this.options.onError(error.message || '请求失败');
+            this.options.onError(error.message || i18n.t('errors:falhaNaRequisicao'));
           }
           reject(error);
         }
@@ -262,9 +264,9 @@ export class SSEPostClient {
 
       case 'error':
         if (this.options.onError) {
-          this.options.onError(message.error || '未知错误', message.code);
+          this.options.onError(message.error || i18n.t('errors:erroDesconhecido'), message.code);
         }
-        reject(new Error(message.error || '未知错误'));
+        reject(new Error(message.error || i18n.t('errors:erroDesconhecido')));
         break;
 
       case 'done':

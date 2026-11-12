@@ -63,6 +63,7 @@ import type {
   AgentToolDecision,
   AgentExecutionStep,
 } from '../types';
+import i18n from '../i18n';
 
 interface MCPPluginSimpleCreate {
   config_json: string;
@@ -92,7 +93,7 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    let errorMessage = '请求失败';
+    let errorMessage = i18n.t('errors:falhaNaRequisicao');
 
     if (error.response) {
       const status = error.response.status;
@@ -100,19 +101,20 @@ api.interceptors.response.use(
 
       switch (status) {
         case 400:
-          errorMessage = data?.detail || '请求参数错误';
+          errorMessage = data?.detail || i18n.t('errors:parametrosRequisicaoInvalidos');
           break;
         case 401: {
           const backendDetail = data?.detail || data?.message;
           const unauthenticatedDetails = [
-            '未登录',
-            '需要登录',
-            '未登录或用户ID缺失',
-            '未登录，无法刷新会话',
+            // Mensagens exatas enviadas pelo backend (HTTP 401) — não traduzir.
+            'Não autenticado',
+            'É necessário fazer login',
+            'Não autenticado ou ID de usuário ausente',
+            'Não autenticado, não é possível renovar a sessão',
           ];
           const isUnauthenticated = unauthenticatedDetails.includes(backendDetail);
 
-          errorMessage = backendDetail || '登录状态已失效，请重新登录';
+          errorMessage = backendDetail || i18n.t('errors:sessaoExpiradaFacaLogin');
 
           if (isUnauthenticated && window.location.pathname !== '/login') {
             window.location.href = '/login';
@@ -120,30 +122,30 @@ api.interceptors.response.use(
           break;
         }
         case 403:
-          errorMessage = data?.detail || '没有权限访问';
+          errorMessage = data?.detail || i18n.t('errors:semPermissaoAcesso');
           break;
         case 404:
-          errorMessage = data?.detail || '请求的资源不存在';
+          errorMessage = data?.detail || i18n.t('errors:recursoSolicitadoNaoExiste');
           break;
         case 422:
-          errorMessage = data?.detail || '请求参数验证失败';
+          errorMessage = data?.detail || i18n.t('errors:falhaValidacaoParametrosRequisicao');
           if (data?.errors) {
-            console.error('验证错误详情:', data.errors);
+            console.error('Detalhes do erro de validação:', data.errors);
           }
           break;
         case 500:
-          errorMessage = data?.detail || '服务器内部错误';
+          errorMessage = data?.detail || i18n.t('errors:erroInternoServidor');
           break;
         case 503:
-          errorMessage = '服务暂时不可用，请稍后重试';
+          errorMessage = i18n.t('errors:servicoTemporariamenteIndisponivelTente');
           break;
         default:
-          errorMessage = data?.detail || data?.message || `请求失败 (${status})`;
+          errorMessage = data?.detail || data?.message || i18n.t('errors:falhaNaRequisicao2', { status });
       }
     } else if (error.request) {
-      errorMessage = '网络错误，请检查网络连接';
+      errorMessage = i18n.t('errors:erroRedeVerifiqueSua');
     } else {
-      errorMessage = error.message || '请求失败';
+      errorMessage = error.message || i18n.t('errors:falhaNaRequisicao');
     }
 
     message.error(errorMessage);
@@ -388,7 +390,7 @@ export const projectApi = {
     window.open(`/api/projects/${id}/export`, '_blank');
   },
 
-  // 导出项目数据为JSON
+  // Exporta os dados do projeto em JSON
   exportProjectData: async (id: string, options: {
     include_generation_history?: boolean;
     include_writing_styles?: boolean;
@@ -407,7 +409,7 @@ export const projectApi = {
       }
     );
 
-    // 从响应头获取文件名
+    // Obtém o nome do arquivo a partir dos cabeçalhos da resposta
     const contentDisposition = response.headers['content-disposition'];
     let filename = 'project_export.json';
     if (contentDisposition) {
@@ -417,7 +419,7 @@ export const projectApi = {
       }
     }
 
-    // 创建下载链接
+    // Cria o link de download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
@@ -428,7 +430,7 @@ export const projectApi = {
     window.URL.revokeObjectURL(url);
   },
 
-  // 验证导入文件
+  // Valida o arquivo de importação
   validateImportFile: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -444,7 +446,7 @@ export const projectApi = {
     });
   },
 
-  // 导入项目
+  // Importa o projeto
   importProject: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -690,7 +692,7 @@ export const characterApi = {
       }
     );
 
-    // 从响应头获取文件名
+    // Obtém o nome do arquivo a partir dos cabeçalhos da resposta
     const contentDisposition = response.headers['content-disposition'];
     let filename = 'characters_export.json';
     if (contentDisposition) {
@@ -700,7 +702,7 @@ export const characterApi = {
       }
     }
 
-    // 创建下载链接
+    // Cria o link de download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
@@ -711,7 +713,7 @@ export const characterApi = {
     window.URL.revokeObjectURL(url);
   },
 
-  // 验证导入文件
+  // Valida o arquivo de importação
   validateImportCharacters: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -1309,7 +1311,7 @@ export const projectAgentApi = {
       signal,
     });
     if (!response.ok) {
-      let detail = `请求失败 (${response.status})`;
+      let detail = i18n.t('errors:falhaNaRequisicao2', { status: response.status });
       try {
         const body = await response.json();
         detail = body.detail || detail;
@@ -1318,7 +1320,7 @@ export const projectAgentApi = {
       }
       throw new Error(detail);
     }
-    if (!response.body) throw new Error('无法读取木木创作助手响应流');
+    if (!response.body) throw new Error(i18n.t('errors:naoFoiPossivelLer'));
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -1344,8 +1346,8 @@ export const projectAgentApi = {
         else if (event.type === 'final_done') callbacks.onFinalDone?.(event.data);
         else if (event.type === 'result') callbacks.onResult?.(event.data);
         else if (event.type === 'error') {
-          callbacks.onError?.(event.error || '木木创作助手执行失败');
-          throw new Error(event.error || '木木创作助手执行失败');
+          callbacks.onError?.(event.error || i18n.t('errors:falhaExecucaoAssistenteCriacao'));
+          throw new Error(event.error || i18n.t('errors:falhaExecucaoAssistenteCriacao'));
         }
       }
     }
