@@ -32,7 +32,7 @@ def get_china_now():
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/auth", tags=["认证"])
+router = APIRouter(prefix="/auth", tags=["Autenticação"])
 
 # 邮箱验证码临时存储（生产环境应使用 Redis）
 _email_verification_storage = {}
@@ -186,7 +186,7 @@ async def _create_email_user(email: str, display_name: Optional[str]) -> UserDTO
         user = existing.scalar_one_or_none()
 
         if user:
-            raise HTTPException(status_code=400, detail="该邮箱已注册")
+            raise HTTPException(status_code=400, detail="Este e-mail já está cadastrado")
 
         user = UserModel(
             user_id=user_id,
@@ -223,13 +223,13 @@ async def _touch_user_last_login(user_id: str):
 def _validate_email(email: str) -> str:
     normalized_email = email.strip().lower()
     if not normalized_email or len(normalized_email) > 255 or not EMAIL_REGEX.match(normalized_email):
-        raise HTTPException(status_code=400, detail="请输入有效的邮箱地址")
+        raise HTTPException(status_code=400, detail="Informe um endereço de e-mail válido")
     return normalized_email
 
 
 def _validate_password(password: str):
     if len(password) < 6:
-        raise HTTPException(status_code=400, detail="密码长度至少为6个字符")
+        raise HTTPException(status_code=400, detail="A senha deve ter pelo menos 6 caracteres")
 
 
 def _is_session_cookie_secure() -> bool:
@@ -273,35 +273,35 @@ def _generate_verification_code() -> str:
 
 def _build_verification_mail_content(scene: str, code: str, ttl_minutes: int) -> tuple[str, str, str]:
     scene_title_map = {
-        "register": "邮箱注册验证码",
-        "login": "邮箱登录验证码",
-        "reset_password": "重置密码验证码",
+        "register": "Código de verificação de cadastro por e-mail",
+        "login": "Código de verificação de login por e-mail",
+        "reset_password": "Código de verificação para redefinir a senha",
     }
     scene_desc_map = {
-        "register": "欢迎注册 MuMuAINovel。",
-        "login": "你正在使用邮箱验证码登录 MuMuAINovel。",
-        "reset_password": "你正在重置 MuMuAINovel 账号密码。",
+        "register": "Bem-vindo ao MuMuAINovel.",
+        "login": "Você está entrando no MuMuAINovel com um código enviado por e-mail.",
+        "reset_password": "Você está redefinindo a senha da sua conta do MuMuAINovel.",
     }
 
-    scene_title = scene_title_map.get(scene, "邮箱验证码")
-    scene_desc = scene_desc_map.get(scene, "你正在进行邮箱身份验证。")
+    scene_title = scene_title_map.get(scene, "Código de verificação por e-mail")
+    scene_desc = scene_desc_map.get(scene, "Você está fazendo a verificação de identidade por e-mail.")
     subject = f"MuMuAINovel {scene_title}"
     text_body = (
         f"{scene_desc}\n\n"
-        f"你的验证码是：{code}\n"
-        f"有效期：{ttl_minutes} 分钟\n\n"
-        f"如果这不是你的操作，请忽略本邮件。"
+        f"Seu código de verificação é: {code}\n"
+        f"Validade: {ttl_minutes} minutos\n\n"
+        f"Se não foi você, ignore este e-mail."
     )
     html_body = f"""
     <div style="font-family: Arial, PingFang SC, Microsoft YaHei, sans-serif; line-height: 1.8; color: #1f2937;">
       <h2 style="margin-bottom: 16px;">MuMuAINovel {scene_title}</h2>
       <p>{scene_desc}</p>
-      <p>你的验证码为：</p>
+      <p>Seu código de verificação é:</p>
       <div style="display: inline-block; padding: 10px 18px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; font-size: 28px; font-weight: 700; letter-spacing: 4px; color: #2563eb;">
         {code}
       </div>
-      <p style="margin-top: 16px;">有效期：{ttl_minutes} 分钟</p>
-      <p>如果这不是你的操作，请忽略本邮件。</p>
+      <p style="margin-top: 16px;">Validade: {ttl_minutes} minutos</p>
+      <p>Se não foi você, ignore este e-mail.</p>
     </div>
     """
     return subject, text_body, html_body
@@ -315,7 +315,7 @@ def _validate_verification_scene(scene: str) -> str:
     normalized_scene = scene.strip().lower()
     allowed_scenes = {"register", "login", "reset_password"}
     if normalized_scene not in allowed_scenes:
-        raise HTTPException(status_code=400, detail="不支持的验证码场景")
+        raise HTTPException(status_code=400, detail="Finalidade de código de verificação não suportada")
     return normalized_scene
 
 
@@ -334,7 +334,7 @@ async def get_auth_config():
 async def local_login(request: LocalLoginRequest, response: Response):
     """本地账户登录（支持.env配置的管理员账号和已设置密码的本地用户）"""
     if not settings.LOCAL_AUTH_ENABLED:
-        raise HTTPException(status_code=403, detail="本地账户登录未启用")
+        raise HTTPException(status_code=403, detail="O login com conta local não está habilitado")
 
     logger.info(f"[本地登录] 尝试登录用户名: {request.username}")
 
@@ -351,11 +351,11 @@ async def local_login(request: LocalLoginRequest, response: Response):
     if target_user:
         if not await password_manager.has_password(target_user.user_id):
             logger.warning(f"[本地登录] 用户 {target_user.user_id} 没有设置密码")
-            raise HTTPException(status_code=401, detail="用户名或密码错误")
+            raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
         if not await password_manager.verify_password(target_user.user_id, request.password):
             logger.warning(f"[本地登录] 用户 {target_user.user_id} 密码验证失败")
-            raise HTTPException(status_code=401, detail="用户名或密码错误")
+            raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
         logger.info(f"[本地登录] 已设置密码的用户 {target_user.user_id} 登录成功")
         user = target_user
@@ -363,14 +363,14 @@ async def local_login(request: LocalLoginRequest, response: Response):
         logger.info(f"[本地登录] 未找到本地用户，检查 .env 管理员账号")
 
         if not settings.LOCAL_AUTH_USERNAME or not settings.LOCAL_AUTH_PASSWORD:
-            raise HTTPException(status_code=401, detail="用户名或密码错误")
+            raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
         user_id = f"local_{hashlib.md5(request.username.encode()).hexdigest()[:16]}"
         user = await user_manager.get_user(user_id)
 
         if not user:
             if request.username != settings.LOCAL_AUTH_USERNAME or request.password != settings.LOCAL_AUTH_PASSWORD:
-                raise HTTPException(status_code=401, detail="用户名或密码错误")
+                raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
             user = await user_manager.create_or_update_user(
                 external_id=user_id,
@@ -384,7 +384,7 @@ async def local_login(request: LocalLoginRequest, response: Response):
             logger.info(f"[本地登录] 管理员用户 {user.user_id} 初始密码已设置到数据库")
         else:
             if not await password_manager.verify_password(user.user_id, request.password):
-                raise HTTPException(status_code=401, detail="用户名或密码错误")
+                raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
             logger.info(f"[本地登录] 管理员用户 {user.user_id} 登录成功")
 
@@ -393,7 +393,7 @@ async def local_login(request: LocalLoginRequest, response: Response):
 
     return LocalLoginResponse(
         success=True,
-        message="登录成功",
+        message="Login realizado com sucesso",
         user=user.dict()
     )
 
@@ -403,7 +403,7 @@ async def send_email_verification_code(request: EmailSendCodeRequest):
     """发送邮箱验证码（注册 / 登录 / 重置密码）"""
     runtime = await _get_auth_runtime_settings()
     if not runtime["email_auth_enabled"]:
-        raise HTTPException(status_code=403, detail="邮箱认证未启用")
+        raise HTTPException(status_code=403, detail="A autenticação por e-mail não está habilitada")
 
     email = _validate_email(request.email)
     scene = _validate_verification_scene(request.scene)
@@ -411,15 +411,15 @@ async def send_email_verification_code(request: EmailSendCodeRequest):
 
     if scene == "register":
         if not runtime["email_register_enabled"]:
-            raise HTTPException(status_code=403, detail="邮箱注册未启用")
+            raise HTTPException(status_code=403, detail="O cadastro por e-mail não está habilitado")
         if existing_user:
-            raise HTTPException(status_code=400, detail="该邮箱已注册")
+            raise HTTPException(status_code=400, detail="Este e-mail já está cadastrado")
     else:
         if not existing_user:
-            raise HTTPException(status_code=404, detail="该邮箱尚未注册")
+            raise HTTPException(status_code=404, detail="Este e-mail ainda não está cadastrado")
 
     if not runtime["smtp_host"] or not runtime["smtp_username"] or not runtime["smtp_password"]:
-        raise HTTPException(status_code=400, detail="系统 SMTP 未配置完整，暂无法发送验证码")
+        raise HTTPException(status_code=400, detail="O SMTP do sistema não está totalmente configurado, não é possível enviar o código")
 
     now = get_china_now()
     storage_key = _get_verification_storage_key(scene, email)
@@ -429,7 +429,7 @@ async def send_email_verification_code(request: EmailSendCodeRequest):
 
     if cached and cached["last_sent_at"] + timedelta(seconds=resend_interval) > now:
         remain_seconds = int((cached["last_sent_at"] + timedelta(seconds=resend_interval) - now).total_seconds())
-        raise HTTPException(status_code=429, detail=f"验证码发送过于频繁，请 {remain_seconds} 秒后重试")
+        raise HTTPException(status_code=429, detail=f"Envio de códigos muito frequente, tente novamente em {remain_seconds} segundos")
 
     code = _generate_verification_code()
     expires_at = now + timedelta(minutes=ttl_minutes)
@@ -461,7 +461,7 @@ async def send_email_verification_code(request: EmailSendCodeRequest):
     logger.info(f"[邮箱验证码] 场景={scene} 已发送到 {email}")
     return {
         "success": True,
-        "message": "验证码已发送，请检查邮箱",
+        "message": "Código enviado, verifique seu e-mail",
         "expire_in_seconds": ttl_minutes * 60,
         "resend_interval_seconds": resend_interval,
     }
@@ -472,37 +472,37 @@ async def email_register(request: EmailRegisterRequest, response: Response):
     """邮箱验证码注册并自动登录"""
     runtime = await _get_auth_runtime_settings()
     if not runtime["email_auth_enabled"]:
-        raise HTTPException(status_code=403, detail="邮箱认证未启用")
+        raise HTTPException(status_code=403, detail="A autenticação por e-mail não está habilitada")
     if not runtime["email_register_enabled"]:
-        raise HTTPException(status_code=403, detail="邮箱注册未启用")
+        raise HTTPException(status_code=403, detail="O cadastro por e-mail não está habilitado")
 
     email = _validate_email(request.email)
     code = request.code.strip()
     _validate_password(request.password)
 
     if len(code) != 6 or not code.isdigit():
-        raise HTTPException(status_code=400, detail="请输入6位数字验证码")
+        raise HTTPException(status_code=400, detail="Informe o código de 6 dígitos")
 
     cached = _email_verification_storage.get(_get_verification_storage_key("register", email))
     if not cached:
-        raise HTTPException(status_code=400, detail="请先发送验证码")
+        raise HTTPException(status_code=400, detail="Envie o código de verificação primeiro")
 
     now = get_china_now()
     if cached["expires_at"] < now:
         _email_verification_storage.pop(_get_verification_storage_key("register", email), None)
-        raise HTTPException(status_code=400, detail="验证码已过期，请重新发送")
+        raise HTTPException(status_code=400, detail="O código de verificação expirou, envie-o novamente")
 
     if cached["code"] != code:
         cached["attempts"] = cached.get("attempts", 0) + 1
         if cached["attempts"] >= MAX_VERIFICATION_ATTEMPTS:
             _email_verification_storage.pop(_get_verification_storage_key("register", email), None)
-            raise HTTPException(status_code=429, detail="验证码错误次数过多，请重新发送")
-        raise HTTPException(status_code=400, detail="验证码错误")
+            raise HTTPException(status_code=429, detail="Muitas tentativas com código incorreto, envie o código novamente")
+        raise HTTPException(status_code=400, detail="Código de verificação incorreto")
 
     existing_user = await _find_user_by_email(email)
     if existing_user:
         _email_verification_storage.pop(_get_verification_storage_key("register", email), None)
-        raise HTTPException(status_code=400, detail="该邮箱已注册")
+        raise HTTPException(status_code=400, detail="Este e-mail já está cadastrado")
 
     user = await _create_email_user(email, request.display_name)
     await password_manager.set_password(user.user_id, email, request.password)
@@ -513,7 +513,7 @@ async def email_register(request: EmailRegisterRequest, response: Response):
 
     return LocalLoginResponse(
         success=True,
-        message="注册成功",
+        message="Cadastro realizado com sucesso",
         user=user.dict()
     )
 
@@ -523,33 +523,33 @@ async def email_login(request: EmailLoginRequest, response: Response):
     """邮箱验证码登录"""
     runtime = await _get_auth_runtime_settings()
     if not runtime["email_auth_enabled"]:
-        raise HTTPException(status_code=403, detail="邮箱认证未启用")
+        raise HTTPException(status_code=403, detail="A autenticação por e-mail não está habilitada")
 
     email = _validate_email(request.email)
     code = request.code.strip()
     user = await _find_user_by_email(email)
     if not user:
-        raise HTTPException(status_code=404, detail="该邮箱尚未注册")
+        raise HTTPException(status_code=404, detail="Este e-mail ainda não está cadastrado")
 
     if len(code) != 6 or not code.isdigit():
-        raise HTTPException(status_code=400, detail="请输入6位数字验证码")
+        raise HTTPException(status_code=400, detail="Informe o código de 6 dígitos")
 
     storage_key = _get_verification_storage_key("login", email)
     cached = _email_verification_storage.get(storage_key)
     if not cached:
-        raise HTTPException(status_code=400, detail="请先发送登录验证码")
+        raise HTTPException(status_code=400, detail="Envie primeiro o código de verificação de login")
 
     now = get_china_now()
     if cached["expires_at"] < now:
         _email_verification_storage.pop(storage_key, None)
-        raise HTTPException(status_code=400, detail="登录验证码已过期，请重新发送")
+        raise HTTPException(status_code=400, detail="O código de login expirou, envie-o novamente")
 
     if cached["code"] != code:
         cached["attempts"] = cached.get("attempts", 0) + 1
         if cached["attempts"] >= MAX_VERIFICATION_ATTEMPTS:
             _email_verification_storage.pop(storage_key, None)
-            raise HTTPException(status_code=429, detail="验证码错误次数过多，请重新发送")
-        raise HTTPException(status_code=400, detail="登录验证码错误")
+            raise HTTPException(status_code=429, detail="Muitas tentativas com código incorreto, envie o código novamente")
+        raise HTTPException(status_code=400, detail="Código de login incorreto")
 
     _email_verification_storage.pop(storage_key, None)
     await _touch_user_last_login(user.user_id)
@@ -562,7 +562,7 @@ async def email_login(request: EmailLoginRequest, response: Response):
 
     return LocalLoginResponse(
         success=True,
-        message="登录成功",
+        message="Login realizado com sucesso",
         user=user.dict()
     )
 
@@ -572,7 +572,7 @@ async def email_reset_password(request: EmailResetPasswordRequest):
     """通过邮箱验证码重置密码"""
     runtime = await _get_auth_runtime_settings()
     if not runtime["email_auth_enabled"]:
-        raise HTTPException(status_code=403, detail="邮箱认证未启用")
+        raise HTTPException(status_code=403, detail="A autenticação por e-mail não está habilitada")
 
     email = _validate_email(request.email)
     code = request.code.strip()
@@ -580,27 +580,27 @@ async def email_reset_password(request: EmailResetPasswordRequest):
 
     user = await _find_user_by_email(email)
     if not user:
-        raise HTTPException(status_code=404, detail="该邮箱尚未注册")
+        raise HTTPException(status_code=404, detail="Este e-mail ainda não está cadastrado")
 
     if len(code) != 6 or not code.isdigit():
-        raise HTTPException(status_code=400, detail="请输入6位数字验证码")
+        raise HTTPException(status_code=400, detail="Informe o código de 6 dígitos")
 
     storage_key = _get_verification_storage_key("reset_password", email)
     cached = _email_verification_storage.get(storage_key)
     if not cached:
-        raise HTTPException(status_code=400, detail="请先发送重置密码验证码")
+        raise HTTPException(status_code=400, detail="Envie primeiro o código de redefinição de senha")
 
     now = get_china_now()
     if cached["expires_at"] < now:
         _email_verification_storage.pop(storage_key, None)
-        raise HTTPException(status_code=400, detail="重置密码验证码已过期，请重新发送")
+        raise HTTPException(status_code=400, detail="O código de redefinição de senha expirou, envie-o novamente")
 
     if cached["code"] != code:
         cached["attempts"] = cached.get("attempts", 0) + 1
         if cached["attempts"] >= MAX_VERIFICATION_ATTEMPTS:
             _email_verification_storage.pop(storage_key, None)
-            raise HTTPException(status_code=429, detail="验证码错误次数过多，请重新发送")
-        raise HTTPException(status_code=400, detail="重置密码验证码错误")
+            raise HTTPException(status_code=429, detail="Muitas tentativas com código incorreto, envie o código novamente")
+        raise HTTPException(status_code=400, detail="Código de redefinição de senha incorreto")
 
     await password_manager.set_password(user.user_id, email, request.new_password)
     _email_verification_storage.pop(storage_key, None)
@@ -608,7 +608,7 @@ async def email_reset_password(request: EmailResetPasswordRequest):
 
     return {
         "success": True,
-        "message": "密码重置成功，请使用新验证码重新登录",
+        "message": "Senha redefinida com sucesso, entre novamente com o novo código",
     }
 
 
@@ -616,7 +616,7 @@ async def email_reset_password(request: EmailResetPasswordRequest):
 async def refresh_session(request: Request, response: Response):
     """刷新会话 - 延长登录状态"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="未登录，无法刷新会话")
+        raise HTTPException(status_code=401, detail="Não autenticado, não é possível renovar a sessão")
 
     user = request.state.user
 
@@ -630,7 +630,7 @@ async def refresh_session(request: Request, response: Response):
             if remaining_minutes > settings.SESSION_REFRESH_THRESHOLD_MINUTES:
                 logger.info(f"⏱️ [刷新会话] 用户 {user.user_id} 会话仍有效，剩余 {int(remaining_minutes)} 分钟")
                 return {
-                    "message": "会话仍然有效，无需刷新",
+                    "message": "A sessão ainda é válida, não é preciso renová-la",
                     "remaining_minutes": int(remaining_minutes),
                     "expire_at": expire_timestamp
                 }
@@ -651,7 +651,7 @@ async def refresh_session(request: Request, response: Response):
 
     logger.info(f"用户 {user.user_id} 刷新会话成功")
     return {
-        "message": "会话刷新成功",
+        "message": "Sessão renovada com sucesso",
         "expire_at": expire_at,
         "remaining_minutes": settings.SESSION_EXPIRE_MINUTES
     }
@@ -667,14 +667,14 @@ async def logout(request: Request, response: Response):
     response.delete_cookie("user_id")
     response.delete_cookie("session_token")
     response.delete_cookie("session_expire_at")
-    return {"message": "退出登录成功"}
+    return {"message": "Logout realizado com sucesso"}
 
 
 @router.get("/user")
 async def get_current_user(request: Request):
     """获取当前登录用户信息"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     return request.state.user.dict()
 
@@ -683,7 +683,7 @@ async def get_current_user(request: Request):
 async def get_password_status(request: Request):
     """获取当前用户的密码状态"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     user = request.state.user
     has_password = await password_manager.has_password(user.user_id)
@@ -704,7 +704,7 @@ async def get_password_status(request: Request):
 async def set_user_password(request: Request, password_req: SetPasswordRequest):
     """设置当前用户的密码"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     user = request.state.user
     _validate_password(password_req.password)
@@ -714,7 +714,7 @@ async def set_user_password(request: Request, password_req: SetPasswordRequest):
 
     return SetPasswordResponse(
         success=True,
-        message="密码设置成功"
+        message="Senha definida com sucesso"
     )
 
 
@@ -726,12 +726,12 @@ async def initialize_user_password(request: Request, password_req: SetPasswordRe
     用于首次登录的用户，可以选择设置自定义密码或使用默认密码
     """
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     user = request.state.user
 
     if await password_manager.has_password(user.user_id):
-        raise HTTPException(status_code=400, detail="密码已经初始化，请使用密码修改功能")
+        raise HTTPException(status_code=400, detail="A senha já foi inicializada, use a função de alterar senha")
 
     _validate_password(password_req.password)
 
@@ -740,7 +740,7 @@ async def initialize_user_password(request: Request, password_req: SetPasswordRe
 
     return SetPasswordResponse(
         success=True,
-        message="密码初始化成功"
+        message="Senha inicializada com sucesso"
     )
 
 
@@ -764,24 +764,24 @@ async def bind_account_login(request: LocalLoginRequest, response: Response):
 
     if not target_user:
         logger.warning(f"[绑定账号登录] 用户名 {request.username} 未找到")
-        raise HTTPException(status_code=401, detail="用户名或密码错误")
+        raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
     has_pwd = await password_manager.has_password(target_user.user_id)
     if not has_pwd:
         logger.warning(f"[绑定账号登录] 用户 {target_user.user_id} 没有设置密码")
-        raise HTTPException(status_code=401, detail="用户名或密码错误")
+        raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
     is_valid = await password_manager.verify_password(target_user.user_id, request.password)
     logger.info(f"[绑定账号登录] 用户 {target_user.user_id} 密码验证结果: {is_valid}")
 
     if not is_valid:
-        raise HTTPException(status_code=401, detail="用户名或密码错误")
+        raise HTTPException(status_code=401, detail="Usuário ou senha incorretos")
 
     _set_login_cookies(response, target_user.user_id)
     logger.info(f"✅ [绑定账号登录] 用户 {target_user.user_id} ({request.username}) 登录成功，会话有效期 {settings.SESSION_EXPIRE_MINUTES} 分钟")
 
     return LocalLoginResponse(
         success=True,
-        message="登录成功",
+        message="Login realizado com sucesso",
         user=target_user.dict()
     )
