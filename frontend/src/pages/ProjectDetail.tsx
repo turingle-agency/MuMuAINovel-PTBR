@@ -14,7 +14,6 @@ import {
   BankOutlined,
   EditOutlined,
   FundOutlined,
-  HeartOutlined,
   TrophyOutlined,
   BulbOutlined,
   CloudOutlined,
@@ -154,11 +153,6 @@ export default function ProjectDetail() {
 
   const menuItems = [
     {
-      key: 'sponsor',
-      icon: <HeartOutlined />,
-      label: <Link to={`/project/${projectId}/sponsor`}>赞助支持</Link>,
-    },
-    {
       type: 'group' as const,
       label: '创作管理',
       children: [
@@ -224,11 +218,6 @@ export default function ProjectDetail() {
           label: <Link to={`/project/${projectId}/writing-styles`}>写作风格</Link>,
         },
         {
-          key: 'prompt-workshop',
-          icon: <CloudOutlined />,
-          label: <Link to={`/project/${projectId}/prompt-workshop`}>提示词工坊</Link>,
-        },
-        {
           key: 'skill-chat',
           icon: <ThunderboltOutlined />,
           label: <Link to={`/project/${projectId}/skill-chat`}>Skill 工具箱</Link>,
@@ -243,11 +232,6 @@ export default function ProjectDetail() {
   ];
 
   const menuItemsCollapsed = [
-    {
-      key: 'sponsor',
-      icon: <HeartOutlined />,
-      label: <Link to={`/project/${projectId}/sponsor`}>赞助支持</Link>,
-    },
     {
       key: 'world-setting',
       icon: <GlobalOutlined />,
@@ -304,11 +288,6 @@ export default function ProjectDetail() {
       label: <Link to={`/project/${projectId}/writing-styles`}>写作风格</Link>,
     },
     {
-      key: 'prompt-workshop',
-      icon: <CloudOutlined />,
-      label: <Link to={`/project/${projectId}/prompt-workshop`}>提示词工坊</Link>,
-    },
-    {
       key: 'skill-chat',
       icon: <ThunderboltOutlined />,
       label: <Link to={`/project/${projectId}/skill-chat`}>Skill 工具箱</Link>,
@@ -334,12 +313,10 @@ export default function ProjectDetail() {
     if (path.includes('/foreshadows')) return 'foreshadows';
     if (path.includes('/chapters')) return 'chapters';
     if (path.includes('/writing-styles')) return 'writing-styles';
-    if (path.includes('/prompt-workshop')) return 'prompt-workshop';
     if (path.includes('/skill-chat')) return 'skill-chat';
     if (path.includes('/skill-manage')) return 'skill-manage';
-    if (path.includes('/sponsor')) return 'sponsor';
     // if (path.includes('/polish')) return 'polish';
-    return 'sponsor'; // 默认选中赞助支持
+    return 'world-setting';
   }, [location.pathname]);
 
   if (loading || !currentProject) {
