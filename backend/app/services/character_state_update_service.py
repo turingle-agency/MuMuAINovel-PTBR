@@ -44,6 +44,25 @@ _INTIMACY_PT_PATTERNS = [
 ]
 
 
+# Mudança de lealdade em organizações: palavras-chave chinesas (dados antigos) ...
+CJK_COMPAT_LOYALTY_ADJUSTMENTS = {
+    "提升": +10, "增强": +10, "坚定": +15, "忠心": +15,
+    "动摇": -15, "怀疑": -10, "不满": -10, "降低": -10,
+    "背叛": -50, "叛变": -50, "反感": -20, "失望": -15,
+}
+
+# ... e radicais em PT-BR (casam no início de palavra)
+LOYALTY_ADJUSTMENTS_PT = {
+    "aument": +10, "fortalec": +10, "cresc": +10, "firm": +15, "fiel": +15, "devoç": +15, "devoc": +15,
+    "abal": -15, "dúvid": -10, "duvid": -10, "descontent": -10, "diminu": -10, "reduz": -10, "enfraquec": -10,
+    "trai": -50, "deserç": -50, "desercao": -50, "avers": -20, "decepç": -15, "decepc": -15,
+}
+_LOYALTY_PT_PATTERNS = [
+    (re.compile(r"(?<!\w)" + re.escape(stem)), adj)
+    for stem, adj in LOYALTY_ADJUSTMENTS_PT.items()
+]
+
+
 class CharacterStateUpdateService:
     """角色状态更新服务 - 根据章节分析结果自动更新角色心理状态和关系"""
 
@@ -221,9 +240,9 @@ class CharacterStateUpdateService:
         - 更新所有组织成员身份为 deceased/retired
         """
         STATUS_DESC = {
-            'deceased': '死亡',
-            'missing': '失踪',
-            'retired': '退场'
+            'deceased': 'falecido',
+            'missing': 'desaparecido',
+            'retired': 'afastado'
         }
         
         status_desc = STATUS_DESC.get(new_status, new_status)
@@ -237,10 +256,10 @@ class CharacterStateUpdateService:
         old_status = character.status or 'active'
         character.status = new_status
         character.status_changed_chapter = chapter_number
-        character.current_state = f"{status_desc}（第{chapter_number}章）"
+        character.current_state = f"{status_desc} (capítulo {chapter_number})"
         character.state_updated_chapter = chapter_number
         
-        event_desc = f"：{key_event[:50]}" if key_event else ""
+        event_desc = f": {key_event[:50]}" if key_event else ""
         changes.append(f"💀 {character.name} {status_desc}{event_desc}")
         logger.info(f"  💀 {character.name} 状态: {old_status} → {new_status}")
         
@@ -260,7 +279,7 @@ class CharacterStateUpdateService:
         active_rels = rels_result.scalars().all()
         for rel in active_rels:
             rel.status = 'past'
-            rel.ended_at = f"第{chapter_number}章"
+            rel.ended_at = f"Capítulo {chapter_number}"
         if active_rels:
             logger.info(f"  📋 {character.name} {status_desc}，{len(active_rels)}条关系标记为past")
         
@@ -277,9 +296,9 @@ class CharacterStateUpdateService:
         active_members = members_result.scalars().all()
         for member in active_members:
             member.status = member_status
-            member.left_at = f"第{chapter_number}章"
+            member.left_at = f"Capítulo {chapter_number}"
             member.notes = (
-                f"{member.notes or ''}\n[第{chapter_number}章] 角色{status_desc}"
+                f"{member.notes or ''}\n[Cap. {chapter_number}]  Personagem {status_desc}"
             ).strip()
         if active_members:
             logger.info(f"  📋 {character.name} {status_desc}，{len(active_members)}个组织身份标记为{member_status}")
@@ -320,10 +339,10 @@ class CharacterStateUpdateService:
         character.current_state = state_after
         character.state_updated_chapter = chapter_number
 
-        state_before = char_state.get('state_before', '未知')
+        state_before = char_state.get('state_before', 'desconhecido')
         psychological_change = char_state.get('psychological_change', '')
 
-        change_desc = f"👤 {character.name} 心理状态: {state_before} → {state_after}"
+        change_desc = f"👤 {character.name} estado psicológico: {state_before} → {state_after}"
         if psychological_change:
             change_desc += f" ({psychological_change[:50]})"
         changes.append(change_desc)
@@ -418,7 +437,7 @@ class CharacterStateUpdateService:
                     existing_rel.relationship_name = change_desc
                     
                     # 追加变更记录到描述
-                    chapter_note = f"[第{chapter_number}章] {change_desc}"
+                    chapter_note = f"[Cap. {chapter_number}] {change_desc}"
                     if existing_rel.description:
                         existing_rel.description = f"{existing_rel.description}\n{chapter_note}"
                     else:
@@ -436,7 +455,7 @@ class CharacterStateUpdateService:
 
                     updated_count += 1
                     changes.append(
-                        f"🔄 {character.name}↔{target_name} 关系更新: {change_desc}"
+                        f"🔄 {character.name}↔{target_name} relação atualizada: {change_desc}"
                     )
                     logger.info(f"  ✅ 更新关系: {character.name}↔{target_name} - {change_desc}")
 
@@ -454,14 +473,14 @@ class CharacterStateUpdateService:
                         relationship_name=change_desc,  # 直接使用AI分析返回的描述
                         intimacy_level=initial_intimacy,
                         status="active",
-                        description=f"[第{chapter_number}章] {change_desc}",
+                        description=f"[Cap. {chapter_number}] {change_desc}",
                         source="analysis"
                     )
                     db.add(new_relationship)
 
                     created_count += 1
                     changes.append(
-                        f"✨ {character.name}→{target_name} 新关系: {change_desc}"
+                        f"✨ {character.name}→{target_name} nova relação: {change_desc}"
                     )
                     logger.info(
                         f"  ✅ 创建关系: {character.name}→{target_name} "
@@ -502,13 +521,6 @@ class CharacterStateUpdateService:
         """
         updated_count = 0
         
-        # 忠诚度变化关键词映射
-        LOYALTY_ADJUSTMENTS = {
-            "提升": +10, "增强": +10, "坚定": +15, "忠心": +15,
-            "动摇": -15, "怀疑": -10, "不满": -10, "降低": -10,
-            "背叛": -50, "叛变": -50, "反感": -20, "失望": -15,
-        }
-        
         for org_change in organization_changes:
             try:
                 org_name = org_change.get('organization_name')
@@ -540,8 +552,12 @@ class CharacterStateUpdateService:
                 # 计算忠诚度变化
                 loyalty_delta = 0
                 if loyalty_change_desc:
-                    for keyword, adjustment in LOYALTY_ADJUSTMENTS.items():
+                    for keyword, adjustment in CJK_COMPAT_LOYALTY_ADJUSTMENTS.items():
                         if keyword in loyalty_change_desc:
+                            loyalty_delta += adjustment
+                    lowered_loyalty = str(loyalty_change_desc).lower()
+                    for pattern, adjustment in _LOYALTY_PT_PATTERNS:
+                        if pattern.search(lowered_loyalty):
                             loyalty_delta += adjustment
                     loyalty_delta = max(-50, min(50, loyalty_delta))
                 
@@ -555,10 +571,10 @@ class CharacterStateUpdateService:
                             if new_position:
                                 existing_member.position = new_position
                             existing_member.notes = (
-                                f"{existing_member.notes or ''}\n[第{chapter_number}章] 重新加入: {description}"
+                                f"{existing_member.notes or ''}\n[Cap. {chapter_number}] Reingressou: {description}"
                             ).strip()
                             updated_count += 1
-                            changes.append(f"🏛️ {character.name} 重新加入 {org_name}")
+                            changes.append(f"🏛️ {character.name} reingressou em {org_name}")
                             logger.info(f"  ✅ {character.name} 重新加入 {org_name}")
                     else:
                         # 创建新成员关系
@@ -566,18 +582,18 @@ class CharacterStateUpdateService:
                             id=str(uuid.uuid4()),
                             organization_id=organization.id,
                             character_id=character.id,
-                            position=new_position or '成员',
+                            position=new_position or 'Membro',
                             rank=0,
                             loyalty=max(0, min(100, 50 + loyalty_delta)),
                             status='active',
-                            joined_at=f"第{chapter_number}章",
+                            joined_at=f"Capítulo {chapter_number}",
                             source='analysis',
-                            notes=f"[第{chapter_number}章] {description}" if description else None
+                            notes=f"[Cap. {chapter_number}] {description}" if description else None
                         )
                         db.add(new_member)
                         organization.member_count = (organization.member_count or 0) + 1
                         updated_count += 1
-                        changes.append(f"🏛️ {character.name} 加入 {org_name}({new_position or '成员'})")
+                        changes.append(f"🏛️ {character.name} ingressou em {org_name}({new_position or 'Membro'})")
                         logger.info(f"  ✅ {character.name} 加入 {org_name} 为 {new_position or '成员'}")
                 
                 elif change_type in ('left', 'expelled', 'betrayed'):
@@ -589,14 +605,14 @@ class CharacterStateUpdateService:
                             'betrayed': 'expelled'
                         }
                         existing_member.status = status_map.get(change_type, 'retired')
-                        existing_member.left_at = f"第{chapter_number}章"
+                        existing_member.left_at = f"Capítulo {chapter_number}"
                         if loyalty_delta != 0:
                             existing_member.loyalty = max(0, min(100, (existing_member.loyalty or 50) + loyalty_delta))
                         existing_member.notes = (
-                            f"{existing_member.notes or ''}\n[第{chapter_number}章] {change_type}: {description}"
+                            f"{existing_member.notes or ''}\n[Cap. {chapter_number}] {change_type}: {description}"
                         ).strip()
                         updated_count += 1
-                        type_desc = {'left': '离开', 'expelled': '被开除', 'betrayed': '叛变'}
+                        type_desc = {'left': 'saiu', 'expelled': 'foi expulso', 'betrayed': 'traiu'}
                         changes.append(f"🏛️ {character.name} {type_desc.get(change_type, change_type)} {org_name}")
                         logger.info(f"  ✅ {character.name} {type_desc.get(change_type, change_type)} {org_name}")
                 
@@ -613,10 +629,10 @@ class CharacterStateUpdateService:
                             # 晋升默认提升忠诚度
                             existing_member.loyalty = max(0, min(100, (existing_member.loyalty or 50) + 5))
                         existing_member.notes = (
-                            f"{existing_member.notes or ''}\n[第{chapter_number}章] 晋升: {old_position} → {new_position or '更高职位'}: {description}"
+                            f"{existing_member.notes or ''}\n[Cap. {chapter_number}] Promoção: {old_position} → {new_position or 'cargo superior'}: {description}"
                         ).strip()
                         updated_count += 1
-                        changes.append(f"🏛️ {character.name} 在 {org_name} 晋升: {old_position} → {new_position or '更高职位'}")
+                        changes.append(f"🏛️ {character.name} em {org_name} promoção: {old_position} → {new_position or 'cargo superior'}")
                         logger.info(f"  ✅ {character.name} 在 {org_name} 晋升为 {new_position or '更高职位'}")
                     else:
                         logger.warning(f"  ⚠️ {character.name} 不是 {org_name} 的成员，无法晋升")
@@ -634,10 +650,10 @@ class CharacterStateUpdateService:
                             # 降级默认降低忠诚度
                             existing_member.loyalty = max(0, min(100, (existing_member.loyalty or 50) - 5))
                         existing_member.notes = (
-                            f"{existing_member.notes or ''}\n[第{chapter_number}章] 降级: {old_position} → {new_position or '更低职位'}: {description}"
+                            f"{existing_member.notes or ''}\n[Cap. {chapter_number}] Rebaixamento: {old_position} → {new_position or 'cargo inferior'}: {description}"
                         ).strip()
                         updated_count += 1
-                        changes.append(f"🏛️ {character.name} 在 {org_name} 降级: {old_position} → {new_position or '更低职位'}")
+                        changes.append(f"🏛️ {character.name} em {org_name} rebaixamento: {old_position} → {new_position or 'cargo inferior'}")
                         logger.info(f"  ✅ {character.name} 在 {org_name} 降级为 {new_position or '更低职位'}")
                     else:
                         logger.warning(f"  ⚠️ {character.name} 不是 {org_name} 的成员，无法降级")
@@ -648,11 +664,11 @@ class CharacterStateUpdateService:
                         old_loyalty = existing_member.loyalty or 50
                         existing_member.loyalty = max(0, min(100, old_loyalty + loyalty_delta))
                         existing_member.notes = (
-                            f"{existing_member.notes or ''}\n[第{chapter_number}章] {change_type}: {description}"
+                            f"{existing_member.notes or ''}\n[Cap. {chapter_number}] {change_type}: {description}"
                         ).strip()
                         updated_count += 1
                         changes.append(
-                            f"🏛️ {character.name} 在 {org_name} 忠诚度变化: "
+                            f"🏛️ {character.name} em {org_name} mudança de lealdade: "
                             f"{old_loyalty} → {existing_member.loyalty}"
                         )
                         logger.info(
@@ -740,7 +756,7 @@ class CharacterStateUpdateService:
                     # 组织覆灭：级联处理
                     org_char.status = 'destroyed'
                     org_char.status_changed_chapter = chapter_number
-                    org_char.current_state = f"覆灭（第{chapter_number}章）"
+                    org_char.current_state = f"destruída (capítulo {chapter_number})"
                     org_char.state_updated_chapter = chapter_number
                     organization.power_level = 0
                     
@@ -756,15 +772,15 @@ class CharacterStateUpdateService:
                     active_members = members_result.scalars().all()
                     for member in active_members:
                         member.status = 'retired'
-                        member.left_at = f"第{chapter_number}章"
+                        member.left_at = f"Capítulo {chapter_number}"
                         member.notes = (
-                            f"{member.notes or ''}\n[第{chapter_number}章] 组织覆灭"
+                            f"{member.notes or ''}\n[Cap. {chapter_number}] Organização destruída"
                         ).strip()
                     
                     key_event = org_state.get('key_event', '')
-                    event_desc = f"：{key_event[:40]}" if key_event else ""
+                    event_desc = f": {key_event[:40]}" if key_event else ""
                     result["updated_count"] += 1
-                    change_summary = f"💀 {org_name} 覆灭{event_desc}，{len(active_members)}名成员受影响"
+                    change_summary = f"💀 {org_name} destruída{event_desc}, {len(active_members)} membro(s) afetado(s)"
                     result["changes"].append(change_summary)
                     logger.info(f"  💀 {change_summary}")
                     continue  # 覆灭后不再更新其他属性
@@ -776,23 +792,23 @@ class CharacterStateUpdateService:
                     new_power = max(0, min(100, old_power + int(power_change)))
                     if new_power != old_power:
                         organization.power_level = new_power
-                        change_parts.append(f"势力:{old_power}→{new_power}")
+                        change_parts.append(f"poder: {old_power}→{new_power}")
                         updated = True
                 
                 # 据点变化
                 new_location = org_state.get('new_location')
                 if new_location and isinstance(new_location, str):
-                    old_location = organization.location or '未设定'
+                    old_location = organization.location or 'Não definido'
                     organization.location = new_location
-                    change_parts.append(f"据点:{old_location}→{new_location}")
+                    change_parts.append(f"sede: {old_location}→{new_location}")
                     updated = True
                 
                 # 宗旨/目标变化
                 new_purpose = org_state.get('new_purpose')
                 if new_purpose and isinstance(new_purpose, str):
-                    old_purpose = (org_char.organization_purpose or '未设定')[:30]
+                    old_purpose = (org_char.organization_purpose or 'Não definido')[:30]
                     org_char.organization_purpose = new_purpose
-                    change_parts.append(f"宗旨变更")
+                    change_parts.append(f"mudança de propósito")
                     updated = True
                 
                 # 状态描述 -> 更新到 Character 的 current_state
@@ -801,15 +817,15 @@ class CharacterStateUpdateService:
                     org_char.current_state = status_desc
                     org_char.state_updated_chapter = chapter_number
                     if not change_parts:  # 如果只有状态描述没有其他变化
-                        change_parts.append(f"状态:{status_desc[:30]}")
+                        change_parts.append(f"status: {status_desc[:30]}")
                     updated = True
                 
                 if updated:
                     result["updated_count"] += 1
                     key_event = org_state.get('key_event', '')
-                    change_summary = f"🏛️ {org_name} 状态变化: {', '.join(change_parts)}"
+                    change_summary = f"🏛️ {org_name} mudança de status: {', '.join(change_parts)}"
                     if key_event:
-                        change_summary += f" (因:{key_event[:40]})"
+                        change_summary += f" (motivo: {key_event[:40]})"
                     result["changes"].append(change_summary)
                     logger.info(f"  ✅ {change_summary}")
                     
