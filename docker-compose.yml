@@ -49,6 +49,15 @@ services:
       - -c
       - max_wal_size=${POSTGRES_MAX_WAL_SIZE:-4GB}
 
+  qdrant:
+    image: qdrant/qdrant
+    container_name: mumuainovel-qdrant
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+    networks:
+      - ai-story-network
+
   mumuainovel:
     build:
       context: .
@@ -58,6 +67,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      qdrant:
+        condition: service_started
     ports:
       - "${APP_PORT:-8000}:8000"
     volumes:
@@ -91,6 +102,9 @@ services:
       - DATABASE_POOL_PRE_PING=${DATABASE_POOL_PRE_PING:-True}
       - DATABASE_POOL_USE_LIFO=${DATABASE_POOL_USE_LIFO:-True}
       
+      # Banco vetorial (Qdrant)
+      - QDRANT_URL=http://qdrant:6333
+
       # 全局代理配置（可选）
       - HTTP_PROXY=${HTTP_PROXY:-}
       - HTTPS_PROXY=${HTTPS_PROXY:-}
@@ -134,6 +148,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  qdrant_data:
     driver: local
 
 networks:

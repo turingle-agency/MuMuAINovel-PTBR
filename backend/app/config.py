@@ -44,6 +44,11 @@ class Settings(BaseSettings):
     # 数据库配置 - PostgreSQL
     database_url: str = DATABASE_URL
     
+    # Banco vetorial (Qdrant): servidor se qdrant_url, senão modo local em disco
+    qdrant_url: str | None = None
+    qdrant_path: str = "data/qdrant"
+    qdrant_api_key: str | None = None
+
     # PostgreSQL连接池配置（优化后支持150-200并发用户）
     database_pool_size: int = 50  # 核心连接池大小（优化：从30提升到50）
     database_max_overflow: int = 30  # 最大溢出连接数（优化：从20提升到30）

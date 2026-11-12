@@ -2,8 +2,6 @@
 import re
 from pathlib import Path
 
-import pytest
-
 # `linuxdo_id` é o nome legado da coluna de id único em `users` (também usada por
 # usuários locais); por isso só proibimos outras referências a LinuxDO.
 UPSTREAM = re.compile(r"mumuverse|linux\.do|linuxdo(?!_id)|qq\.com|xiaomimimo|Asia/Shanghai", re.I)
@@ -20,7 +18,6 @@ def test_codigo_sem_referencias_upstream():
     assert hits == []
 
 
-@pytest.mark.skip(reason="habilitado na Task 8")
 def test_rotas_removidas():
     from app.main import app
 
