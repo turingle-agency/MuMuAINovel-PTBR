@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, func
 import json
 
+from app.utils.narrative import narrative_perspective_pt
 from app.models.outline import Outline
 from app.models.project import Project
 from app.models.character import Character
@@ -15,6 +16,23 @@ from app.constants.languages import language_name
 from app.logger import get_logger, safe_preview
 
 logger = get_logger(__name__)
+
+
+# Palavras-chave (PT-BR/EN, mais as chinesas para planos antigos) usadas para
+# deduzir o tipo de final de um capítulo a partir do objetivo narrativo.
+CJK_COMPAT_ENDING_KEYWORDS = [
+    ("suspense", ("suspense", "mistério", "misterio", "dúvida", "duvida", "pergunta", "cliffhanger", "悬念", "疑问")),
+    ("escalada de conflito", ("conflito", "confronto", "oposição", "oposicao", "embate", "冲突", "对抗")),
+    ("reviravolta", ("reviravolta", "virada", "guinada", "plot twist", "转折")),
+    ("fechamento emocional", ("emoção", "emocao", "emocional", "sentimento", "情感", "情绪")),
+]
+
+
+def _infer_ending_type(narrative_goal: str, idx: int) -> str:
+    for ending_type, keywords in CJK_COMPAT_ENDING_KEYWORDS:
+        if any(keyword in narrative_goal for keyword in keywords):
+            return ending_type
+    return f"transição natural-{idx + 1}"
 
 
 class PlotExpansionService:
@@ -102,8 +120,8 @@ class PlotExpansionService:
         )
         characters = characters_result.scalars().all()
         characters_info = "\n".join([
-            f"- {char.name} ({'组织' if char.is_organization else '角色'}, {char.role_type}): "
-            f"{char.personality[:100] if char.personality else '暂无描述'}"
+            f"- {char.name} ({'organização' if char.is_organization else 'personagem'}, {char.role_type}): "
+            f"{char.personality[:100] if char.personality else 'sem descrição'}"
             for char in characters
         ])
         
@@ -117,13 +135,13 @@ class PlotExpansionService:
             template,
             output_language=language_name(project.language),
             project_title=project.title,
-            project_genre=project.genre or '通用',
-            project_theme=project.theme or '未设定',
-            project_narrative_perspective=project.narrative_perspective or '第三人称',
-            project_world_time_period=project.world_time_period or '未设定',
-            project_world_location=project.world_location or '未设定',
-            project_world_atmosphere=project.world_atmosphere or '未设定',
-            characters_info=characters_info or '暂无角色',
+            project_genre=project.genre or 'Geral',
+            project_theme=project.theme or 'Não definido',
+            project_narrative_perspective=narrative_perspective_pt(project.narrative_perspective),
+            project_world_time_period=project.world_time_period or 'Não definido',
+            project_world_location=project.world_location or 'Não definido',
+            project_world_atmosphere=project.world_atmosphere or 'Não definido',
+            characters_info=characters_info or 'Nenhum personagem',
             outline_order_index=outline.order_index,
             outline_title=outline.title,
             outline_content=outline.content,
@@ -177,8 +195,8 @@ class PlotExpansionService:
         )
         characters = characters_result.scalars().all()
         characters_info = "\n".join([
-            f"- {char.name} ({'组织' if char.is_organization else '角色'}, {char.role_type}): "
-            f"{char.personality[:100] if char.personality else '暂无描述'}"
+            f"- {char.name} ({'organização' if char.is_organization else 'personagem'}, {char.role_type}): "
+            f"{char.personality[:100] if char.personality else 'sem descrição'}"
             for char in characters
         ])
         
@@ -208,34 +226,31 @@ class PlotExpansionService:
                 # 构建完整的已生成章节摘要（包含关键事件）
                 previous_summaries = []
                 for ch in all_chapter_plans:  # 显示所有已生成章节
-                    key_events_str = "、".join(ch.get('key_events', [])[:3]) if ch.get('key_events') else "无"
+                    key_events_str = ", ".join(ch.get('key_events', [])[:3]) if ch.get('key_events') else "nenhum"
                     previous_summaries.append(
-                        f"第{ch['sub_index']}节《{ch['title']}》:\n"
-                        f"  - 剧情：{ch.get('plot_summary', '')[:150]}\n"
-                        f"  - 关键事件：{key_events_str}\n"
-                        f"  - 结尾方式：{ch.get('ending_type', '未知')}"
+                        f"Seção {ch['sub_index']} «{ch['title']}»:\n  - Trama: {ch.get('plot_summary', '')[:150]}\n  - Eventos-chave: {key_events_str}\n  - Tipo de final: {ch.get('ending_type', 'desconhecido')}"
                     )
                 
                 # 提取所有已使用的关键事件
                 all_used_events = []
                 for ch in all_chapter_plans:
                     all_used_events.extend(ch.get('key_events', []))
-                used_events_str = "、".join(all_used_events[-20:]) if all_used_events else "暂无"
+                used_events_str = ", ".join(all_used_events[-20:]) if all_used_events else "nenhum"
                 
                 previous_context = f"""
-【🔴 已生成章节完整信息（必须参考以确保差异化）】
+[🔴 Informações completas dos capítulos já gerados (consulte obrigatoriamente para garantir diferenciação)]
 {chr(10).join(previous_summaries)}
 
-【🔴 已使用的关键事件（本批次不可重复使用）】
+[🔴 Eventos-chave já usados (não podem ser repetidos neste lote)]
 {used_events_str}
 
-【🔴 差异化强制要求】
-⚠️ 当前是第{current_start_index}-{current_start_index + current_batch_size - 1}节（共{target_chapter_count}节中的第{batch_num + 1}批）
-⚠️ 每个新章节必须有完全不同的：
-   1. 开场场景（不同地点/时间/人物状态）
-   2. 核心事件（不与已生成章节的关键事件重复）
-   3. 结尾悬念（不同类型的钩子）
-⚠️ 新章节的key_events不得与上面【已使用的关键事件】中的任何事件相同或相似
+[🔴 Exigências obrigatórias de diferenciação]
+⚠️ Agora estamos nas seções {current_start_index}-{current_start_index + current_batch_size - 1} (total de {target_chapter_count} seções; este é o lote {batch_num + 1})
+⚠️ Cada novo capítulo deve ter algo completamente diferente em:
+   1. Cena de abertura (outro local/horário/estado dos personagens)
+   2. Evento central (que não repita os eventos-chave dos capítulos já gerados)
+   3. Suspense final (outro tipo de gancho)
+⚠️ Os key_events do novo capítulo não podem ser iguais nem parecidos com nenhum dos [eventos-chave já usados] acima
 """
             # 获取自定义提示词模板
             template = await PromptService.get_template("OUTLINE_EXPAND_MULTI", project.user_id, db)
@@ -244,13 +259,13 @@ class PlotExpansionService:
                 template,
                 output_language=language_name(project.language),
                 project_title=project.title,
-                project_genre=project.genre or '通用',
-                project_theme=project.theme or '未设定',
-                project_narrative_perspective=project.narrative_perspective or '第三人称',
-                project_world_time_period=project.world_time_period or '未设定',
-                project_world_location=project.world_location or '未设定',
-                project_world_atmosphere=project.world_atmosphere or '未设定',
-                characters_info=characters_info or '暂无角色',
+                project_genre=project.genre or 'Geral',
+                project_theme=project.theme or 'Não definido',
+                project_narrative_perspective=narrative_perspective_pt(project.narrative_perspective),
+                project_world_time_period=project.world_time_period or 'Não definido',
+                project_world_location=project.world_location or 'Não definido',
+                project_world_atmosphere=project.world_atmosphere or 'Não definido',
+                characters_info=characters_info or 'Nenhum personagem',
                 outline_order_index=outline.order_index,
                 outline_title=outline.title,
                 outline_content=outline.content,
@@ -319,7 +334,7 @@ class PlotExpansionService:
         )
         project = project_result.scalar_one_or_none()
         if not project:
-            raise ValueError(f"项目 {project_id} 不存在")
+            raise ValueError(f"Projeto {project_id} não existe")
         
         # 获取所有大纲
         outlines_result = await db.execute(
@@ -413,7 +428,7 @@ class PlotExpansionService:
             current_outline = outline_result.scalar_one_or_none()
             
             if not current_outline:
-                raise ValueError(f"大纲 {outline_id} 不存在")
+                raise ValueError(f"Esboço {outline_id} não existe")
             
             # 2. 查询所有在当前大纲之前的大纲（按order_index排序）
             prev_outlines_result = await db.execute(
@@ -460,7 +475,7 @@ class PlotExpansionService:
                 outline_id=outline_id,
                 chapter_number=start_chapter_number + idx,
                 sub_index=plan.get("sub_index", idx + 1),
-                title=plan.get("title", f"第{start_chapter_number + idx}章"),
+                title=plan.get("title", f"Capítulo {start_chapter_number + idx}"),
                 summary=plan.get("plot_summary", ""),
                 expansion_plan=expansion_plan_json,
                 status="draft"
@@ -517,11 +532,11 @@ class PlotExpansionService:
         
         context = ""
         if prev_outline:
-            context += f"【前一节】{prev_outline.title}: {prev_outline.content[:200]}...\n\n"
+            context += f"[Seção anterior] {prev_outline.title}: {prev_outline.content[:200]}...\n\n"
         if next_outline:
-            context += f"【后一节】{next_outline.title}: {next_outline.content[:200]}...\n"
+            context += f"[Próxima seção] {next_outline.title}: {next_outline.content[:200]}...\n"
         
-        return context if context else "（无前后文）"
+        return context if context else "(sem contexto anterior/posterior)"
     
     
     def _parse_expansion_response(
@@ -548,21 +563,12 @@ class PlotExpansionService:
                 # 🔧 确保有 ending_type 字段（用于差异化追踪）
                 if "ending_type" not in plan:
                     # 根据叙事目标推断结尾类型
-                    narrative_goal = plan.get("narrative_goal", "")
-                    if "悬念" in narrative_goal or "疑问" in narrative_goal:
-                        plan["ending_type"] = "悬念"
-                    elif "冲突" in narrative_goal or "对抗" in narrative_goal:
-                        plan["ending_type"] = "冲突升级"
-                    elif "转折" in narrative_goal:
-                        plan["ending_type"] = "情节转折"
-                    elif "情感" in narrative_goal or "情绪" in narrative_goal:
-                        plan["ending_type"] = "情感收尾"
-                    else:
-                        plan["ending_type"] = f"自然过渡-{idx + 1}"
+                    narrative_goal = str(plan.get("narrative_goal", "")).lower()
+                    plan["ending_type"] = _infer_ending_type(narrative_goal, idx)
                 
                 # 🔧 确保 key_events 是列表且非空
                 if not plan.get("key_events"):
-                    plan["key_events"] = [f"章节{idx + 1}核心事件"]
+                    plan["key_events"] = [f"Evento central do capítulo {idx + 1}"]
             
             logger.info(f"✅ 成功解析 {len(chapter_plans)} 个章节规划（含差异化标识）")
             return chapter_plans
@@ -573,14 +579,14 @@ class PlotExpansionService:
             return [{
                 "outline_id": outline_id,
                 "sub_index": 1,
-                "title": "AI解析失败的默认章节",
+                "title": "Capítulo padrão (falha na interpretação da IA)",
                 "plot_summary": ai_response[:500],
-                "key_events": ["解析失败"],
+                "key_events": ["falha na interpretação"],
                 "character_focus": [],
-                "emotional_tone": "未知",
-                "narrative_goal": "需要重新生成",
-                "conflict_type": "未知",
-                "ending_type": "未知",
+                "emotional_tone": "desconhecido",
+                "narrative_goal": "precisa ser gerado novamente",
+                "conflict_type": "desconhecido",
+                "ending_type": "desconhecido",
                 "estimated_words": 3000
             }]
         except Exception as e:
@@ -588,14 +594,14 @@ class PlotExpansionService:
             return [{
                 "outline_id": outline_id,
                 "sub_index": 1,
-                "title": "解析异常的默认章节",
-                "plot_summary": "系统错误",
+                "title": "Capítulo padrão (erro de interpretação)",
+                "plot_summary": "erro do sistema",
                 "key_events": [],
                 "character_focus": [],
-                "emotional_tone": "未知",
-                "narrative_goal": "需要重新生成",
-                "conflict_type": "未知",
-                "ending_type": "未知",
+                "emotional_tone": "desconhecido",
+                "narrative_goal": "precisa ser gerado novamente",
+                "conflict_type": "desconhecido",
+                "ending_type": "desconhecido",
                 "estimated_words": 3000
             }]
 
