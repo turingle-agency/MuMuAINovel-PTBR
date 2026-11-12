@@ -52,17 +52,17 @@ DATA = {"type": "object", "additionalProperties": True}
 OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     {
         "name": "list_writing_styles",
-        "description": "查询当前用户可用的预设/自定义写作风格及项目默认风格。",
+        "description": "Lista os estilos de escrita predefinidos/personalizados disponíveis ao usuário atual e o estilo padrão do projeto.",
         "parameters": _schema({}),
     },
     {
         "name": "get_writing_style_detail",
-        "description": "按风格 ID 获取可用于当前项目的写作风格详情。",
+        "description": "Obtém os detalhes de um estilo de escrita utilizável no projeto atual pelo ID do estilo.",
         "parameters": _schema({"style_id": {"type": "integer", "minimum": 1}}, ["style_id"]),
     },
     {
         "name": "list_background_tasks",
-        "description": "查询当前项目的生成、分析、批量生成和重新生成任务。",
+        "description": "Lista as tarefas de geração, análise, geração em lote e regeneração do projeto atual.",
         "parameters": _schema({
             "status": {"type": "string"},
             "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -70,37 +70,37 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "get_background_task_detail",
-        "description": "查询当前项目某个后台任务的完整状态和结果。",
+        "description": "Consulta o status completo e o resultado de uma tarefa em segundo plano do projeto atual.",
         "parameters": _schema({"task_id": ID}, ["task_id"]),
     },
     {
         "name": "get_chapter_analysis_status",
-        "description": "查询指定章节最新的分析任务状态。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Consulta o status da tarefa de análise mais recente de um capítulo específico. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_analysis",
-        "description": "获取指定章节的剧情分析和提取出的故事记忆。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém a análise de enredo de um capítulo específico e as memórias da história extraídas. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_annotations",
-        "description": "获取指定章节可用于正文标注的记忆位置、类别和重要度。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém as posições, categorias e graus de importância das memórias de um capítulo específico que podem ser usadas para anotar o texto. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_navigation",
-        "description": "获取指定章节的上一章、下一章和项目章节位置。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém o capítulo anterior, o seguinte e a posição de um capítulo específico no projeto. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "check_chapter_generation_readiness",
-        "description": "检查指定章节是否满足生成前置条件以及上一章分析是否就绪。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Verifica se um capítulo específico atende aos pré-requisitos de geração e se a análise do capítulo anterior está pronta. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "list_story_memories",
-        "description": "查询当前项目的故事记忆，可按章节、类型和关键词筛选。",
+        "description": "Lista as memórias da história do projeto atual, com filtro opcional por capítulo, tipo e palavra-chave.",
         "parameters": _schema({
             "chapter_id": ID,
             "chapter_number": {"type": "integer", "minimum": 1},
@@ -111,22 +111,22 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "get_project_export_links",
-        "description": "获取当前项目完整 JSON、大纲 JSON 和章节 TXT 的安全下载地址。",
+        "description": "Obtém os links seguros de download do JSON completo do projeto, do JSON do esboço e do TXT dos capítulos.",
         "parameters": _schema({}),
     },
     {
         "name": "get_story_memory_stats",
-        "description": "统计当前项目故事记忆的类型、章节覆盖和重要度。",
+        "description": "Contabiliza os tipos, a cobertura de capítulos e a importância das memórias da história do projeto atual.",
         "parameters": _schema({}),
     },
     {
         "name": "get_project_cover_status",
-        "description": "获取当前项目封面状态、图片地址和最近错误。",
+        "description": "Obtém o status da capa do projeto atual, o endereço da imagem e o erro mais recente.",
         "parameters": _schema({}),
     },
     {
         "name": "manage_writing_style",
-        "description": "创建、更新、删除用户写作风格，或设置/清除当前项目默认风格；执行前必须确认。",
+        "description": "Cria, atualiza ou exclui estilos de escrita do usuário, ou define/limpa o estilo padrão do projeto atual; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["create", "update", "delete", "set_default", "clear_default"]},
             "style_id": {"type": "integer", "minimum": 1},
@@ -137,7 +137,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "manage_background_task",
-        "description": "取消当前项目尚未结束的后台任务；执行前必须确认。",
+        "description": "Cancela tarefas em segundo plano do projeto atual que ainda não terminaram; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["cancel"]},
             "task_id": ID,
@@ -147,7 +147,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "repair_project_consistency",
-        "description": "修复当前项目组织记录、成员计数、大纲章节同步和项目字数；执行前必须确认。",
+        "description": "Repara os registros de organizações, as contagens de membros, a sincronização entre esboço e capítulos e a contagem de palavras do projeto atual; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["all", "organizations", "member_counts", "outline_chapters", "word_counts"]},
         }, ["action"]),
@@ -156,7 +156,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "import_outlines_json",
-        "description": "把粘贴的大纲导出 JSON 合并或追加到当前项目；执行前必须确认。",
+        "description": "Mescla ou acrescenta ao projeto atual o JSON de esboço exportado que foi colado; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "json_content": {"type": "string", "minLength": 2},
             "mode": {"type": "string", "enum": ["append", "merge"]},
@@ -166,14 +166,14 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "import_characters_json",
-        "description": "把粘贴的角色/组织导出 JSON 导入当前项目；重复名称会跳过，执行前必须确认。",
+        "description": "Importa para o projeto atual o JSON de personagens/organizações exportado que foi colado; nomes duplicados são ignorados e é preciso confirmar antes de executar.",
         "parameters": _schema({"json_content": {"type": "string", "minLength": 2}}, ["json_content"]),
         "risk_level": 2,
         "resources": ("characters", "organizations", "careers"),
     },
     {
         "name": "manage_story_memories",
-        "description": "删除指定章节的分析结果和故事记忆；执行前必须确认。",
+        "description": "Exclui o resultado da análise e as memórias da história de um capítulo específico; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["delete_chapter_analysis"]},
             "chapter_id": ID,
@@ -184,7 +184,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "replace_chapter_text",
-        "description": "用新文本替换章节正文中的精确片段；执行前必须确认并校验原文未变化。",
+        "description": "Substitui um trecho exato do texto do capítulo por um novo texto; é preciso confirmar antes de executar, e o original é verificado para garantir que não mudou.",
         "parameters": _schema({
             "chapter_id": ID,
             "chapter_number": {"type": "integer", "minimum": 1},
@@ -198,7 +198,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "manage_project_cover",
-        "description": "生成或清除当前项目封面；生成会使用用户已有封面配置，执行前必须确认。",
+        "description": "Gera ou remove a capa do projeto atual; a geração usa a configuração de capa que o usuário já tem, e é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["generate", "clear"]},
             "overwrite": {"type": "boolean"},
@@ -208,7 +208,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "start_project_task",
-        "description": "启动大纲生成/展开、章节生成/批量生成或章节分析后台任务；执行前必须确认。",
+        "description": "Inicia tarefas em segundo plano de geração/expansão de esboço, geração de capítulo/geração em lote ou análise de capítulo; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": [
                 "generate_outlines", "expand_outline", "batch_expand_outlines",

@@ -133,12 +133,12 @@ class ProjectAgentToolRegistry:
         tools = [
             ProjectAgentTool(
                 "get_project_overview",
-                "获取当前项目基本信息、世界设定和数据数量。",
+                "Obtém as informações básicas do projeto atual, a ambientação do mundo e as contagens de dados.",
                 _object_schema({}),
             ),
             ProjectAgentTool(
                 "list_outlines",
-                "查询当前项目的大纲列表，可按标题或正文关键词筛选。",
+                "Lista os esboços do projeto atual, com filtro opcional por palavra-chave no título ou no conteúdo.",
                 _object_schema({
                     "query": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -146,7 +146,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_outline_detail",
-                "按大纲ID或序号获取当前项目的一条完整大纲。",
+                "Obtém um esboço completo do projeto atual pelo ID ou pelo número de ordem.",
                 _selector_schema({
                     "outline_id": identifier,
                     "order_index": {"type": "integer", "minimum": 1},
@@ -154,7 +154,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_characters",
-                "查询当前项目的角色或组织，可按名称筛选。",
+                "Lista os personagens ou organizações do projeto atual, com filtro opcional por nome.",
                 _object_schema({
                     "query": {"type": "string"},
                     "entity_type": {"type": "string", "enum": ["all", "character", "organization"]},
@@ -163,7 +163,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_character_detail",
-                "按角色ID或名称获取当前项目的角色/组织详情。",
+                "Obtém os detalhes de um personagem/organização do projeto atual pelo ID ou pelo nome.",
                 _selector_schema({
                     "character_id": identifier,
                     "name": {"type": "string"},
@@ -171,7 +171,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_chapters",
-                "查询当前项目章节列表和摘要，不返回完整正文。",
+                "Lista os capítulos do projeto atual com seus resumos, sem devolver o texto completo.",
                 _object_schema({
                     "query": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -179,7 +179,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_chapter_detail",
-                "按章节ID或章节号获取章节详情，可返回完整正文。",
+                "Obtém os detalhes de um capítulo pelo ID ou pelo número do capítulo, podendo devolver o texto completo.",
                 _selector_schema({
                     "chapter_id": identifier,
                     "chapter_number": {"type": "integer", "minimum": 1},
@@ -188,12 +188,12 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_relationships",
-                "查询当前项目的角色关系。",
+                "Lista as relações entre personagens do projeto atual.",
                 _object_schema({"limit": {"type": "integer", "minimum": 1, "maximum": 100}}),
             ),
             ProjectAgentTool(
                 "list_foreshadows",
-                "查询当前项目伏笔，可按状态筛选。",
+                "Lista as pistas (foreshadowing) do projeto atual, com filtro opcional por status.",
                 _object_schema({
                     "status": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -201,7 +201,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_project",
-                "修改当前项目的基本信息或世界设定。调用后必须等待用户确认。",
+                "Modifica as informações básicas ou a ambientação do projeto atual. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _object_schema({
                     "title": required_text, "description": text, "theme": text, "genre": text,
                     "target_words": integer,
@@ -216,7 +216,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_outline",
-                "按ID或序号修改当前项目的大纲标题和内容。调用后必须等待用户确认。",
+                "Modifica o título e o conteúdo de um esboço do projeto atual pelo ID ou pelo número de ordem. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "outline_id": identifier,
                     "order_index": {"type": "integer", "minimum": 1},
@@ -228,7 +228,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_character",
-                "按ID或名称修改当前项目角色信息。调用后必须等待用户确认。",
+                "Modifica as informações de um personagem do projeto atual pelo ID ou pelo nome. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "character_id": identifier, "character_name": {"type": "string", "pattern": r".*\S.*"},
                     "name": required_text, "age": text, "gender": text, "role_type": text,
@@ -244,9 +244,9 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_chapter",
-                "按ID或章节号修改章节标题、摘要或状态，不修改正文；只传需要修改的字段，"
-                "未修改的字段必须省略，清空摘要请显式传空字符串；一对一模式会同步对应大纲。"
-                "调用后必须等待用户确认。",
+                "Modifica o título, o resumo ou o status de um capítulo pelo ID ou pelo número do capítulo, sem alterar o texto; envie apenas os campos que precisam mudar, "
+                "os campos não modificados devem ser omitidos, e para limpar o resumo envie explicitamente uma string vazia; no modo 1-1 o esboço correspondente é sincronizado. "
+                "Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "chapter_id": identifier,
                     "chapter_number": {"type": "integer", "minimum": 1},
