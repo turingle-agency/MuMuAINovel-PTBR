@@ -100,3 +100,15 @@ async def test_capa_nunca_passa_flag_m(monkeypatch, tmp_path):
     argv = args_file.read_text().split("\n")
     assert "-m" not in argv and "gpt-image-1" not in argv
     assert r["model"] == "codex"
+
+
+async def test_capa_comando_isolado_e_com_geracao_de_imagem(monkeypatch, tmp_path):
+    from app.services.ai_providers.codex_provider import ISOLATION_FLAGS
+    args_file = tmp_path / "args.txt"
+    monkeypatch.setenv("FAKE_CODEX_MODE", "image")
+    monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
+    await CodexCoverProvider(FAKE, 5).generate_cover(**ARGS)
+    argv = args_file.read_text().split("\n")
+    assert argv[:5] == ["exec", "--enable", "image_generation", "-s", "workspace-write"]
+    assert argv[5:5 + len(ISOLATION_FLAGS)] == ISOLATION_FLAGS
+    assert "image_generation" not in ISOLATION_FLAGS

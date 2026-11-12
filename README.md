@@ -51,12 +51,15 @@ Ctrl+C encerra os dois.
 | `DATABASE_URL` | Padrão do `dev.sh`: `sqlite+aiosqlite:///./data/app.db`. Para PostgreSQL: `postgresql+asyncpg://usuario:senha@host:5432/banco` |
 | `DEFAULT_AI_PROVIDER` | `codex` (padrão deste fork), `openai`, `gemini`, `anthropic`... |
 | `CODEX_BINARY`, `CODEX_TIMEOUT_S`, `CODEX_MAX_CONCURRENCY` | Caminho da CLI, tempo limite (600 s) e execuções simultâneas (2) |
+| `CODEX_FAILURE_COOLDOWN_S` | Após cota esgotada, login expirado ou tempo limite, o app não chama o Codex por esse período (300 s; 0 desliga) e vai direto à API de reserva |
 | `QDRANT_PATH` | Qdrant embutido (padrão `data/qdrant`) |
 | `QDRANT_URL`, `QDRANT_API_KEY` | Se definida a URL, usa um servidor Qdrant no lugar do modo embutido |
 
 ### Codex e API de reserva
 
 Em **Configurações**, escolha "Codex (assinatura ChatGPT)" como provider. Configure também a **API de reserva** (provider, chave e modelo): se o Codex falhar no meio de uma geração (cota esgotada, login expirado, tempo limite), a geração continua pela API de reserva sem perder o pedido. Sem reserva configurada, você recebe uma mensagem clara em português, sem stack trace. Capas também podem ser geradas pelo Codex; a reserva da capa é Gemini ou Grok com chave de API.
+
+**Isolamento do Codex.** Cada chamada roda `codex exec` com `--ignore-user-config` (não carrega o seu `config.toml`: nada de MCPs pessoais, hooks ou instruções próprias; a autenticação continua valendo), `--ignore-rules`, `--disable hooks/memories/plugins/apps`, `-c mcp_servers={}` e `-c project_doc_max_bytes=0`, em um diretório temporário vazio. Limitação: não existe flag para ignorar o `AGENTS.md` global em `~/.codex`; se você mantém instruções pessoais ali, elas podem ser lidas pelo Codex. O Codex não suporta ferramentas/MCP: chamadas com ferramentas (Assistente de Criação) usam a API de reserva, e sem reserva retornam um erro claro.
 
 O Gemini é usado só por chave de API, nunca pelo login da assinatura.
 

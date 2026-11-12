@@ -1,6 +1,7 @@
 """Provider Codex: executa a CLI oficial `codex exec` (sem tocar em credenciais)."""
 import asyncio
 import tempfile
+import time
 from pathlib import Path
 from typing import Any, AsyncGenerator, Dict, List, Optional
 
@@ -31,6 +32,56 @@ class CodexTimeoutError(CodexError):
 
 class CodexExecError(CodexError):
     """Qualquer outra falha de execução."""
+
+
+class CodexCooldownError(CodexError):
+    """Codex em período de espera após uma falha recente (cota/login/tempo esgotado)."""
+
+    def __init__(self, reason: str, restante_s: int):
+        super().__init__(f"em espera por {restante_s}s após falha recente ({reason})")
+        self.reason = reason
+        self.restante_s = restante_s
+
+
+# Isolamento do Codex em chamadas do app: sem config do usuário (MCPs pessoais, hooks,
+# instruções), sem regras de execpolicy, sem memórias/plugins/apps e sem docs de projeto.
+# `--ignore-user-config` mantém a autenticação (CODEX_HOME). Limitação conhecida: o
+# AGENTS.md global do usuário em CODEX_HOME não tem flag para ser desligado.
+ISOLATION_FLAGS: List[str] = [
+    "--ignore-user-config",
+    "--ignore-rules",
+    "--disable", "hooks",
+    "--disable", "memories",
+    "--disable", "plugins",
+    "--disable", "apps",
+    "-c", "mcp_servers={}",
+    "-c", "project_doc_max_bytes=0",
+]
+
+
+# Memória de falhas do Codex (por processo): evita esperar N x timeout num lote.
+_cooldown_until: float = 0.0
+_cooldown_reason: str = ""
+
+
+def reset_codex_cooldown() -> None:
+    global _cooldown_until, _cooldown_reason
+    _cooldown_until = 0.0
+    _cooldown_reason = ""
+
+
+def _check_cooldown() -> None:
+    restante = _cooldown_until - time.monotonic()
+    if restante > 0:
+        raise CodexCooldownError(_cooldown_reason, int(restante) + 1)
+
+
+def _register_failure(error: CodexError) -> None:
+    global _cooldown_until, _cooldown_reason
+    cooldown = int(app_settings.codex_failure_cooldown_s)
+    if isinstance(error, (CodexQuotaError, CodexAuthError, CodexTimeoutError)) and cooldown > 0:
+        _cooldown_until = time.monotonic() + cooldown
+        _cooldown_reason = codex_reason(error)
 
 
 # Modelos padrão de outros providers que podem ter ficado salvos em llm_model.
@@ -66,7 +117,18 @@ async def run_codex_process(cmd: List[str], stdin_text: str, timeout_s: int, bin
 
     Devolve a saída combinada (stdout+stderr); levanta CodexError se o código de saída != 0.
     O chamador deve segurar o semáforo compartilhado (`_get_semaphore`).
+    Falhas de cota/login/timeout abrem um período de espera (`codex_failure_cooldown_s`)
+    em que novas chamadas falham de imediato com `CodexCooldownError`.
     """
+    _check_cooldown()
+    try:
+        return await _run_codex_process(cmd, stdin_text, timeout_s, binary)
+    except CodexError as e:
+        _register_failure(e)
+        raise
+
+
+async def _run_codex_process(cmd: List[str], stdin_text: str, timeout_s: int, binary: str) -> str:
     try:
         proc = await asyncio.create_subprocess_exec(
             *cmd,
@@ -97,6 +159,8 @@ async def run_codex_process(cmd: List[str], stdin_text: str, timeout_s: int, bin
 
 
 def codex_reason(error: CodexError) -> str:
+    if isinstance(error, CodexCooldownError):
+        return error.reason
     if isinstance(error, CodexQuotaError):
         return "cota esgotada"
     if isinstance(error, CodexAuthError):
@@ -132,7 +196,7 @@ class CodexProvider(BaseAIProvider):
                 last = Path(tmp) / "last.txt"
                 cmd = [
                     self.binary, "exec", "--json", "--ephemeral", "--skip-git-repo-check",
-                    "-s", "read-only", "-C", tmp, "-o", str(last),
+                    "-s", "read-only", *ISOLATION_FLAGS, "-C", tmp, "-o", str(last),
                 ]
                 if model and model not in _MODELOS_NAO_CODEX and model != app_settings.default_model:
                     cmd += ["-m", model]

@@ -22,3 +22,16 @@ async def db_session(tmp_path):
     async with maker() as session:
         yield session
     await engine.dispose()
+
+
+import pytest  # noqa: E402
+
+
+@pytest.fixture(autouse=True)
+def _reset_codex_cooldown():
+    """A memória de falhas do Codex é global ao processo; isola cada teste."""
+    from app.services.ai_providers.codex_provider import reset_codex_cooldown
+
+    reset_codex_cooldown()
+    yield
+    reset_codex_cooldown()

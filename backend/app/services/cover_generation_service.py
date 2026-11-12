@@ -17,7 +17,7 @@ from app.config import PROJECT_ROOT, settings as app_settings
 from app.logger import get_logger
 from app.models.project import Project
 from app.models.settings import Settings
-from app.services.ai_providers.codex_provider import CodexError, codex_reason
+from app.services.ai_providers.codex_provider import CodexError, codex_reason, reset_codex_cooldown
 from app.services.cover_providers.base_cover_provider import BaseCoverProvider, CoverGenerationResult
 from app.services.cover_providers.codex_cover_provider import CodexCoverProvider
 from app.services.cover_providers.gemini_cover_provider import GeminiCoverProvider
@@ -145,6 +145,7 @@ class CoverGenerationService:
             api_key=api_key,
             api_base_url=api_base_url,
         )
+        reset_codex_cooldown()  # teste explícito: ignora a espera pós-falha
         test_prompt = (
             "Create a clean fantasy novel cover illustration, vertical book cover, "
             "standard 2:3 ratio, atmospheric lighting, no text, no watermark."

@@ -106,3 +106,23 @@ async def test_sse_generator_envia_detalhe_pt_br(monkeypatch):
     saidas = [x async for x in create_sse_generator(svc.generate_text_stream(prompt="oi"))]
     texto = "".join(saidas)
     assert "O Codex não respondeu (cota esgotada)" in texto and "503:" not in texto
+
+
+async def test_lote_nao_espera_codex_de_novo_apos_timeout(monkeypatch, tmp_path):
+    import time
+    svc, stub = _servico(monkeypatch, "hang")
+    svc._codex_provider = CodexProvider(FAKE, 1, 2)
+    await svc.generate_text(prompt="1")
+    t = time.monotonic()
+    for i in range(3):
+        assert (await svc.generate_text(prompt=str(i)))["content"] == "da api"
+    assert time.monotonic() - t < 1  # nenhuma nova espera de timeout
+    assert len(stub.models) == 4
+
+
+async def test_cooldown_sem_reserva_da_503_pt_br(monkeypatch):
+    svc, _ = _servico(monkeypatch, "quota", com_fallback=False)
+    for _ in range(2):
+        with pytest.raises(HTTPException) as e:
+            await svc.generate_text(prompt="oi")
+        assert e.value.status_code == 503 and "cota esgotada" in e.value.detail

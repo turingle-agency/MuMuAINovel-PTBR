@@ -26,6 +26,7 @@ from app.user_manager import User
 from app.logger import get_logger, safe_preview
 from app.config import settings as app_settings, PROJECT_ROOT
 from app.services.ai_service import AIService, FallbackConfig, create_user_ai_service, create_user_ai_service_with_mcp, normalize_provider
+from app.services.ai_providers.codex_provider import reset_codex_cooldown
 from app.services.email_service import email_service
 from app.security import validate_ai_http_url
 
@@ -1015,7 +1016,10 @@ async def test_api_connection(data: ApiTestRequest):
     temperature = data.temperature if data.temperature is not None else 0.7
     max_tokens = data.max_tokens if data.max_tokens is not None else 2000
     import time
-    
+
+    # Teste explícito do usuário: ignora a espera pós-falha do Codex.
+    reset_codex_cooldown()
+
     try:
         start_time = time.time()
         

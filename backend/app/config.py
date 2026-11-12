@@ -83,6 +83,8 @@ class Settings(BaseSettings):
     codex_binary: str = "codex"
     codex_timeout_s: int = 600
     codex_max_concurrency: int = 2
+    # Espera (s) sem chamar o Codex após falha de cota/login/timeout; 0 desliga.
+    codex_failure_cooldown_s: int = 300
     default_model: str = "gpt-4"
     default_temperature: float = 0.7
     default_max_tokens: int = 32000

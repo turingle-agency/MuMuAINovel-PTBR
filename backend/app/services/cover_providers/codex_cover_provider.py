@@ -10,6 +10,9 @@ nada em ~/.codex.
 
     codex exec --enable image_generation -s workspace-write -C <dir> \\
         --skip-git-repo-check --ephemeral -o <dir>/last.txt -
+
+O app acrescenta ISOLATION_FLAGS (sem config/MCPs/hooks do usuário); `--enable image_generation`
+continua ligado.
 """
 from __future__ import annotations
 
@@ -19,6 +22,7 @@ from pathlib import Path
 from app.config import settings as app_settings
 from app.services.ai_providers.codex_provider import (
     CodexError,
+    ISOLATION_FLAGS,
     _get_semaphore,
     run_codex_process,
 )
@@ -58,7 +62,7 @@ class CodexCoverProvider(BaseCoverProvider):
             with tempfile.TemporaryDirectory(prefix="codex_cover_") as tmp:
                 cmd = [
                     self.binary, "exec", "--enable", "image_generation", "-s", "workspace-write",
-                    "-C", tmp, "--skip-git-repo-check", "--ephemeral",
+                    *ISOLATION_FLAGS, "-C", tmp, "--skip-git-repo-check", "--ephemeral",
                     "-o", str(Path(tmp) / "last.txt"),
                 ]
                 # Nunca passa -m: cover_image_model é nome de modelo de imagem de outro provider.
