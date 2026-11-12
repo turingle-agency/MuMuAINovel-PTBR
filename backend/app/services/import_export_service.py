@@ -75,7 +75,7 @@ class ImportExportService:
         result = await db.execute(select(Project).where(Project.id == project_id))
         project = result.scalar_one_or_none()
         if not project:
-            raise ValueError(f"项目不存在: {project_id}")
+            raise ValueError(f"Projeto não encontrado: {project_id}")
         
         # 项目基本信息
         project_data = {
@@ -638,17 +638,17 @@ class ImportExportService:
         # 检查版本
         version = data.get("version", "")
         if not version:
-            errors.append("缺少版本信息")
+            errors.append("Informações de versão ausentes")
         elif version not in ImportExportService.SUPPORTED_VERSIONS:
-            warnings.append(f"版本不匹配: 导入文件版本为 {version}, 当前支持版本为 {', '.join(ImportExportService.SUPPORTED_VERSIONS)}")
+            warnings.append(f"Versão incompatível: o arquivo importado é da versão {version}, a versão atualmente suportada é {', '.join(ImportExportService.SUPPORTED_VERSIONS)}")
         
         # 检查必需字段
         if "project" not in data:
-            errors.append("缺少项目信息")
+            errors.append("Informações do projeto ausentes")
         else:
             project = data["project"]
             if not project.get("title"):
-                errors.append("项目标题不能为空")
+                errors.append("O título do projeto não pode ser vazio")
         
         # 统计数据（包含新增字段）
         statistics = {
@@ -669,12 +669,12 @@ class ImportExportService:
         
         # 检查数据完整性
         if statistics["chapters"] == 0:
-            warnings.append("项目没有章节数据")
+            warnings.append("O projeto não tem dados de capítulos")
         
         if statistics["characters"] == 0:
-            warnings.append("项目没有角色数据")
+            warnings.append("O projeto não tem dados de personagens")
         
-        project_name = data.get("project", {}).get("title", "未知项目")
+        project_name = data.get("project", {}).get("title", "Projeto desconhecido")
         
         return ImportValidationResult(
             valid=len(errors) == 0,
@@ -711,7 +711,7 @@ class ImportExportService:
             if not validation.valid:
                 return ImportResult(
                     success=False,
-                    message=f"数据验证失败: {', '.join(validation.errors)}",
+                    message=f"Falha na validação dos dados: {', '.join(validation.errors)}",
                     statistics={},
                     warnings=validation.warnings
                 )
@@ -851,7 +851,7 @@ class ImportExportService:
             return ImportResult(
                 success=True,
                 project_id=new_project.id,
-                message="项目导入成功",
+                message="Projeto importado com sucesso",
                 statistics=statistics,
                 warnings=warnings
             )
@@ -861,7 +861,7 @@ class ImportExportService:
             logger.error(f"导入项目失败: {str(e)}", exc_info=True)
             return ImportResult(
                 success=False,
-                message=f"导入失败: {str(e)}",
+                message=f"Falha na importação: {str(e)}",
                 statistics=statistics,
                 warnings=warnings
             )
@@ -1410,7 +1410,7 @@ class ImportExportService:
         characters = result.scalars().all()
         
         if not characters:
-            raise ValueError("未找到指定的角色/组织")
+            raise ValueError("Personagem/organização informado não encontrado")
         
         # 导出角色数据
         exported_characters = []
@@ -1521,11 +1521,11 @@ class ImportExportService:
         try:
             # 验证数据格式
             if "data" not in data:
-                raise ValueError("导入数据格式错误：缺少data字段")
+                raise ValueError("Formato de importação inválido: campo data ausente")
             
             characters_data = data["data"]
             if not isinstance(characters_data, list):
-                raise ValueError("导入数据格式错误：data字段必须是数组")
+                raise ValueError("Formato de importação inválido: o campo data deve ser um array")
             
             # 验证项目权限
             project_result = await db.execute(
@@ -1536,7 +1536,7 @@ class ImportExportService:
             )
             project = project_result.scalar_one_or_none()
             if not project:
-                raise ValueError("项目不存在或无权访问")
+                raise ValueError("Projeto inexistente ou sem permissão de acesso")
             
             logger.info(f"开始导入 {len(characters_data)} 个角色/组织到项目 {project_id}")
             
@@ -1545,7 +1545,7 @@ class ImportExportService:
                 try:
                     name = char_data.get("name")
                     if not name:
-                        errors.append(f"第{idx+1}个角色缺少name字段")
+                        errors.append(f"O personagem nº {idx+1} não tem o campo name")
                         continue
                     
                     # 检查重复名称（使用 first() 避免多行时报错）
@@ -1558,7 +1558,7 @@ class ImportExportService:
                     existing = existing_result.first()
                     
                     if existing:
-                        warnings.append(f"角色'{name}'已存在，已跳过")
+                        warnings.append(f"O personagem '{name}' já existe e foi ignorado")
                         skipped.append(name)
                         continue
                     
@@ -1620,7 +1620,7 @@ class ImportExportService:
                             )
                             db.add(char_career)
                         else:
-                            warnings.append(f"角色'{name}'的主职业ID不存在，已忽略职业信息")
+                            warnings.append(f"O ID da carreira principal do personagem '{name}' não existe; as informações de carreira foram ignoradas")
                     
                     # 处理副职业（如果有）
                     sub_careers = char_data.get("sub_careers")
@@ -1666,9 +1666,9 @@ class ImportExportService:
                                 if valid_sub_careers:
                                     character.sub_careers = json.dumps(valid_sub_careers, ensure_ascii=False)
                                 elif sub_careers_data:
-                                    warnings.append(f"角色'{name}'的副职业ID不存在，已忽略副职业信息")
+                                    warnings.append(f"O ID da carreira secundária do personagem '{name}' não existe; as carreiras secundárias foram ignoradas")
                         except Exception as e:
-                            warnings.append(f"角色'{name}'的副职业数据解析失败: {str(e)}")
+                            warnings.append(f"Falha ao interpretar os dados de carreira secundária do personagem '{name}': {str(e)}")
                     
                     # 如果是组织，创建Organization记录
                     if is_organization:
@@ -1704,7 +1704,7 @@ class ImportExportService:
                                         member = OrganizationMember(
                                             organization_id=organization.id,
                                             character_id=member_char_id,
-                                            position=m_data.get("position", "成员"),
+                                            position=m_data.get("position", "Membro"),
                                             rank=m_data.get("rank", 0),
                                             loyalty=m_data.get("loyalty", 50),
                                             contribution=m_data.get("contribution", 0),
@@ -1728,7 +1728,7 @@ class ImportExportService:
                     logger.info(f"导入{'组织' if is_organization else '角色'}成功: {name}")
                     
                 except Exception as e:
-                    error_msg = f"导入角色'{char_data.get('name', f'第{idx+1}个')}'失败: {str(e)}"
+                    error_msg = f"Falha ao importar o personagem '{char_data.get('name', f'nº {idx+1}')}': {str(e)}"
                     logger.error(error_msg)
                     errors.append(error_msg)
                     continue
@@ -1740,7 +1740,7 @@ class ImportExportService:
             
             result = {
                 "success": True,
-                "message": f"成功导入 {total} 个角色/组织",
+                "message": f"Importados com sucesso {total} personagens/organizações",
                 "statistics": {
                     "total": len(characters_data),
                     "imported": total,
@@ -1764,7 +1764,7 @@ class ImportExportService:
             logger.error(f"导入角色/组织失败: {str(e)}", exc_info=True)
             return {
                 "success": False,
-                "message": f"导入失败: {str(e)}",
+                "message": f"Falha na importação: {str(e)}",
                 "statistics": {
                     "total": len(characters_data) if "data" in data else 0,
                     "imported": len(imported_characters) + len(imported_organizations),
@@ -1797,20 +1797,20 @@ class ImportExportService:
         # 检查版本
         version = data.get("version", "")
         if not version:
-            errors.append("缺少版本信息")
+            errors.append("Informações de versão ausentes")
         elif version not in ImportExportService.SUPPORTED_VERSIONS:
-            warnings.append(f"版本不匹配: 导入文件版本为 {version}, 当前支持版本为 {', '.join(ImportExportService.SUPPORTED_VERSIONS)}")
+            warnings.append(f"Versão incompatível: o arquivo importado é da versão {version}, a versão atualmente suportada é {', '.join(ImportExportService.SUPPORTED_VERSIONS)}")
         
         # 检查导出类型
         export_type = data.get("export_type", "")
         if export_type != "characters":
-            errors.append(f"导出类型错误: 期望'characters'，实际'{export_type}'")
+            errors.append(f"Tipo de exportação inválido: esperado 'characters', recebido '{export_type}'")
         
         # 检查数据字段
         if "data" not in data:
-            errors.append("缺少data字段")
+            errors.append("Campo data ausente")
         elif not isinstance(data["data"], list):
-            errors.append("data字段必须是数组")
+            errors.append("O campo data deve ser um array")
         else:
             characters_data = data["data"]
             
@@ -1821,7 +1821,7 @@ class ImportExportService:
             # 检查必填字段
             for idx, char_data in enumerate(characters_data):
                 if not char_data.get("name"):
-                    errors.append(f"第{idx+1}个角色缺少name字段")
+                    errors.append(f"O personagem nº {idx+1} não tem o campo name")
             
             statistics = {
                 "characters": character_count,
