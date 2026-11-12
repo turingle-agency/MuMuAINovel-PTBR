@@ -689,7 +689,7 @@ const Inspiration: React.FC = () => {
 
     const userMessage: Message = {
       type: 'user',
-      content: selectedOptions.join('、'),
+      content: selectedOptions.join(', '),
     };
     setMessages(prev => [...prev, userMessage]);
 

@@ -444,11 +444,6 @@ export default function ProjectList() {
           icon: <MailOutlined />,
           label: t('configuracoesDoSistema'),
         }] : []),
-        {
-          key: 'mumu-api',
-          icon: <ApiOutlined />,
-          label: 'MuMuのAPI',
-        },
       ],
     },
   ];
@@ -484,11 +479,6 @@ export default function ProjectList() {
       icon: <MailOutlined />,
       label: t('configuracoesDoSistema'),
     }] : []),
-    {
-      key: 'mumu-api',
-      icon: <ApiOutlined />,
-      label: 'MuMuのAPI',
-    },
   ];
 
   return (
@@ -597,10 +587,6 @@ export default function ProjectList() {
               selectedKeys={[activeView]}
               style={{ borderRight: 0, paddingTop: 12, width: '100%' }}
               onClick={({ key }) => {
-                if (key === 'mumu-api') {
-                  window.open('https://ai.mumuverse.space/register?aff=gt7d', '_blank', 'noopener,noreferrer');
-                  return;
-                }
                 changeView(key as ProjectListView);
               }}
               items={collapsed ? sideMenuItemsCollapsed : sideMenuItems}
@@ -802,11 +788,6 @@ export default function ProjectList() {
               selectedKeys={[activeView]}
               style={{ borderRight: 0, paddingTop: 8 }}
               onClick={({ key }) => {
-                if (key === 'mumu-api') {
-                  window.open('https://ai.mumuverse.space/register?aff=gt7d', '_blank', 'noopener,noreferrer');
-                  setDrawerVisible(false);
-                  return;
-                }
                 changeView(key as ProjectListView);
                 setDrawerVisible(false);
               }}

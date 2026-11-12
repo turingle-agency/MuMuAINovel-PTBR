@@ -138,9 +138,14 @@ export default function SettingsPage() {
       const keyless = isKeyless(values.api_provider);
       const normalizedValues: SettingsUpdate = {
         ...values,
-        api_key: builtInKeyProviders.includes(values.api_provider || '') || keyless ? '' : values.api_key,
+        api_key: keyless ? '' : values.api_key,
         ...(keyless ? { api_base_url: '', llm_model: values.llm_model || '' } : {}),
       };
+      if (values.cover_api_provider && isKeyless(values.cover_api_provider)) {
+        normalizedValues.cover_api_key = '';
+        normalizedValues.cover_api_base_url = '';
+        normalizedValues.cover_image_model = '';
+      }
       // API de reserva: campos vazios limpam o valor salvo no backend.
       if ('fallback_api_provider' in values) {
         normalizedValues.fallback_api_provider = values.fallback_api_provider || '';
@@ -301,44 +306,20 @@ export default function SettingsPage() {
     });
   };
 
-  const mumuTextDefaultUrl = 'https://ai.mumuverse.space/v1';
-  const mumuRegisterUrl = 'https://ai.mumuverse.space/register?aff=gt7d';
-  const xiaomiMimoDefaultUrl = 'https://token-plan-cn.xiaomimimo.com/v1';
-  const builtInKeyProviders = ['xiaomi_mimo'];
   // Providers sem chave nem URL (usam o login da CLI oficial no servidor).
   const keylessProviders = ['codex'];
   const isKeyless = (provider?: string) => keylessProviders.includes(provider || '');
   const codexDefaultModels = [{ value: '', label: t('padraoDoCodex'), description: '' }];
-  const xiaomiMimoDefaultModels = [
-    { value: 'mimo-v2.5', label: 'mimo-v2.5', description: t('modeloRecomendadoIntegradoOficialDo') },
-  ];
-  const mumuCoverBaseUrlOptions = [
-    { value: 'https://ai.mumuverse.space/v1beta', label: 'https://ai.mumuverse.space/v1beta', defaultModel: 'gemini-3.1-flash-image-preview' },
-    { value: 'https://ai.mumuverse.space/v1', label: 'https://ai.mumuverse.space/v1', defaultModel: 'gpt-image-2' },
-  ];
   const defaultCoverSettings = {
     cover_enabled: false,
-    cover_api_provider: 'mumu',
+    cover_api_provider: 'codex',
     cover_api_key: '',
-    cover_api_base_url: mumuCoverBaseUrlOptions[0].value,
-    cover_image_model: mumuCoverBaseUrlOptions[0].defaultModel,
+    cover_api_base_url: '',
+    cover_image_model: '',
   };
 
   const apiProviders = [
     { value: 'codex', label: t('codexAssinaturaChatgpt'), defaultUrl: '', defaultModel: '' },
-    {
-      value: 'mumu',
-      label: 'MuMuのAPI',
-      defaultUrl: mumuTextDefaultUrl,
-      defaultModel: 'gemini-3-flash-preview'
-    },
-    {
-      value: 'xiaomi_mimo',
-      label: t('xiaomiMimoIntegrado'),
-      defaultUrl: xiaomiMimoDefaultUrl,
-      defaultModel: xiaomiMimoDefaultModels[0].value,
-      builtInKey: true,
-    },
     { value: 'openai', label: 'OpenAI Compatible', defaultUrl: 'https://api.openai.com/v1' },
     // { value: 'anthropic', label: 'Anthropic (Claude)', defaultUrl: 'https://api.anthropic.com' },
     { value: 'gemini', label: 'Google Gemini', defaultUrl: 'https://generativelanguage.googleapis.com/v1beta' },
@@ -355,14 +336,6 @@ export default function SettingsPage() {
       if (provider.defaultUrl) {
         nextValues.api_base_url = provider.defaultUrl;
       }
-      if (provider.value === 'mumu') {
-        nextValues.api_key = '';
-        nextValues.llm_model = provider.defaultModel || 'gemini-3-flash-preview';
-      }
-      if (builtInKeyProviders.includes(provider.value)) {
-        nextValues.api_key = '';
-        nextValues.llm_model = provider.defaultModel || xiaomiMimoDefaultModels[0].value;
-      }
       if (isKeyless(provider.value)) {
         // Codex: sem chave nem URL e sem herdar o modelo de outro provider.
         nextValues.api_key = '';
@@ -377,12 +350,7 @@ export default function SettingsPage() {
   };
 
   const coverApiProviders = [
-    {
-      value: 'mumu',
-      label: 'MuMuのAPI',
-      defaultUrl: mumuCoverBaseUrlOptions[0].value,
-      defaultModel: mumuCoverBaseUrlOptions[0].defaultModel,
-    },
+    { value: 'codex', label: t('codexAssinaturaChatgpt'), defaultUrl: '', defaultModel: '' },
     { value: 'gemini', label: 'Google Gemini', defaultUrl: 'https://generativelanguage.googleapis.com/v1beta' },
     { value: 'grok', label: 'Grok', defaultUrl: 'https://api.x.ai/v1' },
   ];
@@ -398,21 +366,14 @@ export default function SettingsPage() {
     if (provider.defaultUrl) {
       nextValues.cover_api_base_url = provider.defaultUrl;
     }
-    if (provider.value === 'mumu') {
+    if (isKeyless(provider.value)) {
+      // Codex: sem chave, URL nem modelo.
       nextValues.cover_api_key = '';
-      nextValues.cover_image_model = provider.defaultModel || mumuCoverBaseUrlOptions[0].defaultModel;
+      nextValues.cover_api_base_url = '';
+      nextValues.cover_image_model = '';
     }
 
     form.setFieldsValue(nextValues);
-    setCoverTestResult(null);
-  };
-
-  const handleMumuCoverBaseUrlChange = (value: string) => {
-    const option = mumuCoverBaseUrlOptions.find(item => item.value === value);
-    form.setFieldsValue({
-      cover_api_base_url: value,
-      cover_image_model: option?.defaultModel || mumuCoverBaseUrlOptions[0].defaultModel,
-    });
     setCoverTestResult(null);
   };
 
@@ -422,7 +383,7 @@ export default function SettingsPage() {
     const coverApiBaseUrl = form.getFieldValue('cover_api_base_url');
     const coverImageModel = form.getFieldValue('cover_image_model');
 
-    if (!coverApiProvider || !coverApiKey || !coverImageModel) {
+    if (!coverApiProvider || (!isKeyless(coverApiProvider) && (!coverApiKey || !coverImageModel))) {
       message.warning(t('preenchaPrimeiroTodosOsDados'));
       return;
     }
@@ -458,11 +419,9 @@ export default function SettingsPage() {
     const apiBaseUrl = form.getFieldValue('api_base_url');
     const provider = form.getFieldValue('api_provider');
 
-    const isBuiltInKeyProvider = builtInKeyProviders.includes(provider);
-
     const keyless = isKeyless(provider);
 
-    if (!keyless && ((!apiKey && !isBuiltInKeyProvider) || !apiBaseUrl)) {
+    if (!keyless && ((!apiKey) || !apiBaseUrl)) {
       if (!silent) {
         message.warning(t('preenchaPrimeiroAChaveE'));
       }
@@ -472,7 +431,7 @@ export default function SettingsPage() {
     setFetchingModels(true);
     try {
       const response = await settingsApi.getAvailableModels({
-        api_key: isBuiltInKeyProvider || keyless ? '' : apiKey,
+        api_key: keyless ? '' : apiKey,
         api_base_url: keyless ? '' : apiBaseUrl,
         provider: provider || 'openai'
       });
@@ -510,11 +469,9 @@ export default function SettingsPage() {
     const temperature = form.getFieldValue('temperature');
     const maxTokens = form.getFieldValue('max_tokens');
 
-    const isBuiltInKeyProvider = builtInKeyProviders.includes(provider);
-
     const keyless = isKeyless(provider);
 
-    if (!provider || (!keyless && ((!apiKey && !isBuiltInKeyProvider) || !apiBaseUrl || !modelName))) {
+    if (!provider || (!keyless && ((!apiKey) || !apiBaseUrl || !modelName))) {
       message.warning(t('preenchaPrimeiroTodosOsDados2'));
       return;
     }
@@ -524,7 +481,7 @@ export default function SettingsPage() {
 
     try {
       const result = await settingsApi.testApiConnection({
-        api_key: isBuiltInKeyProvider || keyless ? '' : apiKey,
+        api_key: keyless ? '' : apiKey,
         api_base_url: keyless ? '' : apiBaseUrl,
         provider: provider,
         llm_model: keyless ? (modelName || '') : modelName,
@@ -615,11 +572,9 @@ export default function SettingsPage() {
     const apiBaseUrl = presetForm.getFieldValue('api_base_url');
     const provider = presetForm.getFieldValue('api_provider');
 
-    const isBuiltInKeyProvider = builtInKeyProviders.includes(provider);
-
     const keyless = isKeyless(provider);
 
-    if (!keyless && ((!apiKey && !isBuiltInKeyProvider) || !apiBaseUrl)) {
+    if (!keyless && ((!apiKey) || !apiBaseUrl)) {
       if (!silent) {
         message.warning(t('preenchaPrimeiroAChaveE'));
       }
@@ -629,7 +584,7 @@ export default function SettingsPage() {
     setFetchingPresetModels(true);
     try {
       const response = await settingsApi.getAvailableModels({
-        api_key: isBuiltInKeyProvider || keyless ? '' : apiKey,
+        api_key: keyless ? '' : apiKey,
         api_base_url: keyless ? '' : apiBaseUrl,
         provider: provider || 'openai'
       });
@@ -667,14 +622,6 @@ export default function SettingsPage() {
       if (provider.defaultUrl) {
         nextValues.api_base_url = provider.defaultUrl;
       }
-      if (provider.value === 'mumu') {
-        nextValues.api_key = '';
-        nextValues.llm_model = provider.defaultModel || 'gemini-3-flash-preview';
-      }
-      if (builtInKeyProviders.includes(provider.value)) {
-        nextValues.api_key = '';
-        nextValues.llm_model = provider.defaultModel || xiaomiMimoDefaultModels[0].value;
-      }
       if (isKeyless(provider.value)) {
         nextValues.api_key = '';
         nextValues.api_base_url = '';
@@ -690,11 +637,10 @@ export default function SettingsPage() {
   const handlePresetSave = async () => {
     try {
       const values = await presetForm.validateFields();
-      const isBuiltInKeyProvider = builtInKeyProviders.includes(values.api_provider);
       const keyless = isKeyless(values.api_provider);
       const config: APIKeyPresetConfig = {
         api_provider: values.api_provider,
-        api_key: isBuiltInKeyProvider || keyless ? '' : values.api_key,
+        api_key: keyless ? '' : values.api_key,
         api_base_url: keyless ? '' : values.api_base_url,
         llm_model: values.llm_model || '',
         temperature: values.temperature,
@@ -989,7 +935,7 @@ export default function SettingsPage() {
       //   return 'purple';
       case 'gemini':
         return 'green';
-      case 'mumu':
+      case 'codex':
         return 'magenta';
       default:
         return 'default';
@@ -1279,38 +1225,6 @@ export default function SettingsPage() {
                               ))}
                             </Select>
                           </Form.Item>
-
-                          {selectedProvider === 'mumu' && (
-                            <Alert
-                              type="info"
-                              showIcon
-                              message={t('provedorExclusivoMumuApi')}
-                              description={
-                                <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                                  <Text>{t('aUrlExclusivaFoiPreenchida')}
-                                  </Text>
-                                  <div>
-                                    <Button
-                                      type="primary"
-                                      onClick={() => window.open(mumuRegisterUrl, '_blank', 'noopener,noreferrer')}
-                                    >{t('abrirOSiteDoMumu')}
-                                    </Button>
-                                  </div>
-                                </Space>
-                              }
-                              style={{ marginBottom: 16 }}
-                            />
-                          )}
-
-                          {selectedProvider === 'xiaomi_mimo' && (
-                            <Alert
-                              type="info"
-                              showIcon
-                              message={t('adaptadorIntegradoXiaomiMimo')}
-                              description={t('usaOFormatoCompativelCom')}
-                              style={{ marginBottom: 16 }}
-                            />
-                          )}
                           {selectedProvider === 'codex' && (
                             <Alert
                               type="info"
@@ -1335,13 +1249,12 @@ export default function SettingsPage() {
                               </Space>
                             }
                             name="api_key"
-                            rules={builtInKeyProviders.includes(selectedProvider) ? [] : [{ required: true, message: t('informeAChaveDaApi') }]}
+                            rules={[{ required: true, message: t('informeAChaveDaApi') }]}
                           >
                             <Input.Password
                               size={isMobile ? 'middle' : 'large'}
-                              placeholder={builtInKeyProviders.includes(selectedProvider) ? t('usarAChaveIntegradaDo') : 'sk-...'}
+                              placeholder="sk-..."
                               autoComplete="new-password"
-                              disabled={builtInKeyProviders.includes(selectedProvider)}
                             />
                           </Form.Item>
 
@@ -1456,7 +1369,7 @@ export default function SettingsPage() {
                                 ) : undefined
                               }
                               options={(() => {
-                                const providerDefaultModels = selectedProvider === 'xiaomi_mimo' ? xiaomiMimoDefaultModels : selectedProvider === 'codex' ? codexDefaultModels : [];
+                                const providerDefaultModels = selectedProvider === 'codex' ? codexDefaultModels : [];
                                 const combinedModels = [
                                   ...providerDefaultModels,
                                   ...modelOptions.filter(model => !providerDefaultModels.some(item => item.value === model.value)),
@@ -1865,57 +1778,32 @@ export default function SettingsPage() {
                           </Select>
                         </Form.Item>
 
-                        {selectedCoverProvider === 'mumu' && (
+                        {selectedCoverProvider === 'codex' ? (
                           <Alert
                             type="info"
                             showIcon
-                            message={t('adaptadorExclusivoMumuApi')}
-                            description={
-                              <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                                <Text>{t('asUrlsDaInterfaceDe')}
-                                </Text>
-                                <div>
-                                  <Button
-                                    type="primary"
-                                    onClick={() => window.open(mumuRegisterUrl, '_blank', 'noopener,noreferrer')}
-                                  >{t('abrirOSiteDoMumu')}
-                                  </Button>
-                                </div>
-                              </Space>
-                            }
+                            message={t('codexViaCliOficial')}
+                            description={t('codexCapaDescricao')}
                             style={{ marginBottom: 16 }}
                           />
+                        ) : (
+                          <>
+                            <Form.Item label={t('chaveDeApiDaImagem')} name="cover_api_key" rules={[{ required: true, message: t('informeAChaveDeApi') }]}>
+                              <Input.Password size={isMobile ? 'middle' : 'large'} placeholder={t('informeAChaveDeApi')} autoComplete="new-password" />
+                            </Form.Item>
+
+                            <Form.Item label={t('urlDaApiDaImagem')} name="cover_api_base_url" rules={[{ type: 'url', message: t('informeUmaUrlValida') }]}>
+                              <Input size={isMobile ? 'middle' : 'large'} placeholder={selectedCoverProvider === 'grok' ? 'https://api.x.ai/v1' : 'https://generativelanguage.googleapis.com/v1beta'} />
+                            </Form.Item>
+
+                            <Form.Item label={t('modeloDaImagemDeCapa')} name="cover_image_model" rules={[{ required: true, message: t('informeONomeDoModelo') }]}>
+                              <Input
+                                size={isMobile ? 'middle' : 'large'}
+                                placeholder={selectedCoverProvider === 'grok' ? 'grok-2-image' : 'gemini-2.0-flash-exp-image-generation'}
+                              />
+                            </Form.Item>
+                          </>
                         )}
-
-                        <Form.Item label={t('chaveDeApiDaImagem')} name="cover_api_key" rules={[{ required: true, message: t('informeAChaveDeApi') }]}>
-                          <Input.Password size={isMobile ? 'middle' : 'large'} placeholder={selectedCoverProvider === 'mumu' ? t('informeAChaveDoMumu') : t('informeAChaveDeApi')} autoComplete="new-password" />
-                        </Form.Item>
-
-                        <Form.Item label={t('urlDaApiDaImagem')} name="cover_api_base_url" rules={[{ type: 'url', message: t('informeUmaUrlValida') }]}>
-                          {selectedCoverProvider === 'mumu' ? (
-                            <Select
-                              size={isMobile ? 'middle' : 'large'}
-                              onChange={handleMumuCoverBaseUrlChange}
-                              options={mumuCoverBaseUrlOptions.map(option => ({
-                                value: option.value,
-                                label: option.label,
-                              }))}
-                            />
-                          ) : (
-                            <Input size={isMobile ? 'middle' : 'large'} placeholder={selectedCoverProvider === 'grok' ? 'https://api.x.ai/v1' : 'https://generativelanguage.googleapis.com/v1beta'} />
-                          )}
-                        </Form.Item>
-
-                        <Form.Item label={t('modeloDaImagemDeCapa')} name="cover_image_model" rules={[{ required: true, message: t('informeONomeDoModelo') }]}>
-                          <Input
-                            size={isMobile ? 'middle' : 'large'}
-                            placeholder={selectedCoverProvider === 'mumu'
-                              ? t('aoEscolherAUrlO')
-                              : selectedCoverProvider === 'grok'
-                                ? 'grok-2-image'
-                                : 'gemini-2.0-flash-exp-image-generation'}
-                          />
-                        </Form.Item>
 
                         {coverTestResult && (
                           <Alert
@@ -2001,44 +1889,11 @@ export default function SettingsPage() {
                   style={{ marginBottom: 16 }}
                 >
                   <Select placeholder={t('selecioneOProvedor')} onChange={handlePresetProviderChange}>
-                    <Select.Option value="mumu">MuMuのAPI</Select.Option>
-                    <Select.Option value="xiaomi_mimo">{t('xiaomiMimoIntegrado')}</Select.Option>
+                    <Select.Option value="codex">{t('codexAssinaturaChatgpt')}</Select.Option>
                     <Select.Option value="openai">OpenAI</Select.Option>
                     <Select.Option value="gemini">Google Gemini</Select.Option>
                   </Select>
                 </Form.Item>
-
-                {selectedPresetProvider === 'mumu' && (
-                  <Alert
-                    type="info"
-                    showIcon
-                    message={t('provedorExclusivoMumuApi')}
-                    description={
-                      <Space direction="vertical" size={8} style={{ width: '100%' }}>
-                        <Text>{t('aUrlExclusivaFoiPreenchida')}
-                        </Text>
-                        <div>
-                          <Button
-                            type="primary"
-                            onClick={() => window.open(mumuRegisterUrl, '_blank', 'noopener,noreferrer')}
-                          >{t('abrirOSiteDoMumu')}
-                          </Button>
-                        </div>
-                      </Space>
-                    }
-                    style={{ marginBottom: 16 }}
-                  />
-                )}
-
-                {selectedPresetProvider === 'xiaomi_mimo' && (
-                  <Alert
-                    type="info"
-                    showIcon
-                    message={t('adaptadorIntegradoXiaomiMimo')}
-                    description={t('usaAChaveIntegradaDo')}
-                    style={{ marginBottom: 16 }}
-                  />
-                )}
               </Col>
             </Row>
 
@@ -2066,12 +1921,11 @@ export default function SettingsPage() {
                 <Form.Item
                   name="api_key"
                   label="API Key"
-                  rules={builtInKeyProviders.includes(selectedPresetProvider) ? [] : [{ required: true, message: t('informeAChaveDaApi') }]}
+                  rules={[{ required: true, message: t('informeAChaveDaApi') }]}
                   style={{ marginBottom: 16 }}
                 >
                   <Input.Password
-                    placeholder={builtInKeyProviders.includes(selectedPresetProvider) ? t('usarAChaveIntegradaDo2') : 'sk-...'}
-                    disabled={builtInKeyProviders.includes(selectedPresetProvider)}
+                    placeholder="sk-..."
                   />
                 </Form.Item>
               </Col>
@@ -2174,7 +2028,7 @@ export default function SettingsPage() {
                       </div>
                     }
                     options={(() => {
-                      const providerDefaultModels = selectedPresetProvider === 'xiaomi_mimo' ? xiaomiMimoDefaultModels : selectedPresetProvider === 'codex' ? codexDefaultModels : [];
+                      const providerDefaultModels = selectedPresetProvider === 'codex' ? codexDefaultModels : [];
                       const combinedModels = [
                         ...providerDefaultModels,
                         ...presetModelOptions.filter(model => !providerDefaultModels.some(item => item.value === model.value)),

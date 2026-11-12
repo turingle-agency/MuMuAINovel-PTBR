@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(fileURLToPath(import.meta.url), '..', '..');
 const EXTS = new Set(['.ts', '.tsx', '.json']);
-const CJK = /[一-鿿]/;
+const CJK = /[\u3000-\u303f\u3040-\u30ff\u4e00-\u9fff\uff00-\uffef]/;
 
 function walk(path, out) {
   const st = statSync(path);
