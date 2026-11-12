@@ -43,7 +43,7 @@ class Character(Base):
     # 职业相关字段（冗余字段，用于提升查询性能）
     main_career_id = Column(String(36), ForeignKey("careers.id", ondelete="SET NULL"), comment="ID da carreira principal")
     main_career_stage = Column(Integer, comment="Estágio atual da carreira principal")
-    sub_careers = Column(Text, comment="副职业列表(JSON): [{\"career_id\": \"xxx\", \"stage\": 3}, ...]")
+    sub_careers = Column(Text, comment="Lista de carreiras secundárias (JSON): [{\"career_id\": \"xxx\", \"stage\": 3}, ...]")
     
     # 其他
     avatar_url = Column(String(500), comment="URL do avatar")
@@ -53,5 +53,5 @@ class Character(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     def __repr__(self):
-        entity_type = "组织" if self.is_organization else "角色"
+        entity_type = "organização" if self.is_organization else "personagem"
         return f"<Character(id={self.id}, name={self.name}, type={entity_type})>"
