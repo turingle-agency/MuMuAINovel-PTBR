@@ -8,6 +8,10 @@ import { useOutlineSync } from '../store/hooks';
 import { generateOutlineBackground } from '../services/backgroundTaskService';
 import { outlineApi, chapterApi, projectApi, characterApi } from '../services/api';
 import type { ApiError, Character, OutlineImportMode, OutlineImportPreview } from '../types';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
+
+const DUPLICATE_ORDER_ERROR = 'DUPLICATE_ORDER_INDEX';
 
 // 大纲生成请求数据类型
 interface OutlineGenerateRequestData {
@@ -87,7 +91,7 @@ function parseOutlineStructure(structure?: string): OutlineStructureData {
   try {
     return JSON.parse(structure) as OutlineStructureData;
   } catch (e) {
-    console.error('解析structure失败:', e);
+    console.error(i18n.t('outline:falhaInterpretarEstrutura'), e);
     return {};
   }
 }
@@ -106,6 +110,7 @@ function getOutlinePreview(content: string, maxLength = 120): { text: string; tr
 const { TextArea } = Input;
 
 export default function Outline() {
+  const { t } = useTranslation('outline');
   const { currentProject, outlines, setCurrentProject } = useStore();
   const [isGenerating, setIsGenerating] = useState(false);
   const [editForm] = Form.useForm();
@@ -177,7 +182,7 @@ export default function Outline() {
       const hasActive = allTasks.some((t: TaskStatus) => t.status === 'running' || t.status === 'pending');
       setIsGenerating(hasActive);
     } catch (error) {
-      console.error('检查活跃大纲任务失败:', error);
+      console.error(t('falhaVerificarTarefasAtivas'), error);
     }
   };
 
@@ -193,7 +198,7 @@ export default function Outline() {
         }))
       );
     } catch (error) {
-      console.error('加载角色列表失败:', error);
+      console.error(t('falhaCarregarPersonagens'), error);
     }
   };
 
@@ -277,7 +282,7 @@ export default function Outline() {
         } else {
           // 对象数组格式
           scenesText = (structureData.scenes as Array<{location: string; characters: string[]; purpose: string}>)
-            .map(s => `${s.location}|${(s.characters || []).join('、')}|${s.purpose}`)
+            .map(s => `${s.location}|${(s.characters || []).join(', ')}|${s.purpose}`)
             .join('\n');
         }
       }
@@ -298,7 +303,7 @@ export default function Outline() {
       });
       
       modalApi.confirm({
-        title: '编辑大纲',
+        title: t('editarEsboco'),
         width: 800,
         centered: true,
         styles: {
@@ -314,99 +319,99 @@ export default function Outline() {
             style={{ marginTop: 12 }}
           >
             <Form.Item
-              label="标题"
+              label={t('titulo')}
               name="title"
-              rules={[{ required: true, message: '请输入标题' }]}
+              rules={[{ required: true, message: t('informeTitulo') }]}
               style={{ marginBottom: 12 }}
             >
-              <Input placeholder="输入大纲标题" />
+              <Input placeholder={t('digiteTituloEsboco')} />
             </Form.Item>
 
             <Form.Item
-              label="内容"
+              label={t('conteudo')}
               name="content"
-              rules={[{ required: true, message: '请输入内容' }]}
+              rules={[{ required: true, message: t('informeConteudo') }]}
               style={{ marginBottom: 12 }}
             >
-              <TextArea rows={4} placeholder="输入大纲内容..." />
+              <TextArea rows={4} placeholder={t('digiteConteudoEsboco')} />
             </Form.Item>
             
             <Form.Item
-              label="涉及角色"
+              label={t('personagensEnvolvidos')}
               name="characters"
-              tooltip="从项目角色中选择，也可以手动输入新角色名"
+              tooltip={t('escolhaEntrePersonagensProjeto')}
               style={{ marginBottom: 12 }}
             >
               <Select
                 mode="tags"
                 style={{ width: '100%' }}
-                placeholder="选择或输入角色名"
+                placeholder={t('selecioneDigiteNomePersonagem')}
                 options={projectCharacters}
-                tokenSeparators={[',', '，']}
+                tokenSeparators={[',', ';']}
                 maxTagCount="responsive"
               />
             </Form.Item>
             
             <Form.Item
-              label="涉及组织"
+              label={t('organizacoesEnvolvidas')}
               name="organizations"
-              tooltip="从项目组织中选择，也可以手动输入新组织名"
+              tooltip={t('escolhaEntreOrganizacoesProjeto')}
               style={{ marginBottom: 12 }}
             >
               <Select
                 mode="tags"
                 style={{ width: '100%' }}
-                placeholder="选择或输入组织/势力名"
-                tokenSeparators={[',', '，']}
+                placeholder={t('selecioneDigiteNomeOrganizacao')}
+                tokenSeparators={[',', ';']}
                 maxTagCount="responsive"
               />
             </Form.Item>
             
             <Form.Item
-              label="场景信息"
+              label={t('informacoesCenas')}
               name="scenes"
-              tooltip="支持两种格式：简单描述（每行一个场景）或详细格式（地点|角色|目的）"
+              tooltip={t('doisFormatosAceitosDescricao')}
               style={{ marginBottom: 12 }}
             >
               <TextArea
                 rows={3}
-                placeholder="每行一个场景&#10;详细格式：地点|角色1、角色2|目的"
+                placeholder={t('cenaLinhaFormatoDetalhado')}
               />
             </Form.Item>
             
             <Form.Item
-              label="情节要点"
+              label={t('pontosTrama')}
               name="key_points"
-              tooltip="每行一个情节要点"
+              tooltip={t('pontoTramaLinha')}
               style={{ marginBottom: 12 }}
             >
               <TextArea
                 rows={2}
-                placeholder="每行一个情节要点"
+                placeholder={t('pontoTramaLinha')}
               />
             </Form.Item>
             
             <Form.Item
-              label="情感基调"
+              label={t('tomEmocional')}
               name="emotion"
-              tooltip="描述本章的情感氛围"
+              tooltip={t('descrevaAtmosferaEmocionalDeste')}
               style={{ marginBottom: 12 }}
             >
-              <Input placeholder="例如：冷冽与躁动并存" />
+              <Input placeholder={t('exFriezaInquietacaoCoexistindo')} />
             </Form.Item>
             
             <Form.Item
-              label="叙事目标"
+              label={t('objetivoNarrativo')}
               name="goal"
-              tooltip="本章要达成的叙事目的"
+              tooltip={t('objetivoNarrativoCapituloDeve')}
               style={{ marginBottom: 0 }}
             >
-              <Input placeholder="例如：建立世界观对比并完成主角初遇" />
+              <Input placeholder={t('exContrastarMundosConcluir')} />
             </Form.Item>
           </Form>
         ),
-        okText: '更新',
-        cancelText: '取消',
+        okText: t('atualizar'),
+        cancelText: t('cancelar'),
         onOk: async () => {
           const values = await editForm.validateFields();
           try {
@@ -443,7 +448,7 @@ export default function Outline() {
                     if (parts.length >= 3) {
                       return {
                         location: parts[0].trim(),
-                        characters: parts[1].split('、').map(c => c.trim()).filter(c => c),
+                        characters: parts[1].split(',').map(c => c.trim()).filter(c => c),
                         purpose: parts[2].trim()
                       };
                     }
@@ -482,10 +487,10 @@ export default function Outline() {
               structure: JSON.stringify(newStructure, null, 2)
             });
             
-            message.success('大纲更新成功');
+            message.success(t('esbocoAtualizadoSucesso'));
           } catch (error) {
-            console.error('更新失败:', error);
-            message.error('更新失败');
+            console.error(t('falhaAtualizar'), error);
+            message.error(t('falhaAtualizar2'));
           }
         },
       });
@@ -495,7 +500,7 @@ export default function Outline() {
   const handleDeleteOutline = async (id: string) => {
     try {
       await deleteOutline(id);
-      message.success('删除成功');
+      message.success(t('excluidoSucesso'));
       // 删除后刷新大纲列表和项目信息，更新字数显示
       await refreshOutlines();
       if (currentProject?.id) {
@@ -503,7 +508,7 @@ export default function Outline() {
         setCurrentProject(updatedProject);
       }
     } catch {
-      message.error('删除失败');
+      message.error(t('falhaExcluir'));
     }
   };
 
@@ -525,8 +530,8 @@ export default function Outline() {
       setIsGenerating(true);
 
       // 添加详细的调试日志
-      console.log('=== 大纲生成调试信息 ===');
-      console.log('1. Form values 原始数据:', values);
+      console.log('=== Depuração da geração de esboço ===');
+      console.log('1. Valores brutos do formulário:', values);
       console.log('2. values.model:', values.model);
       console.log('3. values.provider:', values.provider);
 
@@ -536,10 +541,10 @@ export default function Outline() {
       // 准备请求数据
       const requestData: OutlineGenerateRequestData = {
         project_id: currentProject.id,
-        genre: currentProject.genre || '通用',
+        genre: currentProject.genre || 'Geral',
         theme: values.theme || currentProject.theme || '',
         chapter_count: values.chapter_count || 5,
-        narrative_perspective: values.narrative_perspective || currentProject.narrative_perspective || '第三人称',
+        narrative_perspective: values.narrative_perspective || currentProject.narrative_perspective || 'terceira pessoa',
         target_words: currentProject.target_words || 100000,
         requirements: values.requirements,
         mode: values.mode || 'auto',
@@ -550,18 +555,18 @@ export default function Outline() {
       // 只有在用户选择了模型时才添加model参数
       if (values.model) {
         requestData.model = values.model;
-        console.log('4. 添加model到请求:', values.model);
+        console.log('4. Adicionando model à requisição:', values.model);
       } else {
-        console.log('4. values.model为空，不添加到请求');
+        console.log('4. values.model vazio, não adicionado à requisição');
       }
 
       // 添加provider参数（如果有）
       if (values.provider) {
         requestData.provider = values.provider;
-        console.log('5. 添加provider到请求:', values.provider);
+        console.log('5. Adicionando provider à requisição:', values.provider);
       }
 
-      console.log('6. 最终请求数据:', JSON.stringify(requestData, null, 2));
+      console.log('6. Dados finais da requisição:', JSON.stringify(requestData, null, 2));
       console.log('=========================');
 
       // 使用后台任务生成（不怕断连，关闭浏览器也继续运行）
@@ -572,23 +577,23 @@ export default function Outline() {
           // 进度更新由悬浮任务框处理，无需额外操作
         },
         (result) => {
-          message.success(result.task_result?.message as string || '大纲生成完成！');
+          message.success(result.task_result?.message as string || t('esbocoGeradoSucesso'));
           setIsGenerating(false);
           refreshOutlines();
         },
         (error) => {
-          message.error(`生成失败: ${error}`);
+          message.error(t('falhaGeracao', { error }));
           setIsGenerating(false);
         }
       );
 
-      message.info('大纲生成任务已提交，可在右下角任务面板查看进度');
+      message.info(t('tarefaGeracaoEsbocoEnviada'));
       // 通知悬浮任务框刷新
       eventBus.emit('background-task-created');
 
     } catch (error) {
-      console.error('AI生成失败:', error);
-      message.error('AI生成失败');
+      console.error(t('falhaGeracaoIa'), error);
+      message.error(t('falhaGeracaoIa2'));
       setIsGenerating(false);
     }
   };
@@ -618,17 +623,17 @@ export default function Outline() {
           }
         }
       } catch {
-        console.log('获取模型列表失败，将使用默认模型');
+        console.log('Falha ao obter a lista de modelos; será usado o modelo padrão');
       }
     }
 
     modalApi.confirm({
       title: hasOutlines ? (
         <Space>
-          <span>AI生成/续写大纲</span>
-          <Tag color="blue">当前已有 {outlines.length} 卷</Tag>
+          <span>{t('gerarContinuarEsbocoIa')}</span>
+          <Tag color="blue">{t('esbocoSExistenteS', { length: outlines.length })}</Tag>
         </Space>
-      ) : 'AI生成大纲',
+      ) : t('gerarEsbocoIa'),
       width: 700,
       centered: true,
       content: (
@@ -639,7 +644,7 @@ export default function Outline() {
           initialValues={{
             mode: initialMode,
             chapter_count: 5,
-            narrative_perspective: currentProject.narrative_perspective || '第三人称',
+            narrative_perspective: currentProject.narrative_perspective || 'terceira pessoa',
             plot_stage: 'development',
             keep_existing: true,
             theme: currentProject.theme || '',
@@ -648,14 +653,14 @@ export default function Outline() {
         >
           {hasOutlines && (
             <Form.Item
-              label="生成模式"
+              label={t('modoGeracao')}
               name="mode"
-              tooltip="自动判断：根据是否有大纲自动选择；全新生成：删除旧大纲重新生成；续写模式：基于已有大纲继续创作"
+              tooltip={t('automaticoEscolheConformeHaja')}
             >
               <Radio.Group buttonStyle="solid">
-                <Radio.Button value="auto">自动判断</Radio.Button>
-                <Radio.Button value="new">全新生成</Radio.Button>
-                <Radio.Button value="continue">续写模式</Radio.Button>
+                <Radio.Button value="auto">{t('automatico')}</Radio.Button>
+                <Radio.Button value="new">{t('zero')}</Radio.Button>
+                <Radio.Button value="continue">{t('continuar')}</Radio.Button>
               </Radio.Group>
             </Form.Item>
           )}
@@ -676,11 +681,11 @@ export default function Outline() {
               // 全新生成模式需要输入主题
               return (
                 <Form.Item
-                  label="故事主题"
+                  label={t('temaHistoria')}
                   name="theme"
-                  rules={[{ required: true, message: '请输入故事主题' }]}
+                  rules={[{ required: true, message: t('informeTemaHistoria') }]}
                 >
-                  <TextArea rows={3} placeholder="描述你的故事主题、核心设定和主要情节..." />
+                  <TextArea rows={3} placeholder={t('descrevaTemaSuaHistoria')} />
                 </Form.Item>
               );
             }}
@@ -699,57 +704,57 @@ export default function Outline() {
                   {isContinue && (
                     <>
                       <Form.Item
-                        label="故事发展方向"
+                        label={t('rumoHistoria')}
                         name="story_direction"
-                        tooltip="告诉AI你希望故事接下来如何发展"
+                        tooltip={t('digaIaComoVoce')}
                       >
                         <TextArea
                           rows={3}
-                          placeholder="例如：主角遇到新的挑战、引入新角色、揭示关键秘密等..."
+                          placeholder={t('exProtagonistaEnfrentaNovo')}
                         />
                       </Form.Item>
 
                       <Form.Item
-                        label="情节阶段"
+                        label={t('faseTrama')}
                         name="plot_stage"
-                        tooltip="帮助AI理解当前故事所处的阶段"
+                        tooltip={t('ajudaIaEntenderFase')}
                       >
                         <Select>
-                          <Select.Option value="development">发展阶段 - 继续展开情节</Select.Option>
-                          <Select.Option value="climax">高潮阶段 - 矛盾激化</Select.Option>
-                          <Select.Option value="ending">结局阶段 - 收束伏笔</Select.Option>
+                          <Select.Option value="development">{t('desenvolvimentoContinuarExpandirTrama')}</Select.Option>
+                          <Select.Option value="climax">{t('climaxConflitoIntensifica')}</Select.Option>
+                          <Select.Option value="ending">{t('desfechoAmarrarPistas')}</Select.Option>
                         </Select>
                       </Form.Item>
                     </>
                   )}
 
                   <Form.Item
-                    label={isContinue ? "续写章节数" : "章节数量"}
+                    label={isContinue ? t('capitulosContinuar') : t('quantidadeCapitulos')}
                     name="chapter_count"
-                    rules={[{ required: true, message: '请输入章节数量' }]}
+                    rules={[{ required: true, message: t('informeQuantidadeCapitulos') }]}
                   >
                     <Input
                       type="number"
                       min={1}
                       max={50}
-                      placeholder={isContinue ? "建议5-10章" : "如：30"}
+                      placeholder={isContinue ? t('sugestao510Capitulos') : t('ex30')}
                     />
                   </Form.Item>
 
                   <Form.Item
-                    label="叙事视角"
+                    label={t('perspectivaNarrativa')}
                     name="narrative_perspective"
-                    rules={[{ required: true, message: '请选择叙事视角' }]}
+                    rules={[{ required: true, message: t('selecionePerspectivaNarrativa') }]}
                   >
                     <Select>
-                      <Select.Option value="第一人称">第一人称</Select.Option>
-                      <Select.Option value="第三人称">第三人称</Select.Option>
-                      <Select.Option value="全知视角">全知视角</Select.Option>
+                      <Select.Option value={t('primeiraPessoa')}>{t('primeiraPessoa')}</Select.Option>
+                      <Select.Option value={t('terceiraPessoa')}>{t('terceiraPessoa')}</Select.Option>
+                      <Select.Option value={t('onisciente')}>{t('onisciente')}</Select.Option>
                     </Select>
                   </Form.Item>
 
-                  <Form.Item label="其他要求" name="requirements">
-                    <TextArea rows={2} placeholder="其他特殊要求（可选）" />
+                  <Form.Item label={t('outrosRequisitos')} name="requirements">
+                    <TextArea rows={2} placeholder={t('outrosRequisitosEspecificosOpcional')} />
                   </Form.Item>
 
                 </>
@@ -760,32 +765,32 @@ export default function Outline() {
           {/* 自定义模型选择 - 移到外层，所有模式都显示 */}
           {loadedModels.length > 0 && (
             <Form.Item
-              label="AI模型"
+              label={t('modeloIa')}
               name="model"
-              tooltip="选择用于生成的AI模型，不选则使用系统默认模型"
+              tooltip={t('escolhaModeloIaUsado')}
             >
               <Select
-                placeholder={defaultModel ? `默认: ${loadedModels.find(m => m.value === defaultModel)?.label || defaultModel}` : "使用默认模型"}
+                placeholder={defaultModel ? t('padrao', { v0: loadedModels.find(m => m.value === defaultModel)?.label || defaultModel }) : t('usarModeloPadrao')}
                 allowClear
                 showSearch
                 optionFilterProp="label"
                 options={loadedModels}
                 onChange={(value) => {
-                  console.log('用户在下拉框中选择了模型:', value);
+                  console.log('Modelo escolhido pelo usuário na lista:', value);
                   // 手动同步到Form
                   generateForm.setFieldsValue({ model: value });
-                  console.log('已同步到Form，当前Form值:', generateForm.getFieldsValue());
+                  console.log('Sincronizado com o formulário; valores atuais:', generateForm.getFieldsValue());
                 }}
               />
               <div style={{ color: token.colorTextTertiary, fontSize: 12, marginTop: 4 }}>
-                {defaultModel ? `当前默认模型: ${loadedModels.find(m => m.value === defaultModel)?.label || defaultModel}` : '未配置默认模型'}
+                {defaultModel ? t('modeloPadraoAtual', { v0: loadedModels.find(m => m.value === defaultModel)?.label || defaultModel }) : t('nenhumModeloPadraoConfigurado')}
               </div>
             </Form.Item>
           )}
         </Form>
       ),
-      okText: hasOutlines ? '开始续写' : '开始生成',
-      cancelText: '取消',
+      okText: hasOutlines ? t('iniciarContinuacao') : t('iniciarGeracao'),
+      cancelText: t('cancelar'),
       onOk: async () => {
         const values = await generateForm.validateFields();
         await handleGenerate(values);
@@ -800,7 +805,7 @@ export default function Outline() {
       : 1;
 
     modalApi.confirm({
-      title: '手动创建大纲',
+      title: t('criarEsbocoManualmente'),
       width: 600,
       centered: true,
       content: (
@@ -811,36 +816,36 @@ export default function Outline() {
           style={{ marginTop: 16 }}
         >
           <Form.Item
-            label="大纲序号"
+            label={t('numeroEsboco')}
             name="order_index"
-            rules={[{ required: true, message: '请输入序号' }]}
-            tooltip={currentProject?.outline_mode === 'one-to-one' ? '在传统模式下，序号即章节编号' : '在细化模式下，序号为卷数'}
+            rules={[{ required: true, message: t('informeNumero') }]}
+            tooltip={currentProject?.outline_mode === 'one-to-one' ? t('modoTradicionalNumeroNumero') : t('modoDetalhadoNumeroVolume')}
           >
-            <InputNumber min={1} style={{ width: '100%' }} placeholder="自动计算的下一个序号" />
+            <InputNumber min={1} style={{ width: '100%' }} placeholder={t('proximoNumeroCalculadoAutomaticamente')} />
           </Form.Item>
 
           <Form.Item
-            label="大纲标题"
+            label={t('tituloEsboco')}
             name="title"
-            rules={[{ required: true, message: '请输入标题' }]}
+            rules={[{ required: true, message: t('informeTitulo') }]}
           >
-            <Input placeholder={currentProject?.outline_mode === 'one-to-one' ? '例如：第一章 初入江湖' : '例如：第一卷 初入江湖'} />
+            <Input placeholder={currentProject?.outline_mode === 'one-to-one' ? t('exCapitulo1Chegada') : t('exVolume1Chegada')} />
           </Form.Item>
 
           <Form.Item
-            label="大纲内容"
+            label={t('conteudoEsboco')}
             name="content"
-            rules={[{ required: true, message: '请输入内容' }]}
+            rules={[{ required: true, message: t('informeConteudo') }]}
           >
             <TextArea
               rows={6}
-              placeholder="描述本章/卷的主要情节和发展方向..."
+              placeholder={t('descrevaTramaPrincipalRumo')}
             />
           </Form.Item>
         </Form>
       ),
-      okText: '创建',
-      cancelText: '取消',
+      okText: t('criar'),
+      cancelText: t('cancelar'),
       onOk: async () => {
         const values = await manualCreateForm.validateFields();
 
@@ -848,10 +853,10 @@ export default function Outline() {
         const existingOutline = outlines.find(o => o.order_index === values.order_index);
         if (existingOutline) {
           modalApi.warning({
-            title: '序号冲突',
+            title: t('conflitoNumeracao'),
             content: (
               <div>
-                <p>序号 <strong>{values.order_index}</strong> 已被使用：</p>
+                <p>{t('numeroUso', { order_index: values.order_index })}</p>
                 <div style={{
                   padding: 12,
                   background: token.colorWarningBg,
@@ -861,20 +866,20 @@ export default function Outline() {
                 }}>
                   <div style={{ fontWeight: 500, color: token.colorWarning }}>
                     {currentProject?.outline_mode === 'one-to-one'
-                      ? `第${existingOutline.order_index}章`
-                      : `第${existingOutline.order_index}卷`
-                    }：{existingOutline.title}
+                      ? t('capitulo', { order_index: existingOutline.order_index })
+                      : t('volume', { order_index: existingOutline.order_index })
+                    }{t('texto')}{existingOutline.title}
                   </div>
                 </div>
                 <p style={{ marginTop: 12, color: token.colorTextSecondary }}>
-                  💡 建议使用序号 <strong>{nextOrderIndex}</strong>，或选择其他未使用的序号
+                  {t('sugestaoUseNumeroEscolha', { nextOrderIndex })}
                 </p>
               </div>
             ),
-            okText: '我知道了',
+            okText: t('entendi'),
             centered: true
           });
-          throw new Error('序号重复');
+          throw new Error(DUPLICATE_ORDER_ERROR);
         }
 
         try {
@@ -882,16 +887,16 @@ export default function Outline() {
             project_id: currentProject.id,
             ...values
           });
-          message.success('大纲创建成功');
+          message.success(t('esbocoCriadoSucesso'));
           await refreshOutlines();
           manualCreateForm.resetFields();
         } catch (error: unknown) {
           const err = error as Error;
-          if (err.message === '序号重复') {
+          if (err.message === DUPLICATE_ORDER_ERROR) {
             // 序号重复错误已经显示了Modal，不需要再显示message
             throw error;
           }
-          message.error('创建失败：' + (err.message || '未知错误'));
+          message.error(t('falhaCriar') + (err.message || t('erroDesconhecido')));
           throw error;
         }
       }
@@ -919,13 +924,13 @@ export default function Outline() {
               // 如果前面有未展开的大纲，显示提示并阻止操作
               setIsExpanding(false);
               modalApi.warning({
-                title: '请按顺序展开大纲',
+                title: t('expandaEsbocosOrdem'),
                 width: 600,
                 centered: true,
                 content: (
                   <div>
                     <p style={{ marginBottom: 12 }}>
-                      为了保持章节编号的连续性和内容的连贯性，请先展开前面的大纲。
+                      {t('manterNumeracaoCapitulosContinua')}
                     </p>
                     <div style={{
                       padding: 12,
@@ -934,23 +939,23 @@ export default function Outline() {
                       border: `1px solid ${token.colorWarningBorder}`
                     }}>
                       <div style={{ fontWeight: 500, marginBottom: 8, color: token.colorWarning }}>
-                        ⚠️ 需要先展开：
+                        {t('precisoExpandirPrimeiro')}
                       </div>
                       <div style={{ color: token.colorTextSecondary }}>
-                        第{prevOutline.order_index}卷：《{prevOutline.title}》
+                        {t('volume2', { order_index: prevOutline.order_index, title: prevOutline.title })}
                       </div>
                     </div>
                     <p style={{ marginTop: 12, color: token.colorTextSecondary, fontSize: 13 }}>
-                      💡 提示：您也可以使用「批量展开」功能，系统会自动按顺序处理所有大纲。
+                      {t('dicaVoceTambemPode')}
                     </p>
                   </div>
                 ),
-                okText: '我知道了'
+                okText: t('entendi')
               });
               return;
             }
           } catch (error) {
-            console.error(`检查大纲 ${prevOutline.id} 失败:`, error);
+            console.error(t('falhaVerificarEsboco', { id: prevOutline.id }), error);
             // 如果检查失败，继续处理（避免因网络问题阻塞）
           }
         }
@@ -972,7 +977,7 @@ export default function Outline() {
         title: (
           <Space>
             <BranchesOutlined />
-            <span>展开大纲为多章</span>
+            <span>{t('expandirEsbocoVariosCapitulos')}</span>
           </Space>
         ),
         width: 600,
@@ -980,7 +985,7 @@ export default function Outline() {
         content: (
           <div>
             <div style={{ marginBottom: 16, padding: 12, background: token.colorBgLayout, borderRadius: token.borderRadius }}>
-              <div style={{ fontWeight: 500, marginBottom: 4 }}>大纲标题</div>
+              <div style={{ fontWeight: 500, marginBottom: 4 }}>{t('tituloEsboco')}</div>
               <div style={{ color: token.colorTextSecondary }}>{outlineTitle}</div>
             </div>
             <Form
@@ -992,35 +997,35 @@ export default function Outline() {
               }}
             >
               <Form.Item
-                label="目标章节数"
+                label={t('numeroCapitulosAlvo')}
                 name="target_chapter_count"
-                rules={[{ required: true, message: '请输入目标章节数' }]}
-                tooltip="将这个大纲展开为几章内容"
+                rules={[{ required: true, message: t('informeNumeroCapitulosAlvo') }]}
+                tooltip={t('quantosCapitulosEsbocoSera')}
               >
                 <InputNumber
                   min={2}
                   max={10}
                   style={{ width: '100%' }}
-                  placeholder="建议2-5章"
+                  placeholder={t('sugestao25Capitulos')}
                 />
               </Form.Item>
 
               <Form.Item
-                label="展开策略"
+                label={t('estrategiaExpansao')}
                 name="expansion_strategy"
-                tooltip="选择如何分配内容到各章节"
+                tooltip={t('escolhaComoDistribuirConteudo')}
               >
                 <Radio.Group>
-                  <Radio.Button value="balanced">均衡分配</Radio.Button>
-                  <Radio.Button value="climax">高潮重点</Radio.Button>
-                  <Radio.Button value="detail">细节丰富</Radio.Button>
+                  <Radio.Button value="balanced">{t('distribuicaoEquilibrada')}</Radio.Button>
+                  <Radio.Button value="climax">{t('focoClimax')}</Radio.Button>
+                  <Radio.Button value="detail">{t('ricoDetalhes')}</Radio.Button>
                 </Radio.Group>
               </Form.Item>
             </Form>
           </div>
         ),
-        okText: '提交后台任务',
-        cancelText: '取消',
+        okText: t('enviarTarefaSegundoPlano'),
+        cancelText: t('cancelar'),
         onOk: async () => {
           try {
             const values = await expansionForm.validateFields();
@@ -1042,23 +1047,23 @@ export default function Outline() {
 
             if (!response.ok) {
               const err = await response.json().catch(() => ({ detail: response.statusText }));
-              throw new Error(err.detail || '创建大纲展开任务失败');
+              throw new Error(err.detail || t('falhaCriarTarefaExpansao'));
             }
 
-            message.success('大纲展开任务已提交，可在右下角任务面板查看进度');
+            message.success(t('tarefaExpansaoEsbocoEnviada'));
             eventBus.emit('background-task-created');
             setIsExpanding(false);
 
           } catch (error) {
-            console.error('展开失败:', error);
-            message.error(error instanceof Error ? error.message : '展开失败');
+            console.error(t('falhaExpansao'), error);
+            message.error(error instanceof Error ? error.message : t('falhaExpansao2'));
             setIsExpanding(false);
           }
         },
       });
     } catch (error) {
-      console.error('检查章节失败:', error);
-      message.error('检查章节失败');
+      console.error(t('falhaVerificarCapitulos'), error);
+      message.error(t('falhaVerificarCapitulos2'));
       setIsExpanding(false);
     }
   };
@@ -1072,7 +1077,7 @@ export default function Outline() {
         await chapterApi.deleteChapter(chapter.id);
       }
 
-      message.success(`已删除《${outlineTitle}》展开的所有 ${chapters.length} 个章节`);
+      message.success(t('todosCapitulosExpandidosForam', { outlineTitle, length: chapters.length }));
       await refreshOutlines();
       // 刷新项目信息以更新字数显示
       if (currentProject?.id) {
@@ -1081,7 +1086,7 @@ export default function Outline() {
       }
     } catch (error: unknown) {
       const apiError = error as ApiError;
-      message.error(apiError.response?.data?.detail || '删除章节失败');
+      message.error(apiError.response?.data?.detail || t('falhaExcluirCapitulos'));
     }
   };
 
@@ -1113,7 +1118,7 @@ export default function Outline() {
       title: (
         <Space style={{ flexWrap: 'wrap' }}>
           <CheckCircleOutlined style={{ color: token.colorSuccess }} />
-          <span>《{outlineTitle}》展开信息</span>
+          <span>{t('informacoesExpansao', { outlineTitle })}</span>
         </Space>
       ),
       width: isMobile ? '95%' : 900,
@@ -1138,33 +1143,33 @@ export default function Outline() {
             onClick={() => {
               Modal.destroyAll();
               modalApi.confirm({
-                title: '确认删除',
+                title: t('confirmarExclusao'),
                 icon: <ExclamationCircleOutlined />,
                 centered: true,
                 content: (
                   <div>
-                    <p>此操作将删除大纲《{outlineTitle}》展开的所有 <strong>{data.chapter_count}</strong> 个章节。</p>
+                    <p>{t('operacaoExcluiraTodosCapitulos', { outlineTitle, chapter_count: data.chapter_count })}</p>
                     <p style={{ color: token.colorPrimary, marginTop: 8 }}>
-                      📝 注意：大纲本身会保留，您可以重新展开
+                      {t('observacaoEsbocoSiSera')}
                     </p>
                     <p style={{ color: token.colorError, marginTop: 8 }}>
-                      ⚠️ 警告：章节内容将永久删除且无法恢复！
+                      {t('avisoConteudoCapitulosSera')}
                     </p>
                   </div>
                 ),
-                okText: '确认删除',
+                okText: t('confirmarExclusao'),
                 okType: 'danger',
-                cancelText: '取消',
+                cancelText: t('cancelar'),
                 onOk: () => handleDeleteExpandedChapters(outlineTitle, data.chapters || []),
               });
             }}
             block={isMobile}
             size={isMobile ? 'middle' : undefined}
           >
-            删除所有展开的章节 ({data.chapter_count}章)
+            {t('excluirTodosCapitulosExpandidos', { chapter_count: data.chapter_count })}
           </Button>
           <Button onClick={() => Modal.destroyAll()}>
-            关闭
+            {t('fechar')}
           </Button>
         </Space>
       ),
@@ -1182,10 +1187,10 @@ export default function Outline() {
                   padding: '4px 8px'
                 }}
               >
-                大纲: {outlineTitle}
+                {t('esboco')} {outlineTitle}
               </Tag>
-              <Tag color="green">章节数: {data.chapter_count}</Tag>
-              <Tag color="orange">已创建章节</Tag>
+              <Tag color="green">{t('capitulos')} {data.chapter_count}</Tag>
+              <Tag color="orange">{t('capitulosCriados')}</Tag>
             </Space>
           </div>
           <Tabs
@@ -1210,7 +1215,7 @@ export default function Outline() {
               children: (
                 <div style={{ maxHeight: '500px', overflowY: 'auto', padding: '8px 0' }}>
                   <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-                    <Card size="small" title="基本信息">
+                    <Card size="small" title={t('informacoesBasicas')}>
                       <Space wrap style={{ maxWidth: '100%' }}>
                         <Tag
                           color="blue"
@@ -1236,11 +1241,11 @@ export default function Outline() {
                         >
                           {plan.conflict_type}
                         </Tag>
-                        <Tag color="green">约{plan.estimated_words}字</Tag>
+                        <Tag color="green">{t('cercaPalavras', { estimated_words: plan.estimated_words })}</Tag>
                       </Space>
                     </Card>
 
-                    <Card size="small" title="情节概要">
+                    <Card size="small" title={t('resumoTrama')}>
                       <div style={{
                         wordBreak: 'break-word',
                         whiteSpace: 'normal',
@@ -1250,7 +1255,7 @@ export default function Outline() {
                       </div>
                     </Card>
 
-                    <Card size="small" title="叙事目标">
+                    <Card size="small" title={t('objetivoNarrativo')}>
                       <div style={{
                         wordBreak: 'break-word',
                         whiteSpace: 'normal',
@@ -1260,7 +1265,7 @@ export default function Outline() {
                       </div>
                     </Card>
 
-                    <Card size="small" title="关键事件">
+                    <Card size="small" title={t('eventosChave')}>
                       <Space direction="vertical" size="small" style={{ width: '100%' }}>
                         {plan.key_events.map((event, eventIdx) => (
                           <div
@@ -1277,7 +1282,7 @@ export default function Outline() {
                       </Space>
                     </Card>
 
-                    <Card size="small" title="涉及角色">
+                    <Card size="small" title={t('personagensEnvolvidos')}>
                       <Space wrap style={{ maxWidth: '100%' }}>
                         {plan.character_focus.map((char, charIdx) => (
                           <Tag
@@ -1297,7 +1302,7 @@ export default function Outline() {
                     </Card>
 
                     {plan.scenes && plan.scenes.length > 0 && (
-                      <Card size="small" title="场景">
+                      <Card size="small" title={t('cenas')}>
                         <Space direction="vertical" size="small" style={{ width: '100%' }}>
                           {plan.scenes.map((scene, sceneIdx) => (
                             <Card
@@ -1314,21 +1319,21 @@ export default function Outline() {
                                 whiteSpace: 'normal',
                                 overflowWrap: 'break-word'
                               }}>
-                                <strong>地点：</strong>{scene.location}
+                                <strong>{t('local')}</strong> {scene.location}
                               </div>
                               <div style={{
                                 wordBreak: 'break-word',
                                 whiteSpace: 'normal',
                                 overflowWrap: 'break-word'
                               }}>
-                                <strong>角色：</strong>{scene.characters.join('、')}
+                                <strong>{t('personagens')}</strong> {scene.characters.join(', ')}
                               </div>
                               <div style={{
                                 wordBreak: 'break-word',
                                 whiteSpace: 'normal',
                                 overflowWrap: 'break-word'
                               }}>
-                                <strong>目的：</strong>{scene.purpose}
+                                <strong>{t('objetivo')}</strong> {scene.purpose}
                               </div>
                             </Card>
                           ))}
@@ -1349,7 +1354,7 @@ export default function Outline() {
   // 批量展开所有大纲 - 提交后台任务并在悬浮任务面板显示进度
   const handleBatchExpandOutlines = () => {
     if (!currentProject?.id || outlines.length === 0) {
-      message.warning('没有可展开的大纲');
+      message.warning(t('naoHaEsbocosExpandir'));
       return;
     }
 
@@ -1357,7 +1362,7 @@ export default function Outline() {
       title: (
         <Space>
           <AppstoreAddOutlined />
-          <span>批量展开所有大纲</span>
+          <span>{t('expandirTodosEsbocosLote')}</span>
         </Space>
       ),
       width: 600,
@@ -1374,7 +1379,7 @@ export default function Outline() {
             }}
           >
             <div style={{ color: token.colorWarningText }}>
-              ⚠️ 将对当前项目的所有 {outlines.length} 个大纲进行展开
+              {t('todosEsbocosProjetoAtual', { length: outlines.length })}
             </div>
           </div>
           <Form
@@ -1386,34 +1391,34 @@ export default function Outline() {
             }}
           >
             <Form.Item
-              label="每个大纲展开章节数"
+              label={t('capitulosEsboco')}
               name="chapters_per_outline"
-              rules={[{ required: true, message: '请输入章节数' }]}
-              tooltip="每个大纲将被展开为几章"
+              rules={[{ required: true, message: t('informeNumeroCapitulos') }]}
+              tooltip={t('quantosCapitulosCadaEsboco')}
             >
               <InputNumber
                 min={2}
                 max={10}
                 style={{ width: '100%' }}
-                placeholder="建议2-5章"
+                placeholder={t('sugestao25Capitulos')}
               />
             </Form.Item>
 
             <Form.Item
-              label="展开策略"
+              label={t('estrategiaExpansao')}
               name="expansion_strategy"
             >
               <Radio.Group>
-                <Radio.Button value="balanced">均衡分配</Radio.Button>
-                <Radio.Button value="climax">高潮重点</Radio.Button>
-                <Radio.Button value="detail">细节丰富</Radio.Button>
+                <Radio.Button value="balanced">{t('distribuicaoEquilibrada')}</Radio.Button>
+                <Radio.Button value="climax">{t('focoClimax')}</Radio.Button>
+                <Radio.Button value="detail">{t('ricoDetalhes')}</Radio.Button>
               </Radio.Group>
             </Form.Item>
           </Form>
         </div>
       ),
-      okText: '提交后台任务',
-      cancelText: '取消',
+      okText: t('enviarTarefaSegundoPlano'),
+      cancelText: t('cancelar'),
       okButtonProps: { type: 'primary' },
       onOk: async () => {
         try {
@@ -1437,16 +1442,16 @@ export default function Outline() {
 
           if (!response.ok) {
             const err = await response.json().catch(() => ({ detail: response.statusText }));
-            throw new Error(err.detail || '创建批量展开任务失败');
+            throw new Error(err.detail || t('falhaCriarTarefaExpansaoLote'));
           }
 
-          message.success('批量展开任务已提交，可在右下角任务面板查看进度');
+          message.success(t('tarefaExpansaoLoteEnviada'));
           eventBus.emit('background-task-created');
           setIsExpanding(false);
 
         } catch (error) {
-          console.error('批量展开失败:', error);
-          message.error(error instanceof Error ? error.message : '批量展开失败');
+          console.error(t('falhaExpansaoLote'), error);
+          message.error(error instanceof Error ? error.message : t('falhaExpansaoLote2'));
           setIsExpanding(false);
         }
       },
@@ -1465,10 +1470,10 @@ export default function Outline() {
     setIsExporting(true);
     try {
       await outlineApi.exportOutlines(currentProject.id);
-      message.success(`已导出 ${outlines.length} 条大纲`);
+      message.success(t('esbocoSExportadoS', { length: outlines.length }));
     } catch (error) {
-      console.error('导出大纲失败:', error);
-      message.error('导出大纲失败，请稍后重试');
+      console.error(t('falhaExportarEsboco'), error);
+      message.error(t('falhaExportarEsbocoTente'));
     } finally {
       setIsExporting(false);
     }
@@ -1476,7 +1481,7 @@ export default function Outline() {
 
   const handlePreviewImport = async () => {
     if (!currentProject?.id || !importFile) {
-      message.warning('请先选择要导入的 JSON 文件');
+      message.warning(t('selecionePrimeiroArquivoJson'));
       return;
     }
 
@@ -1486,7 +1491,7 @@ export default function Outline() {
       const preview = await outlineApi.previewImport(currentProject.id, importMode, importFile);
       setImportPreview(preview);
     } catch (error) {
-      console.error('预览大纲导入失败:', error);
+      console.error(t('falhaPreVisualizarImportacao'), error);
     } finally {
       setIsPreviewingImport(false);
     }
@@ -1499,7 +1504,7 @@ export default function Outline() {
     try {
       const result = await outlineApi.importOutlines(currentProject.id, importMode, importFile);
       const chapterMessage = result.created_chapters > 0
-        ? `，同步创建 ${result.created_chapters} 个章节`
+        ? t('capituloSCriadoS', { created_chapters: result.created_chapters })
         : '';
       message.success(`${result.message}${chapterMessage}`);
       setImportModalOpen(false);
@@ -1509,7 +1514,7 @@ export default function Outline() {
         eventBus.emit(EventNames.CHAPTER_NEEDS_REFRESH);
       }
     } catch (error) {
-      console.error('导入大纲失败:', error);
+      console.error(t('falhaImportarEsboco'), error);
       setImportPreview(null);
     } finally {
       setIsImporting(false);
@@ -1521,11 +1526,11 @@ export default function Outline() {
       {contextHolder}
 
       <Modal
-        title="导入大纲"
+        title={t('importarEsboco')}
         open={importModalOpen}
         width={680}
-        okText="确认导入"
-        cancelText="取消"
+        okText={t('confirmarImportacao')}
+        cancelText={t('cancelar')}
         confirmLoading={isImporting}
         okButtonProps={{ disabled: !importPreview?.valid || isPreviewingImport }}
         maskClosable={!isImporting}
@@ -1541,11 +1546,11 @@ export default function Outline() {
           <Alert
             type="info"
             showIcon
-            message="支持大纲导出文件，也支持从完整项目导出文件中提取大纲。文件须为 JSON 格式，最大 10MB。"
+            message={t('aceitaArquivosExportacaoEsboco')}
           />
 
           <div>
-            <div style={{ marginBottom: 8, fontWeight: 500 }}>1. 选择文件</div>
+            <div style={{ marginBottom: 8, fontWeight: 500 }}>{t('1SelecioneArquivo')}</div>
             <Upload
               accept=".json,application/json"
               maxCount={1}
@@ -1558,11 +1563,11 @@ export default function Outline() {
               }] : []}
               beforeUpload={(file) => {
                 if (!file.name.toLowerCase().endsWith('.json')) {
-                  message.error('只支持 JSON 格式文件');
+                  message.error(t('somenteArquivosJson'));
                   return Upload.LIST_IGNORE;
                 }
                 if (file.size > 10 * 1024 * 1024) {
-                  message.error('文件大小不能超过 10MB');
+                  message.error(t('arquivoNaoPodeTer'));
                   return Upload.LIST_IGNORE;
                 }
                 setImportFile(file);
@@ -1575,12 +1580,12 @@ export default function Outline() {
                 return true;
               }}
             >
-              <Button icon={<UploadOutlined />}>选择 JSON 文件</Button>
+              <Button icon={<UploadOutlined />}>{t('selecionarArquivoJson')}</Button>
             </Upload>
           </div>
 
           <div>
-            <div style={{ marginBottom: 8, fontWeight: 500 }}>2. 选择导入方式</div>
+            <div style={{ marginBottom: 8, fontWeight: 500 }}>{t('2EscolhaModoImportacao')}</div>
             <Radio.Group
               value={importMode}
               onChange={(event) => {
@@ -1589,8 +1594,8 @@ export default function Outline() {
               }}
             >
               <Space direction="vertical">
-                <Radio value="append">追加：从当前末尾新增，自动重新编号</Radio>
-                <Radio value="merge">按序号合并：相同序号更新，不同序号新增</Radio>
+                <Radio value="append">{t('acrescentarAdicionaFinalRenumera')}</Radio>
+                <Radio value="merge">{t('mesclarNumeroAtualizaMesmo')}</Radio>
               </Space>
             </Radio.Group>
           </div>
@@ -1603,7 +1608,7 @@ export default function Outline() {
             loading={isPreviewingImport}
             onClick={handlePreviewImport}
           >
-            预览导入结果
+            {t('previaResultadoImportacao')}
           </Button>
 
           {importPreview && (
@@ -1612,19 +1617,19 @@ export default function Outline() {
               <Alert
                 type={importPreview.valid ? 'success' : 'error'}
                 showIcon
-                message={importPreview.valid ? '文件校验通过' : '文件校验失败'}
+                message={importPreview.valid ? t('arquivoValidado') : t('falhaValidacaoArquivo')}
                 description={
                   <Space direction="vertical" size={4} style={{ width: '100%' }}>
                     <div>
-                      文件格式版本：{importPreview.version || '未知'}
-                      {importPreview.source_project?.title && ` · 来源项目：${importPreview.source_project.title}`}
+                      {t('versaoFormatoArquivo', { v0: importPreview.version || t('desconhecida') })}
+                      {importPreview.source_project?.title && t('projetoOrigem', { title: importPreview.source_project.title })}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                      <Tag>共 {importPreview.statistics.total} 条</Tag>
-                      <Tag color="green">新增 {importPreview.statistics.will_create} 条</Tag>
-                      <Tag color="blue">更新 {importPreview.statistics.will_update} 条</Tag>
+                      <Tag>{t('total', { total: importPreview.statistics.total })}</Tag>
+                      <Tag color="green">{t('novos', { will_create: importPreview.statistics.will_create })}</Tag>
+                      <Tag color="blue">{t('atualizacoes', { will_update: importPreview.statistics.will_update })}</Tag>
                       {importPreview.target_outline_mode === 'one-to-one' && (
-                        <Tag color="purple">创建章节 {importPreview.statistics.will_create_chapters} 个</Tag>
+                        <Tag color="purple">{t('capitulosCriar', { will_create_chapters: importPreview.statistics.will_create_chapters })}</Tag>
                       )}
                     </div>
                   </Space>
@@ -1635,7 +1640,7 @@ export default function Outline() {
                 <Alert
                   type="error"
                   showIcon
-                  message="无法导入"
+                  message={t('naoFoiPossivelImportar')}
                   description={
                     <ul style={{ margin: 0, paddingLeft: 20 }}>
                       {importPreview.errors.map((error, index) => <li key={`${index}-${error}`}>{error}</li>)}
@@ -1648,7 +1653,7 @@ export default function Outline() {
                 <Alert
                   type="warning"
                   showIcon
-                  message="注意事项"
+                  message={t('observacoes')}
                   description={
                     <ul style={{ margin: 0, paddingLeft: 20 }}>
                       {importPreview.warnings.map((warning, index) => <li key={`${index}-${warning}`}>{warning}</li>)}
@@ -1680,18 +1685,18 @@ export default function Outline() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <h2 style={{ margin: 0, fontSize: isMobile ? 18 : 24 }}>
               <FileTextOutlined style={{ marginRight: 8 }} />
-              故事大纲
+              {t('esbocoHistoria')}
             </h2>
             {currentProject?.outline_mode && (
               <Tag color={currentProject.outline_mode === 'one-to-one' ? 'blue' : 'green'} style={{ width: 'fit-content' }}>
-                {currentProject.outline_mode === 'one-to-one' ? '传统模式 (1→1)' : '细化模式 (1→N)'}
+                {currentProject.outline_mode === 'one-to-one' ? t('modoTradicional11') : t('modoDetalhado1N')}
               </Tag>
             )}
           </div>
           <Space size="small" wrap={isMobile}>
             <Input.Search
               allowClear
-              placeholder="搜索大纲（序号/标题/内容）"
+              placeholder={t('buscarEsbocoNumeroTitulo')}
               value={outlineSearchKeyword}
               onChange={(e) => setOutlineSearchKeyword(e.target.value)}
               style={{ width: isMobile ? '100%' : 280 }}
@@ -1704,7 +1709,7 @@ export default function Outline() {
               }}
               block={isMobile}
             >
-              导入大纲
+              {t('importarEsboco')}
             </Button>
             <Button
               icon={<DownloadOutlined />}
@@ -1713,14 +1718,14 @@ export default function Outline() {
               disabled={outlines.length === 0}
               block={isMobile}
             >
-              导出大纲
+              {t('exportarEsboco')}
             </Button>
             <Button
               icon={<PlusOutlined />}
               onClick={showManualCreateOutlineModal}
               block={isMobile}
             >
-              手动创建
+              {t('criarManualmente')}
             </Button>
             <Button
               type="primary"
@@ -1729,7 +1734,7 @@ export default function Outline() {
               loading={isGenerating}
               block={isMobile}
             >
-              {isMobile ? 'AI生成/续写' : 'AI生成/续写大纲'}
+              {isMobile ? t('gerarContinuarIa') : t('gerarContinuarEsbocoIa')}
             </Button>
             {outlines.length > 0 && currentProject?.outline_mode === 'one-to-many' && (
               <Button
@@ -1737,9 +1742,9 @@ export default function Outline() {
                 onClick={handleBatchExpandOutlines}
                 loading={isExpanding}
                 disabled={isGenerating}
-                title="将所有大纲展开为多章，实现从大纲到章节的一对多关系"
+                title={t('expandeTodosEsbocosVarios')}
               >
-                {isMobile ? '批量展开' : '批量展开为多章'}
+                {isMobile ? t('expandirLote') : t('expandirLoteVariosCapitulos')}
               </Button>
             )}
           </Space>
@@ -1748,9 +1753,9 @@ export default function Outline() {
         {/* 可滚动内容区域 */}
         <div style={{ flex: 1, overflowY: 'auto' }}>
           {outlines.length === 0 ? (
-            <Empty description="还没有大纲，开始创建吧！" />
+            <Empty description={t('aindaNaoHaEsboco')} />
           ) : filteredOutlines.length === 0 ? (
-            <Empty description="未找到匹配大纲" />
+            <Empty description={t('nenhumEsbocoEncontrado')} />
           ) : (
             <List
               dataSource={pagedOutlines}
@@ -1802,17 +1807,17 @@ export default function Outline() {
                             <Space size="small" style={{ fontSize: isMobile ? 13 : 16, flexWrap: 'wrap', lineHeight: isMobile ? '1.4' : '1.5' }}>
                               <span style={{ color: token.colorPrimary, fontWeight: 'bold', fontSize: isMobile ? 13 : 16 }}>
                                 {currentProject?.outline_mode === 'one-to-one'
-                                  ? `第${item.order_index || '?'}章`
-                                  : `第${item.order_index || '?'}卷`
+                                  ? t('capitulo2', { v0: item.order_index || '?' })
+                                  : t('volume3', { v0: item.order_index || '?' })
                                 }
                               </span>
                               <span style={{ fontSize: isMobile ? 13 : 16 }}>{item.title}</span>
                               {/* ✅ 新增：展开状态标识 - 仅在一对多模式显示 */}
                               {currentProject?.outline_mode === 'one-to-many' && (
                                 outlineExpandStatus[item.id] ? (
-                                  <Tag color="success" icon={<CheckCircleOutlined />} style={{ fontSize: isMobile ? 11 : 12 }}>已展开</Tag>
+                                  <Tag color="success" icon={<CheckCircleOutlined />} style={{ fontSize: isMobile ? 11 : 12 }}>{t('expandido')}</Tag>
                                 ) : (
-                                  <Tag color="default" style={{ fontSize: isMobile ? 11 : 12 }}>未展开</Tag>
+                                  <Tag color="default" style={{ fontSize: isMobile ? 11 : 12 }}>{t('naoExpandido')}</Tag>
                                 )
                               )}
                             </Space>
@@ -1843,7 +1848,7 @@ export default function Outline() {
                                     color: token.colorTextSecondary,
                                     fontSize: isMobile ? 12 : 13
                                   }}>
-                                    📝 大纲内容
+                                    {t('conteudoEsboco2')}
                                   </div>
                                   <Button
                                     type="link"
@@ -1858,7 +1863,7 @@ export default function Outline() {
                                       fontSize: isMobile ? 12 : 13
                                     }}
                                   >
-                                    {isOutlineExpanded ? '收起' : '展开'}
+                                    {isOutlineExpanded ? t('recolher') : t('expandir')}
                                   </Button>
                                 </div>
                                 <div style={{
@@ -1872,7 +1877,7 @@ export default function Outline() {
                                   whiteSpace: isOutlineExpanded ? 'pre-wrap' : 'normal',
                                   wordBreak: 'break-word'
                                 }}>
-                                  {isOutlineExpanded ? item.content : previewContent.text || '暂无内容'}
+                                  {isOutlineExpanded ? item.content : previewContent.text || t('semConteudo')}
                                 </div>
                               </div>
 
@@ -1901,7 +1906,7 @@ export default function Outline() {
                                       alignItems: 'center',
                                       gap: 4
                                     }}>
-                                      👥 涉及角色
+                                      {t('personagensEnvolvidos2')}
                                       <Tag
                                         color="purple"
                                         style={{
@@ -1965,7 +1970,7 @@ export default function Outline() {
                                       alignItems: 'center',
                                       gap: 4
                                     }}>
-                                      🏛️ 涉及组织
+                                      {t('organizacoesEnvolvidas2')}
                                       <Tag
                                         color="orange"
                                         style={{
@@ -2037,7 +2042,7 @@ export default function Outline() {
                                         alignItems: 'center',
                                         gap: 4
                                       }}>
-                                        🎬 场景设定
+                                        {t('cenas2')}
                                         <Tag
                                           color="cyan"
                                           style={{
@@ -2065,7 +2070,7 @@ export default function Outline() {
                                             color: token.colorInfo
                                           }}
                                         >
-                                          {isExpanded ? '收起 ▲' : `展开 (${structureData.scenes!.length - maxVisibleScenes}+) ▼`}
+                                          {isExpanded ? t('recolher2') : t('expandir2', { v0: structureData.scenes!.length - maxVisibleScenes })}
                                         </Button>
                                       )}
                                     </div>
@@ -2178,7 +2183,7 @@ export default function Outline() {
                                                   borderRadius: 4
                                                 }}
                                               >
-                                                场景{idx + 1}
+                                                {t('cena')}{idx + 1}
                                               </Tag>
                                               <span style={{
                                                 fontWeight: 600,
@@ -2202,7 +2207,7 @@ export default function Outline() {
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                               }}>
-                                                <span style={{ fontWeight: 500 }}>👤 角色：</span>
+                                                <span style={{ fontWeight: 500 }}>{t('personagens2')}</span>
                                                 {scene.characters.join(' · ')}
                                               </div>
                                             )}
@@ -2216,7 +2221,7 @@ export default function Outline() {
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                               }}>
-                                                <span style={{ fontWeight: 500 }}>🎯 目的：</span>
+                                                <span style={{ fontWeight: 500 }}>{t('objetivo2')}</span>
                                                 {scene.purpose}
                                               </div>
                                             )}
@@ -2252,7 +2257,7 @@ export default function Outline() {
                                     alignItems: 'center',
                                     gap: 4
                                   }}>
-                                    ⚡ 关键事件
+                                    {t('eventosChave2')}
                                     <Tag
                                       color="orange"
                                       style={{
@@ -2329,7 +2334,7 @@ export default function Outline() {
                                     alignItems: 'center',
                                     gap: 4
                                   }}>
-                                    💡 情节要点
+                                    {t('pontosTrama2')}
                                     <Tag
                                       color="green"
                                       style={{
@@ -2424,7 +2429,7 @@ export default function Outline() {
                                   fontWeight: 600,
                                   color: token.colorWarning
                                 }}>
-                                  💫 情感基调：
+                                  {t('tomEmocional2')}
                                 </span>
                                 <Tag
                                   color="gold"
@@ -2458,7 +2463,7 @@ export default function Outline() {
                                   color: token.colorInfo,
                                   marginBottom: 6
                                 }}>
-                                  🎯 叙事目标
+                                  {t('objetivoNarrativo2')}
                                 </div>
                                 <div style={{
                                   fontSize: 12,
@@ -2498,7 +2503,7 @@ export default function Outline() {
                               loading={isExpanding}
                               size={isMobile ? 'middle' : 'small'}
                             >
-                              展开
+                              {t('expandir')}
                             </Button>
                           )}
                           <Button
@@ -2506,20 +2511,20 @@ export default function Outline() {
                             onClick={() => handleOpenEditModal(item.id)}
                             size={isMobile ? 'middle' : 'small'}
                           >
-                            编辑
+                            {t('editar')}
                           </Button>
                           <Popconfirm
-                            title="确定删除这条大纲吗？"
+                            title={t('temCertezaDesejaExcluir')}
                             onConfirm={() => handleDeleteOutline(item.id)}
-                            okText="确定"
-                            cancelText="取消"
+                            okText={t('confirmar')}
+                            cancelText={t('cancelar')}
                           >
                             <Button
                               danger
                               icon={<DeleteOutlined />}
                               size={isMobile ? 'middle' : 'small'}
                             >
-                              删除
+                              {t('excluir')}
                             </Button>
                           </Popconfirm>
                         </div>
@@ -2559,7 +2564,7 @@ export default function Outline() {
                   setOutlinePage(1);
                 }
               }}
-              showTotal={(total) => `共 ${total} 条`}
+              showTotal={(total) => t('total', { total })}
               size={isMobile ? 'small' : 'default'}
             />
           </div>
