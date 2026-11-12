@@ -157,9 +157,13 @@ def test_importacao_aceita_ponto_de_vista_em_portugues():
     from app.services.book_import_service import BookImportService
 
     service = BookImportService.__new__(BookImportService)
-    assert service._normalize_narrative_perspective("primeira pessoa") == "第一人称"
-    assert service._normalize_narrative_perspective("Terceira pessoa") == "第三人称"
-    assert service._normalize_narrative_perspective("onisciente") == "全知视角"
+    assert service._normalize_narrative_perspective("primeira pessoa") == "primeira pessoa"
+    assert service._normalize_narrative_perspective("Terceira pessoa") == "terceira pessoa"
+    assert service._normalize_narrative_perspective("onisciente") == "onisciente"
+    # valores antigos (chinês) e em inglês continuam aceitos e viram texto PT
+    assert service._normalize_narrative_perspective("第一人称") == "primeira pessoa"
+    assert service._normalize_narrative_perspective("全知视角") == "onisciente"
+    assert service._normalize_narrative_perspective("third_person") == "terceira pessoa"
 
 
 def test_prompt_de_inspiracao_aplica_idioma_padrao():

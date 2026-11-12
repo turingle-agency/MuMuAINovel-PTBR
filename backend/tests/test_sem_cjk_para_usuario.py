@@ -100,7 +100,6 @@ def test_nenhuma_string_cjk_para_usuario_api():
     assert found == [], _fmt(found)
 
 
-@pytest.mark.xfail(reason="Task 11b", strict=False)
 def test_nenhuma_string_cjk_para_usuario():
     found = find_cjk_user_strings(APP)
     assert found == [], _fmt(found)
