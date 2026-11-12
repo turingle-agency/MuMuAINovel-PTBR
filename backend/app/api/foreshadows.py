@@ -29,12 +29,12 @@ router = APIRouter(prefix="/api/foreshadows", tags=["foreshadows"])
 async def get_project_foreshadows(
     project_id: str,
     request: Request,
-    status: Optional[str] = Query(None, description="状态筛选: pending/planted/resolved/abandoned"),
-    category: Optional[str] = Query(None, description="分类筛选"),
-    source_type: Optional[str] = Query(None, description="来源筛选: analysis/manual"),
-    is_long_term: Optional[bool] = Query(None, description="是否长线伏笔"),
-    page: int = Query(1, ge=1, description="页码"),
-    limit: int = Query(50, ge=1, le=100, description="每页数量"),
+    status: Optional[str] = Query(None, description="Filtro de status: pending/planted/resolved/abandoned"),
+    category: Optional[str] = Query(None, description="Filtro de categoria"),
+    source_type: Optional[str] = Query(None, description="Filtro de origem: analysis/manual"),
+    is_long_term: Optional[bool] = Query(None, description="É foreshadowing de longo prazo"),
+    page: int = Query(1, ge=1, description="Número da página"),
+    limit: int = Query(50, ge=1, le=100, description="Itens por página"),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -63,14 +63,14 @@ async def get_project_foreshadows(
         raise
     except Exception as e:
         logger.error(f"❌ 获取伏笔列表失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"获取伏笔列表失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter a lista de foreshadowings: {str(e)}")
 
 
 @router.get("/projects/{project_id}/stats", response_model=ForeshadowStatsResponse)
 async def get_foreshadow_stats(
     project_id: str,
     request: Request,
-    current_chapter: Optional[int] = Query(None, ge=1, description="当前章节号(用于计算超期)"),
+    current_chapter: Optional[int] = Query(None, ge=1, description="Número do capítulo atual (para calcular atrasos)"),
     db: AsyncSession = Depends(get_db)
 ):
     """获取项目伏笔统计"""
@@ -85,7 +85,7 @@ async def get_foreshadow_stats(
         raise
     except Exception as e:
         logger.error(f"❌ 获取伏笔统计失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"获取伏笔统计失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter as estatísticas de foreshadowing: {str(e)}")
 
 
 @router.get("/projects/{project_id}/context/{chapter_number}", response_model=ForeshadowContextResponse)
@@ -93,9 +93,9 @@ async def get_chapter_foreshadow_context(
     project_id: str,
     chapter_number: int,
     request: Request,
-    include_pending: bool = Query(True, description="包含待埋入伏笔"),
-    include_overdue: bool = Query(True, description="包含超期伏笔"),
-    lookahead: int = Query(5, ge=1, le=20, description="向前看几章"),
+    include_pending: bool = Query(True, description="Incluir foreshadowings pendentes de plantio"),
+    include_overdue: bool = Query(True, description="Incluir foreshadowings atrasados"),
+    lookahead: int = Query(5, ge=1, le=20, description="Quantos capítulos olhar adiante"),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -122,15 +122,15 @@ async def get_chapter_foreshadow_context(
         raise
     except Exception as e:
         logger.error(f"❌ 获取伏笔上下文失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"获取伏笔上下文失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter o contexto de foreshadowing: {str(e)}")
 
 
 @router.get("/projects/{project_id}/pending-resolve")
 async def get_pending_resolve_foreshadows(
     project_id: str,
     request: Request,
-    current_chapter: int = Query(..., ge=1, description="当前章节号"),
-    lookahead: int = Query(5, ge=1, le=20, description="向前看几章"),
+    current_chapter: int = Query(..., ge=1, description="Número do capítulo atual"),
+    lookahead: int = Query(5, ge=1, le=20, description="Quantos capítulos olhar adiante"),
     db: AsyncSession = Depends(get_db)
 ):
     """获取待回收伏笔列表(用于章节生成提醒)"""
@@ -154,7 +154,7 @@ async def get_pending_resolve_foreshadows(
         raise
     except Exception as e:
         logger.error(f"❌ 获取待回收伏笔失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"获取待回收伏笔失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter os foreshadowings a resolver: {str(e)}")
 
 
 @router.get("/{foreshadow_id}", response_model=ForeshadowResponse)
@@ -168,7 +168,7 @@ async def get_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         # 验证权限
         user_id = getattr(request.state, 'user_id', None)
@@ -180,7 +180,7 @@ async def get_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 获取伏笔详情失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"获取伏笔详情失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter os detalhes do foreshadowing: {str(e)}")
 
 
 @router.post("", response_model=ForeshadowResponse)
@@ -205,7 +205,7 @@ async def create_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 创建伏笔失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"创建伏笔失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao criar o foreshadowing: {str(e)}")
 
 
 @router.put("/{foreshadow_id}", response_model=ForeshadowResponse)
@@ -220,7 +220,7 @@ async def update_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         user_id = getattr(request.state, 'user_id', None)
         await verify_project_access(foreshadow.project_id, user_id, db)
@@ -232,7 +232,7 @@ async def update_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 更新伏笔失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"更新伏笔失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao atualizar o foreshadowing: {str(e)}")
 
 
 @router.delete("/{foreshadow_id}")
@@ -246,20 +246,20 @@ async def delete_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         user_id = getattr(request.state, 'user_id', None)
         await verify_project_access(foreshadow.project_id, user_id, db)
         
         await foreshadow_service.delete_foreshadow(db, foreshadow_id)
         
-        return {"message": "伏笔删除成功", "id": foreshadow_id}
+        return {"message": "Foreshadowing excluído com sucesso", "id": foreshadow_id}
         
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"❌ 删除伏笔失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"删除伏笔失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao excluir o foreshadowing: {str(e)}")
 
 
 @router.post("/{foreshadow_id}/plant", response_model=ForeshadowResponse)
@@ -278,7 +278,7 @@ async def plant_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         user_id = getattr(request.state, 'user_id', None)
         await verify_project_access(foreshadow.project_id, user_id, db)
@@ -290,7 +290,7 @@ async def plant_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 标记伏笔埋入失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"标记伏笔埋入失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao marcar o foreshadowing como plantado: {str(e)}")
 
 
 @router.post("/{foreshadow_id}/resolve", response_model=ForeshadowResponse)
@@ -309,7 +309,7 @@ async def resolve_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         user_id = getattr(request.state, 'user_id', None)
         await verify_project_access(foreshadow.project_id, user_id, db)
@@ -321,14 +321,14 @@ async def resolve_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 标记伏笔回收失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"标记伏笔回收失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao marcar o foreshadowing como resolvido: {str(e)}")
 
 
 @router.post("/{foreshadow_id}/abandon", response_model=ForeshadowResponse)
 async def abandon_foreshadow(
     foreshadow_id: str,
     request: Request,
-    reason: Optional[str] = Query(None, description="废弃原因"),
+    reason: Optional[str] = Query(None, description="Motivo do abandono"),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -340,7 +340,7 @@ async def abandon_foreshadow(
         foreshadow = await foreshadow_service.get_foreshadow(db, foreshadow_id)
         
         if not foreshadow:
-            raise HTTPException(status_code=404, detail="伏笔不存在")
+            raise HTTPException(status_code=404, detail="Foreshadowing não encontrado")
         
         user_id = getattr(request.state, 'user_id', None)
         await verify_project_access(foreshadow.project_id, user_id, db)
@@ -352,7 +352,7 @@ async def abandon_foreshadow(
         raise
     except Exception as e:
         logger.error(f"❌ 标记伏笔废弃失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"标记伏笔废弃失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao marcar o foreshadowing como abandonado: {str(e)}")
 
 
 @router.post("/projects/{project_id}/sync-from-analysis", response_model=SyncFromAnalysisResponse)
@@ -378,4 +378,4 @@ async def sync_foreshadows_from_analysis(
         raise
     except Exception as e:
         logger.error(f"❌ 同步伏笔失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"同步伏笔失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao sincronizar os foreshadowings: {str(e)}")

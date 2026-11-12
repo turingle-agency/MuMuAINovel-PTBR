@@ -29,14 +29,14 @@ def calculate_content_hash(content: str) -> str:
     """计算模板内容的SHA256哈希值"""
     return hashlib.sha256(content.strip().encode('utf-8')).hexdigest()[:16]
 
-router = APIRouter(prefix="/prompt-templates", tags=["提示词模板管理"])
+router = APIRouter(prefix="/prompt-templates", tags=["Gerenciamento de modelos de prompt"])
 
 
 @router.get("", response_model=PromptTemplateListResponse)
 async def get_all_templates(
     request: Request,
-    category: Optional[str] = Query(None, description="按分类筛选"),
-    is_active: Optional[bool] = Query(None, description="按启用状态筛选"),
+    category: Optional[str] = Query(None, description="Filtrar por categoria"),
+    is_active: Optional[bool] = Query(None, description="Filtrar por estado de ativação"),
     db: AsyncSession = Depends(get_db)
 ):
     """
@@ -45,7 +45,7 @@ async def get_all_templates(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     query = select(PromptTemplate).where(PromptTemplate.user_id == user_id)
     
@@ -85,7 +85,7 @@ async def get_templates_by_category(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 1. 查询用户自定义模板
     result = await db.execute(
@@ -133,7 +133,7 @@ async def get_templates_by_category(
     # 5. 按分类分组
     category_dict = {}
     for template in all_templates:
-        cat = template.category or "未分类"
+        cat = template.category or "Sem categoria"
         if cat not in category_dict:
             category_dict[cat] = []
         category_dict[cat].append(template)
@@ -162,7 +162,7 @@ async def get_system_defaults(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 从PromptService获取所有系统默认模板
     system_templates = PromptService.get_all_system_templates()
@@ -185,7 +185,7 @@ async def get_template(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     result = await db.execute(
         select(PromptTemplate).where(
@@ -196,7 +196,7 @@ async def get_template(
     template = result.scalar_one_or_none()
     
     if not template:
-        raise HTTPException(status_code=404, detail=f"模板 {template_key} 不存在")
+        raise HTTPException(status_code=404, detail=f"Modelo {template_key} não encontrado")
     
     return template
 
@@ -213,7 +213,7 @@ async def create_or_update_template(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 查找现有模板
     result = await db.execute(
@@ -257,7 +257,7 @@ async def update_template(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     result = await db.execute(
         select(PromptTemplate).where(
@@ -268,7 +268,7 @@ async def update_template(
     template = result.scalar_one_or_none()
     
     if not template:
-        raise HTTPException(status_code=404, detail=f"模板 {template_key} 不存在")
+        raise HTTPException(status_code=404, detail=f"Modelo {template_key} não encontrado")
     
     # 更新模板
     update_data = data.model_dump(exclude_unset=True)
@@ -294,7 +294,7 @@ async def delete_template(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     result = await db.execute(
         select(PromptTemplate).where(
@@ -305,13 +305,13 @@ async def delete_template(
     template = result.scalar_one_or_none()
     
     if not template:
-        raise HTTPException(status_code=404, detail=f"模板 {template_key} 不存在")
+        raise HTTPException(status_code=404, detail=f"Modelo {template_key} não encontrado")
     
     await db.delete(template)
     await db.commit()
     logger.info(f"用户 {user_id} 删除模板 {template_key}")
     
-    return {"message": "模板已删除", "template_key": template_key}
+    return {"message": "Modelo excluído", "template_key": template_key}
 
 
 @router.post("/{template_key}/reset")
@@ -326,12 +326,12 @@ async def reset_to_default(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 验证系统默认模板是否存在
     system_template = PromptService.get_system_template_info(template_key)
     if not system_template:
-        raise HTTPException(status_code=404, detail=f"系统默认模板 {template_key} 不存在")
+        raise HTTPException(status_code=404, detail=f"Modelo padrão do sistema {template_key} não encontrado")
     
     # 查找并删除用户的自定义模板
     result = await db.execute(
@@ -346,11 +346,11 @@ async def reset_to_default(
         await db.delete(template)
         await db.commit()
         logger.info(f"用户 {user_id} 删除自定义模板 {template_key}，恢复为系统默认")
-        return {"message": "已重置为系统默认", "template_key": template_key}
+        return {"message": "Restaurado para o padrão do sistema", "template_key": template_key}
     else:
         # 用户本来就没有自定义，已经是系统默认状态
         logger.info(f"用户 {user_id} 的模板 {template_key} 本来就是系统默认")
-        return {"message": "已是系统默认状态", "template_key": template_key}
+        return {"message": "Já está no padrão do sistema", "template_key": template_key}
 
 
 @router.post("/export", response_model=PromptTemplateExport)
@@ -366,7 +366,7 @@ async def export_templates(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 1. 查询用户自定义模板
     result = await db.execute(
@@ -455,7 +455,7 @@ async def import_templates(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     # 获取所有系统默认模板用于比对
     system_templates = PromptService.get_all_system_templates()
@@ -524,7 +524,7 @@ async def import_templates(
                     converted_templates.append({
                         "template_key": template_key,
                         "template_name": template_data.template_name,
-                        "reason": "内容与系统默认不一致，已转为自定义"
+                        "reason": "O conteúdo difere do padrão do sistema, convertido em personalizado"
                     })
                     logger.info(f"用户 {user_id} 的模板 {template_key} 内容已修改，转为自定义")
             else:
@@ -584,7 +584,7 @@ async def import_templates(
     logger.info(f"用户 {user_id} 导入完成: {statistics}")
     
     return PromptTemplateImportResult(
-        message="导入成功",
+        message="Importação concluída",
         statistics=statistics,
         converted_templates=converted_templates
     )
@@ -602,7 +602,7 @@ async def preview_template(
     # 从认证中间件获取用户ID
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     try:
         # 使用PromptService的format_prompt方法
@@ -619,12 +619,12 @@ async def preview_template(
     except KeyError as e:
         return {
             "success": False,
-            "error": f"缺少必需的参数: {str(e)}",
+            "error": f"Parâmetro obrigatório ausente: {str(e)}",
             "rendered_content": None
         }
     except Exception as e:
         return {
             "success": False,
-            "error": f"渲染失败: {str(e)}",
+            "error": f"Falha na renderização: {str(e)}",
             "rendered_content": None
         }

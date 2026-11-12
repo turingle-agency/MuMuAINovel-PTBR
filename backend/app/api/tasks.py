@@ -14,7 +14,7 @@ from app.services.background_task_service import background_task_service
 from app.services.task_resources import affected_resources_for_task
 from app.logger import get_logger
 
-router = APIRouter(prefix="/tasks", tags=["后台任务"])
+router = APIRouter(prefix="/tasks", tags=["Tarefas em segundo plano"])
 logger = get_logger(__name__)
 
 
@@ -47,15 +47,15 @@ def _batch_task_data(task: BatchGenerationTask) -> dict:
         progress = int((task.completed_chapters or 0) / task.total_chapters * 100)
     if task.status == "completed":
         progress = 100
-    status_message = f"等待中，共 {task.total_chapters} 章"
+    status_message = f"Aguardando, {task.total_chapters} capítulos no total"
     if task.status == "running" and task.current_chapter_number:
-        status_message = f"正在生成第 {task.current_chapter_number} 章 ({task.completed_chapters}/{task.total_chapters})"
+        status_message = f"Gerando o capítulo {task.current_chapter_number} ({task.completed_chapters}/{task.total_chapters})"
     elif task.status == "completed":
-        status_message = f"已完成 {task.completed_chapters} 章"
+        status_message = f"{task.completed_chapters} capítulos concluídos"
     elif task.status == "failed":
-        status_message = "批量章节生成失败"
+        status_message = "Falha na geração de capítulos em lote"
     elif task.status == "cancelled":
-        status_message = "批量章节生成已取消"
+        status_message = "Geração de capítulos em lote cancelada"
     return {
         "id": task.id,
         "task_type": "chapter_batch",
@@ -92,15 +92,15 @@ def _analysis_task_data(
     chapter_title: str | None = None,
 ) -> dict:
     messages = {
-        "pending": "章节分析等待中",
-        "running": "正在分析章节",
-        "completed": "章节分析已完成",
-        "failed": "章节分析失败",
+        "pending": "Análise do capítulo aguardando",
+        "running": "Analisando o capítulo",
+        "completed": "Análise do capítulo concluída",
+        "failed": "Falha na análise do capítulo",
     }
     if chapter_number is not None and chapter_title:
-        status_message = f"第{chapter_number}章《{chapter_title}》{messages.get(task.status, task.status)}"
+        status_message = f"Capítulo {chapter_number} \"{chapter_title}\": {messages.get(task.status, task.status)}"
     elif chapter_number is not None:
-        status_message = f"第{chapter_number}章 {messages.get(task.status, task.status)}"
+        status_message = f"Capítulo {chapter_number}: {messages.get(task.status, task.status)}"
     else:
         status_message = messages.get(task.status, task.status)
     return {
@@ -138,7 +138,7 @@ def _analysis_task_data(
     }
 
 
-@router.get("/{task_id}", summary="获取任务状态")
+@router.get("/{task_id}", summary="Obter o status da tarefa")
 async def get_task_status(
     task_id: str,
     request: Request,
@@ -147,7 +147,7 @@ async def get_task_status(
     """获取后台任务的状态和进度"""
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     task = await background_task_service.get_task(task_id, user_id, db)
     if task:
@@ -169,10 +169,10 @@ async def get_task_status(
             chapter.chapter_number if chapter else None,
             chapter.title if chapter else None,
         )
-    raise HTTPException(status_code=404, detail="任务不存在")
+    raise HTTPException(status_code=404, detail="Tarefa não encontrada")
 
 
-@router.get("", summary="获取任务列表")
+@router.get("", summary="Listar tarefas")
 async def get_tasks(
     project_id: str,
     request: Request,
@@ -183,7 +183,7 @@ async def get_tasks(
     """获取项目后台任务列表，统一合并普通、批量生成和章节分析任务。"""
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     # 查询 BackgroundTask
     bg_tasks = await background_task_service.get_project_tasks(
@@ -248,7 +248,7 @@ async def get_tasks(
     return {"items": items[:limit]}
 
 
-@router.post("/{task_id}/cancel", summary="取消任务")
+@router.post("/{task_id}/cancel", summary="Cancelar tarefa")
 async def cancel_task(
     task_id: str,
     request: Request,
@@ -257,11 +257,11 @@ async def cancel_task(
     """请求取消后台任务"""
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     success = await background_task_service.cancel_task(task_id, user_id, db)
     if success:
-        return {"message": "任务已取消", "task_id": task_id}
+        return {"message": "Tarefa cancelada", "task_id": task_id}
 
     result = await db.execute(
         select(BatchGenerationTask).where(
@@ -274,12 +274,12 @@ async def cancel_task(
         batch_task.status = "cancelled"
         batch_task.completed_at = datetime.now()
         await db.commit()
-        return {"message": "任务已取消", "task_id": task_id}
+        return {"message": "Tarefa cancelada", "task_id": task_id}
 
-    raise HTTPException(status_code=400, detail="无法取消任务（不存在或已完成）")
+    raise HTTPException(status_code=400, detail="Não é possível cancelar a tarefa (não existe ou já foi concluída)")
 
 
-@router.delete("/{task_id}", summary="删除任务记录")
+@router.delete("/{task_id}", summary="Excluir registro da tarefa")
 async def delete_task(
     task_id: str,
     request: Request,
@@ -288,16 +288,16 @@ async def delete_task(
     """删除或归档已完成/失败的任务记录。分析任务采用归档，保留章节分析状态。"""
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     # 先尝试从 BackgroundTask 查找
     task = await background_task_service.get_task(task_id, user_id, db)
     if task:
         if task.status in ("pending", "running"):
-            raise HTTPException(status_code=400, detail="无法删除进行中的任务，请先取消")
+            raise HTTPException(status_code=400, detail="Não é possível excluir uma tarefa em andamento, cancele-a primeiro")
         await db.delete(task)
         await db.commit()
-        return {"message": "任务记录已删除"}
+        return {"message": "Registro da tarefa excluído"}
 
     # 再尝试从 BatchGenerationTask 查找
     result = await db.execute(
@@ -309,10 +309,10 @@ async def delete_task(
     batch_task = result.scalar_one_or_none()
     if batch_task:
         if batch_task.status in ("pending", "running"):
-            raise HTTPException(status_code=400, detail="无法删除进行中的任务，请先取消")
+            raise HTTPException(status_code=400, detail="Não é possível excluir uma tarefa em andamento, cancele-a primeiro")
         await db.delete(batch_task)
         await db.commit()
-        return {"message": "任务记录已删除"}
+        return {"message": "Registro da tarefa excluído"}
 
     # 分析任务不能物理删除：章节分析状态接口依赖每章最新记录。
     analysis_task = (await db.execute(
@@ -323,16 +323,16 @@ async def delete_task(
     )).scalar_one_or_none()
     if analysis_task:
         if analysis_task.status in ("pending", "running"):
-            raise HTTPException(status_code=400, detail="无法归档进行中的分析任务")
+            raise HTTPException(status_code=400, detail="Não é possível arquivar uma tarefa de análise em andamento")
         if analysis_task.archived_at is None:
             analysis_task.archived_at = datetime.now()
             await db.commit()
-        return {"message": "分析任务已从任务面板归档"}
+        return {"message": "Tarefa de análise arquivada do painel de tarefas"}
 
-    raise HTTPException(status_code=404, detail="任务不存在")
+    raise HTTPException(status_code=404, detail="Tarefa não encontrada")
 
 
-@router.delete("/project/{project_id}/clear", summary="清理项目已结束的任务记录")
+@router.delete("/project/{project_id}/clear", summary="Limpar registros de tarefas encerradas do projeto")
 async def clear_project_tasks(
     project_id: str,
     request: Request,
@@ -341,7 +341,7 @@ async def clear_project_tasks(
     """清理项目中已完成/失败/已取消的任务记录"""
     user_id = getattr(request.state, 'user_id', None)
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
 
     from sqlalchemy import delete as sql_delete
 
@@ -378,4 +378,4 @@ async def clear_project_tasks(
     await db.commit()
 
     total = (bg_result.rowcount or 0) + (batch_result.rowcount or 0) + (analysis_result.rowcount or 0)
-    return {"message": f"已清理 {total} 条任务记录", "deleted_count": total}
+    return {"message": f"{total} registros de tarefas removidos", "deleted_count": total}

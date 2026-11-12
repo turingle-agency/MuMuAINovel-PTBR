@@ -17,19 +17,19 @@ from app.logger import get_logger
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/admin", tags=["管理员"])
+router = APIRouter(prefix="/admin", tags=["Administração"])
 
 
 # ==================== 请求/响应模型 ====================
 
 class CreateUserRequest(BaseModel):
     """创建用户请求"""
-    username: str = Field(..., min_length=3, max_length=20, description="用户名")
-    display_name: str = Field(..., min_length=2, max_length=50, description="显示名称")
-    password: Optional[str] = Field(None, min_length=6, description="初始密码，留空则自动生成")
-    avatar_url: Optional[str] = Field(None, description="头像URL")
-    trust_level: int = Field(0, ge=0, le=9, description="信任等级")
-    is_admin: bool = Field(False, description="是否为管理员")
+    username: str = Field(..., min_length=3, max_length=20, description="Nome de usuário")
+    display_name: str = Field(..., min_length=2, max_length=50, description="Nome de exibição")
+    password: Optional[str] = Field(None, min_length=6, description="Senha inicial; se vazia, é gerada automaticamente")
+    avatar_url: Optional[str] = Field(None, description="URL do avatar")
+    trust_level: int = Field(0, ge=0, le=9, description="Nível de confiança")
+    is_admin: bool = Field(False, description="É administrador")
 
 
 class UpdateUserRequest(BaseModel):
@@ -37,17 +37,17 @@ class UpdateUserRequest(BaseModel):
     display_name: Optional[str] = Field(None, min_length=2, max_length=50)
     avatar_url: Optional[str] = None
     trust_level: Optional[int] = Field(None, ge=-1, le=9)
-    is_admin: Optional[bool] = Field(None, description="是否为管理员")
+    is_admin: Optional[bool] = Field(None, description="É administrador")
 
 
 class ToggleStatusRequest(BaseModel):
     """切换用户状态请求"""
-    is_active: bool = Field(..., description="true=启用, false=禁用")
+    is_active: bool = Field(..., description="true=ativar, false=desativar")
 
 
 class ResetPasswordRequest(BaseModel):
     """重置密码请求"""
-    new_password: Optional[str] = Field(None, min_length=6, description="新密码，留空则生成临时密码")
+    new_password: Optional[str] = Field(None, min_length=6, description="Nova senha; se vazia, é gerada uma senha temporária")
 
 
 class UserResponse(BaseModel):
@@ -78,10 +78,10 @@ async def check_admin(request: Request) -> User:
     """检查管理员权限"""
     user = getattr(request.state, "user", None)
     if not user:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     if not user.is_admin:
-        raise HTTPException(status_code=403, detail="需要管理员权限")
+        raise HTTPException(status_code=403, detail="É necessária permissão de administrador")
     
     return user
 
@@ -112,7 +112,7 @@ async def get_users(
         }
     except Exception as e:
         logger.error(f"获取用户列表失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"获取用户列表失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao obter a lista de usuários: {str(e)}")
 
 
 @router.post("/users")
@@ -127,7 +127,7 @@ async def create_user(
         all_users = await user_manager.get_all_users()
         for user in all_users:
             if user.username == data.username:
-                raise HTTPException(status_code=409, detail="用户名已存在")
+                raise HTTPException(status_code=409, detail="O nome de usuário já existe")
         
         # 生成用户ID
         user_id = f"admin_created_{hashlib.md5(data.username.encode()).hexdigest()[:16]}"
@@ -167,7 +167,7 @@ async def create_user(
         
         return CreateUserResponse(
             success=True,
-            message="用户创建成功",
+            message="Usuário criado com sucesso",
             user=new_user.model_dump(),
             default_password=actual_password if not data.password else None
         )
@@ -176,7 +176,7 @@ async def create_user(
         raise
     except Exception as e:
         logger.error(f"创建用户失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"创建用户失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao criar o usuário: {str(e)}")
 
 
 @router.put("/users/{user_id}")
@@ -191,7 +191,7 @@ async def update_user(
         # 获取目标用户
         target_user = await user_manager.get_user(user_id)
         if not target_user:
-            raise HTTPException(status_code=404, detail="用户不存在")
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
         
         # 更新用户信息
         async with await user_manager._get_session() as session:
@@ -201,7 +201,7 @@ async def update_user(
             db_user = result.scalar_one_or_none()
             
             if not db_user:
-                raise HTTPException(status_code=404, detail="用户不存在")
+                raise HTTPException(status_code=404, detail="Usuário não encontrado")
             
             # 更新字段
             if data.display_name is not None:
@@ -216,7 +216,7 @@ async def update_user(
                     all_users = await user_manager.get_all_users()
                     admin_count = sum(1 for u in all_users if u.is_admin)
                     if admin_count <= 1:
-                        raise HTTPException(status_code=400, detail="不能取消最后一个管理员的权限")
+                        raise HTTPException(status_code=400, detail="Não é possível remover a permissão do último administrador")
                 db_user.is_admin = data.is_admin
             
             await session.commit()
@@ -230,7 +230,7 @@ async def update_user(
         
         return {
             "success": True,
-            "message": "用户信息更新成功",
+            "message": "Usuário atualizado com sucesso",
             "user": user_dict
         }
         
@@ -238,7 +238,7 @@ async def update_user(
         raise
     except Exception as e:
         logger.error(f"更新用户失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"更新用户失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao atualizar o usuário: {str(e)}")
 
 
 @router.post("/users/{user_id}/toggle-status")
@@ -252,12 +252,12 @@ async def toggle_user_status(
     try:
         # 不允许禁用自己
         if user_id == admin.user_id:
-            raise HTTPException(status_code=400, detail="不能禁用自己的账号")
+            raise HTTPException(status_code=400, detail="Você não pode desativar a própria conta")
         
         # 获取目标用户
         target_user = await user_manager.get_user(user_id)
         if not target_user:
-            raise HTTPException(status_code=404, detail="用户不存在")
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
         
         # 更新状态
         async with await user_manager._get_session() as session:
@@ -267,7 +267,7 @@ async def toggle_user_status(
             db_user = result.scalar_one_or_none()
             
             if not db_user:
-                raise HTTPException(status_code=404, detail="用户不存在")
+                raise HTTPException(status_code=404, detail="Usuário não encontrado")
             
             if data.is_active:
                 # 启用用户：恢复trust_level为0（或之前的值）
@@ -278,12 +278,12 @@ async def toggle_user_status(
             
             await session.commit()
         
-        status_text = "启用" if data.is_active else "禁用"
+        status_text = "ativado" if data.is_active else "desativado"
         logger.info(f"管理员 {admin.user_id} {status_text}了用户 {user_id}")
         
         return {
             "success": True,
-            "message": f"用户已{status_text}",
+            "message": f"Usuário {status_text}",
             "is_active": data.is_active
         }
         
@@ -291,7 +291,7 @@ async def toggle_user_status(
         raise
     except Exception as e:
         logger.error(f"切换用户状态失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"切换用户状态失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao alterar o status do usuário: {str(e)}")
 
 
 @router.post("/users/{user_id}/reset-password")
@@ -306,7 +306,7 @@ async def reset_password(
         # 获取目标用户
         target_user = await user_manager.get_user(user_id)
         if not target_user:
-            raise HTTPException(status_code=404, detail="用户不存在")
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
         
         # 重置密码
         generated_password = data.new_password
@@ -323,7 +323,7 @@ async def reset_password(
         
         return {
             "success": True,
-            "message": "密码重置成功",
+            "message": "Senha redefinida com sucesso",
             "temporary_password": generated_password if not data.new_password else None
         }
         
@@ -331,7 +331,7 @@ async def reset_password(
         raise
     except Exception as e:
         logger.error(f"重置密码失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"重置密码失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao redefinir a senha: {str(e)}")
 
 
 @router.delete("/users/{user_id}")
@@ -344,19 +344,19 @@ async def delete_user(
     try:
         # 不允许删除自己
         if user_id == admin.user_id:
-            raise HTTPException(status_code=400, detail="不能删除自己的账号")
+            raise HTTPException(status_code=400, detail="Você não pode excluir a própria conta")
         
         # 获取目标用户
         target_user = await user_manager.get_user(user_id)
         if not target_user:
-            raise HTTPException(status_code=404, detail="用户不存在")
+            raise HTTPException(status_code=404, detail="Usuário não encontrado")
         
         # 检查是否是最后一个管理员
         if target_user.is_admin:
             all_users = await user_manager.get_all_users()
             admin_count = sum(1 for u in all_users if u.is_admin)
             if admin_count <= 1:
-                raise HTTPException(status_code=400, detail="不能删除最后一个管理员账号")
+                raise HTTPException(status_code=400, detail="Não é possível excluir a conta do último administrador")
         
         # 删除用户（包括密码记录）
         async with await user_manager._get_session() as session:
@@ -383,11 +383,11 @@ async def delete_user(
         
         return {
             "success": True,
-            "message": "用户已删除"
+            "message": "Usuário excluído"
         }
         
     except HTTPException:
         raise
     except Exception as e:
         logger.error(f"删除用户失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"删除用户失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao excluir o usuário: {str(e)}")
