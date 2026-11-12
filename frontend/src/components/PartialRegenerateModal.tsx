@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Modal, Input, Button, Space, Radio, InputNumber, Card, message, Alert, Spin, Typography, Divider, theme } from 'antd';
 import { ThunderboltOutlined, CheckOutlined, ReloadOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons';
 import { chapterApi } from '../services/api';
+import { useTranslation } from 'react-i18next';
 
 const { TextArea } = Input;
 const { Text, Paragraph } = Typography;
@@ -33,6 +34,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
   onClose,
   onApply,
 }) => {
+  const { t } = useTranslation('partialRegenerateModal');
   const { token } = theme.useToken();
   const [userInstructions, setUserInstructions] = useState('');
   const [lengthMode, setLengthMode] = useState<LengthMode>('similar');
@@ -68,14 +70,14 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
 
   const handleGenerate = async () => {
     if (!userInstructions.trim()) {
-      message.warning('请输入重写要求');
+      message.warning(t('informeInstrucoesReescrita'));
       return;
     }
 
     setIsGenerating(true);
     setGeneratedText('');
     setProgress(0);
-    setProgressMessage('准备生成...');
+    setProgressMessage(t('preparandoAGeracao'));
 
     // 创建 AbortController 用于取消请求
     abortControllerRef.current = new AbortController();
@@ -103,12 +105,12 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
           },
           onResult: () => {
             setProgress(100);
-            setProgressMessage('生成完成');
+            setProgressMessage(t('geracaoConcluida'));
             setHasGenerated(true);
           },
           onError: (error) => {
-            console.error('SSE错误:', error);
-            message.error(error || '生成过程中发生错误');
+            console.error('Erro de SSE:', error);
+            message.error(error || t('ocorreuErroDuranteGeracao'));
           },
           onComplete: () => {
             setIsGenerating(false);
@@ -117,9 +119,9 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
         }
       );
     } catch (error) {
-      console.error('生成失败:', error);
+      console.error('Falha na geração:', error);
       if ((error as Error).name !== 'AbortError') {
-        message.error('生成失败，请重试');
+        message.error(t('falhaGeracaoTenteNovamente'));
       }
       setIsGenerating(false);
     }
@@ -129,14 +131,14 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
     if (isGenerating && abortControllerRef.current) {
       abortControllerRef.current.abort();
       setIsGenerating(false);
-      message.info('已取消生成');
+      message.info(t('geracaoCancelada'));
     }
     onClose();
   };
 
   const handleAccept = async () => {
     if (!generatedText.trim()) {
-      message.warning('没有可应用的内容');
+      message.warning(t('naoHaConteudoAplicar'));
       return;
     }
 
@@ -148,12 +150,12 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
         end_position: endPosition,
       });
 
-      message.success('已应用重写内容');
+      message.success(t('conteudoReescritoAplicado'));
       onApply(generatedText, startPosition, endPosition);
       onClose();
     } catch (error) {
-      console.error('应用失败:', error);
-      message.error('应用失败，请重试');
+      console.error('Falha ao aplicar:', error);
+      message.error(t('falhaAplicarTenteNovamente'));
     }
   };
 
@@ -167,10 +169,10 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
 
   const getLengthModeDescription = (mode: LengthMode): string => {
     const descriptions: Record<LengthMode, string> = {
-      similar: '保持与原文相近的长度',
-      expand: '扩展内容，增加更多细节',
-      condense: '精简内容，保留核心要点',
-      custom: '指定目标字数',
+      similar: t('manterTamanhoProximoTexto'),
+      expand: t('expandirConteudoAcrescentandoMais'),
+      condense: t('condensarConteudoMantendoPontos'),
+      custom: t('definirMetaPalavras'),
     };
     return descriptions[mode];
   };
@@ -180,7 +182,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
       title={
         <Space>
           <EditOutlined style={{ color: token.colorPrimary }} />
-          <span>AI局部重写</span>
+          <span>{t('reescritaParcialIa')}</span>
         </Space>
       }
       open={visible}
@@ -193,7 +195,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
       footer={
         <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
           <Button onClick={handleCancel} disabled={isGenerating}>
-            取消
+            {t('cancelar')}
           </Button>
           {!hasGenerated ? (
             <Button
@@ -208,7 +210,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
                 boxShadow: token.boxShadowSecondary,
               }}
             >
-              {isGenerating ? '生成中...' : '开始重写'}
+              {isGenerating ? t('gerando') : t('iniciarReescrita')}
             </Button>
           ) : (
             <>
@@ -216,7 +218,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
                 icon={<ReloadOutlined />}
                 onClick={handleRegenerate}
               >
-                重新生成
+                {t('regenerar')}
               </Button>
               <Button
                 type="primary"
@@ -224,7 +226,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
                 onClick={handleAccept}
                 style={{ background: token.colorSuccess, borderColor: token.colorSuccess }}
               >
-                接受并应用
+                {t('aceitarEAplicar')}
               </Button>
             </>
           )}
@@ -242,8 +244,8 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
         size="small"
         title={
           <Space>
-            <Text strong>原文内容</Text>
-            <Text type="secondary">({selectedText.length}字)</Text>
+            <Text strong>{t('textoOriginal')}</Text>
+            <Text type="secondary">{t('palavras', { selectedTextCount: selectedText.length })}</Text>
           </Space>
         }
         style={{ marginBottom: 16 }}
@@ -270,12 +272,12 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
       {/* 重写要求输入 */}
       <div style={{ marginBottom: 16 }}>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          重写要求 <Text type="danger">*</Text>
+          {t('instrucoesDeReescrita')} <Text type="danger">*</Text>
         </Text>
         <TextArea
           value={userInstructions}
           onChange={(e) => setUserInstructions(e.target.value)}
-          placeholder="请描述您希望如何重写这段内容，例如：&#10;- 让描写更加生动细腻&#10;- 增加环境氛围描写&#10;- 加强角色心理活动&#10;- 改变叙事节奏，更加紧凑&#10;- 添加对话内容"
+          placeholder={t('descrevaComoVoceQuer')}
           rows={4}
           disabled={isGenerating}
           style={{ resize: 'none' }}
@@ -285,7 +287,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
       {/* 长度模式选择 */}
       <div style={{ marginBottom: 16 }}>
         <Text strong style={{ display: 'block', marginBottom: 8 }}>
-          长度控制
+          {t('controleDeTamanho')}
         </Text>
         <Radio.Group
           value={lengthMode}
@@ -293,10 +295,10 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
           disabled={isGenerating}
           buttonStyle="solid"
         >
-          <Radio.Button value="similar">保持长度</Radio.Button>
-          <Radio.Button value="expand">扩展内容</Radio.Button>
-          <Radio.Button value="condense">精简内容</Radio.Button>
-          <Radio.Button value="custom">自定义</Radio.Button>
+          <Radio.Button value="similar">{t('manterTamanho')}</Radio.Button>
+          <Radio.Button value="expand">{t('expandir')}</Radio.Button>
+          <Radio.Button value="condense">{t('condensar')}</Radio.Button>
+          <Radio.Button value="custom">{t('personalizado')}</Radio.Button>
         </Radio.Group>
         <div style={{ marginTop: 8 }}>
           <Text type="secondary" style={{ fontSize: 12 }}>
@@ -306,7 +308,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
         {lengthMode === 'custom' && (
           <div style={{ marginTop: 12 }}>
             <Space>
-              <Text>目标字数：</Text>
+              <Text>{t('metaDePalavras')}</Text>
               <InputNumber
                 value={customWordCount}
                 onChange={(value) => setCustomWordCount(value || selectedText.length)}
@@ -314,7 +316,7 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
                 max={10000}
                 step={50}
                 disabled={isGenerating}
-                addonAfter="字"
+                addonAfter={t('palavras2')}
                 style={{ width: 150 }}
               />
             </Space>
@@ -334,15 +336,15 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
             marginBottom: 8 
           }}>
             <Space>
-              <Text strong>重写结果</Text>
+              <Text strong>{t('resultadoDaReescrita')}</Text>
               {generatedText && (
-                <Text type="secondary">({generatedText.length}字)</Text>
+                <Text type="secondary">{t('palavras3', { generatedTextCount: generatedText.length })}</Text>
               )}
             </Space>
             {isGenerating && (
               <Space>
                 <Spin indicator={<LoadingOutlined style={{ fontSize: 14 }} spin />} />
-                <Text type="secondary">{progressMessage || '生成中...'}</Text>
+                <Text type="secondary">{progressMessage || t('gerando')}</Text>
               </Space>
             )}
           </div>
@@ -410,22 +412,22 @@ export const PartialRegenerateModal: React.FC<PartialRegenerateModalProps> = ({
               </Paragraph>
             ) : (
               <div style={{ textAlign: 'center', padding: 20, color: token.colorTextTertiary }}>
-                {isGenerating ? '正在生成内容...' : '等待生成...'}
+                {isGenerating ? t('gerandoConteudo') : t('aguardandoAGeracao')}
               </div>
             )}
           </Card>
 
           {hasGenerated && generatedText && (
             <Alert
-              message="生成完成"
+              message={t('geracaoConcluida')}
               description={
                 <span>
-                  原文 {selectedText.length} 字 → 新文 {generatedText.length} 字
+                  {t('originalPalavrasNovoPalavras', { selectedTextCount: selectedText.length, generatedTextCount: generatedText.length })}
                   {generatedText.length > selectedText.length && (
-                    <Text type="success"> (+{generatedText.length - selectedText.length}字)</Text>
+                    <Text type="success"> {t('palavras4', { valor: generatedText.length - selectedText.length })}</Text>
                   )}
                   {generatedText.length < selectedText.length && (
-                    <Text type="warning"> ({generatedText.length - selectedText.length}字)</Text>
+                    <Text type="warning"> {t('palavras5', { valor: generatedText.length - selectedText.length })}</Text>
                   )}
                 </span>
               }
