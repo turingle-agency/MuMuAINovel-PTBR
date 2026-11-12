@@ -24,6 +24,7 @@ from app.schemas.career import (
     UpdateCareerStageRequest,
     CareerStage
 )
+from app.constants.languages import language_name
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.logger import get_logger, safe_preview
