@@ -104,11 +104,11 @@ CJK_COMPAT_THEME_RULES: list[tuple[tuple[str, ...], str]] = [
 ]
 CJK_COMPAT_GENRE_RULES: list[tuple[tuple[str, ...], str]] = [
     (("修仙", "宗门", "灵气", "飞升", "仙门", "cultivo", "cultivador"), "Xianxia (cultivo)"),
-    (("玄幻", "异界", "魔法", "斗气", "magia", "feiticeiro", "dragão", "dragao", "reino mágico", "elfo"), "Fantasia"),
+    (("玄幻", "异界", "魔法", "斗气", "magia", "magic", "wizard", "dragon", "feiticeiro", "dragão", "dragao", "reino mágico", "elfo"), "Fantasia"),
     (("星际", "机甲", "赛博", "人工智能", "宇宙", "interestelar", "mecha", "cyberpunk", "inteligência artificial", "inteligencia artificial", "galáxia", "galaxia"), "Ficção científica"),
-    (("悬疑", "凶案", "推理", "谜案", "诡", "suspense", "assassinato", "detetive", "mistério", "misterio", "crime"), "Suspense"),
+    (("悬疑", "凶案", "推理", "谜案", "诡", "suspense", "assassinato", "murder", "detective", "detetive", "mistério", "misterio", "crime"), "Suspense"),
     (("总裁", "职场", "都市", "豪门", "executivo", "escritório", "escritorio", "carreira corporativa", "cidade grande", "herdeiro"), "Urbano"),
-    (("恋爱", "言情", "心动", "告白", "romance", "namoro", "confissão", "confissao", "coração", "paixão"), "Romance"),
+    (("恋爱", "言情", "心动", "告白", "romance", "love story", "namoro", "confissão", "confissao", "coração", "paixão"), "Romance"),
 ]
 CJK_COMPAT_FIRST_PERSON_RE = re.compile(r"[我咱俺]\S{0,2}")
 CJK_COMPAT_THIRD_PERSON_RE = re.compile(r"[他她它]\S{0,2}")
