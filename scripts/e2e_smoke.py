@@ -12,12 +12,14 @@ import argparse
 import json
 import re
 import sys
+import tempfile
 import time
 from pathlib import Path
 
 import httpx
 
 ENV = Path(__file__).resolve().parent.parent / "backend" / ".env"
+PROJECT_ID_FILE = Path(tempfile.gettempdir()) / "e2e_project_id"
 ES = [" el ", " los ", " las ", " del ", " una ", " y ", " que ", " por "]
 PT = [" não ", " uma ", " os ", " do ", " da ", " é ", " e ", "ção", " com "]
 CJK = re.compile(r"[　-ヿ一-鿿]")
@@ -152,11 +154,14 @@ def phase_main(c: httpx.Client) -> None:
         d = c.get(f"/api/projects/{pid}/cover/download")
         check("download da capa (imagem)", d.status_code == 200 and d.content[:8] == b"\x89PNG\r\n\x1a\n",
               f"{d.status_code} {d.headers.get('content-type')} {len(d.content)} bytes")
-    Path("/tmp/e2e_project_id").write_text(pid)
+    PROJECT_ID_FILE.write_text(pid)
 
 
 def phase_fail(c: httpx.Client) -> None:
-    pid = Path("/tmp/e2e_project_id").read_text().strip()
+    if not PROJECT_ID_FILE.exists():
+        print("Execute primeiro `python scripts/e2e_smoke.py main` (ele cria o projeto usado por esta fase).")
+        sys.exit(2)
+    pid = PROJECT_ID_FILE.read_text().strip()
     cid = make_chapter(c, pid, 2, "La carta", "La guardiana lee la carta y viaja al puerto.")
     pt_msg = re.compile(r"(Codex|reserva|configur|conex|falh|indispon)", re.I)
 
@@ -167,10 +172,10 @@ def phase_fail(c: httpx.Client) -> None:
         events, _ = gen_chapter(c, cid, 500)
         err = error_of(events) or ""
         if kw.get("fallback_api_provider"):
-            # A reserva (chave inválida de propósito) assume: o erro vem dela, não do "Codex não respondeu".
-            # Obs.: a mensagem da API de reserva chega como veio do provedor (hoje em inglês).
-            check("capítulo, Codex indisponível, com reserva inválida: reserva acionada",
-                  bool(err) and "O Codex não respondeu" not in err and "401" in err, err[:200])
+            # A reserva (chave inválida de propósito) é acionada e também falha: o erro em PT-BR cita os dois motivos.
+            check("capítulo, Codex indisponível, com reserva inválida: erro PT-BR com os dois motivos",
+                  "O Codex não respondeu" in err and "reserva também falhou" in err and "chave inválida" in err
+                  and not CJK.search(err), err[:300])
         else:
             check("capítulo, Codex indisponível, sem reserva: erro claro em PT-BR",
                   bool(pt_msg.search(err)) and "Traceback" not in err and not CJK.search(err), err[:300])

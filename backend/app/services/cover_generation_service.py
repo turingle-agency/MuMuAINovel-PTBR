@@ -17,7 +17,12 @@ from app.config import PROJECT_ROOT, settings as app_settings
 from app.logger import get_logger
 from app.models.project import Project
 from app.models.settings import Settings
-from app.services.ai_providers.codex_provider import CodexError, codex_reason, reset_codex_cooldown
+from app.services.ai_providers.codex_provider import (
+    CodexError,
+    codex_reason,
+    fallback_failure_message,
+    reset_codex_cooldown,
+)
 from app.services.cover_providers.base_cover_provider import BaseCoverProvider, CoverGenerationResult
 from app.services.cover_providers.codex_cover_provider import CodexCoverProvider
 from app.services.cover_providers.gemini_cover_provider import GeminiCoverProvider
@@ -258,6 +263,25 @@ class CoverGenerationService:
     ) -> CoverGenerationResult:
         """Codex falhou: tenta a API de reserva (Gemini/Grok com chave) ou levanta 503 em PT-BR."""
         fallback_provider = (settings.fallback_api_provider or "").lower().strip()
+        motivo_codex = codex_reason(codex_error)
+        if fallback_provider and settings.fallback_api_key:
+            if fallback_provider not in ("gemini", "grok"):
+                raise HTTPException(
+                    status_code=503,
+                    detail=(
+                        f"O Codex não gerou a capa ({motivo_codex}) e a API de reserva "
+                        f"({fallback_provider}) não gera imagens. Use Gemini ou Grok como reserva em Configurações."
+                    ),
+                ) from codex_error
+            if "imag" not in (settings.fallback_llm_model or "").lower():
+                raise HTTPException(
+                    status_code=503,
+                    detail=(
+                        f"O Codex não gerou a capa ({motivo_codex}) e o modelo da API de reserva "
+                        f"({settings.fallback_llm_model or 'não definido'}) não parece gerar imagens. "
+                        "Configure um modelo de imagem (nome com \"image\" ou \"imagen\") em Configurações."
+                    ),
+                ) from codex_error
         if (
             fallback_provider in ("gemini", "grok")
             and settings.fallback_api_key
@@ -269,12 +293,19 @@ class CoverGenerationService:
                 api_key=settings.fallback_api_key,
                 api_base_url=settings.fallback_api_base_url,
             )
-            return await provider.generate_cover(
-                prompt=prompt,
-                model=settings.fallback_llm_model,
-                width=COVER_WIDTH,
-                height=COVER_HEIGHT,
-            )
+            try:
+                return await provider.generate_cover(
+                    prompt=prompt,
+                    model=settings.fallback_llm_model,
+                    width=COVER_WIDTH,
+                    height=COVER_HEIGHT,
+                )
+            except Exception as fallback_error:
+                logger.error("API de reserva da capa também falhou: %r", fallback_error)
+                raise HTTPException(
+                    status_code=503,
+                    detail=fallback_failure_message(codex_error, fallback_error),
+                ) from fallback_error
         logger.error("Codex falhou ao gerar capa e não há reserva: %s", codex_error)
         raise HTTPException(
             status_code=503,

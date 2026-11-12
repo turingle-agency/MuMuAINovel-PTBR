@@ -86,10 +86,10 @@ async def test_com_reserva_usa_gemini(monkeypatch):
 
     monkeypatch.setattr("app.services.cover_generation_service.GeminiCoverProvider", FakeGemini)
     r = await CoverGenerationService()._generate_with_fallback(
-        settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="img"),
+        settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-image"),
         prompt="x", codex_error=_Quota("limite"),
     )
-    assert r["provider"] == "gemini" and chamado == {"key": "k", "model": "img"}
+    assert r["provider"] == "gemini" and chamado == {"key": "k", "model": "gemini-image"}
 
 
 async def test_capa_nunca_passa_flag_m(monkeypatch, tmp_path):
@@ -112,3 +112,43 @@ async def test_capa_comando_isolado_e_com_geracao_de_imagem(monkeypatch, tmp_pat
     assert argv[:5] == ["exec", "--enable", "image_generation", "-s", "workspace-write"]
     assert argv[5:5 + len(ISOLATION_FLAGS)] == ISOLATION_FLAGS
     assert "image_generation" not in ISOLATION_FLAGS
+
+
+async def test_reserva_de_capa_com_modelo_de_texto_da_503_pt_br():
+    with pytest.raises(HTTPException) as ei:
+        await CoverGenerationService()._generate_with_fallback(
+            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-2.5-pro"),
+            prompt="x", codex_error=_Quota("limite"),
+        )
+    assert ei.value.status_code == 503
+    assert "cota esgotada" in ei.value.detail and "não parece gerar imagens" in ei.value.detail
+
+
+async def test_reserva_de_capa_com_provedor_sem_imagem_da_503_pt_br():
+    with pytest.raises(HTTPException) as ei:
+        await CoverGenerationService()._generate_with_fallback(
+            settings=_settings(fallback_api_provider="openai", fallback_api_key="k", fallback_llm_model="gpt-4o"),
+            prompt="x", codex_error=_Quota("limite"),
+        )
+    assert ei.value.status_code == 503 and "não gera imagens" in ei.value.detail
+
+
+async def test_reserva_de_capa_que_falha_da_503_pt_br(monkeypatch):
+    import httpx
+
+    class Quebrada(BaseCoverProvider):
+        def __init__(self, api_key, base_url):
+            pass
+
+        async def generate_cover(self, *, prompt, model, width, height):
+            req = httpx.Request("POST", "https://x")
+            raise httpx.HTTPStatusError("Unauthorized", request=req, response=httpx.Response(401, request=req))
+
+    monkeypatch.setattr("app.services.cover_generation_service.GeminiCoverProvider", Quebrada)
+    with pytest.raises(HTTPException) as ei:
+        await CoverGenerationService()._generate_with_fallback(
+            settings=_settings(fallback_api_provider="gemini", fallback_api_key="k", fallback_llm_model="gemini-2.5-flash-image"),
+            prompt="x", codex_error=_Quota("limite"),
+        )
+    assert ei.value.status_code == 503
+    assert "reserva também falhou (chave inválida (401))" in ei.value.detail

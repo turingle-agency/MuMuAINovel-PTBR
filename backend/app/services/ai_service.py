@@ -29,6 +29,7 @@ from app.services.ai_providers.codex_provider import (
     CodexQuotaError,
     CodexTimeoutError,
     codex_reason as _codex_reason,
+    fallback_failure_message,
 )
 from app.services.json_helper import clean_json_response, parse_json
 
@@ -253,6 +254,15 @@ class AIService:
             ) from error
         logger.warning(f"Codex falhou ({motivo}); usando API de reserva: {error}")
         return self._fallback_service
+
+    def _fallback_failed(self, codex_error: CodexError, error: Exception) -> CodexUnavailableError:
+        """A reserva também falhou: 503 em PT-BR com os dois motivos (sem texto cru do provedor)."""
+        logger.error(f"API de reserva também falhou após falha do Codex: {error!r}")
+        if isinstance(error, HTTPException):
+            raise error
+        return CodexUnavailableError(
+            status_code=503, detail=fallback_failure_message(codex_error, error)
+        )
 
     def _build_call_metrics(
         self,
@@ -530,15 +540,18 @@ class AIService:
                 )
             except CodexError as codex_error:
                 reserva = self._fallback_or_raise(codex_error)
-                response = await reserva._get_provider().generate(
-                    prompt=prompt,
-                    model=self.fallback.model,
-                    temperature=temperature or self.default_temperature,
-                    max_tokens=max_tokens or self.default_max_tokens,
-                    system_prompt=system_prompt or self.default_system_prompt,
-                    tools=tools,
-                    tool_choice=tool_choice,
-                )
+                try:
+                    response = await reserva._get_provider().generate(
+                        prompt=prompt,
+                        model=self.fallback.model,
+                        temperature=temperature or self.default_temperature,
+                        max_tokens=max_tokens or self.default_max_tokens,
+                        system_prompt=system_prompt or self.default_system_prompt,
+                        tools=tools,
+                        tool_choice=tool_choice,
+                    )
+                except Exception as fallback_error:
+                    raise self._fallback_failed(codex_error, fallback_error) from fallback_error
             usage = TokenUsage.from_response(response)
             
             # 处理工具调用
@@ -580,8 +593,11 @@ class AIService:
         except CodexError as codex_error:
             reserva = self._fallback_or_raise(codex_error)
             kwargs["model"] = self.fallback.model
-            async for chunk in reserva._get_provider().generate_stream(user_id=self.user_id, **kwargs):
-                yield chunk
+            try:
+                async for chunk in reserva._get_provider().generate_stream(user_id=self.user_id, **kwargs):
+                    yield chunk
+            except Exception as fallback_error:
+                raise self._fallback_failed(codex_error, fallback_error) from fallback_error
 
     async def generate_text_stream(
         self,

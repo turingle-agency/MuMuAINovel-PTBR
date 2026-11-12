@@ -170,6 +170,45 @@ def codex_reason(error: CodexError) -> str:
     return "erro de execução"
 
 
+def api_failure_reason(error: BaseException) -> str:
+    """Motivo curto, em PT-BR, de uma falha da API de reserva (sem texto cru do provedor)."""
+    import httpx
+
+    status = None
+    if isinstance(error, httpx.HTTPStatusError) and error.response is not None:
+        status = error.response.status_code
+    else:
+        status = getattr(error, "status_code", None)
+        if not isinstance(status, int):
+            status = None
+    if status in (401, 403):
+        return f"chave inválida ({status})"
+    if status == 402:
+        return "sem créditos (402)"
+    if status == 429:
+        return "limite de uso ou sem créditos (429)"
+    if status == 404:
+        return "modelo ou endereço não encontrado (404)"
+    if status in (400, 422):
+        return f"requisição recusada pelo provedor ({status})"
+    if status is not None and status >= 500:
+        return f"erro do provedor ({status})"
+    if status is not None:
+        return f"erro do provedor ({status})"
+    if isinstance(error, (httpx.TimeoutException, asyncio.TimeoutError, TimeoutError)):
+        return "tempo esgotado"
+    if isinstance(error, httpx.TransportError):
+        return "sem conexão com o provedor"
+    return "erro do provedor"
+
+
+def fallback_failure_message(codex_error: CodexError, fallback_error: BaseException) -> str:
+    return (
+        f"O Codex não respondeu ({codex_reason(codex_error)}) e a API de reserva também falhou "
+        f"({api_failure_reason(fallback_error)}). Verifique as configurações."
+    )
+
+
 class CodexProvider(BaseAIProvider):
     def __init__(self, binary: str, timeout_s: int, max_concurrency: int):
         self.binary = binary

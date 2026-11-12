@@ -126,3 +126,51 @@ async def test_cooldown_sem_reserva_da_503_pt_br(monkeypatch):
         with pytest.raises(HTTPException) as e:
             await svc.generate_text(prompt="oi")
         assert e.value.status_code == 503 and "cota esgotada" in e.value.detail
+
+
+class FalhaApi(StubApi):
+    def __init__(self, exc):
+        super().__init__()
+        self.exc = exc
+
+    async def generate(self, *a, **k):
+        raise self.exc
+
+    async def generate_stream(self, *a, **k):
+        raise self.exc
+        yield  # pragma: no cover
+
+
+def _http_status(code):
+    import httpx
+    req = httpx.Request("POST", "https://api.exemplo/v1")
+    return httpx.HTTPStatusError("Client error 401 Unauthorized for url", request=req,
+                                 response=httpx.Response(code, request=req, text="Incorrect API key"))
+
+
+@pytest.mark.parametrize("exc,motivo", [
+    (_http_status(401), "chave inválida (401)"),
+    (_http_status(402), "sem créditos (402)"),
+    (_http_status(429), "limite de uso ou sem créditos (429)"),
+    (_http_status(503), "erro do provedor (503)"),
+    (TimeoutError(), "tempo esgotado"),
+    (RuntimeError("boom in english"), "erro do provedor"),
+])
+async def test_reserva_tambem_falha_da_503_pt_br(monkeypatch, exc, motivo):
+    svc, _ = _servico(monkeypatch, "quota")
+    svc._fallback_service._openai_provider = FalhaApi(exc)
+    with pytest.raises(HTTPException) as e:
+        await svc.generate_text(prompt="oi")
+    assert e.value.status_code == 503
+    d = e.value.detail
+    assert d.startswith("O Codex não respondeu (cota esgotada) e a API de reserva também falhou (")
+    assert motivo in d
+    assert "Incorrect API key" not in d and "Unauthorized" not in d and "boom" not in d
+
+
+async def test_stream_reserva_tambem_falha(monkeypatch):
+    svc, _ = _servico(monkeypatch, "quota")
+    svc._fallback_service._openai_provider = FalhaApi(_http_status(401))
+    with pytest.raises(HTTPException) as e:
+        _ = [c async for c in svc.generate_text_stream(prompt="oi")]
+    assert e.value.status_code == 503 and "chave inválida (401)" in str(e.value)
