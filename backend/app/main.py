@@ -106,6 +106,16 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"后台任务表检查失败（不影响启动）: {e}")
 
+    # Capas que ficaram "generating" (reinício no meio da geração) viram "failed" com mensagem em PT-BR.
+    try:
+        from app.database import get_engine as _get_engine
+        from app.services.cover_generation_service import reset_interrupted_covers
+        _cover_engine = await _get_engine("system")
+        async with _cover_engine.begin() as conn:
+            await reset_interrupted_covers(conn)
+    except Exception as e:
+        logger.warning(f"Falha ao redefinir capas interrompidas (não impede a inicialização): {e}")
+
     logger.info("应用启动完成")
     
     yield

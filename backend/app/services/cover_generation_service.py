@@ -1,6 +1,7 @@
 """小说封面生成服务"""
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 from datetime import datetime
 import json
@@ -10,7 +11,7 @@ from urllib.parse import quote
 
 import httpx
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, update as sql_update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import PROJECT_ROOT, settings as app_settings
@@ -37,6 +38,26 @@ GENERATED_COVER_STORAGE_DIR = PROJECT_ROOT / "storage" / "generated_covers"
 GENERATED_COVER_PUBLIC_PREFIX = "/generated-assets/covers"
 
 
+COVER_INTERRUPTED_MESSAGE = "A geração da capa foi interrompida; gere novamente."
+COVER_IN_PROGRESS_MESSAGE = "A capa ainda está em geração; aguarde a conclusão."
+
+
+async def reset_interrupted_covers(executor) -> int:
+    """Marca como falha as capas presas em "generating" (ex.: reinício do serviço).
+
+    `executor` é uma AsyncConnection ou AsyncSession. Devolve quantas linhas foram alteradas.
+    """
+    result = await executor.execute(
+        sql_update(Project)
+        .where(Project.cover_status == "generating")
+        .values(
+            cover_status="failed",
+            cover_error="Serviço reiniciado; a geração da capa foi interrompida, gere novamente.",
+        )
+    )
+    return result.rowcount or 0
+
+
 @dataclass
 class CoverTestResult:
     success: bool
@@ -61,7 +82,7 @@ class CoverGenerationService:
         self._validate_cover_settings(settings)
 
         if project.cover_status == "generating":
-            raise HTTPException(status_code=409, detail="A capa já está sendo gerada, não envie novamente")
+            raise HTTPException(status_code=409, detail=COVER_IN_PROGRESS_MESSAGE)
         if project.cover_status == "ready" and project.cover_image_url and not overwrite:
             raise HTTPException(status_code=400, detail="O projeto já tem capa; para sobrescrever, envie overwrite=true")
 
@@ -113,6 +134,11 @@ class CoverGenerationService:
                 "model": result["model"],
                 "message": "Capa gerada com sucesso",
             }
+        except asyncio.CancelledError:
+            # Requisição cancelada (cliente desconectou/desligamento): não deixa a capa presa em "generating".
+            logger.warning("Geração de capa cancelada: project_id=%s", project.id)
+            await self._mark_cover_failed(db, project, COVER_INTERRUPTED_MESSAGE)
+            raise
         except httpx.HTTPStatusError as exc:
             logger.error("封面生成上游 HTTP 错误: project_id=%s error=%s", project.id, exc, exc_info=True)
             detail = self._extract_upstream_error_detail(exc)
@@ -132,6 +158,16 @@ class CoverGenerationService:
             project.cover_error = str(exc)
             await db.commit()
             raise HTTPException(status_code=500, detail=str(exc)) from exc
+
+    @staticmethod
+    async def _mark_cover_failed(db: AsyncSession, project: Project, message: str) -> None:
+        try:
+            await db.rollback()
+            project.cover_status = "failed"
+            project.cover_error = message
+            await db.commit()
+        except BaseException as exc:  # noqa: BLE001 - melhor esforço; a sessão pode estar inutilizável
+            logger.error("Não foi possível marcar a capa como falha: %r", exc)
 
     async def test_cover_settings(
         self,
