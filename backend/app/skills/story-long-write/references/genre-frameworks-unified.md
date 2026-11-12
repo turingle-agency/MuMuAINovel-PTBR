@@ -1,10 +1,10 @@
 # Arcabouços de gênero (romance longo e conto)
 
-> **Origem** (adaptação em português do material original, ~80 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
-> - "Pátio quadrado/ficção de época de bairro" chinesa, "novelas de plataforma de notícias/novas mídias", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
-> - A convenção de "cultivador mortal" como gênero (mantida só como "sobrevivente comum que ascende").
-> - As visões **conto (três atos)** dos gêneros 5 a 8 foram escritas de forma compacta (as de 1 a 4 e 6 estão completas); as listas de títulos de plataformas e os exemplos de obras chinesas foram trocados por modelos genéricos.
-> - Todas as demais seções do original têm seção correspondente (mapeamento por título no relatório de correção), inclusive os complementos finais (seções 14 a 22 abaixo).
+> **Origem** (adaptação em português do material original, ~80 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês, sem equivalente de mercado ocidental:
+> - "Ficção de vizinhança de época (siheyuan)", "novelas de plataformas de notícias/novas mídias", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
+> - "Cultivador mortal" como gênero (mantido como "sobrevivente comum que ascende", seção 9.3), "transmissão ao vivo de autores" e as listas de títulos de plataformas.
+> - Os nomes de IPs chinesas dos subtipos de fanfic foram trocados por equivalentes ocidentais.
+> - Todos os demais gêneros e blocos finais têm seção própria (seções 1 a 22) com estrutura, pontos e exemplo; o mapeamento por título está no relatório de correção.
 
 ## Sumário
 
@@ -16,9 +16,9 @@
 6. Espírito observador (narrador pós-morte)
 7. Fantasia urbana de poder
 8. Romance de milionário e romance doce
-9. Notas dos demais gêneros (fanfic, alto conceito, sobrevivente comum, ficção histórica, bastidores de entretenimento, horror de regras, saga longeva, fantasia medieval, comédia)
+9. Demais gêneros (fanfic, alto conceito, sobrevivente comum, histórico, entretenimento, horror de regras, saga longeva, fantasia medieval, comédia)
 10. Princípios gerais de escolha de gênero
-11. Conceito central: definição, uso e exemplos
+11. Conceito central: definição, uso, ciclo e análise
 12. Desenho das linhas profissional e romântica
 13. Lembretes gerais para analisar livros
 14. Eras da ficção: livre, de jogo e de vida cotidiana
@@ -211,38 +211,159 @@ Um episódio completo de provação: dificuldade → vantagem → prova → reco
 ### Visão de conto
 A primeira frase já revela a morte (a maior bomba de informação). A alma vê a verdade de todos (assimetria natural); respeite a limitação (vê, mas não age); combine com "vulnerável" e "custo" (ver `hook-techniques.md`). Final em ressonância.
 
-## 7. Fantasia urbana de poder
+## 7. Fantasia urbana de poder (equivalente ocidental da "alta arte marcial urbana": urban fantasy com progressão, estilo LitRPG)
 
-**Emoção central**: a virada de uma pessoa comum, de sem dinheiro a rico, de fraco a forte.
-**Núcleo**: mundo moderno com segredo sobrenatural; o protagonista cresce nele. **Pontos práticos**: *linha movida por dinheiro* (cada objetivo se liga a dinheiro, repetidamente; sem dinheiro não se anda); *mudança de cenário* (escola → universidade → seleção → exército → espaço; cada troca usa personagem ou evento de ligação); *dados fracos no começo são normais* (o gênero costuma só ganhar tração depois dos primeiros 100 mil de palavras); *os três primeiros capítulos são o modelo de ouro*: mostrar a situação de baixo → ativar a vantagem → primeira demonstração de poder. Estrutura típica: descoberta → treino → pequenas missões → ameaça maior.
+### Visão de romance longo (mapa em camadas)
+**Modelo de configuração**
 
-## 8. Romance de milionário e romance doce
+| Elemento | Modelo |
+|------|------|
+| Gancho de abertura | O protagonista está na base (estudante sem dinheiro, lutador amador) e **o dinheiro é o motor central** |
+| Conflito central | Subir lutando e ganhando dinheiro → entrar em níveis mais altos → enfrentar inimigos mais fortes |
+| Cenário principal | Mundo moderno + sistema de poder convivendo: escola, academia, liga/guilda, exército ou agência, várias linhas ao mesmo tempo |
 
-**Emoção central**: ser preferido incondicionalmente por alguém poderoso.
+**Personagens**
+```
+Protagonista: origem baixa → escala degrau a degrau → chega ao topo
+  - Motor: dinheiro ("sem dinheiro não se anda, com dinheiro se vence")
+  - Trajetória: escola → academia → liga local → agência/exército → liga nacional → escala global
+  - Vantagem: corpo/talento despertado, sistema ou herança: resolve o "por que ele consegue?"
+Coadjuvantes:
+  - colegas/companheiros de quarto (cotidiano, primeiro círculo social)
+  - mestre da academia/professor (mentor por fases, fornece recursos de treino)
+  - veterana/colega popular (porta de entrada da linha romântica)
+  - valentão/rival (antagonista de fase, degrau para subir)
+Níveis de antagonistas:
+  - valentão da escola/do bairro → organizações subterrâneas → culto/ordem sombria → forças transnacionais → chefe de outra dimensão
+```
+**Banco de eventos por mapa**
 
-**Estrutura tradicional (fases)**
+| Mapa | Eventos possíveis |
+|------|------|
+| Escola | Turma de talentos, provas mensais, torneios, vestibular, duelo com o valentão, linha da colega popular, disputa por bolsa |
+| Academia | Ser notado, técnica herdada, duelo com veteranos, ligas municipal/estadual/nacional |
+| Segurança pública | Assaltantes, criaturas, instâncias, chefes na cidade |
+| Faculdade | Troca de escola, rivais mais fortes |
+| Liga/exército | Troca da academia, missões mais difíceis |
+| Espaço | Troca do país, expansão do mundo |
 
-| Fase | Conteúdo | Prazer |
+**Dimensões de análise**: *linha movida por dinheiro* (todo objetivo se liga a dinheiro, de novo e de novo); *ligação entre mapas* (escola → faculdade → liga → exército → espaço, cada troca com personagem ou evento-ponte); *dados fracos no começo são normais* (o gênero costuma só decolar depois dos primeiros 100 mil palavras); *os três primeiros capítulos são o modelo de ouro* (mostrar a situação de baixo → ativar a vantagem → primeira demonstração de poder).
+**Exemplo mínimo**: Davi, 17 anos, entrega marmitas; o aluguel vence na sexta; ao socorrer um idoso na rua desperta o talento (vantagem); o "valentão da liga" aposta 5 mil num duelo; Davi aceita porque precisa do dinheiro, vence, e a vitória leva a um convite da academia: motor de dinheiro → vantagem → primeira vitória → porta do próximo mapa.
+**Erros comuns**: trocar de mapa matando todo o elenco antigo; mudar o ponto de comparação ("comum x extraordinário") para outro mundo e perder a identificação; dar ao protagonista um protetor tão forte que a crise some.
+
+### Visão de conto (três atos comprimidos)
+**Emoção central**: a virada do pequeno: de sem dinheiro a com dinheiro, de fraco a esmagador.
+**Ato 1: pressão (0-35%)**: o aperto econômico e a situação de baixo (concretos, não resumo); a primeira humilhação por um forte ou rico; o gatilho da vantagem/oportunidade.
+**Ato 2: explosão (35-75%)**: a primeira evolução com a vantagem; esmagar, num confronto, quem antes o oprimia; surge um adversário mais forte, mas o protagonista já não teme.
+**Ato 3: assentamento (75-100%)**: resolver o principal adversário da fase; vitória de fase (dinheiro/posição/reconhecimento); gancho: sugerir um mundo maior.
+
+## 8. Romance de milionário e romance doce (billionaire / sweet romance)
+
+### Visão de romance longo (cinco fases)
+**Modelo de configuração**
+
+| Elemento | Modelo |
+|------|------|
+| Gancho de abertura | Encontro especial do casal; ele se interessa por ela |
+| Conflito central | Ele a corteja com status/riqueza → o afeto esquenta → resistência externa → resolução |
+| Cenário principal | Alta sociedade/negócios/família rica: a diferença de poder cria espaço para a "doçura" |
+
+**Estrutura em cinco fases**
+
+| Fase | Conteúdo | Emoção |
 |------|------|------|
 | 1. Encontro | O casal se cruza; ele é atraído por uma qualidade dela | Novidade |
 | 2. Corte | Ele usa status e riqueza para facilitar a vida dela; amigas ficam chocadas/invejosas | Doçura/recompensa |
 | 3. Confirmação | Ela se encanta e os dois ficam juntos | Satisfação |
-| 4. Resistência | O círculo social dele se opõe / pressão da família / ex / concorrente | Tensão |
+| 4. Resistência | O círculo dele se opõe / pressão da família / ex / concorrente | Tensão |
 | 5. Resolução | Superam juntos e o amor cresce | Recompensa/cura |
 
-**Dimensões**: *densidade da doçura* (quantidade e variedade de cenas doces definem a fidelidade do leitor); *qualidade do mimo* (não é repetir flores e presentes, é "cuidar dela de um jeito que ninguém mais consegue"); *ritmo da resistência* (forte demais desvia para o drama; fraca demais não gera tensão); *independência da protagonista* (o leitor atual não aceita protagonista só dependente; ela precisa de brilho próprio). **Atualização moderna**: protagonista independente; valor emocional mútuo; rival de nível social equivalente (não a "falsa boazinha" clássica).
+**Personagens**
+```
+Protagonista masculino: o magnata
+  - Traços: forte, fiel, mimoso, capaz de resolver os problemas dela
+  - Fonte da doçura: o que ele faz com poder/dinheiro por ela é o centro da identificação do leitor
+Protagonista feminina: personagem com drama próprio
+  - Não é só enfeite: precisa de algo que o faça "não querer outra"
+  - O drama da caracterização traz novidade à história inteira
+Forças de resistência:
+  - família (valores de classe)
+  - ex / amiga de infância (crise)
+  - concorrente de negócios (pressão profissional dele)
+```
+**Dimensões de análise**: *densidade da doçura* (quantidade e variedade de cenas doces definem a fidelidade do leitor); *qualidade do mimo* (não é repetir flores e presentes, é "cuidar dela de um jeito que ninguém mais consegue"); *ritmo da resistência* (forte demais desvia para o drama, fraca demais não gera tensão); *independência da protagonista* (leitores atuais não aceitam protagonista só dependente: precisa de brilho próprio).
+**Exemplo mínimo**: Marina, restauradora de livros, é a única a recusar vender ao empresário Ricardo um volume herdado; ele não "compra", mas passa a consertar pequenas coisas que ela não consegue (telhado da oficina, um prazo de entrega impossível); as amigas se espantam com o carro dele esperando na chuva; a família dele a trata com desprezo (resistência) até Marina expor uma falsificação que salva um negócio da família (resolução com mérito dela).
+**Atualização moderna**: protagonista independente; valor emocional mútuo; rival de nível social equivalente em vez da "falsa boazinha".
 
-## 9. Notas dos demais gêneros
+### Visão de conto (três atos)
+**Emoção central**: ser preferida incondicionalmente por alguém poderoso.
+**Ato 1 (0-30%)**: o dilema dela (trabalho/vida/afeto); o encontro com ele (acidental ou provocado); ele começa a demonstrar interesse. **Ato 2 (30-70%)**: ele a mima de várias formas (amigas chocadas são padrão); evento-chave: o que ele faz por ela supera a expectativa; a crise criada por terceiros é desfeita por ele com facilidade. **Ato 3 (70-100%)**: confirmação do afeto; uma cena de máxima doçura para fechar; sugestão de felicidade futura.
 
-**Fanfic**: universo conhecido, novo ângulo; ponto de divergência → consequências → novo equilíbrio; não precisa ser "hardcore", a maioria dos leitores é fã casual; começar por cena/personagem famoso amplia o público; respeitar o original; não "redimir" personagens odiados.
-**Alto conceito (ficção de ideias)**: premissa que se resume numa frase → exploração das consequências → escalada → resolução; sustentar o conceito além da novidade; saber distinguir o que a ideia promete de seu mero chamariz. *Do lampejo ao livro*: gerar muitos ângulos do mesmo atrativo, resumir tipos de conflito, escrever 1-2 volumes de cada, empilhar os arcabouços.
-**Sobrevivente comum que ascende**: pessoa comum, mundo perigoso, esforço calculado; escassez → pequena vantagem → ganho → novo risco; a cautela precisa ser real (não dizer "cauteloso" e agir com loucura); o raciocínio de custo e risco é o padrão de decisão; os coadjuvantes têm interesses próprios (não são NPCs); fãs do gênero esperam pistas bem engenhadas e resgatadas.
-**Ficção histórica**: sensação histórica não é pesquisa exaustiva: a maioria é "leitor de passagem", prioriza prazer sobre fidelidade; a informação do futuro é a maior vantagem; um mundo alternativo reduz a barreira; combine com "curiosidades" para mostrar cultura histórica com ressonância. Estrutura: crise → uso inteligente do conhecimento → ascensão → consequências históricas.
-**Bastidores de entretenimento**: oportunidade → provas públicas → rivalidades → escândalo → consolidação.
-**Horror de regras**: regras apresentadas → violação → consequência → descoberta da lógica; o terror está no que se infere das regras.
-**Saga longeva**: grandes escalas de tempo, troca de gerações entre coadjuvantes, o protagonista testemunha mudanças; arcos longos com mudança de época e de elenco.
-**Fantasia medieval e cavalaria**: reinos, ordens, juramentos, guerra: ordem inicial → conflito político → campanha → confronto → nova ordem; atenção à coerência de poder e lealdades.
-**Comédia**: situações cômicas movidas por personagens: plano → complicação → escalada → resolução absurda; coerência interna.
+## 9. Demais gêneros (cada um com expectativa central, estrutura, armadilhas e mini-exemplo)
+
+### 9.1 Fanfic (fan fiction)
+**Mecanismo**: usar o mundo e os personagens de uma propriedade conhecida (livro, filme, jogo, anime) para uma história nova; atrativo central: "e se houvesse um protagonista novo nesse mundo?". **Subtipos**: universos clássicos (reescrever uma tragédia com percepção moderna), mundos épicos conhecidos (mudar o destino num universo que o leitor conhece), universos sombrios de guerra, universos de super-heróis (protagonista original num mundo de heróis), universos de jogos (esmagar com a lógica do jogador).
+**Pontos práticos**: a maioria dos leitores é "fã de passagem": muitos nunca leram o original, então fidelidade hardcore não é obrigatória; o prazer vem primeiro (não sacrifique a recompensa por fidelidade); a época/configuração pode ser simplificada; a grande vantagem do gênero é o mundo já conhecido, que poupa muita construção; o grande risco é a crítica de fãs do original (continuidade e canon).
+**Padrão "só depois de ficar forte descobre onde está"**: o protagonista chega ao topo do próprio mundo e só então descobre que vive dentro de uma propriedade famosa; atrativo: força já alta + choque de revelar o mundo + esmagar o universo com o que já tem; fórmula de título: [conquista], e só então descobri que era o mundo de [propriedade]; mercado: o primeiro a fazer colhe, quem vem depois precisa trocar a casca.
+**Estrutura**: ponto de divergência → consequências → novo equilíbrio. **Mini-exemplo**: uma estudante de enfermagem, depois de um acidente, acorda na casa de Hogwarts como enfermeira nova; o que ela sabe de primeiros socorros muda o destino de um aluno que no original morreria.
+**Armadilhas**: "redimir" personagens odiados pelos fãs; copiar o enredo canônico; esquecer direitos autorais (publicar comercialmente exige cuidado).
+
+### 9.2 Ficção de alto conceito ("ideia original")
+**Mecanismo**: o atrativo é a ideia/vantagem, não o gênero. **Fluxo de criação**: 1) obter a ideia (embrião da vantagem, imagem, ponto de entrada); 2) julgar o potencial (há espaço para imaginar? sim = potencial); 3) escolher o gênero (primeiro um que você domina, depois cruzar); 4) transformar a ideia em lacuna emocional ou expectativa concreta; 5) desenhar o "esqueleto" da vantagem: cumprir que condição → receber que retorno; 6) em torno da vantagem construir atrativo → trama principal → quadro → enredo de unidades.
+**Esqueletos de vantagem**: *por condição* (cumpre X → recebe Y: revistar um cadáver e achar um tesouro; check-in e prêmio); *por várias condições em fases* (juntar fragmentos, cumprir conquistas); *invertida* (perde X → ganha um Y maior: quanto pior, mais forte; quanto mais dívida, mais dinheiro).
+**Como esticar**: com o atrativo fixado, entrelace vários padrões; cada unidade gira em torno de um padrão e a trama principal as liga; ciclo de primeiro nível: o mesmo modelo se repete, mas muda o alvo, o cenário e a escala; microinovação: mudar mundo/profissão/forma da vantagem/transplante entre gêneros.
+**Mini-exemplo**: "toda vez que ela mente, um dos amigos mais próximos ganha uma pequena sorte": atrativo = mentir vira ato de generosidade; unidade 1: uma mentira cruel que salva um negócio, unidade 2: mentir para o chefe, e assim por diante; **armadilhas**: copiar a ideia de sucesso do mesmo mundo e do mesmo gênero (fracasso quase certo); um conceito novo costuma aparecer uma vez por ano ou a cada alguns anos e rende dois ou três anos de colheita.
+
+### 9.3 Sobrevivente comum que ascende ("underdog" cauteloso)
+**Núcleo**: o protagonista não tem talento especial nem origem, sobrevive num mundo cruel por cautela, esperteza e cálculo de custo-benefício: "a luta de uma pessoa comum num mundo implacável".
+
+| Dimensão | Sobrevivente cauteloso | Progressão clássica |
+|------|------|------|
+| Talento do protagonista | Comum ou pior | Gênio / constituição especial |
+| Vantagem | Fraca ou nenhuma | Sistema forte / herança |
+| Lógica de comportamento | Cautela, cálculo, fugir primeiro | Coragem, confronto direto, desafiar níveis |
+| Prazer central | Esmagar fortes com inteligência e preparo | Esmagar com poder |
+| Ritmo | Lento, delicado, muitas pistas | Rápido, recompensas densas |
+
+**Entrada em instância/missão**: não enfrente de cara; um coadjuvante pequeno traz uma pequena história e dela sai a informação da instância: `pequeno coadjuvante entra → sua história → a história revela a informação → o protagonista decide entrar`.
+**Pontos**: a cautela precisa ser **verdadeira** (nada de dizer cauteloso e agir como louco); cada decisão é "custo x risco"; os coadjuvantes têm interesses próprios, não são NPCs; plante e colha pistas com engenho: o leitor do gênero espera. **Mini-exemplo**: o contrabandista Tomás descobre uma rota perigosa; em vez de ir, pesa: quem mais depende dela, o que perde se falhar; envia primeiro um conhecido, observa a reação do guarda e só então decide.
+
+### 9.4 Ficção histórica e história alternativa
+**Modelo**
+
+| Elemento | Modelo |
+|------|------|
+| Gancho de abertura | Viaja/renasce num ponto da história e enfrenta um desfecho já conhecido |
+| Conflito central | Usar o conhecimento moderno/assimetria para mudar destino e história |
+| Cenário | Corte, campo de batalha, mercado, com textura histórica |
+
+**Subtipos e escrita**: *exames imperiais/concursos* (conhecimento moderno esmaga provas antigas; poemas, ascensão, intriga); *militar* (conhecimento militar moderno transforma guerras antigas: treino, equipamentos, vitória em desvantagem); *negócios/vida rural* (construir economia numa época antiga: tecnologia, império comercial, melhoria da vida); *cultura e patrimônio* (mostrar o charme da tradição, brilho por "lista" cultural, orgulho nacional).
+**Dimensões**: sensação histórica não é pesquisa exaustiva (leitor de passagem, prazer antes de fidelidade); a assimetria do conhecimento moderno é a maior vantagem; história alternativa reduz a barreira; combinar com "curiosidades" dá ressonância.
+**Visão de conto**: emoção central: a assimetria do viajante + o prazer de mudar o destino; ato 1 (0-30%): chega a um momento crítico e enfrenta uma crise; ato 2 (30-75%): resolve com conhecimento moderno e vira quem duvidava; ato 3 (75-100%): a trajetória histórica muda e o protagonista ganha nova posição. **Mini-exemplo**: um engenheiro cai na Veneza do século XV na semana em que o arsenal vai falhar; propõe uma prensa de parafuso que acelera a produção e é chamado à corte.
+
+### 9.5 Bastidores de entretenimento (cinema, música, esporte-espetáculo)
+**Mecanismo**: o protagonista cresce no mundo artístico; prazer central = "talento mostrado + espanto de quem assiste". **Subtipos**: indústria real (contexto de celebridades reais: mais difícil, exige muita bagagem e o leitor tem preconceitos sobre pessoas reais); indústria fictícia (celebridades inventadas, evitando polêmica com pessoas reais e dando liberdade, com heroína única e sistema simples).
+**Pontos**: a exibição de talento é a cena central da virada: escreva a cadeia de reações de público, jurados e rivais; use o formato de programa/competição como quadro para encadear exibições; a linha afetiva é um complemento valioso (heroína única dá espessura).
+**Estrutura**: oportunidade → provas públicas → rivalidades → escândalo → consolidação. **Mini-exemplo**: uma técnica de som anônima salva ao vivo o show de uma cantora famosa corrigindo uma falha e, no dia seguinte, a gravação viraliza: provas públicas → convite → rival ciumento.
+
+### 9.6 Horror de regras ("rules horror")
+**Mecanismo**: um ambiente com regras escritas (avisos, normas de um prédio ou hotel) e o terror vem de quebrá-las ou de descobrir que as regras se contradizem. **Expectativa central**: decifrar a lógica por trás das regras antes de ser punido. **Estrutura**: regras apresentadas → violação (própria ou alheia) → consequência → descoberta da lógica → sair ou virar o jogo. **Escrita**: regras curtas e concretas; ao menos uma regra falsa ou enganosa; as consequências são visuais e específicas; o final revela quem escreveu as regras e por quê. **Armadilhas**: regras demais sem cheiro de lógica; consequências arbitrárias; resolver por sorte. **Mini-exemplo**: o aviso "não atenda o elevador depois das 23h" é seguido por "atenda sempre que tocar"; o protagonista nota que um dos avisos foi escrito com outra caneta.
+
+### 9.7 Saga longeva (imortal/"long life")
+**Mecanismo**: protagonista que vive muito e vê gerações passarem; o prazer central é o **tempo**: ver coadjuvantes envelhecerem, instituições mudarem e o próprio protagonista juntar conhecimento. **Estrutura**: arcos longos por época; cada arco troca elenco, cenário e dilema, mantendo uma linha de objetivo que atravessa os séculos. **Pontos**: o custo da longevidade (perdas, solidão); personagens de ligação entre épocas; mudança social como motor do ciclo; evite que a imortalidade elimine o risco (dê limites ou fragilidades). **Mini-exemplo**: uma botânica que não envelhece cuida do mesmo jardim por cinco gerações de uma família, e cada geração traz uma ameaça nova ao jardim.
+
+### 9.8 Fantasia medieval e cavalaria
+**Núcleo**: reinos, ordens, juramentos, guerra; expectativa central: honra x poder, campanhas e intriga de corte. **Estrutura**: ordem inicial → conflito político → campanha → confronto decisivo → nova ordem. **Pontos**: coerência de poder e lealdades (feudalismo, juramentos que têm custo); um personagem cuja origem baixa colide com o sistema de classes; magia/religião com regras; batalhas com geografia e logística, não só heroísmo. **Armadilhas**: nobres bobos para o herói brilhar; juramentos sem consequência. **Mini-exemplo**: o escudeiro Elias jura lealdade a um senhor que sabe estar errado; o juramento custa-lhe a patente quando ele escolhe salvar uma aldeia.
+
+### 9.9 Comédia
+**Núcleo**: situações cômicas movidas por personagens; **estrutura**: plano → complicação → escalada → resolução absurda. **Pontos**: a graça precisa de lógica interna (absurdo coerente); a promessa do antagonista é aviso de queda; o humor vem do desejo, do preconceito e da teimosia dos personagens (ver `style-modules.md`, seções 1 e 24). **Mini-exemplo**: o síndico que jura que "ninguém nunca vai entrar de graça no clube" é flagrado por câmeras entrando pelo bueiro.
+
+### 9.10 Complementos de gêneros históricos e de entretenimento (aprofundamento)
+**Histórico em profundidade**: três núcleos: assimetria do conhecimento (o protagonista sabe o que vem), textura (detalhes de preço, comida, vocabulário) e risco de ser descoberto (o protagonista é "anacrônico"); para conto, concentre num evento histórico único.
+**Entretenimento em profundidade**: o centro é a cena de exibição em camadas (juiz, público, rival, crítico); alterne cenas de bastidor (relações) e de palco (exibição); o antagonista é um rival com carreira própria, não um vilão de papel; use "comparação" (o protagonista se compara a uma estrela e a supera por um traço específico).
+
+### 9.11 Gêneros sem mercado ocidental (omitidos)
+A ficção de "vizinhança de época" (siheyuan) e a ficção de plataformas de notícias/novas mídias chinesas não têm equivalente de mercado ocidental e não foram transpostas.
 
 ## 10. Princípios gerais de escolha de gênero
 
@@ -252,13 +373,79 @@ A primeira frase já revela a morte (a maior bomba de informação). A alma vê 
 - Combine um gênero principal com um elemento de outro (um dá o tom, o outro fornece a vantagem ou a roupagem)
 - **Transição de trilha**: ao migrar de um gênero a outro, leve o que funcionava (emoção central, tipo de recompensa) e troque o cenário; não leve as convenções do outro gênero
 
-## 11. Conceito central: definição, uso e exemplos
+## 11. Conceito central: definição, uso, ciclo e análise
 
-**Definição**: o que o livro promete em uma frase, em termos de emoção e de recompensa. *Uso*: cada cena é medida contra ele; todo desvio é pecado. *Exemplos*: "o protagonista subestimado que revela o talento" (recompensa de virada); "casal inimigo que se aproxima" (tensão romântica); "sobrevivente que planeja cada passo" (prazer de cálculo). **Três tipos de conceito** (repetível, não repetível, de preparação longa) estão em `outline-arrangement.md`, seção 27.
+### 11.1 Definição
+Conceito central = o uso mais central da vantagem do protagonista + o padrão de recompensa que o leitor mais quer ver. A vantagem é a ferramenta; o conceito é o jeito mais divertido de usar essa ferramenta. *Exemplo*: dar conselhos de intriga (uso da vantagem) + chocar a imperatriz (padrão de recompensa) = conceito central; é **substituível**: imperatriz → rainha → rei, o cenário muda, o conceito fica.
+
+### 11.2 Verificação por capítulo
+**Quebra de expectativa**: se um capítulo não traz ponto de expectativa nem de recompensa do conceito, a recompensa anterior já terminou e nada puxa expectativa nova, o leitor sente que o livro "perdeu a alma" e começa a abandonar. **Dois modos de rodar**: *ciclo contínuo* (a cada estrutura de primeiro nível roda uma vez, variando cenário, alvo e condições); *uma vez só* (em torno de uma emoção central, em fases: amor proibido: "autopercepção → declaração → doçura → esconder → confronto" em cinco fases).
+
+### 11.3 Lista de validação
+- O que o leitor quer ver quando abre este livro? (o conceito)
+- Toda unidade de enredo mostra o conceito?
+- O padrão de recompensa pode rodar em ciclo?
+- Há "vender uma coisa e entregar outra" (o título sugere um conceito diferente do conteúdo)?
+- Todo capítulo cumpre ao menos um dos três elementos (expectativa/recompensa/estado intermediário)?
+
+### 11.4 Analisar um livro pelo conceito
+Esclareça a 1ª geração (tema), a 2ª (núcleo do gênero) e a 3ª (emoção central); analise a distribuição de expectativa e recompensa, separando o que se liga ao conceito do que não; obras no topo costumam fundir 2 a 4 conceitos, que precisam ser desmontados camada a camada (ver `hook-techniques.md`, seção 15.6).
+
+### 11.5 Erros comuns
+Confundir conceito com cenário; ter vários conceitos sem hierarquia; trocar de conceito no meio do livro; prometer no título um conceito e entregar outro. **Mini-exemplo de correção**: um romance de "casamento por contrato" cujo atrativo é a tensão dos dois fingindo; no capítulo 20 o enredo vira thriller de conspiração e os leitores saem: o conceito central foi trocado; correção: as conspirações passam a ameaçar a farsa do casamento.
 
 ## 12. Desenho das linhas profissional e romântica
 
-**Linha profissional**: meta → obstáculos → ascensão → crise → consolidação; mostre competência por escolhas, não por adjetivos. **Linha romântica**: encontro → atrito → aproximação → crise → resolução (fases em `style-modules.md`, seção 3). **Integração**: faça as duas se pressionarem: uma vitória profissional cria conflito amoroso e vice-versa; ligue a heroína ao objetivo profissional do protagonista; escolha, pelo público do título/sinopse, qual das duas fica em primeiro plano.
+> Princípio: a linha profissional é o esqueleto do romance longo e a romântica é a trepadeira. O teto vem da qualidade da linha profissional, mas uma romântica bem escrita aumenta muito a fidelidade do leitor.
+
+### 12.1 Linha profissional = linha de progressão
+**Como fazer**: em negócios, empreender é treinar (a linha profissional é a linha de nível); em histórias de estudo, estudar é treinar; em fantasia, treinar já é a linha profissional; em qualquer gênero, a essência é o processo de o protagonista ficar mais forte. **Ciclo**: cada fase profissional tem objetivo claro e adversário; terminada uma fase, a dificuldade da seguinte sobe; **o teto da linha profissional define o teto do livro**. *Exemplo*: empreendedora de padaria: fase 1 (abrir a loja), fase 2 (vencer o rival da rua), fase 3 (distribuir para supermercados), fase 4 (vender para a rede nacional).
+
+### 12.2 Quando não há linha profissional
+Extraia da vida um trecho com ressonância ampla (ensino médio e faculdade funcionam melhor) e deixe a linha romântica crescer como trepadeira no tronco da vida; ensino médio e faculdade são as linhas de vida de ressonância mais ampla, por isso os livros de "doçura cotidiana" giram em torno da escola. *Exemplo*: um romance contemporâneo num semestre de intercâmbio: provas, repúblicas, estágio: o casal cresce dentro do calendário.
+
+### 12.3 Linha romântica e linha de múltiplos pares (romance com vários pretendentes/romantasy)
+**Como desenhar**: defina a direção de cada personagem antes de começar; cada uma tem traços diferentes (origem familiar, personalidade, tipo de relação com o protagonista); o leitor não pode achar que podem ser trocadas; a relação entre elas precisa de química própria; **diferenciação**: família completa x carente de afeto x independente; pontos de partida diferentes da relação (amiga de infância/encontro casual/troca de interesses); cada uma tem a sua linha, não é apêndice. **Adaptação ocidental**: em romantasy de "harém reverso" ou triângulos/quadriláteros, trate cada pretendente como arco próprio. **Modelo**: tabela de pares: *nome | função | ferida | forma de se aproximar | o que ele/ela dá à protagonista*.
+
+### 12.4 Caracterização estável + fluxo fixo = expectativa estável
+A personagem ciumenta + outras "invadindo o espaço" = cena que o leitor sempre gosta; o quadro é fixo e o conteúdo muda: o leitor prevê e ainda gosta; o fluxo pode ser repetido sem cansar, mas cada vez o conteúdo concreto precisa ser diferente. *Exemplo*: toda quinta, a protagonista ciumenta descobre que a rival "por acaso" chegou antes ao evento; cada quinta, um evento novo (casamento, feira, formatura).
+
+### 12.5 Ciclos de "doçura cotidiana" (dog-food)
+**Não copie a lógica de progressão**: segurar a mão, beijar, dormir juntos são de uma vez só: na segunda vez, perde-se o efeito; a progressão repete "romper o nível → brilhar → romper o nível → brilhar", mas o romance não pode repetir "de mãos dadas → exibir → beijo → exibir" (quanto mais se avança, mais estranho). **Forma certa de ciclo**: aprenda com vídeos curtos de formato fixo e novos "cães" a cada episódio (situações e gatilhos diferentes); caracterização estável + situação variável = fórmula inesgotável. **Como esquentar a relação**: sem depender de contato físico, mas por dilemas partilhados, compreensão mútua e descobertas inesperadas; cada esquentada tem um evento gatilho.
+
+### 12.6 Equilíbrio entre linha profissional e romântica
+Reforçam-se: a profissional dá cenas e conflitos à romântica, e a romântica dá investimento emocional e preocupação à profissional: o melhor estado é as duas avançando entrelaçadas; **teto**: para romper o teto de desempenho, a profissional deve ser o tronco e a romântica o tempero; só romance sem linha profissional tem teto bem mais baixo; só linha profissional pode secar por falta de investimento emocional.
+
+### 12.7 Trama principal é uma coisa, não "subir"
+Subir é só o ato de alcançar o objetivo; objetivo e ação separados: objetivo = enriquecer, ações = assaltar o banco/trabalhar/empreender; tratar subir como trama principal gera desvio de percepção e o livro "vai se entortando"; a trama principal verdadeira é uma coisa: um evento central que atravessa o texto; feita a grande trama, ou se abre a segunda por preparação, ou o livro acaba. *Exemplos*: "o noivado desfeito → vingar-se subindo à ordem rival" (treinar é ação); "curar um câncer" (o romance é ação); "voltar ao topo depois da demissão" (o que importa não é nível). **Trama principal de alto chamariz**: livro que não gira em subir: a abertura já é um evento (identidade exposta que desencadeia reação social); o núcleo da percepção tem de atravessar o livro e não pode desviar no meio.
+
+### 12.8 Técnicas de avanço da linha romântica
+**Puxar e empurrar**: avançar e afastar se alternam; só aproximar → é preciso empurrar → depois de empurrar não sobra o que escrever → o recurso se consome cedo; afastar não é terminar: é mágoa, esfriar, mal-entendido. **"Herói que salva"**: o modo mais eficaz de avançar a afinidade: o ato do protagonista na linha profissional salva a heroína sem querer; ele não corre atrás dela, faz o que tem de fazer e de passagem salva; ela passa a correr atrás dele (evita a sensação de "entrega grátis"); heroínas diferentes, dilemas diferentes, salvamentos diferentes, caminhos de paixão diferentes. **Mal-entendido**: "eu achava que era assim, mas não era": no romance, cria barreira e retarda; na virada, a modéstia do protagonista faz o outro achá-lo fraco → virada mais gostosa. **Evento "papel de janela"**: a afinidade muda, o estágio da relação muda: desenhe um evento em que uma das partes tem um salto de afinidade; com linha profissional em primeiro plano, ponha-o no pequeno clímax de uma estrutura de primeiro nível; com romântica em primeiro plano, no grande clímax de um volume.
+
+### 12.9 Quatro fases da prática romântica
+Fase 1 *encontro casual*: mostrar aparência, personalidade, avaliações alheias, hábitos; fase 2 *coração acelerado*: surge afinidade, nota-se a existência do outro; fase 3 *ambiguidade crescente*: mais interação, relação sutilmente alterada; fase 4 *confirmação*: rompe a "janela" e formaliza. **Preencher a linha**: o romance se deduz mais para a frente do que para trás (ao contrário da profissional, que pode ser deduzida do clímax); em cada fase há vários nós, combinados com o modelo de primeiro nível; preencher com história não exige que cada cena empurre à fase seguinte: basta que combine com a fase atual. **Transições**: afinidade → fase da relação → fase da linha: as três se movem juntas; na transição, evento "janela" no clímax; saber o passado da heroína enriquece a linha, mas não avança a fase.
+
+### 12.10 Regras do romance voltado ao público masculino
+- Não escreva romance de puxa-e-empurra: o romance feminino é de idas e vindas, açúcar e lâmina; o masculino não pode ter o protagonista correndo atrás e sacrificando-se (o leitor reclama); a essência da linha masculina é "fazer a mulher avançar": desconhecidos → conhecidos → íntimos → encontro a sós.
+- O leitor de hoje quer que a mulher dê afeto (lógica do "milionário" de romance feminino): o protagonista persegue a carreira → sem querer realiza o "herói que salva".
+- **Corrida atrás x entrega grátis**: entrega grátis = ela o ama sem motivo ao primeiro contato, não importa a distância de condição; correr atrás = o que ele fez na linha profissional gera afeto, e a lógica emocional se sustenta; a diferença é haver persuasão.
+- O objetivo real do leitor: receber o valor emocional que falta na vida real; mesmo quem tem namorada lê porque falta valor emocional; comportamentos de casal, mudança de atitude depois da ruptura de nível, etc.
+- **Vários pares x escolher um**: a estrutura do meio é a mesma (o protagonista passa por cada uma em ambiguidade sem confirmar até o final, quando fecha com todas ou escolhe uma); não confirme a relação com uma e depois conquiste a próxima (parece canalha, e as primeiras viram "a titular" e as seguintes "a outra"); contexto urbano contemporâneo, em geral "escolher um". **Três soluções para o confronto de rivais**: 1) passar rápido (briga contida: no máximo duas alfinetadas); 2) ligar à linha profissional (competem pela contribuição à carreira dele; a mais recomendada); 3) personagem "vítima" (a que sempre perde a vez porque o protagonista está ocupado, formando uma piada fixa). **Final de "escolher um"**: as pretendentes se declaram e ele escolhe: sugira final aberto: qualquer escolha gera reclamação, melhor não escolher.
+
+### 12.11 Purificação da linha romântica em livros de linha profissional (regra "90/10")
+Em livro de linha profissional, o romance ocupa no máximo 10% e cada cena precisa servir a ela; só se escreve cena romântica se cumprir uma de três condições: 1) o romance ajuda ou atrapalha a carreira; 2) a pretendente é ajuda da carreira ou prêmio por concluí-la; 3) as relações da pretendente ajudam ou atrapalham a carreira. **A percepção central deve ser consistente**: a mesma vantagem pode gerar percepções diferentes (magia sem encantamento pode ser "superioridade" ou "treino que enlouquece"): desvio de percepção = desvio do conceito = leitor perdido; todas as histórias precisam ficar entre os pontos de expectativa e de recompensa do conceito. **Como inserir romance na linha profissional**: a heroína tem talento profissional e o protagonista participa com a vantagem; a origem familiar dela se liga à carreira dele (o pai dela é CEO de um estúdio); como em teatro, ponha dentro do "palco" conteúdo da carreira dela e o protagonista participa naturalmente.
+
+### 12.12 Paradigma de esboço
+**Três passos: esboço → detalhado → de capítulo**: *esboço*: defina o ponto de tempo e liste os eventos-chave na linha do tempo; *detalhado*: detalhe na linha do tempo, com datas e eventos; *de capítulo*: antes de escrever, planeje o conteúdo de cada capítulo. **Pontos**: não planeje o livro todo de início, fixe um ponto de tempo; o esboço é guiado pela linha profissional, mas a heroína precisa de forte ligação com ela; eventos de salto de afinidade não ficam no esboço, ficam no detalhado e no de capítulo; no cotidiano, a afinidade cresce com pequenos eventos encadeados, sem saltos. **Heroína e carreira**: cada heroína e sua família se ligam à carreira: cotidiano e carreira se misturam.
+
+### 12.13 Prática de "doçura": dicas
+- Não comece a linha em fase de ambiguidade avançada (beijo de prêmio, vestir a camisa dele são ambiguidade tardia): comece por "como se conheceram → por que surgiu o sentimento → como o contato muda → choque de personalidades"; o erotismo é só expressão, não o centro.
+- **O detalhe da mudança emocional é o açúcar**: a heroína despachada, depois de gostar dele, passa a ter modos delicados: a mudança coerente com a personalidade por amor é o que satisfaz o leitor; não escreva "ela gostava dele"; mostre "ela, que nunca ligava para o cabelo, ajeitou a franja antes de abrir a porta".
+- **Expressão contida do casal**: olhares cruzados, close na expressão e atmosfera valem mais que descrição direta: "os olhares viravam fio"; trabalhe a mudança psicológica em passos.
+- **Palco**: transforme cenas interessantes em palco (fogos de artifício, acampamento, Natal, esqui, churrasco) e crie atmosfera + interação das caracterizações + contato íntimo: palco novo + caracterização estável + proximidade variável.
+
+### 12.14 Coadjuvantes e a linha romântica
+Toda caracterização de coadjuvante deve ajudar ou atrapalhar a linha profissional/romântica; não há "coadjuvante feminina imprescindível": só a protagonista precisa disso; rivais amorosas entram como antagonistas e precisam ser vencidas pela heroína; a ficção popular tem regras populares: coadjuvantes não podem roubar o centro. **Necessidades contraditórias do leitor de múltiplos pares**: alta exigência moral do protagonista (nada de hipócrita indeciso); não magoar nenhuma ("colecionar todas"); não confirmar com uma e continuar ambíguo com outra (seria traição); a heroína não o ama por dinheiro/posição; a heroína tem personalidade independente; a forma de reunir as pretendentes é razoável e preserva o jeito de cada uma. Seis condições que não se cumprem juntas: é preciso escolher.
 
 ## 13. Lembretes gerais ao analisar livros
 
@@ -277,17 +464,19 @@ A primeira frase já revela a morte (a maior bomba de informação). A alma vê 
 ## 15. Fantasia: três núcleos e ciclo de vida do gênero
 **Três núcleos**: *imersão* (dinastias de fantasia têm cinco mil anos de preparação, mais imersivas que o ciberpunk; o corpo que vira santo, soco a soco, imersiona mais que duelos de magia); *expectativa* (se a expectativa de um livro não desaba e atravessa o texto, a perda de leitores é lenta; quando o protagonista chega a um nível-chave ele "entra no período de fita adesiva" e tudo o que sofreu antes é cobrado); *aprovação* (o leitor se coloca no protagonista e aprova seus atos: ama o protagonista = fã fiel difícil de perder; o protagonista costuma ser "pode falhar no pequeno, jamais no grande").
 **Pontos de progressão**: sem forte opressão emocional nem forte pressão de crise; o sistema de evolução bem desenhado e o topo com estatura (a estatura do imperador e do artefato pesa até 30% no desempenho: se você faz um nível ter estatura, cada passagem do protagonista por ele vira grande recompensa).
-**Ciclo de vida do gênero**: cada gênero novo cria um pico de leitura, mas um padrão escrito em um ou dois livros explode, atinge o pico e depois cai: leitores antigos cansam e os novos não bastam; superar o pico é muito difícil: exige transformar-se, e a transformação costuma falhar; **contramedida**: ache um ponto de entrada novo que chame a atenção: só o padrão já não basta.
+**Exemplo de "estatura de nível"**: no romance de fantasia, fazer o nível "Arquimago" ter estatura: três capítulos antes, vários personagens falam de como só um alcançou o cargo em um século; quando o protagonista o atinge, cada gesto dele é cobrado como feito histórico. **Ciclo de vida do gênero**: cada gênero novo cria um pico de leitura, mas um padrão escrito em um ou dois livros explode, atinge o pico e depois cai: leitores antigos cansam e os novos não bastam; superar o pico é muito difícil: exige transformar-se, e a transformação costuma falhar; **contramedida**: ache um ponto de entrada novo que chame a atenção: só o padrão já não basta.
 
 ## 16. Ficção urbana: quatro elementos da ambiguidade, vantagem e conquista
 **Quatro elementos da ambiguidade** (a ficção urbana não vive sem ela; a ambiguidade lógica é o primeiro passo para prender): 1) **a mulher** (sem personagem feminina não há ficção urbana de público masculino); 2) **leveza** (o leitor busca prazer, sem drama pesado); 3) **interação** (entre personagens + o "segredo" entre leitor e protagonista: o leitor sabe, os outros do livro não); 4) **privacidade** (esconder a capacidade do protagonista, um segredinho só do leitor com ele).
 **Princípios da vantagem**: deve ter relação direta com a vida/profissão do protagonista, sem juntar coisas desconexas: médico + manual de medicina = razoável; médico + invisibilidade/parar o tempo = forçado; ligada à trama principal e evoluindo com o enredo; uma habilidade pode gerar efeitos diversos; não abra vantagens novas toda hora.
-**Desenho da conquista**: o mais fascinante não é cena erótica, é o conflito de histórias criado pela diferença de personalidades do casal; **conquista > fluidez natural**; mude sem parar o "iceberg" a conquistar, mas sem mudar de uma vez: quando está quase mudado, volte de modo dramático: é o que mais rende conversa.
+**Exemplo de "quatro elementos da ambiguidade"**: numa comédia romântica de escritório: *mulher* (a colega nova), *leveza* (briga por causa da cafeteira), *interação* (o leitor sabe que o protagonista escreve o blog que ela adora), *privacidade* (só o leitor sabe). **Desenho da conquista**: o mais fascinante não é cena erótica, é o conflito de histórias criado pela diferença de personalidades do casal; **conquista > fluidez natural**; mude sem parar o "iceberg" a conquistar, mas sem mudar de uma vez: quando está quase mudado, volte de modo dramático: é o que mais rende conversa.
 
 ## 17. Romance voltado a leitor masculino: barra de afinidade e assimetria
 O mais atraente é o processo de ambiguidade e puxa-e-empurra, não o resultado. **Barra de afinidade**: desconhecido → pessoa boa → pessoa boa, íntegra e corajosa → bom amigo → gosta, mas não percebe; cada evento é uma evolução, por conflito, resolução, compreensão e ressonância, e a afinidade cresce aos poucos. **Assimetria dos ritmos** (técnica central): duas linhas: *social* (desconhecido → amigo → casal → noivo) e *emocional* (afinidade interior); elas não andam juntas: a assimetria é contradição. *Emocional à frente*: afinidade máxima, mas nenhum se declara: dúvida e conjectura = tensão; *social à frente*: casamento arranjado, mas a afinidade dela é zero: o vínculo externo faz o sentimento esquentar. **Assimetria de informação**: identidade dupla (virtual x real), sem que se conheçam, e o leitor espera a reação ao desmascarar.
 
 ## 18. Heroína única: duas linhas e família em quatro direções
+
+*Exemplo de separação de linhas*: o protagonista quer abrir uma editora (linha profissional, objetivo final: ser o maior editor do país) e se aproxima da autora que a torna possível (romântica, objetivo final: ela aceitar o pedido); a editora só fecha o balanço no capítulo 80, mas o pedido de casamento é no 60; assim, quando a meta de uma é cumprida, a outra segue.
 **Separar as duas linhas**: afeto + carreira com o mesmo objetivo = ao atingir o objetivo a trama principal quebra e o livro vira "água". **Solução**: as linhas podem se entrelaçar, mas não se confundir, e os objetivos finais devem ser deslocados; o objetivo final da carreira deve ter forte relação com o protagonista e ser separado da conquista da heroína, e os nós intermediários podem impulsionar a conquista. **Família em quatro direções**: do lado dele/dela × ajuda/obstáculo = quatro combinações; *ajuda*: recursos e posição, atua antes do clímax e depois só vira cotidiano; *obstáculo*: meta a ser superada, serve antes e depois do nó e rende mais enredo. **Competidor = bagre**: pressiona o par e acelera, antes do clímax, na preparação; depois do clímax serve pouco.
 
 ## 19. Classificação de ideias (remissão)

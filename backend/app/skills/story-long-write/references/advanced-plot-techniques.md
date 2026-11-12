@@ -1,10 +1,9 @@
 # Técnicas avançadas de enredo
 
-> **Origem** (adaptação em português do material original, ~44 KB). Seções omitidas de propósito:
-> - "Varredura de rankings e método de análise de livros" (em parte): mecânica de listas chinesas; a análise de livros está em `outline-arrangement.md`, seção 22.
-> - "Chamarizes que atraem tráfego (mentalidade de fluxo)": mantidas só as ideias gerais (tipos de chamariz e extensibilidade); o jogo de algoritmo de plataformas chinesas foi omitido.
-> - "Sistema detalhado de classificação de fichas de história" (linhas 562-792 do original): seu conteúdo genérico (níveis de abstração, fichas de herói que salva, virada de mesa, pequeno contra grande, pedra em ouro, olho clínico) está em `outline-arrangement.md`, seção 24.
-> - Exemplos de livros e de músicas chinesas foram trocados por exemplos genéricos; os exemplos de "sistemas" chineses de pontos (cultivo, "entrar na torre") foram adaptados a "vantagem especial".
+> **Origem** (adaptação em português do material original, ~44 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - O jogo de algoritmo e tráfego de plataformas chinesas na seção sobre chamarizes (a técnica de tipos de chamariz e extensibilidade está na seção 13) e o trecho de "varredura de rankings" da seção sobre análise de livros.
+> - Exemplos de livros e de músicas chinesas foram trocados por exemplos genéricos; os "sistemas" chineses de pontos (cultivo, "entrar na torre") foram adaptados a "vantagem especial".
+> - O "sistema detalhado de classificação de fichas de história" do original **foi relocado** para `outline-arrangement.md`, seção 24, onde estão os níveis de abstração e as fichas (herói que salva, virada de mesa, pequeno contra grande, pedra em ouro, olho clínico).
 
 ## Sumário
 
