@@ -174,7 +174,7 @@ def _snapshot(entity: Any, fields: set[str] | list[str]) -> dict[str, Any]:
 
 def _preview_value(value: Any, limit: int = 800) -> Any:
     if isinstance(value, str) and len(value) > limit:
-        return f"{value[:limit]}…（共 {len(value)} 字符）"
+        return f"{value[:limit]}… (total de {len(value)} caracteres)"
     return value
 
 
@@ -212,18 +212,18 @@ class ProjectAgentExtendedTools:
     async def read(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         handler = getattr(self, f"_{name}", None)
         if handler is None or name not in READ_TOOL_NAMES:
-            raise ValueError(f"未注册的扩展读取工具：{name}")
+            raise ValueError(f"Ferramenta de leitura estendida não registrada: {name}")
         return await handler(arguments)
 
     async def preview(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         if name not in WRITE_TOOL_NAMES:
-            raise ValueError(f"未注册的扩展写入工具：{name}")
+            raise ValueError(f"Ferramenta de escrita estendida não registrada: {name}")
         action = str(arguments.get("action") or "")
         if not action:
-            raise ValueError("缺少 action")
+            raise ValueError("Falta action")
         before, after, label = await self._prepare(name, action, arguments)
         if before == after:
-            raise ValueError("没有检测到需要修改的字段")
+            raise ValueError("Nenhum campo a modificar foi detectado")
         resources = next(spec["resources"] for spec in EXTENDED_TOOL_SPECS if spec["name"] == name)
         keys = list(dict.fromkeys([*before.keys(), *after.keys()]))
         return {
@@ -245,17 +245,17 @@ class ProjectAgentExtendedTools:
 
     async def execute(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         if name not in WRITE_TOOL_NAMES:
-            raise ValueError(f"未注册的扩展写入工具：{name}")
+            raise ValueError(f"Ferramenta de escrita estendida não registrada: {name}")
         action = str(arguments.get("action") or "")
         before, _, label = await self._prepare(name, action, arguments)
         handler = getattr(self, f"_{name}_{action}", None)
         if handler is None:
-            raise ValueError(f"工具 {name} 不支持动作 {action}")
+            raise ValueError(f"A ferramenta {name} não suporta a ação {action}")
         entity_id, after, message = await handler(arguments)
         resources = next(spec["resources"] for spec in EXTENDED_TOOL_SPECS if spec["name"] == name)
         await self.db.flush()
         return {
-            "message": message or f"已执行{label}",
+            "message": message or f"Executado: {label}",
             "entity_id": entity_id,
             "before": before,
             "after": after,
@@ -270,7 +270,7 @@ class ProjectAgentExtendedTools:
     ) -> tuple[dict[str, Any], dict[str, Any], str]:
         handler = getattr(self, f"_{name}_preview_{action}", None)
         if handler is None:
-            raise ValueError(f"工具 {name} 不支持动作 {action}")
+            raise ValueError(f"A ferramenta {name} não suporta a ação {action}")
         return await handler(arguments)
 
     async def _list_organizations(self, arguments: dict[str, Any]) -> dict[str, Any]:
@@ -384,7 +384,7 @@ class ProjectAgentExtendedTools:
             urgency = row.get_urgency_level(chapter_number)
             if row.plant_chapter_number == chapter_number or urgency > 0 or (row.target_resolve_chapter_number and row.target_resolve_chapter_number == chapter_number):
                 items.append({**row.to_dict(), "calculated_urgency": urgency})
-        return {"chapter_number": chapter_number, "items": items, "context_text": "\n".join(row["title"] + "：" + row["content"] for row in items)}
+        return {"chapter_number": chapter_number, "items": items, "context_text": "\n".join(row["title"] + ": " + row["content"] for row in items)}
 
     async def _check_project_consistency(self, _: dict[str, Any]) -> dict[str, Any]:
         issues: list[dict[str, Any]] = []
@@ -418,13 +418,13 @@ class ProjectAgentExtendedTools:
     async def _find_outline(self, outline_id: str | None) -> Outline:
         outline_id = clean_identifier(outline_id)
         if not outline_id:
-            raise ValueError("必须提供 outline_id")
+            raise ValueError("É necessário informar outline_id")
         row = (await self.db.execute(select(Outline).where(
             Outline.id == outline_id,
             Outline.project_id == self.project.id,
         ))).scalar_one_or_none()
         if not row:
-            raise ValueError("当前项目中未找到大纲")
+            raise ValueError("Esboço não encontrado neste projeto")
         return row
 
     async def _find_chapter(self, arguments: dict[str, Any]) -> Chapter:
@@ -433,33 +433,33 @@ class ProjectAgentExtendedTools:
     async def _find_relationship(self, relationship_id: str | None) -> CharacterRelationship:
         relationship_id = clean_identifier(relationship_id)
         if not relationship_id:
-            raise ValueError("必须提供 relationship_id")
+            raise ValueError("É necessário informar relationship_id")
         row = (await self.db.execute(select(CharacterRelationship).where(
             CharacterRelationship.id == relationship_id,
             CharacterRelationship.project_id == self.project.id,
         ))).scalar_one_or_none()
         if not row:
-            raise ValueError("当前项目中未找到角色关系")
+            raise ValueError("Relação entre personagens não encontrada neste projeto")
         return row
 
     async def _find_member(self, member_id: str | None) -> OrganizationMember:
         member_id = clean_identifier(member_id)
         if not member_id:
-            raise ValueError("必须提供 member_id")
+            raise ValueError("É necessário informar member_id")
         row = (await self.db.execute(
             select(OrganizationMember)
             .join(Organization, OrganizationMember.organization_id == Organization.id)
             .where(OrganizationMember.id == member_id, Organization.project_id == self.project.id)
         )).scalar_one_or_none()
         if not row:
-            raise ValueError("当前项目中未找到组织成员")
+            raise ValueError("Membro da organização não encontrado neste projeto")
         return row
 
     @staticmethod
     def _data(arguments: dict[str, Any]) -> dict[str, Any]:
         data = arguments.get("data") or {}
         if not isinstance(data, dict):
-            raise ValueError("data 必须是对象")
+            raise ValueError("data deve ser um objeto")
         return data
 
     @staticmethod
@@ -467,7 +467,7 @@ class ProjectAgentExtendedTools:
         fields = {key: value for key, value in data.items() if key in allowed}
         unknown = set(data) - allowed
         if unknown:
-            raise ValueError(f"包含不支持的字段：{', '.join(sorted(unknown))}")
+            raise ValueError(f"Contém campos não suportados: {', '.join(sorted(unknown))}")
         return fields
 
     # --- 大纲管理 ---
@@ -477,15 +477,15 @@ class ProjectAgentExtendedTools:
         content = str(arguments.get("content") or "").strip()
         order_index = arguments.get("order_index")
         if not title or not content or not isinstance(order_index, int) or order_index < 1:
-            raise ValueError("创建大纲需要 title、content 和正整数 order_index")
+            raise ValueError("Criar um esboço exige title, content e order_index inteiro positivo")
         exists = (await self.db.execute(select(Outline.id).where(
             Outline.project_id == self.project.id,
             Outline.order_index == order_index,
         ))).scalar_one_or_none()
         if exists:
-            raise ValueError(f"第 {order_index} 条大纲已存在")
+            raise ValueError(f"O esboço nº {order_index} já existe")
         after = {"title": title, "content": content, "order_index": order_index}
-        return {}, after, f"创建第{order_index}条大纲《{title}》"
+        return {}, after, f"Criar o esboço nº {order_index} «{title}»"
 
     async def _manage_outline_create(self, arguments: dict[str, Any]):
         title = str(arguments["title"]).strip()
@@ -507,7 +507,7 @@ class ProjectAgentExtendedTools:
                 status="pending",
                 sub_index=1,
             ))
-        return row.id, _snapshot(row, {"id", "title", "content", "order_index"}), f"已创建第{order_index}条大纲《{title}》"
+        return row.id, _snapshot(row, {"id", "title", "content", "order_index"}), f"Esboço nº {order_index} «{title}» criado"
 
     async def _manage_outline_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_outline(arguments.get("outline_id"))
@@ -520,12 +520,12 @@ class ProjectAgentExtendedTools:
         chapters = (await self.db.execute(chapter_query)).scalars().all()
         before["affected_chapters"] = len(chapters)
         before["affected_words"] = sum(chapter.word_count or 0 for chapter in chapters)
-        return before, {}, f"删除第{row.order_index}条大纲《{row.title}》"
+        return before, {}, f"Excluir o esboço nº {row.order_index} «{row.title}»"
 
     async def _manage_outline_delete(self, arguments: dict[str, Any]):
         row = await self._find_outline(arguments.get("outline_id"))
         entity_id, deleted_order = row.id, row.order_index
-        label = f"第{deleted_order}条大纲《{row.title}》"
+        label = f"Esboço nº {deleted_order} «{row.title}»"
         chapter_query = select(Chapter).where(Chapter.project_id == self.project.id)
         if self.project.outline_mode == "one-to-one":
             chapter_query = chapter_query.where(Chapter.chapter_number == deleted_order)
@@ -559,19 +559,19 @@ class ProjectAgentExtendedTools:
             ))).scalars().all()
             for chapter in subsequent_chapters:
                 chapter.chapter_number -= 1
-        return entity_id, {}, f"已删除{label}"
+        return entity_id, {}, f"Excluído: {label}"
 
     async def _manage_outline_preview_reorder(self, arguments: dict[str, Any]):
         ordered_ids = arguments.get("ordered_ids") or []
         if not isinstance(ordered_ids, list) or not ordered_ids or len(set(ordered_ids)) != len(ordered_ids):
-            raise ValueError("ordered_ids 必须是无重复的大纲ID列表")
+            raise ValueError("ordered_ids deve ser uma lista de IDs de esboço sem repetições")
         rows = (await self.db.execute(select(Outline).where(Outline.project_id == self.project.id))).scalars().all()
         by_id = {row.id: row for row in rows}
         if set(ordered_ids) != set(by_id):
-            raise ValueError("ordered_ids 必须完整包含当前项目的全部大纲ID")
+            raise ValueError("ordered_ids deve incluir todos os IDs de esboço do projeto atual")
         before = {row.id: row.order_index for row in rows}
         after = {outline_id: index for index, outline_id in enumerate(ordered_ids, 1)}
-        return before, after, "重新排序全部大纲"
+        return before, after, "Reordenar todos os esboços"
 
     async def _manage_outline_reorder(self, arguments: dict[str, Any]):
         ordered_ids = list(arguments["ordered_ids"])
@@ -593,7 +593,7 @@ class ProjectAgentExtendedTools:
             chapter = chapters_by_outline.get(outline_id)
             if chapter:
                 chapter.chapter_number = index
-        return None, {outline_id: index for index, outline_id in enumerate(ordered_ids, 1)}, "已重新排序大纲"
+        return None, {outline_id: index for index, outline_id in enumerate(ordered_ids, 1)}, "Esboços reordenados"
 
     # --- 角色管理 ---
 
@@ -602,12 +602,12 @@ class ProjectAgentExtendedTools:
         self._validate_character_fields(data)
         organization_fields = {key: data[key] for key in data if key in self.ORGANIZATION_FIELDS}
         if organization_fields and not data.get("is_organization"):
-            raise ValueError("普通角色不能设置组织专属字段")
+            raise ValueError("Personagens comuns não podem ter campos exclusivos de organização")
         await self._validate_organization_fields(organization_fields)
         name = str(data.get("name") or "").strip()
         if not name:
-            raise ValueError("创建角色需要 name")
-        return {}, data, f"创建{'组织' if data.get('is_organization') else '角色'}《{name}》"
+            raise ValueError("Criar um personagem exige name")
+        return {}, data, f"Criar {'organização' if data.get('is_organization') else 'personagem'} «{name}»"
 
     async def _manage_character_create(self, arguments: dict[str, Any]):
         data = self._fields(self._data(arguments), self.CHARACTER_FIELDS | self.ORGANIZATION_FIELDS)
@@ -620,31 +620,31 @@ class ProjectAgentExtendedTools:
         await self.db.flush()
         if row.is_organization:
             self.db.add(Organization(project_id=self.project.id, character_id=row.id, **org_data))
-        return row.id, _snapshot(row, self.CHARACTER_FIELDS | {"id"}), f"已创建{'组织' if row.is_organization else '角色'}《{row.name}》"
+        return row.id, _snapshot(row, self.CHARACTER_FIELDS | {"id"}), f"Criado(a) {'organização' if row.is_organization else 'personagem'} «{row.name}»"
 
     @staticmethod
     def _validate_character_fields(fields: dict[str, Any]) -> None:
         if "status" in fields and fields["status"] not in {
             "active", "deceased", "missing", "retired", "destroyed"
         }:
-            raise ValueError("status 不是支持的角色状态")
+            raise ValueError("status não é um status de personagem suportado")
         for key in ("status_changed_chapter", "state_updated_chapter"):
             value = fields.get(key)
             if value is not None and (
                 isinstance(value, bool) or not isinstance(value, int) or value < 1
             ):
-                raise ValueError(f"{key} 必须是正整数或 null")
+                raise ValueError(f"{key} deve ser um inteiro positivo ou null")
 
     async def _manage_character_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_character(arguments)
         before = _snapshot(row, self.CHARACTER_FIELDS | {"id"})
-        return before, {}, f"删除{'组织' if row.is_organization else '角色'}《{row.name}》"
+        return before, {}, f"Excluir {'organização' if row.is_organization else 'personagem'} «{row.name}»"
 
     async def _manage_character_delete(self, arguments: dict[str, Any]):
         row = await self._find_character(arguments)
-        entity_id, label = row.id, f"{'组织' if row.is_organization else '角色'}《{row.name}》"
+        entity_id, label = row.id, f"{'Organização' if row.is_organization else 'Personagem'} «{row.name}»"
         await self.db.delete(row)
-        return entity_id, {}, f"已删除{label}"
+        return entity_id, {}, f"Excluído: {label}"
 
     # --- 章节管理 ---
 
@@ -653,15 +653,15 @@ class ProjectAgentExtendedTools:
         chapter_number = data.get("chapter_number", arguments.get("chapter_number"))
         title = str(data.get("title") or "").strip()
         if not isinstance(chapter_number, int) or chapter_number < 1 or not title:
-            raise ValueError("创建章节需要 chapter_number 和 title")
+            raise ValueError("Criar um capítulo exige chapter_number e title")
         exists = (await self.db.execute(select(Chapter.id).where(Chapter.project_id == self.project.id, Chapter.chapter_number == chapter_number))).scalar_one_or_none()
         if exists:
-            raise ValueError(f"第 {chapter_number} 章已存在")
+            raise ValueError(f"O capítulo {chapter_number} já existe")
         allowed = {"chapter_number", "title", "content", "summary", "status", "outline_id", "sub_index", "expansion_plan"}
         after = self._fields({**data, "chapter_number": chapter_number, "title": title}, allowed)
         if after.get("outline_id"):
             await self._find_outline(after["outline_id"])
-        return {}, after, f"创建第{chapter_number}章《{title}》"
+        return {}, after, f"Criar o capítulo {chapter_number} «{title}»"
 
     async def _manage_chapter_create(self, arguments: dict[str, Any]):
         data = self._data(arguments)
@@ -677,16 +677,16 @@ class ProjectAgentExtendedTools:
         self.db.add(row)
         self.project.current_words = (self.project.current_words or 0) + fields["word_count"]
         await self.db.flush()
-        return row.id, _snapshot(row, {"id", "chapter_number", "title", "summary", "status", "word_count"}), f"已创建第{row.chapter_number}章《{row.title}》"
+        return row.id, _snapshot(row, {"id", "chapter_number", "title", "summary", "status", "word_count"}), f"Capítulo {row.chapter_number} «{row.title}» criado"
 
     async def _manage_chapter_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
         before = _snapshot(row, {"id", "chapter_number", "title", "summary", "status", "word_count"})
-        return before, {}, f"删除第{row.chapter_number}章《{row.title}》"
+        return before, {}, f"Excluir o capítulo {row.chapter_number} «{row.title}»"
 
     async def _manage_chapter_delete(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
-        entity_id, label = row.id, f"第{row.chapter_number}章《{row.title}》"
+        entity_id, label = row.id, f"Capítulo {row.chapter_number} «{row.title}»"
         self.project.current_words = max(0, (self.project.current_words or 0) - (row.word_count or 0))
         try:
             from app.services.memory_service import memory_service
@@ -698,21 +698,21 @@ class ProjectAgentExtendedTools:
         except Exception:
             pass
         await self.db.delete(row)
-        return entity_id, {}, f"已删除{label}"
+        return entity_id, {}, f"Excluído: {label}"
 
     async def _manage_chapter_preview_update_content(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
         data = self._data(arguments)
         unknown = set(data) - {"content", "status"}
         if unknown:
-            raise ValueError(f"包含不支持的字段：{', '.join(sorted(unknown))}")
+            raise ValueError(f"Contém campos não suportados: {', '.join(sorted(unknown))}")
         if "content" not in data or not isinstance(data["content"], str):
-            raise ValueError("update_content 需要 data.content")
+            raise ValueError("update_content exige data.content")
         if data.get("status", row.status) not in {"draft", "pending", "writing", "completed"}:
-            raise ValueError("status 不是支持的章节状态")
+            raise ValueError("status não é um status de capítulo suportado")
         before = {"content": row.content or "", "word_count": row.word_count or 0, "status": row.status}
         after = {"content": data["content"], "word_count": len(data["content"]), "status": data.get("status", row.status)}
-        return before, after, f"更新第{row.chapter_number}章《{row.title}》正文"
+        return before, after, f"Atualizar o texto do capítulo {row.chapter_number} «{row.title}»"
 
     async def _manage_chapter_update_content(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
@@ -723,7 +723,7 @@ class ProjectAgentExtendedTools:
         if "status" in data:
             row.status = data["status"]
         self.project.current_words = max(0, (self.project.current_words or 0) - old_count + row.word_count)
-        return row.id, {"word_count": row.word_count, "status": row.status}, f"已更新第{row.chapter_number}章《{row.title}》正文"
+        return row.id, {"word_count": row.word_count, "status": row.status}, f"Texto do capítulo {row.chapter_number} «{row.title}» atualizado"
 
     async def _manage_chapter_preview_update_plan(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
@@ -731,14 +731,14 @@ class ProjectAgentExtendedTools:
         plan = data.get("expansion_plan", data)
         before = {"expansion_plan": self._parse_json(row.expansion_plan, {})}
         after = {"expansion_plan": plan}
-        return before, after, f"更新第{row.chapter_number}章《{row.title}》规划"
+        return before, after, f"Atualizar o planejamento do capítulo {row.chapter_number} «{row.title}»"
 
     async def _manage_chapter_update_plan(self, arguments: dict[str, Any]):
         row = await self._find_chapter(arguments)
         data = self._data(arguments)
         plan = data.get("expansion_plan", data)
         row.expansion_plan = json.dumps(plan, ensure_ascii=False)
-        return row.id, {"expansion_plan": plan}, f"已更新第{row.chapter_number}章《{row.title}》规划"
+        return row.id, {"expansion_plan": plan}, f"Planejamento do capítulo {row.chapter_number} «{row.title}» atualizado"
 
     # --- 关系管理 ---
 
@@ -746,7 +746,7 @@ class ProjectAgentExtendedTools:
         data = self._fields(self._data(arguments), self.RELATIONSHIP_FIELDS | {"character_from_id", "character_to_id"})
         await self._validate_relationship_characters(data)
         self._validate_relationship_fields(data)
-        return {}, data, "创建角色关系"
+        return {}, data, "Criar relação entre personagens"
 
     async def _manage_relationship_create(self, arguments: dict[str, Any]):
         data = self._fields(self._data(arguments), self.RELATIONSHIP_FIELDS | {"character_from_id", "character_to_id"})
@@ -755,39 +755,39 @@ class ProjectAgentExtendedTools:
         row = CharacterRelationship(project_id=self.project.id, source="manual", **data)
         self.db.add(row)
         await self.db.flush()
-        return row.id, _snapshot(row, self.RELATIONSHIP_FIELDS | {"id", "character_from_id", "character_to_id"}), "已创建角色关系"
+        return row.id, _snapshot(row, self.RELATIONSHIP_FIELDS | {"id", "character_from_id", "character_to_id"}), "Relação entre personagens criada"
 
     async def _manage_relationship_preview_update(self, arguments: dict[str, Any]):
         row = await self._find_relationship(arguments.get("relationship_id"))
         fields = self._fields(self._data(arguments), self.RELATIONSHIP_FIELDS)
         self._validate_relationship_fields(fields)
-        return _snapshot(row, set(fields)), fields, f"更新关系 {row.id[:8]}"
+        return _snapshot(row, set(fields)), fields, f"Atualizar a relação {row.id[:8]}"
 
     async def _manage_relationship_update(self, arguments: dict[str, Any]):
         row = await self._find_relationship(arguments.get("relationship_id"))
         fields = self._fields(self._data(arguments), self.RELATIONSHIP_FIELDS)
         self._validate_relationship_fields(fields)
         for key, value in fields.items(): setattr(row, key, value)
-        return row.id, _snapshot(row, set(fields)), "已更新角色关系"
+        return row.id, _snapshot(row, set(fields)), "Relação entre personagens atualizada"
 
     async def _manage_relationship_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_relationship(arguments.get("relationship_id"))
         before = _snapshot(row, self.RELATIONSHIP_FIELDS | {"id", "character_from_id", "character_to_id"})
-        return before, {}, f"删除关系 {row.id[:8]}"
+        return before, {}, f"Excluir a relação {row.id[:8]}"
 
     async def _manage_relationship_delete(self, arguments: dict[str, Any]):
         row = await self._find_relationship(arguments.get("relationship_id"))
         entity_id = row.id
         await self.db.delete(row)
-        return entity_id, {}, "已删除角色关系"
+        return entity_id, {}, "Relação entre personagens excluída"
 
     async def _validate_relationship_characters(self, data: dict[str, Any]) -> None:
         from_id, to_id = data.get("character_from_id"), data.get("character_to_id")
         if not from_id or not to_id or from_id == to_id:
-            raise ValueError("关系双方必须是两个不同的角色ID")
+            raise ValueError("Os dois lados da relação devem ser dois IDs de personagem diferentes")
         count = (await self.db.execute(select(func.count(Character.id)).where(Character.project_id == self.project.id, Character.id.in_([from_id, to_id])))).scalar_one()
         if count != 2:
-            raise ValueError("关系双方必须属于当前项目")
+            raise ValueError("Os dois lados da relação devem pertencer ao projeto atual")
 
     @staticmethod
     def _validate_relationship_fields(data: dict[str, Any]) -> None:
@@ -797,9 +797,9 @@ class ProjectAgentExtendedTools:
             or not isinstance(intimacy, int)
             or not -100 <= intimacy <= 100
         ):
-            raise ValueError("intimacy_level 必须是 -100 到 100 的整数")
+            raise ValueError("intimacy_level deve ser um inteiro de -100 a 100")
         if "status" in data and data["status"] not in {"active", "broken", "past", "complicated"}:
-            raise ValueError("status 不是支持的关系状态")
+            raise ValueError("status não é um status de relação suportado")
 
     # --- 组织管理 ---
 
@@ -807,13 +807,13 @@ class ProjectAgentExtendedTools:
         data = self._data(arguments)
         character = await self._find_character({"character_id": data.get("character_id")})
         if not character.is_organization:
-            raise ValueError("关联角色不是组织记录")
+            raise ValueError("O personagem associado não é um registro de organização")
         exists = (await self.db.execute(select(Organization.id).where(Organization.character_id == character.id))).scalar_one_or_none()
         if exists:
-            raise ValueError("该组织已存在结构化详情")
+            raise ValueError("Esta organização já tem detalhes estruturados")
         fields = self._fields({key: value for key, value in data.items() if key != "character_id"}, self.ORGANIZATION_FIELDS)
         await self._validate_organization_fields(fields)
-        return {}, {"character_id": character.id, **fields}, f"创建组织详情《{character.name}》"
+        return {}, {"character_id": character.id, **fields}, f"Criar os detalhes da organização «{character.name}»"
 
     async def _manage_organization_create(self, arguments: dict[str, Any]):
         data = self._data(arguments)
@@ -823,20 +823,20 @@ class ProjectAgentExtendedTools:
         row = Organization(project_id=self.project.id, character_id=character.id, **fields)
         self.db.add(row)
         await self.db.flush()
-        return row.id, _snapshot(row, self.ORGANIZATION_FIELDS | {"id", "character_id"}), f"已创建组织详情《{character.name}》"
+        return row.id, _snapshot(row, self.ORGANIZATION_FIELDS | {"id", "character_id"}), f"Detalhes da organização «{character.name}» criados"
 
     async def _manage_organization_preview_update(self, arguments: dict[str, Any]):
         row, char = await self._find_organization(arguments)
         fields = self._fields(self._data(arguments), self.ORGANIZATION_FIELDS)
         await self._validate_organization_fields(fields, current_id=row.id)
-        return _snapshot(row, set(fields)), fields, f"更新组织《{char.name}》"
+        return _snapshot(row, set(fields)), fields, f"Atualizar a organização «{char.name}»"
 
     async def _manage_organization_update(self, arguments: dict[str, Any]):
         row, char = await self._find_organization(arguments)
         fields = self._fields(self._data(arguments), self.ORGANIZATION_FIELDS)
         await self._validate_organization_fields(fields, current_id=row.id)
         for key, value in fields.items(): setattr(row, key, value)
-        return row.id, _snapshot(row, set(fields)), f"已更新组织《{char.name}》"
+        return row.id, _snapshot(row, set(fields)), f"Organização «{char.name}» atualizada"
 
     async def _validate_organization_fields(
         self,
@@ -846,31 +846,31 @@ class ProjectAgentExtendedTools:
         parent_id = fields.get("parent_org_id")
         if parent_id:
             if parent_id == current_id:
-                raise ValueError("组织不能将自己设为父组织")
+                raise ValueError("Uma organização não pode ser sua própria organização-mãe")
             parent = (await self.db.execute(select(Organization.id).where(
                 Organization.id == parent_id,
                 Organization.project_id == self.project.id,
             ))).scalar_one_or_none()
             if not parent:
-                raise ValueError("父组织必须属于当前项目")
+                raise ValueError("A organização-mãe deve pertencer ao projeto atual")
         power = fields.get("power_level")
         if power is not None and (
             isinstance(power, bool)
             or not isinstance(power, int)
             or not 0 <= power <= 100
         ):
-            raise ValueError("power_level 必须是 0 到 100 的整数")
+            raise ValueError("power_level deve ser um inteiro de 0 a 100")
 
     async def _manage_organization_preview_delete(self, arguments: dict[str, Any]):
         row, char = await self._find_organization(arguments)
         before = self._organization_data(row, char)
-        return before, {}, f"删除组织详情《{char.name}》"
+        return before, {}, f"Excluir os detalhes da organização «{char.name}»"
 
     async def _manage_organization_delete(self, arguments: dict[str, Any]):
         row, char = await self._find_organization(arguments)
         entity_id, name = row.id, char.name
         await self.db.delete(row)
-        return entity_id, {}, f"已删除组织详情《{name}》"
+        return entity_id, {}, f"Detalhes da organização «{name}» excluídos"
 
     async def _manage_organization_preview_add_member(self, arguments: dict[str, Any]):
         org, org_char = await self._find_organization(arguments)
@@ -878,12 +878,12 @@ class ProjectAgentExtendedTools:
         character = await self._find_character({"character_id": data.get("character_id")})
         exists = (await self.db.execute(select(OrganizationMember.id).where(OrganizationMember.organization_id == org.id, OrganizationMember.character_id == character.id))).scalar_one_or_none()
         if exists:
-            raise ValueError("该角色已经是组织成员")
+            raise ValueError("Este personagem já é membro da organização")
         fields = self._fields({key: value for key, value in data.items() if key != "character_id"}, self.MEMBER_FIELDS)
         if not str(fields.get("position") or "").strip():
-            raise ValueError("添加成员需要 position")
+            raise ValueError("Adicionar um membro exige position")
         self._validate_member_fields(fields)
-        return {}, {"character_id": character.id, "character_name": character.name, **fields}, f"向组织《{org_char.name}》添加成员《{character.name}》"
+        return {}, {"character_id": character.id, "character_name": character.name, **fields}, f"Adicionar à organização «{org_char.name}» o membro «{character.name}»"
 
     async def _manage_organization_add_member(self, arguments: dict[str, Any]):
         org, org_char = await self._find_organization(arguments)
@@ -895,20 +895,20 @@ class ProjectAgentExtendedTools:
         self.db.add(row)
         org.member_count = (org.member_count or 0) + 1
         await self.db.flush()
-        return row.id, _snapshot(row, self.MEMBER_FIELDS | {"id", "character_id"}), f"已向组织《{org_char.name}》添加成员《{character.name}》"
+        return row.id, _snapshot(row, self.MEMBER_FIELDS | {"id", "character_id"}), f"Adicionado à organização «{org_char.name}» o membro «{character.name}»"
 
     async def _manage_organization_preview_update_member(self, arguments: dict[str, Any]):
         row = await self._find_member(arguments.get("member_id"))
         fields = self._fields(self._data(arguments), self.MEMBER_FIELDS)
         self._validate_member_fields(fields)
-        return _snapshot(row, set(fields)), fields, f"更新组织成员 {row.id[:8]}"
+        return _snapshot(row, set(fields)), fields, f"Atualizar o membro da organização {row.id[:8]}"
 
     async def _manage_organization_update_member(self, arguments: dict[str, Any]):
         row = await self._find_member(arguments.get("member_id"))
         fields = self._fields(self._data(arguments), self.MEMBER_FIELDS)
         self._validate_member_fields(fields)
         for key, value in fields.items(): setattr(row, key, value)
-        return row.id, _snapshot(row, set(fields)), "已更新组织成员"
+        return row.id, _snapshot(row, set(fields)), "Membro da organização atualizado"
 
     @staticmethod
     def _validate_member_fields(fields: dict[str, Any]) -> None:
@@ -919,14 +919,14 @@ class ProjectAgentExtendedTools:
                 or not isinstance(value, int)
                 or not 0 <= value <= 100
             ):
-                raise ValueError(f"{key} 必须是 0 到 100 的整数")
+                raise ValueError(f"{key} deve ser um inteiro de 0 a 100")
         if "status" in fields and fields["status"] not in {"active", "retired", "expelled", "deceased"}:
-            raise ValueError("status 不是支持的成员状态")
+            raise ValueError("status não é um status de membro suportado")
 
     async def _manage_organization_preview_remove_member(self, arguments: dict[str, Any]):
         row = await self._find_member(arguments.get("member_id"))
         before = _snapshot(row, self.MEMBER_FIELDS | {"id", "organization_id", "character_id"})
-        return before, {}, f"移除组织成员 {row.id[:8]}"
+        return before, {}, f"Remover o membro da organização {row.id[:8]}"
 
     async def _manage_organization_remove_member(self, arguments: dict[str, Any]):
         row = await self._find_member(arguments.get("member_id"))
@@ -934,7 +934,7 @@ class ProjectAgentExtendedTools:
         entity_id = row.id
         org.member_count = max(0, (org.member_count or 0) - 1)
         await self.db.delete(row)
-        return entity_id, {}, "已移除组织成员"
+        return entity_id, {}, "Membro da organização removido"
 
     # --- 伏笔管理 ---
 
@@ -942,8 +942,8 @@ class ProjectAgentExtendedTools:
         fields = self._fields(self._data(arguments), self.FORESHADOW_FIELDS)
         self._validate_foreshadow_fields(fields)
         if not str(fields.get("title") or "").strip() or not str(fields.get("content") or "").strip():
-            raise ValueError("创建伏笔需要 title 和 content")
-        return {}, fields, f"创建伏笔《{fields['title']}》"
+            raise ValueError("Criar um foreshadowing exige title e content")
+        return {}, fields, f"Criar o foreshadowing «{fields['title']}»"
 
     async def _manage_foreshadow_create(self, arguments: dict[str, Any]):
         fields = self._fields(self._data(arguments), self.FORESHADOW_FIELDS)
@@ -951,34 +951,34 @@ class ProjectAgentExtendedTools:
         row = Foreshadow(project_id=self.project.id, source_type="manual", **fields)
         self.db.add(row)
         await self.db.flush()
-        return row.id, row.to_dict(), f"已创建伏笔《{row.title}》"
+        return row.id, row.to_dict(), f"Foreshadowing «{row.title}» criado"
 
     async def _manage_foreshadow_preview_update(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
         fields = self._fields(self._data(arguments), self.FORESHADOW_FIELDS)
         self._validate_foreshadow_fields(fields)
-        return _snapshot(row, set(fields)), fields, f"更新伏笔《{row.title}》"
+        return _snapshot(row, set(fields)), fields, f"Atualizar o foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_update(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
         fields = self._fields(self._data(arguments), self.FORESHADOW_FIELDS)
         self._validate_foreshadow_fields(fields)
         for key, value in fields.items(): setattr(row, key, value)
-        return row.id, _snapshot(row, set(fields)), f"已更新伏笔《{row.title}》"
+        return row.id, _snapshot(row, set(fields)), f"Foreshadowing «{row.title}» atualizado"
 
     @staticmethod
     def _validate_foreshadow_fields(fields: dict[str, Any]) -> None:
         if "status" in fields and fields["status"] not in {
             "pending", "planted", "resolved", "partially_resolved", "abandoned"
         }:
-            raise ValueError("status 不是支持的伏笔状态")
+            raise ValueError("status não é um status de foreshadowing suportado")
         importance = fields.get("importance")
         if importance is not None and (
             isinstance(importance, bool)
             or not isinstance(importance, (int, float))
             or not 0 <= importance <= 1
         ):
-            raise ValueError("importance 必须在 0 到 1 之间")
+            raise ValueError("importance deve estar entre 0 e 1")
         for key in ("strength", "subtlety"):
             value = fields.get(key)
             if value is not None and (
@@ -986,17 +986,17 @@ class ProjectAgentExtendedTools:
                 or not isinstance(value, int)
                 or not 1 <= value <= 10
             ):
-                raise ValueError(f"{key} 必须是 1 到 10 的整数")
+                raise ValueError(f"{key} deve ser um inteiro de 1 a 10")
 
     async def _manage_foreshadow_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
-        return row.to_dict(), {}, f"删除伏笔《{row.title}》"
+        return row.to_dict(), {}, f"Excluir o foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_delete(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
         entity_id, title = row.id, row.title
         await self.db.delete(row)
-        return entity_id, {}, f"已删除伏笔《{title}》"
+        return entity_id, {}, f"Foreshadowing «{title}» excluído"
 
     async def _manage_foreshadow_preview_plant(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
@@ -1004,7 +1004,7 @@ class ProjectAgentExtendedTools:
         chapter = await self._find_chapter({"chapter_id": data.get("chapter_id"), "chapter_number": data.get("chapter_number")})
         before = _snapshot(row, {"status", "plant_chapter_id", "plant_chapter_number", "hint_text"})
         after = {"status": "planted", "plant_chapter_id": chapter.id, "plant_chapter_number": chapter.chapter_number, "hint_text": data.get("hint_text", row.hint_text)}
-        return before, after, f"在第{chapter.chapter_number}章埋入伏笔《{row.title}》"
+        return before, after, f"No capítulo {chapter.chapter_number}, plantar o foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_plant(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
@@ -1012,7 +1012,7 @@ class ProjectAgentExtendedTools:
         chapter = await self._find_chapter({"chapter_id": data.get("chapter_id"), "chapter_number": data.get("chapter_number")})
         row.status, row.plant_chapter_id, row.plant_chapter_number = "planted", chapter.id, chapter.chapter_number
         row.hint_text, row.planted_at = data.get("hint_text", row.hint_text), datetime.now()
-        return row.id, _snapshot(row, {"status", "plant_chapter_id", "plant_chapter_number", "hint_text"}), f"已在第{chapter.chapter_number}章埋入伏笔《{row.title}》"
+        return row.id, _snapshot(row, {"status", "plant_chapter_id", "plant_chapter_number", "hint_text"}), f"Plantado no capítulo {chapter.chapter_number}: foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_preview_resolve(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
@@ -1021,7 +1021,7 @@ class ProjectAgentExtendedTools:
         status = "partially_resolved" if data.get("is_partial") else "resolved"
         before = _snapshot(row, {"status", "actual_resolve_chapter_id", "actual_resolve_chapter_number", "resolution_text"})
         after = {"status": status, "actual_resolve_chapter_id": chapter.id, "actual_resolve_chapter_number": chapter.chapter_number, "resolution_text": data.get("resolution_text", row.resolution_text)}
-        return before, after, f"在第{chapter.chapter_number}章回收伏笔《{row.title}》"
+        return before, after, f"No capítulo {chapter.chapter_number}, resolver o foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_resolve(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
@@ -1030,29 +1030,29 @@ class ProjectAgentExtendedTools:
         row.status = "partially_resolved" if data.get("is_partial") else "resolved"
         row.actual_resolve_chapter_id, row.actual_resolve_chapter_number = chapter.id, chapter.chapter_number
         row.resolution_text, row.resolved_at = data.get("resolution_text", row.resolution_text), datetime.now()
-        return row.id, _snapshot(row, {"status", "actual_resolve_chapter_id", "actual_resolve_chapter_number", "resolution_text"}), f"已在第{chapter.chapter_number}章回收伏笔《{row.title}》"
+        return row.id, _snapshot(row, {"status", "actual_resolve_chapter_id", "actual_resolve_chapter_number", "resolution_text"}), f"Resolvido no capítulo {chapter.chapter_number}: foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_preview_abandon(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
         before = _snapshot(row, {"status", "resolution_notes"})
         after = {"status": "abandoned", "resolution_notes": self._data(arguments).get("reason", row.resolution_notes)}
-        return before, after, f"废弃伏笔《{row.title}》"
+        return before, after, f"Abandonar o foreshadowing «{row.title}»"
 
     async def _manage_foreshadow_abandon(self, arguments: dict[str, Any]):
         row = await self._find_foreshadow(arguments)
         row.status = "abandoned"
         row.resolution_notes = self._data(arguments).get("reason", row.resolution_notes)
-        return row.id, _snapshot(row, {"status", "resolution_notes"}), f"已废弃伏笔《{row.title}》"
+        return row.id, _snapshot(row, {"status", "resolution_notes"}), f"Foreshadowing «{row.title}» abandonado"
 
     # --- 职业管理 ---
 
     def _career_fields(self, data: dict[str, Any]) -> dict[str, Any]:
         fields = self._fields(data, self.CAREER_FIELDS)
         if "type" in fields and fields["type"] not in {"main", "sub"}:
-            raise ValueError("职业 type 必须是 main 或 sub")
+            raise ValueError("O type da carreira deve ser main ou sub")
         if "stages" in fields:
             if not isinstance(fields["stages"], list) or not fields["stages"]:
-                raise ValueError("stages 必须是非空列表")
+                raise ValueError("stages deve ser uma lista não vazia")
             fields["stages"] = json.dumps(fields["stages"], ensure_ascii=False)
         if "attribute_bonuses" in fields:
             fields["attribute_bonuses"] = json.dumps(fields["attribute_bonuses"], ensure_ascii=False) if fields["attribute_bonuses"] is not None else None
@@ -1062,55 +1062,55 @@ class ProjectAgentExtendedTools:
         raw = self._data(arguments)
         fields = self._career_fields(raw)
         if not str(fields.get("name") or "").strip() or fields.get("type") not in {"main", "sub"} or "stages" not in fields:
-            raise ValueError("创建职业需要 name、type 和 stages")
+            raise ValueError("Criar uma carreira exige name, type e stages")
         display = dict(raw)
-        return {}, display, f"创建职业《{fields['name']}》"
+        return {}, display, f"Criar a carreira «{fields['name']}»"
 
     async def _manage_career_create(self, arguments: dict[str, Any]):
         fields = self._career_fields(self._data(arguments))
         row = Career(project_id=self.project.id, source="manual", **fields)
         self.db.add(row)
         await self.db.flush()
-        return row.id, self._career_data(row), f"已创建职业《{row.name}》"
+        return row.id, self._career_data(row), f"Carreira «{row.name}» criada"
 
     async def _manage_career_preview_update(self, arguments: dict[str, Any]):
         row = await self._find_career(arguments)
         raw = self._data(arguments)
         fields = self._career_fields(raw)
         before = {key: self._parse_json(getattr(row, key), None) if key in {"stages", "attribute_bonuses"} else _value(getattr(row, key)) for key in fields}
-        return before, raw, f"更新职业《{row.name}》"
+        return before, raw, f"Atualizar a carreira «{row.name}»"
 
     async def _manage_career_update(self, arguments: dict[str, Any]):
         row = await self._find_career(arguments)
         fields = self._career_fields(self._data(arguments))
         for key, value in fields.items(): setattr(row, key, value)
-        return row.id, self._career_data(row), f"已更新职业《{row.name}》"
+        return row.id, self._career_data(row), f"Carreira «{row.name}» atualizada"
 
     async def _manage_career_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_career(arguments)
         usage_count = (await self.db.execute(select(func.count(CharacterCareer.id)).where(CharacterCareer.career_id == row.id))).scalar_one()
         if usage_count:
-            raise ValueError(f"该职业仍被 {usage_count} 个角色使用，请先移除职业关联")
-        return self._career_data(row), {}, f"删除职业《{row.name}》"
+            raise ValueError(f"Esta carreira ainda é usada por {usage_count} personagem(ns); remova primeiro os vínculos com a carreira")
+        return self._career_data(row), {}, f"Excluir a carreira «{row.name}»"
 
     async def _manage_career_delete(self, arguments: dict[str, Any]):
         row = await self._find_career(arguments)
         entity_id, name = row.id, row.name
         await self.db.delete(row)
-        return entity_id, {}, f"已删除职业《{name}》"
+        return entity_id, {}, f"Carreira «{name}» excluída"
 
     async def _prepare_character_career(self, arguments: dict[str, Any], expected_type: str | None = None) -> tuple[Character, Career, dict[str, Any]]:
         character = await self._find_character(arguments)
         career = await self._find_career(arguments)
         data = self._data(arguments)
         if expected_type and career.type != expected_type:
-            raise ValueError(f"该职业不是 {expected_type} 类型")
+            raise ValueError(f"Esta carreira não é do tipo {expected_type}")
         stage = int(data.get("current_stage", 1))
         if stage < 1 or stage > career.max_stage:
-            raise ValueError(f"职业阶段必须在 1 到 {career.max_stage} 之间")
+            raise ValueError(f"O estágio da carreira deve estar entre 1 e {career.max_stage} (inclusive)")
         progress = data.get("stage_progress", 0)
         if isinstance(progress, bool) or not isinstance(progress, int) or not 0 <= progress <= 100:
-            raise ValueError("stage_progress 必须是 0 到 100 的整数")
+            raise ValueError("stage_progress deve ser um inteiro de 0 a 100")
         return character, career, data
 
     async def _manage_career_preview_set_main(self, arguments: dict[str, Any]):
@@ -1118,7 +1118,7 @@ class ProjectAgentExtendedTools:
         current = (await self.db.execute(select(CharacterCareer, Career).join(Career, CharacterCareer.career_id == Career.id).where(CharacterCareer.character_id == character.id, CharacterCareer.career_type == "main"))).one_or_none()
         before = {"career_id": current[0].career_id, "career_name": current[1].name, "current_stage": current[0].current_stage} if current else {}
         after = {"career_id": career.id, "career_name": career.name, "current_stage": int(data.get("current_stage", 1)), "started_at": data.get("started_at")}
-        return before, after, f"设置角色《{character.name}》主职业为《{career.name}》"
+        return before, after, f"Definir a carreira principal do personagem «{character.name}» como «{career.name}»"
 
     async def _manage_career_set_main(self, arguments: dict[str, Any]):
         character, career, data = await self._prepare_character_career(arguments, "main")
@@ -1130,15 +1130,15 @@ class ProjectAgentExtendedTools:
         self.db.add(row)
         character.main_career_id, character.main_career_stage = career.id, row.current_stage
         await self.db.flush()
-        return row.id, {"character_id": character.id, "career_id": career.id, "current_stage": row.current_stage}, f"已设置角色《{character.name}》主职业为《{career.name}》"
+        return row.id, {"character_id": character.id, "career_id": career.id, "current_stage": row.current_stage}, f"Carreira principal do personagem «{character.name}» definida como «{career.name}»"
 
     async def _manage_career_preview_add_sub(self, arguments: dict[str, Any]):
         character, career, data = await self._prepare_character_career(arguments, "sub")
         exists = (await self.db.execute(select(CharacterCareer.id).where(CharacterCareer.character_id == character.id, CharacterCareer.career_id == career.id))).scalar_one_or_none()
         if exists:
-            raise ValueError("角色已经拥有该副职业")
+            raise ValueError("O personagem já tem esta carreira secundária")
         after = {"career_id": career.id, "career_name": career.name, "current_stage": int(data.get("current_stage", 1))}
-        return {}, after, f"为角色《{character.name}》添加副职业《{career.name}》"
+        return {}, after, f"Adicionar ao personagem «{character.name}» a carreira secundária «{career.name}»"
 
     async def _manage_career_add_sub(self, arguments: dict[str, Any]):
         character, career, data = await self._prepare_character_career(arguments, "sub")
@@ -1146,13 +1146,13 @@ class ProjectAgentExtendedTools:
         self.db.add(row)
         await self.db.flush()
         await self._sync_character_sub_careers(character)
-        return row.id, {"character_id": character.id, "career_id": career.id, "current_stage": row.current_stage}, f"已为角色《{character.name}》添加副职业《{career.name}》"
+        return row.id, {"character_id": character.id, "career_id": career.id, "current_stage": row.current_stage}, f"Adicionada ao personagem «{character.name}» a carreira secundária «{career.name}»"
 
     async def _find_character_career(self, arguments: dict[str, Any]) -> tuple[CharacterCareer, Character, Career]:
         character, career, _ = await self._prepare_character_career(arguments)
         row = (await self.db.execute(select(CharacterCareer).where(CharacterCareer.character_id == character.id, CharacterCareer.career_id == career.id))).scalar_one_or_none()
         if not row:
-            raise ValueError("角色职业关联不存在")
+            raise ValueError("O vínculo personagem-carreira não existe")
         return row, character, career
 
     async def _manage_career_preview_update_stage(self, arguments: dict[str, Any]):
@@ -1160,10 +1160,10 @@ class ProjectAgentExtendedTools:
         data = self._data(arguments)
         stage = int(data.get("current_stage", row.current_stage))
         if stage < 1 or stage > career.max_stage:
-            raise ValueError(f"职业阶段必须在 1 到 {career.max_stage} 之间")
+            raise ValueError(f"O estágio da carreira deve estar entre 1 e {career.max_stage} (inclusive)")
         before = _snapshot(row, {"current_stage", "stage_progress", "reached_current_stage_at", "notes"})
         after = {"current_stage": stage, "stage_progress": int(data.get("stage_progress", row.stage_progress or 0)), "reached_current_stage_at": data.get("reached_current_stage_at", row.reached_current_stage_at), "notes": data.get("notes", row.notes)}
-        return before, after, f"更新角色《{character.name}》的职业《{career.name}》阶段"
+        return before, after, f"Atualizar o estágio do personagem «{character.name}» na carreira «{career.name}»"
 
     async def _manage_career_update_stage(self, arguments: dict[str, Any]):
         row, character, career = await self._find_character_career(arguments)
@@ -1176,13 +1176,13 @@ class ProjectAgentExtendedTools:
             character.main_career_stage = row.current_stage
         else:
             await self._sync_character_sub_careers(character)
-        return row.id, _snapshot(row, {"current_stage", "stage_progress", "reached_current_stage_at", "notes"}), f"已更新角色《{character.name}》的职业《{career.name}》阶段"
+        return row.id, _snapshot(row, {"current_stage", "stage_progress", "reached_current_stage_at", "notes"}), f"Estágio do personagem «{character.name}» na carreira «{career.name}» atualizado"
 
     async def _manage_career_preview_remove_sub(self, arguments: dict[str, Any]):
         row, character, career = await self._find_character_career(arguments)
         if row.career_type != "sub":
-            raise ValueError("主职业不能移除，只能更换")
-        return _snapshot(row, {"career_id", "current_stage", "stage_progress"}), {}, f"移除角色《{character.name}》副职业《{career.name}》"
+            raise ValueError("A carreira principal não pode ser removida, apenas trocada")
+        return _snapshot(row, {"career_id", "current_stage", "stage_progress"}), {}, f"Remover do personagem «{character.name}» a carreira secundária «{career.name}»"
 
     async def _manage_career_remove_sub(self, arguments: dict[str, Any]):
         row, character, career = await self._find_character_career(arguments)
@@ -1190,7 +1190,7 @@ class ProjectAgentExtendedTools:
         await self.db.delete(row)
         await self.db.flush()
         await self._sync_character_sub_careers(character)
-        return entity_id, {}, f"已移除角色《{character.name}》副职业《{career.name}》"
+        return entity_id, {}, f"Removida do personagem «{character.name}» a carreira secundária «{career.name}»"
 
     async def _sync_character_sub_careers(self, character: Character) -> None:
         rows = (await self.db.execute(select(CharacterCareer).where(CharacterCareer.character_id == character.id, CharacterCareer.career_type == "sub"))).scalars().all()
