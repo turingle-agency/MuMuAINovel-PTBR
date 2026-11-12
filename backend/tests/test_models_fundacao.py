@@ -29,3 +29,17 @@ def test_language_name_fallback():
     assert language_name("es-MX") == "espanhol (México)"
     assert language_name("xx") == "português do Brasil"
     assert language_name(None) == "português do Brasil"
+
+
+def test_schema_valida_idioma():
+    import pytest
+    from pydantic import ValidationError
+    from app.schemas.project import ProjectCreate, ProjectUpdate
+
+    assert ProjectCreate(title="T", language="es-MX").language == "es-MX"
+    assert ProjectUpdate(language="es-MX").language == "es-MX"
+    assert ProjectUpdate().language is None
+    with pytest.raises(ValidationError, match="Idioma não suportado: fr-FR"):
+        ProjectCreate(title="T", language="fr-FR")
+    with pytest.raises(ValidationError, match="Idioma não suportado: fr-FR"):
+        ProjectUpdate(language="fr-FR")

@@ -1,7 +1,14 @@
 """项目相关的Pydantic模型"""
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
+from app.constants.languages import SUPPORTED_LANGUAGES
 from typing import Optional, Literal
 from datetime import datetime
+
+
+def _checar_idioma(v):
+    if v is not None and v not in SUPPORTED_LANGUAGES:
+        raise ValueError(f"Idioma não suportado: {v}")
+    return v
 
 
 class ProjectBase(BaseModel):
@@ -19,6 +26,11 @@ class ProjectBase(BaseModel):
     project_type: Literal["fiction", "lowticket"] = Field(default="fiction", description="Tipo de projeto")
     series_id: Optional[str] = Field(None, description="ID da série")
     volume_number: Optional[int] = Field(None, description="Número do volume na série")
+
+    @field_validator("language")
+    @classmethod
+    def _validar_idioma(cls, v: str) -> str:
+        return _checar_idioma(v)
 
 
 class ProjectCreate(ProjectBase):
@@ -46,6 +58,11 @@ class ProjectUpdate(BaseModel):
     project_type: Optional[Literal["fiction", "lowticket"]] = None
     series_id: Optional[str] = None
     volume_number: Optional[int] = None
+
+    @field_validator("language")
+    @classmethod
+    def _validar_idioma(cls, v):
+        return _checar_idioma(v)
     # current_words 由章节内容自动计算，不允许手动修改
 
 
