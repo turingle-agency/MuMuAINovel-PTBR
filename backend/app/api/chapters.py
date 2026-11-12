@@ -1822,9 +1822,9 @@ async def generate_chapter_content_stream(
                     # 每5个chunk发送一次进度更新
                     if chunk_count % 5 == 0:
                         yield await tracker.generating(
-                            current_chars=len(full_content),
+                            current_chars=count_words(full_content),
                             estimated_total=target_word_count,
-                            message=f'正在创作中... 已生成 {len(full_content)} 字'
+                            message=f'正在创作中... 已生成 {count_words(full_content)} 字'
                         )
                     
                     # 每20个chunk发送心跳
@@ -2308,9 +2308,9 @@ async def _run_chapter_generation_bg(
         # 每10个chunk更新一次进度
         if chunk_count % 10 == 0:
             await tracker.generating(
-                current_chars=len(full_content),
+                current_chars=count_words(full_content),
                 estimated_total=target_word_count,
-                message=f'正在创作中... 已生成 {len(full_content)} 字'
+                message=f'正在创作中... 已生成 {count_words(full_content)} 字'
             )
 
         await asyncio.sleep(0)
@@ -2845,9 +2845,9 @@ async def _run_chapter_generation_bg(
         # 每10个chunk更新一次进度
         if chunk_count % 10 == 0:
             await tracker.generating(
-                current_chars=len(full_content),
+                current_chars=count_words(full_content),
                 estimated_total=target_word_count,
-                message=f'正在创作中... 已生成 {len(full_content)} 字'
+                message=f'正在创作中... 已生成 {count_words(full_content)} 字'
             )
 
         await asyncio.sleep(0)
@@ -4704,9 +4704,9 @@ async def regenerate_chapter_stream(
                         # 定期更新进度
                         if len(full_content) % 500 == 0:
                             yield await tracker.generating(
-                                current_chars=len(full_content),
+                                current_chars=count_words(full_content),
                                 estimated_total=estimated_total,
-                                message=f'重新生成中... 已生成 {len(full_content)} 字'
+                                message=f'重新生成中... 已生成 {count_words(full_content)} 字'
                             )
                     elif event['type'] == 'progress':
                         # 进度更新 - 映射到对应阶段
@@ -4716,7 +4716,7 @@ async def regenerate_chapter_stream(
                             yield await tracker.preparing(message)
                         elif progress < 85:
                             yield await tracker.generating(
-                                current_chars=len(full_content),
+                                current_chars=count_words(full_content),
                                 estimated_total=estimated_total,
                                 message=message
                             )
@@ -5117,9 +5117,9 @@ async def partial_regenerate_stream(
                 # 每5个chunk发送一次进度更新
                 if chunk_count % 5 == 0:
                     yield await tracker.generating(
-                        current_chars=len(full_content),
+                        current_chars=count_words(full_content),
                         estimated_total=target_words,
-                        message=f'正在重写中... 已生成 {len(full_content)} 字'
+                        message=f'正在重写中... 已生成 {count_words(full_content)} 字'
                     )
                 
                 await asyncio.sleep(0)
