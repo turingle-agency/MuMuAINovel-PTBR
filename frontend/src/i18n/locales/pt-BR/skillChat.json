@@ -1,0 +1,15 @@
+{
+  "falhaCarregarLista": "Falha ao carregar a lista de Skills",
+  "falhaNaRequisicao": "Falha na requisição",
+  "naoFoiPossivel": "Não foi possível ler o fluxo de resposta",
+  "falhaNaGeracao": "Falha na geração",
+  "falhaRequisicaoVerifique": "Falha na requisição, verifique a configuração da IA",
+  "voltar": "← Voltar",
+  "selecionado": "Selecionado: «{{template_name}}»",
+  "descrevaVocePrecisa": "Descreva o que você precisa para começar a conversa, ou use diretamente os gatilhos: {{triggers}}",
+  "pensando": "Pensando...",
+  "descrevaVocePrecisa2": "Descreva o que você precisa...",
+  "caixaDeSkills": "Caixa de Skills",
+  "escolhaSkillComecar": "Escolha uma Skill para começar uma conversa de criação. Cada Skill tem um fluxo de escrita profissional e uma base de conhecimento.",
+  "skills": "{{groupedSkillsCount}} Skills"
+}
