@@ -8,6 +8,7 @@ from typing import Any
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.utils.text_metrics import count_words
 from app.models.career import Career, CharacterCareer
 from app.models.chapter import Chapter
 from app.models.character import Character
@@ -718,7 +719,7 @@ class ProjectAgentExtendedTools:
         data = self._data(arguments)
         old_count = row.word_count or 0
         row.content = data["content"]
-        row.word_count = len(row.content or "")
+        row.word_count = count_words(row.content)
         if "status" in data:
             row.status = data["status"]
         self.project.current_words = max(0, (self.project.current_words or 0) - old_count + row.word_count)

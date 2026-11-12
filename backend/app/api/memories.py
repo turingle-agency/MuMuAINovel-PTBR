@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_, desc, delete
 from typing import List, Optional
+from app.utils.text_metrics import count_words
 from app.database import get_db
 from app.models.memory import StoryMemory, PlotAnalysis
 from app.models.chapter import Chapter
@@ -88,7 +89,7 @@ async def analyze_chapter(
             chapter_number=chapter.chapter_number,
             title=chapter.title,
             content=chapter.content,
-            word_count=chapter.word_count or len(chapter.content),
+            word_count=chapter.word_count or count_words(chapter.content),
             user_id=user_id,
             db=db,
             existing_foreshadows=existing_foreshadows

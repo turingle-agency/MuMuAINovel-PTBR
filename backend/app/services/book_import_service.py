@@ -16,6 +16,7 @@ from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.api.common import verify_project_access
+from app.utils.text_metrics import count_words
 from app.config import settings as app_settings
 from app.database import get_engine
 from app.logger import get_logger
@@ -806,7 +807,7 @@ class BookImportService:
         total_words = 0
         for item in sorted(chapters, key=lambda x: x.chapter_number):
             chapter_number = chapter_number_offset + item.chapter_number
-            word_count = len(item.content or "")
+            word_count = count_words(item.content)
 
             chapter = Chapter(
                 project_id=project_id,

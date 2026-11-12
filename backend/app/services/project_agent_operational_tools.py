@@ -11,6 +11,7 @@ from fastapi import BackgroundTasks, HTTPException
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.utils.text_metrics import count_words
 from app.models.analysis_task import AnalysisTask
 from app.models.background_task import BackgroundTask
 from app.models.batch_generation_task import BatchGenerationTask
@@ -759,10 +760,10 @@ class ProjectAgentOperationalTools:
         if action in {"all", "word_counts"}:
             chapters = (await self.db.execute(select(Chapter).where(Chapter.project_id == self.project.id))).scalars().all()
             plan["chapter_word_count_mismatches"] = sum(
-                1 for row in chapters if (row.word_count or 0) != len(row.content or "")
+                1 for row in chapters if (row.word_count or 0) != count_words(row.content)
             )
             plan["project_current_words_before"] = self.project.current_words or 0
-            plan["project_current_words_after"] = sum(len(row.content or "") for row in chapters)
+            plan["project_current_words_after"] = sum(count_words(row.content) for row in chapters)
         return plan
 
     async def _repair_project_consistency_preview_all(self, arguments):
@@ -857,7 +858,7 @@ class ProjectAgentOperationalTools:
             fixed = 0
             total = 0
             for row in chapters:
-                actual = len(row.content or "")
+                actual = count_words(row.content)
                 fixed += int((row.word_count or 0) != actual)
                 row.word_count = actual
                 total += actual
@@ -1010,7 +1011,7 @@ class ProjectAgentOperationalTools:
         new_text = arguments["new_text"]
         after_content = content[:start] + new_text + content[end:]
         before = {"selected_text": expected, "word_count": chapter.word_count or 0}
-        after = {"selected_text": new_text, "word_count": len(after_content)}
+        after = {"selected_text": new_text, "word_count": count_words(after_content)}
         return before, after, f"替换第{chapter.chapter_number}章《{chapter.title}》正文片段", chapter.id
 
     async def _replace_chapter_text_execute(self, arguments: dict[str, Any]):
@@ -1019,7 +1020,7 @@ class ProjectAgentOperationalTools:
         start, end = arguments["start_position"], arguments["end_position"]
         old_count = chapter.word_count or 0
         chapter.content = content[:start] + arguments["new_text"] + content[end:]
-        chapter.word_count = len(chapter.content)
+        chapter.word_count = count_words(chapter.content)
         self.project.current_words = max(0, (self.project.current_words or 0) - old_count + chapter.word_count)
         return chapter.id, {"word_count": chapter.word_count}, f"已替换第{chapter.chapter_number}章《{chapter.title}》正文片段"
 

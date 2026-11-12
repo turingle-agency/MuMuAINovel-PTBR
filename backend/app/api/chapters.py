@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 from asyncio import Queue, Lock
 
 from app.database import get_db, get_engine
+from app.utils.text_metrics import count_words, estimate_max_tokens
 from app.api.common import verify_project_access
 from app.services.chapter_context_service import (
     OneToManyContextBuilder,
@@ -148,7 +149,7 @@ async def create_chapter(
     project = await verify_project_access(chapter.project_id, user_id, db)
     
     # 计算字数(处理content可能为None的情况)
-    word_count = len(chapter.content) if chapter.content else 0
+    word_count = count_words(chapter.content)
     
     db_chapter = Chapter(
         **chapter.model_dump(),
@@ -345,7 +346,7 @@ async def update_chapter(
     
     # 如果内容更新了，重新计算字数（包括清空内容的情况）
     if "content" in update_data:
-        new_word_count = len(chapter.content) if chapter.content else 0
+        new_word_count = count_words(chapter.content)
         chapter.word_count = new_word_count
         
         # 更新项目字数
@@ -1109,7 +1110,7 @@ async def _analyze_chapter_background_impl(
             chapter_number=chapter.chapter_number,
             title=chapter.title,
             content=chapter.content,
-            word_count=chapter.word_count or len(chapter.content),
+            word_count=chapter.word_count or count_words(chapter.content),
             existing_foreshadows=existing_foreshadows,
             on_retry=on_retry_callback,
             characters_info=characters_info
@@ -1779,15 +1780,13 @@ async def generate_chapter_content_stream(
                 # 🔢 计算 max_tokens 限制
                 # 中文字符约 1.5-2 个 token，使用 2.5 倍系数确保有足够空间完成段落
                 # 同时设置上限防止过长，下限确保基本可用
-                calculated_max_tokens = int(target_word_count * 3)
-                calculated_max_tokens = max(2000, min(calculated_max_tokens, 16000))  # 限制在 2000-16000 之间
+                calculated_max_tokens = estimate_max_tokens(target_word_count)
                 logger.info(f"📊 目标字数: {target_word_count}, 计算 max_tokens: {calculated_max_tokens}")
                 
                 # 🔢 计算 max_tokens 限制
                 # 中文字符约 1.5-2 个 token，使用 2.5 倍系数确保有足够空间完成段落
                 # 同时设置上限防止过长，下限确保基本可用
-                calculated_max_tokens = int(target_word_count * 3)
-                calculated_max_tokens = max(2000, min(calculated_max_tokens, 16000))  # 限制在 2000-16000 之间
+                calculated_max_tokens = estimate_max_tokens(target_word_count)
                 logger.info(f"📊 目标字数: {target_word_count}, 计算 max_tokens: {calculated_max_tokens}")
                 
                 # 准备生成参数
@@ -1840,7 +1839,7 @@ async def generate_chapter_content_stream(
                 # 更新章节内容到数据库
                 old_word_count = current_chapter.word_count or 0
                 current_chapter.content = full_content
-                new_word_count = len(full_content)
+                new_word_count = count_words(full_content)
                 current_chapter.word_count = new_word_count
                 current_chapter.status = "completed"
                 current_chapter.summary = _build_lightweight_chapter_summary(full_content)
@@ -2276,8 +2275,7 @@ async def _run_chapter_generation_bg(
 ⚠️ 请严格遵循上述写作风格要求进行创作，这是最重要的指令！
 确保在整个章节创作过程中始终保持风格的一致性。"""
 
-    calculated_max_tokens = int(target_word_count * 3)
-    calculated_max_tokens = max(2000, min(calculated_max_tokens, 16000))
+    calculated_max_tokens = estimate_max_tokens(target_word_count)
 
     generate_kwargs = {
         "prompt": prompt,
@@ -2336,7 +2334,7 @@ async def _run_chapter_generation_bg(
 
         old_word_count = current_chapter.word_count or 0
         current_chapter.content = full_content
-        new_word_count = len(full_content)
+        new_word_count = count_words(full_content)
         current_chapter.word_count = new_word_count
         current_chapter.status = "completed"
         current_chapter.summary = _build_lightweight_chapter_summary(full_content)
@@ -2814,8 +2812,7 @@ async def _run_chapter_generation_bg(
 ⚠️ 请严格遵循上述写作风格要求进行创作，这是最重要的指令！
 确保在整个章节创作过程中始终保持风格的一致性。"""
 
-    calculated_max_tokens = int(target_word_count * 3)
-    calculated_max_tokens = max(2000, min(calculated_max_tokens, 16000))
+    calculated_max_tokens = estimate_max_tokens(target_word_count)
 
     generate_kwargs = {
         "prompt": prompt,
@@ -2870,7 +2867,7 @@ async def _run_chapter_generation_bg(
 
         old_word_count = current_chapter.word_count or 0
         current_chapter.content = full_content
-        new_word_count = len(full_content)
+        new_word_count = count_words(full_content)
         current_chapter.word_count = new_word_count
         current_chapter.status = "completed"
         current_chapter.summary = _build_lightweight_chapter_summary(full_content)
@@ -4354,8 +4351,7 @@ async def generate_single_chapter_for_batch(
     # 🔢 计算 max_tokens 限制（批量生成）
     # 中文字符约 1.5-2 个 token，使用 2.5 倍系数确保有足够空间完成段落
     # 同时设置上限防止过长，下限确保基本可用
-    calculated_max_tokens = int(target_word_count * 3)
-    calculated_max_tokens = max(2000, min(calculated_max_tokens, 16000))  # 限制在 2000-16000 之间
+    calculated_max_tokens = estimate_max_tokens(target_word_count)
     logger.info(f"📊 批量生成 - 目标字数: {target_word_count}, 计算 max_tokens: {calculated_max_tokens}")
     
     # 非流式生成内容
@@ -4398,7 +4394,7 @@ async def generate_single_chapter_for_batch(
     async with write_lock:
         old_word_count = chapter.word_count or 0
         chapter.content = full_content
-        new_word_count = len(full_content)
+        new_word_count = count_words(full_content)
         chapter.word_count = new_word_count
         chapter.status = "completed"
         chapter.summary = _build_lightweight_chapter_summary(full_content)
@@ -4659,7 +4655,7 @@ async def regenerate_chapter_stream(
                     preserve_elements=regenerate_request.preserve_elements.model_dump() if regenerate_request.preserve_elements else None,
                     status='running',
                     original_content=chapter.content,
-                    original_word_count=chapter.word_count or len(chapter.content),
+                    original_word_count=chapter.word_count or count_words(chapter.content),
                     version_note=regenerate_request.version_note,
                     started_at=datetime.now()
                 )
@@ -4682,7 +4678,7 @@ async def regenerate_chapter_stream(
                 
                 # === 生成阶段 ===
                 full_content = ""
-                estimated_total = regenerate_request.target_word_count or len(chapter.content)
+                estimated_total = regenerate_request.target_word_count or count_words(chapter.content)
                 
                 yield await tracker.generating(
                     current_chars=0,
@@ -4735,7 +4731,7 @@ async def regenerate_chapter_stream(
                 # 更新任务状态
                 regen_task.status = 'completed'
                 regen_task.regenerated_content = full_content
-                regen_task.regenerated_word_count = len(full_content)
+                regen_task.regenerated_word_count = count_words(full_content)
                 regen_task.completed_at = datetime.now()
                 
                 # 计算差异统计
@@ -4752,7 +4748,7 @@ async def regenerate_chapter_stream(
                 # 发送结果数据
                 yield await tracker.result({
                     'task_id': task_id,
-                    'word_count': len(full_content),
+                    'word_count': count_words(full_content),
                     'version_number': regen_task.version_number,
                     'auto_applied': regenerate_request.auto_apply,
                     'diff_stats': diff_stats
@@ -5045,7 +5041,7 @@ async def partial_regenerate_stream(
             
             # 原文
             original_text = partial_request.selected_text
-            original_word_count = len(original_text)
+            original_word_count = count_words(original_text)
             
             logger.info(f"📝 局部重写 - 原文: {original_word_count}字, 前文: {len(context_before)}字, 后文: {len(context_after)}字")
             
@@ -5097,7 +5093,7 @@ async def partial_regenerate_stream(
             else:
                 target_words = int(original_word_count * 1.5)
             
-            calculated_max_tokens = max(500, min(int(target_words * 3), 8000))
+            calculated_max_tokens = estimate_max_tokens(target_words, floor=500, ceiling=8000)
             
             # 流式生成
             full_content = ""
@@ -5150,7 +5146,7 @@ async def partial_regenerate_stream(
                (full_content.startswith('『') and full_content.endswith('』')):
                 full_content = full_content[1:-1]
             
-            new_word_count = len(full_content)
+            new_word_count = count_words(full_content)
             
             logger.info(f"✅ 局部重写完成: 原文{original_word_count}字 -> 新文{new_word_count}字")
             
@@ -5222,7 +5218,7 @@ async def apply_partial_regenerate(
     # 构建新内容
     old_word_count = chapter.word_count or 0
     new_content = chapter.content[:start_position] + new_text + chapter.content[end_position:]
-    new_word_count = len(new_content)
+    new_word_count = count_words(new_content)
     
     # 更新章节
     chapter.content = new_content
