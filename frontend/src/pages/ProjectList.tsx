@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, Button, Modal, message, Spin, Space, Tag, Typography, Upload, Checkbox, Tooltip, Drawer, Menu, theme } from 'antd';
 import { EditOutlined, BookOutlined, CalendarOutlined, FileTextOutlined, TrophyOutlined, SettingOutlined, UploadOutlined, ApiOutlined, FileSearchOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbOutlined, MoonOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import { authApi, projectApi } from '../services/api';
 import { useStore } from '../store';
 import { useProjectSync } from '../store/hooks';
@@ -38,6 +39,9 @@ const formatWordCount = (count: number): string => {
     return (count / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   }
 };
+
+const COVER_POLL_INTERVAL_MS = 5000;
+const COVER_POLL_MAX_MS = 12 * 60 * 1000;
 
 type ProjectListView = 'projects' | 'settings' | 'system-settings' | 'mcp' | 'prompts' | 'book-import';
 
@@ -173,6 +177,54 @@ export default function ProjectList() {
     }
   };
 
+  // Se o navegador desistir da requisição (ou houver 409 por reenvio), a geração segue no
+  // servidor: acompanhamos o `cover_status` em vez de mostrar falha.
+  const coverPollingRef = useRef<Set<string>>(new Set());
+  const unmountedRef = useRef(false);
+  useEffect(() => {
+    unmountedRef.current = false;
+    return () => { unmountedRef.current = true; };
+  }, []);
+
+  const pollCoverStatus = useCallback(async (project: Project) => {
+    if (coverPollingRef.current.has(project.id)) return;
+    coverPollingRef.current.add(project.id);
+    const key = `cover-${project.id}`;
+    message.loading({ content: t('capaAindaEmGeracao', { title: project.title }), key, duration: 0 });
+    try {
+      const deadline = Date.now() + COVER_POLL_MAX_MS;
+      while (Date.now() < deadline && !unmountedRef.current) {
+        await new Promise((resolve) => setTimeout(resolve, COVER_POLL_INTERVAL_MS));
+        let current: Project;
+        try {
+          current = await projectApi.getProjectQuiet(project.id);
+        } catch {
+          continue;
+        }
+        if (current.cover_status === 'generating') continue;
+        await refreshProjects();
+        if (current.cover_status === 'ready') {
+          message.success({ content: t('capaDeGeradaComSucesso', { title: project.title }), key });
+        } else {
+          message.error({ content: current.cover_error || t('falhaAoGerarACapa2', { title: project.title }), key });
+        }
+        return;
+      }
+      if (!unmountedRef.current) {
+        message.warning({ content: t('capaDemorandoMaisQueOEsperado', { title: project.title }), key });
+      } else {
+        message.destroy(key);
+      }
+    } finally {
+      coverPollingRef.current.delete(project.id);
+    }
+  }, [refreshProjects, t]);
+
+  // Capas que já estavam em geração ao abrir/recarregar a página
+  useEffect(() => {
+    projects.filter((p) => p.cover_status === 'generating').forEach((p) => { void pollCoverStatus(p); });
+  }, [projects, pollCoverStatus]);
+
   const handleGenerateCover = async (project: Project, overwrite: boolean = true) => {
     try {
       message.loading({ content: t('gerandoACapaDe', { title: project.title }), key: `cover-${project.id}` });
@@ -181,6 +233,12 @@ export default function ProjectList() {
       await refreshProjects();
     } catch (error) {
       console.error(t('falhaAoGerarACapa'), error);
+      if (axios.isAxiosError(error) && (error.response?.status === 409 || !error.response)) {
+        // Tempo esgotado no navegador, rede instável ou "já está em geração": confere o estado real.
+        await refreshProjects();
+        void pollCoverStatus(project);
+        return;
+      }
       message.error({ content: t('falhaAoGerarACapa2', { title: project.title }), key: `cover-${project.id}` });
     }
   };

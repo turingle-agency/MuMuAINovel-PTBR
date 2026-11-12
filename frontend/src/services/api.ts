@@ -1,4 +1,14 @@
 import axios from 'axios';
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    /**
+     * 'all': nenhum aviso global de erro (o chamador trata).
+     * 'transient': sem aviso global só para 409 e falhas de rede/tempo esgotado.
+     */
+    silentErrors?: 'all' | 'transient';
+  }
+}
 import { message } from 'antd';
 import { ssePost } from '../utils/sseClient';
 import type { SSEClientOptions } from '../utils/sseClient';
@@ -70,9 +80,14 @@ interface MCPPluginSimpleCreate {
   enabled: boolean;
 }
 
+// O backend deixa o Codex rodar até `codex_timeout_s` (600 s); chamadas que podem acionar
+// uma geração do Codex (request/response, sem SSE) precisam esperar mais que isso.
+export const DEFAULT_REQUEST_TIMEOUT = 120_000;
+export const LONG_REQUEST_TIMEOUT = 660_000;
+
 const api = axios.create({
   baseURL: '/api',
-  timeout: 120000,
+  timeout: DEFAULT_REQUEST_TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -148,7 +163,11 @@ api.interceptors.response.use(
       errorMessage = error.message || i18n.t('errors:falhaNaRequisicao');
     }
 
-    message.error(errorMessage);
+    const silent = error.config?.silentErrors;
+    const transient = error.response?.status === 409 || !error.response;
+    if (!(silent === 'all' || (silent === 'transient' && transient))) {
+      message.error(errorMessage);
+    }
     console.error('API Error:', errorMessage, error);
 
     return Promise.reject(error);
@@ -247,7 +266,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>('/settings/test', params),
+    }>('/settings/test', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   testCoverConnection: (params: { cover_api_provider: string; cover_api_key: string; cover_api_base_url?: string; cover_image_model: string }) =>
     api.post<unknown, {
@@ -255,7 +274,7 @@ export const settingsApi = {
       message: string;
       provider?: string;
       model?: string;
-    }>('/settings/cover/test', params),
+    }>('/settings/cover/test', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   checkFunctionCalling: (params: { api_key?: string; api_base_url?: string; provider: string; llm_model: string }) =>
     api.post<unknown, {
@@ -285,7 +304,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>('/settings/check-function-calling', params),
+    }>('/settings/check-function-calling', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // API配置预设管理
   getPresets: () =>
@@ -315,7 +334,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>(`/settings/presets/${presetId}/test`),
+    }>(`/settings/presets/${presetId}/test`, undefined, { timeout: LONG_REQUEST_TIMEOUT }),
 
   setChapterAnalysisPresetSelection: (presetId?: string) =>
     api.put<unknown, { message: string; chapter_analysis_preset_id?: string; preset_name?: string }>('/settings/presets/usage/chapter-analysis', {
@@ -342,6 +361,10 @@ export const projectApi = {
 
   getProject: (id: string) => api.get<unknown, Project>(`/projects/${id}`),
 
+  // Consulta o estado da capa sem avisos de erro (usada no polling)
+  getProjectQuiet: (id: string) =>
+    api.get<unknown, Project>(`/projects/${id}`, { silentErrors: 'all' }),
+
   createProject: (data: ProjectCreate) => api.post<unknown, Project>('/projects', data),
 
   updateProject: (id: string, data: ProjectUpdate) =>
@@ -358,7 +381,7 @@ export const projectApi = {
       provider?: string;
       model?: string;
       message: string;
-    }>(`/projects/${id}/cover/generate`, { overwrite }),
+    }>(`/projects/${id}/cover/generate`, { overwrite }, { timeout: LONG_REQUEST_TIMEOUT, silentErrors: 'transient' }),
 
   downloadCover: async (id: string, filename?: string) => {
     const response = await axios.get(`/api/projects/${id}/cover/download`, {
@@ -580,7 +603,7 @@ export const outlineApi = {
     api.post<unknown, { message: string; updated_outlines: number; updated_chapters: number }>('/outlines/reorder', data),
 
   generateOutline: (data: GenerateOutlineRequest) =>
-    api.post<unknown, { total: number; items: Outline[] }>('/outlines/generate', data).then(res => res.items),
+    api.post<unknown, { total: number; items: Outline[] }>('/outlines/generate', data, { timeout: LONG_REQUEST_TIMEOUT }).then(res => res.items),
 
   // 获取大纲关联的章节
   getOutlineChapters: (outlineId: string) =>
@@ -618,7 +641,7 @@ export const outlineApi = {
 
   // 单个大纲展开为多章
   expandOutline: (outlineId: string, data: OutlineExpansionRequest) =>
-    api.post<unknown, OutlineExpansionResponse>(`/outlines/${outlineId}/expand`, data),
+    api.post<unknown, OutlineExpansionResponse>(`/outlines/${outlineId}/expand`, data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 根据已有规划创建章节（避免重复AI调用）
   createChaptersFromPlans: (outlineId: string, chapterPlans: ChapterPlanItem[]) =>
@@ -639,7 +662,7 @@ export const outlineApi = {
 
   // 批量展开大纲
   batchExpandOutlines: (data: BatchOutlineExpansionRequest) =>
-    api.post<unknown, BatchOutlineExpansionResponse>('/outlines/batch-expand', data),
+    api.post<unknown, BatchOutlineExpansionResponse>('/outlines/batch-expand', data, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 
 export const characterApi = {
@@ -677,7 +700,7 @@ export const characterApi = {
   deleteCharacter: (id: string) => api.delete(`/characters/${id}`),
 
   generateCharacter: (data: GenerateCharacterRequest) =>
-    api.post<unknown, Character>('/characters/generate', data),
+    api.post<unknown, Character>('/characters/generate', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 导出角色/组织
   exportCharacters: async (characterIds: string[]) => {
@@ -873,10 +896,10 @@ export const writingStyleApi = {
 
 export const polishApi = {
   polishText: (data: PolishTextRequest) =>
-    api.post<unknown, { polished_text: string }>('/polish', data),
+    api.post<unknown, { polished_text: string }>('/polish', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   polishBatch: (texts: string[]) =>
-    api.post<unknown, { polished_texts: string[] }>('/polish/batch', { texts }),
+    api.post<unknown, { polished_texts: string[] }>('/polish/batch', { texts }, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 export const inspirationApi = {
   // 生成选项建议
@@ -892,7 +915,7 @@ export const inspirationApi = {
       prompt?: string;
       options: string[];
       error?: string;
-    }>('/inspiration/generate-options', data),
+    }>('/inspiration/generate-options', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 基于用户反馈重新生成选项（新增）
   refineOptions: (data: {
@@ -910,7 +933,7 @@ export const inspirationApi = {
       prompt?: string;
       options: string[];
       error?: string;
-    }>('/inspiration/refine-options', data),
+    }>('/inspiration/refine-options', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 智能补全缺失信息
   quickGenerate: (data: {
@@ -925,7 +948,7 @@ export const inspirationApi = {
       theme: string;
       genre: string[];
       narrative_perspective: string;
-    }>('/inspiration/quick-generate', data),
+    }>('/inspiration/quick-generate', data, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 
 export default api;

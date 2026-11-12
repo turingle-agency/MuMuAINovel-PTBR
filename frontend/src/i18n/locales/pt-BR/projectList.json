@@ -8,6 +8,8 @@
   "gerandoACapaDe": "Gerando a capa de \"{{title}}\"...",
   "capaDeGeradaComSucesso": "Capa de \"{{title}}\" gerada com sucesso",
   "falhaAoGerarACapa": "Falha ao gerar a capa:",
+  "capaAindaEmGeracao": "A capa de \"{{title}}\" ainda está em geração; acompanhando o andamento...",
+  "capaDemorandoMaisQueOEsperado": "A capa de \"{{title}}\" está demorando mais que o esperado; verifique novamente em instantes.",
   "falhaAoGerarACapa2": "Falha ao gerar a capa de \"{{title}}\"",
   "oDownloadDaCapaDe": "O download da capa de \"{{title}}\" foi iniciado",
   "falhaAoBaixarACapa": "Falha ao baixar a capa:",
