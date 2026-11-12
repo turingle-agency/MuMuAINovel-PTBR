@@ -156,6 +156,7 @@ def _build_ai_service_from_config(
     user_id: str,
     db: AsyncSession,
     enable_mcp: bool,
+    fallback: Optional[FallbackConfig] = None,
 ) -> AIService:
     """基于指定配置创建AI服务。"""
     resolved_config = resolve_runtime_ai_config(
@@ -174,6 +175,7 @@ def _build_ai_service_from_config(
         db_session=db,
         system_prompt=config.get('system_prompt'),
         enable_mcp=enable_mcp,
+        fallback=fallback,
     )
 
 
@@ -335,6 +337,7 @@ async def get_user_ai_service_from_db_by_usage(
                     user_id=user_id,
                     db=db,
                     enable_mcp=enable_mcp,
+                    fallback=build_fallback_config(settings),
                 )
             logger.warning(f"用户 {user_id} 配置的章节内容分析预设不存在，回退默认API配置: {preset_id}")
 

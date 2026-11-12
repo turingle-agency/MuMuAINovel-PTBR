@@ -1630,8 +1630,10 @@ class BookImportService:
         mcp_plugins = mcp_result.scalars().all()
         enable_mcp = any(plugin.enabled for plugin in mcp_plugins) if mcp_plugins else False
 
-        if not user_settings.api_key:
+        if not user_settings.api_key and (user_settings.api_provider or "").lower().strip() != "codex":
             raise HTTPException(status_code=400, detail="未配置AI Key，无法执行拆书反向生成")
+
+        from app.api.settings import build_fallback_config
 
         return create_user_ai_service_with_mcp(
             api_provider=user_settings.api_provider,
@@ -1644,6 +1646,7 @@ class BookImportService:
             db_session=db,
             system_prompt=user_settings.system_prompt,
             enable_mcp=enable_mcp,
+            fallback=build_fallback_config(user_settings),
         )
 
     async def _run_post_import_wizard_generation(

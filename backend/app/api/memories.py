@@ -14,7 +14,7 @@ from app.services.plot_analyzer import get_plot_analyzer
 from app.services.foreshadow_service import foreshadow_service
 from app.services.ai_service import create_user_ai_service
 from app.models.settings import Settings
-from app.api.settings import resolve_runtime_ai_config
+from app.api.settings import build_fallback_config, resolve_runtime_ai_config
 from app.logger import get_logger
 from app.api.common import verify_project_access
 import uuid
@@ -74,7 +74,8 @@ async def analyze_chapter(
             api_base_url=runtime_config["api_base_url"],
             model_name=settings.llm_model,
             temperature=settings.temperature,
-            max_tokens=settings.max_tokens
+            max_tokens=settings.max_tokens,
+            fallback=build_fallback_config(settings),
         )
         
         # 获取已埋入的伏笔列表（用于回收匹配）

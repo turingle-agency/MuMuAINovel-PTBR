@@ -88,3 +88,21 @@ async def test_stream_sem_fallback_erro_claro(monkeypatch):
     with pytest.raises(HTTPException) as e:
         _ = [c async for c in svc.generate_text_stream(prompt="oi")]
     assert e.value.status_code == 503 and "não logado" in e.value.detail
+
+
+async def test_str_do_erro_e_so_o_detalhe_pt_br(monkeypatch):
+    # handlers SSE usam str(e): não pode virar "503: ..."
+    svc, _ = _servico(monkeypatch, "quota", com_fallback=False)
+    with pytest.raises(HTTPException) as e:
+        await svc.generate_text(prompt="oi")
+    assert str(e.value) == e.value.detail
+    assert str(e.value).startswith("O Codex não respondeu (cota esgotada)")
+
+
+async def test_sse_generator_envia_detalhe_pt_br(monkeypatch):
+    from app.utils.sse_response import create_sse_generator
+
+    svc, _ = _servico(monkeypatch, "quota", com_fallback=False)
+    saidas = [x async for x in create_sse_generator(svc.generate_text_stream(prompt="oi"))]
+    texto = "".join(saidas)
+    assert "O Codex não respondeu (cota esgotada)" in texto and "503:" not in texto

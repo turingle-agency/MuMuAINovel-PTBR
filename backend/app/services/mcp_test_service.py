@@ -162,7 +162,10 @@ class MCPTestService:
             )
             user_settings = settings_result.scalar_one_or_none()
             
-            if not user_settings or not user_settings.api_key:
+            if not user_settings or (
+                not user_settings.api_key
+                and (user_settings.api_provider or "").lower().strip() != "codex"
+            ):
                 # 没有AI配置，返回简单测试结果
                 logger.warning("用户未配置AI服务，跳过智能测试")
                 return MCPTestResult(
@@ -180,13 +183,16 @@ class MCPTestService:
             # 4. 使用AI选择工具并生成测试参数
             logger.info(f"使用AI分析工具并生成测试计划...")
             
+            from app.api.settings import build_fallback_config
+
             ai_service = create_user_ai_service(
                 api_provider=user_settings.api_provider,
                 api_key=user_settings.api_key,
                 api_base_url=user_settings.api_base_url,
                 model_name=user_settings.llm_model,
                 temperature=0.3,
-                max_tokens=1000
+                max_tokens=1000,
+                fallback=build_fallback_config(user_settings),
             )
             
             # 使用统一门面转换为OpenAI Function Calling格式

@@ -4,6 +4,7 @@ import tempfile
 from pathlib import Path
 from typing import Any, AsyncGenerator, Dict, List, Optional
 
+from app.config import settings as app_settings
 from app.logger import get_logger
 from .base_provider import BaseAIProvider
 
@@ -30,6 +31,10 @@ class CodexTimeoutError(CodexError):
 
 class CodexExecError(CodexError):
     """Qualquer outra falha de execução."""
+
+
+# Modelos padrão de outros providers que podem ter ficado salvos em llm_model.
+_MODELOS_NAO_CODEX = {"", "gpt-4"}
 
 
 _semaphore: Optional[asyncio.Semaphore] = None
@@ -84,7 +89,7 @@ class CodexProvider(BaseAIProvider):
                     self.binary, "exec", "--json", "--ephemeral", "--skip-git-repo-check",
                     "-s", "read-only", "-C", tmp, "-o", str(last),
                 ]
-                if model:
+                if model and model not in _MODELOS_NAO_CODEX and model != app_settings.default_model:
                     cmd += ["-m", model]
                 cmd.append("-")
 

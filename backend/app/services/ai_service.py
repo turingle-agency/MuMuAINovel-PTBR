@@ -57,6 +57,14 @@ class FallbackConfig:
     model: str
 
 
+class CodexUnavailableError(HTTPException):
+    """503 quando o Codex falha sem reserva. str(e) devolve só o texto PT-BR,
+    para que handlers SSE/background que usam str(e) não mostrem "503: ..."."""
+
+    def __str__(self) -> str:
+        return str(self.detail)
+
+
 def _codex_reason(error: CodexError) -> str:
     if isinstance(error, CodexQuotaError):
         return "cota esgotada"
@@ -248,7 +256,7 @@ class AIService:
         motivo = _codex_reason(error)
         if self._fallback_service is None:
             logger.error(f"Codex falhou ({motivo}) e não há API de reserva: {error}")
-            raise HTTPException(
+            raise CodexUnavailableError(
                 status_code=503,
                 detail=f"O Codex não respondeu ({motivo}). Configure uma API de reserva em Configurações.",
             ) from error

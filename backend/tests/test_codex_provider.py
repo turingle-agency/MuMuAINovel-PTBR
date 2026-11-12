@@ -73,3 +73,22 @@ async def test_codex_stream_entrega_tudo_de_uma_vez(monkeypatch):
     monkeypatch.setenv("FAKE_CODEX_MODE", "ok")
     chunks = [c async for c in CodexProvider(FAKE, 5, 2).generate_stream(**ARGS)]
     assert chunks == ["resposta falsa"]
+
+
+@pytest.mark.parametrize("modelo,passa", [("", False), ("gpt-4", False), ("gpt-5-codex", True)])
+async def test_codex_ignora_modelo_padrao_de_outro_provider(monkeypatch, tmp_path, modelo, passa):
+    args_file = tmp_path / "args.txt"
+    monkeypatch.setenv("FAKE_CODEX_MODE", "ok")
+    monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
+    await CodexProvider(FAKE, 5, 2).generate(**{**ARGS, "model": modelo})
+    assert ("-m" in args_file.read_text().split("\n")) is passa
+
+
+async def test_codex_ignora_default_model_das_configuracoes(monkeypatch, tmp_path):
+    from app.config import settings as app_settings
+    args_file = tmp_path / "args.txt"
+    monkeypatch.setenv("FAKE_CODEX_MODE", "ok")
+    monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
+    monkeypatch.setattr(app_settings, "default_model", "meu-modelo-padrao")
+    await CodexProvider(FAKE, 5, 2).generate(**{**ARGS, "model": "meu-modelo-padrao"})
+    assert "-m" not in args_file.read_text().split("\n")
