@@ -10,13 +10,13 @@ class User(Base):
     """用户模型 - 存储OAuth和本地用户信息"""
     __tablename__ = "users"
     
-    user_id = Column(String(100), primary_key=True, index=True, comment="用户ID，格式：linuxdo_{id} 或 local_{id}")
+    user_id = Column(String(100), primary_key=True, index=True, comment="用户ID，格式：local_{id} 等")
     username = Column(String(100), nullable=False, index=True, comment="用户名")
     display_name = Column(String(200), nullable=False, comment="显示名称")
     avatar_url = Column(String(500), nullable=True, comment="头像URL")
     trust_level = Column(Integer, default=0, comment="信任等级（仅用于显示）")
     is_admin = Column(Boolean, default=False, comment="是否为管理员")
-    linuxdo_id = Column(String(100), nullable=False, unique=True, index=True, comment="LinuxDO用户ID或本地用户ID")
+    linuxdo_id = Column(String(100), nullable=False, unique=True, index=True, comment="用户唯一ID（列名为历史遗留）")
     created_at = Column(DateTime(timezone=True), server_default=func.now(), comment="创建时间")
     last_login = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), comment="最后登录时间")
     

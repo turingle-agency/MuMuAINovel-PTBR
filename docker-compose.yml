@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-mumuai}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
-      TZ: ${TZ:-Asia/Shanghai}
+      TZ: ${TZ:-America/Sao_Paulo}
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./backend/scripts/init_postgres.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -65,8 +65,8 @@ services:
       - ./storage/generated_covers:/app/storage/generated_covers
       - ./.env:/app/.env:ro
     environment:
-      # 时区配置
-      - TZ=${TZ:-Asia/Shanghai}
+      # Fuso horário
+      - TZ=${TZ:-America/Sao_Paulo}
       
       # 应用配置
       - APP_NAME=${APP_NAME:-MuMuAINovel}
@@ -110,18 +110,13 @@ services:
       - ALLOW_PRIVATE_AI_ENDPOINTS=${ALLOW_PRIVATE_AI_ENDPOINTS:-false}
       - ALLOWED_AI_HOSTS=${ALLOWED_AI_HOSTS:-}
       
-      # LinuxDO OAuth 配置
-      - LINUXDO_CLIENT_ID=${LINUXDO_CLIENT_ID:-11111}
-      - LINUXDO_CLIENT_SECRET=${LINUXDO_CLIENT_SECRET:-11111}
-      - LINUXDO_REDIRECT_URI=${LINUXDO_REDIRECT_URI:-http://localhost:8000/api/auth/linuxdo/callback}
-      - LINUXDO_PROXY_URL=${LINUXDO_PROXY_URL:-}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8000}
       
-      # 本地账户登录配置
+      # Login local (administrador)
       - LOCAL_AUTH_ENABLED=${LOCAL_AUTH_ENABLED:-true}
       - LOCAL_AUTH_USERNAME=${LOCAL_AUTH_USERNAME:-admin}
       - LOCAL_AUTH_PASSWORD=${LOCAL_AUTH_PASSWORD:-admin123}
-      - LOCAL_AUTH_DISPLAY_NAME=${LOCAL_AUTH_DISPLAY_NAME:-本地管理员}
+      - LOCAL_AUTH_DISPLAY_NAME=${LOCAL_AUTH_DISPLAY_NAME:-Administrador}
       
       # 会话配置
       - SESSION_EXPIRE_MINUTES=${SESSION_EXPIRE_MINUTES:-120}

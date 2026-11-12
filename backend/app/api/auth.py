@@ -1,8 +1,7 @@
 """
-认证 API - LinuxDO OAuth2 登录 + 本地账户登录 + 邮箱验证码注册/登录
+认证 API - 本地账户登录 + 邮箱验证码注册/登录
 """
 from fastapi import APIRouter, HTTPException, Response, Request
-from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import Optional
 import hashlib
@@ -12,7 +11,6 @@ from datetime import datetime, timedelta, timezone
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from app.services.oauth_service import LinuxDOOAuthService
 from app.user_manager import user_manager, User as UserDTO
 from app.user_password import password_manager
 from app.logger import get_logger
@@ -36,22 +34,11 @@ logger = get_logger(__name__)
 
 router = APIRouter(prefix="/auth", tags=["认证"])
 
-# OAuth2 服务实例
-oauth_service = LinuxDOOAuthService()
-
-# State 临时存储（生产环境应使用 Redis）
-_state_storage = {}
-
 # 邮箱验证码临时存储（生产环境应使用 Redis）
 _email_verification_storage = {}
 MAX_VERIFICATION_ATTEMPTS = 5
 
 EMAIL_REGEX = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
-
-
-class AuthUrlResponse(BaseModel):
-    auth_url: str
-    state: str
 
 
 class LocalLoginRequest(BaseModel):
@@ -338,7 +325,6 @@ async def get_auth_config():
     runtime = await _get_auth_runtime_settings()
     return {
         "local_auth_enabled": settings.LOCAL_AUTH_ENABLED,
-        "linuxdo_enabled": bool(settings.LINUXDO_CLIENT_ID and settings.LINUXDO_CLIENT_SECRET),
         "email_auth_enabled": runtime["email_auth_enabled"],
         "email_register_enabled": runtime["email_register_enabled"],
     }
@@ -346,7 +332,7 @@ async def get_auth_config():
 
 @router.post("/local/login", response_model=LocalLoginResponse)
 async def local_login(request: LocalLoginRequest, response: Response):
-    """本地账户登录（支持.env配置的管理员账号和Linux DO授权后绑定的账号）"""
+    """本地账户登录（支持.env配置的管理员账号和已设置密码的本地用户）"""
     if not settings.LOCAL_AUTH_ENABLED:
         raise HTTPException(status_code=403, detail="本地账户登录未启用")
 
@@ -359,7 +345,7 @@ async def local_login(request: LocalLoginRequest, response: Response):
         password_username = await password_manager.get_username(user.user_id)
         if user.username == request.username or password_username == request.username:
             target_user = user
-            logger.info(f"[本地登录] 找到 Linux DO 授权用户: {user.user_id}")
+            logger.info(f"[本地登录] 找到已设置密码的用户: {user.user_id}")
             break
 
     if target_user:
@@ -371,10 +357,10 @@ async def local_login(request: LocalLoginRequest, response: Response):
             logger.warning(f"[本地登录] 用户 {target_user.user_id} 密码验证失败")
             raise HTTPException(status_code=401, detail="用户名或密码错误")
 
-        logger.info(f"[本地登录] Linux DO 授权用户 {target_user.user_id} 登录成功")
+        logger.info(f"[本地登录] 已设置密码的用户 {target_user.user_id} 登录成功")
         user = target_user
     else:
-        logger.info(f"[本地登录] 未找到 Linux DO 用户，检查 .env 管理员账号")
+        logger.info(f"[本地登录] 未找到本地用户，检查 .env 管理员账号")
 
         if not settings.LOCAL_AUTH_USERNAME or not settings.LOCAL_AUTH_PASSWORD:
             raise HTTPException(status_code=401, detail="用户名或密码错误")
@@ -386,8 +372,8 @@ async def local_login(request: LocalLoginRequest, response: Response):
             if request.username != settings.LOCAL_AUTH_USERNAME or request.password != settings.LOCAL_AUTH_PASSWORD:
                 raise HTTPException(status_code=401, detail="用户名或密码错误")
 
-            user = await user_manager.create_or_update_from_linuxdo(
-                linuxdo_id=user_id,
+            user = await user_manager.create_or_update_user(
+                external_id=user_id,
                 username=request.username,
                 display_name=settings.LOCAL_AUTH_DISPLAY_NAME,
                 avatar_url=None,
@@ -626,111 +612,6 @@ async def email_reset_password(request: EmailResetPasswordRequest):
     }
 
 
-@router.get("/linuxdo/url", response_model=AuthUrlResponse)
-async def get_linuxdo_auth_url():
-    """获取 LinuxDO 授权 URL"""
-    state = oauth_service.generate_state()
-    auth_url = oauth_service.get_authorization_url(state)
-
-    _state_storage[state] = True
-
-    return AuthUrlResponse(auth_url=auth_url, state=state)
-
-
-async def _handle_callback(
-    code: Optional[str] = None,
-    state: Optional[str] = None,
-    error: Optional[str] = None,
-    response: Response = None
-):
-    """
-    LinuxDO OAuth2 回调处理
-
-    成功后重定向到前端首页，并设置 user_id Cookie
-    """
-    if error:
-        raise HTTPException(status_code=400, detail=f"授权失败: {error}")
-
-    if not code or not state:
-        raise HTTPException(status_code=400, detail="缺少 code 或 state 参数")
-
-    if state not in _state_storage:
-        raise HTTPException(status_code=400, detail="无效的 state 参数")
-
-    del _state_storage[state]
-
-    token_data = await oauth_service.get_access_token(code)
-    if not token_data or "access_token" not in token_data:
-        raise HTTPException(status_code=400, detail="获取访问令牌失败")
-
-    access_token = token_data["access_token"]
-
-    user_info = await oauth_service.get_user_info(access_token)
-    if not user_info:
-        raise HTTPException(status_code=400, detail="获取用户信息失败")
-
-    linuxdo_id = str(user_info.get("id"))
-    username = user_info.get("username", "")
-    display_name = user_info.get("name", username)
-    avatar_url = user_info.get("avatar_url")
-    trust_level = user_info.get("trust_level", 0)
-
-    user = await user_manager.create_or_update_from_linuxdo(
-        linuxdo_id=linuxdo_id,
-        username=username,
-        display_name=display_name,
-        avatar_url=avatar_url,
-        trust_level=trust_level
-    )
-
-    is_first_login = not await password_manager.has_password(user.user_id)
-    if is_first_login:
-        logger.info(f"用户 {user.user_id} ({username}) 首次登录，需要初始化密码")
-
-    frontend_url = settings.FRONTEND_URL.rstrip('/')
-    redirect_url = f"{frontend_url}/auth/callback"
-    logger.info(f"OAuth回调成功，重定向到前端: {redirect_url}")
-    redirect_response = RedirectResponse(url=redirect_url)
-
-    _set_login_cookies(redirect_response, user.user_id)
-    logger.info(f"✅ [OAuth登录] 用户 {user.user_id} 登录成功，会话有效期 {settings.SESSION_EXPIRE_MINUTES} 分钟")
-
-    if is_first_login:
-        redirect_response.set_cookie(
-            key="first_login",
-            value="true",
-            max_age=300,
-            httponly=False,
-            samesite="lax",
-            secure=_is_session_cookie_secure(),
-        )
-        logger.info(f"✅ [OAuth登录] 用户 {user.user_id} 首次登录，已设置 first_login 标记")
-
-    return redirect_response
-
-
-@router.get("/linuxdo/callback")
-async def linuxdo_callback(
-    code: Optional[str] = None,
-    state: Optional[str] = None,
-    error: Optional[str] = None,
-    response: Response = None
-):
-    """LinuxDO OAuth2 回调处理（标准路径）"""
-    return await _handle_callback(code, state, error, response)
-
-
-@router.get("/callback")
-async def callback_alias(
-    code: Optional[str] = None,
-    state: Optional[str] = None,
-    error: Optional[str] = None,
-    response: Response = None
-):
-    """LinuxDO OAuth2 回调处理（兼容路径）"""
-    return await _handle_callback(code, state, error, response)
-
-
 @router.post("/refresh")
 async def refresh_session(request: Request, response: Response):
     """刷新会话 - 延长登录状态"""
@@ -842,7 +723,7 @@ async def initialize_user_password(request: Request, password_req: SetPasswordRe
     """
     初始化首次登录用户的密码
 
-    用于首次通过 Linux DO 授权登录的用户，可以选择设置自定义密码或使用默认密码
+    用于首次登录的用户，可以选择设置自定义密码或使用默认密码
     """
     if not hasattr(request.state, "user") or not request.state.user:
         raise HTTPException(status_code=401, detail="未登录")
@@ -865,7 +746,7 @@ async def initialize_user_password(request: Request, password_req: SetPasswordRe
 
 @router.post("/bind/login", response_model=LocalLoginResponse)
 async def bind_account_login(request: LocalLoginRequest, response: Response):
-    """使用绑定的账号密码登录（LinuxDO授权后绑定的账号）"""
+    """使用绑定的账号密码登录"""
     all_users = await user_manager.get_all_users()
     target_user = None
 

@@ -22,7 +22,7 @@ from app.models import (
     RelationshipType, CharacterRelationship, Organization, OrganizationMember,
     StoryMemory, PlotAnalysis, AnalysisTask, BatchGenerationTask,
     RegenerationTask, Career, CharacterCareer, User, MCPPlugin, PromptTemplate,
-    BackgroundTask, Announcement,
+    BackgroundTask,
     AgentConversation, AgentMessage, AgentToolCall, AgentExecutionStep,
     KnowledgeBase, KnowledgeDocument, KnowledgeChunk,
     Series, NicheResearch, Offer, OfferItem,

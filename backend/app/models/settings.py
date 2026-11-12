@@ -28,7 +28,7 @@ class Settings(Base):
     cover_enabled = Column(Boolean, default=False, server_default="0", nullable=False, comment="是否启用封面图片生成")
 
     # 系统级 SMTP 配置（仅管理员维护）
-    smtp_provider = Column(String(50), default="qq", server_default="qq", nullable=False, comment="SMTP 提供商")
+    smtp_provider = Column(String(50), default="custom", server_default="qq", nullable=False, comment="SMTP 提供商")
     smtp_host = Column(String(255), comment="SMTP 主机")
     smtp_port = Column(Integer, default=465, server_default="465", nullable=False, comment="SMTP 端口")
     smtp_username = Column(String(255), comment="SMTP 用户名")

@@ -47,7 +47,7 @@ def read_env_defaults() -> Dict[str, Any]:
     provider_defaults = _resolve_provider_defaults(default_provider)
     return {
         "api_provider": default_provider,
-        "api_key": "" if default_provider == "xiaomi_mimo" else provider_defaults["api_key"],
+        "api_key": provider_defaults["api_key"],
         "api_base_url": provider_defaults["api_base_url"],
         "llm_model": app_settings.default_model,
         "temperature": app_settings.default_temperature,
@@ -63,11 +63,6 @@ def _normalize_raw_provider(provider: Optional[str]) -> str:
 def _resolve_provider_defaults(provider: Optional[str]) -> Dict[str, str]:
     """按 provider 解析环境变量默认配置，避免在代码中硬编码真实密钥。"""
     raw_provider = _normalize_raw_provider(provider)
-    if raw_provider == "xiaomi_mimo":
-        return {
-            "api_key": app_settings.xiaomi_mimo_api_key or "",
-            "api_base_url": app_settings.xiaomi_mimo_base_url or "https://token-plan-cn.xiaomimimo.com/v1",
-        }
     if raw_provider == "anthropic":
         return {
             "api_key": app_settings.anthropic_api_key or "",
@@ -96,12 +91,11 @@ def _apply_provider_defaults(provider: Optional[str], api_key: Optional[str], ap
 def resolve_runtime_ai_config(provider: Optional[str], api_key: Optional[str], api_base_url: Optional[str]) -> Dict[str, str]:
     """在 API 层解析运行时 AI 配置。
 
-    内置适配器（如 Xiaomi MiMo）只在数据库/前端保留 provider 标识与地址，真实 Key
-    仅从后端环境变量读取；传给 AIService 时转换为底层兼容 provider（OpenAI 格式）。
+    缺失的 Key/URL 从后端环境变量补齐。
     """
     raw_provider = _normalize_raw_provider(provider)
     resolved = _apply_provider_defaults(raw_provider, api_key, api_base_url)
-    runtime_provider = "openai" if raw_provider == "xiaomi_mimo" else (normalize_provider(raw_provider) or "openai")
+    runtime_provider = normalize_provider(raw_provider) or "openai"
     return {
         "raw_provider": raw_provider,
         "api_provider": runtime_provider,
@@ -410,12 +404,6 @@ async def update_system_smtp_settings(
     settings = await get_or_create_admin_settings(db, user)
     update_data = data.model_dump(exclude_unset=True)
 
-    if update_data.get("smtp_provider") == "qq":
-        update_data.setdefault("smtp_host", "smtp.qq.com")
-        update_data.setdefault("smtp_port", 465)
-        update_data.setdefault("smtp_use_ssl", True)
-        update_data.setdefault("smtp_use_tls", False)
-
     if update_data.get("smtp_use_ssl") and update_data.get("smtp_use_tls"):
         raise HTTPException(status_code=400, detail="SSL 和 TLS 不能同时启用")
 
@@ -439,9 +427,6 @@ async def test_system_smtp_settings(
 
     if not settings.smtp_host or not settings.smtp_username or not settings.smtp_password:
         raise HTTPException(status_code=400, detail="请先完善 SMTP 主机、用户名和授权码")
-
-    if settings.smtp_provider == "qq" and settings.smtp_host != "smtp.qq.com":
-        raise HTTPException(status_code=400, detail="QQ 邮箱 SMTP 主机必须为 smtp.qq.com")
 
     if "@" not in data.to_email or "." not in data.to_email.split("@")[-1]:
         raise HTTPException(status_code=400, detail="测试收件邮箱格式不正确")

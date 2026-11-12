@@ -4,7 +4,6 @@ from typing import Optional
 from pathlib import Path
 import logging
 import os
-import uuid
 
 # 获取项目根目录(从backend/app/config.py向上两级)
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -70,8 +69,6 @@ class Settings(BaseSettings):
     # AI服务配置
     openai_api_key: Optional[str] = None
     openai_base_url: Optional[str] = None
-    xiaomi_mimo_api_key: Optional[str] = None
-    xiaomi_mimo_base_url: str = "https://token-plan-cn.xiaomimimo.com/v1"
     gemini_api_key: Optional[str] = None
     gemini_base_url: Optional[str] = None
     anthropic_api_key: Optional[str] = None
@@ -89,30 +86,16 @@ class Settings(BaseSettings):
     # MCP配置
     mcp_max_rounds: int = 3  # MCP工具调用最大轮数（全局统一控制）
     
-    # LinuxDO OAuth2 配置
-    LINUXDO_CLIENT_ID: Optional[str] = None
-    LINUXDO_CLIENT_SECRET: Optional[str] = None
-    # 回调地址：Docker部署时必须使用实际域名或服务器IP，不能使用localhost
-    # 本地开发: http://localhost:8000/api/auth/callback
-    # 生产环境: https://your-domain.com/api/auth/callback 或 http://your-ip:8000/api/auth/callback
-    LINUXDO_REDIRECT_URI: Optional[str] = None
-    # LinuxDO 专用代理配置（仅用于 OAuth token 与用户信息请求，不影响 AI/SMTP/其他请求）
-    # 示例: http://127.0.0.1:7890
-    LINUXDO_PROXY_URL: Optional[str] = None
-    
     # 前端URL配置（用于OAuth回调后重定向）
     # 本地开发: http://localhost:8000
     # 生产环境: https://your-domain.com 或 http://your-ip:8000
     FRONTEND_URL: str = "http://localhost:8000"
     
-    # 初始管理员配置（LinuxDO user_id）
-    INITIAL_ADMIN_LINUXDO_ID: Optional[str] = None
-    
     # 本地账户登录配置
     LOCAL_AUTH_ENABLED: bool = True  # 是否启用本地账户登录
     LOCAL_AUTH_USERNAME: Optional[str] = None  # 本地登录用户名
     LOCAL_AUTH_PASSWORD: Optional[str] = None  # 本地登录密码
-    LOCAL_AUTH_DISPLAY_NAME: str = "本地用户"  # 本地用户显示名称
+    LOCAL_AUTH_DISPLAY_NAME: str = "Administrador"  # Nome de exibição do usuário local
     
     # 会话配置
     SESSION_EXPIRE_MINUTES: int = 120  # 会话过期时间（分钟），默认2小时
@@ -121,8 +104,8 @@ class Settings(BaseSettings):
     SESSION_COOKIE_SECURE: Optional[bool] = None  # 是否强制 Cookie Secure；None 时按 DEBUG 自动判断
 
     # 系统 SMTP 默认配置（可被管理员系统设置覆盖）
-    SMTP_PROVIDER: str = "qq"
-    SMTP_HOST: Optional[str] = "smtp.qq.com"
+    SMTP_PROVIDER: str = "custom"
+    SMTP_HOST: Optional[str] = ""
     SMTP_PORT: int = 465
     SMTP_USERNAME: Optional[str] = None
     SMTP_PASSWORD: Optional[str] = None
@@ -135,11 +118,6 @@ class Settings(BaseSettings):
     EMAIL_VERIFICATION_CODE_TTL_MINUTES: int = 10
     EMAIL_VERIFICATION_RESEND_INTERVAL_SECONDS: int = 60
     
-    # 提示词工坊配置
-    WORKSHOP_MODE: str = "client"  # client: 本地部署实例, server: 云端中央服务器
-    WORKSHOP_CLOUD_URL: str = "https://mumuverse.space:1566"  # 云端服务地址
-    WORKSHOP_API_TIMEOUT: int = 30  # 云端API请求超时时间（秒）
-    
     class Config:
         env_file = ".env"
         case_sensitive = False
@@ -151,44 +129,3 @@ settings = Settings()
 config_logger.info(f"配置加载完成: {settings.app_name} v{settings.app_version}")
 config_logger.debug(f"调试模式: {settings.debug}")
 config_logger.debug(f"AI提供商: {settings.default_ai_provider}")
-
-
-# ==================== 提示词工坊实例标识 ====================
-
-def get_or_create_instance_id() -> str:
-    """获取或创建实例唯一标识
-    
-    - Server 模式：固定使用 "server" 作为标识，确保与所有 Client 实例区分
-    - Client 模式：从 .instance_id 文件读取或自动生成唯一标识
-    """
-    # Server 模式使用固定标识
-    if settings.WORKSHOP_MODE.lower() == "server":
-        config_logger.info("Server 模式：使用固定实例标识 'server'")
-        return "server"
-    
-    # Client 模式：从文件读取或生成
-    instance_file = PROJECT_ROOT / ".instance_id"
-    if instance_file.exists():
-        with open(instance_file, 'r') as f:
-            instance_id = f.read().strip()
-            if instance_id and instance_id != "server":  # 确保不与 server 冲突
-                return instance_id
-    
-    # 生成新的实例ID
-    instance_id = str(uuid.uuid4())[:12]
-    try:
-        with open(instance_file, 'w') as f:
-            f.write(instance_id)
-        config_logger.info(f"生成新的实例标识: {instance_id}")
-    except Exception as e:
-        config_logger.warning(f"无法保存实例标识到文件: {e}")
-    
-    return instance_id
-
-INSTANCE_ID = get_or_create_instance_id()
-
-def is_workshop_server() -> bool:
-    """判断当前实例是否为工坊服务端"""
-    return settings.WORKSHOP_MODE.lower() == "server"
-
-config_logger.info(f"提示词工坊模式: {settings.WORKSHOP_MODE}, 实例ID: {INSTANCE_ID}")

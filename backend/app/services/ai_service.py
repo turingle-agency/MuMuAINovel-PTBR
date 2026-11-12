@@ -30,16 +30,12 @@ logger = get_logger(__name__)
 def normalize_provider(provider: Optional[str]) -> Optional[str]:
     """标准化 provider 名称，兼容 OpenAI 格式渠道别名。
 
-    内置适配器（例如 Xiaomi MiMo）应在 API 层解析为底层兼容 provider，
     AIService 只接收可直接初始化的 provider。
     """
     if provider is None:
         return None
 
-    normalized = provider.lower().strip()
-    if normalized == "mumu":
-        return "openai"
-    return normalized
+    return provider.lower().strip()
 
 
 class AIService:

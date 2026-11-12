@@ -48,7 +48,7 @@ class SystemSMTPSettingsBase(BaseModel):
     """系统 SMTP 设置基础模型"""
     model_config = ConfigDict(protected_namespaces=())
 
-    smtp_provider: str = Field(default="qq", description="SMTP 提供商")
+    smtp_provider: str = Field(default="custom", description="SMTP 提供商")
     smtp_host: Optional[str] = Field(default=None, description="SMTP 主机")
     smtp_port: int = Field(default=465, ge=1, le=65535, description="SMTP 端口")
     smtp_username: Optional[str] = Field(default=None, description="SMTP 用户名")
