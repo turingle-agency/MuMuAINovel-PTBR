@@ -31,7 +31,7 @@ from app.security import validate_ai_http_url
 
 logger = get_logger(__name__)
 
-router = APIRouter(prefix="/settings", tags=["设置管理"])
+router = APIRouter(prefix="/settings", tags=["Gerenciamento de configurações"])
 
 
 class CoverSettingsTestRequest(BaseModel):
@@ -182,14 +182,14 @@ def _build_ai_service_from_config(
 def require_login(request: Request):
     """依赖：要求用户已登录"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="需要登录")
+        raise HTTPException(status_code=401, detail="É necessário fazer login")
     return request.state.user
 
 
 def require_admin(user: User = Depends(require_login)):
     """依赖：要求管理员权限"""
     if not user.is_admin:
-        raise HTTPException(status_code=403, detail="仅管理员可访问系统设置")
+        raise HTTPException(status_code=403, detail="Apenas administradores podem acessar as configurações do sistema")
     return user
 
 
@@ -431,7 +431,7 @@ async def update_system_smtp_settings(
     update_data = data.model_dump(exclude_unset=True)
 
     if update_data.get("smtp_use_ssl") and update_data.get("smtp_use_tls"):
-        raise HTTPException(status_code=400, detail="SSL 和 TLS 不能同时启用")
+        raise HTTPException(status_code=400, detail="SSL e TLS não podem ser ativados ao mesmo tempo")
 
     for key, value in update_data.items():
         setattr(settings, key, value)
@@ -452,33 +452,33 @@ async def test_system_smtp_settings(
     settings = await get_or_create_admin_settings(db, user)
 
     if not settings.smtp_host or not settings.smtp_username or not settings.smtp_password:
-        raise HTTPException(status_code=400, detail="请先完善 SMTP 主机、用户名和授权码")
+        raise HTTPException(status_code=400, detail="Preencha primeiro o host SMTP, o usuário e a senha de autorização")
 
     if "@" not in data.to_email or "." not in data.to_email.split("@")[-1]:
-        raise HTTPException(status_code=400, detail="测试收件邮箱格式不正确")
+        raise HTTPException(status_code=400, detail="O formato do e-mail de destino do teste está incorreto")
 
     from_email = settings.smtp_from_email or settings.smtp_username
     if not from_email:
-        raise HTTPException(status_code=400, detail="请先配置发件人邮箱或 SMTP 用户名")
+        raise HTTPException(status_code=400, detail="Configure primeiro o e-mail do remetente ou o usuário SMTP")
 
-    subject = "MuMuAINovel SMTP 测试邮件"
+    subject = "MuMuAINovel - e-mail de teste SMTP"
     text_body = (
-        "这是一封来自 MuMuAINovel 系统设置页面的 SMTP 测试邮件。\n\n"
-        f"发送时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
-        f"SMTP 服务商：{settings.smtp_provider}\n"
-        f"SMTP 主机：{settings.smtp_host}:{settings.smtp_port}\n"
-        "如果你收到这封邮件，说明当前 SMTP 配置可正常发送邮件。"
+        "Este é um e-mail de teste SMTP enviado pela página de configurações do sistema do MuMuAINovel.\n\n"
+        f"Horário de envio: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+        f"Provedor SMTP: {settings.smtp_provider}\n"
+        f"Host SMTP: {settings.smtp_host}:{settings.smtp_port}\n"
+        "Se você recebeu este e-mail, a configuração SMTP atual consegue enviar e-mails normalmente."
     )
     html_body = f"""
     <div style=\"font-family: Arial, sans-serif; line-height: 1.7; color: #1f1f1f;\">
-      <h2 style=\"margin-bottom: 12px;\">MuMuAINovel SMTP 测试邮件</h2>
-      <p>这是一封来自系统设置页面的 SMTP 测试邮件。</p>
+      <h2 style=\"margin-bottom: 12px;\">MuMuAINovel - e-mail de teste SMTP</h2>
+      <p>Este é um e-mail de teste SMTP enviado pela página de configurações do sistema.</p>
       <ul>
-        <li><strong>发送时间：</strong>{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</li>
-        <li><strong>SMTP 服务商：</strong>{settings.smtp_provider}</li>
-        <li><strong>SMTP 主机：</strong>{settings.smtp_host}:{settings.smtp_port}</li>
+        <li><strong>Horário de envio:</strong>{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</li>
+        <li><strong>Provedor SMTP:</strong>{settings.smtp_provider}</li>
+        <li><strong>Host SMTP:</strong>{settings.smtp_host}:{settings.smtp_port}</li>
       </ul>
-      <p>如果你收到这封邮件，说明当前 SMTP 配置可正常发送邮件。</p>
+      <p>Se você recebeu este e-mail, a configuração SMTP atual consegue enviar e-mails normalmente.</p>
     </div>
     """
 
@@ -499,11 +499,11 @@ async def test_system_smtp_settings(
         )
     except Exception as exc:
         logger.exception(f"SMTP 测试邮件发送失败: {exc}")
-        raise HTTPException(status_code=400, detail=f"SMTP 测试邮件发送失败: {str(exc)}") from exc
+        raise HTTPException(status_code=400, detail=f"Falha ao enviar o e-mail de teste SMTP: {str(exc)}") from exc
 
     return {
         "success": True,
-        "message": f"测试邮件已发送至 {data.to_email}，请检查收件箱和垃圾箱",
+        "message": f"E-mail de teste enviado para {data.to_email}, verifique a caixa de entrada e o spam",
         "provider": settings.smtp_provider,
         "host": settings.smtp_host,
         "port": settings.smtp_port,
@@ -601,7 +601,7 @@ async def update_settings(
     settings = result.scalar_one_or_none()
     
     if not settings:
-        raise HTTPException(status_code=404, detail="设置不存在，请先创建设置")
+        raise HTTPException(status_code=404, detail="Configurações não encontradas, crie-as primeiro")
     
     # 更新设置
     update_data = data.model_dump(exclude_unset=True)
@@ -629,13 +629,13 @@ async def delete_settings(
     settings = result.scalar_one_or_none()
     
     if not settings:
-        raise HTTPException(status_code=404, detail="设置不存在")
+        raise HTTPException(status_code=404, detail="Configurações não encontradas")
     
     await db.delete(settings)
     await db.commit()
     logger.info(f"用户 {user.user_id} 删除设置")
     
-    return {"message": "设置已删除", "user_id": user.user_id}
+    return {"message": "Configurações excluídas", "user_id": user.user_id}
 
 
 @router.get("/models")
@@ -698,7 +698,7 @@ async def get_available_models(
                 if not models:
                     raise HTTPException(
                         status_code=404,
-                        detail="未能从 API 获取到可用的模型列表"
+                        detail="Não foi possível obter uma lista de modelos disponíveis pela API"
                     )
                 
                 logger.info(f"成功获取 {len(models)} 个模型")
@@ -732,24 +732,24 @@ async def get_available_models(
                 return {"provider": provider, "models": models, "count": len(models)}
             
             else:
-                raise HTTPException(status_code=400, detail=f"不支持的提供商: {provider}")
+                raise HTTPException(status_code=400, detail=f"Provedor não suportado: {provider}")
             
     except httpx.HTTPStatusError as e:
         logger.error(f"获取模型列表失败 (HTTP {e.response.status_code}): {safe_preview(e.response.text, 500)}")
         if e.response.status_code == 404:
             raise HTTPException(
                 status_code=400,
-                detail=f"该 API 提供商不支持模型列表查询接口 (/models 返回 404)，请手动输入模型名称。当前请求地址: {api_base_url.rstrip('/')}/models"
+                detail=f"Este provedor de API não suporta a consulta da lista de modelos (/models retornou 404), digite o nome do modelo manualmente. Endereço requisitado: {api_base_url.rstrip('/')}/models"
             )
         raise HTTPException(
             status_code=400,
-            detail=f"无法从 API 获取模型列表 (HTTP {e.response.status_code})"
+            detail=f"Não foi possível obter a lista de modelos da API (HTTP {e.response.status_code})"
         )
     except httpx.RequestError as e:
         logger.error(f"请求模型列表失败: {str(e)}")
         raise HTTPException(
             status_code=400,
-            detail=f"无法连接到 API: {str(e)}"
+            detail=f"Não foi possível conectar à API: {str(e)}"
         )
     except HTTPException:
         raise
@@ -757,7 +757,7 @@ async def get_available_models(
         logger.error(f"获取模型列表时发生错误: {str(e)}")
         raise HTTPException(
             status_code=500,
-            detail=f"获取模型列表失败: {str(e)}"
+            detail=f"Falha ao obter a lista de modelos: {str(e)}"
         )
 
 
@@ -802,18 +802,18 @@ async def check_function_calling_support(data: ApiTestRequest):
             "type": "function",
             "function": {
                 "name": "get_weather",
-                "description": "获取指定城市的当前天气信息",
+                "description": "Obtém as informações do clima atual de uma cidade",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "city": {
                             "type": "string",
-                            "description": "城市名称，例如：北京、上海、深圳"
+                            "description": "Nome da cidade, por exemplo: São Paulo, Lisboa, Rio de Janeiro"
                         },
                         "unit": {
                             "type": "string",
                             "enum": ["celsius", "fahrenheit"],
-                            "description": "温度单位"
+                            "description": "Unidade de temperatura"
                         }
                     },
                     "required": ["city"]
@@ -822,7 +822,7 @@ async def check_function_calling_support(data: ApiTestRequest):
         }]
         
         # 测试提示：故意设计一个需要调用工具的问题
-        test_prompt = "请告诉我北京现在的天气情况如何？"
+        test_prompt = "Como está o tempo em São Paulo agora?"
         
         logger.info(f"🧪 开始检测 Function Calling 支持")
         logger.info(f"  - 提供商: {provider}")
@@ -885,7 +885,7 @@ async def check_function_calling_support(data: ApiTestRequest):
         result = {
             "success": True,
             "supported": supported,
-            "message": "✅ 模型支持 Function Calling" if supported else "❌ 模型不支持 Function Calling",
+            "message": "✅ O modelo suporta Function Calling" if supported else "❌ O modelo não suporta Function Calling",
             "response_time_ms": response_time,
             "provider": provider,
             "model": llm_model,
@@ -903,17 +903,17 @@ async def check_function_calling_support(data: ApiTestRequest):
         if tool_calls:
             result["tool_calls"] = tool_calls
             result["suggestions"] = [
-                "✅ 该模型支持 Function Calling，可以正常使用 MCP 插件",
-                "建议：启用需要的 MCP 插件以扩展 AI 能力",
-                "提示：测试成功检测到工具调用，模型能够正确解析和使用外部工具"
+                "✅ Este modelo suporta Function Calling e pode usar plugins MCP normalmente",
+                "Sugestão: ative os plugins MCP necessários para ampliar as capacidades da IA",
+                "Dica: o teste detectou uma chamada de ferramenta, o modelo interpreta e usa ferramentas externas corretamente"
             ]
         else:
             result["response_preview"] = response_content[:200] if response_content else None
             result["suggestions"] = [
-                "❌ 该模型不支持 Function Calling，无法使用 MCP 插件功能",
-                "建议：更换支持工具调用的模型",
-                "推荐模型：GPT-4 系列、GPT-4-turbo、Claude 3 Opus/Sonnet、Gemini 1.5 Pro 等",
-                "说明：模型返回了文本回复而非工具调用，表明不支持该功能"
+                "❌ Este modelo não suporta Function Calling e não pode usar os plugins MCP",
+                "Sugestão: troque por um modelo que suporte chamadas de ferramentas",
+                "Modelos recomendados: série GPT-4, GPT-4-turbo, Claude 3 Opus/Sonnet, Gemini 1.5 Pro etc.",
+                "Explicação: o modelo respondeu com texto em vez de chamar uma ferramenta, o que indica que não suporta o recurso"
             ]
         
         return result
@@ -924,13 +924,13 @@ async def check_function_calling_support(data: ApiTestRequest):
         return {
             "success": False,
             "supported": False,
-            "message": "配置错误",
+            "message": "Erro de configuração",
             "error": error_msg,
             "error_type": "ConfigurationError",
             "suggestions": [
-                "请检查 API Key 是否正确",
-                "请确认 API Base URL 格式是否正确",
-                "请验证所选提供商与配置是否匹配"
+                "Verifique se a API Key está correta",
+                "Confirme se o formato da API Base URL está correto",
+                "Confirme se o provedor selecionado corresponde à configuração"
             ]
         }
         
@@ -940,13 +940,13 @@ async def check_function_calling_support(data: ApiTestRequest):
         return {
             "success": False,
             "supported": None,
-            "message": "检测超时",
+            "message": "Tempo esgotado na verificação",
             "error": error_msg,
             "error_type": "TimeoutError",
             "suggestions": [
-                "请检查网络连接是否正常",
-                "请确认 API 服务是否可访问",
-                "建议：稍后重试或使用其他网络环境"
+                "Verifique se a conexão de rede está normal",
+                "Confirme se o serviço de API está acessível",
+                "Sugestão: tente novamente mais tarde ou use outra rede"
             ]
         }
         
@@ -961,33 +961,33 @@ async def check_function_calling_support(data: ApiTestRequest):
         suggestions = []
         if "tool" in error_msg.lower() or "function" in error_msg.lower():
             suggestions = [
-                "该模型可能不支持 Function Calling 功能",
-                "API 返回了与工具调用相关的错误",
-                "建议：更换支持工具调用的模型或联系 API 提供商"
+                "O modelo pode não suportar Function Calling",
+                "A API retornou um erro relacionado a chamadas de ferramentas",
+                "Sugestão: troque por um modelo que suporte chamadas de ferramentas ou fale com o provedor da API"
             ]
         elif "unauthorized" in error_msg.lower() or "401" in error_msg:
             suggestions = [
-                "API Key 认证失败",
-                "请检查 API Key 是否正确且有效",
-                "请确认 API Key 是否有足够的权限"
+                "Falha na autenticação da API Key",
+                "Verifique se a API Key está correta e válida",
+                "Confirme se a API Key tem permissões suficientes"
             ]
         elif "not found" in error_msg.lower() or "404" in error_msg:
             suggestions = [
-                "模型不存在或不可用",
-                "请检查模型名称是否正确",
-                "请确认该模型在当前 API 中是否可用"
+                "O modelo não existe ou está indisponível",
+                "Verifique se o nome do modelo está correto",
+                "Confirme se o modelo está disponível nesta API"
             ]
         else:
             suggestions = [
-                "检测过程中遇到未知错误",
-                "建议：检查所有配置参数是否正确",
-                "提示：查看详细错误信息以获取更多线索"
+                "Ocorreu um erro desconhecido durante a verificação",
+                "Sugestão: verifique se todos os parâmetros de configuração estão corretos",
+                "Dica: consulte as mensagens de erro detalhadas para mais pistas"
             ]
         
         return {
             "success": False,
             "supported": False,
-            "message": "Function Calling 检测失败",
+            "message": "Falha na verificação de Function Calling",
             "error": error_msg,
             "error_type": error_type,
             "suggestions": suggestions
@@ -1030,7 +1030,7 @@ async def test_api_connection(data: ApiTestRequest):
         )
         
         # 发送简单的测试请求
-        test_prompt = "Responda em uma frase: teste bem-sucedido" if provider == "codex" else "请用一句话回复：测试成功"
+        test_prompt = "Responda em uma frase: teste bem-sucedido"
         
         logger.info(f"🧪 开始测试 API 连接")
         logger.info(f"  - 提供商: {provider}")
@@ -1060,7 +1060,7 @@ async def test_api_connection(data: ApiTestRequest):
         
         return {
             "success": True,
-            "message": "API 连接测试成功",
+            "message": "Conexão com a API testada com sucesso",
             "response_time_ms": response_time,
             "provider": provider,
             "model": llm_model,
@@ -1081,13 +1081,13 @@ async def test_api_connection(data: ApiTestRequest):
         logger.error(f"  - 错误类型: {type(e).__name__}")
         return {
             "success": False,
-            "message": "API 响应解析失败",
+            "message": "Falha ao interpretar a resposta da API",
             "error": error_msg,
             "error_type": "JSONDecodeError",
             "suggestions": [
-                "上游服务可能返回了空响应、HTML 错误页或非 OpenAI 兼容 JSON",
-                "请查看后端日志中的 AI HTTP 响应 JSON 解析失败，确认 status、content-type 和 body_preview",
-                "请确认 API Base URL 是否指向正确的 OpenAI 兼容 /v1 接口"
+                "O serviço upstream pode ter retornado uma resposta vazia, uma página de erro HTML ou um JSON não compatível com OpenAI",
+                "Consulte nos logs do backend a falha de interpretação do JSON da resposta HTTP da IA e confirme status, content-type e body_preview",
+                "Confirme se a API Base URL aponta para a interface /v1 compatível com OpenAI correta"
             ]
         }
 
@@ -1097,13 +1097,13 @@ async def test_api_connection(data: ApiTestRequest):
         logger.error(f"❌ API 配置错误: {error_msg}")
         return {
             "success": False,
-            "message": "API 配置错误",
+            "message": "Erro de configuração da API",
             "error": error_msg,
             "error_type": "ConfigurationError",
             "suggestions": [
-                "请检查 API Key 是否正确",
-                "请确认 API Base URL 格式正确",
-                "请验证所选提供商是否匹配"
+                "Verifique se a API Key está correta",
+                "Confirme se o formato da API Base URL está correto",
+                "Confirme se o provedor selecionado corresponde"
             ]
         }
         
@@ -1124,13 +1124,13 @@ async def test_api_connection(data: ApiTestRequest):
         logger.error(f"❌ API 请求超时: {error_msg}")
         return {
             "success": False,
-            "message": "API 请求超时",
+            "message": "Tempo esgotado na requisição da API",
             "error": error_msg,
             "error_type": "TimeoutError",
             "suggestions": [
-                "请检查网络连接",
-                "请确认 API Base URL 是否可访问",
-                "如果使用代理，请检查代理设置"
+                "Verifique a conexão de rede",
+                "Confirme se a API Base URL está acessível",
+                "Se usar proxy, verifique as configurações do proxy"
             ]
         }
         
@@ -1146,45 +1146,45 @@ async def test_api_connection(data: ApiTestRequest):
         suggestions = []
         if "blocked" in error_msg.lower():
             suggestions = [
-                "请求被 API 提供商阻止",
-                "可能原因：API Key 被限制或地区限制",
-                "建议：检查 API Key 状态和账户余额",
-                "建议：尝试更换 API Base URL 或使用代理"
+                "Requisição bloqueada pelo provedor da API",
+                "Causas possíveis: API Key limitada ou restrição de região",
+                "Sugestão: verifique o estado da API Key e o saldo da conta",
+                "Sugestão: tente trocar a API Base URL ou usar proxy"
             ]
         elif "unauthorized" in error_msg.lower() or "401" in error_msg:
             suggestions = [
-                "API Key 认证失败",
-                "建议：检查 API Key 是否正确",
-                "建议：确认 API Key 是否过期"
+                "Falha na autenticação da API Key",
+                "Sugestão: verifique se a API Key está correta",
+                "Sugestão: confirme se a API Key não expirou"
             ]
         elif "not found" in error_msg.lower() or "404" in error_msg:
             suggestions = [
-                "API 端点不存在或模型不可用",
-                "建议：检查 API Base URL 是否正确",
-                "建议：确认模型名称是否正确"
+                "O endpoint da API não existe ou o modelo está indisponível",
+                "Sugestão: verifique se a API Base URL está correta",
+                "Sugestão: confirme se o nome do modelo está correto"
             ]
         elif "rate limit" in error_msg.lower() or "429" in error_msg:
             suggestions = [
-                "API 请求频率超限",
-                "建议：稍后重试",
-                "建议：升级 API 套餐"
+                "Limite de requisições da API excedido",
+                "Sugestão: tente novamente mais tarde",
+                "Sugestão: faça upgrade do plano da API"
             ]
         elif "insufficient" in error_msg.lower() or "quota" in error_msg.lower():
             suggestions = [
-                "API 配额不足",
-                "建议：检查账户余额",
-                "建议：充值或升级套餐"
+                "Cota da API insuficiente",
+                "Sugestão: verifique o saldo da conta",
+                "Sugestão: recarregue ou faça upgrade do plano"
             ]
         else:
             suggestions = [
-                "请检查所有配置参数是否正确",
-                "请确认网络连接正常",
-                "请查看详细错误信息"
+                "Verifique se todos os parâmetros de configuração estão corretos",
+                "Confirme se a conexão de rede está normal",
+                "Consulte as mensagens de erro detalhadas"
             ]
         
         return {
             "success": False,
-            "message": "API 测试失败",
+            "message": "Falha no teste da API",
             "error": error_msg,
             "error_type": error_type,
             "suggestions": suggestions
@@ -1323,7 +1323,7 @@ async def update_preset(
     try:
         prefs = json.loads(settings.preferences or '{}')
     except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="配置数据格式错误")
+        raise HTTPException(status_code=500, detail="Dados de configuração inválidos")
     
     api_presets = prefs.get('api_presets', {'presets': [], 'version': '1.0'})
     presets = api_presets.get('presets', [])
@@ -1331,7 +1331,7 @@ async def update_preset(
     # 找到并更新预设
     target_preset = next((p for p in presets if p['id'] == preset_id), None)
     if not target_preset:
-        raise HTTPException(status_code=404, detail="预设不存在")
+        raise HTTPException(status_code=404, detail="Predefinição não encontrada")
     
     # 更新字段
     if data.name is not None:
@@ -1371,7 +1371,7 @@ async def delete_preset(
     try:
         prefs = json.loads(settings.preferences or '{}')
     except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="配置数据格式错误")
+        raise HTTPException(status_code=500, detail="Dados de configuração inválidos")
     
     api_presets = _get_api_presets_payload(prefs)
     presets = api_presets.get('presets', [])
@@ -1379,11 +1379,11 @@ async def delete_preset(
     # 找到预设
     target_preset = next((p for p in presets if p['id'] == preset_id), None)
     if not target_preset:
-        raise HTTPException(status_code=404, detail="预设不存在")
+        raise HTTPException(status_code=404, detail="Predefinição não encontrada")
     
     # 检查是否是激活的预设
     if target_preset.get('is_active'):
-        raise HTTPException(status_code=400, detail="无法删除激活中的预设，请先激活其他预设")
+        raise HTTPException(status_code=400, detail="Não é possível excluir a predefinição ativa, ative outra primeiro")
     
     # 删除预设
     presets = [p for p in presets if p['id'] != preset_id]
@@ -1398,7 +1398,7 @@ async def delete_preset(
     await db.commit()
     
     logger.info(f"用户 {user.user_id} 删除预设: {preset_id}")
-    return {"message": "预设已删除", "preset_id": preset_id}
+    return {"message": "Predefinição excluída", "preset_id": preset_id}
 
 
 @router.post("/presets/{preset_id}/activate")
@@ -1418,7 +1418,7 @@ async def activate_preset(
     try:
         prefs = json.loads(settings.preferences or '{}')
     except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="配置数据格式错误")
+        raise HTTPException(status_code=500, detail="Dados de configuração inválidos")
     
     api_presets = prefs.get('api_presets', {'presets': [], 'version': '1.0'})
     presets = api_presets.get('presets', [])
@@ -1426,7 +1426,7 @@ async def activate_preset(
     # 找到目标预设
     target_preset = next((p for p in presets if p['id'] == preset_id), None)
     if not target_preset:
-        raise HTTPException(status_code=404, detail="预设不存在")
+        raise HTTPException(status_code=404, detail="Predefinição não encontrada")
     
     # 应用配置到Settings主字段
     config = target_preset['config']
@@ -1451,7 +1451,7 @@ async def activate_preset(
     
     logger.info(f"用户 {user.user_id} 激活预设: {target_preset['name']}")
     return {
-        "message": "预设已激活",
+        "message": "Predefinição ativada",
         "preset_id": preset_id,
         "preset_name": target_preset['name']
     }
@@ -1474,7 +1474,7 @@ async def set_chapter_analysis_preset_selection(
     if preset_id:
         target_preset = next((p for p in presets if p.get('id') == preset_id), None)
         if not target_preset:
-            raise HTTPException(status_code=404, detail="预设不存在")
+            raise HTTPException(status_code=404, detail="Predefinição não encontrada")
         prefs['chapter_analysis_preset_id'] = preset_id
         preset_name = target_preset.get('name')
     else:
@@ -1486,7 +1486,7 @@ async def set_chapter_analysis_preset_selection(
 
     logger.info(f"用户 {user.user_id} 设置章节内容分析API预设: {preset_id or '默认配置'}")
     return {
-        "message": "章节内容分析API配置已更新",
+        "message": "Configuração da API de análise de capítulos atualizada",
         "chapter_analysis_preset_id": preset_id,
         "preset_name": preset_name
     }
@@ -1507,7 +1507,7 @@ async def test_preset(
     try:
         prefs = json.loads(settings.preferences or '{}')
     except json.JSONDecodeError:
-        raise HTTPException(status_code=500, detail="配置数据格式错误")
+        raise HTTPException(status_code=500, detail="Dados de configuração inválidos")
     
     api_presets = prefs.get('api_presets', {'presets': [], 'version': '1.0'})
     presets = api_presets.get('presets', [])
@@ -1515,7 +1515,7 @@ async def test_preset(
     # 找到预设
     target_preset = next((p for p in presets if p['id'] == preset_id), None)
     if not target_preset:
-        raise HTTPException(status_code=404, detail="预设不存在")
+        raise HTTPException(status_code=404, detail="Predefinição não encontrada")
     
     # 使用现有的test_api_connection逻辑
     # 确保传递完整参数，与当前配置测试保持一致
