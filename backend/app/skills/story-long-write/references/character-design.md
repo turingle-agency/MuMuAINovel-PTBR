@@ -289,7 +289,7 @@ Exemplo, uma profissional de logística em uma colônia espacial. **Aparência e
 - **Crescimento**: não é só de poder, mas de mentalidade e escolhas; mostre a mudança de A para B com evento gatilho e reflexão interna.
 - **Antagonista forte**: quando o antagonista é muito forte, o protagonista deve vencer de forma "elevada", inteligente e inesperada.
 - **Personagens negativos ("falsos amigáveis")**: desenhe suas táticas, as vítimas e o que a vítima percebe; evite vilania de caricatura.
-- **Elenco (群像)**: dê a cada membro uma função, uma voz e uma relação com os demais; alterne o foco; o conjunto emociona pela combinação de tipos de vínculo (amor, amizade, política, humor).
+- **Elenco**: dê a cada membro uma função, uma voz e uma relação com os demais; alterne o foco; o conjunto emociona pela combinação de tipos de vínculo (amor, amizade, política, humor).
 
 ## 50. Pontos de repetição
 Agarre um traço de comportamento e repita-o: mantém o livro nos trilhos. Escolha o que o leitor gosta (cautela, esperteza, vingança, justiça, ganância), concretize em um comportamento (esperteza → "gosta de semear discórdia") e repita-o em cenários diferentes. **Personagem + atrativo central = camadas**: a repetição do sistema + a repetição de um traço humano formam ciclos com variedade. Antagonistas e coadjuvantes também precisam de repetição: não os mate à toa e traga outros; dê motivação repetida (ex.: "evolui porque a irmã mais nova admira os fortes"); um antagonista amável renova o interesse.
