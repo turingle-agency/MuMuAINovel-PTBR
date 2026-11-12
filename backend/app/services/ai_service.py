@@ -28,6 +28,7 @@ from app.services.ai_providers.codex_provider import (
     CodexProvider,
     CodexQuotaError,
     CodexTimeoutError,
+    api_failure_reason,
     codex_reason as _codex_reason,
     fallback_failure_message,
 )
@@ -57,6 +58,13 @@ class FallbackConfig:
     api_key: str
     api_base_url: Optional[str]
     model: str
+
+
+SEM_FERRAMENTAS_MSG = (
+    "O Assistente de Criação precisa de um provedor com suporte a ferramentas; "
+    "configure uma API de reserva em Configurações."
+)
+_mcp_codex_logado = False
 
 
 class CodexUnavailableError(HTTPException):
@@ -254,6 +262,34 @@ class AIService:
             ) from error
         logger.warning(f"Codex falhou ({motivo}); usando API de reserva: {error}")
         return self._fallback_service
+
+    def _is_codex(self, provider: Optional[str] = None) -> bool:
+        return normalize_provider(provider or self.api_provider) == "codex"
+
+    def _skip_auto_mcp_for_codex(self) -> None:
+        global _mcp_codex_logado
+        if not _mcp_codex_logado:
+            _mcp_codex_logado = True
+            logger.warning("Codex não suporta ferramentas/MCP: o carregamento automático de MCP foi desativado")
+
+    async def _generate_tools_via_fallback(self, **kwargs) -> Dict[str, Any]:
+        """O Codex não suporta tools: roteia a chamada para a API de reserva ou levanta erro claro."""
+        if self._fallback_service is None or self.fallback is None:
+            raise CodexUnavailableError(status_code=503, detail=SEM_FERRAMENTAS_MSG)
+        logger.info("Chamada com ferramentas: usando a API de reserva em vez do Codex")
+        reserva = self._fallback_service
+        reserva.user_id = self.user_id
+        reserva.db_session = self.db_session
+        try:
+            return await reserva.generate_text(provider=None, model=self.fallback.model, **kwargs)
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error(f"API de reserva falhou numa chamada com ferramentas: {e!r}")
+            raise CodexUnavailableError(
+                status_code=503,
+                detail=f"A API de reserva falhou ({api_failure_reason(e)}). Verifique as configurações.",
+            ) from e
 
     def _fallback_failed(self, codex_error: CodexError, error: Exception) -> CodexUnavailableError:
         """A reserva também falhou: 503 em PT-BR com os dois motivos (sem texto cru do provedor)."""
@@ -512,9 +548,25 @@ class AIService:
         if mcp_max_rounds is None:
             mcp_max_rounds = app_settings.mcp_max_rounds
         
-        # 自动加载MCP工具
+        # 自动加载MCP工具 (o Codex não suporta ferramentas: não carrega)
         if auto_mcp and tools is None:
-            tools = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
+            if self._is_codex(provider):
+                self._skip_auto_mcp_for_codex()
+            else:
+                tools = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
+
+        if tools and self._is_codex(provider):
+            return await self._generate_tools_via_fallback(
+                prompt=prompt,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                system_prompt=system_prompt,
+                tools=tools,
+                tool_choice=tool_choice,
+                auto_mcp=False,
+                handle_tool_calls=handle_tool_calls,
+                mcp_max_rounds=mcp_max_rounds,
+            )
 
         metrics = self._build_call_metrics(
             request_mode="texto",
@@ -635,7 +687,9 @@ class AIService:
         tools_to_use = None
         
         # 加载MCP工具
-        if auto_mcp:
+        if auto_mcp and self._is_codex(provider):
+            self._skip_auto_mcp_for_codex()
+        elif auto_mcp:
             tools_to_use = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
             if tools_to_use:
                 logger.info(f"🔧 已获取 {len(tools_to_use)} 个MCP工具")

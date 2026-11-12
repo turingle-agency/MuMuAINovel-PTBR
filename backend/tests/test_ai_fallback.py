@@ -174,3 +174,62 @@ async def test_stream_reserva_tambem_falha(monkeypatch):
     with pytest.raises(HTTPException) as e:
         _ = [c async for c in svc.generate_text_stream(prompt="oi")]
     assert e.value.status_code == 503 and "chave inválida (401)" in str(e.value)
+
+
+TOOLS = [{"type": "function", "function": {"name": "t", "description": "d", "parameters": {"type": "object", "properties": {}}}}]
+
+
+class RastreiaTools(StubApi):
+    def __init__(self):
+        super().__init__()
+        self.tools_recebidas = []
+
+    async def generate(self, prompt, model, temperature, max_tokens, system_prompt=None, tools=None, tool_choice=None):
+        self.tools_recebidas.append(tools)
+        return await super().generate(prompt, model, temperature, max_tokens, system_prompt, tools, tool_choice)
+
+
+async def test_chamada_com_tools_vai_para_a_reserva_sem_tocar_no_codex(monkeypatch, tmp_path):
+    args_file = tmp_path / "args.txt"
+    monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
+    svc, _ = _servico(monkeypatch, "ok")
+    stub = RastreiaTools()
+    svc._fallback_service._openai_provider = stub
+    r = await svc.generate_text(prompt="oi", tools=TOOLS, tool_choice="auto", auto_mcp=False, handle_tool_calls=False)
+    assert r["content"] == "da api"
+    assert stub.tools_recebidas == [TOOLS] and stub.models == ["gpt-x"]
+    assert not args_file.exists()
+
+
+async def test_chamada_com_tools_sem_reserva_da_erro_pt_br(monkeypatch):
+    svc, _ = _servico(monkeypatch, "ok", com_fallback=False)
+    with pytest.raises(HTTPException) as e:
+        await svc.generate_text(prompt="oi", tools=TOOLS, auto_mcp=False)
+    assert e.value.status_code == 503
+    assert e.value.detail == ("O Assistente de Criação precisa de um provedor com suporte a ferramentas; "
+                              "configure uma API de reserva em Configurações.")
+
+
+async def test_geracao_comum_continua_no_codex(monkeypatch):
+    svc, stub = _servico(monkeypatch, "ok")
+    assert (await svc.generate_text(prompt="oi", auto_mcp=False))["content"] == "resposta falsa"
+    assert stub.models == []
+
+
+async def test_tools_vazias_nao_roteiam(monkeypatch):
+    svc, stub = _servico(monkeypatch, "ok")
+    assert (await svc.generate_text(prompt="oi", tools=[], auto_mcp=False))["content"] == "resposta falsa"
+
+
+async def test_mcp_automatico_nao_e_carregado_com_codex(monkeypatch):
+    svc, _ = _servico(monkeypatch, "ok")
+    chamado = []
+
+    async def prepara(*a, **k):
+        chamado.append(1)
+        return TOOLS
+
+    svc._prepare_mcp_tools = prepara
+    assert (await svc.generate_text(prompt="oi"))["content"] == "resposta falsa"
+    assert [c async for c in svc.generate_text_stream(prompt="oi")] == ["resposta falsa"]
+    assert chamado == []
