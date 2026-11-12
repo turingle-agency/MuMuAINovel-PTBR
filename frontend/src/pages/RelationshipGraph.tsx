@@ -618,7 +618,7 @@ export default function RelationshipGraph() {
           order: meta.order,
         };
       })
-      .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label, 'zh-CN'));
+      .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label, 'pt-BR'));
   }, [edges, token]);
 
   useEffect(() => {

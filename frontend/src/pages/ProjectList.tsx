@@ -239,7 +239,7 @@ export default function ProjectList() {
     if (days === 0) return t('hoje');
     if (days === 1) return t('ontem');
     if (days < 7) return t('haDias', { days });
-    return date.toLocaleDateString('zh-CN');
+    return date.toLocaleDateString('pt-BR');
   };
 
   const totalWords = projects.reduce((sum, p) => sum + (p.current_words || 0), 0);

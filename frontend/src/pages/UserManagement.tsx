@@ -105,7 +105,7 @@ export default function UserManagement() {
       if (b == null) return -1;
 
       if (typeof a === 'string' && typeof b === 'string') {
-        return a.localeCompare(b, 'zh-CN');
+        return a.localeCompare(b, 'pt-BR');
       }
 
       if (typeof a === 'boolean' && typeof b === 'boolean') {
@@ -375,7 +375,7 @@ export default function UserManagement() {
       width: 180,
       sorter: true,
       sortOrder: sortField === 'created_at' ? sortOrder : null,
-      render: (date: string) => date ? new Date(date).toLocaleString('zh-CN') : '-',
+      render: (date: string) => date ? new Date(date).toLocaleString('pt-BR') : '-',
     },
     {
       title: t('ultimoLogin'),
@@ -384,7 +384,7 @@ export default function UserManagement() {
       width: 180,
       sorter: true,
       sortOrder: sortField === 'last_login' ? sortOrder : null,
-      render: (date: string) => date ? new Date(date).toLocaleString('zh-CN') : t('nuncaEntrou'),
+      render: (date: string) => date ? new Date(date).toLocaleString('pt-BR') : t('nuncaEntrou'),
     },
     {
       title: t('acoes'),
