@@ -35,7 +35,16 @@ if mode == "hang":
     time.sleep(60)
     sys.exit(0)
 if mode == "image":
-    # Usado na Task 10.
+    import base64
+    png = base64.b64decode(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+    )
+    chdir = args[args.index("-C") + 1] if "-C" in args else "."
+    with open(os.path.join(chdir, "cover.png"), "wb") as f:
+        f.write(png)
+    if out_file:
+        with open(out_file, "wb") as f:
+            f.write(png)
     sys.exit(0)
 print("erro desconhecido", file=sys.stderr)
 sys.exit(2)

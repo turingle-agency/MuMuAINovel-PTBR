@@ -28,6 +28,7 @@ from app.services.ai_providers.codex_provider import (
     CodexProvider,
     CodexQuotaError,
     CodexTimeoutError,
+    codex_reason as _codex_reason,
 )
 from app.services.json_helper import clean_json_response, parse_json
 
@@ -63,16 +64,6 @@ class CodexUnavailableError(HTTPException):
 
     def __str__(self) -> str:
         return str(self.detail)
-
-
-def _codex_reason(error: CodexError) -> str:
-    if isinstance(error, CodexQuotaError):
-        return "cota esgotada"
-    if isinstance(error, CodexAuthError):
-        return "não logado"
-    if isinstance(error, CodexTimeoutError):
-        return "tempo esgotado"
-    return "erro de execução"
 
 
 class AIService:

@@ -13,11 +13,13 @@ from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.config import PROJECT_ROOT
+from app.config import PROJECT_ROOT, settings as app_settings
 from app.logger import get_logger
 from app.models.project import Project
 from app.models.settings import Settings
+from app.services.ai_providers.codex_provider import CodexError, codex_reason
 from app.services.cover_providers.base_cover_provider import BaseCoverProvider, CoverGenerationResult
+from app.services.cover_providers.codex_cover_provider import CodexCoverProvider
 from app.services.cover_providers.gemini_cover_provider import GeminiCoverProvider
 from app.services.cover_providers.grok_cover_provider import GrokCoverProvider
 from app.services.prompt_service import PromptService
@@ -71,12 +73,17 @@ class CoverGenerationService:
 
         try:
             provider = self._build_provider(settings)
-            result = await provider.generate_cover(
-                prompt=prompt,
-                model=settings.cover_image_model or "",
-                width=COVER_WIDTH,
-                height=COVER_HEIGHT,
-            )
+            try:
+                result = await provider.generate_cover(
+                    prompt=prompt,
+                    model=settings.cover_image_model or "",
+                    width=COVER_WIDTH,
+                    height=COVER_HEIGHT,
+                )
+            except CodexError as codex_error:
+                result = await self._generate_with_fallback(
+                    settings=settings, prompt=prompt, codex_error=codex_error
+                )
             image_url = self._save_cover_file(
                 user_id=user_id,
                 project_id=project.id,
@@ -129,7 +136,8 @@ class CoverGenerationService:
         api_base_url: Optional[str],
         model: str,
     ) -> CoverTestResult:
-        if not provider or not api_key or not model:
+        is_codex = (provider or "").lower().strip() == "codex"
+        if not provider or (not is_codex and (not api_key or not model)):
             raise HTTPException(status_code=400, detail="封面图片配置不完整，请填写 provider、api_key 和 model")
 
         provider_instance = self._build_provider_from_values(
@@ -148,6 +156,11 @@ class CoverGenerationService:
                 width=COVER_WIDTH,
                 height=COVER_HEIGHT,
             )
+        except CodexError as exc:
+            raise HTTPException(
+                status_code=503,
+                detail=f"Não foi possível gerar a imagem pelo Codex: {codex_reason(exc)}.",
+            ) from exc
         except httpx.HTTPStatusError as exc:
             detail = self._extract_upstream_error_detail(exc)
             raise HTTPException(status_code=exc.response.status_code, detail=detail) from exc
@@ -202,7 +215,10 @@ class CoverGenerationService:
     def _validate_cover_settings(self, settings: Settings) -> None:
         if not settings.cover_enabled:
             raise HTTPException(status_code=400, detail="封面图片功能未启用，请先在设置页开启")
-        if not settings.cover_api_provider or not settings.cover_api_key or not settings.cover_image_model:
+        is_codex = (settings.cover_api_provider or "").lower().strip() == "codex"
+        if not settings.cover_api_provider:
+            raise HTTPException(status_code=400, detail="封面图片配置不完整，请前往设置页补全")
+        if not is_codex and (not settings.cover_api_key or not settings.cover_image_model):
             raise HTTPException(status_code=400, detail="封面图片配置不完整，请前往设置页补全")
 
     def _build_provider(self, settings: Settings) -> BaseCoverProvider:
@@ -221,11 +237,48 @@ class CoverGenerationService:
     ) -> BaseCoverProvider:
         provider_value = (provider or "").lower().strip()
         normalized_base_url = (api_base_url or "").rstrip("/")
+        if provider_value == "codex":
+            return CodexCoverProvider(
+                binary=app_settings.codex_binary,
+                timeout_s=app_settings.codex_timeout_s,
+            )
         if provider_value == "gemini":
             return GeminiCoverProvider(api_key=api_key, base_url=normalized_base_url)
         if provider_value == "grok":
             return GrokCoverProvider(api_key=api_key, base_url=normalized_base_url)
-        raise HTTPException(status_code=400, detail="Provedor de capa não suportado: use Gemini ou Grok")
+        raise HTTPException(status_code=400, detail="Provedor de capa não suportado: use Codex, Gemini ou Grok")
+
+    async def _generate_with_fallback(
+        self,
+        *,
+        settings: Settings,
+        prompt: str,
+        codex_error: CodexError,
+    ) -> CoverGenerationResult:
+        """Codex falhou: tenta a API de reserva (Gemini/Grok com chave) ou levanta 503 em PT-BR."""
+        fallback_provider = (settings.fallback_api_provider or "").lower().strip()
+        if (
+            fallback_provider in ("gemini", "grok")
+            and settings.fallback_api_key
+            and settings.fallback_llm_model
+        ):
+            logger.warning("Codex falhou ao gerar capa (%s); usando API de reserva %s", codex_error, fallback_provider)
+            provider = self._build_provider_from_values(
+                provider=fallback_provider,
+                api_key=settings.fallback_api_key,
+                api_base_url=settings.fallback_api_base_url,
+            )
+            return await provider.generate_cover(
+                prompt=prompt,
+                model=settings.fallback_llm_model,
+                width=COVER_WIDTH,
+                height=COVER_HEIGHT,
+            )
+        logger.error("Codex falhou ao gerar capa e não há reserva: %s", codex_error)
+        raise HTTPException(
+            status_code=503,
+            detail=f"Não foi possível gerar a imagem pelo Codex: {codex_reason(codex_error)}.",
+        ) from codex_error
 
     def _save_cover_file(
         self,

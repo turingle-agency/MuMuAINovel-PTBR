@@ -61,6 +61,51 @@ def classify_failure(output: str) -> CodexError:
     return CodexExecError(resumo)
 
 
+async def run_codex_process(cmd: List[str], stdin_text: str, timeout_s: int, binary: str) -> str:
+    """Executa o subprocesso do Codex, mata-o em timeout/cancelamento e classifica falhas.
+
+    Devolve a saída combinada (stdout+stderr); levanta CodexError se o código de saída != 0.
+    O chamador deve segurar o semáforo compartilhado (`_get_semaphore`).
+    """
+    try:
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdin=asyncio.subprocess.PIPE,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,
+        )
+    except OSError as e:
+        raise CodexExecError(f"não foi possível executar '{binary}': {e}") from e
+
+    try:
+        out, _ = await asyncio.wait_for(
+            proc.communicate(stdin_text.encode("utf-8")), timeout=timeout_s
+        )
+    except asyncio.TimeoutError as e:
+        proc.kill()
+        await proc.wait()
+        raise CodexTimeoutError(f"excedeu {timeout_s}s") from e
+    except asyncio.CancelledError:
+        proc.kill()
+        await proc.wait()
+        raise
+
+    saida = out.decode("utf-8", errors="replace")
+    if proc.returncode != 0:
+        raise classify_failure(saida)
+    return saida
+
+
+def codex_reason(error: CodexError) -> str:
+    if isinstance(error, CodexQuotaError):
+        return "cota esgotada"
+    if isinstance(error, CodexAuthError):
+        return "não logado"
+    if isinstance(error, CodexTimeoutError):
+        return "tempo esgotado"
+    return "erro de execução"
+
+
 class CodexProvider(BaseAIProvider):
     def __init__(self, binary: str, timeout_s: int, max_concurrency: int):
         self.binary = binary
@@ -93,32 +138,7 @@ class CodexProvider(BaseAIProvider):
                     cmd += ["-m", model]
                 cmd.append("-")
 
-                try:
-                    proc = await asyncio.create_subprocess_exec(
-                        *cmd,
-                        stdin=asyncio.subprocess.PIPE,
-                        stdout=asyncio.subprocess.PIPE,
-                        stderr=asyncio.subprocess.STDOUT,
-                    )
-                except OSError as e:
-                    raise CodexExecError(f"não foi possível executar '{self.binary}': {e}") from e
-
-                try:
-                    out, _ = await asyncio.wait_for(
-                        proc.communicate(stdin_text.encode("utf-8")), timeout=self.timeout_s
-                    )
-                except asyncio.TimeoutError as e:
-                    proc.kill()
-                    await proc.wait()
-                    raise CodexTimeoutError(f"excedeu {self.timeout_s}s") from e
-                except asyncio.CancelledError:
-                    proc.kill()
-                    await proc.wait()
-                    raise
-
-                saida = out.decode("utf-8", errors="replace")
-                if proc.returncode != 0:
-                    raise classify_failure(saida)
+                await run_codex_process(cmd, stdin_text, self.timeout_s, self.binary)
 
                 content = last.read_text(encoding="utf-8").strip() if last.exists() else ""
                 if not content:
