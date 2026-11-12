@@ -325,7 +325,7 @@ export default function BookImport() {
           setIsApplyComplete(false);
           message.warning(t('previaTarefaNaoExiste'));
         } else {
-          message.error(t('falhaObterPrevia2'));
+          message.error(t('falhaObterPreviaToast'));
         }
       } finally {
         setLoadingPreview(false);
@@ -394,7 +394,7 @@ export default function BookImport() {
       await refreshStatus();
     } catch (error) {
       console.error(t('falhaCancelarTarefa'), error);
-      message.error(t('falhaCancelarTarefa2'));
+      message.error(t('falhaCancelarTarefaToast'));
     }
   };
 
@@ -476,7 +476,7 @@ export default function BookImport() {
     } catch (error) {
       console.error(t('falhaConfirmarImportacao'), error);
       setApplyError(t('falhaConfirmarImportacaoNao'));
-      message.error(t('falhaConfirmarImportacao2'));
+      message.error(t('falhaConfirmarImportacaoToast'));
       setApplying(false);
     }
   };
@@ -528,7 +528,7 @@ export default function BookImport() {
           },
           onError: (error) => {
             console.error(t('falhaNovaTentativa'), error);
-            message.error(t('falhaNovaTentativa2', { error }));
+            message.error(t('falhaNovaTentativaComErro', { error }));
           },
           onComplete: () => {
             setRetrying(false);
@@ -754,7 +754,7 @@ export default function BookImport() {
                 {effectiveExtractMode === 'tail'
                   ? t('seraoUsadosUltimosCapitulos', { normalizedTailChapterCount })
                   : extractMode === 'tail' && tailChapterCount > 50
-                    ? t('valorInformadoPassa50')
+                    ? t('valorPassaLimiteLivroInteiro')
                     : t('seraUsadoLivroInteiro')}
               </Text>
             </Space>

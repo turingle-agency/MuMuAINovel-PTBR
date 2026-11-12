@@ -344,7 +344,7 @@ export default function Characters() {
       await refreshCharacters();
     } catch (error) {
       console.error(t('falhaAtualizar'), error);
-      message.error(t('falhaAtualizar2'));
+      message.error(t('falhaAtualizarToast'));
     }
   };
 
@@ -445,7 +445,7 @@ export default function Characters() {
                     <p><strong>{t('importadosSucesso', { imported: result.statistics.imported })}</strong></p>
                     {result.details.imported_characters.length > 0 && (
                       <>
-                        <p style={{ marginTop: 12, marginBottom: 4 }}>{t('personagens2')}</p>
+                        <p style={{ marginTop: 12, marginBottom: 4 }}>{t('personagensImportados')}</p>
                         <ul style={{ marginLeft: 20 }}>
                           {result.details.imported_characters.map((name, index) => (
                             <li key={index}>{name}</li>
@@ -455,7 +455,7 @@ export default function Characters() {
                     )}
                     {result.details.imported_organizations.length > 0 && (
                       <>
-                        <p style={{ marginTop: 12, marginBottom: 4 }}>{t('organizacoes2')}</p>
+                        <p style={{ marginTop: 12, marginBottom: 4 }}>{t('organizacoesImportadas')}</p>
                         <ul style={{ marginLeft: 20 }}>
                           {result.details.imported_organizations.map((name, index) => (
                             <li key={index}>{name}</li>
@@ -725,7 +725,7 @@ export default function Characters() {
                 key: 'character',
                 label: (
                   <span>
-                    <UserOutlined /> {t('personagens3', { length: characterList.length })}
+                    <UserOutlined /> {t('personagensContagem', { length: characterList.length })}
                   </span>
                 ),
               },
@@ -733,7 +733,7 @@ export default function Characters() {
                 key: 'organization',
                 label: (
                   <span>
-                    <TeamOutlined /> {t('organizacoes3', { length: organizationList.length })}
+                    <TeamOutlined /> {t('organizacoesContagem', { length: organizationList.length })}
                   </span>
                 ),
               },
@@ -789,7 +789,7 @@ export default function Characters() {
                         <Divider orientation="left">
                           <Title level={5} style={{ margin: 0 }}>
                             <UserOutlined style={{ marginRight: 8 }} />
-                            {t('personagens3', { length: characterList.length })}
+                            {t('personagensContagem', { length: characterList.length })}
                           </Title>
                         </Divider>
                       </Col>
@@ -827,7 +827,7 @@ export default function Characters() {
                         <Divider orientation="left">
                           <Title level={5} style={{ margin: 0 }}>
                             <TeamOutlined style={{ marginRight: 8 }} />
-                            {t('organizacoes3', { length: organizationList.length })}
+                            {t('organizacoesContagem', { length: organizationList.length })}
                           </Title>
                         </Divider>
                       </Col>
@@ -1169,7 +1169,7 @@ export default function Characters() {
                   <Form.Item
                     label={t('nivelInfluencia')}
                     name="power_level"
-                    tooltip={t('valor0100')}
+                    tooltip={t('valorZeroACem')}
                     style={{ marginBottom: 12 }}
                   >
                     <InputNumber min={0} max={100} style={{ width: '100%' }} />
@@ -1449,7 +1449,7 @@ export default function Characters() {
                     label={t('nivelInfluencia')}
                     name="power_level"
                     initialValue={50}
-                    tooltip={t('valor0100')}
+                    tooltip={t('valorZeroACem')}
                     style={{ marginBottom: 12 }}
                   >
                     <InputNumber min={0} max={100} style={{ width: '100%' }} />

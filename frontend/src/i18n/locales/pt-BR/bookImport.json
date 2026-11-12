@@ -36,10 +36,10 @@
   "falhaAnalise": "Falha na análise",
   "falhaAtualizarStatus": "Falha ao atualizar o status:",
   "falhaCancelarTarefa": "Falha ao cancelar a tarefa:",
-  "falhaCancelarTarefa2": "Falha ao cancelar a tarefa",
+  "falhaCancelarTarefaToast": "Falha ao cancelar a tarefa",
   "falhaConfirmarImportacao": "Falha ao confirmar a importação:",
-  "falhaConfirmarImportacao2": "Falha ao confirmar a importação",
   "falhaConfirmarImportacaoNao": "Falha ao confirmar a importação: não foi possível conectar ao servidor",
+  "falhaConfirmarImportacaoToast": "Falha ao confirmar a importação",
   "falhaConsultarStatusTarefa": "Falha ao consultar o status da tarefa:",
   "falhaCriarTarefa": "Falha ao criar a tarefa:",
   "falhaCriarTarefaImportacao": "Falha ao criar a tarefa de importação",
@@ -49,9 +49,9 @@
   "falhaLerCachePagina": "Falha ao ler o cache da página de importação:",
   "falhaLimparCachePagina": "Falha ao limpar o cache da página de importação:",
   "falhaNovaTentativa": "Falha na nova tentativa:",
-  "falhaNovaTentativa2": "Falha na nova tentativa: {{error}}",
+  "falhaNovaTentativaComErro": "Falha na nova tentativa: {{error}}",
   "falhaObterPrevia": "Falha ao obter a prévia:",
-  "falhaObterPrevia2": "Falha ao obter a prévia",
+  "falhaObterPreviaToast": "Falha ao obter a prévia",
   "falhaRequisicaoNovaTentativa": "Falha na requisição de nova tentativa:",
   "falhaRequisicaoNovaTentativaNao": "Falha na requisição de nova tentativa: não foi possível conectar ao servidor",
   "genero": "Gênero",
@@ -112,5 +112,5 @@
   "todasEtapasForamRefeitas": "Todas as etapas foram refeitas com sucesso!",
   "usarLivroInteiroEngenharia": "Usar o livro inteiro para a engenharia reversa",
   "usarUltimosXCapitulos": "Usar os últimos x capítulos para a engenharia reversa",
-  "valorInformadoPassa50": "O valor informado passa de 50 capítulos; o livro inteiro será usado automaticamente."
+  "valorPassaLimiteLivroInteiro": "O valor informado passa de 50 capítulos; o livro inteiro será usado automaticamente."
 }

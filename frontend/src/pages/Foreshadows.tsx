@@ -695,7 +695,7 @@ export default function Foreshadows() {
             }
           }}
           showSizeChanger
-          showTotal={(total) => t('total2', { total })}
+          showTotal={(total) => t('totalContagem', { total })}
           showQuickJumper
         />
       </div>
@@ -782,17 +782,17 @@ export default function Foreshadows() {
           
           <Row gutter={16}>
             <Col span={6}>
-              <Form.Item name="importance" label={t('importancia01')}>
+              <Form.Item name="importance" label={t('importanciaEscala')}>
                 <InputNumber min={0} max={1} step={0.1} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="strength" label={t('intensidade110')}>
+              <Form.Item name="strength" label={t('intensidadeEscala')}>
                 <InputNumber min={1} max={10} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="subtlety" label={t('sutileza110')}>
+              <Form.Item name="subtlety" label={t('sutilezaEscala')}>
                 <InputNumber min={1} max={10} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
@@ -879,13 +879,13 @@ export default function Foreshadows() {
               </Col>
               
               <Col span={24}>
-                <strong>{t('conteudoPista2')}</strong>
+                <strong>{t('conteudoPistaDetalhe')}</strong>
                 <p style={{ marginTop: 8, whiteSpace: 'pre-wrap' }}>{currentForeshadow.content}</p>
               </Col>
               
               {currentForeshadow.hint_text && (
                 <Col span={24}>
-                  <strong>{t('textoDica2')}</strong>
+                  <strong>{t('textoDicaDetalhe')}</strong>
                   <p style={{ marginTop: 8, whiteSpace: 'pre-wrap', color: token.colorTextSecondary }}>
                     {currentForeshadow.hint_text}
                   </p>
@@ -902,20 +902,20 @@ export default function Foreshadows() {
               )}
               
               <Col span={12}>
-                <strong>{t('capituloPlantio2')}</strong> {currentForeshadow.plant_chapter_number ? t('capitulo2', { plant_chapter_number: currentForeshadow.plant_chapter_number }) : t('naoDefinido')}
+                <strong>{t('capituloPlantioDetalhe')}</strong> {currentForeshadow.plant_chapter_number ? t('capituloPlantioNumero', { plant_chapter_number: currentForeshadow.plant_chapter_number }) : t('naoDefinido')}
               </Col>
               <Col span={12}>
-                <strong>{t('resolucaoPrevista2')}</strong> {currentForeshadow.target_resolve_chapter_number ? t('capitulo3', { target_resolve_chapter_number: currentForeshadow.target_resolve_chapter_number }) : t('naoDefinido')}
+                <strong>{t('resolucaoPrevistaDetalhe')}</strong> {currentForeshadow.target_resolve_chapter_number ? t('capituloResolucaoPrevistaNumero', { target_resolve_chapter_number: currentForeshadow.target_resolve_chapter_number }) : t('naoDefinido')}
               </Col>
               
               {currentForeshadow.actual_resolve_chapter_number && (
                 <Col span={24}>
-                  <strong>{t('resolucaoEfetiva')}</strong> {t('capitulo4', { actual_resolve_chapter_number: currentForeshadow.actual_resolve_chapter_number })}
+                  <strong>{t('resolucaoEfetiva')}</strong> {t('capituloResolucaoEfetivaNumero', { actual_resolve_chapter_number: currentForeshadow.actual_resolve_chapter_number })}
                 </Col>
               )}
               
               <Col span={8}>
-                <strong>{t('importancia2')}</strong> {'★'.repeat(Math.round(currentForeshadow.importance * 5))}
+                <strong>{t('importanciaDetalhe')}</strong> {'★'.repeat(Math.round(currentForeshadow.importance * 5))}
               </Col>
               <Col span={8}>
                 <strong>{t('intensidade')}</strong> {currentForeshadow.strength}/10
@@ -926,7 +926,7 @@ export default function Foreshadows() {
               
               {currentForeshadow.related_characters && currentForeshadow.related_characters.length > 0 && (
                 <Col span={24}>
-                  <strong>{t('personagensRelacionados2')}</strong>
+                  <strong>{t('personagensRelacionadosDetalhe')}</strong>
                   <div style={{ marginTop: 4 }}>
                     {currentForeshadow.related_characters.map((name, idx) => (
                       <Tag key={idx}>{name}</Tag>
@@ -937,13 +937,13 @@ export default function Foreshadows() {
               
               {currentForeshadow.notes && (
                 <Col span={24}>
-                  <strong>{t('observacoes2')}</strong>
+                  <strong>{t('observacoesDetalhe')}</strong>
                   <p style={{ marginTop: 8, color: token.colorTextSecondary }}>{currentForeshadow.notes}</p>
                 </Col>
               )}
               
               <Col span={24}>
-                <strong>{t('origem2')}</strong> {currentForeshadow.source_type === 'analysis' ? t('extraidaAnaliseCapitulo') : t('adicionadaManualmente')}
+                <strong>{t('origemDetalhe')}</strong> {currentForeshadow.source_type === 'analysis' ? t('extraidaAnaliseCapitulo') : t('adicionadaManualmente')}
               </Col>
             </Row>
           </div>
@@ -965,10 +965,10 @@ export default function Foreshadows() {
       >
         <Form form={plantForm} layout="vertical" onFinish={handlePlant}>
           <Form.Item name="chapter_id" label={t('selecioneCapituloPlantio')} rules={[{ required: true, message: t('selecioneCapitulo') }]}>
-            <Select placeholder={t('selecioneCapitulo2')}>
+            <Select placeholder={t('selecioneCapituloPlaceholder')}>
               {chapters.map(chapter => (
                 <Option key={chapter.id} value={chapter.id}>
-                  {t('capitulo5', { chapter_number: chapter.chapter_number, title: chapter.title })}
+                  {t('capituloComTitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
                 </Option>
               ))}
             </Select>
@@ -994,10 +994,10 @@ export default function Foreshadows() {
       >
         <Form form={resolveForm} layout="vertical" onFinish={handleResolve}>
           <Form.Item name="chapter_id" label={t('selecioneCapituloResolucao')} rules={[{ required: true, message: t('selecioneCapitulo') }]}>
-            <Select placeholder={t('selecioneCapitulo2')}>
+            <Select placeholder={t('selecioneCapituloPlaceholder')}>
               {chapters.map(chapter => (
                 <Option key={chapter.id} value={chapter.id}>
-                  {t('capitulo5', { chapter_number: chapter.chapter_number, title: chapter.title })}
+                  {t('capituloComTitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
                 </Option>
               ))}
             </Select>
