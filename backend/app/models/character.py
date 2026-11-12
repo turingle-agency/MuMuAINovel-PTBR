@@ -18,7 +18,7 @@ class Character(Base):
     gender = Column(String(50), comment="Gênero")
     is_organization = Column(Boolean, default=False, comment="É uma organização")
     
-    # Tipo de personagem：protagonist(主角)/supporting(配角)/antagonist(反派)
+    # 角色类型：protagonist(主角)/supporting(配角)/antagonist(反派)
     role_type = Column(String(50), comment="Tipo de personagem")
     
     # 角色详细信息

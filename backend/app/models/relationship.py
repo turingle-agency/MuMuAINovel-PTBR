@@ -64,7 +64,7 @@ class Organization(Base):
     character_id = Column(String(36), ForeignKey("characters.id", ondelete="CASCADE"), nullable=False, unique=True, comment="ID do personagem associado")
     project_id = Column(String(36), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False, index=True, comment="ID do projeto")
     
-    # Nível da organização
+    # 组织层级
     parent_org_id = Column(String(36), ForeignKey("organizations.id", ondelete="SET NULL"), comment="ID da organização-mãe")
     level = Column(Integer, default=0, comment="Nível da organização")
     

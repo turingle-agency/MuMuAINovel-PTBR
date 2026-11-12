@@ -6,48 +6,48 @@ from datetime import datetime
 
 class CharacterBase(BaseModel):
     """角色基础模型"""
-    name: str = Field(..., description="角色/组织姓名")
-    age: Optional[str] = Field(None, description="年龄")
-    gender: Optional[str] = Field(None, description="性别")
-    is_organization: bool = Field(False, description="是否为组织")
-    role_type: Optional[str] = Field(None, description="角色类型：protagonist/supporting/antagonist")
-    personality: Optional[str] = Field(None, description="性格特点/组织特性")
-    background: Optional[str] = Field(None, description="背景故事")
-    appearance: Optional[str] = Field(None, description="外貌特征")
-    relationships: Optional[str] = Field(None, description="人际关系(JSON)")
-    organization_type: Optional[str] = Field(None, description="组织类型")
-    organization_purpose: Optional[str] = Field(None, description="组织目的")
-    organization_members: Optional[str] = Field(None, description="组织成员(JSON)")
-    traits: Optional[str] = Field(None, description="特征标签(JSON)")
+    name: str = Field(..., description="Nome do personagem/organização")
+    age: Optional[str] = Field(None, description="Idade")
+    gender: Optional[str] = Field(None, description="Gênero")
+    is_organization: bool = Field(False, description="É uma organização")
+    role_type: Optional[str] = Field(None, description="Tipo de personagem: protagonist/supporting/antagonist")
+    personality: Optional[str] = Field(None, description="Personalidade / características da organização")
+    background: Optional[str] = Field(None, description="História de fundo")
+    appearance: Optional[str] = Field(None, description="Características físicas")
+    relationships: Optional[str] = Field(None, description="Relacionamentos (JSON)")
+    organization_type: Optional[str] = Field(None, description="Tipo de organização")
+    organization_purpose: Optional[str] = Field(None, description="Propósito da organização")
+    organization_members: Optional[str] = Field(None, description="Membros da organização (JSON)")
+    traits: Optional[str] = Field(None, description="Etiquetas de traços (JSON)")
 
 
 class CharacterCreate(BaseModel):
     """手动创建角色的请求模型"""
-    project_id: str = Field(..., description="项目ID")
-    name: str = Field(..., description="角色/组织姓名")
-    age: Optional[str] = Field(None, description="年龄")
-    gender: Optional[str] = Field(None, description="性别")
-    is_organization: bool = Field(False, description="是否为组织")
-    role_type: Optional[str] = Field("supporting", description="角色类型：protagonist/supporting/antagonist")
-    personality: Optional[str] = Field(None, description="性格特点/组织特性")
-    background: Optional[str] = Field(None, description="背景故事")
-    appearance: Optional[str] = Field(None, description="外貌特征")
-    organization_type: Optional[str] = Field(None, description="组织类型")
-    organization_purpose: Optional[str] = Field(None, description="组织目的")
-    organization_members: Optional[str] = Field(None, description="组织成员(JSON)")
-    traits: Optional[str] = Field(None, description="特征标签(JSON)")
-    avatar_url: Optional[str] = Field(None, description="头像URL")
+    project_id: str = Field(..., description="ID do projeto")
+    name: str = Field(..., description="Nome do personagem/organização")
+    age: Optional[str] = Field(None, description="Idade")
+    gender: Optional[str] = Field(None, description="Gênero")
+    is_organization: bool = Field(False, description="É uma organização")
+    role_type: Optional[str] = Field("supporting", description="Tipo de personagem: protagonist/supporting/antagonist")
+    personality: Optional[str] = Field(None, description="Personalidade / características da organização")
+    background: Optional[str] = Field(None, description="História de fundo")
+    appearance: Optional[str] = Field(None, description="Características físicas")
+    organization_type: Optional[str] = Field(None, description="Tipo de organização")
+    organization_purpose: Optional[str] = Field(None, description="Propósito da organização")
+    organization_members: Optional[str] = Field(None, description="Membros da organização (JSON)")
+    traits: Optional[str] = Field(None, description="Etiquetas de traços (JSON)")
+    avatar_url: Optional[str] = Field(None, description="URL do avatar")
     
     # 组织额外字段
-    power_level: Optional[int] = Field(None, description="组织势力等级(0-100)")
-    location: Optional[str] = Field(None, description="组织所在地")
-    motto: Optional[str] = Field(None, description="组织格言/口号")
-    color: Optional[str] = Field(None, description="组织代表颜色")
+    power_level: Optional[int] = Field(None, description="Nível de poder da organização (0-100)")
+    location: Optional[str] = Field(None, description="Localização da organização")
+    motto: Optional[str] = Field(None, description="Lema da organização")
+    color: Optional[str] = Field(None, description="Cor da organização")
     
     # 职业字段
-    main_career_id: Optional[str] = Field(None, description="主职业ID")
-    main_career_stage: Optional[int] = Field(None, description="主职业阶段")
-    sub_careers: Optional[str] = Field(None, description="副职业列表JSON字符串")
+    main_career_id: Optional[str] = Field(None, description="ID da carreira principal")
+    main_career_stage: Optional[int] = Field(None, description="Estágio da carreira principal")
+    sub_careers: Optional[str] = Field(None, description="Lista de carreiras secundárias (string JSON)")
 
 
 class CharacterUpdate(BaseModel):
@@ -66,15 +66,15 @@ class CharacterUpdate(BaseModel):
     traits: Optional[str] = None
     
     # 组织额外字段（会同步到Organization表）
-    power_level: Optional[int] = Field(None, description="组织势力等级(0-100)")
-    location: Optional[str] = Field(None, description="组织所在地")
-    motto: Optional[str] = Field(None, description="组织格言/口号")
-    color: Optional[str] = Field(None, description="组织代表颜色")
+    power_level: Optional[int] = Field(None, description="Nível de poder da organização (0-100)")
+    location: Optional[str] = Field(None, description="Localização da organização")
+    motto: Optional[str] = Field(None, description="Lema da organização")
+    color: Optional[str] = Field(None, description="Cor da organização")
     
     # 职业字段（会同步到CharacterCareer表）
-    main_career_id: Optional[str] = Field(None, description="主职业ID")
-    main_career_stage: Optional[int] = Field(None, description="主职业阶段")
-    sub_careers: Optional[str] = Field(None, description="副职业列表JSON字符串")
+    main_career_id: Optional[str] = Field(None, description="ID da carreira principal")
+    main_career_stage: Optional[int] = Field(None, description="Estágio da carreira principal")
+    sub_careers: Optional[str] = Field(None, description="Lista de carreiras secundárias (string JSON)")
 
 
 class CharacterResponse(CharacterBase):
@@ -86,35 +86,35 @@ class CharacterResponse(CharacterBase):
     updated_at: datetime
     
     # 组织额外字段（从Organization表关联）
-    power_level: Optional[int] = Field(None, description="组织势力等级(0-100)")
-    location: Optional[str] = Field(None, description="组织所在地")
-    motto: Optional[str] = Field(None, description="组织格言/口号")
-    color: Optional[str] = Field(None, description="组织代表颜色")
+    power_level: Optional[int] = Field(None, description="Nível de poder da organização (0-100)")
+    location: Optional[str] = Field(None, description="Localização da organização")
+    motto: Optional[str] = Field(None, description="Lema da organização")
+    color: Optional[str] = Field(None, description="Cor da organização")
     
     # 职业信息字段
-    main_career_id: Optional[str] = Field(None, description="主职业ID")
-    main_career_stage: Optional[int] = Field(None, description="主职业阶段")
-    sub_careers: Optional[List[Dict[str, Any]]] = Field(None, description="副职业列表")
+    main_career_id: Optional[str] = Field(None, description="ID da carreira principal")
+    main_career_stage: Optional[int] = Field(None, description="Estágio da carreira principal")
+    sub_careers: Optional[List[Dict[str, Any]]] = Field(None, description="Lista de carreiras secundárias")
     
     # 角色/组织存活状态
-    status: Optional[str] = Field("active", description="状态：active/deceased/missing/retired/destroyed")
-    status_changed_chapter: Optional[int] = Field(None, description="状态变更的章节号")
+    status: Optional[str] = Field("active", description="Status: active/deceased/missing/retired/destroyed")
+    status_changed_chapter: Optional[int] = Field(None, description="Capítulo da mudança de status")
     
     # 心理状态追踪字段
-    current_state: Optional[str] = Field(None, description="角色当前心理状态")
-    state_updated_chapter: Optional[int] = Field(None, description="心理状态最后更新的章节号")
+    current_state: Optional[str] = Field(None, description="Estado psicológico atual do personagem")
+    state_updated_chapter: Optional[int] = Field(None, description="Capítulo da última atualização do estado psicológico")
     
     model_config = ConfigDict(from_attributes=True)
 
 
 class CharacterGenerateRequest(BaseModel):
     """AI生成角色的请求模型"""
-    project_id: str = Field(..., description="项目ID")
-    name: Optional[str] = Field(None, description="角色名称")
-    role_type: Optional[str] = Field(None, description="角色类型")
-    background: Optional[str] = Field(None, description="角色背景")
-    requirements: Optional[str] = Field(None, description="特殊要求")
-    enable_mcp: bool = Field(True, description="是否启用MCP工具增强（搜索人物原型参考）")
+    project_id: str = Field(..., description="ID do projeto")
+    name: Optional[str] = Field(None, description="Nome do personagem")
+    role_type: Optional[str] = Field(None, description="Tipo de personagem")
+    background: Optional[str] = Field(None, description="Histórico do personagem")
+    requirements: Optional[str] = Field(None, description="Requisitos especiais")
+    enable_mcp: bool = Field(True, description="Habilitar reforço com ferramentas MCP (busca de referências de arquétipos)")
 
 
 class CharacterListResponse(BaseModel):

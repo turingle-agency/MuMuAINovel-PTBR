@@ -24,20 +24,20 @@ class RelationshipTypeResponse(BaseModel):
 
 class CharacterRelationshipBase(BaseModel):
     """角色关系基础模型"""
-    relationship_type_id: Optional[int] = Field(None, description="关系类型ID")
-    relationship_name: Optional[str] = Field(None, description="自定义关系名称")
-    intimacy_level: int = Field(50, ge=-100, le=100, description="亲密度：-100到100")
-    status: str = Field("active", description="状态：active/broken/past/complicated")
-    description: Optional[str] = Field(None, description="关系描述")
-    started_at: Optional[str] = Field(None, description="关系开始时间（故事时间）")
-    ended_at: Optional[str] = Field(None, description="关系结束时间")
+    relationship_type_id: Optional[int] = Field(None, description="ID do tipo de relação")
+    relationship_name: Optional[str] = Field(None, description="Nome personalizado da relação")
+    intimacy_level: int = Field(50, ge=-100, le=100, description="Intimidade: -100 a 100")
+    status: str = Field("active", description="Status: active/broken/past/complicated")
+    description: Optional[str] = Field(None, description="Descrição da relação")
+    started_at: Optional[str] = Field(None, description="Início da relação (tempo da história)")
+    ended_at: Optional[str] = Field(None, description="Fim da relação")
 
 
 class CharacterRelationshipCreate(CharacterRelationshipBase):
     """创建角色关系的请求模型"""
-    project_id: str = Field(..., description="项目ID")
-    character_from_id: str = Field(..., description="角色A的ID")
-    character_to_id: str = Field(..., description="角色B的ID")
+    project_id: str = Field(..., description="ID do projeto")
+    character_from_id: str = Field(..., description="ID do personagem A")
+    character_to_id: str = Field(..., description="ID do personagem B")
 
 
 class CharacterRelationshipUpdate(BaseModel):
@@ -92,18 +92,18 @@ class RelationshipGraphData(BaseModel):
 
 class OrganizationBase(BaseModel):
     """组织基础模型"""
-    parent_org_id: Optional[str] = Field(None, description="父组织ID")
-    level: int = Field(0, description="组织层级")
-    power_level: int = Field(50, ge=0, le=100, description="势力等级")
-    location: Optional[str] = Field(None, description="所在地")
-    motto: Optional[str] = Field(None, description="组织宗旨")
-    color: Optional[str] = Field(None, description="代表颜色")
+    parent_org_id: Optional[str] = Field(None, description="ID da organização-mãe")
+    level: int = Field(0, description="Nível da organização")
+    power_level: int = Field(50, ge=0, le=100, description="Nível de poder")
+    location: Optional[str] = Field(None, description="Localização")
+    motto: Optional[str] = Field(None, description="Propósito da organização")
+    color: Optional[str] = Field(None, description="Cor representativa")
 
 
 class OrganizationCreate(OrganizationBase):
     """创建组织的请求模型"""
-    character_id: str = Field(..., description="关联的角色ID（组织记录）")
-    project_id: str = Field(..., description="项目ID")
+    character_id: str = Field(..., description="ID do personagem associado (registro da organização)")
+    project_id: str = Field(..., description="ID do projeto")
 
 
 class OrganizationUpdate(BaseModel):
@@ -146,19 +146,19 @@ class OrganizationDetailResponse(BaseModel):
 
 class OrganizationMemberBase(BaseModel):
     """组织成员基础模型"""
-    position: str = Field(..., description="职位名称")
-    rank: int = Field(0, description="职位等级")
-    status: str = Field("active", description="状态：active/retired/expelled/deceased")
-    joined_at: Optional[str] = Field(None, description="加入时间（故事时间）")
-    left_at: Optional[str] = Field(None, description="离开时间")
-    loyalty: int = Field(50, ge=0, le=100, description="忠诚度")
-    contribution: int = Field(0, ge=0, le=100, description="贡献度")
-    notes: Optional[str] = Field(None, description="备注")
+    position: str = Field(..., description="Nome do cargo")
+    rank: int = Field(0, description="Nível do cargo")
+    status: str = Field("active", description="Status: active/retired/expelled/deceased")
+    joined_at: Optional[str] = Field(None, description="Entrada (tempo da história)")
+    left_at: Optional[str] = Field(None, description="Saída")
+    loyalty: int = Field(50, ge=0, le=100, description="Lealdade")
+    contribution: int = Field(0, ge=0, le=100, description="Contribuição")
+    notes: Optional[str] = Field(None, description="Observações")
 
 
 class OrganizationMemberCreate(OrganizationMemberBase):
     """创建组织成员的请求模型"""
-    character_id: str = Field(..., description="角色ID")
+    character_id: str = Field(..., description="ID do personagem")
 
 
 class OrganizationMemberUpdate(BaseModel):

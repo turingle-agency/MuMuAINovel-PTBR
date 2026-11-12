@@ -6,11 +6,11 @@ from datetime import datetime
 
 class ExportOptions(BaseModel):
     """导出选项"""
-    include_generation_history: bool = Field(False, description="是否包含生成历史")
-    include_writing_styles: bool = Field(True, description="是否包含写作风格")
-    include_careers: bool = Field(True, description="是否包含职业系统")
-    include_memories: bool = Field(False, description="是否包含故事记忆（数据量可能较大）")
-    include_plot_analysis: bool = Field(False, description="是否包含剧情分析")
+    include_generation_history: bool = Field(False, description="Incluir histórico de geração")
+    include_writing_styles: bool = Field(True, description="Incluir estilos de escrita")
+    include_careers: bool = Field(True, description="Incluir sistema de carreiras")
+    include_memories: bool = Field(False, description="Incluir memórias da história (pode ser grande)")
+    include_plot_analysis: bool = Field(False, description="Incluir análise da trama")
 
 
 class ChapterExportData(BaseModel):
@@ -248,7 +248,7 @@ class ImportResult(BaseModel):
 
 class CharactersExportRequest(BaseModel):
     """角色/组织批量导出请求"""
-    character_ids: List[str] = Field(..., description="要导出的角色/组织ID列表")
+    character_ids: List[str] = Field(..., description="IDs dos personagens/organizações a exportar")
 
 
 class CharactersExportData(BaseModel):

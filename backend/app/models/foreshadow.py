@@ -70,7 +70,7 @@ class Foreshadow(Base):
     tags = Column(JSON, comment="Lista de etiquetas: ['origem', 'suspense', 'reviravolta']")
     category = Column(String(50), comment="Categoria: identity (origem), mystery (mistério), item (objeto), relationship (relação), event (evento)")
     
-    # === Observações和说明 ===
+    # === 备注和说明 ===
     notes = Column(Text, comment="Notas de criação (visíveis apenas ao autor)")
     resolution_notes = Column(Text, comment="Descrição da forma de resolução")
     

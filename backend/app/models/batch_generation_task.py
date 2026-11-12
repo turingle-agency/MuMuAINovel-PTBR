@@ -36,7 +36,7 @@ class BatchGenerationTask(Base):
     started_at = Column(DateTime, comment="Data de início")
     completed_at = Column(DateTime, comment="Data de conclusão")
     
-    # Mensagem de erro
+    # 错误信息
     error_message = Column(String(500), comment="Mensagem de erro")
     
     def __repr__(self):

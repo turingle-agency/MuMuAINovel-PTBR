@@ -61,7 +61,7 @@ class CharacterCareer(Base):
     started_at = Column(String(100), comment="Início do treinamento (linha do tempo da história)")
     reached_current_stage_at = Column(String(100), comment="Momento em que alcançou o estágio atual")
     
-    # Observações
+    # 备注
     notes = Column(Text, comment="Observações (ex.: aprendizados, eventos especiais)")
     
     created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")

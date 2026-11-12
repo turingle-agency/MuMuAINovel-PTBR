@@ -14,42 +14,42 @@ BookImportExtractMode = Literal["tail", "full"]
 
 class BookImportWarning(BaseModel):
     """导入告警信息"""
-    code: str = Field(..., description="告警编码")
-    message: str = Field(..., description="告警内容")
-    level: WarningLevel = Field(default="warning", description="告警等级")
+    code: str = Field(..., description="Código do aviso")
+    message: str = Field(..., description="Conteúdo do aviso")
+    level: WarningLevel = Field(default="warning", description="Nível do aviso")
 
 
 class ProjectSuggestion(BaseModel):
     """项目建议信息（可在预览页修改）"""
-    title: str = Field(..., min_length=1, max_length=200, description="项目标题")
-    description: Optional[str] = Field(None, description="项目简介")
-    theme: Optional[str] = Field(None, description="主题")
-    genre: Optional[str] = Field(None, description="类型")
-    narrative_perspective: str = Field(default="第三人称", description="叙事视角")
-    target_words: int = Field(default=100000, ge=1000, description="目标字数（默认10万字）")
+    title: str = Field(..., min_length=1, max_length=200, description="Título do projeto")
+    description: Optional[str] = Field(None, description="Descrição do projeto")
+    theme: Optional[str] = Field(None, description="Tema")
+    genre: Optional[str] = Field(None, description="Gênero")
+    narrative_perspective: str = Field(default="terceira pessoa", description="Perspectiva narrativa")
+    target_words: int = Field(default=100000, ge=1000, description="Meta de palavras (padrão: 100 mil)")
 
 
 class BookImportChapter(BaseModel):
     """预览章节"""
-    title: str = Field(..., min_length=1, max_length=200, description="章节标题")
-    content: str = Field(default="", description="章节正文")
-    summary: Optional[str] = Field(None, description="章节摘要")
-    chapter_number: int = Field(..., ge=1, description="章节序号")
-    outline_title: Optional[str] = Field(None, description="关联大纲标题（可选）")
+    title: str = Field(..., min_length=1, max_length=200, description="Título do capítulo")
+    content: str = Field(default="", description="Texto do capítulo")
+    summary: Optional[str] = Field(None, description="Resumo do capítulo")
+    chapter_number: int = Field(..., ge=1, description="Número do capítulo")
+    outline_title: Optional[str] = Field(None, description="Título do esboço associado (opcional)")
 
 
 class BookImportOutline(BaseModel):
     """预览大纲"""
-    title: str = Field(..., min_length=1, max_length=200, description="大纲标题")
-    content: Optional[str] = Field(None, description="大纲内容")
-    order_index: int = Field(..., ge=1, description="排序序号")
-    structure: Optional[dict[str, Any]] = Field(None, description="结构化大纲（与系统大纲生成结构一致）")
+    title: str = Field(..., min_length=1, max_length=200, description="Título do esboço")
+    content: Optional[str] = Field(None, description="Conteúdo do esboço")
+    order_index: int = Field(..., ge=1, description="Número de ordem")
+    structure: Optional[dict[str, Any]] = Field(None, description="Esboço estruturado (mesma estrutura gerada pelo sistema)")
 
 
 class BookImportTaskCreateRequest(BaseModel):
     """创建拆书任务请求"""
-    extract_mode: BookImportExtractMode = Field(default="tail", description="提取范围：tail=截取末章，full=整本")
-    tail_chapter_count: int = Field(default=10, ge=5, le=9999, description="当 extract_mode=tail 时，截取末尾章节数；需为5的倍数，超过50将按整本处理")
+    extract_mode: BookImportExtractMode = Field(default="tail", description="Escopo da extração: tail=últimos capítulos, full=livro inteiro")
+    tail_chapter_count: int = Field(default=10, ge=5, le=9999, description="Com extract_mode=tail, quantidade de capítulos finais a extrair; deve ser múltiplo de 5, acima de 50 é tratado como livro inteiro")
 
 
 class BookImportTaskCreateResponse(BaseModel):
@@ -83,7 +83,7 @@ class BookImportApplyRequest(BaseModel):
     project_suggestion: ProjectSuggestion
     chapters: list[BookImportChapter]
     outlines: list[BookImportOutline] = Field(default_factory=list)
-    import_mode: ImportMode = Field(default="append", description="导入模式")
+    import_mode: ImportMode = Field(default="append", description="Modo de importação")
 
 
 class BookImportApplyResponse(BaseModel):
@@ -96,4 +96,4 @@ class BookImportApplyResponse(BaseModel):
 
 class BookImportRetryRequest(BaseModel):
     """重试失败步骤请求"""
-    steps: list[str] = Field(..., min_length=1, description="需要重试的步骤名列表，如 world_building / career_system / characters")
+    steps: list[str] = Field(..., min_length=1, description="Lista de etapas a repetir, ex.: world_building / career_system / characters")
