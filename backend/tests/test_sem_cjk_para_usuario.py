@@ -40,7 +40,8 @@ def find_cjk_user_strings(root: Path) -> list[tuple[str, int, str]]:
     for path in sorted(root.rglob("*.py")):
         try:
             tree = ast.parse(path.read_text(encoding="utf-8"))
-        except SyntaxError:
+        except SyntaxError as exc:
+            out.append((str(path), exc.lineno or 0, f"SyntaxError: {exc.msg}"))
             continue
         skip = _docstring_nodes(tree)
         for n in ast.walk(tree):
@@ -79,3 +80,11 @@ def test_nenhuma_string_cjk_para_usuario_api():
 def test_nenhuma_string_cjk_para_usuario():
     found = find_cjk_user_strings(APP)
     assert found == [], _fmt(found)
+
+
+def test_arquivo_com_erro_de_sintaxe_e_reportado(tmp_path):
+    (tmp_path / "quebrado.py").write_text("if True:\nx = 1\n", encoding="utf-8")
+    found = find_cjk_user_strings(tmp_path)
+    assert len(found) == 1
+    assert found[0][0].endswith("quebrado.py")
+    assert found[0][2].startswith("SyntaxError")
