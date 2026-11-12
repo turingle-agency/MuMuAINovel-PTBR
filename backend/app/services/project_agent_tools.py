@@ -267,14 +267,14 @@ class ProjectAgentToolRegistry:
     def get(self, name: str) -> ProjectAgentTool:
         tool = self._tools.get(name)
         if tool is None:
-            raise ValueError(f"未注册的项目工具：{name}")
+            raise ValueError(f"Ferramenta de projeto não registrada: {name}")
         return tool
 
     async def preview(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         arguments = normalize_tool_arguments(arguments)
         tool = self.get(name)
         if not tool.requires_confirmation:
-            raise ValueError("只读工具不需要修改预览")
+            raise ValueError("Ferramentas somente leitura não precisam de prévia de modificação")
         if name in WRITE_TOOL_NAMES:
             return await self.extended.preview(name, arguments)
         if name in OPERATIONAL_WRITE_TOOL_NAMES:
@@ -286,7 +286,7 @@ class ProjectAgentToolRegistry:
             if getattr(entity, field) != value
         }
         if not changes:
-            raise ValueError("没有检测到需要修改的字段")
+            raise ValueError("Nenhum campo a modificar foi detectado")
         return {
             "entity_type": entity.__class__.__name__.lower(),
             "entity_id": entity.id,
@@ -337,7 +337,7 @@ class ProjectAgentToolRegistry:
             await self.db.flush()
             after = {field: _json_value(getattr(entity, field)) for field in fields}
             return {
-                "message": f"已更新{self._entity_label(entity)}",
+                "message": f"Atualizado: {self._entity_label(entity)}",
                 "entity_id": entity.id,
                 "before": before,
                 "after": after,
@@ -350,7 +350,7 @@ class ProjectAgentToolRegistry:
             return await self.operational.read(name, arguments)
         handler: ToolHandler = getattr(self, f"_{name}", None)
         if handler is None:
-            raise ValueError(f"工具尚未实现：{name}")
+            raise ValueError(f"Ferramenta ainda não implementada: {name}")
         return await handler(arguments)
 
     async def _resolve_update(
@@ -377,18 +377,18 @@ class ProjectAgentToolRegistry:
             fields = self._pick_fields(arguments, self.CHAPTER_FIELDS)
             self._validate_update_fields(name, fields)
             return entity, fields, self._entity_label(entity)
-        raise ValueError(f"不支持的写入工具：{name}")
+        raise ValueError(f"Ferramenta de escrita não suportada: {name}")
 
     @staticmethod
     def _entity_label(entity: Any) -> str:
         if isinstance(entity, Project):
-            return f"项目《{entity.title}》"
+            return f"Projeto «{entity.title}»"
         if isinstance(entity, Outline):
-            return f"大纲《{entity.title}》"
+            return f"Esboço «{entity.title}»"
         if isinstance(entity, Character):
-            return f"角色《{entity.name}》"
+            return f"Personagem «{entity.name}»"
         if isinstance(entity, Chapter):
-            return f"第{entity.chapter_number}章《{entity.title}》"
+            return f"Capítulo {entity.chapter_number} «{entity.title}»"
         return entity.__class__.__name__
 
     @staticmethod
@@ -402,7 +402,7 @@ class ProjectAgentToolRegistry:
             if key in allowed and value is not None
         }
         if not fields:
-            raise ValueError("缺少可修改字段")
+            raise ValueError("Faltam campos modificáveis")
         return fields
 
     @staticmethod
@@ -418,9 +418,9 @@ class ProjectAgentToolRegistry:
                 continue
             value = fields[field]
             if not isinstance(value, str) or not value.strip():
-                raise ValueError(f"{field} 不能为空")
+                raise ValueError(f"{field} não pode ficar vazio")
             if len(value) > max_length:
-                raise ValueError(f"{field} 不能超过 {max_length} 个字符")
+                raise ValueError(f"{field} não pode ultrapassar {max_length} caracteres")
 
         status_values = {
             "update_project": {"planning", "writing", "revising", "completed"},
@@ -428,18 +428,18 @@ class ProjectAgentToolRegistry:
             "update_chapter": {"draft", "pending", "writing", "completed"},
         }
         if "status" in fields and name in status_values and fields["status"] not in status_values[name]:
-            raise ValueError("status 不是支持的状态值")
+            raise ValueError("status não é um valor de status suportado")
 
         if name == "update_project":
             for field in ("target_words", "chapter_count", "character_count"):
                 value = fields.get(field)
                 if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 0):
-                    raise ValueError(f"{field} 必须是非负整数")
+                    raise ValueError(f"{field} deve ser um inteiro não negativo")
         if name == "update_character":
             for field in ("status_changed_chapter", "state_updated_chapter"):
                 value = fields.get(field)
                 if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 1):
-                    raise ValueError(f"{field} 必须是正整数或 null")
+                    raise ValueError(f"{field} deve ser um inteiro positivo ou null")
 
     async def _find_outline(self, arguments: dict[str, Any]) -> Outline:
         return await find_outline(self.db, self.project.id, arguments)
