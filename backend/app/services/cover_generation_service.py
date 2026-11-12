@@ -56,9 +56,9 @@ class CoverGenerationService:
         self._validate_cover_settings(settings)
 
         if project.cover_status == "generating":
-            raise HTTPException(status_code=409, detail="封面正在生成中，请勿重复提交")
+            raise HTTPException(status_code=409, detail="A capa já está sendo gerada, não envie novamente")
         if project.cover_status == "ready" and project.cover_image_url and not overwrite:
-            raise HTTPException(status_code=400, detail="当前项目已存在封面，如需覆盖请传入 overwrite=true")
+            raise HTTPException(status_code=400, detail="O projeto já tem capa; para sobrescrever, envie overwrite=true")
 
         prompt = await PromptService.build_novel_cover_prompt(
             project,
@@ -106,7 +106,7 @@ class CoverGenerationService:
                 "cover_prompt": project.cover_prompt,
                 "provider": result["provider"],
                 "model": result["model"],
-                "message": "封面生成成功",
+                "message": "Capa gerada com sucesso",
             }
         except httpx.HTTPStatusError as exc:
             logger.error("封面生成上游 HTTP 错误: project_id=%s error=%s", project.id, exc, exc_info=True)
@@ -138,7 +138,7 @@ class CoverGenerationService:
     ) -> CoverTestResult:
         is_codex = (provider or "").lower().strip() == "codex"
         if not provider or (not is_codex and (not api_key or not model)):
-            raise HTTPException(status_code=400, detail="封面图片配置不完整，请填写 provider、api_key 和 model")
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta: informe provider, api_key e model")
 
         provider_instance = self._build_provider_from_values(
             provider=provider,
@@ -167,7 +167,7 @@ class CoverGenerationService:
 
         return CoverTestResult(
             success=True,
-            message="封面图片接口测试成功",
+            message="Teste da API de imagem de capa bem-sucedido",
             provider=provider,
             model=model,
         )
@@ -181,11 +181,11 @@ class CoverGenerationService:
     ) -> tuple[Project, Path]:
         project = await self._get_project(db=db, user_id=user_id, project_id=project_id)
         if project.cover_status != "ready" or not project.cover_image_url:
-            raise HTTPException(status_code=404, detail="当前项目尚未生成可下载的封面")
+            raise HTTPException(status_code=404, detail="O projeto ainda não tem capa disponível para download")
 
         absolute_path = self._resolve_cover_path(project.cover_image_url)
         if not absolute_path.exists():
-            raise HTTPException(status_code=404, detail="封面文件不存在，请重新生成")
+            raise HTTPException(status_code=404, detail="Arquivo da capa não encontrado, gere novamente")
         return project, absolute_path
 
     async def clear_cover_metadata(self, *, db: AsyncSession, project: Project) -> None:
@@ -202,24 +202,24 @@ class CoverGenerationService:
         )
         project = result.scalar_one_or_none()
         if not project:
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         return project
 
     async def _get_settings(self, *, db: AsyncSession, user_id: str) -> Settings:
         result = await db.execute(select(Settings).where(Settings.user_id == user_id))
         settings = result.scalar_one_or_none()
         if not settings:
-            raise HTTPException(status_code=400, detail="请先在设置页完成封面图片配置")
+            raise HTTPException(status_code=400, detail="Configure primeiro a imagem de capa na página de configurações")
         return settings
 
     def _validate_cover_settings(self, settings: Settings) -> None:
         if not settings.cover_enabled:
-            raise HTTPException(status_code=400, detail="封面图片功能未启用，请先在设置页开启")
+            raise HTTPException(status_code=400, detail="A função de imagem de capa não está habilitada; ative-a na página de configurações")
         is_codex = (settings.cover_api_provider or "").lower().strip() == "codex"
         if not settings.cover_api_provider:
-            raise HTTPException(status_code=400, detail="封面图片配置不完整，请前往设置页补全")
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta; complete-a na página de configurações")
         if not is_codex and (not settings.cover_api_key or not settings.cover_image_model):
-            raise HTTPException(status_code=400, detail="封面图片配置不完整，请前往设置页补全")
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta; complete-a na página de configurações")
 
     def _build_provider(self, settings: Settings) -> BaseCoverProvider:
         return self._build_provider_from_values(
@@ -300,7 +300,7 @@ class CoverGenerationService:
 
     def _resolve_cover_path(self, cover_image_url: Optional[str]) -> Path:
         if not cover_image_url:
-            raise HTTPException(status_code=404, detail="当前项目尚未生成可下载的封面")
+            raise HTTPException(status_code=404, detail="O projeto ainda não tem capa disponível para download")
 
         if cover_image_url.startswith(f"{GENERATED_COVER_PUBLIC_PREFIX}/"):
             relative_path = cover_image_url.replace(f"{GENERATED_COVER_PUBLIC_PREFIX}/", "", 1)
@@ -310,7 +310,7 @@ class CoverGenerationService:
             relative_path = cover_image_url.replace("/assets/generated_covers/", "", 1)
             return GENERATED_COVER_STORAGE_DIR / relative_path
 
-        raise HTTPException(status_code=404, detail="封面文件路径无效，请重新生成")
+        raise HTTPException(status_code=404, detail="Caminho do arquivo da capa inválido, gere novamente")
 
     @staticmethod
     def _extract_upstream_error_detail(exc: httpx.HTTPStatusError) -> str:

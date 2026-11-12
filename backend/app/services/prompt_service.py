@@ -149,9 +149,12 @@ class PromptService:
         output_language = project_context.get('output_language') or DEFAULT_OUTPUT_LANGUAGE
         try:
             system_template = cls.format_prompt(system_template, output_language=output_language)
-        except Exception:
+        except Exception as exc:
             # Modelo personalizado antigo com chaves soltas: usa o texto como está
-            pass
+            from app.logger import get_logger
+            get_logger(__name__).warning(
+                f"Não foi possível formatar o template CHAPTER_REGENERATION_SYSTEM; usando o texto original: {exc}"
+            )
 
         prompt_parts = [system_template]
         

@@ -48,7 +48,7 @@ class ChapterRegenerator:
             logger.info(f"🔄 开始重新生成章节: 第{chapter.chapter_number}章")
             
             # 1. 构建修改指令
-            yield {'type': 'progress', 'progress': 5, 'message': '正在构建修改指令...'}
+            yield {'type': 'progress', 'progress': 5, 'message': 'Montando as instruções de modificação...'}
             modification_instructions = self._build_modification_instructions(
                 analysis=analysis,
                 regenerate_request=regenerate_request
@@ -57,7 +57,7 @@ class ChapterRegenerator:
             logger.info(f"📝 修改指令构建完成，长度: {len(modification_instructions)}字符")
             
             # 2. 构建完整提示词
-            yield {'type': 'progress', 'progress': 10, 'message': '正在构建生成提示词...'}
+            yield {'type': 'progress', 'progress': 10, 'message': 'Montando o prompt de geração...'}
             full_prompt = await self._build_regeneration_prompt(
                 chapter=chapter,
                 modification_instructions=modification_instructions,
@@ -69,17 +69,17 @@ class ChapterRegenerator:
             )
 
             logger.info(f"🎯 提示词构建完成，开始AI生成")
-            yield {'type': 'progress', 'progress': 15, 'message': '开始AI生成内容...'}
+            yield {'type': 'progress', 'progress': 15, 'message': 'Iniciando a geração de conteúdo com IA...'}
             
             # 3. 构建系统提示词（注入写作风格）
             system_prompt_with_style = None
             if style_content:
-                system_prompt_with_style = f"""【🎨 写作风格要求 - 最高优先级】
+                system_prompt_with_style = f"""[🎨 Requisitos de estilo de escrita - prioridade máxima]
 
 {style_content}
 
-⚠️ 请严格遵循上述写作风格要求进行重写，这是最重要的指令！
-确保在整个章节重写过程中始终保持风格的一致性。"""
+⚠️ Siga rigorosamente os requisitos de estilo de escrita acima ao reescrever; esta é a instrução mais importante!
+Garanta a consistência do estilo durante toda a reescrita do capítulo."""
                 logger.info(f"✅ 已将写作风格注入系统提示词（{len(style_content)}字符）")
             
             # 4. 流式生成新内容，同时跟踪进度
@@ -101,7 +101,7 @@ class ChapterRegenerator:
                 yield {'type': 'progress', 'progress': int(generation_progress), 'word_count': accumulated_length}
             
             logger.info(f"✅ 章节重新生成完成，共生成 {accumulated_length} 字")
-            yield {'type': 'progress', 'progress': 100, 'message': '生成完成'}
+            yield {'type': 'progress', 'progress': 100, 'message': 'Geração concluída'}
             
         except Exception as e:
             logger.error(f"❌ 重新生成失败: {str(e)}", exc_info=True)
@@ -117,14 +117,14 @@ class ChapterRegenerator:
         instructions = []
         
         # 标题
-        instructions.append("# 章节修改指令\n")
+        instructions.append("# Instruções de modificação do capítulo\n")
         
         # 1. 来自分析的建议
         if (analysis and 
             regenerate_request.selected_suggestion_indices and 
             analysis.suggestions):
             
-            instructions.append("## 📋 需要改进的问题（来自AI分析）：\n")
+            instructions.append("## 📋 Problemas a melhorar (da análise de IA):\n")
             for idx in regenerate_request.selected_suggestion_indices:
                 if 0 <= idx < len(analysis.suggestions):
                     suggestion = analysis.suggestions[idx]
@@ -133,19 +133,19 @@ class ChapterRegenerator:
         
         # 2. 用户自定义指令
         if regenerate_request.custom_instructions:
-            instructions.append("## ✍️ 用户自定义修改要求：\n")
+            instructions.append("## ✍️ Modificações solicitadas pelo usuário:\n")
             instructions.append(regenerate_request.custom_instructions)
             instructions.append("")
         
         # 3. 重点优化方向
         if regenerate_request.focus_areas:
-            instructions.append("## 🎯 重点优化方向：\n")
+            instructions.append("## 🎯 Foco de otimização:\n")
             focus_map = {
-                "pacing": "节奏把控 - 调整叙事速度，避免拖沓或过快",
-                "emotion": "情感渲染 - 深化人物情感表达，增强感染力",
-                "description": "场景描写 - 丰富环境细节，增强画面感",
-                "dialogue": "对话质量 - 让对话更自然真实，推动剧情",
-                "conflict": "冲突强度 - 强化矛盾冲突，提升戏剧张力"
+                "pacing": "Controle de ritmo - ajustar a velocidade da narrativa, evitando arrastar ou acelerar demais",
+                "emotion": "Carga emocional - aprofundar a expressão emocional dos personagens e aumentar o impacto",
+                "description": "Descrição de cenas - enriquecer os detalhes do ambiente e reforçar a imagem mental",
+                "dialogue": "Qualidade dos diálogos - tornar os diálogos mais naturais e reais, impulsionando a trama",
+                "conflict": "Intensidade do conflito - reforçar os conflitos e aumentar a tensão dramática"
             }
             
             for area in regenerate_request.focus_areas:
@@ -156,23 +156,23 @@ class ChapterRegenerator:
         # 4. 保留要求
         if regenerate_request.preserve_elements:
             preserve = regenerate_request.preserve_elements
-            instructions.append("## 🔒 必须保留的元素：\n")
+            instructions.append("## 🔒 Elementos que devem ser preservados:\n")
             
             if preserve.preserve_structure:
-                instructions.append("- 保持原章节的整体结构和情节框架")
+                instructions.append("- Manter a estrutura geral e o arcabouço da trama do capítulo original")
             
             if preserve.preserve_dialogues:
-                instructions.append("- 必须保留以下关键对话：")
+                instructions.append("- Preservar obrigatoriamente os seguintes diálogos-chave:")
                 for dialogue in preserve.preserve_dialogues:
                     instructions.append(f"  * {dialogue}")
             
             if preserve.preserve_plot_points:
-                instructions.append("- 必须保留以下关键情节点：")
+                instructions.append("- Preservar obrigatoriamente os seguintes pontos-chave da trama:")
                 for plot in preserve.preserve_plot_points:
                     instructions.append(f"  * {plot}")
             
             if preserve.preserve_character_traits:
-                instructions.append("- 保持所有角色的性格特征和行为模式一致")
+                instructions.append("- Manter consistentes a personalidade e os padrões de comportamento de todos os personagens")
             
             instructions.append("")
         

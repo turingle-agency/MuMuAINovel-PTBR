@@ -240,7 +240,7 @@ class AIService:
             return self._gemini_provider
         if p == "codex" and self._codex_provider:
             return self._codex_provider
-        raise ValueError(f"Provider {p} 未初始化")
+        raise ValueError(f"Provider {p} não inicializado")
 
     def _fallback_or_raise(self, error: CodexError) -> "AIService":
         """Devolve o serviço de reserva ou levanta um 503 claro em PT-BR."""
@@ -277,7 +277,7 @@ class AIService:
         )
 
     def _log_call_metrics(self, metrics: AICallMetrics, title: Optional[str] = None):
-        log_title = title or ("AI调用完成" if metrics.success else "AI调用失败")
+        log_title = title or ("Chamada de IA concluída" if metrics.success else "Chamada de IA falhou")
         message = metrics.to_log_message(log_title)
         if metrics.success:
             logger.info(message)
@@ -417,10 +417,10 @@ class AIService:
                 # 更新提示词
                 if round_num == max_rounds - 1:
                     # 最后一轮，强制要求回答
-                    prompt = f"{original_prompt}\n\n{tool_context}\n\n⚠️ 重要：请基于以上工具查询结果，给出完整详细的最终答案。不要再调用工具。"
+                    prompt = f"{original_prompt}\n\n{tool_context}\n\n⚠️ Importante: com base nos resultados das ferramentas acima, forneça a resposta final completa e detalhada. Não chame mais ferramentas."
                     tool_choice = "none"
                 else:
-                    prompt = f"{original_prompt}\n\n{tool_context}\n\n请基于以上工具查询结果，继续完成任务。"
+                    prompt = f"{original_prompt}\n\n{tool_context}\n\nCom base nos resultados das ferramentas acima, continue concluindo a tarefa."
                     tool_choice = kwargs.get("tool_choice", "auto")
                 
                 # 继续调用AI
@@ -507,7 +507,7 @@ class AIService:
             tools = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
 
         metrics = self._build_call_metrics(
-            request_mode="文本",
+            request_mode="texto",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -625,7 +625,7 @@ class AIService:
                 logger.info(f"🔧 已获取 {len(tools_to_use)} 个MCP工具")
 
         metrics = self._build_call_metrics(
-            request_mode="流式文本",
+            request_mode="texto em streaming",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -714,7 +714,7 @@ class AIService:
         last_response = ""
         aggregate_usage = TokenUsage()
         metrics = self._build_call_metrics(
-            request_mode="JSON重试",
+            request_mode="nova tentativa de JSON",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -746,9 +746,9 @@ class AIService:
                 try:
                     data = parse_json(last_response)
                     if expected_type == "object" and not isinstance(data, dict):
-                        raise ValueError("期望对象")
+                        raise ValueError("objeto esperado")
                     if expected_type == "array" and not isinstance(data, list):
-                        raise ValueError("期望数组")
+                        raise ValueError("array esperado")
                     metrics.json_parse_success = True
                     metrics.finish(
                         success=True,
@@ -756,14 +756,14 @@ class AIService:
                         finish_reason=result.get("finish_reason"),
                         usage=aggregate_usage,
                     )
-                    self._log_call_metrics(metrics, title="AI调用汇总")
+                    self._log_call_metrics(metrics, title="Resumo da chamada de IA")
                     return data
                 except Exception as e:
                     metrics.json_parse_success = False
                     if attempt == max_retries:
-                        raise ValueError(f"JSON 解析失败: {e}")
+                        raise ValueError(f"Falha ao interpretar o JSON: {e}")
             
-            raise ValueError("JSON 调用失败")
+            raise ValueError("Falha na chamada de JSON")
         except Exception as e:
             metrics.finish(
                 success=False,
@@ -771,12 +771,12 @@ class AIService:
                 usage=aggregate_usage,
                 error=e,
             )
-            self._log_call_metrics(metrics, title="AI调用汇总")
+            self._log_call_metrics(metrics, title="Resumo da chamada de IA")
             raise
 
     @staticmethod
     def _add_json_hint(prompt: str, failed: str, attempt: int) -> str:
-        return f"{prompt}\n\n⚠️ 第{attempt}次重试，请返回纯JSON，不要markdown包裹。上次错误: {failed[:200]}..."
+        return f"{prompt}\n\n⚠️ Tentativa {attempt}: retorne apenas JSON puro, sem envolver em markdown. Erro anterior: {failed[:200]}..."
 
     @staticmethod
     def _clean_json_response(text: str) -> str:

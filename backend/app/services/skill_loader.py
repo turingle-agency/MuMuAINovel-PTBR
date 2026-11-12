@@ -89,6 +89,13 @@ def _infer_category(name: str) -> str:
     return "Skill"
 
 
+# Skills antigos em chinês descrevem os gatilhos com pontuação CJK; os padrões
+# abaixo aceitam essa pontuação e também « » / vírgulas usadas em português.
+CJK_COMPAT_TRIGGER_SPLIT = re.compile(r"[\n,，、]+")
+CJK_COMPAT_QUOTED_TRIGGER = re.compile(r"[「«](.+?)[」»]")
+CJK_COMPAT_SLASH_TRIGGER = re.compile(r"(?:^|[\s、，,。；;：:])(/[^\s、，,。；;：:「」«»]+)")
+
+
 def _extract_triggers(name: str, description: str, explicit_triggers: Any = None) -> List[str]:
     """获取触发词，优先使用结构化 triggers，旧文件则从描述中兼容提取。"""
     triggers: List[str] = []
@@ -96,12 +103,12 @@ def _extract_triggers(name: str, description: str, explicit_triggers: Any = None
     if isinstance(explicit_triggers, list):
         triggers.extend(str(item).strip() for item in explicit_triggers if str(item).strip())
     elif isinstance(explicit_triggers, str) and explicit_triggers.strip():
-        triggers.extend(item.strip() for item in re.split(r'[\n,，、]+', explicit_triggers) if item.strip())
+        triggers.extend(item.strip() for item in CJK_COMPAT_TRIGGER_SPLIT.split(explicit_triggers) if item.strip())
 
     if not triggers:
         triggers.append(f"/{name}")
-        triggers.extend(re.findall(r'「(.+?)」', description))
-        triggers.extend(match.group(1) for match in re.finditer(r'(?:^|[\s、，,。；;：:])(/[^\s、，,。；;：:「」]+)', description))
+        triggers.extend(CJK_COMPAT_QUOTED_TRIGGER.findall(description))
+        triggers.extend(match.group(1) for match in CJK_COMPAT_SLASH_TRIGGER.finditer(description))
 
     if f"/{name}" not in triggers:
         triggers.insert(0, f"/{name}")
@@ -369,19 +376,19 @@ def get_skill_detail(skill_key: str) -> Optional[Dict]:
 
 def _validate_skill_metadata(name: str, display_name: str, category: str, description: str, triggers: List[str], body: str):
     if not name.strip():
-        raise ValueError("Skill 内部标识不能为空")
+        raise ValueError("O identificador interno do Skill não pode ser vazio")
     if not re.fullmatch(r'[a-z0-9][a-z0-9\-]*', name.strip()):
-        raise ValueError("Skill 内部标识只能包含小写字母、数字和短横线，且必须以字母或数字开头")
+        raise ValueError("O identificador interno do Skill só pode conter letras minúsculas, números e hifens, e deve começar com letra ou número")
     if not display_name.strip():
-        raise ValueError("显示名称不能为空")
+        raise ValueError("O nome de exibição não pode ser vazio")
     if not category.strip():
-        raise ValueError("分类不能为空")
+        raise ValueError("A categoria não pode ser vazia")
     if not description.strip():
-        raise ValueError("描述不能为空")
+        raise ValueError("A descrição não pode ser vazia")
     if not body.strip():
-        raise ValueError("工作流指令不能为空")
+        raise ValueError("As instruções do fluxo de trabalho não podem ser vazias")
     if not triggers:
-        raise ValueError("至少需要一个触发词")
+        raise ValueError("É necessário pelo menos um gatilho")
 
 
 def create_skill_files(
@@ -409,7 +416,7 @@ def create_skill_files(
     
     skill_dir = os.path.join(SKILLS_DIR, dir_name)
     if os.path.exists(skill_dir):
-        raise ValueError(f"Skill 目录已存在: {dir_name}")
+        raise ValueError(f"O diretório do Skill já existe: {dir_name}")
     
     os.makedirs(skill_dir, exist_ok=True)
     
@@ -458,11 +465,11 @@ def update_skill_files(
     """更新已有 Skill 文件"""
     detail = get_skill_detail(skill_key)
     if not detail:
-        raise ValueError(f"未找到 Skill: {skill_key}")
+        raise ValueError(f"Skill não encontrado: {skill_key}")
     
     skill_dir = detail.get("skill_dir", "")
     if not skill_dir or not os.path.isdir(skill_dir):
-        raise ValueError(f"Skill 目录不存在: {skill_dir}")
+        raise ValueError(f"O diretório do Skill não existe: {skill_dir}")
     
     skill_md_path = os.path.join(skill_dir, "SKILL.md")
     
@@ -524,11 +531,11 @@ def delete_skill_files(skill_key: str) -> bool:
     import shutil
     detail = get_skill_detail(skill_key)
     if not detail:
-        raise ValueError(f"未找到 Skill: {skill_key}")
+        raise ValueError(f"Skill não encontrado: {skill_key}")
     
     skill_dir = detail.get("skill_dir", "")
     if not skill_dir or not os.path.isdir(skill_dir):
-        raise ValueError(f"Skill 目录不存在")
+        raise ValueError(f"O diretório do Skill não existe")
     
     shutil.rmtree(skill_dir)
     refresh_skills_cache()
