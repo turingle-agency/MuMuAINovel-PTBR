@@ -1,287 +1,201 @@
-# 对白/对话/台词
+# Diálogo, falas e subtexto
 
-## 目录
+## Sumário
 
-- [对话核心功能](#对话核心功能)
-- [篇幅控制](#篇幅控制)
-- [写作技巧](#写作技巧)
-- [人物语言差异化](#人物语言差异化)
-- [常见错误](#常见错误)
-- [对象与场合](#对象与场合)
-- [深层设计：潜台词与议程](#深层设计潜台词与议程)
-- [信息展示与世界观引出](#信息展示与世界观引出)
-- [情绪推动对话](#情绪推动对话)
-- [弹幕/群众对话进阶](#弹幕群众对话进阶)
-- [对话模式与写法](#对话模式与写法)
-- [节奏控制](#节奏控制)
-- [自查清单](#自查清单)
-- [训练方法](#训练方法)
-- [以梗填充对话法](#以梗填充对话法)
-
----
-
-## 对话核心功能
-
-每句对话必须承载信息或情绪，没有功能的对话就是水字数。
-
-1. **剧情推进**：透露新信息、推动事件发展
-2. **增加期待感**：暗示即将发生的事、制造悬念
-3. **情绪渲染**：通过人物语言风格传递情绪状态
+- [Funções centrais do diálogo](#funções-centrais-do-diálogo)
+- [Controle de extensão](#controle-de-extensão)
+- [Técnicas de escrita](#técnicas-de-escrita)
+- [Diferenciação da fala dos personagens](#diferenciação-da-fala-dos-personagens)
+- [Erros comuns](#erros-comuns)
+- [Interlocutores e ocasiões](#interlocutores-e-ocasiões)
+- [Camada profunda: subtexto e agenda](#camada-profunda-subtexto-e-agenda)
+- [Exposição de informação e revelação do mundo](#exposição-de-informação-e-revelação-do-mundo)
+- [Emoção que move o diálogo](#emoção-que-move-o-diálogo)
+- [Diálogo coletivo e falas de grupo](#diálogo-coletivo-e-falas-de-grupo)
+- [Padrões de diálogo](#padrões-de-diálogo)
+- [Controle de ritmo](#controle-de-ritmo)
+- [Lista de autoverificação](#lista-de-autoverificação)
+- [Treino](#treino)
 
 ---
 
-## 篇幅控制
+## Funções centrais do diálogo
 
-**对话过多的根本原因**：表达手法储备不足，只会用对话。
+Toda fala deve carregar informação ou emoção; fala sem função é enrolação.
 
-**精简方法**：
-- 读者已知信息的对话直接省略，用叙事一句话概括："爱丽丝向安娜讲述了来城里的原因，安娜听后直皱眉头"
-- 能用突发状况替代的对话段落直接替换
-- 语气词删掉后如果干巴巴——说明对话本身缺乏信息量，需重写而非加回水分
-- 能用叙事解决的不要硬塞对话
-
-**对话过少的应对**：
-- 能用其他人物对话讲出来的东西，不要让主角旁白平铺直叙
-- 引入配角参与冲突和对话，但新人物必须安排主线戏份
+1. **Fazer o enredo avançar**: revelar informação nova, empurrar os acontecimentos
+2. **Criar expectativa**: sugerir o que vem, criar suspense
+3. **Passar emoção**: mostrar o estado emocional pelo jeito de falar do personagem
 
 ---
 
-## 写作技巧
+## Controle de extensão
 
-**信息展示**：
-- 是角色在交流，不是作者在说明——用角色语气和立场包裹信息
-- 对话中可合理引出世界观（如鬼灭之刃通过卖炭老人的话引出"鬼"和"猎鬼人"）
+**Causa principal do excesso de diálogo**: repertório curto de recursos de expressão; o autor só sabe usar falas.
 
-**情绪推动**：
-- 情绪张力来自角色间立场冲突，不是喊叫和感叹号
-- 短句 = 紧张/激动，长句 = 思考/平静
-- 省略和留白有时比说出来更有力
+**Como enxugar**:
+- Diálogo com informação que o leitor já tem vira uma frase de narração: "Alice contou a Ana por que veio à cidade, e Ana franziu a testa ao ouvir"
+- Trecho de diálogo que pode ser substituído por um imprevisto deve ser substituído
+- Se, ao cortar as interjeições, a fala fica seca, o problema é que ela tem pouca informação: reescreva em vez de recolocar enrolação
+- O que a narração resolve não precisa ser forçado em diálogo
 
-**推进剧情**：
-- 每段对话结束时，剧情应往前推了一步
-- 对话结尾可预示接下来的节奏变化
-
----
-
-## 人物语言差异化
-
-每个角色要有自己的说话方式：
-- **口癖和惯用语**：标志性用词
-- **说话节奏**：长篇大论 vs 短句连击
-- **信息偏好**：技术型带专业术语，江湖人带切口
-- **立场固定**：某角色永远从某个角度发言（悲观派、乐观派、务实派）
-- **身份影响措辞**（老者/少年/贵族/市井）
-- **性格影响语气**（直率/含蓄/暴躁/冷静）
-- **进度影响态度**（初见/熟悉/对立/亲密）
-
-**人设模糊的信号**：写对话时经常卡住，不知道角色会说什么。解法：去总结类似人设的说话方式。
-
-**语言范式**：
-- 感性角色说真诚的话，城府角色说有目的的话
-- 智谋型：话里有话，每句有隐藏目的
-- 鲁莽型：想到什么说什么
-- 冷静型：措辞精确，情绪波动小，偶尔情感外露反而更有冲击力
+**Quando há pouco diálogo**:
+- O que outro personagem pode dizer não deve ser narrado pelo protagonista em tom corrido
+- Traga um coadjuvante para o conflito e a conversa, mas todo personagem novo precisa ter função na trama principal
 
 ---
 
-## 常见错误
+## Técnicas de escrita
 
-| 错误 | 问题 |
+**Exposição**:
+- São personagens conversando, não o autor explicando: embrulhe a informação no tom e na posição do personagem
+- O diálogo pode apresentar o mundo com naturalidade (uma velha numa estrada, ao avisar sobre o perigo da floresta, já revela a lenda da região)
+
+**Emoção**:
+- A tensão vem do choque de posições entre os personagens, não de gritos e pontos de exclamação
+- Frases curtas = tensão/agitação; frases longas = reflexão/calma
+- Omissão e silêncio às vezes têm mais força que a fala
+
+**Avanço da trama**:
+- Ao fim de cada troca de falas, a história deve ter dado um passo
+- O fim do diálogo pode antecipar a mudança de ritmo seguinte
+
+---
+
+## Diferenciação da fala dos personagens
+
+Cada personagem deve falar do seu jeito:
+- **Bordões e expressões típicas**: palavras de assinatura
+- **Ritmo da fala**: discurso longo vs. golpes de frases curtas
+- **Preferência de informação**: técnico usa jargão; marinheiro usa gíria de ofício
+- **Posição fixa**: um personagem sempre fala de certo ângulo (pessimista, otimista, pragmático)
+- **A identidade afeta o vocabulário** (idoso/jovem/nobre/gente do povo)
+- **A personalidade afeta o tom** (direto/reservado/explosivo/calmo)
+- **O estágio da relação afeta a atitude** (primeiro encontro/intimidade/oposição/proximidade)
+
+**Sinal de personagem mal definido**: você trava ao escrever a fala, sem saber o que ele diria. Solução: estude como falam personagens parecidos.
+
+**Padrões de fala**:
+- Personagem sentimental diz coisas sinceras; personagem calculista diz coisas com propósito
+- Estrategista: fala com duplo sentido, cada frase com objetivo escondido
+- Impulsivo: diz o que lhe vem à cabeça
+- Calmo: palavras exatas, pouca oscilação emocional; quando a emoção escapa, o impacto é maior
+
+---
+
+## Erros comuns
+
+| Erro | Problema |
 |------|------|
-| 配角无脑夸主角 | 假 |
-| 互相解释读者已知信息 | 水字数 |
-| 大段说明文式对话 | 闷 |
-| 所有角色说话方式一样 | 模糊 |
-| 对话说服人物 | 现实中没人被几句话说服，用突发状况代替 |
-| 情绪写完方向变了 | 需回退到情绪拆分 |
+| Coadjuvante que elogia o protagonista sem pensar | Falso |
+| Personagens explicando um ao outro o que o leitor já sabe | Enrolação |
+| Falas em bloco, como texto expositivo | Cansativo |
+| Todos falam do mesmo jeito | Falta de definição |
+| Diálogo que convence o personagem | Na vida real ninguém muda de ideia com algumas frases; use um imprevisto |
+| A direção da emoção muda depois de escrita | Volte e reveja a divisão das emoções |
 
 ---
 
-## 对象与场合
+## Interlocutores e ocasiões
 
-**对话前先确定**：
-- 说话双方的人际关系（父子/师徒/恋人/上下级/敌对）
-- 书内视角：角色对这个人说这句话，是为了什么？
-- 书外视角：读者看到这句话，能否传达我想达到的效果？
+**Antes de escrever o diálogo, defina**:
+- A relação entre quem fala (pai e filho, mestre e discípulo, namorados, chefe e subordinado, inimigos)
+- Visão interna: por que o personagem diz isso a esta pessoa?
+- Visão externa: o leitor, ao ver esta fala, recebe o efeito que eu quero?
 
-**三种对话场合**：
+**Três tipos de ocasião**:
 
-| 场合 | 特点 | 适合内容 |
+| Ocasião | Característica | Conteúdo adequado |
 |------|------|----------|
-| 私人（单对单） | 深入、感情流露透彻 | 内心剖白、密谋、表白 |
-| 公众 | 需考虑体面，措辞收敛 | 但角色塑造需要时可打破（如当众翻脸） |
-| 熟人（朋友/同门） | 深度介于两者之间 | 轻松互动和信息交换 |
+| Privada (a sós) | Profunda, com emoção aberta | Confissões, planos secretos, declarações |
+| Pública | Preocupação com a imagem, palavras contidas | Pode ser quebrada quando a caracterização pede (romper em público) |
+| Entre conhecidos (amigos, colegas) | Profundidade intermediária | Interação leve e troca de informação |
 
-私密的话在公众场合说才有冲击力。
-
----
-
-## 深层设计：潜台词与议程
-
-**潜台词与表台词**：
-- 角色真实动机绝对不能浅显地写在台词里
-- 现实中人说话都给自己找借口，角色也一样
-- 好的对白必须同时设计两点：人物的动机（可能角色自己都没意识到）和人物的借口
-- 例：偷钱的小孩被质问时不会承认，而会说"被同学欺负了要交保护费"
-
-**对话的"议程"**：
-- 每个角色进入对话时都有自己的议程——想从这场对话中得到什么
-- 两个角色的议程碰撞才是对话的张力来源
-- 双方议程一致（同立场）= 复述，失去意义
-- 好的对话是两个不同议程在拉扯、试探、交锋
-
-**语气是综合运用**：
-- 语气由关系、场合、目的三者共同决定
-- 同一句训斥：严肃语气 "胃都饿坏了，以后去医院有的是你罪受" vs 暴躁语气 "饭端你床边都不吃？赶紧吃了，不吃给老子滚"——前者暗示关心，后者情绪外露
-- 对话中不能完全表达的内容，通过动作、神态、环境补充
+Uma fala íntima dita em público tem impacto maior.
 
 ---
 
-## 信息展示与世界观引出
+## Camada profunda: subtexto e agenda
 
-- 大量信息通过对话展示会显得啰嗦，将部分信息转化为情节、心理描写、旁白、环境、动作
-- 用角色的语气和立场包裹信息，不是机械陈述设定
-- 设定用到哪个稍微带出来就行，不需完完全全讲明白前因后果
-- 主角路途中碰见心怀不轨的 NPC，对方用对话试探、交代背景——既推进剧情又展示设定
+**Subtexto e texto**:
+- A motivação real do personagem nunca deve estar na fala de forma rasa
+- Na vida real, as pessoas dão desculpas a si mesmas; os personagens também
+- Um bom diálogo precisa ser desenhado em dois pontos: a motivação do personagem (que pode ser invisível para ele mesmo) e a desculpa dele
+- Exemplo: a criança que furtou dinheiro não admite quando questionada; diz que foi obrigada a pagar "proteção" a colegas
 
-**对话围绕核心信息拉扯情绪**：
+**A "agenda" do diálogo**:
+- Todo personagem entra na conversa com uma agenda: o que quer tirar dela
+- O choque de agendas é a fonte de tensão
+- Agendas iguais (mesma posição) = repetição sem sentido
+- Um bom diálogo é duas agendas diferentes puxando, sondando, duelando
 
-以"主角新书起飞了"为例：
-- 甲：听说成绩……（悬念拉期待）
-- 乙：肯定扑街了！（下行 + 拉期待）
-- 甲：听说成绩很不错（上行 + 拉期待）
-- 乙：首订一万三？（展露核心信息 + 达成爽点）
-
-上行和下行交替，情绪像拉锯一样不断拉升期待。
-
----
-
-## 情绪推动对话
-
-**强情绪对话**：
-- 命令式 + 否定式最能激发读者情绪："我说的还不够清楚吗？"、"我不喜欢你"
-- 最强话术：打着为你好的幌子，句句不离关心，但句句都是嫌弃、指责、厌恶
-- 直接否定比含蓄暗示更伤人
-- 通过外貌描写侧重点强化情绪
-
-**情绪的连续性**：
-- 角色情绪是连续的、循序渐进的
-- 从生气到高兴：生气 -> 不那么生气 -> 不生气 -> 高兴，每次转变需对应事件触发
-- 不能跳步：前一秒狠狠吵架，下一秒甜蜜如初 = 假
-
-**情绪四种表达步骤（缺一不可）**：
-1. 遇到事件（失衡状态）
-2. 情绪反应（外在表现：动作、表情、语言）
-3. 内心思考（即使没思考也要写出"没有思考"——表达鲁莽）
-4. 采取行动（基于前三步结果回应）
-
-**对话不平淡三种思路**：
-- 对话本身带来/强化/体现某个核心驱动力（期待、爽感、悬念）
-- 对话中信息交流因某原因受到阻碍，阻碍可能导致驱动力到来
-- 对话发展突然脱离读者预期（但必须合理、符合人物设定）
-- 把长篇对话塞在期待点和爽点之间——读者为了看爽点会愿意忍受中间的对话
+**O tom é uma soma**:
+- O tom é definido por relação, ocasião e propósito juntos
+- A mesma bronca pode ser dita com severidade ou com carinho; o efeito muda por completo
 
 ---
 
-## 弹幕/群众对话进阶
+## Exposição de informação e revelação do mundo
 
-**三大核心作用**：剧情推进（透露主角不知道的信息）、增加期待感（悬念、猜测）、情绪渲染（群众震惊/激动/愤怒传染读者）。是锦上添花，不能代替主线。
-
-**设计过的弹幕 vs 没设计的弹幕**：
-- 没设计：只有"卧槽好厉害"——单调、浪费
-- 设计过：普通人震惊 -> 专业人士分析 -> 特殊身份者反应 -> 情感升华
-- 弹幕中可埋伏笔、制造信息差
-
-**写作要点**：
-- 不同人格化语气，不能每条都一个味
-- 短小精悍，每条不超过一句话核心信息
-- 善用"递进"：从最初震惊到逐渐认识全貌
-- 可出现"反转"角色：看似路人一句话改变所有人认知
-- 不用每章都写，关键爽点/燃点/泪点前后集中使用
+- Embrulhe a informação em conflito: quem fala quer algo, não só explicar
+- Revele o mundo em doses pequenas, na medida em que a cena precisa
+- Evite "como você sabe": personagens não contam um ao outro o que ambos já sabem
+- Use o estranhamento de um personagem novo para justificar perguntas
 
 ---
 
-## 对话模式与写法
+## Emoção que move o diálogo
 
-**问答式对话改造**：
-- 通篇"一问一答"像审讯
-- 改造：将"一个人问另一个人答"转化为"一个人主动说，另一个人给反应"
-- 反应可不用对话形式——用动作、表情、心理回应
-- 例：李欣怡坏笑着问"你是不是喜欢他呀？"苏白墨涨红了脸挥起粉拳——没有一句回答，但反应比任何回答都到位
-
-**冲突式对话**：
-- 写矛盾最容易犯的错：太礼貌，不够劲儿
-- 五种模式（礼貌->不礼貌递进）：委婉拒绝 -> 友好人道 -> 命令否定 -> PUA 式 -> 直接侮辱
-- 噱头需要打脸的角色，对话越恶越好——读者越恨，打脸越爽
-- 噱头不在打脸的角色，对话保持适度即可
-
-**日常对话**：
-- 日常对话功能是立人设，不是没功能的对话
-- 能让其他人物参与的冲突就不要让主角一个人苦大仇深内心独白
-- 突发小状况可替代大量对话来推动剧情或改变人物
-
-**多人对话控制**：
-- 三到四人在场容易：人物先后顺序混乱、内容没营养、视角转换混乱
-- 写前规划：要展露什么信息、起什么作用（拉期待/拉扯情绪/塑造人设/营造爽点）
-- 确定每个角色功能——信息提供者、情绪放大器、冲突制造者
-- 要有主次，核心冲突双方多说，其他人点缀
+- A emoção cresce por camadas: contenção → rachadura → explosão
+- Dê ao personagem algo a perder na conversa
+- Mude o ritmo: as falas ficam mais curtas à medida que a tensão sobe
+- Deixe a emoção real escapar em uma palavra fora do lugar
 
 ---
 
-## 节奏控制
+## Diálogo coletivo e falas de grupo
 
-**大量对话保持节奏**：
-- 不要删掉表现人物性格的语气助词来"精简"——那会让对话失去性格
-- 对话段落间穿插动作描写、环境变化、心理活动调节节奏
-- 紧张段落对话短促，舒缓段落可以长一些
-- 关键信息放对话开头或结尾，中间用于拉扯情绪
-
-**动作和表情处理**：
-- 刻意给每句对话配表情/动作会让行文机械
-- 动作和表情在关键转折处使用效果最好，不需要每句都配
-- 语气平淡场景（喝茶、散步）用微小动作和沉默体现氛围
-
-**对话的呼吸感**：
-- 连续多轮对话后需要"换气"——插入环境描写或角色心理
-- 适当停顿（省略号、动作描写）比连续输出更有张力
-- "你确定？"比长篇解释更有压迫感
+- Em cenas com vários personagens, dê a cada voz uma função: quem lidera, quem duvida, quem alivia
+- Reações da multidão ajudam a medir o impacto de um acontecimento (espanto em camadas)
+- Comentários e murmúrios de fundo reforçam o clima sem roubar o foco
 
 ---
 
-## 自查清单
+## Padrões de diálogo
 
-**三大自查项**（中一条以上需改进）：
-1. 是否存在大量信息都必须用对话来展示
-2. 对话是否是问答式的一问一答
-3. 是否习惯依赖对话来推动剧情或人物变化
-
-**检验对话质量**：
-- 大声朗读，感觉是真的两个人在说话而不是废话稿
-- 每段对话结束时，剧情是否往前推了一步
-- 对话结尾能否预示接下来的节奏变化
-
----
-
-## 训练方法
-
-- **拉片**：把优秀电影反复分析台词和人物意图，甚至背下来
-- **手打**：手打一遍喜欢的小说的人物对白，锻炼语感
-- **化用素材**：从动漫/电影中提取对话结构，删除特定题材内容后可泛用到任何小说
-- 素材库越多，写作时调用的"编程指令"越丰富
+| Padrão | Como funciona |
+|------|------|
+| Interrogatório | Um pergunta, o outro se defende; a verdade vaza pelas brechas |
+| Esquiva | O personagem responde ao lado da pergunta; a evasiva diz mais que a resposta |
+| Escalada | Cada fala é mais dura que a anterior |
+| Cumplicidade | Frases curtas, referências compartilhadas, piadas internas |
+| Duelo de inteligência | Cada frase esconde uma isca |
+| Confissão | Pausas, interrupções, falas incompletas |
 
 ---
 
-## 以梗填充对话法
+## Controle de ritmo
 
-**梗式对话 vs 普通对话**：
-- 普通安慰："兄弟别灰心，你一步步走到今天我是看着你过来的，这点挫折对于你来说算什么事儿？振作起来！"
-- 梗式安慰："兄弟别灰心，我相信你总有人头落地，落地人头，头落地上……卧槽那句话怎么说的来着？兄弟你懂我意思是吧……"
-- 梗式对话用"说不出来但意思到了"的状态制造趣味
+- Alterne falas curtas e longas
+- Use pausas e ações entre as falas ("Ela bebeu um gole d'água. 'E aí?'")
+- Corte a fala no ponto em que o interesse é maior
+- Evite sequências longas sem nenhuma ação ou descrição
 
-**操作要点**：
-- 在对话中融入梗或骚话，有效提升整体趣味性
-- 特别是主角或重要配角的突出对话，适合用梗强化记忆点
+---
 
-**以梗构建剧情高潮**：
-- 用某个梗作为高潮点，整段剧情围绕达成这个梗来设计
-- 例：用"嘻嘻 -> 不嘻嘻"梗设计剧情——反派从暗爽到心态炸裂的完整弧线
+## Lista de autoverificação
+
+- [ ] Toda fala tem função (informação, emoção ou avanço)?
+- [ ] Dá para distinguir quem fala sem o rótulo?
+- [ ] Há subtexto, e não só frases explicativas?
+- [ ] As agendas dos personagens se chocam?
+- [ ] Alguma fala só repete o que o leitor já sabe?
+- [ ] O diálogo termina com a história um passo à frente?
+
+---
+
+## Treino
+
+- Releia uma cena e reescreva as falas cortando 30%
+- Escreva a mesma cena com três personagens de personalidades diferentes
+- Transcreva conversas reais e observe como as pessoas interrompem, desviam e se contradizem

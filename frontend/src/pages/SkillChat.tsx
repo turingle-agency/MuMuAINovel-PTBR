@@ -157,10 +157,10 @@ const SkillChat: React.FC = () => {
   const currentSkills = currentCategory ? groupedSkills[currentCategory] : [];
 
   const categoryColors: Record<string, string> = {
-    'Skill·长篇': '#1890ff',
-    'Skill·短篇': '#52c41a',
-    'Skill·润色': '#faad14',
-    'Skill·工具': '#722ed1',
+    'Skill · Romance longo': '#1890ff',
+    'Skill · Conto': '#52c41a',
+    'Skill · Revisão': '#faad14',
+    'Skill · Ferramentas': '#722ed1',
   };
 
   if (selectedSkill) {

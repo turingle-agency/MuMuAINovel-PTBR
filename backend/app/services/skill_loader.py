@@ -72,20 +72,20 @@ def _template_key(name: str) -> str:
 
 def _display_name_from_description(description: str, fallback: str) -> str:
     first_line = description.strip().splitlines()[0].strip() if description.strip() else ""
-    if "。" in first_line:
-        return first_line.split("。")[0].strip() or fallback
-    return first_line or fallback
+    # Primeira frase da descrição (aceita ponto final latino ou ideográfico)
+    first_sentence = re.split(r"\u3002|\.(?:\s|$)", first_line, maxsplit=1)[0].strip()
+    return first_sentence or fallback
 
 
 def _infer_category(name: str) -> str:
     if "long" in name:
-        return "Skill·长篇"
+        return "Skill · Romance longo"
     if "short" in name:
-        return "Skill·短篇"
+        return "Skill · Conto"
     if "deslop" in name:
-        return "Skill·润色"
+        return "Skill · Revisão"
     if "browser" in name:
-        return "Skill·工具"
+        return "Skill · Ferramentas"
     return "Skill"
 
 
@@ -208,10 +208,10 @@ def load_skills() -> List[Dict]:
             
             # 拼接参考知识库到内容（作为按需加载的附录）
             if references:
-                ref_section = "\n\n---\n\n## 附录：参考资料知识库\n"
-                ref_section += "（以下内容根据用户需求按需引用，不需要全部使用）\n"
+                ref_section = "\n\n---\n\n## Apêndice: base de conhecimento de referência\n"
+                ref_section += "(O conteúdo abaixo deve ser consultado conforme a necessidade do usuário; não é preciso usar tudo.)\n"
                 for ref_name, ref_content in references.items():
-                    ref_section += f"\n### 参考资料：{ref_name}\n\n{ref_content}\n"
+                    ref_section += f"\n### Material de referência: {ref_name}\n\n{ref_content}\n"
                 full_content = body + ref_section
             else:
                 full_content = body
@@ -265,28 +265,27 @@ def get_skill_by_trigger(user_input: str) -> Optional[Dict]:
     
     # 自然语言模糊匹配
     keyword_map = {
-        "长篇写作": ["SKILL_STORY_LONG_WRITE"],
-        "写长篇": ["SKILL_STORY_LONG_WRITE"],
-        "帮我开书": ["SKILL_STORY_LONG_WRITE"],
-        "写大纲": ["SKILL_STORY_LONG_WRITE"],
-        "短篇写作": ["SKILL_STORY_SHORT_WRITE"],
-        "写短篇": ["SKILL_STORY_SHORT_WRITE"],
-        "写个盐言": ["SKILL_STORY_SHORT_WRITE"],
-        "长篇拆文": ["SKILL_STORY_LONG_ANALYZE"],
-        "拆书": ["SKILL_STORY_LONG_ANALYZE"],
-        "分析黄金三章": ["SKILL_STORY_LONG_ANALYZE"],
-        "短篇拆文": ["SKILL_STORY_SHORT_ANALYZE"],
-        "分析短篇": ["SKILL_STORY_SHORT_ANALYZE"],
-        "长篇扫榜": ["SKILL_STORY_LONG_SCAN"],
-        "长篇什么火": ["SKILL_STORY_LONG_SCAN"],
-        "起点排行": ["SKILL_STORY_LONG_SCAN"],
-        "短篇扫榜": ["SKILL_STORY_SHORT_SCAN"],
-        "短篇什么火": ["SKILL_STORY_SHORT_SCAN"],
-        "去ai味": ["SKILL_STORY_DESLOP"],
-        "去味": ["SKILL_STORY_DESLOP"],
-        "太ai了": ["SKILL_STORY_DESLOP"],
-        "润色": ["SKILL_STORY_DESLOP"],
-        "浏览器": ["SKILL_BROWSER_CDP"],
+        "escrever romance": ["SKILL_STORY_LONG_WRITE"],
+        "romance longo": ["SKILL_STORY_LONG_WRITE"],
+        "começar um livro": ["SKILL_STORY_LONG_WRITE"],
+        "escrever esboço": ["SKILL_STORY_LONG_WRITE"],
+        "escrever conto": ["SKILL_STORY_SHORT_WRITE"],
+        "história curta": ["SKILL_STORY_SHORT_WRITE"],
+        "analisar romance": ["SKILL_STORY_LONG_ANALYZE"],
+        "analise este livro": ["SKILL_STORY_LONG_ANALYZE"],
+        "três primeiros capítulos": ["SKILL_STORY_LONG_ANALYZE"],
+        "analisar conto": ["SKILL_STORY_SHORT_ANALYZE"],
+        "analise este conto": ["SKILL_STORY_SHORT_ANALYZE"],
+        "panorama de romance longo": ["SKILL_STORY_LONG_SCAN"],
+        "mais vendidos": ["SKILL_STORY_LONG_SCAN"],
+        "ranking de romances": ["SKILL_STORY_LONG_SCAN"],
+        "panorama de contos": ["SKILL_STORY_SHORT_SCAN"],
+        "ranking de contos": ["SKILL_STORY_SHORT_SCAN"],
+        "tom de ia": ["SKILL_STORY_DESLOP"],
+        "muito ia": ["SKILL_STORY_DESLOP"],
+        "mais natural": ["SKILL_STORY_DESLOP"],
+        "revisar": ["SKILL_STORY_DESLOP"],
+        "navegador": ["SKILL_BROWSER_CDP"],
     }
     
     for keyword, skill_keys in keyword_map.items():

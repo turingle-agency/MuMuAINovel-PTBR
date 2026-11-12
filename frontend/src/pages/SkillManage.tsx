@@ -28,10 +28,10 @@ interface SkillDetail {
 }
 
 const SKILL_CATEGORY_OPTIONS = [
-  { label: 'Skill·长篇', value: 'Skill·长篇' },
-  { label: 'Skill·短篇', value: 'Skill·短篇' },
-  { label: 'Skill·润色', value: 'Skill·润色' },
-  { label: 'Skill·工具', value: 'Skill·工具' },
+  { label: 'Skill · Romance longo', value: 'Skill · Romance longo' },
+  { label: 'Skill · Conto', value: 'Skill · Conto' },
+  { label: 'Skill · Revisão', value: 'Skill · Revisão' },
+  { label: 'Skill · Ferramentas', value: 'Skill · Ferramentas' },
   { label: 'Skill', value: 'Skill' },
 ];
 
@@ -282,10 +282,10 @@ export default function SkillManage() {
       width: 120,
       render: (cat: string) => {
         const colorMap: Record<string, string> = {
-          'Skill·长篇': 'blue',
-          'Skill·短篇': 'green',
-          'Skill·润色': 'orange',
-          'Skill·工具': 'purple',
+          'Skill · Romance longo': 'blue',
+          'Skill · Conto': 'green',
+          'Skill · Revisão': 'orange',
+          'Skill · Ferramentas': 'purple',
           'Skill': 'default',
         };
         return <Tag color={colorMap[cat] || 'default'}>{cat}</Tag>;
