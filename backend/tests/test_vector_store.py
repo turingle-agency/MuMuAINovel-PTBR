@@ -94,3 +94,75 @@ def test_set_payload(store):
     got = store.get("c", where=[Cond("memory_type", "eq", "z")])
     assert [p.id for p in got] == ["p1"]
     assert got[0].document == "d1"
+
+
+def _concorrente(fn, n=8):
+    import threading
+
+    resultados, barreira = [], threading.Barrier(n)
+
+    def run():
+        barreira.wait()
+        resultados.append(fn())
+
+    ts = [threading.Thread(target=run) for _ in range(n)]
+    [t.start() for t in ts]
+    [t.join() for t in ts]
+    return resultados
+
+
+def test_get_vector_store_concorrente_abre_o_cliente_uma_vez(monkeypatch, tmp_path):
+    import time
+
+    import qdrant_client
+
+    import app.services.vector as vec_mod
+    from app.config import settings
+
+    criados = []
+
+    class ClienteLento:
+        def __init__(self, *a, **k):
+            criados.append(1)
+            time.sleep(0.2)
+
+    monkeypatch.setattr(qdrant_client, "QdrantClient", ClienteLento)
+    monkeypatch.setattr(settings, "qdrant_url", None)
+    monkeypatch.setattr(settings, "qdrant_path", str(tmp_path / "q"))
+    monkeypatch.setattr(vec_mod, "QdrantVectorStore", None, raising=False)
+    vec_mod.set_vector_store_for_tests(None)
+    try:
+        stores = _concorrente(vec_mod.get_vector_store)
+    finally:
+        vec_mod.set_vector_store_for_tests(None)
+    assert len(criados) == 1
+    assert len({id(s) for s in stores}) == 1
+
+
+def test_embedder_concorrente_carrega_o_modelo_uma_vez(monkeypatch):
+    import time
+
+    import numpy as np
+
+    import app.services.onnx_embedding as onnx_mod
+    from app.services.vector import embedder as emb_mod
+
+    carregados = []
+
+    class ModeloLento:
+        def __init__(self):
+            carregados.append(1)
+            time.sleep(0.2)
+
+        def encode(self, texts):
+            return np.zeros((1, 384))
+
+    monkeypatch.setattr(onnx_mod, "OnnxEmbeddingModel", ModeloLento)
+    emb_mod.set_embedder_for_tests(None)
+    try:
+        embs = _concorrente(emb_mod.get_embedder)
+        assert len({id(e) for e in embs}) == 1
+        _concorrente(lambda: embs[0].encode("x"))
+    finally:
+        emb_mod.set_embedder_for_tests(None)
+    assert len(carregados) == 1

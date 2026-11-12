@@ -23,8 +23,9 @@ def test_count_words_vazio():
 
 
 def test_estimate_max_tokens_limites():
-    assert estimate_max_tokens(3000) == 6000
+    assert estimate_max_tokens(3000) == 7500
     assert estimate_max_tokens(100) == 2000
+    assert estimate_max_tokens(4000) == 10000
     assert estimate_max_tokens(50000) == 16000
     assert estimate_max_tokens(100, floor=500, ceiling=8000) == 500
 

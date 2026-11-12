@@ -18,5 +18,5 @@ def count_words(text: Optional[str]) -> int:
 
 
 def estimate_max_tokens(target_words: int, floor: int = 2000, ceiling: int = 16000) -> int:
-    """Estima max_tokens (~2 tokens por palavra) limitado ao intervalo [floor, ceiling]."""
-    return max(floor, min(ceiling, int(target_words * 2)))
+    """Estima max_tokens (~2,5 tokens por palavra) limitado ao intervalo [floor, ceiling]."""
+    return max(floor, min(ceiling, int(target_words * 2.5)))
