@@ -1,0 +1,11 @@
+{
+  "gancho": "Gancho",
+  "pista": "Pista",
+  "pontoDeEnredo": "Ponto de enredo",
+  "eventoDePersonagem": "Evento de personagem",
+  "intensidade10": "Intensidade: {{strength}}/10",
+  "plantada": "Plantada",
+  "resolvida": "Resolvida",
+  "semDadosAnalise": "Sem dados de análise",
+  "visaoGeralAnalise": "📊 Visão geral da análise"
+}

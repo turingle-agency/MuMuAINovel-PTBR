@@ -3,6 +3,7 @@ import { BulbOutlined, MoonOutlined, DesktopOutlined } from '@ant-design/icons';
 import { useThemeMode } from '../theme/useThemeMode';
 import type { ThemeMode } from '../theme/themeStorage';
 import type { ReactNode } from 'react';
+import i18n from '../i18n';
 
 interface ThemeSwitchProps {
   size?: 'small' | 'middle' | 'large';
@@ -13,7 +14,7 @@ const options: Array<{ value: ThemeMode; label: ReactNode }> = [
   {
     value: 'light',
     label: (
-      <Tooltip title="浅色模式">
+      <Tooltip title={i18n.t('themeSwitch:modoClaro')}>
         <BulbOutlined />
       </Tooltip>
     ),
@@ -21,7 +22,7 @@ const options: Array<{ value: ThemeMode; label: ReactNode }> = [
   {
     value: 'dark',
     label: (
-      <Tooltip title="深色模式">
+      <Tooltip title={i18n.t('themeSwitch:modoEscuro')}>
         <MoonOutlined />
       </Tooltip>
     ),
@@ -29,7 +30,7 @@ const options: Array<{ value: ThemeMode; label: ReactNode }> = [
   {
     value: 'system',
     label: (
-      <Tooltip title="跟随系统">
+      <Tooltip title={i18n.t('themeSwitch:seguirOSistema')}>
         <DesktopOutlined />
       </Tooltip>
     ),

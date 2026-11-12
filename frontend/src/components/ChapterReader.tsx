@@ -14,6 +14,7 @@ import {
   ColumnHeightOutlined
 } from '@ant-design/icons';
 import type { Chapter } from '../types';
+import { useTranslation } from 'react-i18next';
 
 // 阅读器设置接口
 interface ReaderSettings {
@@ -55,7 +56,7 @@ const loadSettings = (): ReaderSettings => {
       return JSON.parse(saved);
     }
   } catch (e) {
-    console.warn('加载阅读器设置失败:', e);
+    console.warn('Falha ao carregar as configurações do leitor:', e);
   }
   return {
     fontSize: 18,
@@ -69,7 +70,7 @@ const saveSettings = (settings: ReaderSettings) => {
   try {
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
   } catch (e) {
-    console.warn('保存阅读器设置失败:', e);
+    console.warn('Falha ao salvar as configurações do leitor:', e);
   }
 };
 
@@ -79,6 +80,7 @@ export default function ChapterReader({
   onClose, 
   onChapterChange 
 }: ChapterReaderProps) {
+  const { t } = useTranslation('chapterReaderPanel');
   const { token } = theme.useToken();
 
   // 阅读器设置
@@ -111,7 +113,7 @@ export default function ChapterReader({
       setLoading(true);
       fetch(`/api/chapters/${chapter.id}/navigation`)
         .then(res => {
-          if (!res.ok) throw new Error('获取导航失败');
+          if (!res.ok) throw new Error(t('falhaObterNavegacao'));
           return res.json();
         })
         .then(data => {
@@ -119,12 +121,12 @@ export default function ChapterReader({
           setLoading(false);
         })
         .catch(err => {
-          console.error('获取导航信息失败:', err);
-          message.error('获取章节导航信息失败');
+          console.error('Falha ao obter as informações de navegação:', err);
+          message.error(t('falhaObterInformacoesNavegacao'));
           setLoading(false);
         });
     }
-  }, [visible, chapter?.id]);
+  }, [visible, chapter?.id, t]);
 
   // 保存设置变更
   useEffect(() => {
@@ -269,7 +271,7 @@ export default function ChapterReader({
           onClick={onClose}
           style={{ color: currentTheme.text }}
         >
-          {!isMobile && '关闭'}
+          {!isMobile && t('fechar')}
         </Button>
         
         <Typography.Title 
@@ -284,7 +286,7 @@ export default function ChapterReader({
             fontSize: isMobile ? 14 : 16
           }}
         >
-          第{chapter.chapter_number}章：{chapter.title}
+          {t('capitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
         </Typography.Title>
         
         <Button
@@ -292,7 +294,7 @@ export default function ChapterReader({
           icon={<SettingOutlined />}
           onClick={() => setShowSettings(!showSettings)}
           style={{ color: showSettings ? undefined : currentTheme.text }}
-          title="阅读设置"
+          title={t('configuracoesDeLeitura')}
         />
       </div>
 
@@ -313,7 +315,7 @@ export default function ChapterReader({
             <div style={{ minWidth: isMobile ? '100%' : 200 }}>
               <Space style={{ marginBottom: 8, color: currentTheme.text }}>
                 <FontSizeOutlined />
-                <span>字体大小: {settings.fontSize}px</span>
+                <span>{t('tamanhoFontePx', { fontSize: settings.fontSize })}</span>
               </Space>
               <Slider
                 min={14}
@@ -328,7 +330,7 @@ export default function ChapterReader({
             <div style={{ minWidth: isMobile ? '100%' : 200 }}>
               <Space style={{ marginBottom: 8, color: currentTheme.text }}>
                 <ColumnHeightOutlined />
-                <span>行高: {settings.lineHeight}</span>
+                <span>{t('alturaDaLinha', { lineHeight: settings.lineHeight })}</span>
               </Space>
               <Slider
                 min={1.4}
@@ -344,7 +346,7 @@ export default function ChapterReader({
             <div>
               <Space style={{ marginBottom: 8, color: currentTheme.text }}>
                 <BgColorsOutlined />
-                <span>主题</span>
+                <span>{t('tema')}</span>
               </Space>
               <div>
                 <Radio.Group
@@ -353,9 +355,9 @@ export default function ChapterReader({
                   buttonStyle="solid"
                   size={isMobile ? 'small' : 'middle'}
                 >
-                  <Radio.Button value="light">日间</Radio.Button>
-                  <Radio.Button value="sepia">护眼</Radio.Button>
-                  <Radio.Button value="dark">夜间</Radio.Button>
+                  <Radio.Button value="light">{t('claro')}</Radio.Button>
+                  <Radio.Button value="sepia">{t('confortoVisual')}</Radio.Button>
+                  <Radio.Button value="dark">{t('escuro')}</Radio.Button>
                 </Radio.Group>
               </div>
             </div>
@@ -373,7 +375,7 @@ export default function ChapterReader({
           scrollBehavior: 'smooth'
         }}
       >
-        <Spin spinning={loading} tip="加载中...">
+        <Spin spinning={loading} tip={t('carregando')}>
           <div
             style={{
               maxWidth: 1000,
@@ -414,7 +416,7 @@ export default function ChapterReader({
               color: currentTheme.text,
               opacity: 0.6
             }}>
-              暂无内容
+              {t('semConteudo')}
             </div>
           )}
           </div>
@@ -439,7 +441,7 @@ export default function ChapterReader({
           onClick={handlePrevious}
           size={isMobile ? 'middle' : 'large'}
         >
-          {!isMobile && '上一章'}
+          {!isMobile && t('capituloAnterior')}
         </Button>
         
         <div style={{ 
@@ -447,12 +449,12 @@ export default function ChapterReader({
           color: currentTheme.text,
           fontSize: isMobile ? 12 : 14
         }}>
-          <div>{chapter.word_count || 0} 字</div>
+          <div>{t('palavras', { word_count: chapter.word_count || 0 })}</div>
           {navigation && (
             <div style={{ fontSize: isMobile ? 10 : 12, opacity: 0.7 }}>
-              {navigation.previous ? `← ${navigation.previous.title}` : '已是第一章'}
+              {navigation.previous ? `← ${navigation.previous.title}` : t('jaPrimeiroCapitulo')}
               {' | '}
-              {navigation.next ? `${navigation.next.title} →` : '已是最后一章'}
+              {navigation.next ? `${navigation.next.title} →` : t('jaUltimoCapitulo')}
             </div>
           )}
         </div>
@@ -463,7 +465,7 @@ export default function ChapterReader({
           onClick={handleNext}
           size={isMobile ? 'middle' : 'large'}
         >
-          {!isMobile && '下一章'}
+          {!isMobile && t('proximoCapitulo')}
           <RightOutlined />
         </Button>
       </div>

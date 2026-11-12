@@ -1,0 +1,6 @@
+{
+  "indiceDeCapitulos": "Índice de capítulos",
+  "buscarTituloCapitulo": "Buscar título de capítulo",
+  "capitulo": "Capítulo {{chapter_number}}: {{title}}",
+  "nenhumCapituloCorrespondenteEncontrado": "Nenhum capítulo correspondente encontrado"
+}
