@@ -7,6 +7,7 @@ from app.utils.text_metrics import count_words
 from app.database import get_db
 from app.models.memory import StoryMemory, PlotAnalysis
 from app.models.chapter import Chapter
+from app.constants.languages import language_name
 from app.models.project import Project
 from app.services.memory_service import memory_service
 from app.services.plot_analyzer import get_plot_analyzer
@@ -38,7 +39,7 @@ async def analyze_chapter(
         user_id = getattr(request.state, 'user_id', None)
         
         # 验证用户权限
-        await verify_project_access(project_id, user_id, db)
+        project = await verify_project_access(project_id, user_id, db)
         
         # 获取章节内容
         result = await db.execute(
@@ -92,7 +93,8 @@ async def analyze_chapter(
             word_count=chapter.word_count or count_words(chapter.content),
             user_id=user_id,
             db=db,
-            existing_foreshadows=existing_foreshadows
+            existing_foreshadows=existing_foreshadows,
+            output_language=language_name(project.language)
         )
         
         if not analysis_result:

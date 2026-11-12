@@ -11,6 +11,7 @@ from app.models.chapter import Chapter
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.logger import get_logger, safe_preview
 
 logger = get_logger(__name__)
@@ -114,6 +115,7 @@ class PlotExpansionService:
         # 格式化提示词
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             project_title=project.title,
             project_genre=project.genre or '通用',
             project_theme=project.theme or '未设定',
@@ -240,6 +242,7 @@ class PlotExpansionService:
             # 格式化提示词
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 project_genre=project.genre or '通用',
                 project_theme=project.theme or '未设定',

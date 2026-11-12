@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.logger import get_logger, safe_preview
 import json
 import re
@@ -40,7 +41,8 @@ class PlotAnalyzer:
         max_retries: int = 3,
         existing_foreshadows: Optional[List[Dict[str, Any]]] = None,
         on_retry: Optional[OnRetryCallback] = None,
-        characters_info: str = ""
+        characters_info: str = "",
+        output_language: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """
         分析单章内容（带重试机制）
@@ -82,6 +84,7 @@ class PlotAnalyzer:
         # 格式化提示词
         prompt = PromptService.format_prompt(
             template,
+            output_language=output_language or language_name(None),
             chapter_number=chapter_number,
             title=title,
             word_count=word_count,

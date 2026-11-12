@@ -56,6 +56,7 @@ from app.services.prompt_service import prompt_service, PromptService, WritingSt
 from app.services.plot_analyzer import PlotAnalyzer
 from app.services.memory_service import memory_service
 from app.services.foreshadow_service import foreshadow_service
+from app.constants.languages import language_name
 from app.services.chapter_regenerator import ChapterRegenerator
 from app.logger import get_logger
 from app.api.settings import get_user_ai_service, get_user_ai_service_from_db_by_usage
@@ -1105,6 +1106,9 @@ async def _analyze_chapter_background_impl(
                 logger.warning(f"⚠️ 更新重试状态失败: {callback_error}")
         
         # 3. 使用PlotAnalyzer分析章节（传入已有伏笔列表、角色信息和重试回调）
+        analysis_project = (await db_session.execute(
+            select(Project).where(Project.id == project_id)
+        )).scalar_one_or_none()
         analyzer = PlotAnalyzer(ai_service)
         analysis_result = await analyzer.analyze_chapter(
             chapter_number=chapter.chapter_number,
@@ -1113,7 +1117,8 @@ async def _analyze_chapter_background_impl(
             word_count=chapter.word_count or count_words(chapter.content),
             existing_foreshadows=existing_foreshadows,
             on_retry=on_retry_callback,
-            characters_info=characters_info
+            characters_info=characters_info,
+            output_language=language_name(analysis_project.language if analysis_project else None)
         )
         
         if not analysis_result:
@@ -1140,7 +1145,7 @@ async def _analyze_chapter_background_impl(
             if existing_analysis:
                 # 更新现有记录
                 logger.info(f"  更新现有分析记录: {existing_analysis.id}")
-                existing_analysis.plot_stage = analysis_result.get('plot_stage', '发展')
+                existing_analysis.plot_stage = analysis_result.get('plot_stage', 'desenvolvimento')
                 existing_analysis.conflict_level = analysis_result.get('conflict', {}).get('level', 0)
                 existing_analysis.conflict_types = analysis_result.get('conflict', {}).get('types', [])
                 existing_analysis.emotional_tone = analysis_result.get('emotional_arc', {}).get('primary_emotion', '')
@@ -1169,7 +1174,7 @@ async def _analyze_chapter_background_impl(
                 plot_analysis = PlotAnalysis(
                     chapter_id=chapter_id,
                     project_id=project_id,
-                    plot_stage=analysis_result.get('plot_stage', '发展'),
+                    plot_stage=analysis_result.get('plot_stage', 'desenvolvimento'),
                     conflict_level=analysis_result.get('conflict', {}).get('level', 0),
                     conflict_types=analysis_result.get('conflict', {}).get('types', []),
                     emotional_tone=analysis_result.get('emotional_arc', {}).get('primary_emotion', ''),
@@ -1644,6 +1649,7 @@ async def generate_chapter_content_stream(
                         template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE_NEXT", current_user_id, db_session)
                         base_prompt = PromptService.format_prompt(
                             template,
+                            output_language=language_name(project.language),
                             project_title=project.title,
                             chapter_number=current_chapter.chapter_number,
                             chapter_title=current_chapter.title,
@@ -1665,6 +1671,7 @@ async def generate_chapter_content_stream(
                         template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE", current_user_id, db_session)
                         base_prompt = PromptService.format_prompt(
                             template,
+                            output_language=language_name(project.language),
                             project_title=project.title,
                             chapter_number=current_chapter.chapter_number,
                             chapter_title=current_chapter.title,
@@ -1692,6 +1699,7 @@ async def generate_chapter_content_stream(
                         template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY_NEXT", current_user_id, db_session)
                         base_prompt = PromptService.format_prompt(
                             template,
+                            output_language=language_name(project.language),
                             project_title=project.title,
                             chapter_number=current_chapter.chapter_number,
                             chapter_title=current_chapter.title,
@@ -1714,6 +1722,7 @@ async def generate_chapter_content_stream(
                         template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY", current_user_id, db_session)
                         base_prompt = PromptService.format_prompt(
                             template,
+                            output_language=language_name(project.language),
                             project_title=project.title,
                             chapter_number=current_chapter.chapter_number,
                             chapter_title=current_chapter.title,
@@ -2188,6 +2197,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE_NEXT", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2207,6 +2217,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2225,6 +2236,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY_NEXT", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2244,6 +2256,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2700,6 +2713,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE_NEXT", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2719,6 +2733,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2737,6 +2752,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY_NEXT", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -2756,6 +2772,7 @@ async def _run_chapter_generation_bg(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY", user_id, db)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=current_chapter.chapter_number,
                 chapter_title=current_chapter.title,
@@ -4224,6 +4241,7 @@ async def generate_single_chapter_for_batch(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE_NEXT", user_id, db_session)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=chapter.chapter_number,
                 chapter_title=chapter.title,
@@ -4244,6 +4262,7 @@ async def generate_single_chapter_for_batch(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_ONE", user_id, db_session)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=chapter.chapter_number,
                 chapter_title=chapter.title,
@@ -4271,6 +4290,7 @@ async def generate_single_chapter_for_batch(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY_NEXT", user_id, db_session)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=chapter.chapter_number,
                 chapter_title=chapter.title,
@@ -4291,6 +4311,7 @@ async def generate_single_chapter_for_batch(
             template = await PromptService.get_template("CHAPTER_GENERATION_ONE_TO_MANY", user_id, db_session)
             base_prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language),
                 project_title=project.title,
                 chapter_number=chapter.chapter_number,
                 chapter_title=chapter.title,
@@ -4617,7 +4638,8 @@ async def regenerate_chapter_stream(
                 'atmosphere': project.world_atmosphere if project else '未设定',
                 'characters_info': characters_info_with_careers,
                 'chapter_outline': outline.content if outline else chapter.summary or '暂无大纲',
-                'previous_context': ''  # 可以后续扩展添加前置章节上下文
+                'previous_context': '',  # 可以后续扩展添加前置章节上下文
+                'output_language': language_name(project.language if project else None),
             }
         finally:
             await temp_db.close()
@@ -5052,19 +5074,19 @@ async def partial_regenerate_stream(
             if partial_request.length_mode == "similar":
                 min_words = int(original_word_count * 0.8)
                 max_words = int(original_word_count * 1.2)
-                length_requirement = f"保持与原文相近的字数（约{original_word_count}字，允许{min_words}-{max_words}字浮动）"
+                length_requirement = f"manter extensão próxima à do original (cerca de {original_word_count} palavras, variando entre {min_words} e {max_words} palavras)"
             elif partial_request.length_mode == "expand":
                 min_words = int(original_word_count * 1.2)
                 max_words = int(original_word_count * 2.0)
-                length_requirement = f"适当扩展内容（目标{min_words}-{max_words}字）"
+                length_requirement = f"expandir o conteúdo moderadamente (meta: {min_words} a {max_words} palavras)"
             elif partial_request.length_mode == "condense":
                 min_words = int(original_word_count * 0.5)
                 max_words = int(original_word_count * 0.8)
-                length_requirement = f"精简压缩内容（目标{min_words}-{max_words}字）"
+                length_requirement = f"condensar o conteúdo (meta: {min_words} a {max_words} palavras)"
             elif partial_request.length_mode == "custom" and partial_request.target_word_count:
-                length_requirement = f"目标字数：约{partial_request.target_word_count}字（允许±20%浮动）"
+                length_requirement = f"meta de extensão: cerca de {partial_request.target_word_count} palavras (±10%)"
             else:
-                length_requirement = f"保持与原文相近的字数（约{original_word_count}字）"
+                length_requirement = f"manter extensão próxima à do original (cerca de {original_word_count} palavras)"
             
             # 获取提示词模板
             template = await PromptService.get_template("PARTIAL_REGENERATE", user_id, db)
@@ -5074,6 +5096,7 @@ async def partial_regenerate_stream(
             # 构建提示词
             prompt = PromptService.format_prompt(
                 template,
+                output_language=language_name(project.language if project else None),
                 context_before=context_before if context_before else "（这是章节开头）",
                 original_word_count=original_word_count,
                 selected_text=original_text,

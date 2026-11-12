@@ -26,6 +26,15 @@ TRANSLATED = [
     "MCP_CHARACTER_PLANNING",
     "OUTLINE_CREATE",
     "OUTLINE_CONTINUE",
+    "CHAPTER_GENERATION_ONE_TO_MANY",
+    "CHAPTER_GENERATION_ONE_TO_ONE",
+    "CHAPTER_GENERATION_ONE_TO_ONE_NEXT",
+    "CHAPTER_GENERATION_ONE_TO_MANY_NEXT",
+    "CHAPTER_REGENERATION_SYSTEM",
+    "PARTIAL_REGENERATE",
+    "PLOT_ANALYSIS",
+    "OUTLINE_EXPAND_SINGLE",
+    "OUTLINE_EXPAND_MULTI",
 ]
 
 
@@ -81,3 +90,20 @@ def test_template_personalizado_antigo_sem_idioma_nao_quebra():
 def test_format_param_ausente():
     with pytest.raises(ValueError, match="Parâmetro obrigatório ausente: title"):
         PromptService.format_prompt("{title}")
+
+
+def test_plot_analysis_pede_intimacy_delta():
+    assert '"intimacy_delta"' in PromptService.PLOT_ANALYSIS
+    assert '"change"' in PromptService.PLOT_ANALYSIS
+
+
+@pytest.mark.asyncio
+async def test_prompt_de_reescrita_usa_idioma_e_palavras():
+    prompt = await PromptService.get_chapter_regeneration_prompt(
+        chapter_number=1, title="T", word_count=1234, content="texto",
+        modification_instructions="melhorar", project_context={"output_language": "inglês (Estados Unidos)"},
+        style_content="", target_word_count=2000,
+    )
+    assert "inglês (Estados Unidos)" in prompt
+    assert "{output_language}" not in prompt
+    assert "1234 palavras" in prompt and "2000 palavras" in prompt

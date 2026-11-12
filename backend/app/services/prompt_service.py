@@ -48,6 +48,15 @@ class PromptService:
     MCP_CHARACTER_PLANNING = prompts.MCP_CHARACTER_PLANNING
     OUTLINE_CREATE = prompts.OUTLINE_CREATE
     OUTLINE_CONTINUE = prompts.OUTLINE_CONTINUE
+    CHAPTER_GENERATION_ONE_TO_MANY = prompts.CHAPTER_GENERATION_ONE_TO_MANY
+    CHAPTER_GENERATION_ONE_TO_ONE = prompts.CHAPTER_GENERATION_ONE_TO_ONE
+    CHAPTER_GENERATION_ONE_TO_ONE_NEXT = prompts.CHAPTER_GENERATION_ONE_TO_ONE_NEXT
+    CHAPTER_GENERATION_ONE_TO_MANY_NEXT = prompts.CHAPTER_GENERATION_ONE_TO_MANY_NEXT
+    CHAPTER_REGENERATION_SYSTEM = prompts.CHAPTER_REGENERATION_SYSTEM
+    PARTIAL_REGENERATE = prompts.PARTIAL_REGENERATE
+    PLOT_ANALYSIS = prompts.PLOT_ANALYSIS
+    OUTLINE_EXPAND_SINGLE = prompts.OUTLINE_EXPAND_SINGLE
+    OUTLINE_EXPAND_MULTI = prompts.OUTLINE_EXPAND_MULTI
 
     NOVEL_COVER_PROMPT_TEMPLATE = """创作一幅高质量小说封面插图，适用于竖版书籍封面。
 
@@ -98,920 +107,6 @@ class PromptService:
     
     # ========== V2版本提示词模板（RTCO框架）==========
     
-# 批量角色生成提示词 V2（RTCO框架）
-# 大纲生成提示词 V2（RTCO框架）
-# 大纲续写提示词 V2（RTCO框架 - 简化版）
-# 章节生成 - 1-N模式（第1章）
-    CHAPTER_GENERATION_ONE_TO_MANY = """<system>
-你是《{project_title}》的作者，一位专注于{genre}类型的网络小说家。
-</system>
-
-<task>
-【创作任务】
-撰写第{chapter_number}章《{chapter_title}》的完整正文。
-
-【基本要求】
-- 目标字数：{target_word_count}字（允许±200字浮动）
-- 叙事视角：{narrative_perspective}
-</task>
-
-<outline priority="P0">
-【本章大纲 - 必须遵循】
-{chapter_outline}
-</outline>
-
-<characters priority="P1">
-【本章角色 - 请严格遵循角色设定】
-{characters_info}
-
-⚠️ 角色互动须知：
-- 角色之间的对话和行为必须符合其关系设定（如师徒、敌对等）
-- 涉及组织的情节须体现角色在组织中的身份和职位
-- 角色的能力表现须符合其职业和阶段设定
-</characters>
-
-<careers priority="P2">
-【本章职业】
-{chapter_careers}
-</careers>
-
-<foreshadow_reminders priority="P2">
-【🎯 伏笔提醒】
-{foreshadow_reminders}
-</foreshadow_reminders>
-
-<memory priority="P2">
-【相关记忆】
-{relevant_memories}
-</memory>
-
-<constraints>
-【必须遵守】
-✅ 严格按照大纲推进情节
-✅ 保持角色性格、说话方式一致
-✅ 角色互动须符合关系设定（师徒、朋友、敌对等）
-✅ 组织相关情节须体现成员身份和职位层级
-✅ 字数控制在目标范围内
-✅ 如有伏笔提醒，请在本章中适当埋入或回收相应伏笔
-
-【禁止事项】
-❌ 输出章节标题、序号等元信息
-❌ 使用"总之"、"综上所述"等AI常见总结语
-❌ 在结尾处使用开放式反问
-❌ 添加作者注释或创作说明
-❌ 角色行为超出其职业阶段的能力范围
-</constraints>
-
-<output>
-【输出规范】
-直接输出小说正文内容，从故事场景或动作开始。
-无需任何前言、后记或解释性文字。
-
-现在开始创作：
-</output>"""
-
-    # 章节生成 - 1-1模式（第1章）
-    CHAPTER_GENERATION_ONE_TO_ONE = """<system>
-你是《{project_title}》的作者，一位专注于{genre}类型的网络小说家。
-</system>
-
-<task priority="P0">
-【创作任务】
-撰写第{chapter_number}章《{chapter_title}》的完整正文。
-
-【基本要求】
-- 目标字数：{target_word_count}字（允许±200字浮动）
-- 叙事视角：{narrative_perspective}
-</task>
-
-<outline priority="P0">
-【本章大纲】
-{chapter_outline}
-</outline>
-
-<characters priority="P1">
-【本章角色】
-{characters_info}
-</characters>
-
-<careers priority="P2">
-【本章职业】
-{chapter_careers}
-</careers>
-
-<foreshadow_reminders priority="P2">
-【🎯 伏笔提醒】
-{foreshadow_reminders}
-</foreshadow_reminders>
-
-<memory priority="P2">
-【相关记忆】
-{relevant_memories}
-</memory>
-
-<constraints>
-【必须遵守】
-✅ 严格按照大纲推进情节
-✅ 保持角色性格、说话方式一致
-✅ 字数需要严格控制在目标字数内
-✅ 如有伏笔提醒，请在本章中适当埋入或回收相应伏笔
-
-【禁止事项】
-❌ 输出章节标题、序号等元信息
-❌ 使用"总之"、"综上所述"等AI常见总结语
-❌ 添加作者注释或创作说明
-❌ 生成字数禁止超过目标字数
-</constraints>
-
-<output>
-【输出规范】
-直接输出小说正文内容，从故事场景或动作开始。
-无需任何前言、后记或解释性文字。
-
-现在开始创作：
-</output>"""
-
-    # 章节生成 - 1-1模式（第2章及以后）
-    CHAPTER_GENERATION_ONE_TO_ONE_NEXT = """<system>
-你是《{project_title}》的作者，一位专注于{genre}类型的网络小说家。
-</system>
-
-<task priority="P0">
-【创作任务】
-撰写第{chapter_number}章《{chapter_title}》的完整正文。
-
-【基本要求】
-- 目标字数：{target_word_count}字（允许±200字浮动）
-- 叙事视角：{narrative_perspective}
-</task>
-
-<outline priority="P0">
-【本章大纲】
-{chapter_outline}
-</outline>
-
-<previous_chapter_summary priority="P1">
-【上一章剧情概要】
-{previous_chapter_summary}
-</previous_chapter_summary>
-
-<recent_context priority="P1">
-【最近章节摘要 - 故事脉络参考】
-{recent_chapters_context}
-</recent_context>
-
-<previous_chapter priority="P1">
-【上一章完整正文】
-{previous_chapter_content}
-</previous_chapter>
-
-<characters priority="P1">
-【本章角色】
-{characters_info}
-</characters>
-
-<careers priority="P2">
-【本章职业】
-{chapter_careers}
-</careers>
-
-<foreshadow_reminders priority="P2">
-【🎯 伏笔提醒】
-{foreshadow_reminders}
-</foreshadow_reminders>
-
-<memory priority="P2">
-【相关记忆】
-{relevant_memories}
-</memory>
-
-<constraints>
-【必须遵守】
-✅ 严格按照大纲推进情节
-✅ 自然承接上一章末尾内容，保持连贯性
-✅ 保持角色性格、说话方式一致
-✅ 字数需要严格控制在目标字数内
-✅ 如有伏笔提醒，请在本章中适当埋入或回收相应伏笔
-
-【禁止事项】
-❌ 输出章节标题、序号等元信息
-❌ 使用"总之"、"综上所述"等AI常见总结语
-❌ 在结尾处使用开放式反问
-❌ 添加作者注释或创作说明
-❌ 重复上一章已发生的事件
-❌ 生成字数禁止超过目标字数
-</constraints>
-
-<output>
-【输出规范】
-直接输出小说正文内容，从故事场景或动作开始。
-无需任何前言、后记或解释性文字。
-
-现在开始创作：
-</output>"""
-
-    # 章节生成 - 1-N模式（第2章及以后）
-    CHAPTER_GENERATION_ONE_TO_MANY_NEXT = """<system>
-你是《{project_title}》的作者，一位专注于{genre}类型的网络小说家。
-</system>
-
-<task>
-【创作任务】
-撰写第{chapter_number}章《{chapter_title}》的完整正文。
-
-【基本要求】
-- 目标字数：{target_word_count}字（允许±200字浮动）
-- 叙事视角：{narrative_perspective}
-</task>
-
-<outline priority="P0">
-【本章大纲 - 必须遵循】
-{chapter_outline}
-</outline>
-
-<recent_context priority="P1">
-【最近章节规划 - 故事脉络参考】
-{recent_chapters_context}
-</recent_context>
-
-<continuation priority="P0">
-【衔接锚点 - 必须承接】
-上一章完整正文：
-「{continuation_point}」
-
-【🔴 上一章已完成剧情（禁止重复！）】
-{previous_chapter_summary}
-
-⚠️ 严重警告：
-1. 上述"已完成剧情"和"衔接锚点"是**已经写过的**内容
-2. 本章必须推进到**新的情节点**，绝对不能重新叙述已经发生的事件
-3. 本章应承接上一章最后的情境继续推进，不要复述上一章完整正文
-4. 如果上一章以对话或场景结束，请从结束后的动作、反应或场景转换开始
-</continuation>
-
-<characters priority="P1">
-【本章角色 - 请严格遵循角色设定】
-{characters_info}
-
-⚠️ 角色互动须知：
-- 角色之间的对话和行为必须符合其关系设定（如师徒、敌对等）
-- 涉及组织的情节须体现角色在组织中的身份和职位
-- 角色的能力表现须符合其职业和阶段设定
-</characters>
-
-<careers priority="P2">
-【本章职业】
-{chapter_careers}
-</careers>
-
-<foreshadow_reminders priority="P1">
-【🎯 伏笔提醒 - 需关注】
-{foreshadow_reminders}
-</foreshadow_reminders>
-
-<memory priority="P2">
-【相关记忆 - 参考】
-{relevant_memories}
-</memory>
-
-<constraints>
-【必须遵守】
-✅ 严格按照大纲推进情节
-✅ 自然承接上一章结尾，不重复已发生事件
-✅ 保持角色性格、说话方式一致
-✅ 角色互动须符合关系设定（师徒、朋友、敌对等）
-✅ 组织相关情节须体现成员身份和职位层级
-✅ 字数控制在目标范围内
-✅ 如有伏笔提醒，请在本章中适当埋入或回收相应伏笔
-
-【🔴 反重复特别指令】
-✅ 检查本章开篇是否与"衔接锚点"内容重复
-✅ 检查本章情节是否与"上一章已完成剧情"重复
-✅ 确保本章推进到了大纲中规划的新事件
-
-【禁止事项】
-❌ 输出章节标题、序号等元信息
-❌ 使用"总之"、"综上所述"等AI常见总结语
-❌ 在结尾处使用开放式反问
-❌ 添加作者注释或创作说明
-❌ 重复叙述上一章已发生的事件（包括环境描写、心理活动）
-❌ 在开篇使用"接上回"、"书接上文"等套话
-❌ 角色行为超出其职业阶段的能力范围
-</constraints>
-
-<output>
-【输出规范】
-直接输出小说正文内容，从故事场景或动作开始。
-无需任何前言、后记或解释性文字。
-
-现在开始创作：
-</output>"""
-
-# 单个组织生成提示词 V2（RTCO框架）
-# 情节分析提示词 V2（RTCO框架 + 伏笔ID追踪）
-    PLOT_ANALYSIS = """<system>
-你是专业的小说编辑和剧情分析师，擅长深度剖析章节内容。
-</system>
-
-<task>
-【分析任务】
-全面分析第{chapter_number}章《{title}》的剧情要素、钩子、伏笔、冲突和角色发展。
-
-【🔴 伏笔追踪任务（重要）】
-系统已提供【已埋入伏笔列表】，当你识别到章节中有回收伏笔时：
-1. 必须从列表中找出对应的伏笔ID
-2. 在 foreshadows 数组中使用 reference_foreshadow_id 字段关联
-3. 如果无法确定是哪个伏笔，reference_foreshadow_id 填 null
-</task>
-
-<chapter priority="P0">
-【章节信息】
-章节：第{chapter_number}章
-标题：{title}
-字数：{word_count}字
-
-【章节内容】
-{content}
-</chapter>
-
-<existing_foreshadows priority="P1">
-【已埋入伏笔列表 - 用于回收匹配】
-以下是本项目中已埋入但尚未回收的伏笔，分析时如发现章节内容回收了某个伏笔，请使用对应的ID：
-
-{existing_foreshadows}
-</existing_foreshadows>
-
-<characters priority="P1">
-【项目角色信息 - 用于角色状态分析】
-以下是项目中已有的角色列表，分析 character_states 和 relationship_changes 时请使用这些角色的准确名称：
-
-{characters_info}
-</characters>
-
-<analysis_framework priority="P0">
-【分析维度】
-
-**1. 剧情钩子 (Hooks)**
-识别吸引读者的关键元素：
-- 悬念钩子：未解之谜、疑问、谜团
-- 情感钩子：引发共鸣的情感点
-- 冲突钩子：矛盾对抗、紧张局势
-- 认知钩子：颠覆认知的信息
-
-每个钩子需要：
-- 类型分类
-- 具体内容描述
-- 强度评分(1-10)
-- 出现位置(开头/中段/结尾)
-- **关键词**：【必填】从原文逐字复制8-25字的文本片段，用于精确定位
-
-**2. 伏笔分析 (Foreshadowing) - 🔴 支持ID追踪**
-- 埋下的新伏笔：内容、预期作用、隐藏程度(1-10)
-- 回收的旧伏笔：【必须】从已埋入伏笔列表中匹配ID
-- 伏笔质量：巧妙性和合理性
-- **关键词**：【必填】从原文逐字复制8-25字
-
-每个伏笔需要：
-- **title**：简洁标题（10-20字，概括伏笔核心）
-  - ⚠️ 回收伏笔时，标题应与原伏笔标题保持一致，不要添加"回收"等后缀
-  - 例如：原伏笔标题是"绿头发的视觉符号"，回收时标题仍为"绿头发的视觉符号"，而非"绿头发的视觉符号回收"
-- **content**：详细描述伏笔内容和预期作用
-- **type**：planted（埋下）或 resolved（回收）
-- **strength**：强度1-10（对读者的吸引力）
-- **subtlety**：隐藏度1-10（越高越隐蔽）
-- **reference_chapter**：回收时引用的原埋入章节号，埋下时为null
-- **reference_foreshadow_id**：【回收时必填】被回收伏笔的ID（从已埋入伏笔列表中选择），埋下时为null
-  - 🔴 重要：回收伏笔时，必须从【已埋入伏笔列表】中找到对应的伏笔ID并填写
-  - 如果列表中有标注【ID: xxx】的伏笔，回收时必须使用该ID
-  - 如果无法确定是哪个伏笔，才填写null（但应尽量避免）
-- **keyword**：【必填】从原文逐字复制8-25字的定位文本
-- **category**：分类（identity=身世/mystery=悬念/item=物品/relationship=关系/event=事件/ability=能力/prophecy=预言）
-- **is_long_term**：是否长线伏笔（跨10章以上回收为true）
-- **related_characters**：涉及的角色名列表
-- **estimated_resolve_chapter**：【必填】预估回收章节号（埋下时必须预估，回收时为当前章节）
-
-**3. 冲突分析 (Conflict)**
-- 冲突类型：人与人/人与己/人与环境/人与社会
-- 冲突各方及立场
-- 冲突强度(1-10)
-- 解决进度(0-100%)
-
-**4. 情感曲线 (Emotional Arc)**
-- 主导情绪（最多10字）
-- 情感强度(1-10)
-- 情绪变化轨迹
-
-**5. 角色状态追踪 (Character Development)**
-对每个出场角色分析：
-- 心理状态变化(前→后)
-- 关系变化
-- 关键行动和决策
-- 成长或退步
-- **💀 存活状态（重要）**：
-  - survival_status: 角色当前存活状态
-  - 可选值：active(正常)/deceased(死亡)/missing(失踪)/retired(退场)
-  - 默认为null（表示无变化），仅当章节中角色明确死亡、失踪或永久退场时才填写
-  - 死亡/失踪需要有明确的剧情依据，不可臆测
-- ** 职业变化（可选）**：
-  - 仅当章节明确描述职业进展时填写
-  - main_career_stage_change: 整数(+1晋升/-1退步/0无变化)
-  - sub_career_changes: 副职业变化数组
-  - new_careers: 新获得职业
-  - career_breakthrough: 突破过程描述
-- **🏛️ 组织变化（可选）**：
-  - 仅当章节明确描述角色与组织关系变化时填写
-  - organization_changes: 组织变动数组
-  - 每项包含：organization_name(组织名)、change_type(加入joined/离开left/晋升promoted/降级demoted/开除expelled/叛变betrayed)、new_position(新职位，可选)、loyalty_change(忠诚度变化描述，可选)、description(变化描述)
-
-**5b. 组织状态追踪 (Organization Status) - 可选**
-仅当章节涉及组织势力变化时填写，分析出场组织的状态变化：
-- 组织名称
-- 势力等级变化(power_change: 整数，+N增强/-N削弱/0无变化)
-- 据点变化(new_location: 新据点，可选)
-- 宗旨/目标变化(new_purpose: 新目标，可选)
-- 组织状态描述(status_description: 当前状态概述)
-- 关键事件(key_event: 触发变化的事件)
-- **💀 组织存续状态（重要）**：
-  - is_destroyed: 组织是否被覆灭（true/false，默认false）
-  - 仅当章节明确描述组织被彻底消灭、瓦解、灭亡时设为true
-
-**6. 关键情节点 (Plot Points)**
-列出3-5个核心情节点：
-- 情节内容
-- 类型(revelation/conflict/resolution/transition)
-- 重要性(0.0-1.0)
-- 对故事的影响
-- **关键词**：【必填】从原文逐字复制8-25字
-
-**7. 场景与节奏**
-- 主要场景
-- 叙事节奏(快/中/慢)
-- 对话与描写比例
-
-**8. 质量评分（支持小数，严格区分度）**
-评分范围：1.0-10.0，支持一位小数（如 6.5、7.8）
-每个维度必须根据以下标准严格评分，避免所有内容都打中等分数：
-
-**节奏把控 (pacing)**：
-- 1.0-3.9（差）：节奏混乱，该快不快该慢不慢；场景切换生硬；大段无意义描写拖沓
-- 4.0-5.9（中下）：节奏基本可读但有明显问题；部分场景过于冗长或仓促
-- 6.0-7.9（中上）：节奏整体流畅，偶有小问题；张弛有度但不够精妙
-- 8.0-9.4（优秀）：节奏把控精准，高潮迭起；场景切换自然，详略得当
-- 9.5-10.0（完美）：节奏大师级，每个段落都恰到好处
-
-**吸引力 (engagement)**：
-- 1.0-3.9（差）：内容乏味，缺乏钩子；读者难以继续阅读
-- 4.0-5.9（中下）：有基本情节但缺乏亮点；钩子设置生硬或缺失
-- 6.0-7.9（中上）：有一定吸引力，钩子有效但不够巧妙
-- 8.0-9.4（优秀）：引人入胜，钩子设置精妙；让人欲罢不能
-- 9.5-10.0（完美）：极具吸引力，每个段落都有阅读动力
-
-**连贯性 (coherence)**：
-- 1.0-3.9（差）：逻辑混乱，前后矛盾；角色行为不合理
-- 4.0-5.9（中下）：基本连贯但有明显漏洞；部分情节衔接生硬
-- 6.0-7.9（中上）：整体连贯，偶有小瑕疵；角色行为基本合理
-- 8.0-9.4（优秀）：逻辑严密，衔接自然；角色行为高度一致
-- 9.5-10.0（完美）：无懈可击的连贯性
-
-**整体质量 (overall)**：
-- 计算公式：(pacing + engagement + coherence) / 3，保留一位小数
-- 可根据综合印象±0.5调整，必须与各项分数保持一致性
-
-**9. 改进建议（与分数关联）**
-建议数量必须与整体质量分数关联：
-- overall < 4.0：必须提供4-5条具体改进建议，指出严重问题
-- overall 4.0-5.9：必须提供3-4条改进建议，指出主要问题
-- overall 6.0-7.9：提供1-2条优化建议，指出可提升之处
-- overall ≥ 8.0：提供0-1条锦上添花的建议
-
-每条建议必须：
-- 指出具体问题位置或类型
-- 说明为什么是问题
-- 给出明确的改进方向
-</analysis_framework>
-
-<output priority="P0">
-【输出格式】
-返回纯JSON对象（无markdown标记）：
-
-{{
-  "hooks": [
-    {{
-      "type": "悬念",
-      "content": "具体描述",
-      "strength": 8,
-      "position": "中段",
-      "keyword": "从原文逐字复制的8-25字文本"
-    }}
-  ],
-  "foreshadows": [
-    {{
-      "title": "伏笔简洁标题",
-      "content": "伏笔详细内容和预期作用",
-      "type": "planted",
-      "strength": 7,
-      "subtlety": 8,
-      "reference_chapter": null,
-      "reference_foreshadow_id": null,
-      "keyword": "从原文逐字复制的8-25字文本",
-      "category": "mystery",
-      "is_long_term": false,
-      "related_characters": ["角色A", "角色B"],
-      "estimated_resolve_chapter": 15
-    }},
-    {{
-      "title": "回收的伏笔标题",
-      "content": "伏笔如何被回收的描述",
-      "type": "resolved",
-      "strength": 8,
-      "subtlety": 6,
-      "reference_chapter": 5,
-      "reference_foreshadow_id": "abc123-已埋入伏笔的ID",
-      "keyword": "从原文逐字复制的8-25字文本",
-      "category": "mystery",
-      "is_long_term": false,
-      "related_characters": ["角色A"],
-      "estimated_resolve_chapter": 10
-    }}
-  ],
-  "conflict": {{
-    "types": ["人与人", "人与己"],
-    "parties": ["主角-复仇", "反派-维护现状"],
-    "level": 8,
-    "description": "冲突描述",
-    "resolution_progress": 0.3
-  }},
-  "emotional_arc": {{
-    "primary_emotion": "紧张焦虑",
-    "intensity": 8,
-    "curve": "平静→紧张→高潮→释放",
-    "secondary_emotions": ["期待", "焦虑"]
-  }},
-  "character_states": [
-    {{
-      "character_name": "张三",
-      "survival_status": null,
-      "state_before": "犹豫",
-      "state_after": "坚定",
-      "psychological_change": "心理变化描述",
-      "key_event": "触发事件",
-      "relationship_changes": {{"李四": "关系改善"}},
-      "career_changes": {{
-        "main_career_stage_change": 1,
-        "sub_career_changes": [{{"career_name": "炼丹", "stage_change": 1}}],
-        "new_careers": [],
-        "career_breakthrough": "突破描述"
-      }},
-      "organization_changes": [
-        {{
-          "organization_name": "某门派",
-          "change_type": "promoted",
-          "new_position": "长老",
-          "loyalty_change": "忠诚度提升",
-          "description": "因立下大功被提拔为长老"
-        }}
-      ]
-    }}
-  ],
-  "plot_points": [
-    {{
-      "content": "情节点描述",
-      "type": "revelation",
-      "importance": 0.9,
-      "impact": "推动故事发展",
-      "keyword": "从原文逐字复制的8-25字文本"
-    }}
-  ],
-  "scenes": [
-    {{
-      "location": "地点",
-      "atmosphere": "氛围",
-      "duration": "时长估计"
-    }}
-  ],
-  "organization_states": [
-    {{
-      "organization_name": "某门派",
-      "power_change": -10,
-      "new_location": null,
-      "new_purpose": null,
-      "status_description": "因内乱势力受损，但核心力量未动摇",
-      "key_event": "长老叛变导致分支瓦解",
-      "is_destroyed": false
-    }}
-  ],
-  "pacing": "varied",
-  "dialogue_ratio": 0.4,
-  "description_ratio": 0.3,
-  "scores": {{
-    "pacing": 6.5,
-    "engagement": 5.8,
-    "coherence": 7.2,
-    "overall": 6.5,
-    "score_justification": "节奏整体流畅但中段略显拖沓；钩子设置有效但不够巧妙；逻辑连贯无明显漏洞"
-  }},
-  "plot_stage": "发展",
-  "suggestions": [
-    "【节奏问题】第三场景的心理描写过长（约500字），建议精简至200字以内，保留核心情感即可",
-    "【吸引力不足】章节中段缺乏有效钩子，建议在主角发现线索后增加一个小悬念"
-  ]
-}}
-</output>
-
-<constraints>
-【必须遵守】
-✅ keyword字段必填：钩子、伏笔、情节点的keyword不能为空
-✅ 逐字复制：keyword必须从原文复制，长度8-25字
-✅ 精确定位：keyword能在原文中精确找到
-✅ 职业变化可选：仅当章节明确描述时填写
-✅ 组织变化可选：仅当章节明确描述角色与组织关系变动时填写（character_states中的organization_changes）
-✅ 组织状态可选：仅当章节明确描述组织势力/据点/目标变化时填写（organization_states顶级字段）
-✅ 存活状态谨慎：survival_status仅当章节有明确死亡/失踪/退场描写时填写，默认null
-✅ 组织覆灭谨慎：is_destroyed仅当组织被彻底消灭时设true，组织受损不算覆灭
-✅ 【伏笔ID追踪】回收伏笔时，必须从【已埋入伏笔列表】中查找匹配的ID填入 reference_foreshadow_id
-✅ 【suggestions严格格式】suggestions 必须是“字符串数组”，每个元素都必须是纯字符串
-✅ suggestions 的正确格式示例："suggestions": ["【节奏问题】...", "【描写不足】..."]
-✅ suggestions 中禁止返回对象、字典、键值对或嵌套结构，例如禁止 {{"suggestion": "..."}}、{{"content": "..."}}
-✅ 如果没有改进建议，必须返回空数组 []，不要返回 null，不要省略字段
-
-【评分约束 - 严格执行】
-✅ 严格按评分标准打分，支持小数（如6.5、7.2、8.3）
-✅ 不要默认给7.0-8.0分，差的内容必须给低分（1.0-5.0），好的内容才给高分（8.0-10.0）
-✅ score_justification必填：简要说明各项评分的依据
-✅ 建议数量必须与overall分数关联：
-   - overall≤4.0 → 4-5条建议
-   - overall 4.0-6.0 → 3-4条建议
-   - overall 6.0-8.0 → 1-2条建议
-   - overall≥8.0 → 0-1条建议
-✅ 每条建议必须标注问题类型（如【节奏问题】【描写不足】等）
-✅ 每条建议必须直接输出完整文本，不能包裹为对象字段
-
-【禁止事项】
-❌ keyword使用概括或改写的文字
-❌ 输出markdown标记
-❌ 遗漏必填的keyword字段
-❌ 无根据地添加职业变化
-❌ 无根据地添加组织变化或组织状态变化
-❌ 无确切剧情依据地标记角色死亡或组织覆灭
-❌ 所有章节都打7-8分的"安全分"
-❌ 高分章节给大量建议，或低分章节不给建议
-❌ suggestions 返回 {{"suggestion": "建议内容"}} 这类对象数组
-❌ suggestions 返回带编号对象、content对象、explanation对象等任何非字符串元素
-</constraints>"""
-
-    # 大纲单批次展开提示词 V2（RTCO框架）
-    OUTLINE_EXPAND_SINGLE = """<system>
-你是专业的小说情节架构师，擅长将大纲节点展开为详细章节规划。
-</system>
-
-<task>
-【展开任务】
-将第{outline_order_index}节大纲《{outline_title}》展开为{target_chapter_count}个章节的详细规划。
-
-【展开策略】
-{strategy_instruction}
-</task>
-
-<project priority="P1">
-【项目信息】
-小说名称：{project_title}
-类型：{project_genre}
-主题：{project_theme}
-叙事视角：{project_narrative_perspective}
-
-【世界观背景】
-时间背景：{project_world_time_period}
-地理位置：{project_world_location}
-氛围基调：{project_world_atmosphere}
-</project>
-
-<characters priority="P1">
-【角色信息】
-{characters_info}
-</characters>
-
-<outline_node priority="P0">
-【当前大纲节点 - 展开对象】
-序号：第 {outline_order_index} 节
-标题：{outline_title}
-内容：{outline_content}
-</outline_node>
-
-<context priority="P2">
-【上下文参考】
-{context_info}
-</context>
-
-<output priority="P0">
-【输出格式】
-返回{target_chapter_count}个章节规划的JSON数组：
-
-[
-  {{
-    "sub_index": 1,
-    "title": "章节标题（体现核心冲突或情感）",
-    "plot_summary": "剧情摘要（200-300字）：详细描述该章发生的事件，仅限当前大纲内容",
-    "key_events": ["关键事件1", "关键事件2", "关键事件3"],
-    "character_focus": ["角色A", "角色B"],
-    "emotional_tone": "情感基调（如：紧张、温馨、悲伤）",
-    "narrative_goal": "叙事目标（该章要达成的叙事效果）",
-    "conflict_type": "冲突类型（如：内心挣扎、人际冲突）",
-    "estimated_words": 3000{scene_field}
-  }}
-]
-
-【格式规范】
-- 纯JSON数组输出，无其他文字
-- 内容描述中严禁使用特殊符号
-</output>
-
-<constraints>
-【⚠️ 内容边界约束 - 必须严格遵守】
-✅ 只能展开当前大纲节点的内容
-✅ 深化当前大纲，而非跨越到后续
-✅ 放慢叙事节奏，充分体验当前阶段
-
-❌ 绝对不能推进到后续大纲内容
-❌ 不要让剧情快速推进
-❌ 不要提前展开【后一节】的内容
-
-【展开原则】
-✅ 将单一事件拆解为多个细节丰富的章节
-✅ 深入挖掘情感、心理、环境、对话
-✅ 每章是当前大纲内容的不同侧面或阶段
-
-【🔴 相邻章节差异化约束（防止重复）】
-✅ 每章有独特的开场方式（不同场景、时间点、角色状态）
-✅ 每章有独特的结束方式（不同悬念、转折、情感收尾）
-✅ key_events在相邻章节间绝不重叠
-✅ plot_summary描述该章独特内容，不与其他章雷同
-✅ 同一事件的不同阶段要明确区分"前、中、后"
-
-【章节间要求】
-✅ 衔接自然流畅（每章从不同起点开始）
-✅ 剧情递进合理（但不超出当前大纲边界）
-✅ 节奏张弛有度
-✅ 每章有明确且独特的叙事价值
-✅ 最后一章结束时恰好完成当前大纲内容
-✅ 关键事件无重叠：检查相邻章节key_events
-
-【禁止事项】
-❌ 输出非JSON格式
-❌ 剧情越界到后续大纲
-❌ 相邻章节内容重复
-❌ 关键事件雷同
-</constraints>"""
-
-    # 大纲分批展开提示词 V2（RTCO框架）
-    OUTLINE_EXPAND_MULTI = """<system>
-你是专业的小说情节架构师，擅长分批展开大纲节点。
-</system>
-
-<task>
-【展开任务】
-继续展开第{outline_order_index}节大纲《{outline_title}》，生成第{start_index}-{end_index}节（共{target_chapter_count}个章节）的详细规划。
-
-【分批说明】
-- 这是整个展开的一部分
-- 必须与前面已生成的章节自然衔接
-- 从第{start_index}节开始编号
-- 继续深化当前大纲内容
-
-【展开策略】
-{strategy_instruction}
-</task>
-
-<project priority="P1">
-【项目信息】
-小说名称：{project_title}
-类型：{project_genre}
-主题：{project_theme}
-叙事视角：{project_narrative_perspective}
-
-【世界观背景】
-时间背景：{project_world_time_period}
-地理位置：{project_world_location}
-氛围基调：{project_world_atmosphere}
-</project>
-
-<characters priority="P1">
-【角色信息】
-{characters_info}
-</characters>
-
-<outline_node priority="P0">
-【当前大纲节点 - 展开对象】
-序号：第 {outline_order_index} 节
-标题：{outline_title}
-内容：{outline_content}
-</outline_node>
-
-<context priority="P2">
-【上下文参考】
-{context_info}
-
-【已生成的前序章节】
-{previous_context}
-</context>
-
-<output priority="P0">
-【输出格式】
-返回第{start_index}-{end_index}节章节规划的JSON数组（共{target_chapter_count}个对象）：
-
-[
-  {{
-    "sub_index": {start_index},
-    "title": "章节标题",
-    "plot_summary": "剧情摘要（200-300字）：详细描述该章发生的事件",
-    "key_events": ["关键事件1", "关键事件2", "关键事件3"],
-    "character_focus": ["角色A", "角色B"],
-    "emotional_tone": "情感基调",
-    "narrative_goal": "叙事目标",
-    "conflict_type": "冲突类型",
-    "estimated_words": 3000{scene_field}
-  }}
-]
-
-【格式规范】
-- 纯JSON数组输出，无其他文字
-- 内容描述中严禁使用特殊符号
-- sub_index从{start_index}开始
-</output>
-
-<constraints>
-【⚠️ 内容边界约束】
-✅ 只能展开当前大纲节点的内容
-✅ 深化当前大纲，而非跨越到后续
-✅ 放慢叙事节奏
-
-❌ 绝对不能推进到后续大纲内容
-❌ 不要让剧情快速推进
-
-【分批连续性约束】
-✅ 与前面已生成章节自然衔接
-✅ 从第{start_index}节开始编号
-✅ 保持叙事连贯性
-
-【🔴 相邻章节差异化约束（防止重复）】
-✅ 每章有独特的开场和结束方式
-✅ key_events在相邻章节间绝不重叠
-✅ plot_summary描述该章独特内容
-✅ 特别注意与前序章节的差异化
-✅ 避免重复已有内容
-
-【章节间要求】
-✅ 与前面章节衔接自然流畅
-✅ 剧情递进合理（但不超出当前大纲边界）
-✅ 节奏张弛有度
-✅ 每章有明确且独特的叙事价值
-✅ 关键事件无重叠：检查本批次和前序章节的key_events
-
-【禁止事项】
-❌ 输出非JSON格式
-❌ 剧情越界到后续大纲
-❌ 相邻章节内容重复
-❌ 与前序章节key_events雷同
-</constraints>"""
-
-    # 章节重写系统提示词 V2（RTCO框架）
-    CHAPTER_REGENERATION_SYSTEM = """<system>
-你是经验丰富的专业小说编辑和作家，擅长根据反馈意见重新创作章节。
-你的任务是根据修改指令，对原始章节进行深度改写和优化。
-</system>
-
-<task>
-【重写任务】
-1. 仔细理解原始章节的内容、情节走向和叙事意图
-2. 认真分析所有的修改要求，包括AI分析建议和用户自定义指令
-3. 针对每一条修改建议，在新版本中进行具体改进
-4. 在保持故事连贯性和角色一致性的前提下，创作改进后的新版本
-5. 确保新版本在艺术性、可读性和叙事质量上都有明显提升
-</task>
-
-<guidelines>
-【改写原则】
-- **问题导向**：针对修改指令中指出的每个问题进行改进
-- **保持精华**：保留原章节中优秀的描写、对话和情节设计
-- **深化细节**：增强场景描写、情感渲染和人物刻画
-- **节奏优化**：调整叙事节奏，避免拖沓或过快
-- **风格一致**：如果提供了写作风格要求，必须严格遵循
-
-【重点关注】
-- 如果修改指令提到"节奏"问题，重点调整叙事速度和场景切换
-- 如果修改指令提到"情感"问题，重点深化人物内心戏和情感表达
-- 如果修改指令提到"描写"问题，重点丰富环境和动作细节
-- 如果修改指令提到"对话"问题，重点让对话更自然、更有个性
-- 如果修改指令提到"冲突"问题，重点强化矛盾和戏剧张力
-</guidelines>
-
-<output>
-【输出规范】
-直接输出重写后的章节正文内容。
-- 不要包含章节标题、序号或其他元信息
-- 不要输出任何解释、注释或创作说明
-- 从故事内容直接开始，保持叙事的连贯性
-</output>
-"""
     # MCP工具测试提示词
     MCP_TOOL_TEST = """你是MCP插件测试助手，需要测试插件 '{plugin_name}' 的功能。
 
@@ -1139,76 +234,6 @@ class PromptService:
 }}
 
 只返回纯JSON，不要有其他文字。"""
-# 角色资料收集提示词（MCP增强用）
-# 自动角色引入 - 生成提示词 V2（RTCO框架）
-# 自动组织引入 - 预测性分析提示词（RTCO框架）
-# 自动组织引入 - 生成提示词（RTCO框架）
-# 局部重写提示词（RTCO框架）
-    PARTIAL_REGENERATE = """<system>
-你是一位专业的小说改写助手，擅长根据用户的修改要求精准改写指定段落，同时确保与前后文无缝衔接。
-</system>
-
-<task>
-【改写任务】
-根据用户的修改要求，重写下面选中的文本段落。
-
-【重要要求】
-1. 只输出重写后的内容，不要包含任何解释、前缀或后缀
-2. 保持与前后文的自然衔接和语气连贯
-3. 严格遵循用户的修改要求
-4. 保持整体叙事风格的一致性
-</task>
-
-<context priority="P0">
-【前文参考】（用于衔接，勿重复）
-{context_before}
-
-【需要重写的原文】（共{original_word_count}字）
-{selected_text}
-
-【后文参考】（用于衔接，勿重复）
-{context_after}
-</context>
-
-<user_requirements priority="P0">
-【用户修改要求】
-{user_instructions}
-
-【字数要求】
-{length_requirement}
-</user_requirements>
-
-<style priority="P1">
-【写作风格】
-{style_content}
-</style>
-
-<output>
-【输出规范】
-直接输出重写后的内容，从故事内容开始写。
-- 不要输出任何解释或说明文字
-- 不要输出"重写后："等前缀
-- 不要输出引号包裹内容
-- 确保输出内容可以直接替换原文
-
-请直接输出重写后的内容：
-</output>
-
-<constraints>
-【必须遵守】
-✅ 前后衔接：输出内容必须与前文自然衔接，与后文平滑过渡
-✅ 风格一致：保持与原文相同的叙事风格、语气和人称
-✅ 要求优先：严格执行用户的修改要求
-✅ 字数控制：遵循字数要求
-
-【禁止事项】
-❌ 重复前文内容
-❌ 重复后文内容
-❌ 添加任何元信息或说明
-❌ 改变叙事人称或视角
-❌ 偏离用户的修改要求
-</constraints>"""
-
     # 拆书导入-反向项目提炼提示词
     BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION = """<system>
 你是资深网文策划编辑，擅长从小说正文中反向提炼项目立项信息。
@@ -1383,6 +408,14 @@ class PromptService:
         else:
             system_template = cls.CHAPTER_REGENERATION_SYSTEM
         
+        # Idioma de saída vem de project_context (preenchido a partir de Project.language)
+        output_language = project_context.get('output_language') or DEFAULT_OUTPUT_LANGUAGE
+        try:
+            system_template = cls.format_prompt(system_template, output_language=output_language)
+        except Exception:
+            # Modelo personalizado antigo com chaves soltas: usa o texto como está
+            pass
+
         prompt_parts = [system_template]
         
         # 原始章节信息
@@ -1390,7 +423,7 @@ class PromptService:
 
 **章节**：第{chapter_number}章
 **标题**：{title}
-**字数**：{word_count}字
+**字数**：{word_count} palavras
 
 **原始内容**：
 {content}
@@ -1462,7 +495,7 @@ class PromptService:
 2. **保持连贯**：确保与前后章节的情节、人物、风格保持一致
 3. **提升质量**：在节奏、情感、描写等方面明显优于原版
 4. **保留精华**：保持原章节中优秀的部分和关键情节
-5. **字数控制**：目标字数约{target_word_count}字（可适当浮动±20%）
+5. **字数控制**：目标长度约 {target_word_count} palavras（可适当浮动±10%）
 {f'6. **风格一致**：严格按照上述写作风格进行创作' if style_content else ''}
 
 ---
@@ -1663,68 +696,68 @@ class PromptService:
                              "plot_stage_instruction", "start_chapter", "end_chapter", "story_direction", "requirements"]
             },
             "CHAPTER_GENERATION_ONE_TO_MANY": {
-                "name": "章节创作-1-N模式（第1章）",
+                "name": "Capítulo - modo 1-N (capítulo 1)",
                 "category": "Criação de capítulos",
-                "description": "1-N模式：根据大纲创作章节内容（用于第1章，无前置章节）",
+                "description": "Modo 1-N: escreve o capítulo a partir do esboço (para o capítulo 1, sem capítulos anteriores)",
                 "parameters": ["project_title", "genre", "chapter_number", "chapter_title", "chapter_outline",
                              "target_word_count", "narrative_perspective", "characters_info"]
             },
             "CHAPTER_GENERATION_ONE_TO_MANY_NEXT": {
-                "name": "章节创作-1-N模式（第2章及以后）",
+                "name": "Capítulo - modo 1-N (capítulo 2 em diante)",
                 "category": "Criação de capítulos",
-                "description": "1-N模式：基于前置章节内容创作新章节（用于第2章及以后）",
+                "description": "Modo 1-N: escreve um novo capítulo com base nos capítulos anteriores (do capítulo 2 em diante)",
                 "parameters": ["project_title", "genre", "chapter_number", "chapter_title", "chapter_outline",
                              "target_word_count", "narrative_perspective", "characters_info", "continuation_point",
                              "foreshadow_reminders", "relevant_memories", "story_skeleton", "previous_chapter_summary"]
             },
             "CHAPTER_GENERATION_ONE_TO_ONE": {
-                "name": "章节创作-1-1模式（第1章）",
+                "name": "Capítulo - modo 1-1 (capítulo 1)",
                 "category": "Criação de capítulos",
-                "description": "1-1模式：章节创作（用于第1章，无前置章节）",
+                "description": "Modo 1-1: escreve o capítulo (para o capítulo 1, sem capítulos anteriores)",
                 "parameters": ["project_title", "genre", "chapter_number", "chapter_title", "chapter_outline",
                              "target_word_count", "narrative_perspective", "characters_info", "chapter_careers"]
             },
             "CHAPTER_GENERATION_ONE_TO_ONE_NEXT": {
-                "name": "章节创作-1-1模式（第2章及以后）",
+                "name": "Capítulo - modo 1-1 (capítulo 2 em diante)",
                 "category": "Criação de capítulos",
-                "description": "1-1模式：基于上一章内容创作新章节（用于第2章及以后）",
+                "description": "Modo 1-1: escreve um novo capítulo com base no capítulo anterior (do capítulo 2 em diante)",
                 "parameters": ["project_title", "genre", "chapter_number", "chapter_title", "chapter_outline",
                              "target_word_count", "narrative_perspective", "previous_chapter_content",
                              "characters_info", "chapter_careers", "foreshadow_reminders", "relevant_memories"]
             },
             "CHAPTER_REGENERATION_SYSTEM": {
-                "name": "章节重写系统提示",
+                "name": "Prompt de sistema da reescrita de capítulo",
                 "category": "Reescrita de capítulos",
-                "description": "用于章节重写的系统提示词",
+                "description": "Prompt de sistema usado na reescrita de capítulos",
                 "parameters": ["chapter_number", "title", "word_count", "content", "modification_instructions",
                              "project_context", "style_content", "target_word_count"]
             },
             "PARTIAL_REGENERATE": {
-                "name": "局部重写",
+                "name": "Reescrita parcial",
                 "category": "Reescrita de capítulos",
-                "description": "根据用户修改要求重写选中的段落内容",
+                "description": "Reescreve o trecho selecionado conforme o pedido de modificação do usuário",
                 "parameters": ["context_before", "original_word_count", "selected_text", "context_after",
                              "user_instructions", "length_requirement", "style_content"]
             },
             "PLOT_ANALYSIS": {
-                "name": "情节分析",
+                "name": "Análise de enredo",
                 "category": "Análise de enredo",
-                "description": "深度分析章节的剧情、钩子、伏笔等",
+                "description": "Analisa a fundo o enredo do capítulo: ganchos, foreshadowing, conflitos etc.",
                 "parameters": ["chapter_number", "title", "content", "word_count"]
             },
             "OUTLINE_EXPAND_SINGLE": {
-                "name": "大纲单批次展开",
+                "name": "Expansão do esboço (lote único)",
                 "category": "Expansão de enredo",
-                "description": "将大纲节点展开为详细章节规划（单批次）",
+                "description": "Desdobra um nó do esboço em planejamento detalhado de capítulos (lote único)",
                 "parameters": ["project_title", "project_genre", "project_theme", "project_narrative_perspective", 
                              "project_world_time_period", "project_world_location", "project_world_atmosphere", 
                              "characters_info", "outline_order_index", "outline_title", "outline_content", 
                              "context_info", "strategy_instruction", "target_chapter_count", "scene_instruction", "scene_field"]
             },
             "OUTLINE_EXPAND_MULTI": {
-                "name": "大纲分批展开",
+                "name": "Expansão do esboço (em lotes)",
                 "category": "Expansão de enredo",
-                "description": "将大纲节点展开为详细章节规划（分批）",
+                "description": "Desdobra um nó do esboço em planejamento detalhado de capítulos (em lotes)",
                 "parameters": ["project_title", "project_genre", "project_theme", "project_narrative_perspective", 
                              "project_world_time_period", "project_world_location", "project_world_atmosphere", 
                              "characters_info", "outline_order_index", "outline_title", "outline_content", 
