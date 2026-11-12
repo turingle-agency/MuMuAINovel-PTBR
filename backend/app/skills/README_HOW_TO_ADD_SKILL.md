@@ -1,12 +1,12 @@
-# Skill 开发指南：如何添加或修改 Skill
+# Guia de Skills: como adicionar ou modificar uma Skill
 
-## 一、Skill 系统架构概览
+## 1. Visão geral da arquitetura de Skills
 
 ```
-backend/app/skills/          ← 所有 Skill 存放目录
-├── story-short-write/       ← 每个 Skill 一个目录
-│   ├── SKILL.md            ← 必须存在：YAML元数据 + 工作流指令
-│   └── references/         ← 可选：参考知识库（.md 文件）
+backend/app/skills/          ← Pasta com todas as Skills
+├── story-short-write/       ← Uma pasta por Skill
+│   ├── SKILL.md            ← Obrigatório: metadados YAML + instruções do fluxo de trabalho
+│   └── references/         ← Opcional: base de conhecimento (arquivos .md)
 │       ├── xxx.md
 │       └── ...
 ├── story-long-write/
@@ -14,212 +14,224 @@ backend/app/skills/          ← 所有 Skill 存放目录
 │   └── references/...
 └── ...
 
-backend/app/services/skill_loader.py   ← Skill 加载器（自动扫描 skills/ 目录）
-backend/app/api/skills.py              ← API 端点（/api/skills/list）
-backend/app/services/prompt_service.py ← 将 Skill 注入系统提示词
+backend/app/services/skill_loader.py   ← Carregador de Skills (varre a pasta skills/ automaticamente)
+backend/app/api/skills.py              ← Endpoints da API (/api/skills/list)
+backend/app/services/prompt_service.py ← Injeta a Skill no prompt de sistema
 ```
 
-**核心机制**：系统启动时，`skill_loader.py` 自动扫描 `skills/` 目录，读取每个子目录的 `SKILL.md`，解析 YAML 元数据和工作流指令，拼接 `references/` 参考资料后提供给 AI。
+**Mecanismo central**: na inicialização, o `skill_loader.py` varre a pasta `skills/`, lê o `SKILL.md` de cada subpasta, interpreta os metadados YAML e as instruções do fluxo de trabalho, anexa os materiais de `references/` e entrega tudo à IA.
 
 ---
 
-## 二、添加新 Skill（3 步）
+## 2. Adicionar uma nova Skill (3 passos)
 
-### 步骤 1：创建 Skill 目录
+### Passo 1: criar a pasta da Skill
 
-在 `backend/app/skills/` 下创建新目录，目录名建议用小写英文+短横线：
+Crie uma nova pasta em `backend/app/skills/`. Recomenda-se nome em letras minúsculas, sem acentos, com hifens:
 
 ```bash
 mkdir -p backend/app/skills/my-new-skill/references
 ```
 
-### 步骤 2：创建 SKILL.md（必须）
+### Passo 2: criar o SKILL.md (obrigatório)
 
-在目录下创建 `SKILL.md`，格式固定为 **YAML frontmatter + Markdown 正文**：
+Crie o `SKILL.md` na pasta. O formato é fixo: **frontmatter YAML + corpo em Markdown**:
 
 ```markdown
 ---
 name: my-new-skill
+display_name: Nome exibido na interface
+category: Skill · Minha categoria
 description: |
-  一句话描述这个 Skill 的功能。这是显示在 UI 上的名称。
-  触发方式：/my-new-skill、「帮我做xxx」
+  Descrição em uma frase do que esta Skill faz.
+  Como acionar: /my-new-skill, "me ajude a fazer xxx"
+triggers:
+  - /my-new-skill
+  - me ajude a fazer xxx
 ---
 
-# my-new-skill：Skill 显示标题
+# my-new-skill: título de exibição da Skill
 
-你是 xxx 专家。你的任务是帮用户完成 xxx。
+Você é um especialista em xxx. Sua tarefa é ajudar o usuário a concluir xxx.
 
-## 核心原则
+## Princípios centrais
 
-- 原则1...
-- 原则2...
+- Princípio 1...
+- Princípio 2...
 
-## 工作流程
+## Fluxo de trabalho
 
-### Phase 1：需求确认
+### Fase 1: confirmar a necessidade
 ...
 
-### Phase 2：执行
+### Fase 2: execução
 ...
 
-### Phase 3：输出
+### Fase 3: entrega
 ...
 
-## 输出格式
+## Formato de saída
 ...
 ```
 
-**YAML frontmatter 字段说明**：
+**Campos do frontmatter YAML**:
 
-| 字段 | 必填 | 说明 |
+| Campo | Obrigatório | Descrição |
 |------|------|------|
-| `name` | ✅ | Skill 内部标识名，与目录名保持一致 |
-| `description` | ✅ | Skill 描述。**第一句**（第一个句号前）会作为 UI 下拉框显示名称 |
+| `name` | Sim | Identificador interno da Skill; mantenha igual ao nome da pasta. É usado como chave da Skill, **não traduza nem altere** |
+| `description` | Sim | Descrição da Skill |
+| `display_name` | Não | Nome exibido na lista da interface. Se omitido, usa-se a primeira frase da `description` |
+| `category` | Não | Categoria exibida na interface. Se omitida, é inferida pelo `name` (ver abaixo) |
+| `triggers` | Não | Lista de gatilhos (comandos e frases) que acionam a Skill |
 
-**自动分类逻辑**（在 `skill_loader.py` 中）：
+**Classificação automática** (em `skill_loader.py`, quando `category` não é informada):
 
-| name 包含 | UI 分类显示 |
+| O `name` contém | Categoria exibida na interface |
 |-----------|-------------|
-| `long` | Skill·长篇 |
-| `short` | Skill·短篇 |
-| `deslop` | Skill·润色 |
-| `browser` | Skill·工具 |
-| 其他 | Skill |
+| `long` | Skill · Romance longo |
+| `short` | Skill · Conto |
+| `deslop` | Skill · Revisão |
+| `browser` | Skill · Ferramentas |
+| outros | Skill |
 
-### 步骤 3：添加参考资料（可选）
+### Passo 3: adicionar materiais de referência (opcional)
 
-在 `references/` 目录下放入 `.md` 文件，每个文件会自动作为「参考资料」拼接到 SKILL.md 内容后面：
+Coloque arquivos `.md` em `references/`; cada um é anexado automaticamente ao conteúdo do SKILL.md como "material de referência":
 
 ```
 references/
-├── technique-a.md      ← 自动加载，标题为 "参考资料：technique-a"
-├── technique-b.md      ← 自动加载，标题为 "参考资料：technique-b"
+├── technique-a.md      ← carregado automaticamente, com o título "Material de referência: technique-a"
+├── technique-b.md      ← carregado automaticamente, com o título "Material de referência: technique-b"
 └── examples.md
 ```
 
-**完成！** 重启服务后新 Skill 自动出现在 UI 下拉框中，无需改任何代码。
+**Pronto!** Depois de reiniciar o serviço, a nova Skill aparece sozinha na lista da interface, sem mudar nenhum código.
 
 ---
 
-## 三、修改现有 Skill
+## 3. Modificar uma Skill existente
 
-### 修改工作流指令
+### Alterar as instruções do fluxo de trabalho
 
-直接编辑对应 Skill 目录下的 `SKILL.md` 文件中 `---` 下方的 Markdown 部分。
+Edite diretamente a parte em Markdown, abaixo do `---`, no `SKILL.md` da pasta da Skill.
 
-### 修改元数据（名称、描述）
+### Alterar os metadados (nome, descrição)
 
-编辑 `SKILL.md` 文件开头的 YAML frontmatter：
+Edite o frontmatter YAML no início do `SKILL.md`:
 
 ```yaml
 ---
-name: story-short-write          ← 修改内部标识
-description: |                   ← 修改描述（第一句是 UI 显示名）
-  新的一句话描述。后续详细说明...
+name: story-short-write          ← identificador interno (não altere)
+description: |                   ← altere a descrição
+  Nova descrição em uma frase. Detalhes em seguida...
 ---
 ```
 
-### 增删参考资料
+### Adicionar ou remover materiais de referência
 
-在 `references/` 目录下增删 `.md` 文件即可，重启后自动生效。
+Basta adicionar ou remover arquivos `.md` em `references/`; a mudança vale após reiniciar.
 
-### 修改自动分类
+### Alterar a classificação automática
 
-编辑 `backend/app/services/skill_loader.py` 中的分类逻辑（约第158-167行）：
+Edite a lógica de classificação em `backend/app/services/skill_loader.py` (função `_infer_category`):
 
 ```python
-# 确定 Skill 子分类
-sub_category = "Skill"
-if "long" in name:
-    sub_category = "Skill·长篇"
-elif "short" in name:
-    sub_category = "Skill·短篇"
-# 👇 在这里添加新的分类规则
-elif "my-keyword" in name:
-    sub_category = "Skill·新分类"
+def _infer_category(name: str) -> str:
+    if "long" in name:
+        return "Skill · Romance longo"
+    if "short" in name:
+        return "Skill · Conto"
+    # 👇 Adicione aqui novas regras de classificação
+    if "my-keyword" in name:
+        return "Skill · Nova categoria"
+    return "Skill"
 ```
 
 ---
 
-## 四、Skill 在系统中的流转路径
+## 4. Como a Skill circula pelo sistema
 
-了解 Skill 如何被使用，方便排查问题：
+Entender como a Skill é usada ajuda a investigar problemas:
 
-### 4.1 SkillChat 页面（独立对话）
-
-```
-用户在 SkillChat 选择 Skill
-  → 前端调用 /api/skills/list 获取列表
-  → 前端调用 /api/skills/execute 发送消息
-  → 后端 skill_loader 加载 SKILL.md + references
-  → 注入到 system prompt → 调用 AI → 返回结果
-```
-
-### 4.2 章节生成（单章 / 批量）
+### 4.1 Página SkillChat (conversa independente)
 
 ```
-用户选择 Skill 下拉框
-  → 前端将 skill_key 传给后端
-  → 后端从 prompt_service 获取 Skill 内容
-  → 注入到章节生成的 system prompt 中
-  → AI 在 Skill 指导下生成章节内容
+O usuário escolhe uma Skill no SkillChat
+  → o frontend chama /api/skills/list para obter a lista
+  → o frontend chama /api/skills/execute para enviar a mensagem
+  → o skill_loader do backend carrega o SKILL.md + references
+  → injeta no prompt de sistema → chama a IA → devolve o resultado
 ```
 
-关键代码位置：
-- **后端注入点**：`backend/app/services/prompt_service.py` 的 `get_skill_content()` 方法
-- **单章生成**：`backend/app/store/hooks.ts` → `generateChapterContentStream()`
-- **批量生成**：`backend/app/api/chapters.py` → `generate_single_chapter_for_batch()`
+### 4.2 Geração de capítulos (individual / em lote)
+
+```
+O usuário escolhe uma Skill na lista suspensa
+  → o frontend envia a skill_key ao backend
+  → o backend obtém o conteúdo da Skill pelo prompt_service
+  → injeta no prompt de sistema da geração de capítulos
+  → a IA gera o capítulo guiada pela Skill
+```
+
+Pontos-chave no código:
+- **Ponto de injeção no backend**: método `get_skill_content()` em `backend/app/services/prompt_service.py`
+- **Geração individual**: `backend/app/store/hooks.ts` → `generateChapterContentStream()`
+- **Geração em lote**: `backend/app/api/chapters.py` → `generate_single_chapter_for_batch()`
 
 ---
 
-## 五、完整示例：添加一个「节奏检查」Skill
+## 5. Exemplo completo: adicionar uma Skill de "verificação de ritmo"
 
 ```bash
-# 1. 创建目录
+# 1. Criar a pasta
 mkdir -p backend/app/skills/story-pacing-check/references
 
-# 2. 创建 SKILL.md
-cat > backend/app/skills/story-pacing-check/SKILL.md << 'EOF'
+# 2. Criar o SKILL.md
+cat > backend/app/skills/story-pacing-check/SKILL.md << 'EOF2'
 ---
 name: story-pacing-check
+display_name: Diagnóstico de ritmo
 description: |
-  节奏诊断。分析已有章节的叙事节奏，指出拖沓/仓促之处并给出修改建议。
-  触发方式：/story-pacing-check、「检查节奏」「节奏有问题」
+  Diagnóstico de ritmo. Analisa o ritmo narrativo dos capítulos existentes, aponta trechos arrastados ou apressados e sugere correções.
+  Como acionar: /story-pacing-check, "verifique o ritmo", "o ritmo está com problema"
+triggers:
+  - /story-pacing-check
+  - verifique o ritmo
 ---
 
-# story-pacing-check：叙事节奏诊断
+# story-pacing-check: diagnóstico de ritmo narrativo
 
-你是一位叙事节奏分析专家。你的任务是帮用户分析章节的节奏问题。
+Você é um especialista em ritmo narrativo. Sua tarefa é ajudar o usuário a analisar problemas de ritmo nos capítulos.
 
-## 分析维度
+## Dimensões de análise
 
-### 1. 信息密度
-- 每段是否有新信息推进？
-- 是否存在重复表达？
+### 1. Densidade de informação
+- Cada parágrafo traz informação nova que faz a história avançar?
+- Há expressões repetidas?
 
-### 2. 情绪曲线
-- 情绪是否有起伏？
-- 高潮前是否有足够铺垫？
+### 2. Curva emocional
+- A emoção tem altos e baixos?
+- Há preparação suficiente antes do clímax?
 
-### 3. 场景切换
-- 场景转换是否自然？
-- 时间线是否清晰？
+### 3. Troca de cenas
+- A transição entre cenas é natural?
+- A linha do tempo está clara?
 
-## 输出格式
+## Formato de saída
 
-给出：问题位置 → 原因分析 → 修改建议
-EOF
+Apresente: local do problema → análise da causa → sugestão de correção
+EOF2
 
-# 3. 重启服务即可！
+# 3. Reinicie o serviço!
 ```
 
 ---
 
-## 六、注意事项
+## 6. Observações
 
-1. **SKILL.md 编码**：必须是 UTF-8
-2. **YAML 格式**：`description: |` 后的内容需要缩进
-3. **命名规则**：目录名和 `name` 字段用小写+短横线（如 `my-skill-name`）
-4. **缓存**：Skill 有内存缓存，修改后需重启服务。也可调用 `refresh_skills_cache()` 热刷新
-5. **参考文件大小**：`references/` 中所有文件会拼接到 prompt 中，注意总大小不要超过模型上下文限制
-6. **不需要改代码**：添加标准 Skill（只有 SKILL.md + references）无需修改任何 Python/TypeScript 代码
+1. **Codificação do SKILL.md**: deve ser UTF-8
+2. **Formato YAML**: o conteúdo depois de `description: |` precisa estar indentado
+3. **Regras de nomenclatura**: o nome da pasta e o campo `name` usam letras minúsculas e hifens (como `my-skill-name`)
+4. **Cache**: as Skills ficam em cache na memória; depois de alterar, reinicie o serviço. Também é possível chamar `refresh_skills_cache()` para atualizar a quente
+5. **Tamanho dos arquivos de referência**: todos os arquivos de `references/` são concatenados ao prompt, então cuide para que o tamanho total não ultrapasse o limite de contexto do modelo
+6. **Não é preciso mudar código**: adicionar uma Skill padrão (apenas SKILL.md + references) não exige alterar nenhum código Python/TypeScript

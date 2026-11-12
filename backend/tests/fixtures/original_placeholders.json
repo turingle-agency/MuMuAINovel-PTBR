@@ -1,0 +1,315 @@
+{
+  "AUTO_CHARACTER_ANALYSIS": [
+    "all_chapters_brief",
+    "atmosphere",
+    "chapter_count",
+    "existing_characters",
+    "genre",
+    "location",
+    "plot_stage",
+    "start_chapter",
+    "story_direction",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "AUTO_CHARACTER_GENERATION": [
+    "atmosphere",
+    "character_specification",
+    "existing_characters",
+    "genre",
+    "location",
+    "mcp_references",
+    "plot_context",
+    "rules",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "AUTO_ORGANIZATION_ANALYSIS": [
+    "all_chapters_brief",
+    "atmosphere",
+    "chapter_count",
+    "existing_characters",
+    "existing_organizations",
+    "genre",
+    "location",
+    "plot_stage",
+    "start_chapter",
+    "story_direction",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "AUTO_ORGANIZATION_GENERATION": [
+    "atmosphere",
+    "existing_characters",
+    "existing_organizations",
+    "genre",
+    "location",
+    "mcp_references",
+    "organization_specification",
+    "plot_context",
+    "rules",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "BOOK_IMPORT_REVERSE_OUTLINES": [
+    "chapters_text",
+    "end_chapter",
+    "expected_count",
+    "genre",
+    "narrative_perspective",
+    "start_chapter",
+    "theme",
+    "title"
+  ],
+  "BOOK_IMPORT_REVERSE_PROJECT_SUGGESTION": [
+    "sampled_text",
+    "title"
+  ],
+  "CAREER_SYSTEM_GENERATION": [
+    "atmosphere",
+    "description",
+    "genre",
+    "location",
+    "rules",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "CHAPTER_GENERATION_ONE_TO_MANY": [
+    "chapter_careers",
+    "chapter_number",
+    "chapter_outline",
+    "chapter_title",
+    "characters_info",
+    "foreshadow_reminders",
+    "genre",
+    "narrative_perspective",
+    "project_title",
+    "relevant_memories",
+    "target_word_count"
+  ],
+  "CHAPTER_GENERATION_ONE_TO_MANY_NEXT": [
+    "chapter_careers",
+    "chapter_number",
+    "chapter_outline",
+    "chapter_title",
+    "characters_info",
+    "continuation_point",
+    "foreshadow_reminders",
+    "genre",
+    "narrative_perspective",
+    "previous_chapter_summary",
+    "project_title",
+    "recent_chapters_context",
+    "relevant_memories",
+    "target_word_count"
+  ],
+  "CHAPTER_GENERATION_ONE_TO_ONE": [
+    "chapter_careers",
+    "chapter_number",
+    "chapter_outline",
+    "chapter_title",
+    "characters_info",
+    "foreshadow_reminders",
+    "genre",
+    "narrative_perspective",
+    "project_title",
+    "relevant_memories",
+    "target_word_count"
+  ],
+  "CHAPTER_GENERATION_ONE_TO_ONE_NEXT": [
+    "chapter_careers",
+    "chapter_number",
+    "chapter_outline",
+    "chapter_title",
+    "characters_info",
+    "foreshadow_reminders",
+    "genre",
+    "narrative_perspective",
+    "previous_chapter_content",
+    "previous_chapter_summary",
+    "project_title",
+    "recent_chapters_context",
+    "relevant_memories",
+    "target_word_count"
+  ],
+  "CHAPTER_REGENERATION_SYSTEM": [],
+  "CHARACTERS_BATCH_GENERATION": [
+    "atmosphere",
+    "count",
+    "genre",
+    "location",
+    "requirements",
+    "rules",
+    "theme",
+    "time_period"
+  ],
+  "INSPIRATION_DESCRIPTION_SYSTEM": [
+    "initial_idea",
+    "title"
+  ],
+  "INSPIRATION_DESCRIPTION_USER": [
+    "initial_idea",
+    "title"
+  ],
+  "INSPIRATION_GENRE_SYSTEM": [
+    "description",
+    "initial_idea",
+    "theme",
+    "title"
+  ],
+  "INSPIRATION_GENRE_USER": [
+    "description",
+    "initial_idea",
+    "theme",
+    "title"
+  ],
+  "INSPIRATION_QUICK_COMPLETE": [
+    "existing"
+  ],
+  "INSPIRATION_THEME_SYSTEM": [
+    "description",
+    "initial_idea",
+    "title"
+  ],
+  "INSPIRATION_THEME_USER": [
+    "description",
+    "initial_idea",
+    "title"
+  ],
+  "INSPIRATION_TITLE_SYSTEM": [
+    "initial_idea"
+  ],
+  "INSPIRATION_TITLE_USER": [
+    "initial_idea"
+  ],
+  "MCP_CHARACTER_PLANNING": [
+    "genre",
+    "location",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "MCP_TOOL_TEST": [
+    "plugin_name"
+  ],
+  "MCP_TOOL_TEST_SYSTEM": [],
+  "MCP_WORLD_BUILDING_PLANNING": [
+    "description",
+    "genre",
+    "theme",
+    "title"
+  ],
+  "NOVEL_COVER_PROMPT_TEMPLATE": [
+    "description",
+    "genre",
+    "theme",
+    "title"
+  ],
+  "OUTLINE_CONTINUE": [
+    "atmosphere",
+    "chapter_count",
+    "characters_info",
+    "current_chapter_count",
+    "end_chapter",
+    "genre",
+    "location",
+    "mcp_references",
+    "narrative_perspective",
+    "plot_stage_instruction",
+    "recent_outlines",
+    "requirements",
+    "rules",
+    "start_chapter",
+    "story_direction",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "OUTLINE_CREATE": [
+    "atmosphere",
+    "chapter_count",
+    "characters_info",
+    "genre",
+    "location",
+    "mcp_references",
+    "narrative_perspective",
+    "requirements",
+    "rules",
+    "theme",
+    "time_period",
+    "title"
+  ],
+  "OUTLINE_EXPAND_MULTI": [
+    "characters_info",
+    "context_info",
+    "end_index",
+    "outline_content",
+    "outline_order_index",
+    "outline_title",
+    "previous_context",
+    "project_genre",
+    "project_narrative_perspective",
+    "project_theme",
+    "project_title",
+    "project_world_atmosphere",
+    "project_world_location",
+    "project_world_time_period",
+    "scene_field",
+    "start_index",
+    "strategy_instruction",
+    "target_chapter_count"
+  ],
+  "OUTLINE_EXPAND_SINGLE": [
+    "characters_info",
+    "context_info",
+    "outline_content",
+    "outline_order_index",
+    "outline_title",
+    "project_genre",
+    "project_narrative_perspective",
+    "project_theme",
+    "project_title",
+    "project_world_atmosphere",
+    "project_world_location",
+    "project_world_time_period",
+    "scene_field",
+    "strategy_instruction",
+    "target_chapter_count"
+  ],
+  "PARTIAL_REGENERATE": [
+    "context_after",
+    "context_before",
+    "length_requirement",
+    "original_word_count",
+    "selected_text",
+    "style_content",
+    "user_instructions"
+  ],
+  "PLOT_ANALYSIS": [
+    "chapter_number",
+    "characters_info",
+    "content",
+    "existing_foreshadows",
+    "title",
+    "word_count"
+  ],
+  "SINGLE_CHARACTER_GENERATION": [
+    "project_context",
+    "user_input"
+  ],
+  "SINGLE_ORGANIZATION_GENERATION": [
+    "project_context",
+    "user_input"
+  ],
+  "WORLD_BUILDING": [
+    "description",
+    "genre",
+    "theme",
+    "title"
+  ]
+}

@@ -1,393 +1,393 @@
-# 去AI味完整指南
+# Guia completo para remover o tom de IA
 
-## 目录
+## Sumário
 
-- [AI写作指纹（必须避免）](#ai写作指纹必须避免)
-- [核心规则](#核心规则)
-- [连续复用禁令](#连续复用禁令)
-- [Show Don't Tell 原则](#show-dont-tell-原则)
-- [质量维度检查](#质量维度检查)
-- [快速自检口诀](#快速自检口诀)
-- [禁用词与句式速查](#禁用词与句式速查)
-- [7 种 AI 写作模式检测](#7-种-ai-写作模式检测)
-- [系统性去AI三遍法](#系统性去ai三遍法)
-- [改写范例库](#改写范例库)
-- [冲突对话改写范例](#冲突对话改写范例)
+- [Impressões digitais da escrita de IA (evitar)](#impressões-digitais-da-escrita-de-ia-evitar)
+- [Regras centrais](#regras-centrais)
+- [Proibição de reaproveitamento literal](#proibição-de-reaproveitamento-literal)
+- [Princípio "mostrar, não contar"](#princípio-mostrar-não-contar)
+- [Dimensões de verificação de qualidade](#dimensões-de-verificação-de-qualidade)
+- [Mnemônico de autoverificação](#mnemônico-de-autoverificação)
+- [Palavras e construções proibidas (consulta rápida)](#palavras-e-construções-proibidas-consulta-rápida)
+- [Sete padrões de escrita de IA](#sete-padrões-de-escrita-de-ia)
+- [Método sistemático de três passadas](#método-sistemático-de-três-passadas)
+- [Banco de exemplos de reescrita](#banco-de-exemplos-de-reescrita)
+- [Exemplos de reescrita de diálogo de conflito](#exemplos-de-reescrita-de-diálogo-de-conflito)
 
 ---
 
-## AI写作指纹（必须避免）
+## Impressões digitais da escrita de IA (evitar)
 
-### 高频AI用词
+### Vocabulário típico de IA
 
-> 完整禁用词表见 [banned-words.md](../../story-deslop/references/banned-words.md)
+> A lista completa de palavras proibidas está em [banned-words.md](../../story-deslop/references/banned-words.md)
 
-**补充类目**（banned-words.md 未覆盖的高阶替换）：
+**Categorias complementares** (substituições de nível mais alto que o banned-words.md não cobre):
 
-| 类别 | 替代原则 |
+| Categoria | Princípio de substituição |
 |------|---------|
-| 抽象升华词（命运、宿命、注定） | 用具体事件代替抽象概念 |
-| 万能比喻（像潮水般、如闪电般、仿佛春风） | 要么不用比喻，要么用生活化的比喻 |
+| Palavras de elevação abstrata (destino, fado, predestinado) | Trocar o conceito abstrato por um acontecimento concreto |
+| Metáforas coringa (como uma maré, como um relâmpago, como brisa de primavera) | Ou não usar metáfora, ou usar uma do cotidiano |
 
-### 章末总结体
+### Final de capítulo em tom de resumo
 
-**禁止**在章节结尾用以下方式收束：
-- 总结性感悟（"他终于明白了……"）
-- 升华式感叹（"这一夜，注定无人入眠"）
-- 哲理式收尾（"人生就是这样……"）
-- 伏笔式预告（"他不知道的是，更大的风暴即将来临"）
+**Não** feche o capítulo com:
+- Reflexões-resumo ("Ele finalmente entendeu...")
+- Exclamações elevadas ("Naquela noite, ninguém dormiria")
+- Fechos filosóficos ("A vida é assim...")
+- Prévias artificiais ("O que ele não sabia é que uma tempestade ainda maior se aproximava")
 
-**正确做法**：章尾用动作、对话或悬念收束，让情节本身制造余韵。
+**Jeito certo**: feche o capítulo com ação, diálogo ou suspense, deixando que a própria trama crie a ressonância.
 
 ---
 
-## 核心规则
+## Regras centrais
 
-### 规则 1：段落不超过 3 句
-
-```
-错：他看着窗外的雨，心中涌起一股说不清的感觉。这些年走过的路，
-经历的种种，都在这一刻涌上心头。他想起了那个夏天，想起了那个
-人的笑容，想起了很多以为自己已经忘记的事。
-
-对：他盯着窗外。雨下了很久。
-"你还在想她？"老刘问。
-他没说话。
-```
-
-### 规则 2：动作 + 对话 + 情绪反应
-
-三要素循环推进，不要单写心理活动超过 2 段：
+### Regra 1: parágrafos de no máximo 3 frases
 
 ```
-动作 → 对话 → 情绪反应 → 动作 → 对话 → ……
+Errado: Ele olhou a chuva pela janela, e um sentimento difícil de nomear subiu em seu
+peito. Os caminhos que percorrera nesses anos, tudo o que vivera, tudo voltou de uma só
+vez. Lembrou-se daquele verão, do sorriso daquela pessoa, de muita coisa que pensava ter esquecido.
+
+Certo: Ele ficou olhando pela janela. Chovia fazia horas.
+— Ainda pensando nela? — perguntou o Beto.
+Ele não respondeu.
 ```
 
-情绪不用"他感到/他觉得"，用身体反应和行为表现：
-- 不写"他很紧张" → 写"手心全是汗，筷子差点掉了"
-- 不写"她很愤怒" → 写"她把杯子摔在地上，碎片弹到脚背上也没弯腰捡"
-- 不写"他很伤心" → 写"他在车里坐了二十分钟才发动引擎"
+### Regra 2: ação + diálogo + reação emocional
 
-### 规则 3：短句优先
+Os três elementos avançam em ciclo; não escreva mais de 2 parágrafos seguidos só de atividade mental:
 
-| 场景 | 句长 | 示例 |
+```
+ação → diálogo → reação emocional → ação → diálogo → ...
+```
+
+Não use "ele sentiu/ele achou" para emoções; use reações do corpo e comportamento:
+- Em vez de "ele estava nervoso" → "a palma da mão molhada, o garfo quase caiu"
+- Em vez de "ela estava furiosa" → "ela jogou o copo no chão e não se abaixou nem quando um caco bateu no seu pé"
+- Em vez de "ele estava triste" → "ele ficou vinte minutos dentro do carro antes de ligar o motor"
+
+### Regra 3: frases curtas primeiro
+
+| Cena | Tamanho da frase | Exemplo |
 |------|------|------|
-| 打斗/紧张 | 3-8 字 | 他侧身。刀光一闪。血溅在墙上。 |
-| 对话 | 口语化 | "你疯了？""可能吧。" |
-| 日常 | 8-15 字 | 厨房里有炒菜的声音，闻着像辣椒炒肉。 |
-| 描写 | 不超过 20 字 | 天快黑了，巷子里没什么人。 |
+| Luta/tensão | 2 a 6 palavras | Ele desviou. A lâmina brilhou. Sangue na parede. |
+| Diálogo | Oral | — Você enlouqueceu? — Talvez. |
+| Cotidiano | 6 a 12 palavras | Na cozinha, cheiro de alho refogando. |
+| Descrição | No máximo 15 palavras | Já escurecia, e o beco estava vazio. |
 
-### 规则 4：口语化表达
+### Regra 4: expressão oral
 
-- 允许用俚语、粗话（符合角色身份）
-- 对话不要书面语（"我认为此事不妥" → "我觉得不靠谱"）
-- 叙述也不要端着（"他目光如炬" → "他眼珠子一动不动盯着"）
-- 短语优先于成语（"无可奈何" → "没办法"）
-
----
-
-## 连续复用禁令
-
-**规则**：不要连续使用原文中任何 12 字以上的原句。
-
-- 可以借用意思，但必须用完全不同的句式重新表达
-- 连续 12 个字与原文相同即为抄袭式复用
-- 替换同义词不算改写（"他快速地跑" → "他迅速地跑" 仍然违规）
-
-```
-原文：他一拳打在墙上，指节渗出血来，但他浑然不觉疼痛。
-改写：拳头砸上墙的时候他没感觉。低头才看见血从指缝里往下淌。
-```
+- Gírias e palavrões são permitidos (se combinarem com o personagem)
+- Diálogo sem linguagem de relatório ("Considero a medida inadequada" → "Acho furada")
+- A narração também não precisa pose ("seu olhar era uma chama" → "ele ficou encarando sem piscar")
+- Frases simples antes de expressões feitas ("não havia o que fazer" → "não tinha jeito")
 
 ---
 
-## Show Don't Tell 原则
+## Proibição de reaproveitamento literal
 
-| Tell（告诉） | Show（展示） |
+**Regra**: não reutilize em sequência nenhuma frase do original com mais de 8 palavras.
+
+- Pode aproveitar o sentido, mas reescreva com uma estrutura totalmente diferente
+- Oito palavras seguidas iguais ao original contam como cópia
+- Trocar por sinônimos não é reescrever ("ele correu rapidamente" → "ele correu velozmente" continua violando)
+
+```
+Original: Ele socou a parede, os nós dos dedos sangraram, mas ele não sentiu dor alguma.
+Reescrita: O punho bateu na parede e ele nem notou. Só viu o sangue quando olhou para baixo, escorrendo entre os dedos.
+```
+
+---
+
+## Princípio "mostrar, não contar"
+
+| Contar | Mostrar |
 |-------------|-------------|
-| 他是个胆小的人 | 他把检查报告在手里翻来覆去看了三遍，还是不敢打开 |
-| 这间酒吧很吵 | 酒保凑到他耳边喊了两次他才听见 |
-| 她很富有 | 她随手把一张信用卡丢在桌上，卡面上的数字比这顿饭贵十倍 |
-| 两人关系很差 | 他把烟掐灭在她刚泡的茶杯里，她面无表情地把杯子推到一边 |
-| 他很聪明 | 三秒钟。他看了三秒钟就把文件合上了。"第三页，第二行。" |
+| Ele era um homem medroso | Ele virou o laudo nas mãos três vezes e ainda não teve coragem de abrir |
+| O bar era barulhento | O barman precisou gritar duas vezes no ouvido dele até ele ouvir |
+| Ela era rica | Ela jogou o cartão na mesa sem olhar; o limite era dez vezes o valor do jantar |
+| Os dois se davam mal | Ele apagou o cigarro na xícara de chá que ela acabara de fazer; ela empurrou a xícara para o lado, sem expressão |
+| Ele era inteligente | Três segundos. Ele olhou três segundos e fechou o arquivo. — Página três, segunda linha. |
 
-**核心方法**：
-1. 用行为代替形容词
-2. 用细节代替总结
-3. 用对话代替旁白说明
-4. 用反应代替情绪词
-
----
-
-## 质量维度检查
-
-### 1. 核心一致性（权重最高）
-- 剧情是否与大纲/前文一致
-- 人物行为是否符合人设
-- 设定是否有前后矛盾
-
-### 2. 表面改写（防AI指纹）
-- 是否包含AI高频用词（见上表）
-- 章尾是否有总结/升华
-- 是否有大段纯心理描写
-- 段落是否超过 3 句
-
-### 3. 格式一致性
-- 对话格式统一（中文用""，不是「」）
-- 场景切换有明显标记
-- 时间线清晰可追踪
-
-### 4. 可读性
-- 是否有连续 3 句以上的长句（15 字+）
-- 对话是否口语化
-- 是否有未解释的生僻词/设定术语
-- 节奏是否有快有慢（不能全是一种节奏）
-
-### 5. 逻辑连贯性
-- 角色动机是否合理
-- 事件因果链是否清晰
-- 时间线是否对得上
-- 角色的知识范围是否合理（不能"开上帝视角"）
+**Método central**:
+1. Comportamento no lugar de adjetivo
+2. Detalhe no lugar de resumo
+3. Diálogo no lugar de explicação do narrador
+4. Reação no lugar de palavra de emoção
 
 ---
 
-## 快速自检口诀
+## Dimensões de verificação de qualidade
+
+### 1. Coerência central (maior peso)
+- O enredo é coerente com o esboço e com o que veio antes?
+- O comportamento dos personagens combina com sua caracterização?
+- Há contradições nas configurações do mundo?
+
+### 2. Reescrita superficial (contra impressões digitais de IA)
+- Há vocabulário típico de IA (ver tabela acima)?
+- O final do capítulo tem resumo ou elevação?
+- Há blocos longos só de descrição psicológica?
+- Algum parágrafo passa de 3 frases?
+
+### 3. Consistência de formato
+- Formato de diálogo uniforme (travessão ou aspas, sem misturar)
+- Troca de cena claramente marcada
+- Linha do tempo clara e rastreável
+
+### 4. Legibilidade
+- Há três ou mais frases longas seguidas (mais de 25 palavras)?
+- Os diálogos soam orais?
+- Há termos raros ou jargões de ambientação sem explicação?
+- O ritmo varia, com momentos rápidos e lentos (não pode ser um ritmo só)?
+
+### 5. Coerência lógica
+- Os motivos dos personagens são razoáveis?
+- A cadeia de causa e efeito está clara?
+- A linha do tempo fecha?
+- O conhecimento dos personagens é plausível (sem "visão de deus")?
+
+---
+
+## Mnemônico de autoverificação
 
 ```
-一段不过三句话。
-对话要像人说话。
-心情不写心里话。
-结尾不搞大升华。
-打斗不写流水账。
-日常要埋伏笔桩。
+Parágrafo curto, no máximo três frases.
+Diálogo que soe como gente falando.
+Sentimento não se declara, se mostra.
+Final sem lição de moral.
+Luta sem relatório de passos.
+Cotidiano plantando pistas.
 ```
 
 ---
 
-## 禁用词与句式速查
+## Palavras e construções proibidas (consulta rápida)
 
-> 完整禁用词表和句式模板见 [banned-words.md](../../story-deslop/references/banned-words.md)
+> A lista completa e os modelos de construção estão em [banned-words.md](../../story-deslop/references/banned-words.md)
 
-### 正确替代示例
-- '他感到一丝紧张' → '他的手在抖'
-- '她很伤心' → '她转过身去，肩膀微微颤动'
-- '"好的。"他说道' → '"好的。"他点了根烟'
-- '他深吸一口气' → '他把烟摁灭在烟灰缸里'
+### Exemplos de substituição correta
+- "Ele sentiu uma ponta de nervosismo" → "A mão dele tremia"
+- "Ela estava triste" → "Ela se virou, os ombros tremendo de leve"
+- "— Tudo bem — disse ele, com a voz grave" → "— Tudo bem. — Ele acendeu um cigarro."
+- "Ele respirou fundo" → "Ele apagou o cigarro no cinzeiro"
 
 ---
 
-## 7 种 AI 写作模式检测
+## Sete padrões de escrita de IA
 
-### 模式 1：AI 高频词
+### Padrão 1: vocabulário típico de IA
 
-| 禁用 | 替换为 |
+| Proibido | Trocar por |
 |------|--------|
-| 不禁 | 删掉 |
-| 仿佛/宛如 | 删掉或用具体描写 |
-| 映入眼帘 | 删掉 |
-| 心中暗道 | 用动作展示思考 |
-| 沉声道/淡淡地说 | 换成动作标签 |
-| 脸色一变 | 用具体表情/动作 |
-| 嘴角微扬 | 他笑了/他翘了下嘴 |
-| 不由自主 | 删掉 |
-| 只见/此时此刻 | 删掉 |
-| 目光如炬 | 删掉或具体化 |
+| não pôde evitar | cortar |
+| como se / parecia que | cortar ou usar descrição concreta |
+| diante dos seus olhos surgiu | cortar |
+| pensou consigo | mostrar o pensamento por uma ação |
+| disse em tom grave / disse suavemente | trocar por rótulo de ação |
+| o rosto mudou de cor | expressão ou ação concreta |
+| um leve sorriso se formou | ele sorriu / ele repuxou o canto da boca |
+| involuntariamente | cortar |
+| naquele exato momento | cortar |
+| olhar penetrante | cortar ou concretizar |
 
-### 模式 2：弱化副词泛滥
-阈值：每 1000 字超过 3 个 = AI 签名。重点监控：微微、淡淡、缓缓、轻轻。
+### Padrão 2: excesso de advérbios enfraquecedores
+Limite: mais de 3 por 1.000 palavras = assinatura de IA. Vigie principalmente: levemente, suavemente, lentamente, discretamente.
 
-### 模式 3：意义膨胀
-- "意义深远" → 写具体后果
-- "前所未有" → 给出对比参照
-- "可谓" → 删掉
+### Padrão 3: inflação de significado
+- "de significado profundo" → escrever a consequência concreta
+- "sem precedentes" → dar um ponto de comparação
+- "verdadeiramente" → cortar
 
-### 模式 4：万能结论
-- "未来可期" → 用未解决的紧张感结尾
-- "前途无量" → 删
-- "充满希望" → 写具体的下一步动作
+### Padrão 4: conclusão coringa
+- "o futuro promete" → terminar com tensão não resolvida
+- "um futuro brilhante" → cortar
+- "cheio de esperança" → escrever o próximo passo concreto
 
-### 模式 5：论文体段落结构
-小说中出现以下开头句 = AI 入侵：
-- "不难看出""由此可见""事实上""综上所述"
+### Padrão 5: estrutura de parágrafo de redação acadêmica
+Se a ficção traz estas aberturas, é invasão de IA:
+- "Não é difícil perceber", "Portanto", "Na verdade", "Em suma"
 
-### 模式 6：书面语连词泛滥
-叙事散文中频繁出现："于是乎""与此同时""从而""因而""诚然" → 口语化替代或直接删除。
+### Padrão 6: excesso de conectivos formais
+Na prosa narrativa, a presença frequente de "ademais", "outrossim", "destarte", "porquanto", "com efeito" → trocar por linguagem oral ou cortar.
 
-### 模式 7：三连排比癖
-AI 喜欢把事情凑成三个以显"完整"。→ 砍到只剩最有力的一条。
+### Padrão 7: mania de trio
+A IA adora agrupar as coisas em três para parecer "completa". → Cortar até sobrar só o item mais forte.
 
 ---
 
-## 系统性去AI三遍法
+## Método sistemático de três passadas
 
-### Pass 1：去泛化（Strip Generic）
-- 抽象情绪总结句 → 删或替换为具体动作
-- 假深度句 → 删
-- 意义膨胀 → 缩小到具体影响
-- 空洞结论 → 删
-- 工整对比句式 → 打散重写
-- 装饰性形容词堆砌 → 白描
-- 过度使用"于是""然而""此刻" → 删掉一半
-- 所有角色说话一样"高级" → 区分语气
+### Passada 1: tirar o genérico (Strip Generic)
+- Frases-resumo de emoção abstrata → cortar ou trocar por ação concreta
+- Frases de falsa profundidade → cortar
+- Inflação de significado → reduzir ao efeito concreto
+- Conclusões vazias → cortar
+- Construções de contraste simétrico → desfazer e reescrever
+- Acúmulo de adjetivos decorativos → descrição seca
+- Uso excessivo de "então", "contudo", "naquele momento" → cortar metade
+- Todos os personagens falando de forma "elevada" → diferenciar o tom de cada um
 
-**原则**：能删就删，不能删就用具体细节替换。这一遍去掉80%的AI味。
+**Princípio**: se dá para cortar, corte; se não, troque por detalhe concreto. Esta passada remove 80% do tom de IA.
 
-### Pass 2：去书面化（Cut Professional Diction）
-- 分析性用词（"机制""结构""逻辑""体系"出现在小说中）→ 换成日常表达
-- 抽象名词滥用 → 直接说事
-- 体制内用语（"进一步""深入""推进""落实"）→ 删
-- 专业术语堆砌 → 只保留必要的，用白话解释
+### Passada 2: tirar o formal (Cut Professional Diction)
+- Vocabulário analítico ("mecanismo", "estrutura", "lógica", "sistema" aparecendo em ficção) → trocar por expressão cotidiana
+- Abuso de substantivos abstratos → dizer direto o que aconteceu
+- Jargão burocrático ("aprofundar", "implementar", "operacionalizar") → cortar
+- Acúmulo de termos técnicos → manter só o necessário e explicar em linguagem simples
 
-**例外**：保留专业感的场景（历史题材正式用语、文学向刻意密度、喜剧夸张修辞）。
+**Exceção**: cenas que pedem tom formal (linguagem de época em ficção histórica, densidade literária deliberada, retórica cômica exagerada).
 
-### Pass 3：回人味（Restore Human Presence）
-- 具体的感官细节（气味、温度、触感）
-- 角色说话方式的区分（不同人不同语气）
-- 节奏变化（长短句交错）
-- 社会位置感的对话（上级和下属说话方式不同）
-- 场景特有的记忆点
-- 项目特有的语言习惯（角色的口头禅）
+### Passada 3: devolver a voz humana (Restore Human Presence)
+- Detalhes sensoriais concretos (cheiro, temperatura, tato)
+- Maneiras de falar distintas por personagem
+- Variação de ritmo (frases longas e curtas alternadas)
+- Diálogo com noção de posição social (chefe e subordinado não falam do mesmo jeito)
+- Marcas de memória específicas da cena
+- Hábitos de linguagem próprios do projeto (bordões dos personagens)
 
-**原则**：少即是多。每段加 1-2 个具体细节就够了。
+**Princípio**: menos é mais. Um ou dois detalhes concretos por parágrafo bastam.
 
-### 升级策略
+### Estratégia de escalonamento
 
-| AI味程度 | 策略 |
+| Grau de tom de IA | Estratégia |
 |----------|------|
-| 轻度 | 只做 Pass 1 |
-| 中度 | Pass 1 + Pass 2 |
-| 重度 | 完整三遍 + 重点段落重写 |
+| Leve | Só a Passada 1 |
+| Moderado | Passada 1 + Passada 2 |
+| Forte | As três passadas + reescrita dos trechos principais |
 
-### 自检清单
-- 读出声来，像人说话吗？
-- 删掉任何一句，会影响理解吗？不会 = 可能多余
-- 不同角色能通过对话区分吗？
-- 有没有一个细节是这个场景特有的？
+### Lista de autoverificação
+- Lido em voz alta, soa como gente falando?
+- Se cortar qualquer frase, a compreensão sofre? Se não, provavelmente é supérflua
+- Dá para distinguir os personagens só pelo diálogo?
+- Existe pelo menos um detalhe que só existe nesta cena?
 
 ---
 
-## 去AI味补充技法
+## Técnicas complementares
 
-### Show vs Tell
+### Mostrar vs. contar
 
-| 告知类型 | AI写法 | 人味写法 |
+| O que se conta | Escrita de IA | Escrita humana |
 |----------|--------|----------|
-| 告诉期待感 | "他很期待" | 展示期待→情绪→满足的链条 |
-| 告诉角色目的 | "她想离婚" | 用行动展示目的 |
-| 告诉角色态度 | "她很冷静" | 用对话和反应体现 |
-| 告诉剧情走向 | "接下来会发生大事" | 用铺垫→反转→延续展示 |
+| Expectativa | "Ele estava ansioso" | Mostrar a cadeia expectativa → emoção → satisfação |
+| Objetivo do personagem | "Ela queria o divórcio" | Mostrar o objetivo por ações |
+| Atitude do personagem | "Ela estava calma" | Mostrar por diálogo e reações |
+| Rumo da trama | "Algo grande estava por vir" | Mostrar por preparação → reviravolta → continuação |
 
-### 心理描写润物细无声
+### Psicologia sem alarde
 
-- 加括号标注内心活动 = 破坏代入感
-- 大段内心独白解释动机 = AI签名
-- 直接写"她感到""她意识到" = 告知情绪
+- Colocar o pensamento entre parênteses quebra a imersão
+- Monólogo interior longo explicando motivos = assinatura de IA
+- Escrever direto "ela sentiu", "ela percebeu" = contar a emoção
 
-**人味写法**：心理活动自然融入叙事，用行为暗示心理，用沉默/动作/反常行为表达内心。
+**Jeito humano**: a atividade mental entra naturalmente na narração; o comportamento sugere o estado interior; silêncios, gestos e atitudes fora do normal expressam o que se passa por dentro.
 
-### 代入感检查
-- 主角行为读者能理解、共鸣、接受吗？
-- 反派够强吗？（弱反派 = 读者觉得主角赢了没意义）
-- 是否贴着人物去写？（行为/语言/思维围绕人格展开）
-- 读者已知信息是否被有效操控？（信息差制造情绪波动）
-
----
-
-## 改写范例库
-
-### 情绪外化范例
-
-**紧张**
-- '他感到一阵紧张，心跳不由自主地加快了'
-- 他攥紧了手里的纸杯，水洒出来一些
-
-**愤怒**
-- '愤怒在他心中燃烧，他不由得握紧了拳头'
-- 他把筷子往桌上一拍，碗里的汤溅了出来
-
-**悲伤**
-- '一丝悲伤涌上心头，她的眼中闪过泪光'
-- 她低头搅着咖啡，搅了很久
-
-**害怕**
-- '恐惧瞬间笼罩了他，他感到一阵战栗'
-- 他的背贴在墙上，不敢动
-
-**失望**
-- '她感到一丝失落，心仿佛被什么东西揪住了'
-- "哦。"她把手机锁了屏
-
-**惊讶**
-- '他的瞳孔微微收缩，显然没有想到会听到这样的话'
-- 他张了张嘴，什么都没说出来
-
-### 场景描写范例
-
-**AI风场景**
-- '阳光透过窗帘的缝隙洒进来，在地板上投下斑驳的光影。空气中弥漫着淡淡的花香，仿佛整个世界都沉浸在一片宁静祥和的氛围中。'
-- 下午三点，客厅里只有钟在走。
-
-**AI风天气**
-- '天空阴沉沉的，乌云密布，仿佛随时都会下起倾盆大雨。凛冽的寒风呼啸而过，带着一丝刺骨的寒意。'
-- 要下雨了。风把晾在外面的衣服吹得乱晃。
-
-**AI风打斗**
-- '他的拳头犹如疾风骤雨般猛烈，每一击都蕴含着不容置疑的力量。对手的瞳孔微微收缩，显然没有预料到如此凌厉的攻势。'
-- 他一拳怼过去，对方没躲开，嘴角破了。
-
-### 结尾改写范例
-
-**升华式结尾** → '他站在窗前，望着远方的天际线，终于明白了生活的真谛——有时候，放手才是最好的选择。' → 他把烟掐了，回屋睡觉。
-
-**总结式结尾** → '这一刻，一切都变了。她知道，从今以后，她的人生将翻开崭新的一页。' → 她关上了那扇门。没回头。
-
-**感慨式结尾** → '岁月如流水般悄然流逝……' → 直接删掉这种段落。
-
-### 节奏调整范例
-
-**排比句**
-- '他看着她的眼睛，看着她的嘴唇，看着她微微颤动的睫毛，心中涌起一股难以名状的情感。'
-- 他看着她。她没说话。
-
-**长句拆短**
-- '当他终于推开那扇沉重的木门时，映入眼帘的是一间昏暗的房间，空气中弥漫着陈旧的气息，墙角堆满了落满灰尘的箱子。'
-- 门开了。屋里很暗，角落堆着几个箱子，上头全是灰。
-
-**工整段落打碎**
-- '她喜欢春天的花朵，喜欢夏天的阳光，喜欢秋天的落叶，喜欢冬天的白雪。每一个季节都有它独特的美。'
-- 她喜欢春天。别的季节也还行。
+### Verificação de imersão
+- O comportamento do protagonista é compreensível, identificável e aceitável para o leitor?
+- O antagonista é forte o bastante? (antagonista fraco = vitória sem sentido)
+- A escrita está colada nos personagens? (ação, fala e pensamento giram em torno da personalidade)
+- A informação que o leitor já tem está sendo bem manejada? (assimetria de informação gera oscilação emocional)
 
 ---
 
-## 冲突对话改写范例
+## Banco de exemplos de reescrita
 
-### AI式温和对话
-- '我觉得你这样做不太合适，能不能考虑一下我的感受？' → "你眼里还有我吗？"
+### Externalizar emoções
 
-### AI式完美解释
-- '其实我这样做是有原因的，因为当时的情况非常复杂……' → "你能怎么着？"她把茶杯重重放下。
+**Nervosismo**
+- Ruim: "Ele sentiu uma onda de nervosismo, o coração acelerando sem querer"
+- Bom: Ele apertou o copo de papel; a água derramou um pouco
 
-### 对话情绪五级递进范例
+**Raiva**
+- Ruim: "A raiva queimava dentro dele, e ele cerrou os punhos sem perceber"
+- Bom: Ele bateu o garfo na mesa; a sopa respingou da tigela
 
-同一冲突场景，从弱到强：
+**Tristeza**
+- Ruim: "Uma ponta de tristeza subiu ao seu peito, e uma lágrima brilhou em seus olhos"
+- Bom: Ela mexia o café de cabeça baixa. Mexeu por muito tempo
 
-1. **客观陈述**："你把我的东西扔了。"
-2. **陈述+建议**："你把我的东西扔了，以后能不能先跟我说一声。"
-3. **主观指责**："你凭什么动我的东西。"
-4. **指责+命令**："你算什么东西，也配碰我的东西？滚出去。"
-5. **指责+PUA**："我伺候你吃伺候你穿，你连个东西都放不好。你这辈子也就是这样了，离了我你什么都不是。"
+**Medo**
+- Ruim: "O pavor o dominou num instante, e ele sentiu um calafrio"
+- Bom: Ele encostou as costas na parede e não se mexeu
 
-### 震惊分层改写范例
+**Decepção**
+- Ruim: "Ela sentiu uma ponta de desânimo, como se algo apertasse seu coração"
+- Bom: — Ah. — Ela bloqueou a tela do celular
 
-**AI式一步到位**：所有人都震惊了，不敢相信自己的耳朵。
+**Surpresa**
+- Ruim: "As pupilas dele se contraíram levemente, claramente não esperava ouvir aquilo"
+- Bom: Ele abriu a boca e nada saiu
 
-**人味分层震惊**：
-1. 对面的男人手抖了一下，茶杯里的水洒出来。
-2. 旁边的人互相看了一眼。有人往后退了一步。角落里有人开始掏手机。
-3. 刚才还趾高气扬的女人，脸上的笑僵住了。她张了张嘴，一个字没说出来。
+### Descrição de cena
 
-### 代入感修复范例
+**Cena em tom de IA**
+- Ruim: "O sol atravessava as frestas da cortina, desenhando luzes e sombras no chão. No ar pairava um leve perfume de flores, como se o mundo inteiro estivesse mergulhado em paz e serenidade."
+- Bom: Três da tarde. Na sala, só o relógio andando.
 
-**被动主角**：她很害怕，不知道该怎么办，只能等着事情过去。
+**Clima em tom de IA**
+- Ruim: "O céu estava carregado, nuvens pesadas por toda parte, como se uma chuva torrencial fosse desabar a qualquer momento. O vento gélido uivava, trazendo um frio cortante."
+- Bom: Ia chover. O vento balançava a roupa no varal.
 
-**主动主角**：她锁了门，把手机调成静音，打开了录音。
+**Luta em tom de IA**
+- Ruim: "Seus socos eram como uma tempestade violenta, cada golpe carregado de uma força inquestionável. As pupilas do oponente se contraíram, claramente surpreso com tamanha ferocidade."
+- Bom: Ele mandou o soco. O outro não desviou, e o canto da boca abriu.
+
+### Reescrita de finais
+
+**Final de elevação** → "Ele ficou diante da janela, olhando o horizonte distante, e finalmente compreendeu a verdade da vida: às vezes, deixar ir é a melhor escolha." → Ele apagou o cigarro e foi dormir.
+
+**Final de resumo** → "Naquele instante, tudo mudou. Ela sabia que, dali em diante, uma página nova se abriria em sua vida." → Ela fechou a porta. Não olhou para trás.
+
+**Final de reflexão** → "O tempo passava como água, silencioso..." → Cortar o parágrafo inteiro.
+
+### Ajuste de ritmo
+
+**Enumeração paralela**
+- Ruim: "Ele olhou nos olhos dela, olhou para os lábios dela, olhou para os cílios que tremiam de leve, e uma emoção indefinível tomou conta dele."
+- Bom: Ele olhou para ela. Ela não disse nada.
+
+**Quebrar frase longa**
+- Ruim: "Quando finalmente empurrou a pesada porta de madeira, diante dos seus olhos surgiu um quarto escuro, o ar impregnado de cheiro antigo, e no canto caixas cobertas de poeira se amontoavam."
+- Bom: A porta abriu. O quarto estava escuro, com umas caixas no canto, cobertas de pó.
+
+**Parágrafo simétrico demais**
+- Ruim: "Ela gostava das flores da primavera, gostava do sol do verão, gostava das folhas do outono, gostava da neve do inverno. Cada estação tinha sua beleza única."
+- Bom: Ela gostava da primavera. As outras estações, tudo bem.
+
+---
+
+## Exemplos de reescrita de diálogo de conflito
+
+### Diálogo "educado" de IA
+- Ruim: "Acho que isso que você fez não foi adequado. Será que podia considerar meus sentimentos?" → Bom: — Você ainda me enxerga?
+
+### Explicação perfeita de IA
+- Ruim: "Na verdade, eu fiz isso por um motivo, porque a situação naquela hora era muito complicada..." → Bom: — E o que você queria que eu fizesse? — Ela largou a xícara com força.
+
+### Escala de cinco níveis de emoção no diálogo
+
+O mesmo conflito, do mais fraco ao mais forte:
+
+1. **Constatação objetiva**: — Você jogou minhas coisas fora.
+2. **Constatação + sugestão**: — Você jogou minhas coisas fora. Da próxima vez, avisa antes.
+3. **Acusação subjetiva**: — Quem te deu o direito de mexer nas minhas coisas?
+4. **Acusação + ordem**: — Quem você pensa que é para encostar nas minhas coisas? Fora daqui.
+5. **Acusação + manipulação**: — Eu te sustento, te visto, e você nem sabe guardar uma coisa no lugar. Você nunca vai ser nada, sem mim você não é ninguém.
+
+### Choque em camadas
+
+**Choque de IA, tudo de uma vez**: Todos ficaram chocados, sem acreditar no que ouviam.
+
+**Choque humano, em camadas**:
+1. A mão do homem à frente tremeu, e o chá derramou na xícara.
+2. As pessoas ao redor se entreolharam. Alguém deu um passo para trás. No canto, alguém pegou o celular.
+3. A mulher que há pouco era tão arrogante ficou com o sorriso travado. Abriu a boca e não saiu uma palavra.
+
+### Correção de imersão
+
+**Protagonista passivo**: Ela estava com medo, sem saber o que fazer, só esperando tudo passar.
+
+**Protagonista ativo**: Ela trancou a porta, colocou o celular no silencioso e ligou o gravador.

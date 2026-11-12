@@ -11,7 +11,7 @@ from app.api.settings import get_user_ai_service
 from app.services.prompt_service import PromptService
 from app.logger import get_logger
 
-router = APIRouter(prefix="/inspiration", tags=["灵感模式"])
+router = APIRouter(prefix="/inspiration", tags=["Modo inspiração"])
 logger = get_logger(__name__)
 
 
@@ -33,36 +33,36 @@ def validate_options_response(result: Dict[str, Any], step: str, max_retries: in
     """
     # 检查必需字段
     if "options" not in result:
-        return False, "缺少options字段"
+        return False, "Campo options ausente"
     
     options = result.get("options", [])
     
     # 检查options是否为数组
     if not isinstance(options, list):
-        return False, "options必须是数组"
+        return False, "options deve ser uma lista"
     
     # 检查数组长度
     if len(options) < 3:
-        return False, f"选项数量不足，至少需要3个，当前只有{len(options)}个"
+        return False, f"Poucas opções: são necessárias pelo menos 3, mas há apenas {len(options)}"
     
     if len(options) > 10:
-        return False, f"选项数量过多，最多10个，当前有{len(options)}个"
+        return False, f"Opções demais: o máximo é 10, mas há {len(options)}"
     
     # 检查每个选项是否为字符串且不为空
     for i, option in enumerate(options):
         if not isinstance(option, str):
-            return False, f"第{i+1}个选项不是字符串类型"
+            return False, f"A opção {i+1} não é do tipo texto"
         if not option.strip():
-            return False, f"第{i+1}个选项为空"
+            return False, f"A opção {i+1} está vazia"
         if len(option) > 500:
-            return False, f"第{i+1}个选项过长（超过500字符）"
+            return False, f"A opção {i+1} é longa demais (mais de 500 caracteres)"
     
     # 根据不同步骤进行特定校验
     if step == "genre":
         # 类型标签应该比较短
         for i, option in enumerate(options):
-            if len(option) > 10:
-                return False, f"类型标签【{option}】过长，应该在2-10字之间"
+            if len(option) > 30:
+                return False, f"O rótulo de gênero \"{option}\" é longo demais, deve ter entre 2 e 30 caracteres"
     
     return True, ""
 
@@ -117,7 +117,7 @@ async def generate_options(
             
             if not template_keys:
                 return {
-                    "error": f"不支持的步骤: {step}",
+                    "error": f"Etapa não suportada: {step}",
                     "prompt": "",
                     "options": []
                 }
@@ -137,12 +137,12 @@ async def generate_options(
             }
             
             # 格式化提示词
-            system_prompt = system_template.format(**format_params)
-            user_prompt = user_template.format(**format_params)
+            system_prompt = PromptService.format_prompt(system_template, **format_params)
+            user_prompt = PromptService.format_prompt(user_template, **format_params)
             
             # 如果是重试，在提示词中强调格式要求
             if attempt > 0:
-                system_prompt += f"\n\n⚠️ 这是第{attempt + 1}次生成，请务必严格按照JSON格式返回，确保options数组包含6个有效选项！"
+                system_prompt += f"\n\n⚠️ Esta é a tentativa de geração nº {attempt + 1}. Responda estritamente no formato JSON e garanta que a lista options contenha 6 opções válidas!"
             
             # 调用AI生成选项
             # 关键改进：使用递减的temperature以保持后续阶段与前文的一致性
@@ -180,9 +180,9 @@ async def generate_options(
                     else:
                         # 最后一次尝试也失败了
                         return {
-                            "prompt": f"请为【{step}】提供内容：",
-                            "options": ["让AI重新生成", "我自己输入"],
-                            "error": f"AI生成格式错误（{error_msg}），已自动重试{max_retries}次，请手动重试或自己输入"
+                            "prompt": f"Informe o conteúdo para \"{step}\":",
+                            "options": ["Pedir à IA para gerar de novo", "Vou digitar eu mesmo"],
+                            "error": f"Formato de geração da IA inválido ({error_msg}), foram feitas {max_retries} tentativas automáticas; tente novamente ou digite você mesmo"
                         }
                 
                 logger.info(f"✅ 第{attempt + 1}次成功生成{len(result.get('options', []))}个有效选项")
@@ -197,9 +197,9 @@ async def generate_options(
                 else:
                     # 最后一次尝试也失败了
                     return {
-                        "prompt": f"请为【{step}】提供内容：",
-                        "options": ["让AI重新生成", "我自己输入"],
-                        "error": f"AI返回格式错误，已自动重试{max_retries}次，请手动重试或自己输入"
+                        "prompt": f"Informe o conteúdo para \"{step}\":",
+                        "options": ["Pedir à IA para gerar de novo", "Vou digitar eu mesmo"],
+                        "error": f"Formato de resposta da IA inválido, foram feitas {max_retries} tentativas automáticas; tente novamente ou digite você mesmo"
                     }
         
         except Exception as e:
@@ -210,14 +210,14 @@ async def generate_options(
             else:
                 return {
                     "error": str(e),
-                    "prompt": "生成失败，请重试",
-                    "options": ["重新生成", "我自己输入"]
+                    "prompt": "Falha na geração, tente novamente",
+                    "options": ["Gerar de novo", "Vou digitar eu mesmo"]
                 }
     
     # 理论上不会到这里
     return {
-        "error": "生成失败",
-        "prompt": "请重试",
+        "error": "Falha na geração",
+        "prompt": "Tente novamente",
         "options": []
     }
 
@@ -277,7 +277,7 @@ async def refine_options(
             
             if not template_keys:
                 return {
-                    "error": f"不支持的步骤: {step}",
+                    "error": f"Etapa não suportada: {step}",
                     "prompt": "",
                     "options": []
                 }
@@ -297,31 +297,31 @@ async def refine_options(
             }
             
             # 格式化提示词
-            system_prompt = system_template.format(**format_params)
-            user_prompt = user_template.format(**format_params)
+            system_prompt = PromptService.format_prompt(system_template, **format_params)
+            user_prompt = PromptService.format_prompt(user_template, **format_params)
             
             # 添加反馈信息到提示词
             feedback_instruction = f"""
 
-⚠️ 用户对之前的选项不太满意，提供了以下反馈：
-「{feedback}」
+⚠️ O usuário não ficou satisfeito com as opções anteriores e deu o seguinte feedback:
+"{feedback}"
 
-之前生成的选项：
-{chr(10).join([f"- {opt}" for opt in previous_options]) if previous_options else "（无）"}
+Opções geradas anteriormente:
+{chr(10).join([f"- {opt}" for opt in previous_options]) if previous_options else "(nenhuma)"}
 
-请根据用户的反馈调整生成策略，提供更符合用户期望的新选项。
-注意：
-1. 仔细理解用户的反馈意图
-2. 生成的新选项要明显体现用户要求的调整方向
-3. 保持与已有上下文的一致性
-4. 确保返回6个有效选项
+Ajuste a estratégia de geração conforme o feedback e ofereça novas opções que atendam melhor às expectativas do usuário.
+Atenção:
+1. Entenda com cuidado a intenção do feedback
+2. As novas opções devem refletir claramente o ajuste pedido pelo usuário
+3. Mantenha a coerência com o contexto existente
+4. Garanta que sejam retornadas 6 opções válidas
 """
             
             system_prompt += feedback_instruction
             
             # 如果是重试，强调格式要求
             if attempt > 0:
-                system_prompt += f"\n\n⚠️ 这是第{attempt + 1}次生成，请务必严格按照JSON格式返回！"
+                system_prompt += f"\n\n⚠️ Esta é a tentativa de geração nº {attempt + 1}. Responda estritamente no formato JSON!"
             
             # 调用AI生成选项
             temperature = TEMPERATURE_SETTINGS.get(step, 0.7)
@@ -356,9 +356,9 @@ async def refine_options(
                         continue
                     else:
                         return {
-                            "prompt": f"请为【{step}】提供内容：",
-                            "options": ["让AI重新生成", "我自己输入"],
-                            "error": f"AI生成格式错误（{error_msg}），已自动重试{max_retries}次"
+                            "prompt": f"Informe o conteúdo para \"{step}\":",
+                            "options": ["Pedir à IA para gerar de novo", "Vou digitar eu mesmo"],
+                            "error": f"Formato de geração da IA inválido ({error_msg}), foram feitas {max_retries} tentativas automáticas"
                         }
                 
                 logger.info(f"✅ 第{attempt + 1}次根据反馈成功生成{len(result.get('options', []))}个有效选项")
@@ -372,9 +372,9 @@ async def refine_options(
                     continue
                 else:
                     return {
-                        "prompt": f"请为【{step}】提供内容：",
-                        "options": ["让AI重新生成", "我自己输入"],
-                        "error": f"AI返回格式错误，已自动重试{max_retries}次"
+                        "prompt": f"Informe o conteúdo para \"{step}\":",
+                        "options": ["Pedir à IA para gerar de novo", "Vou digitar eu mesmo"],
+                        "error": f"Formato de resposta da IA inválido, foram feitas {max_retries} tentativas automáticas"
                     }
         
         except Exception as e:
@@ -385,13 +385,13 @@ async def refine_options(
             else:
                 return {
                     "error": str(e),
-                    "prompt": "生成失败，请重试",
-                    "options": ["重新生成", "我自己输入"]
+                    "prompt": "Falha na geração, tente novamente",
+                    "options": ["Gerar de novo", "Vou digitar eu mesmo"]
                 }
     
     return {
-        "error": "生成失败",
-        "prompt": "请重试",
+        "error": "Falha na geração",
+        "prompt": "Tente novamente",
         "options": []
     }
 
@@ -431,15 +431,15 @@ async def quick_generate(
         # 构建补全提示词
         existing_info = []
         if data.get("title"):
-            existing_info.append(f"- 书名：{data['title']}")
+            existing_info.append(f"- Título: {data['title']}")
         if data.get("description"):
-            existing_info.append(f"- 简介：{data['description']}")
+            existing_info.append(f"- Sinopse: {data['description']}")
         if data.get("theme"):
-            existing_info.append(f"- 主题：{data['theme']}")
+            existing_info.append(f"- Tema: {data['theme']}")
         if data.get("genre"):
-            existing_info.append(f"- 类型：{', '.join(data['genre'])}")
+            existing_info.append(f"- Gênero: {', '.join(data['genre'])}")
         
-        existing_text = "\n".join(existing_info) if existing_info else "暂无信息"
+        existing_text = "\n".join(existing_info) if existing_info else "Nenhuma informação ainda"
         
         # 获取自定义提示词模板
         system_template = await PromptService.get_template("INSPIRATION_QUICK_COMPLETE", user_id, db)
@@ -447,7 +447,7 @@ async def quick_generate(
         # 格式化提示词
         prompts = {
             "system": PromptService.format_prompt(system_template, existing=existing_text),
-            "user": "请补全小说信息"
+            "user": "Complete as informações do romance"
         }
         
         # 调用AI - 流式生成并累积文本
@@ -482,7 +482,7 @@ async def quick_generate(
             
         except json.JSONDecodeError as e:
             logger.error(f"JSON解析失败: {e}")
-            raise Exception("AI返回格式错误，请重试")
+            raise Exception("Formato de resposta da IA inválido, tente novamente")
     
     except Exception as e:
         logger.error(f"智能补全失败: {e}", exc_info=True)

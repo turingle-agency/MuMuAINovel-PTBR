@@ -1,223 +1,222 @@
+# Lista de verificação de qualidade da ficção
 
-# 网文质量检查清单
+## 1. Verificações gerais
 
-## 一、通用检查
+### Estrutura do capítulo
+- [ ] A abertura tem gancho (não começa por clima, paisagem ou rotina)
+- [ ] O meio avança (algo acontece)
+- [ ] A situação muda (depois deste capítulo, o mundo é diferente do que era)
+- [ ] O final cai sobre uma mudança (não sobre um resumo)
 
-### 章节结构
-- [ ] 开头有钩子（不是天气/风景/日常开场）
-- [ ] 中段有推进（有事件发生）
-- [ ] 局势有变化（读完这章，世界跟之前不一样了）
-- [ ] 结尾落在变化上（不是总结）
+### Verificação da abertura (primeiras 200 a 350 palavras)
+- [ ] Tem gancho e prende a atenção
+- [ ] Não começa por clima, paisagem ou rotina
+- [ ] O protagonista entra rápido
+- [ ] O atrativo ou a crise já aparecem
 
-### 开篇检查（前 300-500 字）
-- [ ] 有钩子，能抓住注意力
-- [ ] 不从天气/风景/日常开始
-- [ ] 主角快速出场
-- [ ] 卖点或危机可见
+### Avanço do capítulo
+- [ ] Há um evento central
+- [ ] A situação muda
+- [ ] Não é enrolação (se cortar este capítulo, a compreensão sofre? Se não, é enrolação)
+- [ ] Avança ao menos um destes: trama principal, relações, configuração do mundo
 
-### 章节推进
-- [ ] 有核心事件
-- [ ] 局势有变化
-- [ ] 不是水字数（删掉这章会影响理解吗？不会 = 水了）
-- [ ] 推进了主线/关系/设定中的至少一项
+### Transmissão de informação
+- [ ] Sem blocos longos de explicação de ambientação
+- [ ] A informação acompanha o conflito (o mundo é revelado por eventos)
+- [ ] A quantidade de configuração é controlada (no máximo 3 conceitos novos por capítulo)
 
-### 信息传递
-- [ ] 没有大段设定说明文
-- [ ] 信息跟着冲突走（通过事件传递设定）
-- [ ] 设定量可控（一章不超 3 个新概念）
+### Verificação de cena
+- [ ] A cena tem objetivo (o que o personagem quer)
+- [ ] A cena tem obstáculo (o que está no caminho)
+- [ ] A cena tem mudança (no fim, algo está diferente)
+- [ ] O personagem está fazendo coisas, não apenas sentindo coisas
+- [ ] Nenhum parágrafo é descartável
 
-### 场景检查
-- [ ] 场景有目标（人物要什么）
-- [ ] 场景有阻碍（什么挡着）
-- [ ] 场景有变化（结束后跟之前不同）
-- [ ] 人物在做事情，不是在感觉事情
-- [ ] 没有可删除的段落
+### Final do capítulo
+- [ ] O final cai sobre uma mudança
+- [ ] Há pelo menos um destes: crise, decisão, descoberta, reviravolta
+- [ ] Não é um final de resumo
+- [ ] Faz o leitor virar a página
 
-### 章尾
-- [ ] 结尾落在变化上
-- [ ] 有危机/决定/发现/反转中的至少一个
-- [ ] 不是总结式结尾
-- [ ] 拉住读者翻下一页
+### Linguagem
+- [ ] Sem trechos líricos vazios
+- [ ] Sem vários parágrafos seguidos com a mesma emoção
+- [ ] O diálogo combina com a identidade do personagem (pessoas diferentes falam de modo diferente)
+- [ ] A emoção aterrissa em ação (não diz "ele estava triste")
 
-### 语言
-- [ ] 没有空洞的抒情段落
-- [ ] 没有连续多段同一情绪
-- [ ] 对话符合人物身份（不同人说话方式不同）
-- [ ] 情绪通过动作落地（不是直接说"他很难过"）
+### Continuidade serial
+- [ ] Não esqueceu promessas e pistas anteriores
+- [ ] Não despejou de repente muita configuração nova
+- [ ] As pistas avançaram
+- [ ] O motor da história continua rodando
 
-### 连载连续性
-- [ ] 没有遗忘之前的承诺/伏笔
-- [ ] 没有突然塞入大量新设定
-- [ ] 伏笔有推进
-- [ ] 故事引擎还在运转
-
-### 水（filler）检测
-以下信号出现 = 可能水了：
-- 全章对话没有任何新信息
-- 同一个情绪写了 3 段以上
-- 场景描写超过 500 字但不推进剧情
-- 角色回忆之前发生的事但没有任何新视角
-- 连续 2 章以上没有冲突
+### Detecção de enrolação (filler)
+Estes sinais indicam possível enrolação:
+- Capítulo inteiro de diálogo sem nenhuma informação nova
+- A mesma emoção escrita em 3 parágrafos ou mais
+- Descrição de cena de mais de 300 palavras sem avançar a trama
+- Personagem relembra o que já aconteceu sem trazer perspectiva nova
+- Dois ou mais capítulos seguidos sem conflito
 
 ---
 
-## 二、长篇专项
+## 2. Específico de romance longo
 
-### 黄金三章检查
-- [ ] 第一章前 500 字有钩子？
-- [ ] 主角第一章就出场？
-- [ ] 第一章有事件（不是纯铺垫）
-- [ ] 第二章有升级（矛盾加深）
-- [ ] 第三章有追读理由（给出继续看的动力）
-- [ ] 前三章有至少 2 个爽点？
-- [ ] 世界观没有大段说明文？
-- [ ] 每章结尾有悬念？
+### Verificação dos três primeiros capítulos
+- [ ] O primeiro capítulo tem gancho nas primeiras 300 palavras?
+- [ ] O protagonista entra já no primeiro capítulo?
+- [ ] O primeiro capítulo tem evento (não é só preparação)?
+- [ ] O segundo capítulo escala (o conflito se aprofunda)?
+- [ ] O terceiro capítulo dá motivo para continuar lendo?
+- [ ] Os três primeiros capítulos têm ao menos 2 recompensas?
+- [ ] O mundo não vem em blocos longos de explicação?
+- [ ] Cada capítulo termina com suspense?
 
-### 节奏检查
-- [ ] 最近 5 章是否有明确进展？
-- [ ] 爽点间隔是否超过 5000 字？
-- [ ] 有没有连续 2 章以上没有冲突？
+### Verificação de ritmo
+- [ ] Os últimos 5 capítulos têm avanço claro?
+- [ ] O intervalo entre recompensas passa de 3.000 palavras?
+- [ ] Há dois ou mais capítulos seguidos sem conflito?
 
-### 人物检查
-- [ ] 主角行为符合人设？
-- [ ] 配角是否有存在感？
-- [ ] 反派逼格是否匹配当前阶段？
+### Verificação de personagens
+- [ ] O protagonista age conforme sua caracterização?
+- [ ] Os coadjuvantes têm presença?
+- [ ] A estatura do antagonista combina com a fase atual?
 
-### 五维评分标准
+### Escala de cinco dimensões
 
-每个维度 0-100 分，根据评分结果选择精修策略。
+Cada dimensão vai de 0 a 100; use o resultado para escolher a estratégia de revisão.
 
-#### 维度 1：核心一致度
-检查：关键冲突、关键行动、人物动机是否前后一致。
+#### Dimensão 1: consistência central
+Verifica: conflitos-chave, ações-chave e motivações dos personagens são coerentes do início ao fim?
 
-| 问题 | 严重度 | 修复 |
+| Problema | Gravidade | Correção |
 |------|--------|------|
-| 人物动机突然改变无铺垫 | critical | 补充动机转变的触发事件 |
-| 核心冲突前后不一致 | high | 回溯修改冲突设定 |
-| 关键行动与人物性格矛盾 | high | 调整行动或补充解释 |
-| 次要矛盾遗忘 | medium | 回收或弱化 |
+| Motivação do personagem muda de repente sem preparação | crítica | Acrescentar o evento que desencadeia a mudança |
+| Conflito central inconsistente | alta | Voltar e corrigir a configuração do conflito |
+| Ação-chave contradiz a personalidade | alta | Ajustar a ação ou acrescentar explicação |
+| Conflito secundário esquecido | média | Retomar ou reduzir |
 
-#### 维度 2：表层重写度
-检查：句式与措辞是否足够原创，避免套路化表达。
+#### Dimensão 2: reescrita de superfície
+Verifica: frases e palavras são originais o bastante, evitando expressões de fórmula?
 
-| 问题 | 严重度 | 修复 |
+| Problema | Gravidade | Correção |
 |------|--------|------|
-| 连续复用 12 字以上原文 | high | 重写句式 |
-| 大量使用 AI 标志词 | high | 替换为具体描述 |
-| 同一句式重复出现 | medium | 变换表达方式 |
-| 描写过于文学化 | medium | 改为口语化/动作化 |
+| Reaproveita em sequência mais de 8 palavras do original | alta | Reescrever a construção |
+| Muitas palavras-marca de IA | alta | Trocar por descrição concreta |
+| A mesma construção se repete | média | Variar a expressão |
+| Descrição literária demais | média | Passar para oralidade/ação |
 
-#### 维度 3：格式一致度
-检查：段落结构、字数分配、开头结尾格式是否统一。
+#### Dimensão 3: consistência de formato
+Verifica: estrutura de parágrafos, distribuição de palavras e formato de abertura e final são uniformes?
 
-| 问题 | 严重度 | 修复 |
+| Problema | Gravidade | Correção |
 |------|--------|------|
-| 段落长度差异过大 | medium | 调整段落划分 |
-| 章节字数偏离目标 | medium | 增删内容 |
-| 格式混乱（对话/描写不统一）| low | 统一格式 |
+| Tamanho dos parágrafos muito desigual | média | Ajustar a divisão |
+| Extensão do capítulo fora da meta | média | Acrescentar ou cortar |
+| Formato bagunçado (diálogo/descrição sem padrão) | baixa | Padronizar |
 
-#### 维度 4：可读性
-检查：是否有啰嗦、AI 腔、空泛总结、套路修辞。
+#### Dimensão 4: legibilidade
+Verifica: há prolixidade, tom de IA, resumos vazios, retórica de fórmula?
 
-| AI 腔特征 | 如何识别 | 如何修复 |
+| Traço de tom de IA | Como identificar | Como corrigir |
 |-----------|----------|----------|
-| 空泛总结 | 「他终于明白了」「一切尽在不言中」 | 删掉，用行动代替 |
-| 套路修辞 | 「命运仿佛在和他开玩笑」 | 删掉或换成具体描述 |
-| 情绪标签 | 「他感到一阵悲伤」 | 改为行为表现 |
-| 大段心理描写 | 连续 3 句以上内心独白 | 压缩为 1 句或转为对话 |
+| Resumo vazio | "Ele finalmente entendeu", "tudo ficou dito no silêncio" | Cortar e usar ação |
+| Retórica de fórmula | "O destino parecia brincar com ele" | Cortar ou trocar por descrição concreta |
+| Rótulo de emoção | "Ele sentiu uma onda de tristeza" | Trocar por comportamento |
+| Blocos de psicologia | 3 ou mais frases seguidas de monólogo interior | Comprimir em 1 frase ou virar diálogo |
 
-#### 维度 5：逻辑连贯
-检查：句间/段间是否通顺，有无设定冲突。
+#### Dimensão 5: coerência lógica
+Verifica: as frases e parágrafos se encadeiam? Há conflito de configuração?
 
-| 问题 | 严重度 | 修复 |
+| Problema | Gravidade | Correção |
 |------|--------|------|
-| 设定前后矛盾 | critical | 查找并统一设定 |
-| 时间线错误 | high | 标记时间线并修正 |
-| 角色信息不一致 | high | 建立角色档案对照 |
-| 因果链断裂 | medium | 补充过渡 |
+| Configuração contraditória | crítica | Localizar e unificar |
+| Erro de linha do tempo | alta | Marcar a linha do tempo e corrigir |
+| Informação de personagem inconsistente | alta | Criar uma ficha de consulta |
+| Cadeia de causa e efeito quebrada | média | Acrescentar transição |
 
-### 精修策略
+### Estratégia de revisão
 
-根据五维评分结果，选择精修策略：
+Pelo resultado das cinco dimensões, escolha a estratégia:
 
-| 主要问题 | 策略 | 说明 |
+| Problema principal | Estratégia | Descrição |
 |----------|------|------|
-| 核心一致度低 | rewrite | 围绕核心冲突重写相关段落 |
-| 字数超标 | compress | 删减不推动剧情的内容 |
-| AI 腔重 | de_ai | 替换禁用词、改写句式 |
-| 小问题多 | polish | 打磨语言细节 |
+| Consistência central baixa | rewrite | Reescrever os trechos em torno do conflito central |
+| Extensão acima da meta | compress | Cortar o que não faz a trama avançar |
+| Muito tom de IA | de_ai | Trocar palavras proibidas e reescrever construções |
+| Muitos pequenos problemas | polish | Polir os detalhes de linguagem |
 
 ---
 
-## 三、短篇专项
+## 3. Específico de conto
 
-### 虐爽节奏检查
+### Verificação do ritmo de dor e catarse
 
-短篇特有的检查项——虐点和爽点的分布是否合理：
+Verificação própria do conto: a distribuição de momentos de dor e de recompensa é razoável?
 
 ```
-理想分布：虐1 → 虐2 → 虐3 → 爽1(小) → 虐4 → 爽2(大)
-禁忌分布：虐1 → 虐2 → 虐3 → 虐4 → 虐5（无爽点，读者流失）
-禁忌分布：爽1 → 爽2 → 爽3 → 爽4（无铺垫，爽感疲劳）
+Distribuição ideal: dor 1 → dor 2 → dor 3 → recompensa 1 (pequena) → dor 4 → recompensa 2 (grande)
+Distribuição a evitar: dor 1 → dor 2 → dor 3 → dor 4 → dor 5 (sem recompensa, o leitor desiste)
+Distribuição a evitar: recompensa 1 → recompensa 2 → recompensa 3 → recompensa 4 (sem preparação, cansa)
 ```
 
-检查规则：
-- 每 300 字至少 1 个小冲突
-- 虐点间隔不超过全文的 30%
-- 最大爽点必须出现在全文的 70-85% 位置
-- 结尾必须有情绪落点
+Regras de verificação:
+- Pelo menos 1 pequeno conflito a cada 200 palavras
+- O intervalo entre momentos de dor não passa de 30% do texto
+- A maior recompensa deve aparecer entre 70% e 85% do texto
+- O final precisa de um ponto de chegada emocional
 
-### 对话密度检查
+### Verificação da densidade de diálogo
 
-| 指标 | 合格标准 | 警戒线 |
+| Indicador | Padrão aceitável | Alerta |
 |------|----------|--------|
-| 对话占全文比 | 45-65% | <30%（太干）或>75%（太水） |
-| 每章对话条数 | 12-18条/千字 | <8条（缺交互）或>25条（碎片化） |
-| 伤人性对话占比 | 35-45%（虐文）/ 20-30%（爽文） | 虐文<20%（不够痛）/ 爽文>40%（太压抑） |
+| Proporção de diálogo no texto | 45-65% | <30% (seco demais) ou >75% (enrolação) |
+| Falas por mil palavras | 12-18 | <8 (falta interação) ou >25 (fragmentado) |
+| Proporção de falas que ferem | 35-45% (drama) / 20-30% (recompensa) | drama <20% (não dói) / recompensa >40% (opressivo) |
 
-### 主角冷静度检查（打脸/复仇文专用）
+### Verificação da calma do protagonista (histórias de virada/vingança)
 
-| 检查项 | 标准 |
-|--------|------|
-| 主角是否有标志性冷静动作？ | 必须有（端水杯/整理西装/转笔等） |
-| 主角是否有情绪失控场面？ | 复仇文最多1次，且必须在前30% |
-| 反派是否比主角更歇斯底里？ | 必须是——反差是爽感来源 |
-| 主角台词是否短于反派？ | 平均短30-50%——越短越有力 |
-| 是否有"审判式对话"？ | 至少2处（主角提问→对方自爆） |
+| Item | Padrão |
+|------|------|
+| O protagonista tem um gesto de calma marcante? | Deve ter (servir um copo d'água, ajeitar o paletó, girar a caneta etc.) |
+| O protagonista tem cena de descontrole emocional? | Em histórias de vingança, no máximo 1, e nos primeiros 30% |
+| O antagonista é mais histérico que o protagonista? | Deve ser: o contraste é a fonte da catarse |
+| As falas do protagonista são mais curtas que as do antagonista? | Em média 30 a 50% mais curtas: quanto mais curtas, mais fortes |
+| Há "diálogo de tribunal"? | Pelo menos 2 (o protagonista pergunta → o outro se entrega) |
 
-### 证据链完整性检查（复仇/打脸文专用）
+### Verificação da completude da cadeia de provas (vingança/virada)
 
-| 检查项 | 标准 |
-|--------|------|
-| 证据是否分章释放？ | 至少分3次揭露，不能一次全给 |
-| 每个证据是否有铺垫？ | 前文必须埋过线索 |
-| 反派是否每次都先得意再被打脸？ | 必须是——先扬后抑 |
-| 最终证据是否最致命？ | 最后一个证据要改变全局认知 |
-| 是否有"定时炸弹"证据？ | 至少1个主角提前布局的证据 |
+| Item | Padrão |
+|------|------|
+| As provas são liberadas em capítulos diferentes? | Revelar em pelo menos 3 vezes, nunca tudo de uma vez |
+| Cada prova teve preparação? | O texto anterior precisa ter plantado pistas |
+| O antagonista primeiro se gaba, depois cai? | Deve ser: primeiro sobe, depois cai |
+| A prova final é a mais letal? | A última prova muda a percepção de tudo |
+| Há uma prova "bomba-relógio"? | Pelo menos 1 prova que o protagonista armou com antecedência |
 
-### 毒点/代入感/震惊/开头/结尾/情绪/期待感速查
+### Consulta rápida: pontos de rejeição, imersão, choque, abertura, final, emoção e expectativa
 
-> 详细的毒点分类、识别方法和修复方案见 `anti-ai-writing.md`。
+> Para a classificação detalhada dos pontos de rejeição, como identificá-los e corrigi-los, veja `anti-ai-writing.md`.
 
-| 检查项 | 标准 |
-|--------|------|
-| 爽文不爽 | 金手指效果必须展示清楚 |
-| 压制无目的 | 每次压制必须服务于后续爆发 |
-| 反派结局与主角无关 | 反派之死必须因主角行动导致 |
-| 经济/战力崩坏 | 设定前后一致，以普通人为锚点 |
-| 女主/女配降智 | 人设正常可写，老套路别写 |
-| 读者期待长时间不满足 | 适时满足或引入新期待 |
-| 主角行为不可理解 | 必须能理解、能共鸣 |
-| 氛围被突兀梗破坏 | 氛围 > 突兀梗（乐子文除外） |
-| 钩子不回收 | 钩子不回收 = 烂尾 |
-| 震惊分层 | 点→网→深度，不能只写点震惊 |
-| 震惊阶梯递进 | 阶梯式上升，非直线 |
-| 震惊有广度 | 关系网都要有反应 |
-| 前50字有冲突/异常 | 不能是背景铺垫 |
-| 前100字知核心矛盾 | 必须知道 |
-| 开头情绪强度 | ≥7（1-10） |
-| 结尾是具体的 | 动作/对话/画面，禁止总结/反思 |
-| 结尾有余韵 | 读者还想往下看 |
-| 结尾情绪强度 | 虐≥8，爽≥7，治愈≥6 |
-| 情绪对等释放 | 虐多少补多少，反派结局关联主角 |
-| 期待管理 | 两长一短不断，核心卖点贯穿 |
+| Item | Padrão |
+|------|------|
+| História de recompensa sem recompensa | O efeito da vantagem precisa estar claro |
+| Opressão sem propósito | Toda opressão deve servir à explosão seguinte |
+| Fim do antagonista sem relação com o protagonista | A queda do antagonista deve resultar da ação do protagonista |
+| Economia/poder desmoronando | Configuração coerente, tomando o cidadão comum como âncora |
+| Protagonista feminina ou coadjuvante que perde inteligência | Personagem normal funciona; evite o clichê antigo |
+| Expectativa do leitor insatisfeita por muito tempo | Satisfazer a tempo ou introduzir nova expectativa |
+| Comportamento do protagonista incompreensível | Precisa ser compreensível e gerar identificação |
+| Clima quebrado por piada fora de hora | Clima > piada fora de hora (exceto em comédia) |
+| Gancho não resolvido | Gancho não resolvido = final abandonado |
+| Choque em camadas | Ponto → rede → profundidade; não escreva só o choque pontual |
+| Choque em degraus | Subida em degraus, não em linha reta |
+| Choque com amplitude | Toda a rede de relações deve reagir |
+| Conflito ou estranheza nas primeiras 40 palavras | Não pode ser introdução de contexto |
+| Conflito central claro nas primeiras 80 palavras | Obrigatório |
+| Intensidade emocional da abertura | ≥7 (de 1 a 10) |
+| Final concreto | Ação/diálogo/imagem; proibido resumo ou reflexão |
+| Final com ressonância | O leitor ainda quer continuar |
+| Intensidade emocional do final | dor ≥8, recompensa ≥7, cura ≥6 |
+| Liberação emocional equivalente | Quanto machucou, tanto compensa; o fim do antagonista se liga ao protagonista |
+| Gestão de expectativa | Duas longas e uma curta, sem parar; o atrativo central atravessa a história |

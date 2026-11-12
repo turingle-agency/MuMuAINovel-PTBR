@@ -48,6 +48,11 @@ def generate_stable_foreshadow_id(chapter_id: str, content: str, foreshadow_type
     return f"{foreshadow_type}_{chapter_hash}_{content_hash}"
 
 
+# Sufixos que a IA às vezes acrescenta ao título de um foreshadowing resolvido
+# (os chineses ficam para dados antigos).
+CJK_COMPAT_TITLE_SUFFIXES = ["回收", "揭示", "解答", "兑现", " (resolução)", " - resolução", " (resolvido)", " - resolvido", " (revelação)"]
+
+
 class ForeshadowService:
     """伏笔管理服务"""
     
@@ -469,7 +474,7 @@ class ForeshadowService:
             
             foreshadow.status = "abandoned"
             if reason:
-                foreshadow.notes = f"{foreshadow.notes or ''}\n[废弃原因] {reason}".strip()
+                foreshadow.notes = f"{foreshadow.notes or ''}\n[Motivo do abandono] {reason}".strip()
             
             await db.commit()
             await db.refresh(foreshadow)
@@ -749,25 +754,25 @@ class ForeshadowService:
             # 1. 获取本章必须回收的伏笔（target_resolve_chapter_number == chapter_number）
             must_resolve = await self.get_must_resolve_foreshadows(db, project_id, chapter_number)
             if must_resolve:
-                lines.append("【🎯 本章必须回收的伏笔 - 请务必在本章完成回收】")
+                lines.append("[🎯 Foreshadowings que DEVEM ser resolvidos neste capítulo - conclua a resolução neste capítulo]")
                 for f in must_resolve:
                     lines.append(f"- ID:{f.id[:8]} | {f.title}")
-                    lines.append(f"  埋入章节：第{f.plant_chapter_number}章")
-                    lines.append(f"  伏笔内容：{f.content[:100]}{'...' if len(f.content) > 100 else ''}")
+                    lines.append(f"  Plantado no capítulo {f.plant_chapter_number}")
+                    lines.append(f"  Conteúdo do foreshadowing: {f.content[:100]}{'...' if len(f.content) > 100 else ''}")
                     if f.resolution_notes:
-                        lines.append(f"  回收提示：{f.resolution_notes}")
+                        lines.append(f"  Dica de resolução: {f.resolution_notes}")
                     lines.append("")
             
             # 2. 超期伏笔（已过目标回收章节但未回收）
             if include_overdue:
                 overdue = await self.get_overdue_foreshadows(db, project_id, chapter_number)
                 if overdue:
-                    lines.append("【⚠️ 超期待回收伏笔 - 请尽快回收】")
+                    lines.append("[⚠️ Foreshadowings com resolução atrasada - resolva o quanto antes]")
                     for f in overdue[:3]:
                         overdue_chapters = chapter_number - (f.target_resolve_chapter_number or 0)
-                        lines.append(f"- ID:{f.id[:8]} | {f.title} [已超期{overdue_chapters}章]")
-                        lines.append(f"  埋入章节：第{f.plant_chapter_number}章，原计划第{f.target_resolve_chapter_number}章回收")
-                        lines.append(f"  伏笔内容：{f.content[:80]}...")
+                        lines.append(f"- ID:{f.id[:8]} | {f.title} [atrasado em {overdue_chapters} capítulo(s)]")
+                        lines.append(f"  Plantado no capítulo {f.plant_chapter_number}, resolução originalmente planejada para o capítulo {f.target_resolve_chapter_number}")
+                        lines.append(f"  Conteúdo do foreshadowing: {f.content[:80]}...")
                     lines.append("")
             
             # 3. 即将需要回收的伏笔（仅作为背景参考，明确禁止提前回收）
@@ -779,24 +784,24 @@ class ForeshadowService:
                        if (f.target_resolve_chapter_number or 0) > chapter_number]
             
             if upcoming:
-                lines.append("【📋 近期待回收伏笔（仅供参考，请勿在本章回收）】")
-                lines.append("⚠️ 以下伏笔尚未到回收时机，本章请勿提前回收，仅作为剧情背景了解")
+                lines.append("[📋 Foreshadowings a resolver em breve (apenas referência; NÃO resolver neste capítulo)]")
+                lines.append("⚠️ Os foreshadowings abaixo ainda não chegaram à hora de resolução; NÃO os resolva antes do tempo neste capítulo, use-os apenas como contexto da trama")
                 for f in upcoming[:5]:
                     remaining = (f.target_resolve_chapter_number or 0) - chapter_number
-                    lines.append(f"- {f.title}（计划第{f.target_resolve_chapter_number}章回收，还有{remaining}章）")
+                    lines.append(f"- {f.title} (resolução planejada para o capítulo {f.target_resolve_chapter_number}, faltam {remaining} capítulo(s))")
                 lines.append("")
             
             # 4. 本章待埋入伏笔
             if include_pending:
                 to_plant = await self.get_foreshadows_to_plant(db, project_id, chapter_number)
                 if to_plant:
-                    lines.append("【✨ 本章计划埋入伏笔】")
+                    lines.append("[✨ Foreshadowings planejados para plantar neste capítulo]")
                     for f in to_plant:
                         content_preview = f.content[:80] if len(f.content) > 80 else f.content
                         lines.append(f"- {f.title}")
-                        lines.append(f"  伏笔内容：{content_preview}")
+                        lines.append(f"  Conteúdo do foreshadowing: {content_preview}")
                         if f.hint_text:
-                            lines.append(f"  埋入提示：{f.hint_text}")
+                            lines.append(f"  Dica de plantio: {f.hint_text}")
                     lines.append("")
             
             context_text = "\n".join(lines) if lines else ""
@@ -955,16 +960,16 @@ class ForeshadowService:
                 if current_chapter_number and f.target_resolve_chapter_number:
                     if f.target_resolve_chapter_number == current_chapter_number:
                         item["resolve_status"] = "must_resolve_now"  # 本章必须回收
-                        item["resolve_hint"] = "本章必须回收此伏笔"
+                        item["resolve_hint"] = "Este foreshadowing deve ser resolvido neste capítulo"
                     elif f.target_resolve_chapter_number < current_chapter_number:
                         item["resolve_status"] = "overdue"  # 已超期
-                        item["resolve_hint"] = f"已超期{current_chapter_number - f.target_resolve_chapter_number}章，应尽快回收"
+                        item["resolve_hint"] = f"Atrasado em {current_chapter_number - f.target_resolve_chapter_number} capítulo(s); resolva o quanto antes"
                     else:
                         item["resolve_status"] = "not_yet"  # 尚未到期
-                        item["resolve_hint"] = f"计划第{f.target_resolve_chapter_number}章回收，请勿提前回收"
+                        item["resolve_hint"] = f"Resolução planejada para o capítulo {f.target_resolve_chapter_number}; não resolva antes do tempo"
                 else:
                     item["resolve_status"] = "no_plan"  # 无明确计划
-                    item["resolve_hint"] = "无明确回收计划，根据剧情自然回收"
+                    item["resolve_hint"] = "Sem plano de resolução definido; resolva naturalmente conforme a trama"
                 
                 formatted_list.append(item)
             
@@ -1308,7 +1313,7 @@ class ForeshadowService:
                                 existing = None
                                 logger.warning(f"⚠️ 伏笔ID不存在或不属于该项目，跳过本次回收同步: {reference_id}")
                                 stats["skipped_resolve_count"] = stats.get("skipped_resolve_count", 0) + 1
-                                stats["errors"].append(f"reference_foreshadow_id 无效或已删除: {reference_id}")
+                                stats["errors"].append(f"reference_foreshadow_id inválido ou excluído: {reference_id}")
                                 continue
                         
                         # 策略2: 内容匹配备用机制（仅在 analysis 未提供 reference_id 时启用）
@@ -1464,7 +1469,7 @@ class ForeshadowService:
                             logger.info(f"✅ 自动创建伏笔: {fs_title} (ID: {new_foreshadow.id}) [{new_foreshadow_count}/{MAX_NEW_FORESHADOWS_PER_CHAPTER}]")
                     
                 except Exception as item_error:
-                    error_msg = f"处理伏笔时出错: {str(item_error)}"
+                    error_msg = f"Erro ao processar foreshadowing: {str(item_error)}"
                     stats["errors"].append(error_msg)
                     logger.error(f"❌ {error_msg}")
             
@@ -1582,8 +1587,8 @@ class ForeshadowService:
         
         # 处理标题后缀（兜底机制）
         resolved_title_clean = resolved_title
-        for suffix in ["回收", "揭示", "解答", "兑现"]:
-            if resolved_title.endswith(suffix):
+        for suffix in CJK_COMPAT_TITLE_SUFFIXES:
+            if resolved_title.endswith(suffix) and resolved_title[:-len(suffix)].strip():
                 resolved_title_clean = resolved_title[:-len(suffix)]
                 logger.debug(f"🔍 去除标题后缀: '{resolved_title}' -> '{resolved_title_clean}'")
                 break

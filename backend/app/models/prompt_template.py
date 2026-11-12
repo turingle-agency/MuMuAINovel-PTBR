@@ -10,17 +10,17 @@ class PromptTemplate(Base):
     __tablename__ = "prompt_templates"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(50), nullable=False, index=True, comment="用户ID")
-    template_key = Column(String(100), nullable=False, comment="模板键名")
-    template_name = Column(String(200), nullable=False, comment="模板显示名称")
-    template_content = Column(Text, nullable=False, comment="模板内容")
-    description = Column(Text, comment="模板描述")
-    category = Column(String(50), comment="模板分类")
-    parameters = Column(Text, comment="模板参数定义(JSON)")
-    is_active = Column(Boolean, default=True, comment="是否启用")
-    is_system_default = Column(Boolean, default=False, comment="是否为系统默认模板")
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    user_id = Column(String(50), nullable=False, index=True, comment="ID do usuário")
+    template_key = Column(String(100), nullable=False, comment="Chave do template")
+    template_name = Column(String(200), nullable=False, comment="Nome de exibição do template")
+    template_content = Column(Text, nullable=False, comment="Conteúdo do template")
+    description = Column(Text, comment="Descrição do template")
+    category = Column(String(50), comment="Categoria do template")
+    parameters = Column(Text, comment="Definição de parâmetros do template (JSON)")
+    is_active = Column(Boolean, default=True, comment="Habilitado")
+    is_system_default = Column(Boolean, default=False, comment="Template padrão do sistema")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     __table_args__ = (
         Index('idx_user_template', 'user_id', 'template_key', unique=True),

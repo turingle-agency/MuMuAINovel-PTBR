@@ -17,13 +17,18 @@ from app.models.regeneration_task import RegenerationTask
 from app.models.career import Career, CharacterCareer
 from app.models.prompt_template import PromptTemplate
 from app.models.foreshadow import Foreshadow
-from app.models.prompt_workshop import PromptWorkshopItem, PromptSubmission, PromptWorkshopLike
 from app.models.background_task import BackgroundTask
-from app.models.announcement import Announcement
 from app.models.project_agent import AgentConversation, AgentMessage, AgentToolCall, AgentExecutionStep
 from app.models.knowledge import KnowledgeBase, KnowledgeDocument, KnowledgeChunk
+from app.models.series import Series
+from app.models.niche_research import NicheResearch
+from app.models.offer import Offer, OfferItem
 
 __all__ = [
+    "Series",
+    "NicheResearch",
+    "Offer",
+    "OfferItem",
     "Project",
     "Outline",
     "Chapter",
@@ -48,11 +53,7 @@ __all__ = [
     "CharacterCareer",
     "PromptTemplate",
     "Foreshadow",
-    "PromptWorkshopItem",
-    "PromptSubmission",
-    "PromptWorkshopLike",
     "BackgroundTask",
-    "Announcement",
     "AgentConversation",
     "AgentMessage",
     "AgentToolCall",

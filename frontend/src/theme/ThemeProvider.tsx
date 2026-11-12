@@ -1,10 +1,14 @@
 import { ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
+import ptBR from 'antd/locale/pt_BR';
+import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { PropsWithChildren } from 'react';
 import { getThemeConfig, type ResolvedThemeMode } from './themeConfig';
 import { ThemeModeContext } from './themeContext';
 import { getStoredThemeMode, setStoredThemeMode, type ThemeMode } from './themeStorage';
+
+dayjs.locale('pt-br');
 
 const getSystemResolvedMode = (): ResolvedThemeMode => {
   if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
@@ -142,7 +146,7 @@ export const ThemeProvider = ({ children }: PropsWithChildren) => {
   return (
     <ThemeModeContext.Provider value={contextValue}>
       <ConfigProvider
-        locale={zhCN}
+        locale={ptBR}
         theme={{
           ...themeConfig,
           cssVar: true,

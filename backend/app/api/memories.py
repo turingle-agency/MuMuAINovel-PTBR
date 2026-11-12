@@ -3,16 +3,18 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_, desc, delete
 from typing import List, Optional
+from app.utils.text_metrics import count_words
 from app.database import get_db
 from app.models.memory import StoryMemory, PlotAnalysis
 from app.models.chapter import Chapter
+from app.constants.languages import language_name
 from app.models.project import Project
 from app.services.memory_service import memory_service
 from app.services.plot_analyzer import get_plot_analyzer
 from app.services.foreshadow_service import foreshadow_service
 from app.services.ai_service import create_user_ai_service
 from app.models.settings import Settings
-from app.api.settings import resolve_runtime_ai_config
+from app.api.settings import build_fallback_config, resolve_runtime_ai_config
 from app.logger import get_logger
 from app.api.common import verify_project_access
 import uuid
@@ -37,7 +39,7 @@ async def analyze_chapter(
         user_id = getattr(request.state, 'user_id', None)
         
         # 验证用户权限
-        await verify_project_access(project_id, user_id, db)
+        project = await verify_project_access(project_id, user_id, db)
         
         # 获取章节内容
         result = await db.execute(
@@ -51,17 +53,17 @@ async def analyze_chapter(
         chapter = result.scalar_one_or_none()
         
         if not chapter:
-            raise HTTPException(status_code=404, detail="章节不存在")
+            raise HTTPException(status_code=404, detail="Capítulo não encontrado")
         
         if not chapter.content:
-            raise HTTPException(status_code=400, detail="章节内容为空,无法分析")
+            raise HTTPException(status_code=400, detail="O capítulo está vazio, não é possível analisar")
         
         # 获取用户AI设置
         settings_result = await db.execute(select(Settings).where(Settings.user_id == user_id))
         settings = settings_result.scalar_one_or_none()
         
         if not settings:
-            raise HTTPException(status_code=400, detail="请先配置AI设置")
+            raise HTTPException(status_code=400, detail="Configure primeiro as definições de IA")
         
         runtime_config = resolve_runtime_ai_config(settings.api_provider, settings.api_key, settings.api_base_url)
 
@@ -72,7 +74,8 @@ async def analyze_chapter(
             api_base_url=runtime_config["api_base_url"],
             model_name=settings.llm_model,
             temperature=settings.temperature,
-            max_tokens=settings.max_tokens
+            max_tokens=settings.max_tokens,
+            fallback=build_fallback_config(settings),
         )
         
         # 获取已埋入的伏笔列表（用于回收匹配）
@@ -88,14 +91,15 @@ async def analyze_chapter(
             chapter_number=chapter.chapter_number,
             title=chapter.title,
             content=chapter.content,
-            word_count=chapter.word_count or len(chapter.content),
+            word_count=chapter.word_count or count_words(chapter.content),
             user_id=user_id,
             db=db,
-            existing_foreshadows=existing_foreshadows
+            existing_foreshadows=existing_foreshadows,
+            output_language=language_name(project.language)
         )
         
         if not analysis_result:
-            raise HTTPException(status_code=500, detail="剧情分析失败")
+            raise HTTPException(status_code=500, detail="Falha na análise do enredo")
         
         # 保存分析结果到数据库
         plot_analysis = PlotAnalysis(
@@ -274,7 +278,7 @@ async def analyze_chapter(
 
         return {
             "success": True,
-            "message": f"分析完成,提取了{saved_count}条记忆",
+            "message": f"Análise concluída, {saved_count} memórias extraídas",
             "analysis": plot_analysis.to_dict(),
             "memories_count": saved_count,
             "foreshadow_stats": foreshadow_stats,
@@ -286,7 +290,7 @@ async def analyze_chapter(
     except Exception as e:
         logger.error(f"❌ 章节分析失败: {str(e)}")
         await db.rollback()
-        raise HTTPException(status_code=500, detail=f"分析失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na análise: {str(e)}")
 
 
 @router.get("/projects/{project_id}/memories")
@@ -354,7 +358,7 @@ async def get_chapter_analysis(
         analysis = result.scalar_one_or_none()
         
         if not analysis:
-            raise HTTPException(status_code=404, detail="该章节还未进行分析")
+            raise HTTPException(status_code=404, detail="Este capítulo ainda não foi analisado")
         
         return {
             "success": True,
@@ -505,7 +509,7 @@ async def delete_chapter_memories(
         
         return {
             "success": True,
-            "message": f"已删除{len(memories)}条记忆"
+            "message": f"{len(memories)} memórias excluídas"
         }
         
     except Exception as e:

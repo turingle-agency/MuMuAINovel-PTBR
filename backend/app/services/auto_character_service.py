@@ -1,7 +1,7 @@
 """自动角色服务 - 大纲生成后校验并自动补全缺失角色"""
 from typing import List, Dict, Any, Optional, Callable, Awaitable
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 import json
 
 from app.models.character import Character
@@ -9,6 +9,7 @@ from app.models.relationship import CharacterRelationship, Organization, Organiz
 from app.models.project import Project
 from app.services.ai_service import AIService
 from app.services.prompt_service import PromptService
+from app.constants.languages import language_name
 from app.services.knowledge_service import knowledge_service
 from app.logger import get_logger
 
@@ -24,18 +25,18 @@ class AutoCharacterService:
     def _build_character_summary(self, characters: List[Character]) -> str:
         """构建现有角色摘要信息"""
         if not characters:
-            return "暂无已有角色"
+            return "Nenhum personagem existente"
         
         lines = []
         for char in characters:
             parts = [f"- {char.name}"]
             if char.role_type:
-                role_map = {"protagonist": "主角", "supporting": "配角", "antagonist": "反派"}
+                role_map = {"protagonist": "protagonista", "supporting": "coadjuvante", "antagonist": "antagonista"}
                 parts.append(f"({role_map.get(char.role_type, char.role_type)})")
             if char.personality:
-                parts.append(f"性格: {char.personality[:50]}")
+                parts.append(f"personalidade: {char.personality[:50]}")
             if char.background:
-                parts.append(f"背景: {char.background[:50]}")
+                parts.append(f"histórico: {char.background[:50]}")
             lines.append(" ".join(parts))
         
         return "\n".join(lines)
@@ -67,22 +68,22 @@ class AutoCharacterService:
             sub_careers = [c for c in careers if c.type == 'sub']
             
             if main_careers:
-                careers_info += "\n\n可用主职业列表（请在career_info中填写职业名称和阶段）：\n"
+                careers_info += "\n\nLista de carreiras principais disponíveis (preencha em career_info o nome da carreira e o estágio):\n"
                 for career in main_careers:
-                    careers_info += f"- 名称: {career.name}, 最高阶段: {career.max_stage}阶"
+                    careers_info += f"- Nome: {career.name}, estágio máximo: {career.max_stage}"
                     if career.description:
-                        careers_info += f", 描述: {career.description[:50]}"
+                        careers_info += f", descrição: {career.description[:50]}"
                     careers_info += "\n"
             
             if sub_careers:
-                careers_info += "\n可用副职业列表（请在career_info中填写职业名称和阶段）：\n"
+                careers_info += "\nLista de carreiras secundárias disponíveis (preencha em career_info o nome da carreira e o estágio):\n"
                 for career in sub_careers[:5]:
-                    careers_info += f"- 名称: {career.name}, 最高阶段: {career.max_stage}阶"
+                    careers_info += f"- Nome: {career.name}, estágio máximo: {career.max_stage}"
                     if career.description:
-                        careers_info += f", 描述: {career.description[:50]}"
+                        careers_info += f", descrição: {career.description[:50]}"
                     careers_info += "\n"
             
-            careers_info += "\n⚠️ 重要提示：生成角色时，职业阶段不能超过该职业的最高阶段！\n"
+            careers_info += "\n⚠️ Importante: ao gerar personagens, o estágio da carreira não pode ultrapassar o estágio máximo dessa carreira!\n"
         
         # 构建角色生成提示词
         template = await PromptService.get_template(
@@ -95,15 +96,16 @@ class AutoCharacterService:
         
         prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
-            genre=project.genre or "未设定",
-            theme=project.theme or "未设定",
-            time_period=project.world_time_period or "未设定",
-            location=project.world_location or "未设定",
-            atmosphere=project.world_atmosphere or "未设定",
-            rules=project.world_rules or "未设定",
+            genre=project.genre or "Não definido",
+            theme=project.theme or "Não definido",
+            time_period=project.world_time_period or "Não definido",
+            location=project.world_location or "Não definido",
+            atmosphere=project.world_atmosphere or "Não definido",
+            rules=project.world_rules or "Não definido",
             existing_characters=existing_chars_summary + careers_info,
-            plot_context="根据剧情需要引入的新角色",
+            plot_context="Novo personagem introduzido conforme a necessidade da trama",
             character_specification=json.dumps(spec, ensure_ascii=False, indent=2),
             mcp_references=""  # MCP tools are loaded by the AI service
         )
@@ -127,14 +129,14 @@ class AutoCharacterService:
                 auto_mcp=enable_mcp,
             )
             
-            char_name = character_data.get('name', '未知')
+            char_name = character_data.get('name', 'Desconhecido')
             logger.info(f"    ✅ 角色详情生成成功: {char_name}")
             logger.debug(f"       角色数据字段: {list(character_data.keys())}")
             
             # 确保关键字段存在
             if 'name' not in character_data or not character_data['name']:
                 logger.warning(f"    ⚠️ AI返回的角色数据缺少name字段，使用规格中的信息")
-                character_data['name'] = spec.get('name', f"新角色{spec.get('role_description', '')[:10]}")
+                character_data['name'] = spec.get('name', f"Novo personagem {spec.get('role_description', '')[:10]}")
             
             return character_data
             
@@ -215,7 +217,7 @@ class AutoCharacterService:
         # 创建角色（不再写入 relationships 文本字段，关系统一由 character_relationships 表管理）
         character = Character(
             project_id=project_id,
-            name=character_data.get("name", "未命名角色"),
+            name=character_data.get("name", "Personagem sem nome"),
             age=str(character_data.get("age", "")),
             gender=character_data.get("gender"),
             is_organization=is_organization,
@@ -324,7 +326,7 @@ class AutoCharacterService:
                     project_id=project_id,
                     character_from_id=new_character.id,
                     character_to_id=target_char.id,
-                    relationship_name=rel_spec.get("relationship_type", "未知关系"),
+                    relationship_name=rel_spec.get("relationship_type", "relação desconhecida"),
                     intimacy_level=rel_spec.get("intimacy_level", 50),
                     description=rel_spec.get("description", ""),
                     status=rel_spec.get("status", "active"),
@@ -336,10 +338,10 @@ class AutoCharacterService:
                 if rel_type_name:
                     rel_type_result = await db.execute(
                         select(RelationshipType).where(
-                            RelationshipType.name == rel_type_name
+                            func.lower(RelationshipType.name) == str(rel_type_name).strip().lower()
                         )
                     )
-                    rel_type = rel_type_result.scalar_one_or_none()
+                    rel_type = rel_type_result.scalars().first()
                     if rel_type:
                         relationship.relationship_type_id = rel_type.id
                 
@@ -418,7 +420,7 @@ class AutoCharacterService:
                         # 收集角色出现的上下文
                         if name not in character_context:
                             character_context[name] = []
-                        character_context[name].append(f"《{title}》: {summary[:200]}")
+                        character_context[name].append(f"«{title}»: {summary[:200]}")
         
         if not all_character_names:
             logger.info("🔍 【角色校验】大纲中未提到任何角色，跳过校验")
@@ -470,7 +472,7 @@ class AutoCharacterService:
             try:
                 if progress_callback:
                     await progress_callback(
-                        f"🎭 [{idx+1}/{len(missing_names)}] 自动创建角色：{char_name}..."
+                        f"🎭 [{idx+1}/{len(missing_names)}] Criação automática de personagens: {char_name}..."
                     )
                 
                 # 构建角色规格（基于大纲上下文）
@@ -479,7 +481,7 @@ class AutoCharacterService:
                 
                 spec = {
                     "name": char_name,
-                    "role_description": f"在大纲中出现的角色，出现场景：\n{context_text}",
+                    "role_description": f"Personagem que aparece no esboço; cenas em que aparece:\n{context_text}",
                     "suggested_role_type": "supporting",
                     "importance": "medium"
                 }
@@ -501,7 +503,7 @@ class AutoCharacterService:
                 
                 if progress_callback:
                     await progress_callback(
-                        f"💾 [{idx+1}/{len(missing_names)}] 保存角色：{char_name}..."
+                        f"💾 [{idx+1}/{len(missing_names)}] Salvando personagem: {char_name}..."
                     )
                 
                 # 创建角色记录
@@ -519,7 +521,7 @@ class AutoCharacterService:
                 if relationships_data:
                     if progress_callback:
                         await progress_callback(
-                            f"🔗 [{idx+1}/{len(missing_names)}] 建立 {len(relationships_data)} 个关系：{char_name}..."
+                            f"🔗 [{idx+1}/{len(missing_names)}] Criando {len(relationships_data)} relações: {char_name}..."
                         )
                     
                     await self._create_relationships(
@@ -532,14 +534,14 @@ class AutoCharacterService:
                 
                 if progress_callback:
                     await progress_callback(
-                        f"✅ [{idx+1}/{len(missing_names)}] 角色创建完成：{char_name}"
+                        f"✅ [{idx+1}/{len(missing_names)}] Criação de personagens concluída: {char_name}"
                     )
                 
             except Exception as e:
                 logger.error(f"  ❌ 创建角色 {char_name} 失败: {e}", exc_info=True)
                 if progress_callback:
                     await progress_callback(
-                        f"⚠️ [{idx+1}/{len(missing_names)}] 角色 {char_name} 创建失败"
+                        f"⚠️ [{idx+1}/{len(missing_names)}] Personagem {char_name} falhou na criação"
                     )
                 continue
         

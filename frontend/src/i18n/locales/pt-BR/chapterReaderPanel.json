@@ -1,0 +1,20 @@
+{
+  "falhaObterNavegacao": "Falha ao obter a navegação",
+  "falhaObterInformacoesNavegacao": "Falha ao obter as informações de navegação do capítulo",
+  "fechar": "Fechar",
+  "capitulo": "Capítulo {{chapter_number}}: {{title}}",
+  "configuracoesDeLeitura": "Configurações de leitura",
+  "tamanhoFontePx": "Tamanho da fonte: {{fontSize}}px",
+  "alturaDaLinha": "Altura da linha: {{lineHeight}}",
+  "tema": "Tema",
+  "claro": "Claro",
+  "confortoVisual": "Conforto visual",
+  "escuro": "Escuro",
+  "carregando": "Carregando...",
+  "semConteudo": "Sem conteúdo",
+  "capituloAnterior": "Capítulo anterior",
+  "palavras": "{{word_count}} palavras",
+  "jaPrimeiroCapitulo": "Já é o primeiro capítulo",
+  "jaUltimoCapitulo": "Já é o último capítulo",
+  "proximoCapitulo": "Próximo capítulo"
+}

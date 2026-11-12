@@ -1,11 +1,11 @@
-"""向量记忆服务 - 基于ChromaDB实现长期记忆和语义检索"""
-import chromadb
+"""Serviço de memória vetorial - memória de longo prazo e busca semântica (Qdrant via VectorStore)."""
 from typing import List, Dict, Any, Optional
 import json
 from datetime import datetime
 from app.logger import get_logger
-from app.services.onnx_embedding import OnnxEmbeddingModel
-import os
+from app.services.vector import (
+    Cond, VectorPoint, get_embedder, get_vector_store,
+)
 import hashlib
 
 logger = get_logger(__name__)
@@ -23,70 +23,41 @@ class MemoryService:
         return cls._instance
     
     def __init__(self):
-        """初始化ChromaDB和Embedding模型"""
-        if self._initialized:
-            return
-            
-        try:
-            # 确保数据目录存在
-            chroma_dir = "data/chroma_db"
-            os.makedirs(chroma_dir, exist_ok=True)
-            
-            # 初始化ChromaDB客户端(使用新API - PersistentClient)
-            self.client = chromadb.PersistentClient(path=chroma_dir)
-            
-            logger.info("🔄 正在加载 ONNX Embedding 模型...")
-            self.embedding_model = OnnxEmbeddingModel()
-            logger.info(f"✅ ONNX Embedding 模型加载成功: {self.embedding_model.model_dir}")
-            
-            self._initialized = True
-            logger.info("✅ MemoryService初始化成功")
-            logger.info(f"  - ChromaDB目录: {chroma_dir}")
-            logger.info("  - Embedding模型: paraphrase-multilingual-MiniLM-L12-v2 (ONNX FP32)")
-            
-        except Exception as e:
-            logger.error(f"❌ MemoryService初始化失败: {str(e)}")
-            raise
-    
-    def get_collection(self, user_id: str, project_id: str):
+        """Não carrega nada: banco vetorial e modelo de embedding são resolvidos sob demanda."""
+        self._initialized = True
+
+    @property
+    def store(self):
+        return get_vector_store()
+
+    @property
+    def embedder(self):
+        return get_embedder()
+
+    def get_collection(self, user_id: str, project_id: str) -> str:
         """
-        获取或创建项目的记忆集合
-        
-        每个用户的每个项目有独立的collection,实现数据隔离
-        
-        Args:
-            user_id: 用户ID
-            project_id: 项目ID
-        
-        Returns:
-            ChromaDB Collection对象
+        获取或创建项目的记忆集合，返回集合名称
+
+        每个用户的每个项目有独立的集合,实现数据隔离。
+        名称使用 SHA256 哈希压缩: u_{user_hash}_p_{project_hash}
         """
-        # ChromaDB collection命名规则：
-        # 1. 3-63字符（最重要！）
-        # 2. 开头和结尾必须是字母或数字
-        # 3. 只能包含字母、数字、下划线或短横线
-        # 4. 不能包含连续的点(..)
-        # 5. 不能是有效的IPv4地址
-        
-        # 使用SHA256哈希压缩ID长度，确保不超过63字符
-        # 格式: u_{user_hash}_p_{project_hash} (约30字符)
-        user_hash = hashlib.sha256(user_id.encode()).hexdigest()[:8]
-        project_hash = hashlib.sha256(project_id.encode()).hexdigest()[:8]
-        collection_name = f"u_{user_hash}_p_{project_hash}"
-        
+        collection_name = self._collection_name(user_id, project_id)
         try:
-            return self.client.get_or_create_collection(
-                name=collection_name,
-                metadata={
-                    "user_id": user_id,
-                    "project_id": project_id,
-                    "created_at": datetime.now().isoformat()
-                }
-            )
+            self.store.ensure_collection(collection_name)
+            return collection_name
         except Exception as e:
             logger.error(f"❌ 获取collection失败: {str(e)}")
             raise
-    
+
+    @staticmethod
+    def _collection_name(user_id: str, project_id: str) -> str:
+        user_hash = hashlib.sha256(user_id.encode()).hexdigest()[:8]
+        project_hash = hashlib.sha256(project_id.encode()).hexdigest()[:8]
+        return f"u_{user_hash}_p_{project_hash}"
+
+    def _encode(self, text: str) -> List[float]:
+        return self.embedder.encode(text).tolist()
+
     async def add_memory(
         self,
         user_id: str,
@@ -114,10 +85,10 @@ class MemoryService:
             collection = self.get_collection(user_id, project_id)
             
             # 生成文本的向量表示
-            embedding = self.embedding_model.encode(content).tolist()
+            embedding = self._encode(content)
             
-            # 准备元数据(ChromaDB要求所有值为基础类型)
-            chroma_metadata = {
+            # 准备元数据(值为基础类型)
+            payload_meta = {
                 "memory_type": memory_type,
                 "chapter_id": str(metadata.get("chapter_id", "")),
                 "chapter_number": int(metadata.get("chapter_number", 0)),
@@ -130,20 +101,17 @@ class MemoryService:
             
             # 添加相关角色信息
             if metadata.get("related_characters"):
-                chroma_metadata["related_characters"] = json.dumps(
+                payload_meta["related_characters"] = json.dumps(
                     metadata["related_characters"], 
                     ensure_ascii=False
                 )
             
             # 存储到向量库
-            collection.add(
-                ids=[memory_id],
-                embeddings=[embedding],
-                documents=[content],
-                metadatas=[chroma_metadata]
-            )
+            self.store.upsert(collection, [VectorPoint(
+                id=memory_id, document=content, payload=payload_meta, vector=embedding
+            )])
             
-            logger.info(f"✅ 记忆已添加: {memory_id[:8]}... (类型:{memory_type}, 重要性:{chroma_metadata['importance']})")
+            logger.info(f"✅ 记忆已添加: {memory_id[:8]}... (类型:{memory_type}, 重要性:{payload_meta['importance']})")
             return True
             
         except Exception as e:
@@ -173,23 +141,14 @@ class MemoryService:
         try:
             collection = self.get_collection(user_id, project_id)
             
-            ids = []
-            documents = []
-            metadatas = []
-            embeddings = []
+            points = []
+            embeddings = self.embedder.encode([m['content'] for m in memories]).tolist()
             
             # 批量准备数据
-            for mem in memories:
-                ids.append(mem['id'])
-                documents.append(mem['content'])
-                
-                # 生成embedding
-                embedding = self.embedding_model.encode(mem['content']).tolist()
-                embeddings.append(embedding)
-                
+            for mem, embedding in zip(memories, embeddings):
                 # 准备元数据
                 metadata = mem.get('metadata', {})
-                chroma_metadata = {
+                payload_meta = {
                     "memory_type": mem['type'],
                     "chapter_id": str(metadata.get("chapter_id", "")),
                     "chapter_number": int(metadata.get("chapter_number", 0)),
@@ -199,15 +158,12 @@ class MemoryService:
                     "is_foreshadow": int(metadata.get("is_foreshadow", 0)),
                     "created_at": datetime.now().isoformat()
                 }
-                metadatas.append(chroma_metadata)
+                points.append(VectorPoint(
+                    id=mem['id'], document=mem['content'], payload=payload_meta, vector=embedding
+                ))
             
             # 批量添加
-            collection.add(
-                ids=ids,
-                embeddings=embeddings,
-                documents=documents,
-                metadatas=metadatas
-            )
+            self.store.upsert(collection, points)
             
             logger.info(f"✅ 批量添加记忆成功: {len(memories)}条")
             return len(memories)
@@ -244,47 +200,29 @@ class MemoryService:
         try:
             collection = self.get_collection(user_id, project_id)
             
-            # 生成查询向量
-            query_embedding = self.embedding_model.encode(query).tolist()
+            query_embedding = self._encode(query)
             
-            # 构建过滤条件 - ChromaDB要求使用$and组合多个条件
-            where_filter = None
-            conditions = []
-            
+            conditions: List[Cond] = []
             if memory_types:
-                conditions.append({"memory_type": {"$in": memory_types}})
+                conditions.append(Cond("memory_type", "in", list(memory_types)))
             if min_importance > 0:
-                conditions.append({"importance": {"$gte": min_importance}})
+                conditions.append(Cond("importance", "gte", min_importance))
             if chapter_range:
-                conditions.append({"chapter_number": {"$gte": chapter_range[0]}})
-                conditions.append({"chapter_number": {"$lte": chapter_range[1]}})
+                conditions.append(Cond("chapter_number", "gte", chapter_range[0]))
+                conditions.append(Cond("chapter_number", "lte", chapter_range[1]))
             
-            # 根据条件数量选择合适的格式
-            if len(conditions) == 0:
-                where_filter = None
-            elif len(conditions) == 1:
-                where_filter = conditions[0]
-            else:
-                where_filter = {"$and": conditions}
+            hits = self.store.query(collection, query_embedding, limit, conditions or None)
             
-            # 执行向量相似度搜索
-            results = collection.query(
-                query_embeddings=[query_embedding],
-                n_results=limit,
-                where=where_filter
-            )
-            
-            # 格式化结果
-            memories = []
-            if results['ids'] and results['ids'][0]:
-                for i in range(len(results['ids'][0])):
-                    memories.append({
-                        "id": results['ids'][0][i],
-                        "content": results['documents'][0][i],
-                        "metadata": results['metadatas'][0][i],
-                        "similarity": 1 - results['distances'][0][i] if 'distances' in results else 1.0,
-                        "distance": results['distances'][0][i] if 'distances' in results else 0.0
-                    })
+            memories = [
+                {
+                    "id": hit.id,
+                    "content": hit.document,
+                    "metadata": hit.payload,
+                    "similarity": hit.score,
+                    "distance": 1 - hit.score,
+                }
+                for hit in hits
+            ]
             
             logger.info(f"🔍 语义搜索完成: 查询='{query[:30]}...', 找到{len(memories)}条记忆")
             return memories
@@ -321,25 +259,16 @@ class MemoryService:
             start_chapter = max(1, current_chapter - recent_count)
             
             # 获取最近章节的记忆
-            results = collection.get(
-                where={
-                    "$and": [
-                        {"chapter_number": {"$gte": start_chapter}},
-                        {"chapter_number": {"$lt": current_chapter}},
-                        {"importance": {"$gte": min_importance}}
-                    ]
-                },
-                limit=100  # 先获取足够多的记忆
-            )
+            points = self.store.get(collection, [
+                Cond("chapter_number", "gte", start_chapter),
+                Cond("chapter_number", "lte", current_chapter - 1),
+                Cond("importance", "gte", min_importance),
+            ])[:100]  # 先获取足够多的记忆
             
-            memories = []
-            if results['ids']:
-                for i in range(len(results['ids'])):
-                    memories.append({
-                        "id": results['ids'][i],
-                        "content": results['documents'][i],
-                        "metadata": results['metadatas'][i]
-                    })
+            memories = [
+                {"id": p.id, "content": p.document, "metadata": p.payload}
+                for p in points
+            ]
             
             # 按重要性和章节号排序
             memories.sort(
@@ -378,24 +307,15 @@ class MemoryService:
             collection = self.get_collection(user_id, project_id)
             
             # 查找伏笔状态为1(已埋下但未回收)的记忆
-            results = collection.get(
-                where={
-                    "$and": [
-                        {"is_foreshadow": 1},
-                        {"chapter_number": {"$lt": current_chapter}}
-                    ]
-                },
-                limit=50
-            )
+            points = self.store.get(collection, [
+                Cond("is_foreshadow", "eq", 1),
+                Cond("chapter_number", "lte", current_chapter - 1),
+            ])[:50]
             
-            foreshadows = []
-            if results['ids']:
-                for i in range(len(results['ids'])):
-                    foreshadows.append({
-                        "id": results['ids'][i],
-                        "content": results['documents'][i],
-                        "metadata": results['metadatas'][i]
-                    })
+            foreshadows = [
+                {"id": p.id, "content": p.document, "metadata": p.payload}
+                for p in points
+            ]
             
             # 按重要性排序
             foreshadows.sort(
@@ -458,7 +378,7 @@ class MemoryService:
         # 4. 如果有指定角色,获取角色相关记忆
         character_memories = []
         if character_names:
-            character_query = " ".join(character_names) + " 角色 状态 关系"
+            character_query = " ".join(character_names) + " personagem estado relação"
             character_memories = await self.search_memories(
                 user_id=user_id,
                 project_id=project_id,
@@ -473,7 +393,7 @@ class MemoryService:
             plot_points = await self.search_memories(
                 user_id=user_id,
                 project_id=project_id,
-                query="重要 转折 高潮 关键",
+                query="importante reviravolta clímax decisivo",
                 memory_types=["plot_point", "hook"],
                 limit=5,
                 min_importance=0.7
@@ -486,7 +406,7 @@ class MemoryService:
                 plot_points = await self.search_memories(
                     user_id=user_id,
                     project_id=project_id,
-                    query="重要 转折 高潮 关键",
+                    query="importante reviravolta clímax decisivo",
                     memory_types=["plot_point", "hook"],
                     limit=5
                 )
@@ -495,11 +415,11 @@ class MemoryService:
                 plot_points = []
         
         context = {
-            "recent_context": self._format_memories(recent, "最近章节记忆"),
-            "relevant_memories": self._format_memories(relevant, "语义相关记忆"),
-            "character_states": self._format_memories(character_memories, "角色相关记忆"),
-            "foreshadows": self._format_memories(foreshadows[:5], "未完结伏笔"),
-            "plot_points": self._format_memories(plot_points, "重要情节点"),
+            "recent_context": self._format_memories(recent, "Memórias dos capítulos recentes"),
+            "relevant_memories": self._format_memories(relevant, "Memórias semanticamente relacionadas"),
+            "character_states": self._format_memories(character_memories, "Memórias sobre personagens"),
+            "foreshadows": self._format_memories(foreshadows[:5], "Foreshadowings em aberto"),
+            "plot_points": self._format_memories(plot_points, "Pontos importantes da trama"),
             "stats": {
                 "recent_count": len(recent),
                 "relevant_count": len(relevant),
@@ -511,7 +431,7 @@ class MemoryService:
         
         logger.info(f"✅ 上下文构建完成: 最近{len(recent)}条, 相关{len(relevant)}条, 伏笔{len(foreshadows)}个")
         return context
-    def _format_memories(self, memories: List[Dict], section_title: str = "记忆") -> str:
+    def _format_memories(self, memories: List[Dict], section_title: str = "Memória") -> str:
         """
         格式化记忆列表为文本
         
@@ -523,19 +443,19 @@ class MemoryService:
             格式化后的文本
         """
         if not memories:
-            return f"【{section_title}】\n暂无相关记忆\n"
+            return f"[{section_title}]\nNenhuma memória relevante\n"
         
-        lines = [f"【{section_title}】"]
+        lines = [f"[{section_title}]"]
         for i, mem in enumerate(memories, 1):
             meta = mem.get('metadata', {})
             chapter_num = meta.get('chapter_number', '?')
-            mem_type = meta.get('memory_type', '未知')
+            mem_type = meta.get('memory_type', 'desconhecido')
             importance = float(meta.get('importance', 0.5))
             title = meta.get('title', '')
             content = mem['content']
             
             # 格式: [序号] 第X章-类型(重要性) 标题: 内容
-            line = f"{i}. [第{chapter_num}章-{mem_type}★{importance:.1f}]"
+            line = f"{i}. [Cap. {chapter_num} - {mem_type}★{importance:.1f}]"
             if title:
                 line += f" {title}: {content[:100]}"
             else:
@@ -571,24 +491,18 @@ class MemoryService:
                 return 0
 
             collection = self.get_collection(user_id, project_id)
-            results = collection.get(where={"memory_type": "foreshadow"})
+            points = self.store.get(collection, [Cond("memory_type", "eq", "foreshadow")])
 
             ids_to_delete = []
-            documents = results.get('documents') or []
-            metadatas = results.get('metadatas') or []
-            result_ids = results.get('ids') or []
-
-            for index, memory_id in enumerate(result_ids):
-                document = documents[index] if index < len(documents) else ""
-                metadata = metadatas[index] if index < len(metadatas) else {}
-                title = str((metadata or {}).get('title', ''))
-                haystack = f"{title}\n{document}".lower()
+            for point in points:
+                title = str((point.payload or {}).get('title', ''))
+                haystack = f"{title}\n{point.document}".lower()
 
                 if any(keyword.lower() in haystack for keyword in keywords):
-                    ids_to_delete.append(memory_id)
+                    ids_to_delete.append(point.id)
 
             if ids_to_delete:
-                collection.delete(ids=ids_to_delete)
+                self.store.delete(collection, ids=ids_to_delete)
                 logger.info(f"🗑️ 已删除项目{project_id[:8]}的{len(ids_to_delete)}条伏笔相关向量记忆")
 
             return len(ids_to_delete)
@@ -617,19 +531,14 @@ class MemoryService:
         try:
             collection = self.get_collection(user_id, project_id)
             
-            # 查找该章节的所有记忆
-            results = collection.get(
-                where={"chapter_id": chapter_id}
-            )
-            
-            if results['ids']:
-                # 删除这些记忆
-                collection.delete(ids=results['ids'])
-                logger.info(f"🗑️ 已删除章节{chapter_id[:8]}的{len(results['ids'])}条记忆")
-                return True
+            where = [Cond("chapter_id", "eq", chapter_id)]
+            removed = self.store.count(collection, where)
+            if removed:
+                self.store.delete(collection, where=where)
+                logger.info(f"🗑️ 已删除章节{chapter_id[:8]}的{removed}条记忆")
             else:
                 logger.info(f"ℹ️ 章节{chapter_id[:8]}没有记忆需要删除")
-                return True
+            return True
                 
         except Exception as e:
             logger.error(f"❌ 删除章节记忆失败: {str(e)}")
@@ -651,23 +560,12 @@ class MemoryService:
             是否删除成功
         """
         try:
-            # 生成collection名称
-            user_hash = hashlib.sha256(user_id.encode()).hexdigest()[:8]
-            project_hash = hashlib.sha256(project_id.encode()).hexdigest()[:8]
-            collection_name = f"u_{user_hash}_p_{project_hash}"
+            collection_name = self._collection_name(user_id, project_id)
             
-            # 删除整个collection(这会清理所有向量数据)
-            try:
-                self.client.delete_collection(name=collection_name)
-                logger.info(f"🗑️ 已删除项目{project_id[:8]}的向量数据库collection: {collection_name}")
-                return True
-            except Exception as e:
-                # 如果collection不存在,也算成功
-                if "does not exist" in str(e).lower():
-                    logger.info(f"ℹ️ 项目{project_id[:8]}的collection不存在,无需删除")
-                    return True
-                else:
-                    raise
+            # 删除整个collection(不存在也算成功)
+            self.store.delete_collection(collection_name)
+            logger.info(f"🗑️ 已删除项目{project_id[:8]}的向量数据库collection: {collection_name}")
+            return True
                 
         except Exception as e:
             logger.error(f"❌ 删除项目记忆失败: {str(e)}")
@@ -697,34 +595,32 @@ class MemoryService:
         try:
             collection = self.get_collection(user_id, project_id)
             
-            update_data = {}
-            
-            if content:
-                # 重新生成embedding
-                embedding = self.embedding_model.encode(content).tolist()
-                update_data['embeddings'] = [embedding]
-                update_data['documents'] = [content]
-            
+            new_payload: Dict[str, Any] = {}
             if metadata:
-                # 准备新的元数据
-                chroma_metadata = {}
                 for key, value in metadata.items():
                     if isinstance(value, (list, dict)):
-                        chroma_metadata[key] = json.dumps(value, ensure_ascii=False)
+                        new_payload[key] = json.dumps(value, ensure_ascii=False)
                     else:
-                        chroma_metadata[key] = value
-                update_data['metadatas'] = [chroma_metadata]
+                        new_payload[key] = value
             
-            if update_data:
-                collection.update(
-                    ids=[memory_id],
-                    **update_data
-                )
-                logger.info(f"✅ 记忆已更新: {memory_id[:8]}...")
-                return True
+            if content:
+                # 内容变化: 重新生成embedding并整体重写该点(保留旧元数据)
+                existing = self.store.get(collection, [Cond("_id", "eq", memory_id)])
+                if not existing:
+                    logger.warning(f"⚠️ 记忆不存在: {memory_id[:8]}...")
+                    return False
+                payload = {**existing[0].payload, **new_payload}
+                self.store.upsert(collection, [VectorPoint(
+                    id=memory_id, document=content, payload=payload, vector=self._encode(content)
+                )])
+            elif new_payload:
+                self.store.set_payload(collection, memory_id, new_payload)
             else:
                 logger.warning("⚠️ 没有提供更新内容")
                 return False
+            
+            logger.info(f"✅ 记忆已更新: {memory_id[:8]}...")
+            return True
                 
         except Exception as e:
             logger.error(f"❌ 更新记忆失败: {str(e)}")
@@ -749,9 +645,9 @@ class MemoryService:
             collection = self.get_collection(user_id, project_id)
             
             # 获取所有记忆
-            all_memories = collection.get()
+            all_points = self.store.get(collection)
             
-            if not all_memories['ids']:
+            if not all_points:
                 return {
                     "total_count": 0,
                     "by_type": {},
@@ -759,12 +655,14 @@ class MemoryService:
                     "foreshadow_count": 0
                 }
             
+            metadatas = [p.payload for p in all_points]
+            
             # 统计各类型数量
             type_counts = {}
             chapter_counts = {}
             foreshadow_count = 0
             
-            for i, meta in enumerate(all_memories['metadatas']):
+            for meta in metadatas:
                 mem_type = meta.get('memory_type', 'unknown')
                 chapter_num = meta.get('chapter_number', 0)
                 is_foreshadow = meta.get('is_foreshadow', 0)
@@ -776,11 +674,11 @@ class MemoryService:
                     foreshadow_count += 1
             
             stats = {
-                "total_count": len(all_memories['ids']),
+                "total_count": len(all_points),
                 "by_type": type_counts,
                 "by_chapter": chapter_counts,
                 "foreshadow_count": foreshadow_count,
-                "foreshadow_resolved": sum(1 for m in all_memories['metadatas'] if m.get('is_foreshadow') == 2)
+                "foreshadow_resolved": sum(1 for m in metadatas if m.get('is_foreshadow') == 2)
             }
             
             logger.info(f"📊 记忆统计: 总计{stats['total_count']}条, 伏笔{foreshadow_count}个")

@@ -6,7 +6,6 @@ export interface User {
   avatar_url?: string;
   trust_level: number;
   is_admin: boolean;
-  linuxdo_id: string;
   created_at: string;
   last_login: string;
 }
@@ -71,6 +70,9 @@ export interface SystemSMTPSettingsUpdate {
 }
 
 // 设置类型定义
+// Providers de LLM suportados; 'codex' usa a CLI oficial (sem chave nem URL).
+export type ApiProvider = 'openai' | 'azure' | 'anthropic' | 'gemini' | 'codex' | (string & {});
+
 export interface Settings {
   id: string;
   user_id: string;
@@ -87,6 +89,10 @@ export interface Settings {
   cover_api_base_url?: string;
   cover_image_model?: string;
   cover_enabled?: boolean;
+  fallback_api_provider?: string;
+  fallback_api_key?: string;
+  fallback_api_base_url?: string;
+  fallback_llm_model?: string;
   preferences?: string;
   created_at: string;
   updated_at: string;
@@ -106,6 +112,10 @@ export interface SettingsUpdate {
   cover_api_base_url?: string;
   cover_image_model?: string;
   cover_enabled?: boolean;
+  fallback_api_provider?: string;
+  fallback_api_key?: string;
+  fallback_api_base_url?: string;
+  fallback_llm_model?: string;
   preferences?: string;
 }
 
@@ -148,12 +158,6 @@ export interface PresetListResponse {
   chapter_analysis_preset_id?: string;
 }
 
-// LinuxDO 授权 URL 响应
-export interface AuthUrlResponse {
-  auth_url: string;
-  state: string;
-}
-
 // 项目类型定义
 export interface Project {
   id: string;  // UUID字符串
@@ -174,6 +178,8 @@ export interface Project {
   chapter_count?: number;
   narrative_perspective?: string;
   character_count?: number;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   cover_image_url?: string;
   cover_prompt?: string;
   cover_status?: 'none' | 'generating' | 'ready' | 'failed';
@@ -190,6 +196,8 @@ export interface ProjectCreate {
   genre?: string;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式,默认one-to-many
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   wizard_status?: 'incomplete' | 'completed';
   wizard_step?: number;
   world_time_period?: string;
@@ -212,6 +220,8 @@ export interface ProjectUpdate {
   chapter_count?: number;
   narrative_perspective?: string;
   character_count?: number;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
+  project_type?: 'fiction' | 'lowticket';
   // current_words 由章节内容自动计算，不在此接口中
 }
 
@@ -228,6 +238,7 @@ export interface ProjectWizardRequest {
   genre?: string;
   chapter_count: number;
   narrative_perspective: string;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
   character_count?: number;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式
@@ -702,6 +713,7 @@ export interface WizardBasicInfo {
   genre: string | string[];
   chapter_count: number;
   narrative_perspective: string;
+  language?: 'pt-BR' | 'en-US' | 'es-ES' | 'es-MX';
   character_count?: number;
   target_words?: number;
   outline_mode?: 'one-to-one' | 'one-to-many';  // 大纲章节模式
@@ -1203,161 +1215,6 @@ export interface BookImportRetryResult {
   retry_results: Record<string, number>;
   still_failed: BookImportStepFailure[];
 }
-
-// ==================== 提示词工坊类型定义 ====================
-
-export interface PromptWorkshopItem {
-  id: string;
-  name: string;
-  description?: string;
-  prompt_content: string;
-  category: string;
-  tags?: string[];
-  author_name?: string;
-  is_official: boolean;
-  download_count: number;
-  like_count: number;
-  is_liked?: boolean;
-  created_at?: string;
-}
-
-export interface PromptSubmission {
-  id: string;
-  name: string;
-  description?: string;
-  prompt_content?: string;
-  category: string;
-  tags?: string[];
-  author_display_name?: string;
-  is_anonymous: boolean;
-  status: 'pending' | 'approved' | 'rejected';
-  review_note?: string;
-  reviewed_at?: string;
-  created_at?: string;
-  source_instance?: string;
-  submitter_name?: string;
-}
-
-export interface PromptSubmissionCreate {
-  name: string;
-  description?: string;
-  prompt_content: string;
-  category: string;
-  tags?: string[];
-  author_display_name?: string;
-  is_anonymous?: boolean;
-  source_style_id?: number;
-}
-
-export interface PromptWorkshopCategory {
-  id: string;
-  name: string;
-  count: number;
-}
-
-export interface PromptWorkshopListResponse {
-  success: boolean;
-  data: {
-    total: number;
-    page: number;
-    limit: number;
-    items: PromptWorkshopItem[];
-    categories: PromptWorkshopCategory[];
-  };
-}
-
-export interface PromptWorkshopStatusResponse {
-  mode: 'client' | 'server';
-  instance_id: string;
-  cloud_url?: string;
-  cloud_connected?: boolean;
-}
-
-export interface PromptWorkshopAdminStats {
-  total_items: number;
-  total_official: number;
-  total_pending: number;
-  total_downloads: number;
-  total_likes: number;
-}
-
-// ==================== 公告类型定义 ====================
-
-export type AnnouncementLevel = 'info' | 'success' | 'warning' | 'error';
-export type AnnouncementStatus = 'draft' | 'published' | 'hidden';
-
-export interface Announcement {
-  id: string;
-  title: string;
-  content: string;
-  summary?: string | null;
-  level: AnnouncementLevel;
-  status?: AnnouncementStatus;
-  pinned: boolean;
-  author_id?: string | null;
-  author_name?: string | null;
-  publish_at?: string | null;
-  expire_at?: string | null;
-  created_at?: string | null;
-  updated_at?: string | null;
-}
-
-export interface AnnouncementCreate {
-  title: string;
-  content: string;
-  summary?: string;
-  level?: AnnouncementLevel;
-  status?: AnnouncementStatus;
-  pinned?: boolean;
-  publish_at?: string;
-  expire_at?: string;
-}
-
-export interface AnnouncementUpdate {
-  title?: string;
-  content?: string;
-  summary?: string;
-  level?: AnnouncementLevel;
-  status?: AnnouncementStatus;
-  pinned?: boolean;
-  publish_at?: string | null;
-  expire_at?: string | null;
-}
-
-export interface AnnouncementListResponse {
-  success: boolean;
-  data: {
-    total: number;
-    page: number;
-    limit: number;
-    items: Announcement[];
-    active_ids?: string[];
-    latest_updated_at?: string | null;
-    server_time?: string;
-  };
-}
-
-export interface AnnouncementStatusResponse {
-  mode: 'client' | 'server' | string;
-  instance_id: string;
-  cloud_url?: string;
-  cloud_connected?: boolean;
-}
-
-// 提示词工坊分类常量
-export const PROMPT_CATEGORIES: Record<string, string> = {
-  general: '通用',
-  fantasy: '玄幻/仙侠',
-  martial: '武侠',
-  romance: '言情',
-  scifi: '科幻',
-  horror: '悬疑/惊悚',
-  history: '历史',
-  urban: '都市',
-  game: '游戏/电竞',
-  other: '其他',
-};
-
 
 export interface KnowledgeBaseSettings {
   retrieval_enabled: boolean;

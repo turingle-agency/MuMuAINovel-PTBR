@@ -1,417 +1,354 @@
-# 长篇拆文参考
+# Referência de análise de romances longos
 
-## 目录
+> Adaptação para ficção comercial ocidental e brasileira (fantasia, romance, thriller, ficção científica, young adult, mistério). Os princípios são universais; os exemplos citam obras amplamente conhecidas.
 
-1. [核心情绪控制](#核心情绪控制)
-2. [题材边界与核心梗](#题材边界与核心梗)
-3. [拆书方法论](#拆书方法论)
-4. [结构设计与节奏](#结构设计与节奏)
-5. [卖点循环设计](#卖点循环设计)
-6. [经典作品拆解要点](#经典作品拆解要点)
-7. [拆书实操技巧](#拆书实操技巧)
-8. [展示与对比原则](#展示与对比原则)
-9. [错误拆书方式](#错误拆书方式)
-10. [抽象拆书法](#抽象拆书法)
-11. [影视拉片与情绪控制](#影视拉片与情绪控制)
-12. [多线叙事与结构循环](#多线叙事与结构循环)
-13. [题材实战拆解要点](#题材实战拆解要点)
-14. [人设塑造与日常行文](#人设塑造与日常行文)
-15. [素材转化与创作策略](#素材转化与创作策略)
+## Sumário
+
+1. [Controle da emoção central](#controle-da-emoção-central)
+2. [Fronteira do gênero e conceito central](#fronteira-do-gênero-e-conceito-central)
+3. [Metodologia de análise de livros](#metodologia-de-análise-de-livros)
+4. [Estrutura e ritmo](#estrutura-e-ritmo)
+5. [Desenho de ciclos de atrativos](#desenho-de-ciclos-de-atrativos)
+6. [Erros comuns ao analisar livros](#erros-comuns-ao-analisar-livros)
+7. [Método de desconstrução abstrata](#método-de-desconstrução-abstrata)
+8. [Análise de roteiros audiovisuais e emoção](#análise-de-roteiros-audiovisuais-e-emoção)
+9. [Narrativa multilinear e ciclos estruturais](#narrativa-multilinear-e-ciclos-estruturais)
+10. [Pontos práticos por gênero](#pontos-práticos-por-gênero)
+11. [Caracterização e cotidiano](#caracterização-e-cotidiano)
+12. [Do material à criação](#do-material-à-criação)
 
 ---
 
-## 核心情绪控制
+## Controle da emoção central
 
-### 表达欲与读者需求的平衡
+### Equilíbrio entre vontade de expressão do autor e desejo do leitor
 
-偏离核心梗 = 偏离读者需求 = 订阅腰斩、追读狂跌。
+Afastar-se do conceito central = afastar-se do que o leitor quer = abandono e queda de leitura.
 
-自检：写完一段剧情后审视——是否偏离核心梗？是否陷入自嗨？
+Autoverificação: depois de escrever um trecho, pergunte-se: saí do conceito central? Estou escrevendo só para mim?
 
-### 核心情绪不能崩
+### A emoção central não pode ruir
 
-| 作品 | 问题 | 教训 |
+| Padrão | Problema | Lição |
 |------|------|------|
-| 完美世界（辰东） | 主角独断万古，身边人死绝 | 读者代入后感到"天下无敌却啥也得不到"，憋屈 |
-| 十方武圣（滚开） | 换地图杀光所有配角 | 订阅腰斩，读者无法接受主角丧失一切 |
-| 诡舍 | 所有人都牺牲成工具人 | 高开低走，核心情绪崩坏 |
+| Protagonista todo-poderoso que perde todos à sua volta | O leitor se identifica e sente "poder total, mas nada a ganhar" | Sensação de frustração |
+| Troca de cenário em que o autor elimina os coadjuvantes | Queda de engajamento: o leitor não aceita que o protagonista perca tudo | Ruptura da emoção central |
+| Todos viram sacrifício instrumental | Começo forte, final fraco | Emoção central destruída |
 
-**修正**：
-- 独断万古可以，但主角必须获得好处（实力升华/亲友安全/收获意义）
-- 换地图可以，但不要杀掉原有人，可让重要人物病重/遇险给主角行动理由
-- 悲情悲壮通过创造挫折体现，而非杀死重要角色
+**Correção**:
+- Protagonista poderoso é possível, mas ele precisa ganhar algo (crescimento, segurança dos entes queridos, sentido)
+- Pode-se mudar de cenário sem matar quem já existe; um personagem importante doente ou em perigo dá motivo para o protagonista agir
+- A tragédia e o heroísmo nascem de obstáculos criados, não da morte de personagens importantes
 
-### 刀人原则
+### Princípio de "matar personagens"
 
-- 刀人是制造情绪波动的手段，不是目的，对写作水准要求极高
-- 如果必须刀人，要埋伏笔让后续有弥补空间
-- 新人不要轻易刀掉重要角色
-- 当下读者环境：现实已经够苦，少有人愿意在小说里找不痛快
+- Matar personagem é um meio de criar oscilação emocional, não um fim, e exige muito domínio de ofício
+- Se for inevitável, plante pistas para dar espaço à compensação depois
+- Autores iniciantes não devem eliminar personagens importantes com leveza
+- O leitor de hoje já tem uma realidade dura; poucos querem sofrer à toa na ficção
 
-### 强情绪趋势
+### Tendência de emoção forte
 
-起点近 1/3 在榜作品是强情绪文，番茄基本全靠强情绪和噱头文。要么提供足够的戏剧性，要么提供足够的情绪共鸣。
+Boa parte dos livros mais vendidos em ebook e em plataformas de leitura é de emoção forte ou de premissa de impacto. É preciso oferecer drama suficiente ou ressonância emocional suficiente.
 
 ---
 
-## 题材边界与核心梗
+## Fronteira do gênero e conceito central
 
-### 偏离核心梗 = 抛弃读者
+### Sair do conceito central = abandonar o leitor
 
-| 作品 | 偏离点 | 后果 |
+| Situação | Desvio | Consequência |
 |------|--------|------|
-| 一级一个金词条 | 都市高武核心"超凡对比"消失 | 在读直线下降 |
-| 普攻永久加生命 | 网游文走出新手村后仍和 NPC 打 | 限制上限 |
-| 天倾之后 | 玄幻热血中混入诡异恐怖 | 两边读者都不讨好 |
-| 青山（肘子） | 悬疑核心跑偏到玄幻 | 20万字后走下坡路 |
-| 迟来的关心谁稀罕 | 后期主角变疯批三观偏离 | 受众筛选过严重 |
+| Fantasia de ação que perde o contraste "comum vs. extraordinário" que era seu núcleo | O conceito central desaparece | Leitura em queda contínua |
+| História de jogo que, ao sair da fase inicial, continua lutando contra personagens comuns | Limita o teto do enredo | Perda de interesse |
+| Fantasia heroica que mistura terror sobrenatural | Mistura de públicos | Agrada pouco a ambos |
+| Mistério cujo foco migra para fantasia | Núcleo de suspense se perde | Queda depois de certa extensão |
+| Protagonista que, no final, vira alguém com valores distorcidos | Filtra demais o público | Rejeição |
 
-**核心原则**：题材核心梗一旦确定，一切围绕核心运转。
+**Princípio central**: definido o conceito central do gênero, tudo gira em torno dele.
 
-### 核心梗延伸方法
+### Como estender o conceito central
 
-以"逆袭系统（早到流）"为例，核心戏剧性 = 系统早到前困难 vs 早到后简单的反差：
+Exemplo: "protagonista com uma vantagem que chegou cedo demais". O drama central é o contraste entre a dificuldade antes da vantagem e a facilidade depois:
 
-1. 从任务数量延伸
-2. 从奖励难度延伸
-3. 通过等级阶层和隐藏触发延伸
-4. 通过系统奖励触发新的戏剧性任务
+1. Estender pela quantidade de tarefas
+2. Estender pela dificuldade das recompensas
+3. Estender por níveis hierárquicos e gatilhos escondidos
+4. Fazer as recompensas criarem novas tarefas dramáticas
 
-仅用前两点戏剧性会快速消耗殆尽，四点结合才能持续。
+Usar só os dois primeiros esgota o drama rápido; combinando os quatro, ele se sustenta.
 
-### 核心梗应用密度参考
+### Densidade de aplicação do conceito central
 
-《美食赋我词条，苟着终会无敌》：11 章内核心梗应用 5 次，密度极高。脑洞融合（美食金手指+情绪链条+加点金手指），剧情向为主。
-
----
-
-## 拆书方法论
-
-### 拆书六原则
-
-1. **有目的**：明确每次拆书目标（主线/人设/打斗/情绪等）
-2. **有方法**：根据目的选择方法
-3. **拆出理论**：结果必须系统性，不能只有零散心得
-4. **摒弃好恶**：不喜欢的题材也要能拆出价值
-5. **扬长避短**：拆优点学习，发现缺点引以为鉴
-6. **拆自己喜欢的书**：激情满满效果最好
-
-### 拆书流程
-
-1. **概括**：一句话总结故事核心
-2. **识别结构单元**：每个单元 = 起承转合 = 一个完整小圈，后一个比前一个更大
-3. **抽离框架和情绪链条**：提取条件框架，不抄情节内容
-4. **借鉴而非抄袭**：抄袭 = 直接抄情节内容；借鉴 = 抽离框架+情绪链条，自己填充血肉
-
-### 条件框架提取法
-
-《高武纪元》一段剧情提炼为三个条件：
-1. 展露部分天赋的主角，还有隐藏天赋
-2. 对主角进行争夺的两方势力
-3. 利用信息差，一方略微看低主角，凸显另一方慧眼识珠
-
-替换人物、背景、金手指后即可复用，只保留情绪相似。
-
-### 抽象拆书五步法
-
-1. 概括 → 2. 拆解为信息团（情绪转折点） → 3. 按情绪上行/下行/转折归类 → 4. 提取通用条件框架 → 5. 用素材填充框架
-
-### 感情线拆书技巧
-
-拆恋爱文要拆推进情感线的**框架和结构**，而非具体日常内容。
-
-**双标法**：同一件事（送可乐），男配送 -> 女主拒绝（减肥）；男主送 -> 女主接受（需要补充糖分）。三要素：①差不多同一件事前后连续发生 ②女主态度截然不同 ③男主不清楚。
+Num bom livro de premissa forte, o conceito central aparece várias vezes já nos primeiros 10 capítulos. Mistura de ideias (vantagem + cadeia de emoções + progressão) com foco em enredo.
 
 ---
 
-## 结构设计与节奏
+## Metodologia de análise de livros
 
-### 辰东三件套
+### Seis princípios
 
-1. 文笔简练直白：跳笔、略写、巧笔勾勒大场面
-2. 铺垫营造代入感：铺垫剧情+揭秘世界观，爽点节奏不断档
-3. 情绪拉扯极致：即使主角近乎无敌，高安全感下仍有情绪波动
+1. **Ter propósito**: definir o objetivo de cada análise (trama principal, personagens, cenas de ação, emoção etc.)
+2. **Ter método**: escolher o método conforme o propósito
+3. **Extrair teoria**: o resultado deve ser sistemático, não impressões soltas
+4. **Deixar o gosto de lado**: mesmo um gênero de que não gosta rende lições
+5. **Aproveitar o forte, evitar o fraco**: aprender com as qualidades e usar os defeitos como alerta
+6. **Analisar livros de que gosta**: o entusiasmo dá o melhor resultado
 
-### 望远镜拉期待法（遮天开篇）
+### Fluxo de análise
 
-九龙拉棺变成"倒计时"：第1章=10，第2章末=9，第4章=8，以此类推。不断描写"发现->观测->打捞->失败->坠落泰山"——一颗子弹注定射向主角，所有读者都知道 -> 巨大期待。
+1. **Resumir**: o núcleo da história em uma frase
+2. **Identificar unidades estruturais**: cada unidade = apresentação, desenvolvimento, virada e desfecho = um ciclo completo, e cada ciclo é maior que o anterior
+3. **Extrair o arcabouço e a cadeia emocional**: extrair a estrutura condicional, sem copiar o conteúdo do enredo
+4. **Inspirar-se, não plagiar**: plágio = copiar o conteúdo do enredo; inspiração = extrair arcabouço + cadeia emocional e preencher com a sua própria matéria
 
-### 情绪拉扯强化代入感
+### Extração de arcabouço condicional
 
-- 选择熟悉的情绪套路 -> 搞出合适人设 -> 填充到剧情
-- 去掉琐碎细节，强化情绪段落描写
-- 期待感断掉时续上：引入新角色/新事件重新拉起
-- 辰东做法：打脸期待断掉 -> 前女友回来 -> 不打脸直接进荒古禁地 -> 期待变成揭秘世界观
+Um trecho de enredo pode ser reduzido a três condições, por exemplo:
+1. Um protagonista que revela parte do seu talento, com outro talento escondido
+2. Duas forças que disputam o protagonista
+3. Uma assimetria de informação: um lado o subestima um pouco, destacando o olhar aguçado do outro
 
-### 复合型配角设计（庞博模式）
+Trocando personagens, cenário e a vantagem especial, o arcabouço pode ser reaproveitado, mantendo só a emoção semelhante.
 
-主角的"白手套"型配角：
-- 主角不适合说的话他说，不应该发的狠他发
-- 适当比主角光环弱一点
-- 功能：绝对支持+搞笑+输出正反馈+替主角发声
+### Método abstrato em cinco passos
 
-### 时代适应（夜无疆的变化）
+1. Resumir → 2. Dividir em blocos de informação (viradas emocionais) → 3. Classificar em subida/descida/virada de emoção → 4. Extrair o arcabouço condicional geral → 5. Preencher o arcabouço com material próprio
 
-对比遮天的调整：从强冲突开场 -> 人情冷暖+基础需求展开；文风更细腻；画面剪辑感极强；打斗一帧一帧电影片段式；套路熟悉但两三章速战速决。
+### Análise da linha romântica
 
-### 装逼打脸底层逻辑（赘婿写诗案例）
+Ao analisar romance, analise o **arcabouço e a estrutura** que fazem a relação avançar, não o conteúdo cotidiano específico.
 
-1. 确立鄙视链：文采->仕途->大佬赏识
-2. 用人际关系构造"舞台"：丫鬟->商贾诗会->顶级诗会
-3. 诗篇沿舞台逐层传播，每层产生震惊
-4. 震惊正向+反向（大佬->大众->丫鬟）
-5. 所有震惊收束到铺垫的人际关系上
-
-**通用原则**：装逼成立 = 鄙视链逻辑 + 人际关系舞台 + 正向+反向传播
-
-### 网文分卷节奏（天才俱乐部案例）
-
-- 每二三十万字一卷，有明确核心与目标
-- 一卷内部多线头纠缠，打破线性"起承转合"
-- "起"必须抛出钩子
-- 多线程叙事，前后勾连
-- 每卷结尾为下卷埋线
+**Método do duplo padrão**: o mesmo gesto (oferecer um café), feito pelo segundo pretendente -> a protagonista recusa (está evitando cafeína); feito pelo protagonista masculino -> ela aceita (estava precisando). Três elementos: ①quase o mesmo fato acontecendo em sequência ②atitude da protagonista totalmente diferente ③o protagonista masculino não sabe de nada.
 
 ---
 
-## 卖点循环设计
+## Estrutura e ritmo
 
-### 完美循环（天灾信使案例）
+### Os três pilares de um narrador de ritmo forte
+
+1. Texto enxuto e direto: elipses, saltos e traços econômicos para grandes cenas
+2. Preparação que cria imersão: preparar o enredo + revelar o mundo, sem deixar o ritmo de recompensas cair
+3. Tensão emocional no limite: mesmo com um protagonista quase invencível, ainda há oscilação emocional
+
+### Contagem regressiva para criar expectativa
+
+Um evento misterioso e inevitável vira uma "contagem regressiva": capítulo 1 = 10, fim do capítulo 2 = 9, capítulo 4 = 8, e assim por diante. Descrever repetidamente "descoberta -> observação -> resgate -> fracasso -> queda" faz o leitor saber que uma bala está destinada ao protagonista -> expectativa enorme. É o mesmo princípio de suspense das aberturas de thrillers com relógio correndo.
+
+### Tensão emocional reforça a identificação
+
+- Escolha um padrão emocional familiar -> crie o personagem adequado -> encaixe na trama
+- Corte detalhes triviais e reforce as passagens emocionais
+- Quando a expectativa cai, retome: introduza novo personagem ou evento para reacendê-la
+- Quando a recompensa esperada é adiada, desloque a expectativa para outra coisa (por exemplo, para a revelação do mundo)
+
+### Coadjuvante composto (o "braço direito")
+
+O coadjuvante que faz o que o protagonista não pode:
+- Diz o que o protagonista não deve dizer, faz o que ele não deve fazer
+- É um pouco menos brilhante que o protagonista
+- Funções: apoio absoluto + humor + feedback positivo + voz do protagonista
+
+### Adaptação à época
+
+Comparando aberturas clássicas com as atuais: antes, abertura de conflito forte; hoje, começa-se por relações humanas e necessidades básicas; estilo mais delicado; muito senso de montagem visual; cenas de ação quadro a quadro, como cinema; arcabouço familiar, mas resolvido em dois ou três capítulos.
+
+### Lógica de fundo da "virada de mesa" (exemplo do poema)
+
+1. Estabelecer a hierarquia de desprezo: talento literário -> carreira -> reconhecimento de uma grande figura
+2. Usar relações humanas para construir o "palco": a criada -> o sarau dos comerciantes -> o sarau de elite
+3. O poema se espalha pelo palco em camadas, causando espanto em cada uma
+4. O espanto vem em direção positiva e inversa (a grande figura -> o público -> a criada)
+5. Todo o espanto converge para as relações humanas preparadas antes
+
+**Princípio geral**: a virada de mesa funciona = hierarquia de desprezo + palco de relações + propagação positiva e inversa
+
+### Ritmo por volumes
+
+- Um volume a cada 60 a 90 mil palavras, com núcleo e objetivo claros
+- Dentro de um volume, vários fios se entrelaçam, rompendo a linearidade "apresentação-desenvolvimento-virada-desfecho"
+- A abertura de cada volume precisa lançar um gancho
+- Narrativa multilinear, com ligações entre as partes
+- O final de cada volume planta fios para o seguinte
+
+---
+
+## Desenho de ciclos de atrativos
+
+### Ciclo perfeito
 
 ```
-开小号装逼打脸赚好处 -> 拿好处做主线任务 -> 获得任务奖励
--> 给小号提升武力 -> 外出新地图装逼打脸 -> ...
+protagonista usa identidade secreta para virar a mesa e ganhar vantagens -> usa a vantagem na missão principal -> recebe recompensa da missão
+-> melhora a identidade secreta -> vai a um novo cenário e vira a mesa de novo -> ...
 ```
 
-关键：每次循环内容不同（小号性格变化/新地图/新女主/新反派）；主角和女主情感进展拉住期待感；最终暴露小号身份 = 装出去的逼兜回主角身上。
+Chave: o conteúdo de cada ciclo é diferente (mudança de personalidade da identidade secreta / novo cenário / novo interesse romântico / novo antagonista); o avanço da relação do protagonista mantém a expectativa; a revelação final da identidade secreta = o que foi encenado volta para o protagonista.
 
-### 信息密集型循环（苟在初圣宗案例）
+### Ciclo de alta densidade de informação
 
-按"轮回"拆分，每个轮回 = 一个完整故事：
-- 第一世：展示环境凶险+主角花柳病被动解决
-- 第二世：继承上世能力->发现新危险->被信任的人背叛
-- 第三世：苟住不突破->让人挡刀->体现"苟"的核心梗
+Dividir por "ciclos de vida/rodadas": cada rodada = uma história completa:
+- Primeira rodada: mostrar o ambiente perigoso + o problema do protagonista resolvido passivamente
+- Segunda rodada: herdar as habilidades da anterior -> descobrir novo perigo -> ser traído por quem confiava
+- Terceira rodada: sobreviver sem avançar -> fazer outro enfrentar o perigo -> reforçar o conceito central de "cautela extrema"
 
-只要力量体系不崩，可以无限拉长。
+Enquanto o sistema de poder não ruir, pode-se estender indefinidamente.
 
-### 直播流循环结构
+### Estrutura de ciclo em narrativa de transmissão ao vivo ou de competição
 
-- 有目标（圈够XX就下播）-> 确定性预期
-- 有对抗（连线PK）-> 短平快胜负清晰
-- 有阶段性（每日->每周任务，大哥->公司->联盟）
-- 整活搞事直接正反馈
-
----
-
-## 经典作品拆解要点
-
-### 辰东系列
-
-**遮天开篇**：九龙拉棺倒计时 + 同学聚会打脸 + 前女友回归 + 直接进荒古禁地（不断切换期待类型）
-
-**夜无疆**：大病初愈+无粮+邻居救济 -> 简练极致的画面剪辑感 -> 熟悉套路但两三章速战速决
-
-### 我吃西红柿
-
-核心优点 = "没有特点"：人设/文笔/剧情都无特点 -> 普适性强。敢写：升级突飞猛进、敌人摧枯拉朽、地位威压天下。前提是三观正。
-
-### 香蕉（赘婿）
-
-写诗装逼教科书：先铺设人际关系 -> 顺人际关系构架诗会舞台 -> 诗作沿舞台逐层传播产生多轮震惊 -> 态度转变完成闭环。
-
-### 炮火弧线（五万订）
-
-卖点：煽情+身临其境。军文核心矛盾：国与国、信仰与信仰、意识形态。写好需要查大量资料+稳定更新。
-
-### 苟在妖武乱世修仙
-
-书名即卖点："苟"+"妖武乱世"+"修仙"。核心梗：在妖武世界低调修仙，不冒修仙界风险。可对标学习两界文标准写法。
+- Ter meta (alcançar X para encerrar) -> expectativa definida
+- Ter confronto (duelo) -> resultado rápido e claro
+- Ter fases (diárias -> semanais, equipe -> empresa -> liga)
+- Cenas inusitadas geram retorno positivo direto
 
 ---
 
-## 拆书实操技巧
+## Erros comuns ao analisar livros
 
-### 从期待出发构思剧情
-
-- 从期待方向出发构思，核心方向不会走偏
-- 先知先觉类金手指使用场景：介绍世界观时、提升实力时、装逼前、对比高手前、介绍新人物前
-- 过渡情节写收获/暧昧/小情节，没有冲突可直接跳到冲突前一秒
-
-### 情绪折线图
-
-- 控制节奏 = 控制"富有戏剧性的信息团"出现速度
-- 信息团 = 能造成读者情绪转折的情节（由静到动、由好到坏、由坏到好）
-- 绘制情绪折线图：横轴=章节，纵轴=情绪正负
-
-### 抄书学习法
-
-选择优秀小说原封不动抄写 -> 自然感受故事走向、困境收获、伏笔衔接 -> 不要求一次全懂 -> 用自己的行文方式重写 -> 一周即可看到进步。
-
----
-
-## 展示与对比原则
-
-### 展示而非描述
-
-《罗小黑2》展示"无限十分强大"：传送门前一人单挑三十多位执行者 -> 和哪吒平手 -> 一个人轻松扛下重型武装基地炮火。每件事中都有对比。
-
-### 双线法
-
-两条线意图不同但最终目的一致 -> 情绪表达方向一致 -> 最终交汇产生爆发。
-
-### 写清楚主线
-
-主线的任务目标、主角性格、主线爽点、主线上的人物都要写透。写得模糊 -> 读者体会模糊 -> 打赏订阅模糊。
-
----
-
-## 错误拆书方式
-
-| 错误 | 说明 |
+| Erro | Explicação |
 |------|------|
-| 拆"每段几百字的写作目的" | 次要目的，容易走火入魔。真正要拆的是框架结构、情绪链条、核心梗运用方式 |
-| 只拆一本对标书 | 至少 5 本同网站同题材同类型参考书，从中选一本对标 |
-| 拆大神的书当对标 | 大神有不可复制的个人风格和笔力。新人应找精品到万订之间的书 |
-| 对标书跨网站 | 不同网站读者群体不同，写法差异大，跨网站对标容易踩雷 |
+| Analisar "o propósito de cada trecho de algumas centenas de palavras" | Propósito secundário, leva a exageros. O que se deve analisar é o arcabouço, a cadeia emocional e o uso do conceito central |
+| Analisar apenas um livro de referência | Reúna pelo menos 5 livros do mesmo gênero e da mesma plataforma, e escolha um como principal |
+| Escolher como referência o livro de um autor consagrado | Grandes nomes têm estilo e fôlego irrepetíveis. Iniciantes devem olhar livros de bom desempenho, mas não de recorde absoluto |
+| Referência de outra plataforma | Públicos diferentes pedem escritas diferentes; referências de outra plataforma costumam falhar |
 
-对标书选择流程：广泛读同题材 -> 定方向 -> 定参考书（5-10本） -> 定对标书
-
----
-
-## 抽象拆书法
-
-### 三幕式结构（幽灵公主案例）
-
-**第一幕——建立**：暗示主要矛盾 -> 主角登场+展示金手指 -> 伏笔->惊人意外 -> 情绪下行（口头劝阻无效）-> 情绪上行（展示金手指化解）-> 情绪急速下行（新危机）-> 情绪上行（获取新力量）-> 第一幕结束 = 主线确立+基本矛盾首次展示
-
-**第二幕——对抗**：主角进入新世界 -> 面对更强大对手 -> 中点反转（虚假胜利或虚假失败，改变走向）-> 情绪拉扯持续，每次下行后必有上行
-
-**第三幕——决战**：所有线索收束 -> 矛盾升级到极限 -> 主角做出关键选择（体现人物弧光）-> 最终决战+主题升华
+Processo de escolha da referência: ler bastante no gênero -> definir direção -> definir os livros de referência (5 a 10) -> escolher o principal
 
 ---
 
-## 影视拉片与情绪控制
+## Método de desconstrução abstrata
 
-### 拉片实操要点
+### Estrutura em três atos
 
-- 怎么开头就吸引人
-- 情绪折线的掌控
-- 展示+对比结合使用
-- 人物态度转变 = 最能体现情绪
-- 矛盾是推动故事的重要驱动力
+**Ato I (apresentação)**: sugerir o conflito principal -> entrada do protagonista + demonstração da vantagem especial -> pista -> surpresa -> emoção em queda (apelos verbais não funcionam) -> emoção em alta (a vantagem resolve) -> queda brusca (nova crise) -> alta (nova força) -> fim do ato I = trama principal estabelecida + conflito básico mostrado pela primeira vez
 
-### 打斗场景的情绪写法
+**Ato II (confronto)**: protagonista entra num novo mundo -> enfrenta adversário mais forte -> reviravolta do ponto médio (falsa vitória ou falsa derrota, que muda o rumo) -> a tensão emocional continua, e depois de cada queda vem uma subida
 
-- 打斗之间需穿插反应，但字数要控制，否则截断节奏显得拖沓
-- 用情绪展示境况：感叹、震惊、窃喜来表现谁优谁劣
-- 纯动作对打在小说中会很枯燥，不具备动作片的视觉冲击力
-- 关键：每个动作段落要带出情绪变化
+**Ato III (resolução)**: todos os fios convergem -> o conflito sobe ao limite -> o protagonista faz a escolha decisiva (mostrando o arco do personagem) -> confronto final + elevação do tema
 
 ---
 
-## 多线叙事与结构循环
+## Análise de roteiros audiovisuais e emoção
 
-### 韩娱文多线拆解法（光影交错案例）
+### Pontos práticos da análise quadro a quadro
 
-拆解维度：
-- **事件节点**：A=新人物/新事件引入，B=冲突爆发
-- **情绪链条节点**：每条一句话概括核心情绪点
-- **事业线**：主角发展、势力变化、外部威胁
-- **感情线**：每个女角色单独拆解态度变化轨迹
+- Como a abertura prende
+- Domínio da linha emocional
+- Combinar mostrar + contrastar
+- Mudança de atitude dos personagens = o que melhor expressa emoção
+- O conflito é o motor da história
 
-感情线拆解模板（单角色）：相遇关系强弱和态度 -> 关键转折事件 -> 态度递进（厌恶->好奇->心动->沦陷）-> 推倒引爆点设计
+### Emoção nas cenas de luta
 
-### 结构循环的层次感
-
-同一套框架循环时，每次内容必须不同。以斩妖除魔为例：框架不变（在一个地图升级->升官->周围人态度转变->社会地位改变），但地图、角色、具体冲突、情感细节每次更新。只要力量体系不崩，可以无限拉长。
-
----
-
-## 题材实战拆解要点
-
-### 历史文
-
-- 本质 = "类同人"写法，名人即流量入口
-- 书名设计："朝代+开局事件" 或 "名人关键词"
-- 核心梗：利用先知先觉震惊历史名人+改变历史+改变自身命运
-- 读者心理：点开前已预想内容，渴望"意料之中，情理之外"
-
-### 军事文
-
-- 卖点：煽情+身临其境
-- 分类：现代军事/近代战争/古代军事/未来战争
-- 核心矛盾：国与国、信仰与信仰、意识形态
-- 抗战题材多重因素叠加（民族情结+节奏到位）可引爆
-
-### 种田/脑洞文
-
-- 读者更喜欢脑洞和安稳发育，危机开局的紧迫情绪可能冲突
-- 可以从已发育一段时间开局，直接展示收获
-- 密集小爽点：每章频繁展示收藏、获得能力、升级面板、震惊配角
-- 面板设定要细致，主角查看面板本身就能引起满足
-
-### 直播流
-
-- 有目标（圈够XX就下播）-> 确定性预期
-- 有对抗（连线PK）-> 短平快胜负清晰
-- 有阶段性（每日->每周任务，大哥->公司->联盟）
-- 爽点写法：先告诉读者"打算怎么装逼"，再把逼装了，还装了个更大的
-
-### 两界穿梭文
-
-- 书名即卖点
-- 核心梗：在妖武世界低调修仙，不冒修仙界风险
-- 长生凡人流共同特征：时间尺度大、配角代际更替、主角见证变迁
-
-### 重生流
-
-- 天然自带期待感：前世被辜负 -> 这一世换花样报复
-- 前世有人对你好但结局差 -> 重生后每次对ta好都是爽点
-- 爽点可重复使用，每次出现形式不同
-- 番茄平台行文标准：简单直给，打标签，去掉环境外貌描写
+- Entre os golpes, intercale reações, mas controle o tamanho para não quebrar o ritmo
+- Mostre a situação pela emoção: exclamação, espanto, alívio mostram quem leva vantagem
+- Luta só de ação em texto fica monótona e não tem o impacto visual do cinema
+- Chave: cada trecho de ação deve trazer uma mudança emocional
 
 ---
 
-## 人设塑造与日常行文
+## Narrativa multilinear e ciclos estruturais
 
-### 第一章立人设
+### Análise de tramas múltiplas
 
-- 用一个小事件展示主角性格，再贴标签确立
-- 紧急事件快速带入剧情，同时展示生存状态和周围危险因素
-- 女角色第一步反应要体现性格（如：不害怕而是愤怒 -> 突出倔强）
-- 新人先用贴标签法，大神的复杂人设写法学不得
+Dimensões de análise:
+- **Nós de evento**: A = novo personagem/evento, B = explosão de conflito
+- **Nós da cadeia emocional**: resumir em uma frase o ponto emocional central de cada um
+- **Linha profissional**: desenvolvimento do protagonista, mudança de forças, ameaças externas
+- **Linha amorosa**: analisar separadamente a trajetória de atitude de cada personagem
 
-### 日常行文体现人设
+Modelo de análise da linha amorosa (por personagem): força da relação inicial e atitude -> eventos de virada -> progressão de atitude (desagrado -> curiosidade -> atração -> entrega) -> desenho do ponto de explosão
 
-- 重复出现符合人设的行为（贪吃鬼 -> 每次任务结束都大吃特吃）
-- 配角功能化设计：嫉妒型（得意->嫉妒转变）、崇拜型（从质疑到佩服）
-- 配角的情绪转变要写出来，否则打脸桥段爽感差一口气
+### Camadas nos ciclos estruturais
 
-### 开篇情节构思逻辑
-
-1. 被动行为（主角被推入故事）
-2. 通过交流了解世界观
-3. 陷入困境：需要解决的生存问题
-4. 有了目标：明确的行动方向
-5. 展示金手指
-6. 通过金手指收获：小弟/信息/资源
+Quando o mesmo arcabouço se repete, o conteúdo de cada ciclo precisa ser diferente. O arcabouço fica (subir de nível num cenário -> ganhar posição -> mudança de atitude dos outros -> mudança de status social), mas cenário, personagens, conflito concreto e detalhes emocionais se renovam. Enquanto o sistema de poder não ruir, dá para esticar indefinidamente.
 
 ---
 
-## 素材转化与创作策略
+## Pontos práticos por gênero
 
-### 素材转化法
+### Ficção histórica
 
-从热点话题/事件中提取：识别核心冲突和角色关系 -> 确定主线方向（事业线 or 感情线为主）-> 用经典框架填充素材
+- Em essência é uma escrita "tipo fanfic": figuras históricas são porta de entrada de público
+- Título: "época + evento de abertura" ou "palavra-chave de uma figura famosa"
+- Conceito central: usar conhecimento do futuro para surpreender figuras históricas + mudar a história + mudar o próprio destino
+- Psicologia do leitor: já imagina o conteúdo antes de abrir e deseja o "esperado, mas surpreendente"
 
-### 文体决定行文风格
+### Ficção militar e de guerra
 
-- 打脸爽文 = 节奏快、描写少、言语凝练
-- 感情流文 = 细水长流、细腻描写吃香
-- 行文方式要匹配文体，不能一刀切
+- Atrativo: emoção intensa + imersão
+- Categorias: militar contemporâneo / guerras modernas / militar antigo / guerras futuras
+- Conflito central: nação contra nação, crença contra crença, ideologia
+- Combinação de fatores (sentimento nacional + bom ritmo) pode explodir
 
-### 期待与收获的方向性
+### Construção de mundo cotidiano e premissa criativa
 
-- 构思思路从期待方向出发，核心方向就不会走偏
-- 先知先觉类金手指使用场景：介绍世界观时、提升实力时、装逼前、对比高手前、介绍新人物前
-- 过渡情节写收获/暧昧/小情节，没有冲突可直接跳到冲突前一秒
+- O leitor prefere ideias originais e crescimento tranquilo; a urgência de uma abertura em crise pode destoar
+- Pode-se abrir com o protagonista já estabelecido, mostrando logo as conquistas
+- Pequenas recompensas densas: cada capítulo mostra coleção, nova habilidade, painel evoluindo, coadjuvantes espantados
+- O painel de atributos deve ser detalhado; o protagonista olhando o painel já dá satisfação
+
+### Narrativa com tema de transmissão ao vivo ou desafio público
+
+- Ter meta (alcançar X para encerrar) -> expectativa definida
+- Ter confronto (duelo) -> resultado rápido e claro
+- Ter fases (diárias -> semanais, equipe -> empresa -> liga)
+- Escrita da recompensa: primeiro contar ao leitor "como vai fazer a virada", depois fazer, e ainda fazer uma maior
+
+### Histórias de dois mundos
+
+- O título já é o atrativo
+- Conceito central: viver com discrição em um mundo perigoso, sem arriscar-se em outro
+- Traços comuns das histórias de longa vida: grande escala de tempo, troca de gerações entre coadjuvantes, o protagonista testemunha as mudanças
+
+### Segunda chance / recomeço
+
+- Traz expectativa embutida: foi traído na vida anterior -> nesta, cobra de formas variadas
+- Alguém foi bom com você e terminou mal -> cada gesto de gentileza agora é uma recompensa
+- A recompensa pode ser reutilizada, mudando a forma a cada vez
+- Padrão de escrita em plataformas de leitura rápida: simples e direto, com etiquetas, sem descrição longa de ambiente e aparência
+
+---
+
+## Caracterização e cotidiano
+
+### Caracterizar no primeiro capítulo
+
+- Mostrar a personalidade do protagonista com um pequeno evento e depois "etiquetar"
+- Evento urgente que leva rápido à trama, mostrando a condição de sobrevivência e os perigos ao redor
+- A primeira reação de uma personagem feminina deve revelar sua personalidade (por exemplo: em vez de medo, raiva, destacando teimosia)
+- Iniciantes devem usar o método da etiqueta; a caracterização complexa dos grandes autores não se aprende de uma vez
+
+### O cotidiano mostra a personalidade
+
+- Repetir comportamentos coerentes com o personagem (o comilão -> sempre banquete depois da missão)
+- Coadjuvantes funcionais: o invejoso (da vaidade para a inveja), o admirador (da dúvida para a admiração)
+- A mudança emocional dos coadjuvantes precisa ser escrita, senão a virada de mesa perde força
+
+### Lógica de construção da abertura
+
+1. Comportamento passivo (o protagonista é empurrado para a história)
+2. Conhecer o mundo por meio da conversa
+3. Entrar em dificuldade: um problema de sobrevivência a resolver
+4. Ganhar um objetivo: direção de ação clara
+5. Mostrar a vantagem especial
+6. Colher frutos da vantagem: aliados, informação, recursos
+
+---
+
+## Do material à criação
+
+### Transformação de material
+
+A partir de um assunto ou evento em alta: identificar o conflito central e as relações entre personagens -> definir a direção da trama principal (linha profissional ou amorosa) -> preencher o material com arcabouços clássicos
+
+### O formato determina o estilo
+
+- Virada de mesa = ritmo rápido, pouca descrição, texto enxuto
+- Romance de sentimentos = ritmo lento, descrição delicada funciona bem
+- A escrita deve combinar com o formato, sem fórmula única
+
+### Direção entre expectativa e recompensa
+
+- Planejar a partir da direção da expectativa evita desvio do núcleo
+- Usos da vantagem de quem sabe o futuro: ao apresentar o mundo, ao aumentar o poder, antes da virada de mesa, antes de comparar com mestres, antes de apresentar um personagem novo
+- Trechos de transição mostram ganhos, tensão romântica e pequenos episódios; sem conflito, pule direto para o instante antes do conflito

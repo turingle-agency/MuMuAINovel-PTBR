@@ -18,31 +18,34 @@ import type {
   ForeshadowStatus, ForeshadowCategory, Chapter, Character
 } from '../types';
 import { eventBus, EventNames } from '../store/eventBus';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 // 状态配置
 const STATUS_CONFIG: Record<ForeshadowStatus, { label: string; color: string; icon: React.ReactNode }> = {
-  pending: { label: '待埋入', color: 'default', icon: <ClockCircleOutlined /> },
-  planted: { label: '已埋入', color: 'green', icon: <BulbOutlined /> },
-  resolved: { label: '已回收', color: 'blue', icon: <CheckCircleOutlined /> },
-  partially_resolved: { label: '部分回收', color: 'orange', icon: <ExclamationCircleOutlined /> },
-  abandoned: { label: '已废弃', color: 'default', icon: <CloseCircleOutlined /> },
+  pending: { label: i18n.t('foreshadows:plantar'), color: 'default', icon: <ClockCircleOutlined /> },
+  planted: { label: i18n.t('foreshadows:plantada'), color: 'green', icon: <BulbOutlined /> },
+  resolved: { label: i18n.t('foreshadows:resolvida'), color: 'blue', icon: <CheckCircleOutlined /> },
+  partially_resolved: { label: i18n.t('foreshadows:parcialmenteResolvida'), color: 'orange', icon: <ExclamationCircleOutlined /> },
+  abandoned: { label: i18n.t('foreshadows:descartada'), color: 'default', icon: <CloseCircleOutlined /> },
 };
 
 // 分类配置
 const CATEGORY_CONFIG: Record<string, { label: string; color: string }> = {
-  identity: { label: '身世', color: 'purple' },
-  mystery: { label: '悬念', color: 'magenta' },
-  item: { label: '物品', color: 'gold' },
-  relationship: { label: '关系', color: 'cyan' },
-  event: { label: '事件', color: 'blue' },
-  ability: { label: '能力', color: 'green' },
-  prophecy: { label: '预言', color: 'volcano' },
+  identity: { label: i18n.t('foreshadows:identidade'), color: 'purple' },
+  mystery: { label: i18n.t('foreshadows:misterio'), color: 'magenta' },
+  item: { label: i18n.t('foreshadows:objeto'), color: 'gold' },
+  relationship: { label: i18n.t('foreshadows:relacao'), color: 'cyan' },
+  event: { label: i18n.t('foreshadows:evento'), color: 'blue' },
+  ability: { label: i18n.t('foreshadows:habilidade'), color: 'green' },
+  prophecy: { label: i18n.t('foreshadows:profecia'), color: 'volcano' },
 };
 
 export default function Foreshadows() {
+  const { t } = useTranslation('foreshadows');
   const { projectId } = useParams<{ projectId: string }>();
   const [loading, setLoading] = useState(false);
   const [foreshadows, setForeshadows] = useState<Foreshadow[]>([]);
@@ -96,11 +99,11 @@ export default function Foreshadows() {
         setStats(response.stats);
       }
     } catch (error) {
-      console.error('加载伏笔列表失败:', error);
+      console.error(t('falhaCarregarPistas'), error);
     } finally {
       setLoading(false);
     }
-  }, [projectId, statusFilter, categoryFilter, sourceFilter, currentPage, pageSize]);
+  }, [projectId, statusFilter, categoryFilter, sourceFilter, currentPage, pageSize, t]);
 
   // 加载章节列表（用于选择）
   const loadChapters = useCallback(async () => {
@@ -109,9 +112,9 @@ export default function Foreshadows() {
       const chaptersData = await chapterApi.getChapters(projectId);
       setChapters(chaptersData);
     } catch (error) {
-      console.error('加载章节列表失败:', error);
+      console.error(t('falhaCarregarCapitulos'), error);
     }
-  }, [projectId]);
+  }, [projectId, t]);
 
   // 加载角色列表（用于关联角色）
   const loadCharacters = useCallback(async () => {
@@ -120,9 +123,9 @@ export default function Foreshadows() {
       const charactersData = await characterApi.getCharacters(projectId);
       setCharacters(charactersData);
     } catch (error) {
-      console.error('加载角色列表失败:', error);
+      console.error(t('falhaCarregarPersonagens'), error);
     }
-  }, [projectId]);
+  }, [projectId, t]);
 
   // 加载统计
   const loadStats = useCallback(async () => {
@@ -136,9 +139,9 @@ export default function Foreshadows() {
       const statsData = await foreshadowApi.getForeshadowStats(projectId, maxChapter);
       setStats(statsData);
     } catch (error) {
-      console.error('加载统计失败:', error);
+      console.error(t('falhaCarregarEstatisticas'), error);
     }
-  }, [projectId, chapters]);
+  }, [projectId, chapters, t]);
 
   useEffect(() => {
     loadForeshadows();
@@ -192,20 +195,20 @@ export default function Foreshadows() {
     try {
       if (currentForeshadow) {
         await foreshadowApi.updateForeshadow(currentForeshadow.id, values as ForeshadowUpdate);
-        message.success('伏笔更新成功');
+        message.success(t('pistaAtualizadaSucesso'));
       } else {
         await foreshadowApi.createForeshadow({
           ...values,
           project_id: projectId!,
         } as ForeshadowCreate);
-        message.success('伏笔创建成功');
+        message.success(t('pistaCriadaSucesso'));
       }
       setEditModalVisible(false);
       form.resetFields();
       setCurrentForeshadow(null);
       loadForeshadows();
     } catch (error) {
-      console.error('保存伏笔失败:', error);
+      console.error(t('falhaSalvarPista'), error);
     }
   };
 
@@ -213,10 +216,10 @@ export default function Foreshadows() {
   const handleDelete = async (id: string) => {
     try {
       await foreshadowApi.deleteForeshadow(id);
-      message.success('伏笔删除成功');
+      message.success(t('pistaExcluidaSucesso'));
       loadForeshadows();
     } catch (error) {
-      console.error('删除伏笔失败:', error);
+      console.error(t('falhaExcluirPista'), error);
     }
   };
 
@@ -233,13 +236,13 @@ export default function Foreshadows() {
         chapter_number: chapter.chapter_number,
         hint_text: values.hint_text,
       });
-      message.success('伏笔已标记为埋入');
+      message.success(t('pistaMarcadaComoPlantada'));
       setPlantModalVisible(false);
       plantForm.resetFields();
       setCurrentForeshadow(null);
       loadForeshadows();
     } catch (error) {
-      console.error('标记埋入失败:', error);
+      console.error(t('falhaMarcarComoPlantada'), error);
     }
   };
 
@@ -257,13 +260,13 @@ export default function Foreshadows() {
         resolution_text: values.resolution_text,
         is_partial: values.is_partial,
       });
-      message.success('伏笔已标记为回收');
+      message.success(t('pistaMarcadaComoResolvida'));
       setResolveModalVisible(false);
       resolveForm.resetFields();
       setCurrentForeshadow(null);
       loadForeshadows();
     } catch (error) {
-      console.error('标记回收失败:', error);
+      console.error(t('falhaMarcarComoResolvida'), error);
     }
   };
 
@@ -271,10 +274,10 @@ export default function Foreshadows() {
   const handleAbandon = async (id: string) => {
     try {
       await foreshadowApi.abandonForeshadow(id);
-      message.success('伏笔已标记为废弃');
+      message.success(t('pistaMarcadaComoDescartada'));
       loadForeshadows();
     } catch (error) {
-      console.error('标记废弃失败:', error);
+      console.error(t('falhaMarcarComoDescartada'), error);
     }
   };
 
@@ -287,11 +290,11 @@ export default function Foreshadows() {
       const result = await foreshadowApi.syncFromAnalysis(projectId, {
         auto_set_planted: true,
       });
-      message.success(`同步完成: 新增${result.synced_count}个伏笔, 跳过${result.skipped_count}个`);
+      message.success(t('sincronizacaoConcluidaNovaS', { synced_count: result.synced_count, skipped_count: result.skipped_count }));
       setSyncModalVisible(false);
       loadForeshadows();
     } catch (error) {
-      console.error('同步失败:', error);
+      console.error(t('falhaSincronizacao'), error);
     } finally {
       setSyncing(false);
     }
@@ -347,9 +350,9 @@ export default function Foreshadows() {
     const remaining = foreshadow.target_resolve_chapter_number - currentMaxChapter;
     
     if (remaining < 0) {
-      return <Badge status="error" text={`已超期${Math.abs(remaining)}章`} />;
+      return <Badge status="error" text={t('atrasadaCapituloS', { v0: Math.abs(remaining) })} />;
     } else if (remaining <= 3) {
-      return <Badge status="warning" text={`还剩${remaining}章`} />;
+      return <Badge status="warning" text={t('faltamCapituloS', { remaining })} />;
     }
     return null;
   };
@@ -366,7 +369,7 @@ export default function Foreshadows() {
   // 表格列定义
   const columns = [
     {
-      title: '状态',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       width: 100,
@@ -381,17 +384,17 @@ export default function Foreshadows() {
       },
     },
     {
-      title: '标题',
+      title: t('titulo'),
       dataIndex: 'title',
       key: 'title',
       ellipsis: true,
-      sorter: (a: Foreshadow, b: Foreshadow) => a.title.localeCompare(b.title, 'zh-CN'),
+      sorter: (a: Foreshadow, b: Foreshadow) => a.title.localeCompare(b.title, 'pt-BR'),
       render: (title: string, record: Foreshadow) => (
         <Space direction="vertical" size={0}>
           <Space>
             <a onClick={() => openDetailModal(record)}>{title}</a>
             {record.is_long_term && (
-              <Tag color="purple" style={{ marginLeft: 4 }}>长线</Tag>
+              <Tag color="purple" style={{ marginLeft: 4 }}>{t('longaDuracao')}</Tag>
             )}
           </Space>
           {getUrgencyBadge(record)}
@@ -399,14 +402,14 @@ export default function Foreshadows() {
       ),
     },
     {
-      title: '分类',
+      title: t('categoria'),
       dataIndex: 'category',
       key: 'category',
       width: 80,
       sorter: (a: Foreshadow, b: Foreshadow) => {
         const catA = a.category || '';
         const catB = b.category || '';
-        return catA.localeCompare(catB, 'zh-CN');
+        return catA.localeCompare(catB, 'pt-BR');
       },
       render: (category?: ForeshadowCategory) => {
         if (!category) return '-';
@@ -415,7 +418,7 @@ export default function Foreshadows() {
       },
     },
     {
-      title: '埋入章节',
+      title: t('capituloPlantio'),
       dataIndex: 'plant_chapter_number',
       key: 'plant_chapter_number',
       width: 120,
@@ -425,10 +428,10 @@ export default function Foreshadows() {
         return valA - valB;
       },
       defaultSortOrder: 'ascend' as const,
-      render: (num?: number) => num ? `第${num}章` : '-',
+      render: (num?: number) => num ? t('capitulo', { num }) : '-',
     },
     {
-      title: '计划回收',
+      title: t('resolucaoPrevista'),
       dataIndex: 'target_resolve_chapter_number',
       key: 'target_resolve_chapter_number',
       width: 120,
@@ -437,10 +440,10 @@ export default function Foreshadows() {
         const valB = b.target_resolve_chapter_number ?? 999999;
         return valA - valB;
       },
-      render: (num?: number) => num ? `第${num}章` : '-',
+      render: (num?: number) => num ? t('capitulo', { num }) : '-',
     },
     {
-      title: '重要性',
+      title: t('importancia'),
       dataIndex: 'importance',
       key: 'importance',
       width: 100,
@@ -451,7 +454,7 @@ export default function Foreshadows() {
       },
     },
     {
-      title: '来源',
+      title: t('origem'),
       dataIndex: 'source_type',
       key: 'source_type',
       width: 80,
@@ -462,47 +465,47 @@ export default function Foreshadows() {
       },
       render: (source?: string) => (
         <Tag color={source === 'analysis' ? 'blue' : 'green'}>
-          {source === 'analysis' ? '分析' : '手动'}
+          {source === 'analysis' ? t('analise') : t('manual')}
         </Tag>
       ),
     },
     {
-      title: '操作',
+      title: t('acoes'),
       key: 'actions',
       width: 200,
       render: (_: unknown, record: Foreshadow) => (
         <Space size="small">
-          <Tooltip title="查看详情">
+          <Tooltip title={t('verDetalhes')}>
             <Button type="text" size="small" icon={<EyeOutlined />} onClick={() => openDetailModal(record)} />
           </Tooltip>
-          <Tooltip title="编辑">
+          <Tooltip title={t('editar')}>
             <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openEditModal(record)} />
           </Tooltip>
           {record.status === 'pending' && (
-            <Tooltip title="标记埋入">
+            <Tooltip title={t('marcarComoPlantada')}>
               <Button type="text" size="small" icon={<FlagOutlined />} onClick={() => openPlantModal(record)} />
             </Tooltip>
           )}
           {record.status === 'planted' && (
-            <Tooltip title="标记回收">
+            <Tooltip title={t('marcarComoResolvida')}>
               <Button type="text" size="small" icon={<CheckCircleOutlined />} onClick={() => openResolveModal(record)} />
             </Tooltip>
           )}
           {record.status !== 'abandoned' && record.status !== 'resolved' && (
             <Popconfirm
-              title="确定要废弃这个伏笔吗？"
+              title={t('temCertezaDesejaDescartar')}
               onConfirm={() => handleAbandon(record.id)}
             >
-              <Tooltip title="废弃">
+              <Tooltip title={t('descartar')}>
                 <Button type="text" size="small" danger icon={<CloseCircleOutlined />} />
               </Tooltip>
             </Popconfirm>
           )}
           <Popconfirm
-            title="确定要删除这个伏笔吗？"
+            title={t('temCertezaDesejaExcluir')}
             onConfirm={() => handleDelete(record.id)}
           >
-            <Tooltip title="删除">
+            <Tooltip title={t('excluir')}>
               <Button type="text" size="small" danger icon={<DeleteOutlined />} />
             </Tooltip>
           </Popconfirm>
@@ -518,33 +521,33 @@ export default function Foreshadows() {
         <Row gutter={16} style={{ marginBottom: 16 }}>
           <Col span={3}>
             <Card size="small">
-              <Statistic title="总计" value={stats.total} />
+              <Statistic title={t('total')} value={stats.total} />
             </Card>
           </Col>
           <Col span={3}>
             <Card size="small">
-              <Statistic title="待埋入" value={stats.pending} valueStyle={{ color: token.colorTextSecondary }} />
+              <Statistic title={t('plantar')} value={stats.pending} valueStyle={{ color: token.colorTextSecondary }} />
             </Card>
           </Col>
           <Col span={3}>
             <Card size="small">
-              <Statistic title="已埋入" value={stats.planted} valueStyle={{ color: token.colorSuccess }} />
+              <Statistic title={t('plantadas')} value={stats.planted} valueStyle={{ color: token.colorSuccess }} />
             </Card>
           </Col>
           <Col span={3}>
             <Card size="small">
-              <Statistic title="已回收" value={stats.resolved} valueStyle={{ color: token.colorPrimary }} />
+              <Statistic title={t('resolvidas')} value={stats.resolved} valueStyle={{ color: token.colorPrimary }} />
             </Card>
           </Col>
           <Col span={3}>
             <Card size="small">
-              <Statistic title="长线伏笔" value={stats.long_term_count} valueStyle={{ color: token.colorInfo }} />
+              <Statistic title={t('pistasLongaDuracao')} value={stats.long_term_count} valueStyle={{ color: token.colorInfo }} />
             </Card>
           </Col>
           <Col span={3}>
             <Card size="small">
               <Statistic 
-                title="超期未回收" 
+                title={t('atrasadasSemResolucao')} 
                 value={stats.overdue_count} 
                 valueStyle={{ color: stats.overdue_count > 0 ? token.colorError : token.colorTextSecondary }}
                 prefix={stats.overdue_count > 0 ? <WarningOutlined /> : null}
@@ -557,8 +560,8 @@ export default function Foreshadows() {
       {/* 超期提醒 */}
       {stats && stats.overdue_count > 0 && (
         <Alert
-          message={`有 ${stats.overdue_count} 个伏笔已超期未回收`}
-          description="请尽快在后续章节中回收这些伏笔，或调整计划回收章节"
+          message={t('pistaSPassaramPrazo', { overdue_count: stats.overdue_count })}
+          description={t('resolvaEssasPistasProximos')}
           type="warning"
           showIcon
           style={{ marginBottom: 16 }}
@@ -570,7 +573,7 @@ export default function Foreshadows() {
         message={
           <Space>
             <InfoCircleOutlined />
-            <span>伏笔数据会在章节分析完成后自动同步，无需手动操作</span>
+            <span>{t('pistasSaoSincronizadasAutomaticamente')}</span>
           </Space>
         }
         type="info"
@@ -583,7 +586,7 @@ export default function Foreshadows() {
       <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Space>
           <Select
-            placeholder="状态筛选"
+            placeholder={t('filtrarStatus')}
             allowClear
             style={{ width: 120 }}
             value={statusFilter}
@@ -594,7 +597,7 @@ export default function Foreshadows() {
             ))}
           </Select>
           <Select
-            placeholder="分类筛选"
+            placeholder={t('filtrarCategoria')}
             allowClear
             style={{ width: 100 }}
             value={categoryFilter}
@@ -605,18 +608,18 @@ export default function Foreshadows() {
             ))}
           </Select>
           <Select
-            placeholder="来源筛选"
+            placeholder={t('filtrarOrigem')}
             allowClear
             style={{ width: 100 }}
             value={sourceFilter}
             onChange={setSourceFilter}
           >
-            <Option value="analysis">分析</Option>
-            <Option value="manual">手动</Option>
+            <Option value="analysis">{t('analise')}</Option>
+            <Option value="manual">{t('manual')}</Option>
           </Select>
         </Space>
         <Space>
-          <Tooltip title="刷新列表">
+          <Tooltip title={t('atualizarLista')}>
             <Button
               icon={<ReloadOutlined spin={loading} />}
               onClick={loadForeshadows}
@@ -628,21 +631,21 @@ export default function Foreshadows() {
                 {
                   key: 'sync',
                   icon: <SyncOutlined />,
-                  label: '手动同步分析伏笔',
+                  label: t('sincronizarPistasAnaliseManualmente'),
                   onClick: () => setSyncModalVisible(true),
                 },
               ] as MenuProps['items'],
             }}
             placement="bottomRight"
           >
-            <Button icon={<MoreOutlined />}>更多</Button>
+            <Button icon={<MoreOutlined />}>{t('mais')}</Button>
           </Dropdown>
           <Button
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => openEditModal()}
           >
-            添加伏笔
+            {t('adicionarPista')}
           </Button>
         </Space>
       </div>
@@ -666,7 +669,7 @@ export default function Foreshadows() {
           pagination={false}
           scroll={{ y: tableScrollY }}
           locale={{
-            emptyText: <Empty description="暂无伏笔，点击右上角添加" />,
+            emptyText: <Empty description={t('nenhumaPistaAindaClique')} />,
           }}
         />
       </div>
@@ -692,14 +695,14 @@ export default function Foreshadows() {
             }
           }}
           showSizeChanger
-          showTotal={(total) => `共 ${total} 条`}
+          showTotal={(total) => t('totalContagem', { total })}
           showQuickJumper
         />
       </div>
 
       {/* 创建/编辑模态框 */}
       <Modal
-        title={currentForeshadow ? '编辑伏笔' : '添加伏笔'}
+        title={currentForeshadow ? t('editarPista') : t('adicionarPista')}
         open={editModalVisible}
         centered
         onCancel={() => {
@@ -727,13 +730,13 @@ export default function Foreshadows() {
         >
           <Row gutter={16}>
             <Col span={16}>
-              <Form.Item name="title" label="伏笔标题" rules={[{ required: true, message: '请输入标题' }]}>
-                <Input placeholder="简洁描述伏笔内容" maxLength={200} />
+              <Form.Item name="title" label={t('tituloPista')} rules={[{ required: true, message: t('informeTitulo') }]}>
+                <Input placeholder={t('descrevaBrevementePista')} maxLength={200} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="category" label="分类">
-                <Select placeholder="选择分类" allowClear>
+              <Form.Item name="category" label={t('categoria')}>
+                <Select placeholder={t('selecioneCategoria')} allowClear>
                   {Object.entries(CATEGORY_CONFIG).map(([key, config]) => (
                     <Option key={key} value={key}>{config.label}</Option>
                   ))}
@@ -742,26 +745,26 @@ export default function Foreshadows() {
             </Col>
           </Row>
           
-          <Form.Item name="content" label="伏笔内容" rules={[{ required: true, message: '请输入内容' }]}>
-            <TextArea rows={3} placeholder="详细描述伏笔的内容和意图" />
+          <Form.Item name="content" label={t('conteudoPista')} rules={[{ required: true, message: t('informeConteudo') }]}>
+            <TextArea rows={3} placeholder={t('descrevaDetalhesConteudoIntencao')} />
           </Form.Item>
           
           <Row gutter={16}>
             <Col span={6}>
-              <Form.Item name="plant_chapter_number" label="计划埋入">
-                <InputNumber min={1} placeholder="章节号" style={{ width: '100%' }} />
+              <Form.Item name="plant_chapter_number" label={t('plantioPrevisto')}>
+                <InputNumber min={1} placeholder={t('nCapitulo')} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="target_resolve_chapter_number" label="计划回收">
-                <InputNumber min={1} placeholder="章节号" style={{ width: '100%' }} />
+              <Form.Item name="target_resolve_chapter_number" label={t('resolucaoPrevista')}>
+                <InputNumber min={1} placeholder={t('nCapitulo')} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="related_characters" label="关联角色">
+              <Form.Item name="related_characters" label={t('personagensRelacionados')}>
                 <Select
                   mode="multiple"
-                  placeholder="选择关联角色"
+                  placeholder={t('selecionePersonagensRelacionados')}
                   optionFilterProp="children"
                   maxTagCount={3}
                 >
@@ -779,55 +782,55 @@ export default function Foreshadows() {
           
           <Row gutter={16}>
             <Col span={6}>
-              <Form.Item name="importance" label="重要性 (0-1)">
+              <Form.Item name="importance" label={t('importanciaEscala')}>
                 <InputNumber min={0} max={1} step={0.1} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="strength" label="强度 (1-10)">
+              <Form.Item name="strength" label={t('intensidadeEscala')}>
                 <InputNumber min={1} max={10} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="subtlety" label="隐藏度 (1-10)">
+              <Form.Item name="subtlety" label={t('sutilezaEscala')}>
                 <InputNumber min={1} max={10} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item name="is_long_term" label="长线伏笔" valuePropName="checked">
-                <Switch checkedChildren="是" unCheckedChildren="否" />
+              <Form.Item name="is_long_term" label={t('pistaLongaDuracao')} valuePropName="checked">
+                <Switch checkedChildren={t('sim')} unCheckedChildren={t('nao')} />
               </Form.Item>
             </Col>
           </Row>
           
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="hint_text" label="暗示文本">
-                <TextArea rows={2} placeholder="埋伏笔时使用的暗示性描写" />
+              <Form.Item name="hint_text" label={t('textoDica')}>
+                <TextArea rows={2} placeholder={t('trechoSutilUsadoPlantar')} />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item name="notes" label="备注">
-                <TextArea rows={2} placeholder="创作备注（仅作者可见）" />
+              <Form.Item name="notes" label={t('observacoes')}>
+                <TextArea rows={2} placeholder={t('observacoesEscritaVisiveisApenas')} />
               </Form.Item>
             </Col>
           </Row>
           
-          <Divider style={{ margin: '12px 0' }}>AI辅助设置</Divider>
+          <Divider style={{ margin: '12px 0' }}>{t('configuracoesApoioIa')}</Divider>
           
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item name="auto_remind" label="自动提醒" valuePropName="checked" style={{ marginBottom: 0 }}>
-                <Switch checkedChildren="开" unCheckedChildren="关" />
+              <Form.Item name="auto_remind" label={t('lembreteAutomatico')} valuePropName="checked" style={{ marginBottom: 0 }}>
+                <Switch checkedChildren={t('ligado')} unCheckedChildren={t('desligado')} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="include_in_context" label="包含在生成上下文" valuePropName="checked" style={{ marginBottom: 0 }}>
-                <Switch checkedChildren="是" unCheckedChildren="否" />
+              <Form.Item name="include_in_context" label={t('incluirContextoGeracao')} valuePropName="checked" style={{ marginBottom: 0 }}>
+                <Switch checkedChildren={t('sim')} unCheckedChildren={t('nao')} />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item name="remind_before_chapters" label="提前几章提醒" style={{ marginBottom: 0 }}>
+              <Form.Item name="remind_before_chapters" label={t('avisarQuantosCapitulosAntecedencia')} style={{ marginBottom: 0 }}>
                 <InputNumber min={1} max={20} style={{ width: '100%' }} />
               </Form.Item>
             </Col>
@@ -837,7 +840,7 @@ export default function Foreshadows() {
 
       {/* 详情模态框 */}
       <Modal
-        title="伏笔详情"
+        title={t('detalhesPista')}
         open={detailModalVisible}
         centered
         onCancel={() => {
@@ -846,13 +849,13 @@ export default function Foreshadows() {
         }}
         footer={[
           <Button key="close" onClick={() => setDetailModalVisible(false)}>
-            关闭
+            {t('fechar')}
           </Button>,
           <Button key="edit" type="primary" onClick={() => {
             setDetailModalVisible(false);
             openEditModal(currentForeshadow!);
           }}>
-            编辑
+            {t('editar')}
           </Button>,
         ]}
         width={600}
@@ -866,7 +869,7 @@ export default function Foreshadows() {
                   <Tag color={STATUS_CONFIG[currentForeshadow.status].color}>
                     {STATUS_CONFIG[currentForeshadow.status].label}
                   </Tag>
-                  {currentForeshadow.is_long_term && <Tag color="purple">长线伏笔</Tag>}
+                  {currentForeshadow.is_long_term && <Tag color="purple">{t('pistaLongaDuracao')}</Tag>}
                   {currentForeshadow.category && CATEGORY_CONFIG[currentForeshadow.category] && (
                     <Tag color={CATEGORY_CONFIG[currentForeshadow.category].color}>
                       {CATEGORY_CONFIG[currentForeshadow.category].label}
@@ -876,13 +879,13 @@ export default function Foreshadows() {
               </Col>
               
               <Col span={24}>
-                <strong>伏笔内容：</strong>
+                <strong>{t('conteudoPistaDetalhe')}</strong>
                 <p style={{ marginTop: 8, whiteSpace: 'pre-wrap' }}>{currentForeshadow.content}</p>
               </Col>
               
               {currentForeshadow.hint_text && (
                 <Col span={24}>
-                  <strong>暗示文本：</strong>
+                  <strong>{t('textoDicaDetalhe')}</strong>
                   <p style={{ marginTop: 8, whiteSpace: 'pre-wrap', color: token.colorTextSecondary }}>
                     {currentForeshadow.hint_text}
                   </p>
@@ -891,7 +894,7 @@ export default function Foreshadows() {
               
               {currentForeshadow.resolution_text && (
                 <Col span={24}>
-                  <strong>揭示文本：</strong>
+                  <strong>{t('textoRevelacao')}</strong>
                   <p style={{ marginTop: 8, whiteSpace: 'pre-wrap', color: token.colorTextSecondary }}>
                     {currentForeshadow.resolution_text}
                   </p>
@@ -899,31 +902,31 @@ export default function Foreshadows() {
               )}
               
               <Col span={12}>
-                <strong>埋入章节：</strong> {currentForeshadow.plant_chapter_number ? `第${currentForeshadow.plant_chapter_number}章` : '未设定'}
+                <strong>{t('capituloPlantioDetalhe')}</strong> {currentForeshadow.plant_chapter_number ? t('capituloPlantioNumero', { plant_chapter_number: currentForeshadow.plant_chapter_number }) : t('naoDefinido')}
               </Col>
               <Col span={12}>
-                <strong>计划回收：</strong> {currentForeshadow.target_resolve_chapter_number ? `第${currentForeshadow.target_resolve_chapter_number}章` : '未设定'}
+                <strong>{t('resolucaoPrevistaDetalhe')}</strong> {currentForeshadow.target_resolve_chapter_number ? t('capituloResolucaoPrevistaNumero', { target_resolve_chapter_number: currentForeshadow.target_resolve_chapter_number }) : t('naoDefinido')}
               </Col>
               
               {currentForeshadow.actual_resolve_chapter_number && (
                 <Col span={24}>
-                  <strong>实际回收：</strong> 第{currentForeshadow.actual_resolve_chapter_number}章
+                  <strong>{t('resolucaoEfetiva')}</strong> {t('capituloResolucaoEfetivaNumero', { actual_resolve_chapter_number: currentForeshadow.actual_resolve_chapter_number })}
                 </Col>
               )}
               
               <Col span={8}>
-                <strong>重要性：</strong> {'★'.repeat(Math.round(currentForeshadow.importance * 5))}
+                <strong>{t('importanciaDetalhe')}</strong> {'★'.repeat(Math.round(currentForeshadow.importance * 5))}
               </Col>
               <Col span={8}>
-                <strong>强度：</strong> {currentForeshadow.strength}/10
+                <strong>{t('intensidade')}</strong> {currentForeshadow.strength}/10
               </Col>
               <Col span={8}>
-                <strong>隐藏度：</strong> {currentForeshadow.subtlety}/10
+                <strong>{t('sutileza')}</strong> {currentForeshadow.subtlety}/10
               </Col>
               
               {currentForeshadow.related_characters && currentForeshadow.related_characters.length > 0 && (
                 <Col span={24}>
-                  <strong>关联角色：</strong>
+                  <strong>{t('personagensRelacionadosDetalhe')}</strong>
                   <div style={{ marginTop: 4 }}>
                     {currentForeshadow.related_characters.map((name, idx) => (
                       <Tag key={idx}>{name}</Tag>
@@ -934,13 +937,13 @@ export default function Foreshadows() {
               
               {currentForeshadow.notes && (
                 <Col span={24}>
-                  <strong>备注：</strong>
+                  <strong>{t('observacoesDetalhe')}</strong>
                   <p style={{ marginTop: 8, color: token.colorTextSecondary }}>{currentForeshadow.notes}</p>
                 </Col>
               )}
               
               <Col span={24}>
-                <strong>来源：</strong> {currentForeshadow.source_type === 'analysis' ? '章节分析提取' : '手动添加'}
+                <strong>{t('origemDetalhe')}</strong> {currentForeshadow.source_type === 'analysis' ? t('extraidaAnaliseCapitulo') : t('adicionadaManualmente')}
               </Col>
             </Row>
           </div>
@@ -949,7 +952,7 @@ export default function Foreshadows() {
 
       {/* 标记埋入模态框 */}
       <Modal
-        title="标记伏笔埋入"
+        title={t('marcarPistaComoPlantada')}
         open={plantModalVisible}
         centered
         onCancel={() => {
@@ -961,24 +964,24 @@ export default function Foreshadows() {
         destroyOnClose
       >
         <Form form={plantForm} layout="vertical" onFinish={handlePlant}>
-          <Form.Item name="chapter_id" label="选择埋入章节" rules={[{ required: true, message: '请选择章节' }]}>
-            <Select placeholder="选择章节">
+          <Form.Item name="chapter_id" label={t('selecioneCapituloPlantio')} rules={[{ required: true, message: t('selecioneCapitulo') }]}>
+            <Select placeholder={t('selecioneCapituloPlaceholder')}>
               {chapters.map(chapter => (
                 <Option key={chapter.id} value={chapter.id}>
-                  第{chapter.chapter_number}章 - {chapter.title}
+                  {t('capituloComTitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="hint_text" label="暗示文本（可选）">
-            <TextArea rows={3} placeholder="记录埋伏笔时使用的暗示性描写" />
+          <Form.Item name="hint_text" label={t('textoDicaOpcional')}>
+            <TextArea rows={3} placeholder={t('registreTrechoSutilUsado')} />
           </Form.Item>
         </Form>
       </Modal>
 
       {/* 标记回收模态框 */}
       <Modal
-        title="标记伏笔回收"
+        title={t('marcarPistaComoResolvida')}
         open={resolveModalVisible}
         centered
         onCancel={() => {
@@ -990,46 +993,46 @@ export default function Foreshadows() {
         destroyOnClose
       >
         <Form form={resolveForm} layout="vertical" onFinish={handleResolve}>
-          <Form.Item name="chapter_id" label="选择回收章节" rules={[{ required: true, message: '请选择章节' }]}>
-            <Select placeholder="选择章节">
+          <Form.Item name="chapter_id" label={t('selecioneCapituloResolucao')} rules={[{ required: true, message: t('selecioneCapitulo') }]}>
+            <Select placeholder={t('selecioneCapituloPlaceholder')}>
               {chapters.map(chapter => (
                 <Option key={chapter.id} value={chapter.id}>
-                  第{chapter.chapter_number}章 - {chapter.title}
+                  {t('capituloComTitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
                 </Option>
               ))}
             </Select>
           </Form.Item>
-          <Form.Item name="resolution_text" label="揭示文本（可选）">
-            <TextArea rows={3} placeholder="记录回收伏笔时的揭示内容" />
+          <Form.Item name="resolution_text" label={t('textoRevelacaoOpcional')}>
+            <TextArea rows={3} placeholder={t('registreFoiReveladoResolver')} />
           </Form.Item>
-          <Form.Item name="is_partial" label="是否部分回收" valuePropName="checked">
-            <Switch checkedChildren="部分" unCheckedChildren="完全" />
+          <Form.Item name="is_partial" label={t('resolucaoParcial')} valuePropName="checked">
+            <Switch checkedChildren={t('parcial')} unCheckedChildren={t('completa')} />
           </Form.Item>
         </Form>
       </Modal>
 
       {/* 同步模态框 */}
       <Modal
-        title="手动同步分析伏笔"
+        title={t('sincronizarPistasAnaliseManualmente')}
         open={syncModalVisible}
         centered
         onCancel={() => setSyncModalVisible(false)}
         onOk={handleSync}
         confirmLoading={syncing}
-        okText="开始同步"
+        okText={t('iniciarSincronizacao')}
       >
         <Alert
-          message="提示"
-          description="通常情况下，章节分析完成后伏笔会自动同步到伏笔管理中。此功能用于手动补充同步可能遗漏的伏笔。"
+          message={t('aviso')}
+          description={t('normalmentePistasSaoSincronizadas')}
           type="info"
           showIcon
           style={{ marginBottom: 16 }}
         />
-        <p>此操作将从已完成的章节分析结果中提取伏笔信息，同步到伏笔管理表。</p>
+        <p>{t('operacaoExtraiInformacoesPistas')}</p>
         <ul>
-          <li>已存在的伏笔记录不会被覆盖</li>
-          <li>新同步的伏笔将自动设置为"已埋入"状态</li>
-          <li>同步完成后可在列表中查看和编辑</li>
+          <li>{t('registrosPistasExistentesNao')}</li>
+          <li>{t('pistasRecemSincronizadasReceberao')}</li>
+          <li>{t('aposSincronizacaoVocePode')}</li>
         </ul>
       </Modal>
     </div>

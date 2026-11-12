@@ -11,6 +11,7 @@ from fastapi import BackgroundTasks, HTTPException
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.utils.text_metrics import count_words
 from app.models.analysis_task import AnalysisTask
 from app.models.background_task import BackgroundTask
 from app.models.batch_generation_task import BatchGenerationTask
@@ -51,17 +52,17 @@ DATA = {"type": "object", "additionalProperties": True}
 OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     {
         "name": "list_writing_styles",
-        "description": "查询当前用户可用的预设/自定义写作风格及项目默认风格。",
+        "description": "Lista os estilos de escrita predefinidos/personalizados disponíveis ao usuário atual e o estilo padrão do projeto.",
         "parameters": _schema({}),
     },
     {
         "name": "get_writing_style_detail",
-        "description": "按风格 ID 获取可用于当前项目的写作风格详情。",
+        "description": "Obtém os detalhes de um estilo de escrita utilizável no projeto atual pelo ID do estilo.",
         "parameters": _schema({"style_id": {"type": "integer", "minimum": 1}}, ["style_id"]),
     },
     {
         "name": "list_background_tasks",
-        "description": "查询当前项目的生成、分析、批量生成和重新生成任务。",
+        "description": "Lista as tarefas de geração, análise, geração em lote e regeneração do projeto atual.",
         "parameters": _schema({
             "status": {"type": "string"},
             "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -69,37 +70,37 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "get_background_task_detail",
-        "description": "查询当前项目某个后台任务的完整状态和结果。",
+        "description": "Consulta o status completo e o resultado de uma tarefa em segundo plano do projeto atual.",
         "parameters": _schema({"task_id": ID}, ["task_id"]),
     },
     {
         "name": "get_chapter_analysis_status",
-        "description": "查询指定章节最新的分析任务状态。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Consulta o status da tarefa de análise mais recente de um capítulo específico. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_analysis",
-        "description": "获取指定章节的剧情分析和提取出的故事记忆。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém a análise de enredo de um capítulo específico e as memórias da história extraídas. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_annotations",
-        "description": "获取指定章节可用于正文标注的记忆位置、类别和重要度。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém as posições, categorias e graus de importância das memórias de um capítulo específico que podem ser usadas para anotar o texto. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "get_chapter_navigation",
-        "description": "获取指定章节的上一章、下一章和项目章节位置。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Obtém o capítulo anterior, o seguinte e a posição de um capítulo específico no projeto. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "check_chapter_generation_readiness",
-        "description": "检查指定章节是否满足生成前置条件以及上一章分析是否就绪。chapter_id 和 chapter_number 至少提供一个；使用章节号时不要传空的 chapter_id。",
+        "description": "Verifica se um capítulo específico atende aos pré-requisitos de geração e se a análise do capítulo anterior está pronta. Informe pelo menos um entre chapter_id e chapter_number; ao usar o número do capítulo, não envie um chapter_id vazio.",
         "parameters": _chapter_schema({"chapter_id": ID, "chapter_number": {"type": "integer", "minimum": 1}}),
     },
     {
         "name": "list_story_memories",
-        "description": "查询当前项目的故事记忆，可按章节、类型和关键词筛选。",
+        "description": "Lista as memórias da história do projeto atual, com filtro opcional por capítulo, tipo e palavra-chave.",
         "parameters": _schema({
             "chapter_id": ID,
             "chapter_number": {"type": "integer", "minimum": 1},
@@ -110,22 +111,22 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "get_project_export_links",
-        "description": "获取当前项目完整 JSON、大纲 JSON 和章节 TXT 的安全下载地址。",
+        "description": "Obtém os links seguros de download do JSON completo do projeto, do JSON do esboço e do TXT dos capítulos.",
         "parameters": _schema({}),
     },
     {
         "name": "get_story_memory_stats",
-        "description": "统计当前项目故事记忆的类型、章节覆盖和重要度。",
+        "description": "Contabiliza os tipos, a cobertura de capítulos e a importância das memórias da história do projeto atual.",
         "parameters": _schema({}),
     },
     {
         "name": "get_project_cover_status",
-        "description": "获取当前项目封面状态、图片地址和最近错误。",
+        "description": "Obtém o status da capa do projeto atual, o endereço da imagem e o erro mais recente.",
         "parameters": _schema({}),
     },
     {
         "name": "manage_writing_style",
-        "description": "创建、更新、删除用户写作风格，或设置/清除当前项目默认风格；执行前必须确认。",
+        "description": "Cria, atualiza ou exclui estilos de escrita do usuário, ou define/limpa o estilo padrão do projeto atual; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["create", "update", "delete", "set_default", "clear_default"]},
             "style_id": {"type": "integer", "minimum": 1},
@@ -136,7 +137,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "manage_background_task",
-        "description": "取消当前项目尚未结束的后台任务；执行前必须确认。",
+        "description": "Cancela tarefas em segundo plano do projeto atual que ainda não terminaram; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["cancel"]},
             "task_id": ID,
@@ -146,7 +147,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "repair_project_consistency",
-        "description": "修复当前项目组织记录、成员计数、大纲章节同步和项目字数；执行前必须确认。",
+        "description": "Repara os registros de organizações, as contagens de membros, a sincronização entre esboço e capítulos e a contagem de palavras do projeto atual; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["all", "organizations", "member_counts", "outline_chapters", "word_counts"]},
         }, ["action"]),
@@ -155,7 +156,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "import_outlines_json",
-        "description": "把粘贴的大纲导出 JSON 合并或追加到当前项目；执行前必须确认。",
+        "description": "Mescla ou acrescenta ao projeto atual o JSON de esboço exportado que foi colado; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "json_content": {"type": "string", "minLength": 2},
             "mode": {"type": "string", "enum": ["append", "merge"]},
@@ -165,14 +166,14 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "import_characters_json",
-        "description": "把粘贴的角色/组织导出 JSON 导入当前项目；重复名称会跳过，执行前必须确认。",
+        "description": "Importa para o projeto atual o JSON de personagens/organizações exportado que foi colado; nomes duplicados são ignorados e é preciso confirmar antes de executar.",
         "parameters": _schema({"json_content": {"type": "string", "minLength": 2}}, ["json_content"]),
         "risk_level": 2,
         "resources": ("characters", "organizations", "careers"),
     },
     {
         "name": "manage_story_memories",
-        "description": "删除指定章节的分析结果和故事记忆；执行前必须确认。",
+        "description": "Exclui o resultado da análise e as memórias da história de um capítulo específico; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["delete_chapter_analysis"]},
             "chapter_id": ID,
@@ -183,7 +184,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "replace_chapter_text",
-        "description": "用新文本替换章节正文中的精确片段；执行前必须确认并校验原文未变化。",
+        "description": "Substitui um trecho exato do texto do capítulo por um novo texto; é preciso confirmar antes de executar, e o original é verificado para garantir que não mudou.",
         "parameters": _schema({
             "chapter_id": ID,
             "chapter_number": {"type": "integer", "minimum": 1},
@@ -197,7 +198,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "manage_project_cover",
-        "description": "生成或清除当前项目封面；生成会使用用户已有封面配置，执行前必须确认。",
+        "description": "Gera ou remove a capa do projeto atual; a geração usa a configuração de capa que o usuário já tem, e é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": ["generate", "clear"]},
             "overwrite": {"type": "boolean"},
@@ -207,7 +208,7 @@ OPERATIONAL_TOOL_SPECS: list[dict[str, Any]] = [
     },
     {
         "name": "start_project_task",
-        "description": "启动大纲生成/展开、章节生成/批量生成或章节分析后台任务；执行前必须确认。",
+        "description": "Inicia tarefas em segundo plano de geração/expansão de esboço, geração de capítulo/geração em lote ou análise de capítulo; é preciso confirmar antes de executar.",
         "parameters": _schema({
             "action": {"type": "string", "enum": [
                 "generate_outlines", "expand_outline", "batch_expand_outlines",
@@ -242,7 +243,7 @@ def _value(value: Any) -> Any:
 
 def _preview_value(value: Any, limit: int = 800) -> Any:
     if isinstance(value, str) and len(value) > limit:
-        return f"{value[:limit]}…（共 {len(value)} 字符）"
+        return f"{value[:limit]}… (total de {len(value)} caracteres)"
     if isinstance(value, dict):
         return {key: _preview_value(item, limit) for key, item in list(value.items())[:50]}
     if isinstance(value, list):
@@ -261,26 +262,26 @@ class ProjectAgentOperationalTools:
 
     async def read(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         if name not in OPERATIONAL_READ_TOOL_NAMES:
-            raise ValueError(f"未注册的运维读取工具：{name}")
+            raise ValueError(f"Ferramenta de leitura operacional não registrada: {name}")
         handler = getattr(self, f"_{name}", None)
         if handler is None:
-            raise ValueError(f"工具尚未实现：{name}")
+            raise ValueError(f"Ferramenta ainda não implementada: {name}")
         return await handler(arguments)
 
     async def preview(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         if name not in OPERATIONAL_WRITE_TOOL_NAMES:
-            raise ValueError(f"未注册的运维写入工具：{name}")
+            raise ValueError(f"Ferramenta de escrita operacional não registrada: {name}")
         action = str(arguments.get("action") or "")
         if name in {"import_outlines_json", "import_characters_json", "replace_chapter_text"}:
             action = "execute"
         if not action:
-            raise ValueError("缺少 action")
+            raise ValueError("Falta action")
         handler = getattr(self, f"_{name}_preview_{action}", None)
         if handler is None:
-            raise ValueError(f"工具 {name} 不支持动作 {action}")
+            raise ValueError(f"A ferramenta {name} não suporta a ação {action}")
         before, after, label, entity_id = await handler(arguments)
         if before == after:
-            raise ValueError("没有检测到需要修改的内容")
+            raise ValueError("Nenhum conteúdo a modificar foi detectado")
         spec = next(item for item in OPERATIONAL_TOOL_SPECS if item["name"] == name)
         resources = (
             affected_resources_for_agent_action(action)
@@ -305,14 +306,14 @@ class ProjectAgentOperationalTools:
 
     async def execute(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         if name not in OPERATIONAL_WRITE_TOOL_NAMES:
-            raise ValueError(f"未注册的运维写入工具：{name}")
+            raise ValueError(f"Ferramenta de escrita operacional não registrada: {name}")
         action = str(arguments.get("action") or "")
         if name in {"import_outlines_json", "import_characters_json", "replace_chapter_text"}:
             action = "execute"
         preview_handler = getattr(self, f"_{name}_preview_{action}", None)
         handler = getattr(self, f"_{name}_{action}", None)
         if preview_handler is None or handler is None:
-            raise ValueError(f"工具 {name} 不支持动作 {action}")
+            raise ValueError(f"A ferramenta {name} não suporta a ação {action}")
         before, _, _, _ = await preview_handler(arguments)
         entity_id, after, message = await handler(arguments)
         spec = next(item for item in OPERATIONAL_TOOL_SPECS if item["name"] == name)
@@ -335,16 +336,16 @@ class ProjectAgentOperationalTools:
 
     async def _find_style(self, style_id: Any, *, writable: bool = False) -> WritingStyle:
         if isinstance(style_id, bool) or not isinstance(style_id, int):
-            raise ValueError("必须提供有效的 style_id")
+            raise ValueError("É necessário informar um style_id válido")
         query = select(WritingStyle).where(
             WritingStyle.id == style_id,
             or_(WritingStyle.user_id == self.project.user_id, WritingStyle.user_id.is_(None)),
         )
         style = (await self.db.execute(query)).scalar_one_or_none()
         if not style:
-            raise ValueError("当前用户没有可用的指定写作风格")
+            raise ValueError("O usuário atual não tem o estilo de escrita especificado")
         if writable and style.user_id != self.project.user_id:
-            raise ValueError("系统预设风格不能修改或删除")
+            raise ValueError("Estilos predefinidos do sistema não podem ser modificados nem excluídos")
         return style
 
     @staticmethod
@@ -426,11 +427,11 @@ class ProjectAgentOperationalTools:
 
     async def _find_task(self, task_id: str) -> tuple[Any, str]:
         if not task_id:
-            raise ValueError("必须提供 task_id")
+            raise ValueError("É necessário informar task_id")
         for task, kind in await self._all_tasks():
             if task.id == task_id:
                 return task, kind
-        raise ValueError("当前项目中未找到后台任务")
+        raise ValueError("Tarefa em segundo plano não encontrada neste projeto")
 
     async def _get_background_task_detail(self, arguments: dict[str, Any]) -> dict[str, Any]:
         task, kind = await self._find_task(str(arguments.get("task_id") or ""))
@@ -461,7 +462,7 @@ class ProjectAgentOperationalTools:
             ).order_by(PlotAnalysis.created_at.desc()).limit(1)
         )).scalar_one_or_none()
         if not analysis:
-            raise ValueError("该章节暂无分析结果")
+            raise ValueError("Este capítulo ainda não tem resultado de análise")
         memories = (await self.db.execute(
             select(StoryMemory).where(
                 StoryMemory.project_id == self.project.id,
@@ -598,28 +599,28 @@ class ProjectAgentOperationalTools:
     def _data(arguments: dict[str, Any]) -> dict[str, Any]:
         data = arguments.get("data") or {}
         if not isinstance(data, dict):
-            raise ValueError("data 必须是对象")
+            raise ValueError("data deve ser um objeto")
         return data
 
     async def _manage_writing_style_preview_create(self, arguments: dict[str, Any]):
         data = self._data(arguments)
         unknown = set(data) - (self.STYLE_FIELDS | {"preset_id"})
         if unknown:
-            raise ValueError(f"包含不支持的字段：{', '.join(sorted(unknown))}")
+            raise ValueError(f"Contém campos não suportados: {', '.join(sorted(unknown))}")
         preset = None
         if data.get("preset_id"):
             preset = (await self.db.execute(select(WritingStyle).where(
                 WritingStyle.user_id.is_(None), WritingStyle.preset_id == data["preset_id"]
             ))).scalar_one_or_none()
             if not preset:
-                raise ValueError("指定的预设风格不存在")
+                raise ValueError("O estilo predefinido informado não existe")
         name = str(data.get("name") or (preset.name if preset else "")).strip()
         prompt = str(data.get("prompt_content") or (preset.prompt_content if preset else "")).strip()
         if not name or not prompt:
-            raise ValueError("创建写作风格需要 name 和 prompt_content")
+            raise ValueError("Criar um estilo de escrita exige name e prompt_content")
         after = {"name": name, "description": data.get("description", preset.description if preset else None),
                  "prompt_content": prompt, "preset_id": data.get("preset_id")}
-        return {}, after, f"创建写作风格《{name}》", None
+        return {}, after, f"Criar o estilo de escrita «{name}»", None
 
     async def _manage_writing_style_create(self, arguments: dict[str, Any]):
         _, after, _, _ = await self._manage_writing_style_preview_create(arguments)
@@ -632,33 +633,33 @@ class ProjectAgentOperationalTools:
                            prompt_content=after["prompt_content"], order_index=order + 1)
         self.db.add(row)
         await self.db.flush()
-        return str(row.id), self._style_data(row), f"已创建写作风格《{row.name}》"
+        return str(row.id), self._style_data(row), f"Estilo de escrita «{row.name}» criado"
 
     async def _manage_writing_style_preview_update(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"), writable=True)
         data = self._data(arguments)
         unknown = set(data) - self.STYLE_FIELDS
         if unknown:
-            raise ValueError(f"包含不支持的字段：{', '.join(sorted(unknown))}")
+            raise ValueError(f"Contém campos não suportados: {', '.join(sorted(unknown))}")
         if not data:
-            raise ValueError("没有提供需要更新的字段")
+            raise ValueError("Nenhum campo a atualizar foi informado")
         if "name" in data and not str(data["name"]).strip():
-            raise ValueError("name 不能为空")
+            raise ValueError("name não pode ficar vazio")
         if "prompt_content" in data and not str(data["prompt_content"]).strip():
-            raise ValueError("prompt_content 不能为空")
+            raise ValueError("prompt_content não pode ficar vazio")
         before = {key: getattr(row, key) for key in data}
-        return before, data, f"更新写作风格《{row.name}》", str(row.id)
+        return before, data, f"Atualizar o estilo de escrita «{row.name}»", str(row.id)
 
     async def _manage_writing_style_update(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"), writable=True)
         data = self._data(arguments)
         for key, value in data.items():
             setattr(row, key, value.strip() if key in {"name", "prompt_content"} else value)
-        return str(row.id), self._style_data(row), f"已更新写作风格《{row.name}》"
+        return str(row.id), self._style_data(row), f"Estilo de escrita «{row.name}» atualizado"
 
     async def _manage_writing_style_preview_delete(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"), writable=True)
-        return self._style_data(row), {}, f"删除写作风格《{row.name}》", str(row.id)
+        return self._style_data(row), {}, f"Excluir o estilo de escrita «{row.name}»", str(row.id)
 
     async def _manage_writing_style_delete(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"), writable=True)
@@ -670,13 +671,13 @@ class ProjectAgentOperationalTools:
         if default:
             await self.db.delete(default)
         await self.db.delete(row)
-        return str(row_id), {}, f"已删除写作风格《{name}》"
+        return str(row_id), {}, f"Estilo de escrita «{name}» excluído"
 
     async def _manage_writing_style_preview_set_default(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"))
         before_id = await self._default_style_id()
         return {"default_style_id": before_id}, {"default_style_id": row.id, "name": row.name}, \
-            f"设置项目默认写作风格为《{row.name}》", str(row.id)
+            f"Definir o estilo de escrita padrão do projeto como «{row.name}»", str(row.id)
 
     async def _manage_writing_style_set_default(self, arguments: dict[str, Any]):
         row = await self._find_style(arguments.get("style_id"))
@@ -687,13 +688,13 @@ class ProjectAgentOperationalTools:
             default.style_id = row.id
         else:
             self.db.add(ProjectDefaultStyle(project_id=self.project.id, style_id=row.id))
-        return str(row.id), {"default_style_id": row.id, "name": row.name}, f"已将《{row.name}》设为项目默认写作风格"
+        return str(row.id), {"default_style_id": row.id, "name": row.name}, f"«{row.name}» definido como estilo de escrita padrão do projeto"
 
     async def _manage_writing_style_preview_clear_default(self, _: dict[str, Any]):
         default_id = await self._default_style_id()
         if default_id is None:
-            raise ValueError("当前项目没有默认写作风格")
-        return {"default_style_id": default_id}, {"default_style_id": None}, "清除项目默认写作风格", str(default_id)
+            raise ValueError("O projeto não tem estilo de escrita padrão")
+        return {"default_style_id": default_id}, {"default_style_id": None}, "Limpar o estilo de escrita padrão do projeto", str(default_id)
 
     async def _manage_writing_style_clear_default(self, _: dict[str, Any]):
         default = (await self.db.execute(select(ProjectDefaultStyle).where(
@@ -701,14 +702,14 @@ class ProjectAgentOperationalTools:
         ))).scalar_one()
         old_id = default.style_id
         await self.db.delete(default)
-        return str(old_id), {"default_style_id": None}, "已清除项目默认写作风格"
+        return str(old_id), {"default_style_id": None}, "Estilo de escrita padrão do projeto removido"
 
     async def _manage_background_task_preview_cancel(self, arguments: dict[str, Any]):
         task, kind = await self._find_task(str(arguments.get("task_id") or ""))
         if task.status not in {"pending", "running"}:
-            raise ValueError("只有等待中或运行中的任务可以取消")
+            raise ValueError("Somente tarefas pendentes ou em execução podem ser canceladas")
         return {"status": task.status}, {"status": "cancelled", "task_kind": kind}, \
-            f"取消后台任务 {task.id[:8]}", task.id
+            f"Cancelar a tarefa em segundo plano {task.id[:8]}", task.id
 
     async def _manage_background_task_cancel(self, arguments: dict[str, Any]):
         task, _ = await self._find_task(str(arguments.get("task_id") or ""))
@@ -716,10 +717,10 @@ class ProjectAgentOperationalTools:
         if hasattr(task, "cancel_requested"):
             task.cancel_requested = True
         if hasattr(task, "status_message"):
-            task.status_message = "任务已取消"
+            task.status_message = "Tarefa cancelada"
         if hasattr(task, "completed_at"):
             task.completed_at = datetime.now()
-        return task.id, {"status": "cancelled"}, f"已取消后台任务 {task.id[:8]}"
+        return task.id, {"status": "cancelled"}, f"Tarefa em segundo plano cancelada: {task.id[:8]}"
 
     async def _consistency_plan(self, action: str) -> dict[str, Any]:
         from app.models.outline import Outline
@@ -759,10 +760,10 @@ class ProjectAgentOperationalTools:
         if action in {"all", "word_counts"}:
             chapters = (await self.db.execute(select(Chapter).where(Chapter.project_id == self.project.id))).scalars().all()
             plan["chapter_word_count_mismatches"] = sum(
-                1 for row in chapters if (row.word_count or 0) != len(row.content or "")
+                1 for row in chapters if (row.word_count or 0) != count_words(row.content)
             )
             plan["project_current_words_before"] = self.project.current_words or 0
-            plan["project_current_words_after"] = sum(len(row.content or "") for row in chapters)
+            plan["project_current_words_after"] = sum(count_words(row.content) for row in chapters)
         return plan
 
     async def _repair_project_consistency_preview_all(self, arguments):
@@ -789,8 +790,8 @@ class ProjectAgentOperationalTools:
             and plan["project_current_words_before"] != plan["project_current_words_after"]
         )
         if not has_count_issue and not has_total_issue:
-            raise ValueError("没有检测到需要修复的一致性问题")
-        return {}, plan, f"修复项目一致性（{action}）", self.project.id
+            raise ValueError("Nenhum problema de consistência a corrigir foi detectado")
+        return {}, plan, f"Corrigir a consistência do projeto ({action})", self.project.id
 
     async def _repair(self, action: str) -> dict[str, Any]:
         from app.models.outline import Outline
@@ -857,7 +858,7 @@ class ProjectAgentOperationalTools:
             fixed = 0
             total = 0
             for row in chapters:
-                actual = len(row.content or "")
+                actual = count_words(row.content)
                 fixed += int((row.word_count or 0) != actual)
                 row.word_count = actual
                 total += actual
@@ -873,12 +874,12 @@ class ProjectAgentOperationalTools:
 
     async def _repair_result(self, action: str):
         result = await self._repair(action)
-        return self.project.id, result, f"已完成项目一致性修复（{action}）"
+        return self.project.id, result, f"Correção de consistência do projeto concluída ({action})"
 
     def _parse_outline_import(self, arguments: dict[str, Any]):
         content = str(arguments.get("json_content") or "")
         if len(content.encode("utf-8")) > 10 * 1024 * 1024:
-            raise ValueError("导入内容超过 10MB 限制")
+            raise ValueError("O conteúdo importado excede o limite de 10 MB")
         return OutlineTransferService.parse_file(content.encode("utf-8"))
 
     async def _import_outlines_json_preview_execute(self, arguments: dict[str, Any]):
@@ -887,11 +888,11 @@ class ProjectAgentOperationalTools:
         preview = await OutlineTransferService.preview_import(parsed, self.project, mode, self.db)
         data = preview.model_dump(mode="json")
         if not preview.valid:
-            raise ValueError("；".join(preview.errors))
+            raise ValueError("; ".join(preview.errors))
         after = {key: data[key] for key in (
             "mode", "statistics", "warnings", "target_outline_mode"
         ) if key in data}
-        return {}, after, f"{mode} 导入 {len(parsed.items)} 条大纲", self.project.id
+        return {}, after, f"{mode} importação de {len(parsed.items)} esboços", self.project.id
 
     async def _import_outlines_json_execute(self, arguments: dict[str, Any]):
         parsed = self._parse_outline_import(arguments)
@@ -899,18 +900,18 @@ class ProjectAgentOperationalTools:
             parsed=parsed, project=self.project, mode=arguments["mode"], db=self.db
         )
         data = result.model_dump(mode="json")
-        return self.project.id, data, f"大纲导入完成：新增 {result.imported} 条，更新 {result.updated} 条"
+        return self.project.id, data, f"Importação de esboços concluída: {result.imported} adicionados, {result.updated} atualizados"
 
     def _parse_character_import(self, arguments: dict[str, Any]) -> dict[str, Any]:
         content = str(arguments.get("json_content") or "")
         if len(content.encode("utf-8")) > 10 * 1024 * 1024:
-            raise ValueError("导入内容超过 10MB 限制")
+            raise ValueError("O conteúdo importado excede o limite de 10 MB")
         try:
             data = json.loads(content)
         except json.JSONDecodeError as exc:
-            raise ValueError(f"JSON 格式错误：第 {exc.lineno} 行第 {exc.colno} 列") from exc
+            raise ValueError(f"Erro de formato JSON: linha {exc.lineno}, coluna {exc.colno}") from exc
         if not isinstance(data, dict):
-            raise ValueError("导入 JSON 根节点必须是对象")
+            raise ValueError("O nó raiz do JSON importado deve ser um objeto")
         return data
 
     async def _import_characters_json_preview_execute(self, arguments: dict[str, Any]):
@@ -919,7 +920,7 @@ class ProjectAgentOperationalTools:
         data = self._parse_character_import(arguments)
         validation = ImportExportService.validate_characters_import(data)
         if not validation.get("valid"):
-            raise ValueError("；".join(validation.get("errors") or ["角色导入数据无效"]))
+            raise ValueError("; ".join(validation.get("errors") or ["Dados de importação de personagens inválidos"]))
         names = [str(item.get("name") or "") for item in data.get("data", []) if isinstance(item, dict)]
         existing = set((await self.db.execute(select(Character.name).where(
             Character.project_id == self.project.id,
@@ -928,7 +929,7 @@ class ProjectAgentOperationalTools:
         statistics = dict(validation.get("statistics") or {})
         statistics.update({"will_skip_duplicates": len(existing), "will_import": len(names) - len(existing)})
         return {}, {"statistics": statistics, "warnings": validation.get("warnings") or []}, \
-            f"导入 {len(names) - len(existing)} 个角色/组织", self.project.id
+            f"Importar {len(names) - len(existing)} personagens/organizações", self.project.id
 
     async def _import_characters_json_execute(self, arguments: dict[str, Any]):
         from app.services.import_export_service import ImportExportService
@@ -940,8 +941,8 @@ class ProjectAgentOperationalTools:
             db=self.db,
         )
         if not result.get("success"):
-            raise ValueError(result.get("message") or "角色导入失败")
-        return self.project.id, result, result.get("message") or "角色/组织导入完成"
+            raise ValueError(result.get("message") or "Falha na importação de personagens")
+        return self.project.id, result, result.get("message") or "Importação de personagens/organizações concluída"
 
     async def _manage_story_memories_preview_delete_chapter_analysis(self, arguments: dict[str, Any]):
         chapter = await self._find_chapter(arguments)
@@ -963,12 +964,12 @@ class ProjectAgentOperationalTools:
             AnalysisTask.status.in_(["pending", "running"]),
         ).limit(1))).scalar_one_or_none()
         if running_task:
-            raise ValueError("该章节仍有分析任务运行中，请先取消任务")
+            raise ValueError("Este capítulo ainda tem tarefas de análise em execução; cancele-as primeiro")
         if not memory_count and not analysis_count and not task_count:
-            raise ValueError("该章节没有可删除的分析数据")
+            raise ValueError("Este capítulo não tem dados de análise a excluir")
         before = {"memories": memory_count, "analyses": analysis_count, "analysis_tasks": task_count}
         return before, {"memories": 0, "analyses": 0, "analysis_tasks": 0}, \
-            f"删除第{chapter.chapter_number}章《{chapter.title}》分析数据", chapter.id
+            f"Excluir os dados de análise do capítulo {chapter.chapter_number} «{chapter.title}»", chapter.id
 
     async def _manage_story_memories_delete_chapter_analysis(self, arguments: dict[str, Any]):
         chapter = await self._find_chapter(arguments)
@@ -996,22 +997,22 @@ class ProjectAgentOperationalTools:
         except Exception:
             pass
         after = {"memories": 0, "analyses": 0, "analysis_tasks": 0}
-        return chapter.id, after, f"已删除第{chapter.chapter_number}章《{chapter.title}》分析数据"
+        return chapter.id, after, f"Dados de análise do capítulo {chapter.chapter_number} «{chapter.title}» excluídos"
 
     async def _replace_chapter_text_preview_execute(self, arguments: dict[str, Any]):
         chapter = await self._find_chapter(arguments)
         content = chapter.content or ""
         start, end = arguments["start_position"], arguments["end_position"]
         if start < 0 or end > len(content) or start >= end:
-            raise ValueError("替换位置超出章节正文范围")
+            raise ValueError("A posição de substituição está fora do texto do capítulo")
         expected = arguments["expected_text"]
         if content[start:end] != expected:
-            raise ValueError("指定位置的原文与 expected_text 不一致，请重新读取章节")
+            raise ValueError("O texto original na posição indicada não coincide com expected_text; leia o capítulo novamente")
         new_text = arguments["new_text"]
         after_content = content[:start] + new_text + content[end:]
         before = {"selected_text": expected, "word_count": chapter.word_count or 0}
-        after = {"selected_text": new_text, "word_count": len(after_content)}
-        return before, after, f"替换第{chapter.chapter_number}章《{chapter.title}》正文片段", chapter.id
+        after = {"selected_text": new_text, "word_count": count_words(after_content)}
+        return before, after, f"Substituir um trecho do texto do capítulo {chapter.chapter_number} «{chapter.title}»", chapter.id
 
     async def _replace_chapter_text_execute(self, arguments: dict[str, Any]):
         chapter = await self._find_chapter(arguments)
@@ -1019,15 +1020,15 @@ class ProjectAgentOperationalTools:
         start, end = arguments["start_position"], arguments["end_position"]
         old_count = chapter.word_count or 0
         chapter.content = content[:start] + arguments["new_text"] + content[end:]
-        chapter.word_count = len(chapter.content)
+        chapter.word_count = count_words(chapter.content)
         self.project.current_words = max(0, (self.project.current_words or 0) - old_count + chapter.word_count)
-        return chapter.id, {"word_count": chapter.word_count}, f"已替换第{chapter.chapter_number}章《{chapter.title}》正文片段"
+        return chapter.id, {"word_count": chapter.word_count}, f"Trecho do texto do capítulo {chapter.chapter_number} «{chapter.title}» substituído"
 
     async def _manage_project_cover_preview_generate(self, arguments: dict[str, Any]):
         if self.project.cover_status == "generating":
-            raise ValueError("封面正在生成中")
+            raise ValueError("A capa já está sendo gerada")
         return {"cover_status": self.project.cover_status, "cover_image_url": self.project.cover_image_url}, \
-            {"action": "generate", "overwrite": arguments.get("overwrite", True)}, "生成项目封面", self.project.id
+            {"action": "generate", "overwrite": arguments.get("overwrite", True)}, "Gerar a capa do projeto", self.project.id
 
     async def _manage_project_cover_generate(self, arguments: dict[str, Any]):
         from app.services.cover_generation_service import cover_generation_service
@@ -1038,13 +1039,13 @@ class ProjectAgentOperationalTools:
             )
         except HTTPException as exc:
             raise ValueError(str(exc.detail)) from exc
-        return self.project.id, result, result.get("message", "封面生成成功")
+        return self.project.id, result, result.get("message", "Capa gerada com sucesso")
 
     async def _manage_project_cover_preview_clear(self, _: dict[str, Any]):
         if not self.project.cover_image_url and self.project.cover_status == "none":
-            raise ValueError("当前项目没有可清除的封面")
+            raise ValueError("O projeto não tem capa a limpar")
         return {"cover_status": self.project.cover_status, "cover_image_url": self.project.cover_image_url}, \
-            {"cover_status": "none", "cover_image_url": None}, "清除项目封面", self.project.id
+            {"cover_status": "none", "cover_image_url": None}, "Limpar a capa do projeto", self.project.id
 
     async def _manage_project_cover_clear(self, _: dict[str, Any]):
         self.project.cover_image_url = None
@@ -1052,12 +1053,12 @@ class ProjectAgentOperationalTools:
         self.project.cover_status = "none"
         self.project.cover_error = None
         self.project.cover_updated_at = None
-        return self.project.id, {"cover_status": "none", "cover_image_url": None}, "已清除项目封面"
+        return self.project.id, {"cover_status": "none", "cover_image_url": None}, "Capa do projeto removida"
 
     async def _task_preview(self, arguments: dict[str, Any], action: str):
         data = self._data(arguments)
         if set(data) & {"project_id", "user_id", "chapter_id", "outline_id"}:
-            raise ValueError("data 中不能包含项目或资源标识，请使用工具顶层参数")
+            raise ValueError("data não pode conter identificadores de projeto ou recurso; use os parâmetros de nível superior da ferramenta")
         try:
             if action == "generate_chapter":
                 from app.schemas.chapter import ChapterGenerateRequest
@@ -1081,7 +1082,7 @@ class ProjectAgentOperationalTools:
                 from app.schemas.career import CareerGenerateRequest
                 CareerGenerateRequest(project_id=self.project.id, **data)
         except (TypeError, ValueError) as exc:
-            raise ValueError(f"任务参数无效：{exc}") from exc
+            raise ValueError(f"Parâmetros da tarefa inválidos: {exc}") from exc
         target: dict[str, Any] = {"action": action, "parameters": data}
         entity_id: str | None = self.project.id
         if action in {"expand_outline"}:
@@ -1091,7 +1092,7 @@ class ProjectAgentOperationalTools:
                 Outline.id == outline_id, Outline.project_id == self.project.id
             ))).scalar_one_or_none()
             if not outline:
-                raise ValueError("当前项目中未找到大纲")
+                raise ValueError("Esboço não encontrado neste projeto")
             target["outline"] = {"id": outline.id, "title": outline.title}
             entity_id = outline.id
         if action in {
@@ -1102,12 +1103,12 @@ class ProjectAgentOperationalTools:
             target["chapter"] = {"id": chapter.id, "chapter_number": chapter.chapter_number, "title": chapter.title}
             entity_id = chapter.id
             if action == "analyze_chapter" and not (chapter.content or "").strip():
-                raise ValueError("章节正文为空，无法分析")
+                raise ValueError("O texto do capítulo está vazio; não é possível analisar")
             if action in {"regenerate_chapter", "partial_regenerate_chapter"} and not (chapter.content or "").strip():
-                raise ValueError("章节正文为空，无法重写")
+                raise ValueError("O texto do capítulo está vazio; não é possível reescrever")
         if action in {"generate_character", "generate_organization", "generate_careers"}:
             target["project"] = {"id": self.project.id, "title": self.project.title}
-        return {}, target, f"启动后台任务：{action}", entity_id
+        return {}, target, f"Iniciar tarefa em segundo plano: {action}", entity_id
 
     async def _start_project_task_preview_generate_outlines(self, a): return await self._task_preview(a, "generate_outlines")
     async def _start_project_task_preview_expand_outline(self, a): return await self._task_preview(a, "expand_outline")
@@ -1181,7 +1182,7 @@ class ProjectAgentOperationalTools:
             AnalysisTask.user_id == self.project.user_id,
         ).order_by(AnalysisTask.created_at.desc()).limit(1))).scalar_one_or_none()
         if existing and existing.status in {"pending", "running"}:
-            return existing.id, {"task_id": existing.id, "status": existing.status}, "已有分析任务正在执行"
+            return existing.id, {"task_id": existing.id, "status": existing.status}, "Já existe uma tarefa de análise em execução"
         task = AnalysisTask(
             chapter_id=chapter.id,
             project_id=self.project.id,
@@ -1200,7 +1201,7 @@ class ProjectAgentOperationalTools:
             task_id=task_id,
         ))
         result = {"task_id": task_id, "chapter_id": chapter.id, "status": "pending"}
-        return task_id, result, "章节分析任务已加入后台队列"
+        return task_id, result, "Tarefa de análise do capítulo adicionada à fila em segundo plano"
 
     @staticmethod
     async def _consume_sse_response(
@@ -1216,7 +1217,7 @@ class ProjectAgentOperationalTools:
                 if now - last_cancel_check >= 2:
                     last_cancel_check = now
                     if await cancellation_check():
-                        raise RuntimeError("任务已取消")
+                        raise RuntimeError("Tarefa cancelada")
             chunk = raw_chunk.decode("utf-8") if isinstance(raw_chunk, bytes) else str(raw_chunk)
             for line in chunk.splitlines():
                 if not line.startswith("data: "):
@@ -1226,7 +1227,7 @@ class ProjectAgentOperationalTools:
                 except json.JSONDecodeError:
                     continue
                 if event.get("type") == "error":
-                    raise RuntimeError(str(event.get("error") or "生成任务失败"))
+                    raise RuntimeError(str(event.get("error") or "Falha na tarefa de geração"))
                 if event.get("type") == "result" and isinstance(event.get("data"), dict):
                     final_result = event["data"]
         return final_result
@@ -1261,7 +1262,7 @@ class ProjectAgentOperationalTools:
             session_factory = async_sessionmaker(
                 engine, class_=BackgroundSession, expire_on_commit=False
             )
-            tracker = TaskProgressTracker(task_id, user_id, "项目智能体")
+            tracker = TaskProgressTracker(task_id, user_id, "Agente do projeto")
             await tracker.start()
             try:
                 async with session_factory() as background_db:
@@ -1298,14 +1299,14 @@ class ProjectAgentOperationalTools:
                             chapter_id, http_request, payload, background_db, ai_service
                         )
                     else:
-                        raise RuntimeError(f"不支持的流式后台任务：{action}")
+                        raise RuntimeError(f"Tarefa de geração em streaming não suportada: {action}")
 
-                    await tracker.generating(1, 2, "AI 正在生成并保存结果...")
+                    await tracker.generating(1, 2, "A IA está gerando e salvando o resultado...")
                     result = await self._consume_sse_response(response, tracker.check_cancelled)
                     if extra_tasks.tasks:
                         self._detach(extra_tasks)
                     await tracker.set_result(result)
-                    await tracker.complete("生成任务完成")
+                    await tracker.complete("Tarefa de geração concluída")
             except Exception as exc:
                 # 取消接口已将任务置为 cancelled；不要再用 failed 覆盖终态。
                 if await tracker.check_cancelled():
@@ -1320,7 +1321,7 @@ class ProjectAgentOperationalTools:
             "task_id": task.id,
             "task_type": action,
             "status": "pending",
-            "message": "生成任务已加入后台队列",
+            "message": "Tarefa de geração adicionada à fila em segundo plano",
         }
         return task.id, data, data["message"]
 

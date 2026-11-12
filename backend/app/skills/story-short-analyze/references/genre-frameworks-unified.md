@@ -1,1771 +1,499 @@
+# Arcabouços de gênero (romance longo e conto)
 
-# 题材框架大全
+> **Origem** (adaptação em português do material original, ~80 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês, sem equivalente de mercado ocidental:
+> - "Ficção de vizinhança de época (siheyuan)", "o vento de plataforma (Feilu)", "o fórum Hedgehog" e "o mercado de reportagens".
+> - "Transmissão ao vivo de autores" e as listas de títulos de plataformas.
+> - Os nomes de IPs chinesas dos subtipos de fanfic foram trocados por equivalentes ocidentais.
+> - Todos os demais gêneros e blocos finais têm seção própria (seções 1 a 22) com estrutura, pontos e exemplo; o mapeamento por título está no relatório de correção.
 
-## 目录
+## Sumário
 
-- [一、追妻火葬场](#一追妻火葬场)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕)
-- [二、重生复仇](#二重生复仇)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构-1)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-1)
-- [三、小三/婚恋](#三小三婚恋)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构-2)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-2)
-- [四、世情](#四世情)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构-3)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-3)
-- [五、仙侠/玄幻](#五仙侠玄幻)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构-4)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-4)
-- [六、死人文学](#六死人文学)
-  - [长篇视角（8节点结构）](#长篇视角8节点结构-5)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-5)
-- [通用拆文提醒](#通用拆文提醒)
-- [七、都市高武](#七都市高武)
-  - [长篇视角（分层地图结构）](#长篇视角分层地图结构)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-6)
-- [八、霸总/甜宠](#八霸总甜宠)
-  - [长篇视角（五阶段结构）](#长篇视角五阶段结构)
-  - [短篇视角（压缩三幕）](#短篇视角压缩三幕-7)
-- [九、同人流派](#九同人流派)
-  - [核心机制](#核心机制)
-  - [同人子分类](#同人子分类)
-  - [同人写法要点](#同人写法要点)
-  - ["造反后方知"流派](#造反后方知流派)
-- [十、脑洞文](#十脑洞文)
-  - [核心机制](#核心机制-1)
-  - [创作流程](#创作流程)
-  - [金手指骨相分类](#金手指骨相分类)
-  - [脑洞文写长的方法](#脑洞文写长的方法)
-  - [注意事项](#注意事项)
-- [十一、凡人流](#十一凡人流)
-  - [核心特征](#核心特征)
-  - [与传统升级流的区别](#与传统升级流的区别)
-  - [副本切入公式](#副本切入公式)
-  - [关键分析维度](#关键分析维度)
-- [十二、历史/架空历史](#十二历史架空历史)
-  - [长篇视角](#长篇视角)
-  - [短篇视角](#短篇视角)
-- [十三、文娱/娱乐圈](#十三文娱娱乐圈)
-  - [核心机制](#核心机制-2)
-  - [子类型与市场现状](#子类型与市场现状)
-  - [写作要点](#写作要点)
-- [通用题材选择原则（补充）](#通用题材选择原则补充)
-  - [有边界感 vs 无边界感题材](#有边界感-vs-无边界感题材)
-  - [题材生命力规律](#题材生命力规律)
-  - [跨网站题材适配](#跨网站题材适配)
-- [核心梗解析与运用](#核心梗解析与运用)
-  - [什么是核心梗](#什么是核心梗)
-  - [从脑洞到核心梗](#从脑洞到核心梗)
-  - [核心梗的运用](#核心梗的运用)
-  - [核心梗与主题](#核心梗与主题)
-  - [核心梗的检验](#核心梗的检验)
-  - [核心梗的本质——情绪链条](#核心梗的本质情绪链条)
-  - [核心梗的循环与贯穿](#核心梗的循环与贯穿)
-  - [核心梗与题材匹配](#核心梗与题材匹配)
-  - [核心梗的实战技巧](#核心梗的实战技巧)
-  - [核心梗的迭代与进化](#核心梗的迭代与进化)
-  - [核心梗的常见误区](#核心梗的常见误区)
-- [事业线/爱情线设计](#事业线爱情线设计)
-  - [事业线设计](#事业线设计)
-  - [爱情线/后宫线设计](#爱情线后宫线设计)
-  - [狗粮文的循环套路](#狗粮文的循环套路)
-  - [事业线与爱情线的平衡](#事业线与爱情线的平衡)
-  - [主线认知：主线是一件事，不是升级](#主线认知主线是一件事不是升级)
-  - [感情线推进技巧](#感情线推进技巧)
-  - [爱情线四阶段实操](#爱情线四阶段实操)
-  - [男频感情线特殊规则](#男频感情线特殊规则)
-  - [后宫与炒股的写法区别](#后宫与炒股的写法区别)
-  - [事业线为主文中的爱情线处理（提纯思路）](#事业线为主文中的爱情线处理提纯思路)
-  - [创作大纲范式](#创作大纲范式)
-  - [狗粮文/感情线实操要点](#狗粮文感情线实操要点)
-  - [配角与感情线的关系](#配角与感情线的关系)
-- [卖报小郎君直播精华：题材解析](#卖报小郎君直播精华题材解析)
-- [十四、规则怪谈](#十四规则怪谈)
-- [十五、长生流](#十五长生流)
-- [十六、西幻/骑士文](#十六西幻骑士文)
-- [十七、新媒体文](#十七新媒体文)
-- [十八、搞笑文](#十八搞笑文)
-- [十九、四合院题材](#十九四合院题材)
-- [二十、网文时代变革与生活化写作](#二十网文时代变革与生活化写作)
-- [历史文深度补充](#历史文深度补充)
-- [玄幻进阶补充](#玄幻进阶补充)
-- [都市文进阶补充](#都市文进阶补充)
-- [文娱文进阶补充](#文娱文进阶补充)
-- [男频恋爱文进阶补充](#男频恋爱文进阶补充)
-- [单女主文进阶补充](#单女主文进阶补充)
-- [脑洞分类法补充](#脑洞分类法补充)
-- [赛道选择与丝滑转型法](#赛道选择与丝滑转型法)
-- [飞卢市场专题](#飞卢市场专题)
-- [刺猬猫平台要点](#刺猬猫平台要点)
-- [读者群体差异与商业化认知](#读者群体差异与商业化认知)
-- [代入感与塑料感](#代入感与塑料感)
+1. Romance de arrependimento (ele se arrepende depois)
+2. Segunda chance com vingança
+3. Divórcio e traição
+4. Drama de costumes
+5. Fantasia de progressão e épica
+6. Espírito observador (narrador pós-morte)
+7. Fantasia urbana de poder
+8. Romance de milionário e romance doce
+9. Demais gêneros (fanfic, alto conceito, sobrevivente comum, histórico, entretenimento, horror de regras, saga longeva, fantasia medieval, comédia, ficção curta de alto impacto emocional)
+10. Princípios gerais de escolha de gênero
+11. Conceito central: definição, uso, ciclo e análise
+12. Desenho das linhas profissional e romântica
+13. Lembretes gerais para analisar livros
+14. Eras da ficção: livre, de jogo e de vida cotidiana
+15. Fantasia: três núcleos e ciclo de vida do gênero
+16. Ficção urbana: quatro elementos da ambiguidade, vantagem e conquista
+17. Romance voltado a leitor masculino: barra de afinidade e assimetria
+18. Heroína única: duas linhas e família em quatro direções
+19. Classificação de ideias (remissão)
+20. Escolha de trilha e transição suave
+21. Diferenças entre públicos e comércio
+22. Imersão e "sensação de plástico"
+
+Convenção: cada gênero traz **visão de romance longo** (modelo de configuração, personagens, estrutura em 8 nós, dimensões de análise) e **visão de conto** (três atos comprimidos, técnicas, distribuição de palavras, pontos de análise).
 
 ---
 
-## 一、追妻火葬场
+## 1. Romance de arrependimento
 
-### 长篇视角（8节点结构）
+### Visão de romance longo (8 nós)
+**Modelo de configuração**
 
-**故事设定模板**
-
-| 要素 | 模板 |
+| Elemento | Modelo |
 |------|------|
-| 开篇钩子 | 女主在婚姻/感情中被严重伤害（冷漠、背叛、替身、失去至亲） |
-| 核心冲突 | 男主不珍惜 → 女主离开 → 男主后悔追回但女主不再回头 |
-| 主场景 | 豪门/职场/娱乐圈/古代贵族，需要权力差来制造压迫感 |
+| Gancho de abertura | A protagonista é gravemente ferida numa relação (frieza, traição, ser substituta, perda de alguém querido) |
+| Conflito central | Ele não valoriza → ela vai embora → ele se arrepende e tenta recuperá-la, mas ela não volta |
+| Cenário principal | Família rica, trabalho, mundo do espetáculo, nobreza de época: precisa de diferença de poder para criar opressão |
 
-**人物配置**
-
+**Personagens**
 ```
-女主：前期隐忍付出型 → 觉醒后独立自强型
-  - 共鸣点：被辜负的真心、为爱牺牲却被轻视
-  - 成长弧线：卑微讨好 → 心死离开 → 独立成功 → 掌控主动权
-
-男主：高冷/傲慢/忽视型 → 后期卑微追悔型
-  - 核心问题：不懂得珍惜、自以为是、感情迟钝
-  - 痛点设计：失去后的追悔要让读者觉得「活该」但又心疼
-
-第二男主（选配）：温柔/坚定/一直守候型
-  - 功能：制造男主的危机感、给女主温暖对比、读者情感出口
+Protagonista: de resignada e dedicada → independente e forte depois de despertar
+  - Ponto de empatia: o coração sincero traído, o sacrifício por amor desprezado
+  - Arco: submissão → coração morto e partida → independência e sucesso → toma a iniciativa
+Par romântico: frio/arrogante/indiferente → arrependido e humilde
+  - Problema central: não sabe valorizar, presunção, insensibilidade afetiva
+  - Desenho da dor: o arrependimento depois da perda deve levar o leitor a pensar "bem feito" e, ao mesmo tempo, sentir pena
+Segundo par (opcional): gentil, firme, sempre presente
+  - Função: criar sensação de crise no protagonista masculino, contraste de calor humano, saída emocional para o leitor
 ```
 
-**8节点剧情结构**
+**Estrutura em 8 nós**
 
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 开篇钩子 | 展示女主的痛苦现状（婚姻冰冷/被当替身/被忽视） | 5% | 压抑 |
-| 2. 虐待加深 | 男主的冷漠/背叛达到顶点，关键伤害事件 | 10% | 悲愤 |
-| 3. 女主觉醒 | 女主决定离开（发现真相/累积到极限/生命威胁） | 10% | 痛 → 决绝 |
-| 4. 离开与新生 | 女主离开男主，开始独立生活/事业 | 15% | 爽（解脱感） |
-| 5. 男主追悔 | 男主开始意识到女主的重要性，疯狂寻找 | 10% | 痛快（看男主痛苦） |
-| 6. 事业/成长线 | 女主在新领域取得成绩，与第二男主互动 | 15% | 爽（逆袭感） |
-| 7. 反复拉扯 | 男主多次求复合被拒，女主态度坚决 | 20% | 爽（反复打脸） |
-| 8. 结局 | 开放式（各走各路）/ 回头（男主彻底蜕变后）/ 悲剧（来不及了） | 15% | 释放 |
+| Nó | Conteúdo | % | Direção emocional |
+|------|------|------|------|
+| 1. Gancho de abertura | Mostrar a situação dolorosa da protagonista (casamento gelado, substituta, ignorada) | 5% | Opressão |
+| 2. Maus-tratos se aprofundam | A frieza/traição dele chega ao auge, evento de ferida decisivo | 10% | Revolta |
+| 3. Despertar | Ela decide ir embora (descobre a verdade, chega ao limite, ameaça de vida) | 10% | Dor → decisão |
+| 4. Partida e recomeço | Ela sai e começa vida/carreira independentes | 15% | Recompensa (alívio) |
+| 5. Arrependimento dele | Ele percebe a importância dela e a procura desesperadamente | 10% | Satisfação (vê-lo sofrer) |
+| 6. Carreira/crescimento | Ela se destaca num campo novo e interage com o segundo par | 15% | Recompensa (virada) |
+| 7. Vaivém | Ele pede para voltar várias vezes e é recusado; ela é firme | 20% | Recompensa (viradas repetidas) |
+| 8. Final | Aberto (cada um segue) / reconciliação (depois da transformação real dele) / trágico (tarde demais) | 15% | Liberação |
 
-**关键分析维度**
+**Dimensões de análise**: *profundidade da dor* (os maus-tratos iniciais são reais e geram forte senso de injustiça?); *força da virada* (o estopim da partida é forte e natural?); *ritmo da recompensa* (quantas vezes, em que intervalo e com que escalada ele tenta e é recusado); *independência da protagonista* (depois da partida tem arco próprio, em vez de passar de um homem a outro?); *dificuldade da redenção* (a reconquista é tão difícil quanto foi a ferida?).
 
-- **虐的深度**：前期虐待是否足够真实、有代入感，让读者产生强烈的不平
-- **转折的力度**：女主离开的导火索是否够有力，转折是否自然
-- **爽的节奏**：男主追悔和被拒的反复次数、间隔、升级方式
-- **女主独立性**：离开后是否有自己的成长线，不是从一个男人到另一个男人
-- **男主救赎难度**：男主追回的难度是否匹配前期的伤害程度
+### Visão de conto (três atos comprimidos)
+**Emoção central**: primeiro dor, depois recompensa; o homem arrependido e a mulher que não volta.
+**Ato 1: pressão (0-40%)**: a frieza/traição/descaso do marido, em eventos concretos (não resumo); a última concessão da esposa; o momento decisivo: não é choro e escândalo, é ir embora com calma.
+**Ato 2: explosão (40-75%)**: o marido descobre que ela mudou/foi embora (começa o arrependimento); a nova vida dela (sem lugar para ele); ele tenta recuperá-la e é recusado (ponto de virada); reviravolta-chave: só então ele entende o que perdeu (liberação da assimetria).
+**Ato 3: assentamento (75-100%)**: a "fogueira" dele (reconquista que falha ou súplica humilhante); a escolha final dela (final feliz: aceita com condições / final triste: nunca volta); golpe final: uma frase que define o tom.
+**Técnicas**: o "fogo" do arrependimento tem de ser grande: quanto mais dura a dor inicial, maior a recompensa; ela não pode voltar rápido, ao menos duas recusas; o arrependimento do ponto de vista dele pesa mais que a firmeza do dela; combinação de ganchos comum: assimetria + virada de quem se achava superior.
+**Distribuição (conto de 9 mil palavras)**: pressão 40% (3.600), explosão 35% (3.150), assentamento 25% (2.250).
+**Pontos de análise**: em que frase está o "momento de despertar" dela; quantas camadas de escalada no "colapso" dele; o final é feliz ou triste, e qual funciona melhor neste texto.
 
-### 短篇视角（压缩三幕）
+## 2. Segunda chance com vingança
 
-**核心情绪**：先虐后爽，后悔的男人 + 不回头的女人
-
-**三幕结构**
-
-**第一幕：建压（0-40%）**
-- 丈夫的冷暴力/出轨/忽视（具体事件，不是概述）
-- 妻子最后一次忍让
-- 妻子的决定性时刻：不是哭闹，是平静地离开
-
-**第二幕：爆点（40-75%）**
-- 丈夫发现妻子变了/走了（开始后悔）
-- 妻子的新生活（不给丈夫留位置）
-- 丈夫追妻但被拒（打脸点）
-- 关键反转：丈夫才知道自己失去了什么（信息差释放）
-
-**第三幕：落定（75-100%）**
-- 丈夫的火葬场（可以是挽回失败、可以是卑微求饶）
-- 妻子的最终选择（HE：有条件接受 / BE：彻底不回头）
-- 结尾一击：一句话定调
-
-**关键技法**
-- 火葬场的「火」要够大——前期虐的越狠，后期越爽
-- 妻子不能回头太快，至少被拒绝两次
-- 丈夫视角的悔恨比妻子视角的坚强更有冲击力
-- 常用钩子组合：信息差 + 打脸
-
-**字数分配**
-
-| 段落 | 占比 | 字数（1.5万） |
-|------|------|---------------|
-| 建压 | 40% | 6000 |
-| 爆点 | 35% | 5250 |
-| 落定 | 25% | 3750 |
-
-**拆文重点**
-- 看妻子的「觉醒时刻」在哪一句话
-- 看丈夫的「崩溃时刻」用了几层递进
-- 结尾是 HE 还是 BE？哪种在这篇里更有效？
-
----
-
-## 二、重生复仇
-
-### 长篇视角（8节点结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
+### Visão de romance longo
+| Elemento | Modelo |
 |------|------|
-| 开篇钩子 | 前世的惨烈结局（被背叛/被灭门/被害死） |
-| 核心冲突 | 重生后利用前世信息差，逐一复仇 |
-| 主场景 | 宅斗/宫斗/商战/校园，需要复杂的人际关系网 |
-
-**人物配置**
+| Gancho | O final cruel da vida anterior (traída/família destruída/assassinada) |
+| Conflito central | Depois de renascer, usa a assimetria sobre o futuro para se vingar um por um |
+| Cenário | Intrigas familiares, de corte, de negócios ou escolares: precisa de uma rede complexa de relações |
 
 ```
-女主：前世天真善良 → 重生后腹黑果断
-  - 金手指：前世记忆（知道所有人的底牌）
-  - 核心矛盾：要不要为了复仇变成和前世仇人一样的人
-
-反派层级：
-  - 小反派（3-10 章）：前世的低级迫害者，第一个被打脸
-  - 中反派（20-50 章）：前世的背叛者/利用者
-  - 大反派（全书）：前世的幕后黑手/终极仇人
-  - 关系：小反派通常是中反派的棋子，中反派是大反派的工具
-
-盟友/男主：逐步信任型
-  - 前世可能被女主误解/错过
-  - 功能：提供情感温暖 + 协助复仇 + 制造信任危机
+Protagonista: ingênua e boa na vida anterior → calculista e decidida depois de renascer
+  - Vantagem: memória da vida passada (conhece a carta de todos)
+  - Dilema central: virar igual aos inimigos da vida anterior por causa da vingança?
+Níveis de antagonistas:
+  - Menor (cap. 3-10): perseguidor de baixo nível da vida anterior, o primeiro a cair
+  - Intermediário (cap. 20-50): traidor/manipulador da vida anterior
+  - Final (livro todo): o mandante/inimigo máximo
+  - Relação: o menor é peão do intermediário, que é instrumento do final
+Aliado/par: confiança gradual
+  - Pode ter sido mal compreendido ou perdido na vida anterior
+  - Função: calor emocional + ajuda na vingança + crise de confiança
 ```
 
-**8节点剧情结构**
+| Nó | Conteúdo | % | Emoção |
+|------|------|------|------|
+| 1. Conflito central revelado | A verdade da morte anterior, ponto de renascimento | 5% | Choque/raiva |
+| 2. Consciência do retorno | Confirmar o retorno, organizar memórias, definir alvos | 5% | Expectativa |
+| 3. Vida passada e presente | Contraste entre cegueira de antes e lucidez agora, pequenos testes | 15% | Recompensa (assimetria esmagadora) |
+| 4. Vingança em camadas + novos problemas | Derrubar o menor, mas cada vingança revela conspiração maior | 25% | Recompensa ↔ suspense |
+| 5. Obstáculos múltiplos | Contra-ataque do intermediário, crise de confiança com aliados, nova informação desconhecida | 15% | Tensão |
+| 6. Golpe fatal do clímax | Plano e confronto final com o inimigo máximo | 15% | Recompensa (máximo) |
+| 7. Destino dos antagonistas | Cada um recebe seu castigo | 10% | Recompensa (catarse) |
+| 8. Nova vida | Vingança feita, a protagonista escolhe novo rumo | 10% | Cura/alívio |
 
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 核心冲突揭露 | 前世惨死真相，重生节点 | 5% | 震惊/愤怒 |
-| 2. 重生认知 | 明确重生，梳理前世记忆，确定复仇目标 | 5% | 期待 |
-| 3. 前世今生交织 | 对比前世被蒙蔽 vs 今世的清醒，小范围试探 | 15% | 爽（信息差碾压） |
-| 4. 逐层复仇 + 新问题 | 打小反派，但每次复仇揭露更大的阴谋 | 25% | 爽 → 悬念交替 |
-| 5. 多重阻碍 | 中反派反击、盟友信任危机、新的前世未知信息 | 15% | 紧张 |
-| 6. 高潮致命一击 | 对大反派的终极布局与对决 | 15% | 爽（最高潮） |
-| 7. 反派下场 | 仇人逐一得到报应 | 10% | 爽（宣泄） |
-| 8. 新生活 | 复仇完成，女主选择新的人生方向 | 10% | 治愈/释然 |
+**Dimensões**: *desenho da vida anterior* (cruel sem melodrama, com pistas reconstituíveis); *uso da assimetria* (como usa o conhecimento do futuro, e há variável nova que quebra o conhecido); *ritmo da vingança* (vinganças pequenas rápidas, médias lentas, grande no final); *arco* (mantém a humanidade ou vai ao extremo); *tecer passado e presente* (momento e forma dos flashbacks).
 
-**关键分析维度**
+### Visão de conto
+**Emoção central**: a recompensa de recomeçar com memória.
+**Ato 1: pressão (0-35%)**: ponto de renascimento (a que momento crítico volta); flash curto e pungente da vida anterior; a primeira escolha diferente; a primeira vantagem criada pela assimetria.
+**Ato 2: explosão (35-75%)**: desmontar os inimigos passo a passo (não de uma vez); ao menos dois grandes momentos de virada; os inimigos reagem e tudo falha; reviravolta-chave: uma verdade que a vida anterior não revelou (o retorno não é onisciência).
+**Ato 3: assentamento (75-100%)**: vingança final/virada definitiva; reparação do que ficou de arrependimento (fecha a linha afetiva); final: começo de uma nova vida.
+**Técnicas**: o retorno não pode ser fácil demais: precisa de variáveis "desta vez não é igual"; a virada vem em camadas: pequena → média → final; selecione os flashbacks da vida anterior, não despeje tudo; ganchos: assimetria + carta na manga + virada de quem se achava superior.
+**Distribuição (9 mil)**: pressão 35% (3.150), explosão 40% (3.600), assentamento 25% (2.250).
+**Pontos de análise**: a escolha do ponto de retorno (por que este momento?); eficiência do uso da assimetria (que informação foi usada, qual ficou guardada); ritmo das viradas (quantas, a que distância, que escalada).
 
-- **前世设计**：前世是否足够惨但不狗血，是否有可还原的线索
-- **信息差利用**：重生者如何利用前世知识，是否有新变量打破已知
-- **复仇节奏**：小仇快报、中仇慢磨、大仇压轴的节奏控制
-- **人物弧线**：女主在复仇中是否保持人性，还是走向极端
-- **新旧交织**：前世回忆的插入时机和方式
+## 3. Divórcio e traição
 
-### 短篇视角（压缩三幕）
+### Visão de romance longo
+**Emoção central**: traição, resignação e explosão no casamento.
 
-**核心情绪**：带着记忆重来一次的碾压爽感
+| Nó | Conteúdo | % | Emoção |
+|------|------|------|------|
+| 1. Maus-tratos/injustiça | Opressão cotidiana, descaso e injustiça no casamento | 10% | Sufoco |
+| 2. Escalada do conflito | Descoberta da traição / ser enganada / evento de dano grave | 15% | Choque → raiva |
+| 3. Ela sai | Decide pelo divórcio/término; processo difícil, mas firme | 10% | Dor → recompensa |
+| 4. Crescimento profissional | Reconstrói carreira e finanças depois de independente | 20% | Recompensa (crescimento) |
+| 5. O ex insiste | O ex/o infiel não aceita, e faz de tudo para atrapalhar | 10% | Tensão |
+| 6. Contra-ataque | Ela reage com lei, inteligência e recursos | 15% | Recompensa (virada) |
+| 7. Consequência | O destino do infiel e da terceira pessoa | 10% | Recompensa (catarse) |
+| 8. Nova vida | Novo amor/nova vida/novo eu | 10% | Cura |
 
-**三幕结构**
+**Dimensões**: *identificação* (a dificuldade conjugal é real, com detalhes que o leitor reconhece?); *força do despertar* (a virada de sair é forte, o leitor pensa "estava na hora"?); *credibilidade do crescimento* (de dona de casa a mulher independente, o processo é razoável?); *desenho da consequência* (o castigo corresponde à opressão do começo?); *tema social* (toca questões profundas de gênero, poder, lei?).
 
-**第一幕：建压（0-35%）**
-- 重生节点（回到哪个关键时刻）
-- 上一世的惨状闪回（简短但扎心）
-- 这一世的第一个不同选择
-- 利用信息差建立的第一个优势
+### Visão de conto (três atos)
+**Ato 1 (0-40%)**: a opressão concreta e a prova da traição; a última tentativa de salvar o casamento. **Ato 2 (40-75%)**: o infiel tenta controlar a situação; ela reúne provas em camadas (ao menos 3 revelações, nunca todas de uma vez); a prova "bomba-relógio" que ela preparou. **Ato 3 (75-100%)**: confronto com consequências, final com independência (e, se couber, um novo começo). **Técnicas**: provas liberadas em camadas e cada uma com preparação; o antagonista se gaba antes de cair; a protagonista tem um gesto de calma marcante; tratar com realismo, sem romantizar abuso. **Pontos de análise**: que prova é a mais letal e quando entra; se o diálogo de confronto tem "tribunal" (a protagonista pergunta → o outro se entrega).
 
-**第二幕：爆点（35-75%）**
-- 逐步拆解仇人（不用一次打倒，分步骤）
-- 至少两个打脸名场面
-- 仇人开始反击但全部落空
-- 关键反转：上一世不知道的真相（重生不是全知）
+## 4. Drama de costumes
 
-**第三幕：落定（75-100%）**
-- 最终复仇/终极打脸
-- 上一世遗憾的弥补（感情线收束）
-- 结尾：新生开始
+### Visão de romance longo
+**Emoção central**: o calor e o frio da convivência, a luta de quem está embaixo, a dignidade de gente comum.
 
-**关键技法**
-- 重生后不能太顺利，要有「这次也不完全一样」的变数
-- 打脸要分层：小打脸 → 中打脸 → 终极打脸
-- 上一世的闪回要有选择，不能全倒出来
-- 常用钩子组合：信息差 + 暗牌 + 打脸
+| Nó | Conteúdo | % | Emoção |
+|------|------|------|------|
+| 1. Entra o "figura" | O antagonista faz a primeira coisa fora do comum | 10% | Indignação |
+| 2. Opressão cresce | O antagonista piora; os demais ficam indiferentes ou cúmplices | 15% | Sufoco |
+| 3. Pressão máxima | O protagonista é levado ao limite, sem ajuda | 10% | Injustiça extrema |
+| 4. Primeira reação | Começa a resistir e vence uma pequena batalha | 15% | Recompensa (primeira) |
+| 5. Contra-ataque | O antagonista se junta a mais gente para pressionar | 10% | Tensão |
+| 6. Virada pública | Provas, lei ou capacidade viram o jogo em público | 15% | Recompensa (clímax) |
+| 7. Consequência | O antagonista recebe o castigo (lei/sociedade/causa e efeito) | 15% | Recompensa (catarse) |
+| 8. Quem faz o bem, recebe o bem | A vida volta ao eixo e as pessoas boas são recompensadas | 10% | Cura |
 
-**字数分配**
+**Dimensões**: *autenticidade do "figura"* (a maldade parte de fenômenos sociais reais, e o leitor pensa em alguém do seu círculo?); *intensidade do sufoco* (a opressão acumula emoção suficiente?); *meios de reação* (razoáveis e satisfatórios?); *cena da virada pública* (bem desenhada?); *alcance social* (toca em questões de lei, moral, instituições?).
 
-| 段落 | 占比 | 字数（1.5万） |
-|------|------|---------------|
-| 建压 | 35% | 5250 |
-| 爆点 | 40% | 6000 |
-| 落定 | 25% | 3750 |
+### Visão de conto
+Concentre o conflito numa cena simbólica (um jantar de família, uma reunião de condomínio, um velório) que expõe o antagonista; três atos: opressão repetida → virada com prova diante de todos → consequência e reparação. Diálogo oral, detalhes concretos de lugar e marca, pressão social real (dinheiro, imagem, relações).
 
-**拆文重点**
-- 重生节点的选择：回到哪一刻？为什么是这一刻？
-- 信息差的使用效率：哪些前世信息被用了？哪些被藏着？
-- 打脸节奏：几次打脸？间隔多远？强度递进如何？
+## 5. Fantasia de progressão e épica
 
----
+### Visão de romance longo
+**Emoção central**: as rixas e afetos de um mundo fantástico; escala grande, mas focada em sentimentos pessoais.
 
-## 三、小三/婚恋
+| Nó | Conteúdo | % | Emoção |
+|------|------|------|------|
+| 1. Chega o golpe | O protagonista sofre o golpe inicial e vai ao fundo do poço | 5% | Choque/dor |
+| 2. Conflito se aprofunda | A causa do golpe é mais complexa e envolve poderes maiores | 10% | Opressão |
+| 3. Primeira reação | Obtém a vantagem/oportunidade e faz a primeira demonstração de poder | 15% | Recompensa (primeira) |
+| 4. Maior crise | O inimigo supera de longe a força atual, risco de vida | 15% | Tensão extrema |
+| 5. Rompimento/crescimento | Rompe o limite na crise, salto de poder | 10% | Recompensa (virada) |
+| 6. Golpe fatal | Vitória decisiva sobre o inimigo da fase | 15% | Recompensa (clímax) |
+| 7. Ajuste de contas | Os inimigos recebem seu castigo | 15% | Recompensa (catarse) |
+| 8. Nova jornada | Um mundo maior e inimigos mais fortes abrem o próximo arco | 15% | Expectativa |
 
-### 长篇视角（8节点结构）
+**Dimensões**: *sistema de poder* (níveis claros, ritmo de evolução, força estável sem desabar?); *desenho da vantagem* (única, com limites, cresce com o protagonista?); *desenho de combate* (emocionante, estratégico, não só números?); *expansão do mundo* (mapa em camadas, novas regiões com novas regras?); *controle de ritmo* (ciclo "combate-treino-subida" regular?).
 
-**故事设定模板**
+### Visão de conto
+Um episódio completo de provação: dificuldade → vantagem → prova → recompensa clara. Regras estáveis; luta com estratégia e uma virada; ver `style-modules.md`, seção 19.
 
-| 要素 | 模板 |
+## 6. Espírito observador (narrador pós-morte)
+
+### Visão de romance longo
+**Emoção central**: olhar de quem já morreu: arrependimento, pesar, redenção.
+
+| Nó | Conteúdo | % | Emoção |
+|------|------|------|------|
+| 1. Maus-tratos em camadas | A protagonista é levada ao limite (emocional, física, social) | 20% | Opressão extrema |
+| 2. Morte | Morre em dor máxima: a maior virada do livro | 5% | Dor extrema |
+| 3. Começa o arrependimento | O par começa a notar anomalias depois da morte | 10% | Opressão → inquietação |
+| 4. Descoberta da verdade | Descobre em camadas a verdade (diário, objetos, depoimentos) | 20% | Dor |
+| 5. Mandante | Descobre o verdadeiro motor da tragédia | 10% | Choque/raiva |
+| 6. Castigo | Os agressores são punidos (lei/causa e efeito/colapso mental) | 15% | Recompensa + dor |
+| 7. Fechamento | Todos os atos são acertados | 10% | Liberação |
+| 8. Ressonância | Expiação pelo resto da vida / final aberto / reencontro em outra vida | 10% | Amargura sem resolução |
+
+**Dimensões**: *camadas de maus-tratos* (progressivas, cada uma com nova dimensão, sem repetição simples?); *desenho da morte* (a cena é o ponto mais comovente do livro?); *retrato do arrependimento* (real, o leitor sente junto?); *ritmo da revelação* (cada camada traz novo choque?); *efeito posterior* (o leitor termina com "amargura sem resolução" que gera conversa?).
+
+### Visão de conto
+A primeira frase já revela a morte (a maior bomba de informação). A alma vê a verdade de todos (assimetria natural); respeite a limitação (vê, mas não age); combine com "vulnerável" e "custo" (ver `hook-techniques.md`). Final em ressonância.
+
+## 7. Fantasia urbana de poder (equivalente ocidental da "alta arte marcial urbana": urban fantasy com progressão, estilo LitRPG)
+
+### Visão de romance longo (mapa em camadas)
+**Modelo de configuração**
+
+| Elemento | Modelo |
 |------|------|
-| 开篇钩子 | 发现伴侣出轨/婚姻中的重大不公 |
-| 核心冲突 | 婚姻破裂 → 女主觉醒 → 独立重生 → 惩恶扬善 |
-| 主场景 | 现代都市/现代家庭，需要强代入感的日常场景 |
+| Gancho de abertura | O protagonista está na base (estudante sem dinheiro, lutador amador) e **o dinheiro é o motor central** |
+| Conflito central | Subir lutando e ganhando dinheiro → entrar em níveis mais altos → enfrentar inimigos mais fortes |
+| Cenário principal | Mundo moderno + sistema de poder convivendo: escola, academia, liga/guilda, exército ou agência, várias linhas ao mesmo tempo |
 
-**人物配置**
-
+**Personagens**
 ```
-女主：家庭主妇/职场女性 → 觉醒后独立女性
-  - 共鸣点：为家庭牺牲却被辜负、社会对女性不公
-  - 成长弧线：隐忍 → 发现真相 → 痛苦 → 觉醒 → 独立
-
-渣男/出轨方：
-  - 类型：精神出轨/肉体出轨/转移财产/家暴/PUA
-  - 设计要点：渣的程度要递进，不能一开始就到极致
-
-第三者（选配）：
-  - 类型：绿茶/心机/知三当三/被蒙蔽
-  - 功能：催化矛盾、增加冲突复杂度
-
-支持系统：
-  - 闺蜜/家人/律师/新恋人 — 提供情感支持和实际帮助
+Protagonista: origem baixa → escala degrau a degrau → chega ao topo
+  - Motor: dinheiro ("sem dinheiro não se anda, com dinheiro se vence")
+  - Trajetória: escola → academia → liga local → agência/exército → liga nacional → escala global
+  - Vantagem: corpo/talento despertado, sistema ou herança: resolve o "por que ele consegue?"
+Coadjuvantes:
+  - colegas/companheiros de quarto (cotidiano, primeiro círculo social)
+  - mestre da academia/professor (mentor por fases, fornece recursos de treino)
+  - veterana/colega popular (porta de entrada da linha romântica)
+  - valentão/rival (antagonista de fase, degrau para subir)
+Níveis de antagonistas:
+  - valentão da escola/do bairro → organizações subterrâneas → culto/ordem sombria → forças transnacionais → chefe de outra dimensão
 ```
+**Banco de eventos por mapa**
 
-**8节点剧情结构**
-
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 虐待/不公 | 婚姻中的日常压迫、忽视、不公 | 10% | 憋屈 |
-| 2. 冲突升级 | 发现出轨/被算计/重大伤害事件 | 15% | 震惊 → 愤怒 |
-| 3. 女主离开 | 决定离婚/分手，过程艰难但坚决 | 10% | 痛 → 爽 |
-| 4. 事业成长 | 独立后的事业/经济重建 | 20% | 爽（成长） |
-| 5. 渣男纠缠 | 前夫/渣男不甘心，各种纠缠使坏 | 10% | 紧张 |
-| 6. 反击 | 女主用法律/智力/资源反击 | 15% | 爽（打脸） |
-| 7. 报应 | 渣男和第三者的下场 | 10% | 爽（宣泄） |
-| 8. 新生活 | 女主的新恋情/新生活/新的自我 | 10% | 治愈 |
-
-**关键分析维度**
-
-- **代入感**：婚姻困境是否真实、是否有读者能共鸣的细节
-- **觉醒力度**：女主离开的转折是否有力、是否让读者觉得「该走了」
-- **成长可信度**：从家庭主妇到独立女性的成长过程是否合理
-- **报应设计**：渣男下场的爽度是否匹配前期的憋屈程度
-- **社会议题**：是否触及更深层的性别/权力/法律问题
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：婚姻中的背叛、隐忍、爆发
-
-**三幕结构**
-
-**第一幕：建压（0-40%）**
-- 表面正常的婚姻（细节暗示裂痕）
-- 发现异常（蛛丝马迹，不是直接撞破）
-- 确认背叛（可以是直接证据，也可以是间接推断）
-- 妻子的第一反应（不是崩溃，是冷静）
-
-**第二幕：爆点（40-75%）**
-- 妻子暗中布局（收集证据/转移资产/找律师）
-- 和丈夫的表面周旋（戏剧张力：读者知道她在演戏）
-- 小三的挑衅（加速冲突）
-- 关键对峙或法庭/摊牌场面
-
-**第三幕：落定（75-100%）**
-- 解决（法律手段/公开揭露/经济独立）
-- 丈夫的下场
-- 妻子的新生
-- 结尾：不再是某某的妻子
-
-**关键技法**
-- 发现背叛的过程要有悬念（读者跟着一起找证据）
-- 妻子不能是傻白甜，要有策略和行动力
-- 小三要有存在感，不能只是符号
-- 常用钩子组合：信息差 + 暗牌 + 倒计时
-
-**字数分配**
-
-| 段落 | 占比 | 字数（1.2万） |
-|------|------|---------------|
-| 建压 | 40% | 4800 |
-| 爆点 | 35% | 4200 |
-| 落定 | 25% | 3000 |
-
-**拆文重点**
-- 发现线索的节奏：太快没悬念，太慢没耐心
-- 妻子的行动计划是否合理
-- 摊牌场面是否干脆利落
-
----
-
-## 四、世情
-
-### 长篇视角（8节点结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
+| Mapa | Eventos possíveis |
 |------|------|
-| 开篇钩子 | 反派做出超出常理的恶行/奇葩行为，引发强烈不平 |
-| 核心冲突 | 善良/正直者被欺压 → 反击 → 打脸 → 恶有恶报 |
-| 主场景 | 农村/小镇/社区/家族内部，需要熟人社会的压力环境 |
+| Escola | Turma de talentos, provas mensais, torneios, vestibular, duelo com o valentão, linha da colega popular, disputa por bolsa |
+| Academia | Ser notado, técnica herdada, duelo com veteranos, ligas municipal/estadual/nacional |
+| Segurança pública | Assaltantes, criaturas, instâncias, chefes na cidade |
+| Faculdade | Troca de escola, rivais mais fortes |
+| Liga/exército | Troca da academia, missões mais difíceis |
+| Espaço | Troca do país, expansão do mundo |
 
-**人物配置**
+**Dimensões de análise**: *linha movida por dinheiro* (todo objetivo se liga a dinheiro, de novo e de novo); *ligação entre mapas* (escola → faculdade → liga → exército → espaço, cada troca com personagem ou evento-ponte); *dados fracos no começo são normais* (o gênero costuma só decolar depois dos primeiros 100 mil palavras); *os três primeiros capítulos são o modelo de ouro* (mostrar a situação de baixo → ativar a vantagem → primeira demonstração de poder).
+**Exemplo mínimo**: Davi, 17 anos, entrega marmitas; o aluguel vence na sexta; ao socorrer um idoso na rua desperta o talento (vantagem); o "valentão da liga" aposta 5 mil num duelo; Davi aceita porque precisa do dinheiro, vence, e a vitória leva a um convite da academia: motor de dinheiro → vantagem → primeira vitória → porta do próximo mapa.
+**Erros comuns**: trocar de mapa matando todo o elenco antigo; mudar o ponto de comparação ("comum x extraordinário") para outro mundo e perder a identificação; dar ao protagonista um protetor tão forte que a crise some.
 
-```
-主角：老实人/善良人/被欺负者
-  - 共鸣点：被不公正对待的普通人
-  - 特质：隐忍但有底线，被逼到极限后爆发
+### Visão de conto (três atos comprimidos)
+**Emoção central**: a virada do pequeno: de sem dinheiro a com dinheiro, de fraco a esmagador.
+**Ato 1: pressão (0-35%)**: o aperto econômico e a situação de baixo (concretos, não resumo); a primeira humilhação por um forte ou rico; o gatilho da vantagem/oportunidade.
+**Ato 2: explosão (35-75%)**: a primeira evolução com a vantagem; esmagar, num confronto, quem antes o oprimia; surge um adversário mais forte, mas o protagonista já não teme.
+**Ato 3: assentamento (75-100%)**: resolver o principal adversário da fase; vitória de fase (dinheiro/posição/reconhecimento); gancho: sugerir um mundo maior.
 
-反派：奇葩/恶霸/极品亲戚/村霸
-  - 特质：无底线、不要脸、恃强凌弱
-  - 设计要点：恶得新鲜、恶得有创意、恶得让人咬牙
+## 8. Romance de milionário e romance doce (billionaire / sweet romance)
 
-围观群众：势利眼/墙头草/少数正义者
-  - 功能：制造社会压力、反衬主角处境、提供反转助力
-```
+### Visão de romance longo (cinco fases)
+**Modelo de configuração**
 
-**8节点剧情结构**
-
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 奇葩登场 | 反派做出第一件出格的事 | 10% | 气愤 |
-| 2. 欺压升级 | 反派变本加厉，周围人冷漠或助纣为虐 | 15% | 憋屈 |
-| 3. 压力顶峰 | 主角被逼到绝境，无人帮忙 | 10% | 极度不平 |
-| 4. 第一次反击 | 主角开始反抗，小胜一场 | 15% | 爽（初爽） |
-| 5. 反扑 | 反派不甘，联合更多人打压主角 | 10% | 紧张 |
-| 6. 打脸 | 主角用证据/法律/实力当众打脸 | 15% | 爽（高潮） |
-| 7. 报应 | 反派得到应有的下场（法律/社会/因果） | 15% | 爽（宣泄） |
-| 8. 善有善报 | 主角生活回归正轨，好人得到好报 | 10% | 治愈 |
-
-**关键分析维度**
-
-- **奇葩真实性**：反派的恶行是否基于真实社会现象、是否能让读者联想身边人
-- **憋屈强度**：前期的压迫是否足够让读者情绪积压
-- **反击手段**：主角的反击方式是否合理、是否让读者觉得解气
-- **打脸场面**：当众打脸的场景设计是否足够精彩
-- **社会意义**：是否触及更深的社会问题（法律/道德/制度）
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：人间冷暖、底层挣扎、小人物的尊严
-
-**三幕结构**
-
-**第一幕：建压（0-40%）**
-- 主角的困境（经济/家庭/社会关系）
-- 一个具体事件暴露困境
-- 周围人的态度（冷眼、嘲笑、偶尔的善意）
-- 主角的选择：忍还是争？
-
-**第二幕：爆点（40-75%）**
-- 冲突升级（事情变得更糟）
-- 关键人物的背叛或落井下石
-- 主角的反击（不一定成功，但有尊严）
-- 反转：看似输了，实际赢了某个更重要的东西
-
-**第三幕：落定（75-100%）**
-- 事情的解决（不一定是大团圆）
-- 人心的揭示（谁是真的好人）
-- 主角的成长或坚持
-- 结尾：留白或余韵
-
-**关键技法**
-- 世情靠细节，不靠大事件。一个眼神、一句话、一个动作就够了
-- 人物要真实，不能非黑即白
-- 反转可以是「以为坏人帮忙了」「以为好人背叛了」
-- 常用钩子组合：代价 + 弱者 + 反转
-
-**字数分配**
-
-| 段落 | 占比 | 字数（1万） |
-|------|------|-------------|
-| 建压 | 40% | 4000 |
-| 爆点 | 35% | 3500 |
-| 落定 | 25% | 2500 |
-
-**拆文重点**
-- 困境的真实感：读者信不信这个人真的会这样？
-- 细节的力量：哪些细节最扎心？
-- 结尾是开放还是闭合？哪个更适合这篇？
-
----
-
-## 五、仙侠/玄幻
-
-### 长篇视角（8节点结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
+| Elemento | Modelo |
 |------|------|
-| 开篇钩子 | 主角遭受重大打击（被废/被灭门/被逐出师门/丹田被毁） |
-| 核心冲突 | 从低谷崛起，一步步挑战更强的敌人 |
-| 主场景 | 修仙/玄幻世界，需要清晰的力量等级体系 |
+| Gancho de abertura | Encontro especial do casal; ele se interessa por ela |
+| Conflito central | Ele a corteja com status/riqueza → o afeto esquenta → resistência externa → resolução |
+| Cenário principal | Alta sociedade/negócios/família rica: a diferença de poder cria espaço para a "doçura" |
 
-**人物配置**
+**Estrutura em cinco fases**
 
-```
-主角：废材/落魄天才 → 逐步变强 → 最终登顶
-  - 金手指：特殊体质/远古传承/神秘系统/独特天赋
-  - 核心特质：不服输、有底线、重情义
-  - 成长节奏：每个境界对应一个阶段的故事
-
-反派层级：
-  - 同辈对手（1 卷）→ 长辈级敌人（2-3 卷）→ 宗门/势力 Boss（跨多卷）→ 天道/终极存在（全书终）
-  - 每层反派代表不同维度：个人恩怨 → 势力争斗 → 道义之争 → 命运之战
-
-导师/贵人：阶段性出场
-  - 功能：传授功法/指点迷津/关键时刻出手
-  - 设计要点：不能太强（抢主角风头），不能太弱（保不住主角）
-```
-
-**8节点剧情结构**
-
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 打击降临 | 主角遭受开篇打击，跌入谷底 | 5% | 震惊/悲愤 |
-| 2. 冲突深化 | 打击的原因更复杂，牵扯更大势力 | 10% | 压抑 |
-| 3. 第一次反击 | 获得金手指/机缘，第一次实力展示 | 15% | 爽（初爽） |
-| 4. 最大危机 | 敌人远超当前实力，面临生死存亡 | 15% | 极度紧张 |
-| 5. 突破/成长 | 危机中突破，实力跃升 | 10% | 爽（逆袭） |
-| 6. 致命一击 | 对当前阶段敌人的决定性胜利 | 15% | 爽（高潮） |
-| 7. 报应/清算 | 仇人得到应有的下场 | 15% | 爽（宣泄） |
-| 8. 新征程 | 更大的世界/更强的敌人揭开序幕 | 15% | 期待 |
-
-**关键分析维度**
-
-- **力量体系**：等级是否清晰、升级是否有节奏、战力是否稳定不崩
-- **金手指设计**：是否独特、是否有限制、是否随主角成长
-- **战斗设计**：是否精彩、是否有策略、不是纯拼数值
-- **世界展开**：地图是否逐层展开、新区域是否有新设定
-- **节奏控制**：升级节奏是否均匀、是否有「打怪-修炼-升级」的循环
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：修仙世界的恩怨情仇，格局大但聚焦于个人情感
-
-**三幕结构**
-
-**第一幕：建压（0-35%）**
-- 修仙世界的规则和主角的位置
-- 主角的困境（被压制/被冤枉/被背叛）
-- 仙侠特有的核心设定（与众不同的地方）
-- 导师/对手/盟友出场
-
-**第二幕：爆点（35-75%）**
-- 修炼/成长的关键转折
-- 和对手的第一次正面交锋
-- 更大的阴谋浮出水面
-- 关键反转：敌友难辨/师尊的秘密/大道的真相
-
-**第三幕：落定（75-100%）**
-- 终极对决（不只是打，要有策略和代价）
-- 核心矛盾解决
-- 仙侠特有的留白（飞升/轮回/归隐）
-- 结尾：可以开放
-
-**关键技法**
-- 仙侠短篇要把世界观压缩到最少，用事件带出设定
-- 修仙等级/功法名称不宜过多，3-5 个概念足矣
-- 核心冲突要落在「情」上（师徒情、道侣情、兄弟情），不是「力」上
-- 常用钩子组合：暗牌 + 反转 + 代价
-
-**字数分配**
-
-| 段落 | 占比 | 字数（1.5万） |
-|------|------|---------------|
-| 建压 | 35% | 5250 |
-| 爆点 | 40% | 6000 |
-| 落定 | 25% | 3750 |
-
-**拆文重点**
-- 世界观铺了多少？是否精简？
-- 情感线和修炼线如何交织？
-- 反转是否和世界观逻辑一致？
-
----
-
-## 六、死人文学
-
-### 长篇视角（8节点结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
-|------|------|
-| 开篇钩子 | 女主在极端压迫下（替身/被利用/被牺牲），层层加码的虐待 |
-| 核心冲突 | 女主死亡 → 男主追悔 → 真相层层揭开 → 报应 |
-| 主场景 | 豪门/古代贵族/娱乐圈，权力差极大化 |
-
-**人物配置**
-
-```
-女主：隐忍善良型 → 死亡（全篇转折点）
-  - 共鸣点：至死不渝的深情、被辜负到底的善良
-  - 关键设计：死后影响力远大于生前，用「缺席」制造最大的情感冲击
-
-男主：无情/冷漠/被蒙蔽型 → 追悔到极致
-  - 核心弧线：冷漠 → 女主死后空洞 → 发现真相 → 痛不欲生 → 终生赎罪
-  - 关键：后悔来得太晚，无法弥补
-
-真凶/幕后黑手（选配）：
-  - 制造男女主误会的真正推手
-  - 功能：增加反转、把恨从男主身上分一部分出去
-  - 设计：如果设计得好，可以减轻男主罪感但增加故事复杂度
-```
-
-**8节点剧情结构**
-
-| 节点 | 内容 | 字数占比 | 情绪方向 |
-|------|------|----------|----------|
-| 1. 层层虐待 | 女主被一步步推向绝境（情感/身体/社会地位） | 20% | 极度压抑 |
-| 2. 女主死亡 | 女主在极致痛苦中死去，全篇最大转折 | 5% | 极度悲痛 |
-| 3. 后悔开始 | 男主在女主死后开始发现异常 | 10% | 压抑 → 不安 |
-| 4. 真相发现 | 逐层发现女主生前的真相（日记/遗物/他人证词） | 20% | 痛心 |
-| 5. 幕后黑手 | 发现制造一切悲剧的真正推手 | 10% | 震惊/愤怒 |
-| 6. 报应 | 加害者得到应有惩罚（法律/因果/精神崩溃） | 15% | 爽 + 痛 |
-| 7. 因果终结 | 所有恶行得到清算 | 10% | 释放 |
-| 8. 余韵结局 | 男主余生赎罪/开放式结局/来世重逢 | 10% | 意难平 |
-
-**关键分析维度**
-
-- **虐待层次**：是否层层递进、每一层是否有新维度、不是简单重复
-- **死亡设计**：女主死亡场景是否成为全篇最催泪的高光
-- **后悔刻画**：男主的后悔是否真实、是否让读者感同身受
-- **真相揭露节奏**：真相的发现是否逐步推进、每一层是否有新冲击
-- **情感后劲**：读者读完后是否有「意难平」的余韵、是否能持续传播讨论
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：通过已逝之人的视角回望，追悔、遗憾、救赎
-
-**三幕结构**
-
-**第一幕：建压（0-35%）**
-- 死亡的事实（开篇即点明，或通过暗示逐步揭示）
-- 死者的视角/声音（怎么讲这个故事）
-- 死者最放不下的事/人
-- 生者的状态（不知道/假装不知道/崩溃）
-
-**第二幕：爆点（35-75%）**
-- 回忆和现实交叉（生前发生了什么导致这个结局）
-- 生者终于知道真相/生者永远不知道真相
-- 关键反转：死因不是表面那样 / 死者隐瞒了什么 / 生者也有苦衷
-- 最扎心的一刻：无法弥补的遗憾
-
-**第三幕：落定（75-100%）**
-- 死者的放手或执念
-- 生者的继续或崩塌
-- 最后的画面（安静、克制）
-- 结尾：一个意象或一句话
-
-**关键技法**
-- 死人文学的核心是「来不及」，所有技巧服务于这个主题
-- 视角选择：死者第一人称最有冲击力
-- 情绪要克制，不能煽情。越克制越扎心
-- 反转类型：死因反转、动机反转、时间线反转
-- 常用钩子组合：代价 + 信息差 + 弱者
-
-**字数分配**
-
-| 段落 | 占比 | 字数（1万） |
-|------|------|-------------|
-| 建压 | 35% | 3500 |
-| 爆点 | 40% | 4000 |
-| 落定 | 25% | 2500 |
-
-**拆文重点**
-- 死亡事实在第几句话揭示？早揭示 vs 晚揭示的效果差异
-- 情绪克制的手法：哪里没写比写了更重要
-- 结尾的意象选择：为什么是这个画面？
-
----
-
-## 通用拆文提醒
-
-| 检查项 | 说明 |
-|--------|------|
-| 题材识别 | 这篇属于哪个框架？有没有跨框架混搭？ |
-| 节奏比例 | 长篇：实际8节点占比和推荐占比差多少？短篇：三幕实际占比和推荐占比差多少？ |
-| 反转位置 | 反转在百分之多少的位置出现？ |
-| 钩子密度 | 每 2000 字至少一个钩子？ |
-| 字数效率 | 有没有废段落？哪些可以删？ |
-| 情绪落点 | 读完最后一句话是什么感觉？ |
-
----
-
-## 七、都市高武
-
-### 长篇视角（分层地图结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
-|------|------|
-| 开篇钩子 | 主角处于底层（穷学生/普通武者），钱是核心驱动力 |
-| 核心冲突 | 通过升级打怪挣钱 → 进入更高层级 → 面对更强敌人 |
-| 主场景 | 现代都市+武道体系共存，学校/武馆/武道厅/军部多条线 |
-
-**人物配置**
-
-```
-主角：底层出身 → 逐步攀爬 → 最终登顶
-  - 核心驱动力：钱（没钱寸步难行，有钱打遍天下）
-  - 成长路径：学校 → 武馆 → 武道厅 → 军部 → 中央武道厅 → 星际
-  - 金手指：觉醒体质/系统/传承，解决"凭什么你行"的问题
-
-配角层：
-  - 同学/室友（日常互动，前期主要社交圈）
-  - 武馆主/老师（阶段性导师，提供修炼资源）
-  - 师姐/校花（感情线入口）
-  - 校霸/对手（阶段性反派，升级垫脚石）
-
-反派层级：
-  - 校霸/市霸 → 地下势力 → 邪魔组织 → 跨国势力 → 外星/异界Boss
-```
-
-**分层地图事件池**
-
-| 地图 | 可用事件 |
-|------|----------|
-| 学校 | 天才班、月考、联考、高考、校霸对决、校花剧情、助学金竞争 |
-| 武馆 | 获赏识、传承武学、师兄对决、市/省/国联赛 |
-| 警局/治安 | 劫匪、邪魔、副本、城内Boss |
-| 大学 | 替换学校事件，对手升级 |
-| 武道厅/军部 | 替换武馆，任务升级 |
-| 星际 | 替换全国，世界观扩张 |
-
-**关键分析维度**
-
-- **金钱驱动线**：每个目标都要和钱挂钩，反复挂钩，没钱寸步难行
-- **换地图衔接**：高中→大学→武道厅→军部→星际，每次换地图要用过渡人物或事件连接
-- **前期数据弱是正常的**：高武题材10万字前数据偏弱，10万字后爆发是常态
-- **前三章是黄金模板**：展示底层处境 → 金手指激活 → 第一次实力展示
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：小人物的逆袭，从没钱到有钱、从弱到强的碾压感
-
-**三幕结构**
-
-**第一幕：建压（0-35%）**
-- 主角的经济困境和底层处境（必须具体，不是概述）
-- 第一次受到强者/富人的压制
-- 金手指/机缘的触发
-
-**第二幕：爆点（35-75%）**
-- 利用金手指获得第一次实力提升
-- 在某个对抗中碾压之前压制自己的人
-- 更强的对手出现，但主角已经不惧
-
-**第三幕：落定（75-100%）**
-- 解决当前阶段的主要对手
-- 获得阶段性胜利（金钱/地位/认可）
-- 钩子：暗示更大的世界
-
----
-
-## 八、霸总/甜宠
-
-### 长篇视角（五阶段结构）
-
-**故事设定模板**
-
-| 要素 | 模板 |
-|------|------|
-| 开篇钩子 | 男女主特殊相遇，男主对女主产生兴趣 |
-| 核心冲突 | 男主用身份/财富追求女主 → 感情升温 → 外部阻力 → 化解 |
-| 主场景 | 豪门/商界/上流社会，需要权力差制造甜宠空间 |
-
-**五阶段结构**
-
-| 阶段 | 内容 | 情绪方向 |
-|------|------|----------|
-| 1. 相遇 | 男女主产生交集，男主被女主某特质吸引 | 新鲜 |
-| 2. 追求 | 男主用身份/财富制造便利，闺蜜震惊羡慕 | 甜/爽 |
-| 3. 确认 | 女主心动，两人走到一起 | 满足 |
-| 4. 阻力 | 男主阶层的人反对/家族压力/前女友/商业对手 | 紧张 |
-| 5. 化解 | 共同克服阻力，感情升华 | 爽/治愈 |
-
-**人物配置**
-
-```
-男主：霸道总裁
-  - 核心特质：强势、专一、宠溺、有绝对能力解决女主的问题
-  - 甜宠来源：用权力/财富为女主做的事情，是读者代入的核心
-
-女主：人设有戏剧性
-  - 不能是纯花瓶，要有让男主"非她不可"的独特性
-  - 人设的戏剧性给整个故事带来新颖感
-
-阻力方：
-  - 家族长辈（门第观念）
-  - 前女友/青梅（制造危机感）
-  - 商业对手（给男主事业线压力）
-```
-
-**关键分析维度**
-
-- **甜的密度**：甜宠场景的密度和花样决定读者粘性
-- **宠的质量**：不是送花送礼的重复，而是"用别人做不到的方式对她好"
-- **阻力节奏**：阻力不能太强（虐了就跑偏），不能太弱（没有张力）
-- **女主独立性**：现代读者不接受纯依附型女主，需要有自己的闪光点
-
-### 短篇视角（压缩三幕）
-
-**核心情绪**：被强大的人无条件偏爱
-
-**三幕结构**
-
-**第一幕：建压（0-30%）**
-- 女主的困境（工作/生活/感情）
-- 与男主的相遇（意外/刻意）
-- 男主开始展现兴趣
-
-**第二幕：爆点（30-70%）**
-- 男主用各种方式宠女主（闺蜜震惊是标配）
-- 关键事件：男主为女主做的事超出预期
-- 第三方制造的危机被男主轻松化解
-
-**第三幕：落定（70-100%）**
-- 感情确认
-- 一个极致甜的场景收尾
-- 暗示未来的幸福
-
----
-
-## 九、同人流派
-
-### 核心机制
-
-同人 = 借用已有IP（小说/影视/游戏/动漫）的世界观和角色，写新故事。核心卖点是"如果在这个世界里有主角会怎样"。
-
-### 同人子分类
-
-| 类型 | 世界观来源 | 核心卖点 |
-|------|-----------|----------|
-| 红楼同人 | 红楼梦 | 用现代认知改造封建悲剧 |
-| 三国/水浒同人 | 古典名著 | 在已知英雄世界中改写命运 |
-| 战锤同人 | 战锤40K | 在黑暗残酷世界中崛起 |
-| 港综同人 | 港片宇宙 | 在经典港片世界中纵横 |
-| 漫威/DC同人 | 漫威/DC | 超级英雄世界中的本土主角 |
-| 游戏同人 | 各类游戏 | 在游戏世界中用玩家认知碾压 |
-
-### 同人写法要点
-
-- 读者大多是"云爱好者"：没看过原著的比看过的多，硬核不是必要条件
-- 爽才是第一要务：不要为了还原原著牺牲爽感
-- 时代设定可以简化：不需要完全忠于原作，适度改编不影响阅读
-- 同人的核心优势：自带世界观认知，省去大量铺设定的时间
-- 同人的核心风险：原著粉的考据和挑刺
-
-### "造反后方知"流派
-
-一种特殊的同人切入模式：主角在自己的世界做到巅峰后，才发现身处某个已知IP的世界。
-
-- 卖点：主角实力已经很强 + 发现世界真相的震惊 + 用已有实力碾压IP世界
-- 书名公式：[达成某成就]，方知是[某IP世界]
-- 市场规律：第一个吃螃蟹的吃红利，跟风的需要换皮差异化
-
----
-
-## 十、脑洞文
-
-### 核心机制
-
-脑洞文 = 以独特金手指/创意设定为核心卖点的小说，卖点不是题材而是"这个点子"。
-
-### 创作流程
-
-1. 获得点子（金手指雏形/画面/切入点）
-2. 判断点子潜力（有遐想空间 = 有潜力）
-3. 选择适配题材（先选熟悉的，再考虑跨界）
-4. 把点子加工为具体的情绪缺口或期待
-5. 设计金手指的"骨相"：满足什么条件 → 得到什么反馈
-6. 围绕金手指构建卖点→主线→框架→单元剧情
-
-### 金手指骨相分类
-
-| 类型 | 机制 | 示例 |
+| Fase | Conteúdo | Emoção |
 |------|------|------|
-| 条件触发型 | 满足X条件 → 获得Y反馈 | 摸尸得宝物、签到得奖励 |
-| 多条件阶段型 | 多个条件 → 阶段性升级 | 收集碎片、完成成就 |
-| 逆向型 | 失去X → 获得更强的Y | 越惨越强、负债越多越有钱 |
+| 1. Encontro | O casal se cruza; ele é atraído por uma qualidade dela | Novidade |
+| 2. Corte | Ele usa status e riqueza para facilitar a vida dela; amigas ficam chocadas/invejosas | Doçura/recompensa |
+| 3. Confirmação | Ela se encanta e os dois ficam juntos | Satisfação |
+| 4. Resistência | O círculo dele se opõe / pressão da família / ex / concorrente | Tensão |
+| 5. Resolução | Superam juntos e o amor cresce | Recompensa/cura |
 
-### 脑洞文写长的方法
-
-- 核心卖点确定后，用多套路交织循环的方式延续
-- 每个单元故事围绕一个套路展开，单元之间用主线串联
-- 一级结构循环：同一种模式反复但对象/场景/规模升级
-- 微创新方向：换世界观/换职业/换金手指形式/跨题材移植
-
-### 注意事项
-
-- 脑洞文最忌全盘照抄：跟风书和原书走同一世界观同一题材 = 必扑
-- 核心梗决定赛道和受众，盲目模仿跟风全扑
-- 一个新题材通常一年甚至几年才出现一次，出现后可以吃二到三年
-
----
-
-## 十一、凡人流
-
-### 核心特征
-
-凡人流 = 主角没有特殊天赋/背景，靠谨慎、机智、利弊权衡在残酷修仙世界生存。强调"普通人在残酷世界中的挣扎"。
-
-### 与传统升级流的区别
-
-| 维度 | 凡人流 | 传统升级流 |
-|------|--------|-----------|
-| 主角天赋 | 普通甚至低劣 | 天才/特殊体质 |
-| 金手指 | 微弱或没有 | 强力系统/传承 |
-| 行为逻辑 | 谨慎、算计、逃跑优先 | 热血、正面对抗、越级挑战 |
-| 核心爽点 | 靠智商和准备碾压强者 | 靠实力碾压 |
-| 节奏 | 慢热、细腻、伏笔多 | 快节奏、爽点密集 |
-
-### 副本切入公式
-
-不要硬接副本，用小配角带出小故事，再从小故事引出副本信息。
-
+**Personagens**
 ```
-小配角出场 → 小配角的故事 → 故事中透露副本信息 → 主角决定进入副本
+Protagonista masculino: o magnata
+  - Traços: forte, fiel, mimoso, capaz de resolver os problemas dela
+  - Fonte da doçura: o que ele faz com poder/dinheiro por ela é o centro da identificação do leitor
+Protagonista feminina: personagem com drama próprio
+  - Não é só enfeite: precisa de algo que o faça "não querer outra"
+  - O drama da caracterização traz novidade à história inteira
+Forças de resistência:
+  - família (valores de classe)
+  - ex / amiga de infância (crise)
+  - concorrente de negócios (pressão profissional dele)
 ```
+**Dimensões de análise**: *densidade da doçura* (quantidade e variedade de cenas doces definem a fidelidade do leitor); *qualidade do mimo* (não é repetir flores e presentes, é "cuidar dela de um jeito que ninguém mais consegue"); *ritmo da resistência* (forte demais desvia para o drama, fraca demais não gera tensão); *independência da protagonista* (leitores atuais não aceitam protagonista só dependente: precisa de brilho próprio).
+**Exemplo mínimo**: Marina, restauradora de livros, é a única a recusar vender ao empresário Ricardo um volume herdado; ele não "compra", mas passa a consertar pequenas coisas que ela não consegue (telhado da oficina, um prazo de entrega impossível); as amigas se espantam com o carro dele esperando na chuva; a família dele a trata com desprezo (resistência) até Marina expor uma falsificação que salva um negócio da família (resolução com mérito dela).
+**Atualização moderna**: protagonista independente; valor emocional mútuo; rival de nível social equivalente em vez da "falsa boazinha".
 
-### 关键分析维度
+### Visão de conto (três atos)
+**Emoção central**: ser preferida incondicionalmente por alguém poderoso.
+**Ato 1 (0-30%)**: o dilema dela (trabalho/vida/afeto); o encontro com ele (acidental ou provocado); ele começa a demonstrar interesse. **Ato 2 (30-70%)**: ele a mima de várias formas (amigas chocadas são padrão); evento-chave: o que ele faz por ela supera a expectativa; a crise criada por terceiros é desfeita por ele com facilidade. **Ato 3 (70-100%)**: confirmação do afeto; uma cena de máxima doçura para fechar; sugestão de felicidade futura.
 
-- **主角的谨慎必须真实**：不能嘴上说谨慎，行为上疯狂冒险
-- **利弊权衡是核心行为模式**：每个决定的逻辑都是"收益与风险"
-- **配角要有自己的利益考量**：不是为主角服务的NPC，是独立的行为主体
-- **伏笔和回收**：凡人流读者期待精巧的伏笔设计
+## 9. Demais gêneros (cada um com expectativa central, estrutura, armadilhas e mini-exemplo)
 
----
+### 9.1 Fanfic (fan fiction)
+**Mecanismo**: usar o mundo e os personagens de uma propriedade conhecida (livro, filme, jogo, anime) para uma história nova; atrativo central: "e se houvesse um protagonista novo nesse mundo?". **Subtipos**: universos clássicos (reescrever uma tragédia com percepção moderna), mundos épicos conhecidos (mudar o destino num universo que o leitor conhece), universos sombrios de guerra, universos de super-heróis (protagonista original num mundo de heróis), universos de jogos (esmagar com a lógica do jogador).
+**Pontos práticos**: a maioria dos leitores é "fã de passagem": muitos nunca leram o original, então fidelidade hardcore não é obrigatória; o prazer vem primeiro (não sacrifique a recompensa por fidelidade); a época/configuração pode ser simplificada; a grande vantagem do gênero é o mundo já conhecido, que poupa muita construção; o grande risco é a crítica de fãs do original (continuidade e canon).
+**Padrão "só depois de ficar forte descobre onde está"**: o protagonista chega ao topo do próprio mundo e só então descobre que vive dentro de uma propriedade famosa; atrativo: força já alta + choque de revelar o mundo + esmagar o universo com o que já tem; fórmula de título: [conquista], e só então descobri que era o mundo de [propriedade]; mercado: o primeiro a fazer colhe, quem vem depois precisa trocar a casca.
+**Estrutura**: ponto de divergência → consequências → novo equilíbrio. **Mini-exemplo**: uma estudante de enfermagem, depois de um acidente, acorda na casa de Hogwarts como enfermeira nova; o que ela sabe de primeiros socorros muda o destino de um aluno que no original morreria.
+**Armadilhas**: "redimir" personagens odiados pelos fãs; copiar o enredo canônico; esquecer direitos autorais (publicar comercialmente exige cuidado).
 
-## 十二、历史/架空历史
+### 9.2 Ficção de alto conceito ("ideia original")
+**Mecanismo**: o atrativo é a ideia/vantagem, não o gênero. **Fluxo de criação**: 1) obter a ideia (embrião da vantagem, imagem, ponto de entrada); 2) julgar o potencial (há espaço para imaginar? sim = potencial); 3) escolher o gênero (primeiro um que você domina, depois cruzar); 4) transformar a ideia em lacuna emocional ou expectativa concreta; 5) desenhar o "esqueleto" da vantagem: cumprir que condição → receber que retorno; 6) em torno da vantagem construir atrativo → trama principal → quadro → enredo de unidades.
+**Esqueletos de vantagem**: *por condição* (cumpre X → recebe Y: revistar um cadáver e achar um tesouro; check-in e prêmio); *por várias condições em fases* (juntar fragmentos, cumprir conquistas); *invertida* (perde X → ganha um Y maior: quanto pior, mais forte; quanto mais dívida, mais dinheiro).
+**Como esticar**: com o atrativo fixado, entrelace vários padrões; cada unidade gira em torno de um padrão e a trama principal as liga; ciclo de primeiro nível: o mesmo modelo se repete, mas muda o alvo, o cenário e a escala; microinovação: mudar mundo/profissão/forma da vantagem/transplante entre gêneros.
+**Mini-exemplo**: "toda vez que ela mente, um dos amigos mais próximos ganha uma pequena sorte": atrativo = mentir vira ato de generosidade; unidade 1: uma mentira cruel que salva um negócio, unidade 2: mentir para o chefe, e assim por diante; **armadilhas**: copiar a ideia de sucesso do mesmo mundo e do mesmo gênero (fracasso quase certo); um conceito novo costuma aparecer uma vez por ano ou a cada alguns anos e rende dois ou três anos de colheita.
 
-### 长篇视角
+### 9.3 Sobrevivente comum que ascende ("underdog" cauteloso)
+**Núcleo**: o protagonista não tem talento especial nem origem, sobrevive num mundo cruel por cautela, esperteza e cálculo de custo-benefício: "a luta de uma pessoa comum num mundo implacável".
 
-**故事设定模板**
-
-| 要素 | 模板 |
-|------|------|
-| 开篇钩子 | 穿越/重生到历史节点，面临已知的历史走向 |
-| 核心冲突 | 利用现代知识/信息差改变命运/历史 |
-| 主场景 | 古代朝堂/战场/市井，需要历史质感 |
-
-**子类型与写法**
-
-| 类型 | 核心卖点 | 写法要点 |
-|------|----------|----------|
-| 科举文 | 现代知识碾压古代考试 | 诗词装逼、仕途攀升、权谋 |
-| 军史文 | 现代军事知识改造古代战争 | 练兵、装备改革、以少胜多 |
-| 经营/种田 | 在古代搞经济建设 | 技术引进、商业帝国、改善民生 |
-| 国潮/非遗 | 展示传统文化魅力 | 盘点式装逼、民族自豪感 |
-
-**关键分析维度**
-
-- **历史感不等于考据**：大部分读者是"云爱好者"，爽感优先于还原度
-- **现代认知的信息差**：主角知道历史走向 = 最大金手指
-- **架空可以降低门槛**：不用完全忠于史实，适度架空更自由
-- **盘点+历史**：用盘点文的模式展示历史文化内容，共鸣感强
-
-### 短篇视角
-
-**核心情绪**：穿越者的信息差碾压 + 改变命运的爽感
-
-**三幕结构**
-
-**第一幕（0-30%）**：穿越到历史关键时刻，面临危机
-**第二幕（30-75%）**：利用现代知识/信息差解决问题，打脸质疑者
-**第三幕（75-100%）**：历史轨迹改变，主角获得新地位/新人生
-
----
-
-## 十三、文娱/娱乐圈
-
-### 核心机制
-
-文娱文 = 主角在娱乐圈/文艺界发展，核心爽点是"才华展示 + 围观者震惊"。
-
-### 子类型与市场现状
-
-| 类型 | 特点 | 现状 |
+| Dimensão | Sobrevivente cauteloso | Progressão clássica |
 |------|------|------|
-| 华娱 | 国内娱乐圈背景 | 主流，精品数量最多 |
-| 韩娱 | 韩国娱乐圈背景 | 小众，精品极少 |
-| 架空文娱 | 虚构娱乐圈 | 单女主居多，系统简单直接给奖励 |
+| Talento do protagonista | Comum ou pior | Gênio / constituição especial |
+| Vantagem | Fraca ou nenhuma | Sistema forte / herança |
+| Lógica de comportamento | Cautela, cálculo, fugir primeiro | Coragem, confronto direto, desafiar níveis |
+| Prazer central | Esmagar fortes com inteligência e preparo | Esmagar com poder |
+| Ritmo | Lento, delicado, muitas pistas | Rápido, recompensas densas |
 
-### 写作要点
+**Entrada em instância/missão**: não enfrente de cara; um coadjuvante pequeno traz uma pequena história e dela sai a informação da instância: `pequeno coadjuvante entra → sua história → a história revela a informação → o protagonista decide entrar`.
+**Pontos**: a cautela precisa ser **verdadeira** (nada de dizer cauteloso e agir como louco); cada decisão é "custo x risco"; os coadjuvantes têm interesses próprios, não são NPCs; plante e colha pistas com engenho: o leitor do gênero espera. **Mini-exemplo**: o contrabandista Tomás descobre uma rota perigosa; em vez de ir, pesa: quem mais depende dela, o que perde se falhar; envia primeiro um conhecido, observa a reação do guarda e só então decide.
 
-- 才艺展示 = 最核心的装逼场景：要写观众/评委/对手的反应链
-- 可以结合盘点文模式：用节目/比赛的框架串联才艺展示
-- 感情线在架空文中是重要补充：单女主保证内容厚度
-- 华娱的难点：读者对真实明星有预设立场，写好需要大量储备
-- 架空的解法：虚构明星，避免真人争议，自由度更高
+### 9.4 Ficção histórica e história alternativa
+**Modelo**
 
----
-
-## 通用题材选择原则（补充）
-
-### 有边界感 vs 无边界感题材
-
-| 类型 | 特点 | 适合人群 |
-|------|------|----------|
-| 有边界感 | 已有成熟受众、写法有迹可循 | 新人，容易出成绩 |
-| 无边界感/创新题材 | 受众不确定、写法需要探索 | 有经验的作者，吃先发红利 |
-
-### 题材生命力规律
-
-- 一个新题材/流派通常一年甚至几年才出现一次
-- 出现后第一批写的人可以吃二到三年的红利
-- 跟风的核心是学创意方向，不是抄剧情内容
-- 扑街作者想出成绩，一定要找到所写题材的边界感
-
-### 跨网站题材适配
-
-- 同一个题材在不同网站写法完全不同，由目标读者群体决定
-- 不能用A网站的成功经验直接套到B网站
-- AI推送时代读者群体更加细化，"大标签"不够用，要精准对标
-
----
-
-## 核心梗解析与运用
-
-> 三代核心梗理论（一代主题、二代题材核心、三代核心情绪）、偏离案例、悲剧命运改写法详见 `micro-innovation.md` 的"核心梗三代论详解"。
-
-### 核心梗的定义
-
-- 核心梗 = 金手指最核心的使用方式 + 读者最想看的爽点模式
-- 金手指是工具，核心梗是这个工具最有趣的使用方式
-- 例：贡献毒计（金手指运用方式）+ 震惊女帝/老朱（爽点模式）= 核心梗
-- 核心梗可以平替：女帝→朱元璋→嬴政，背景任意置换
-
-### 核心梗的每章循环检查
-
-每章必备要素（三选一）：
-1. 拥有核心梗相关的期待点
-2. 拥有核心梗相关的爽点
-3. 介于核心梗的期待点和对应爽点之间
-
-**断期待的判断**：某一章既没有核心梗的期待点也没有爽点，前一个爽点已结束，本身又没有拉起新期待感 → 读者觉得书失去了"灵魂"，开始弃书。
-
-**两种运转模式**：
-- 不断循环型：每个一级结构运行一次，变奏的是场景、对象、条件
-- 只运行一次型：围绕一个核心情绪分阶段推进。例：禁忌之恋→"自我认知→告白→发糖→隐藏→摊牌"五阶段
-
-### 核心梗的检验清单
-
-- 读者翻开这本书最想看什么？（核心梗）
-- 每个剧情单元是否都在展示核心梗？
-- 核心梗的爽点模式能否循环使用？
-- 有没有挂羊头卖狗肉（书名暗示的核心梗与实际内容不符）？
-- 全文每一章是否满足三要素（期待点/爽点/中间态）中的至少一个？
-
-### 拆书分析核心梗
-
-- 先明确该书的一代（主题）、二代（题材核心）、三代（核心情绪）
-- 分析该书的期待感和爽感分布，区分与核心梗相关和不相关的
-- 白金大神的书通常有2-4条核心梗融合，需逐层拆解
-
-### 核心梗常见误区
-
-| 误区 | 表现 |
+| Elemento | Modelo |
 |------|------|
-| 核心梗太多 | 什么都想写 = 没有核心梗 |
-| 立意不明确 | 连情绪目标都没有，文字干巴巴 |
-| 纯装逼打脸无主题 | 剧情本身没有意义 |
-| 核心梗用完不升级 | 生硬重复，读者审美疲劳 |
-| 挂羊头卖狗肉 | 书名暗示的核心梗与实际内容不符 |
-| 认知偏差 | 不理解理论时先用本能写"我觉得爽"，写完再拿理论印证 |
+| Gancho de abertura | Viaja/renasce num ponto da história e enfrenta um desfecho já conhecido |
+| Conflito central | Usar o conhecimento moderno/assimetria para mudar destino e história |
+| Cenário | Corte, campo de batalha, mercado, com textura histórica |
 
----
+**Subtipos e escrita**: *exames imperiais/concursos* (conhecimento moderno esmaga provas antigas; poemas, ascensão, intriga); *militar* (conhecimento militar moderno transforma guerras antigas: treino, equipamentos, vitória em desvantagem); *negócios/vida rural* (construir economia numa época antiga: tecnologia, império comercial, melhoria da vida); *cultura e patrimônio* (mostrar o charme da tradição, brilho por "lista" cultural, orgulho nacional).
+**Dimensões**: sensação histórica não é pesquisa exaustiva (leitor de passagem, prazer antes de fidelidade); a assimetria do conhecimento moderno é a maior vantagem; história alternativa reduz a barreira; combinar com "curiosidades" dá ressonância.
+**Visão de conto**: emoção central: a assimetria do viajante + o prazer de mudar o destino; ato 1 (0-30%): chega a um momento crítico e enfrenta uma crise; ato 2 (30-75%): resolve com conhecimento moderno e vira quem duvidava; ato 3 (75-100%): a trajetória histórica muda e o protagonista ganha nova posição. **Mini-exemplo**: um engenheiro cai na Veneza do século XV na semana em que o arsenal vai falhar; propõe uma prensa de parafuso que acelera a produção e é chamado à corte.
 
-## 事业线/爱情线设计
+### 9.5 Bastidores de entretenimento (cinema, música, esporte-espetáculo)
+**Mecanismo**: o protagonista cresce no mundo artístico; prazer central = "talento mostrado + espanto de quem assiste". **Subtipos**: indústria real (contexto de celebridades reais: mais difícil, exige muita bagagem e o leitor tem preconceitos sobre pessoas reais); indústria fictícia (celebridades inventadas, evitando polêmica com pessoas reais e dando liberdade, com heroína única e sistema simples).
+**Pontos**: a exibição de talento é a cena central da virada: escreva a cadeia de reações de público, jurados e rivais; use o formato de programa/competição como quadro para encadear exibições; a linha afetiva é um complemento valioso (heroína única dá espessura).
+**Estrutura**: oportunidade → provas públicas → rivalidades → escândalo → consolidação. **Mini-exemplo**: uma técnica de som anônima salva ao vivo o show de uma cantora famosa corrigindo uma falha e, no dia seguinte, a gravação viraliza: provas públicas → convite → rival ciumento.
 
-> 核心原则：事业线是长篇的骨架，爱情线是藤蔓。天花板取决于事业线的质量，但爱情线写好了能极大提升读者粘性。
+### 9.6 Horror de regras ("rules horror")
+**Mecanismo**: um ambiente com regras escritas (avisos, normas de um prédio ou hotel) e o terror vem de quebrá-las ou de descobrir que as regras se contradizem. **Expectativa central**: decifrar a lógica por trás das regras antes de ser punido. **Estrutura**: regras apresentadas → violação (própria ou alheia) → consequência → descoberta da lógica → sair ou virar o jogo. **Escrita**: regras curtas e concretas; ao menos uma regra falsa ou enganosa; as consequências são visuais e específicas; o final revela quem escreveu as regras e por quê. **Armadilhas**: regras demais sem cheiro de lógica; consequências arbitrárias; resolver por sorte. **Mini-exemplo**: o aviso "não atenda o elevador depois das 23h" é seguido por "atenda sempre que tocar"; o protagonista nota que um dos avisos foi escrito com outra caneta.
 
-### 事业线设计
+### 9.7 Saga longeva (imortal/"long life")
+**Mecanismo**: protagonista que vive muito e vê gerações passarem; o prazer central é o **tempo**: ver coadjuvantes envelhecerem, instituições mudarem e o próprio protagonista juntar conhecimento. **Estrutura**: arcos longos por época; cada arco troca elenco, cenário e dilema, mantendo uma linha de objetivo que atravessa os séculos. **Pontos**: o custo da longevidade (perdas, solidão); personagens de ligação entre épocas; mudança social como motor do ciclo; evite que a imortalidade elimine o risco (dê limites ou fragilidades). **Mini-exemplo**: uma botânica que não envelhece cuida do mesmo jardim por cinco gerações de uma família, e cada geração traz uma ameaça nova ao jardim.
 
-**事业线是升级线**
+### 9.8 Fantasia medieval e cavalaria
+**Núcleo**: reinos, ordens, juramentos, guerra; expectativa central: honra x poder, campanhas e intriga de corte. **Estrutura**: ordem inicial → conflito político → campanha → confronto decisivo → nova ordem. **Pontos**: coerência de poder e lealdades (feudalismo, juramentos que têm custo); um personagem cuja origem baixa colide com o sistema de classes; magia/religião com regras; batalhas com geografia e logística, não só heroísmo. **Armadilhas**: nobres bobos para o herói brilhar; juramentos sem consequência. **Mini-exemplo**: o escudeiro Elias jura lealdade a um senhor que sabe estar errado; o juramento custa-lhe a patente quando ele escolhe salvar uma aldeia.
 
-- 都市商业文：经商=修炼，事业线就是升级线
-- 学霸文：学习=修炼
-- 修仙文：修炼本身就是事业线
-- 无论什么题材，事业线的本质都是"主角从弱变强的过程"
+### 9.9 Comédia
+**Núcleo**: situações cômicas movidas por personagens; **estrutura**: plano → complicação → escalada → resolução absurda. **Pontos**: a graça precisa de lógica interna (absurdo coerente); a promessa do antagonista é aviso de queda; o humor vem do desejo, do preconceito e da teimosia dos personagens (ver `style-modules.md`, seções 1 e 24). **Mini-exemplo**: o síndico que jura que "ninguém nunca vai entrar de graça no clube" é flagrado por câmeras entrando pelo bueiro.
 
-**事业线的循环**
+### 9.10 Complementos de gêneros históricos e de entretenimento (aprofundamento)
+**Histórico em profundidade**: três núcleos: assimetria do conhecimento (o protagonista sabe o que vem), textura (detalhes de preço, comida, vocabulário) e risco de ser descoberto (o protagonista é "anacrônico"); para conto, concentre num evento histórico único.
+**Entretenimento em profundidade**: o centro é a cena de exibição em camadas (juiz, público, rival, crítico); alterne cenas de bastidor (relações) e de palco (exibição); o antagonista é um rival com carreira própria, não um vilão de papel; use "comparação" (o protagonista se compara a uma estrela e a supera por um traço específico).
 
-- 每个事业阶段要有明确的目标和对手
-- 完成一个阶段后，下一个阶段的难度要升级
-- 事业线的天花板决定了整本书的天花板
+### 9.11 Ficção curta de alto impacto emocional (histórias virais)
+**Núcleo**: tudo serve à emoção; o enredo é secundário e a execução vem primeiro. **Par emocional primário**: impotência/injustiça -> catarse (pose de poder ou raiva -> ajuste de contas); quanto mais forte a pressão, mais intenso o alívio, mas dosado.
+**Estrutura bilateral "forte + atormentado"**: um arcabouço completo = um lado de força + um lado de dor/contraste; olhar só a dor é impreciso. Modelo: `força oculta/prestigiosa + sofrimento de quem ama -> assimetria de informação máxima -> revelação`. Quanto mais o antagonista ignora o perigo e castiga, maior a assimetria e a emoção.
+**Conflito com lógica realista**: o conflito deve nascer de uma lógica plausível, para o leitor se identificar. *Mau*: o chefe diz do nada "não vou com a sua cara, vou te bater" (conflito solto, pressão por pressão). *Bom*: o chefe acusa o funcionário de entregar dinheiro falso (que ele próprio trocou), pois lucra com o golpe; o conflito nasce sozinho.
+**Três focos**: *uso de clichês* (iniciante segue o padrão dos antecessores, sem inventar); *ritmo* (corte diálogos e descrições inúteis, conte a história de modo simples e claro; ritmo rápido não é trama rápida, é continuidade, onda de prazer atrás de onda); *emoção* (decide se viraliza: comece reprimindo a emoção, quanto pior a situação do protagonista, maior a oscilação).
+**Assimetria de informação e expectativa**: assimetria máxima = expectativa máxima; a pressão serve à expectativa e é o que torna a revelação de identidade deliciosa. **Mini-exemplo**: uma general aposentada trabalha como faxineira de hospital; a filha é humilhada pela diretora, que ignora quem a faxineira é; o leitor sabe e espera pelo momento em que a diretora descobre.
 
-**没有事业线时怎么办**
+### 9.12 Gêneros sem mercado ocidental (omitidos)
+A ficção de "vizinhança de época" (siheyuan) não tem equivalente de mercado ocidental e não foi transposta.
 
-- 抽取一段具有广泛共鸣的人生主线（高中、大学最有效）
-- 将感情线当藤蔓依附在人生主干上生长
-- 高中和大学是共鸣最广泛的人生主线
-- 这也是为什么狗粮文基本都围绕校园写
+## 10. Princípios gerais de escolha de gênero
 
-### 爱情线/后宫线设计
+- Escolha pelo conhecimento e pelo interesse: o gênero em que você tem repertório de leitura e vida
+- Avalie público e concorrência; veja a "trilha" e a fronteira do gênero (ver `genre-trends.md`)
+- Teste a ideia num conto antes de se comprometer com um romance longo
+- Combine um gênero principal com um elemento de outro (um dá o tom, o outro fornece a vantagem ou a roupagem)
+- **Transição de trilha**: ao migrar de um gênero a outro, leve o que funcionava (emoção central, tipo de recompensa) e troque o cenário; não leve as convenções do outro gênero
 
-**后宫文的处理**
+## 11. Conceito central: definição, uso, ciclo e análise
 
-- 女主设定在开书前就设计好方向
-- 每个女主要有清晰的差异化特征（家庭背景、性格、与主角的关系类型）
-- 不能让读者觉得几个女主可以互换
-- 多女主间的关系要有化学反应，不只是跟主角的关系
+### 11.1 Definição
+Conceito central = o uso mais central da vantagem do protagonista + o padrão de recompensa que o leitor mais quer ver. A vantagem é a ferramenta; o conceito é o jeito mais divertido de usar essa ferramenta. *Exemplo*: dar conselhos de intriga (uso da vantagem) + chocar a imperatriz (padrão de recompensa) = conceito central; é **substituível**: imperatriz → rainha → rei, o cenário muda, o conceito fica.
 
-**女主差异化设计**
+### 11.2 Verificação por capítulo
+**Quebra de expectativa**: se um capítulo não traz ponto de expectativa nem de recompensa do conceito, a recompensa anterior já terminou e nada puxa expectativa nova, o leitor sente que o livro "perdeu a alma" e começa a abandonar. **Dois modos de rodar**: *ciclo contínuo* (a cada estrutura de primeiro nível roda uma vez, variando cenário, alvo e condições); *uma vez só* (em torno de uma emoção central, em fases: amor proibido: "autopercepção → declaração → doçura → esconder → confronto" em cinco fases).
 
-- 家庭圆满型 vs 缺爱型 vs 独立型
-- 不同女主与主角的关系起点不同（青梅竹马/偶然相遇/利益交换）
-- 每个女主有自己的故事线，不只是主角的附属品
+### 11.3 Lista de validação
+- O que o leitor quer ver quando abre este livro? (o conceito)
+- Toda unidade de enredo mostra o conceito?
+- O padrão de recompensa pode rodar em ciclo?
+- Há "vender uma coisa e entregar outra" (o título sugere um conceito diferente do conteúdo)?
+- Todo capítulo cumpre ao menos um dos três elementos (expectativa/recompensa/estado intermediário)?
 
-**稳定人设 + 固定流程 = 稳定期待**
+### 11.4 Analisar um livro pelo conceito
+Esclareça a 1ª geração (tema), a 2ª (núcleo do gênero) e a 3ª (emoção central); analise a distribuição de expectativa e recompensa, separando o que se liga ao conceito do que não; obras no topo costumam fundir 2 a 4 conceitos, que precisam ser desmontados camada a camada (ver `hook-techniques.md`, seção 15.6).
 
-- 爱吃醋的女主 + 其他女主偷家 = 读者永远爱看的场景
-- 框架固定但内容不同，读者预料到了也乐此不疲
-- 这套流程可以反复使用而不腻
-- 关键：每次的具体内容要不一样
+### 11.5 Erros comuns
+Confundir conceito com cenário; ter vários conceitos sem hierarquia; trocar de conceito no meio do livro; prometer no título um conceito e entregar outro. **Mini-exemplo de correção**: um romance de "casamento por contrato" cujo atrativo é a tensão dos dois fingindo; no capítulo 20 o enredo vira thriller de conspiração e os leitores saem: o conceito central foi trocado; correção: as conspirações passam a ameaçar a farsa do casamento.
 
-### 狗粮文的循环套路
+## 12. Desenho das linhas profissional e romântica
 
-**不能模仿升级文的突破模式**
+> Princípio: a linha profissional é o esqueleto do romance longo e a romântica é a trepadeira. O teto vem da qualidade da linha profissional, mas uma romântica bem escrita aumenta muito a fidelidade do leitor.
 
-- 牵手、接吻、上床是一次性的——写了一次，第二次就没感觉
-- 升级文可以反复"突破筑基->装逼->突破金丹->装逼"
-- 恋爱文不能"牵手曝光->装逼->接吻曝光->装逼"——越往后越别扭
+### 12.1 Linha profissional = linha de progressão
+**Como fazer**: em negócios, empreender é treinar (a linha profissional é a linha de nível); em histórias de estudo, estudar é treinar; em fantasia, treinar já é a linha profissional; em qualquer gênero, a essência é o processo de o protagonista ficar mais forte. **Ciclo**: cada fase profissional tem objetivo claro e adversário; terminada uma fase, a dificuldade da seguinte sobe; **o teto da linha profissional define o teto do livro**. *Exemplo*: empreendedora de padaria: fase 1 (abrir a loja), fase 2 (vencer o rival da rua), fase 3 (distribuir para supermercados), fase 4 (vender para a rede nacional).
 
-**正确的循环方式**
+### 12.2 Quando não há linha profissional
+Extraia da vida um trecho com ressonância ampla (ensino médio e faculdade funcionam melhor) e deixe a linha romântica crescer como trepadeira no tronco da vida; ensino médio e faculdade são as linhas de vida de ressonância mais ampla, por isso os livros de "doçura cotidiana" giram em torno da escola. *Exemplo*: um romance contemporâneo num semestre de intercâmbio: provas, repúblicas, estágio: o casal cresce dentro do calendário.
 
-- 学习短视频的固定流程重复拍模式
-- 每期送来的"狗"不一样（不同的情境和触发条件）
-- 稳定的人设组合 + 变化的情境 = 无限可用的套路
+### 12.3 Linha romântica e linha de múltiplos pares (romance com vários pretendentes/romantasy)
+**Como desenhar**: defina a direção de cada personagem antes de começar; cada uma tem traços diferentes (origem familiar, personalidade, tipo de relação com o protagonista); o leitor não pode achar que podem ser trocadas; a relação entre elas precisa de química própria; **diferenciação**: família completa x carente de afeto x independente; pontos de partida diferentes da relação (amiga de infância/encontro casual/troca de interesses); cada uma tem a sua linha, não é apêndice. **Adaptação ocidental**: em romantasy de "harém reverso" ou triângulos/quadriláteros, trate cada pretendente como arco próprio. **Modelo**: tabela de pares: *nome | função | ferida | forma de se aproximar | o que ele/ela dá à protagonista*.
 
-**感情升温的方法**
+### 12.4 Caracterização estável + fluxo fixo = expectativa estável
+A personagem ciumenta + outras "invadindo o espaço" = cena que o leitor sempre gosta; o quadro é fixo e o conteúdo muda: o leitor prevê e ainda gosta; o fluxo pode ser repetido sem cansar, mas cada vez o conteúdo concreto precisa ser diferente. *Exemplo*: toda quinta, a protagonista ciumenta descobre que a rival "por acaso" chegou antes ao evento; cada quinta, um evento novo (casamento, feira, formatura).
 
-- 不依赖身体接触的升级
-- 而是通过共同的困境、互相的理解、意外的发现来升温
-- 每次升温都要有触发事件
+### 12.5 Ciclos de "doçura cotidiana" (dog-food)
+**Não copie a lógica de progressão**: segurar a mão, beijar, dormir juntos são de uma vez só: na segunda vez, perde-se o efeito; a progressão repete "romper o nível → brilhar → romper o nível → brilhar", mas o romance não pode repetir "de mãos dadas → exibir → beijo → exibir" (quanto mais se avança, mais estranho). **Forma certa de ciclo**: aprenda com vídeos curtos de formato fixo e novos "cães" a cada episódio (situações e gatilhos diferentes); caracterização estável + situação variável = fórmula inesgotável. **Como esquentar a relação**: sem depender de contato físico, mas por dilemas partilhados, compreensão mútua e descobertas inesperadas; cada esquentada tem um evento gatilho.
 
-### 事业线与爱情线的平衡
+### 12.6 Equilíbrio entre linha profissional e romântica
+Reforçam-se: a profissional dá cenas e conflitos à romântica, e a romântica dá investimento emocional e preocupação à profissional: o melhor estado é as duas avançando entrelaçadas; **teto**: para romper o teto de desempenho, a profissional deve ser o tronco e a romântica o tempero; só romance sem linha profissional tem teto bem mais baixo; só linha profissional pode secar por falta de investimento emocional.
 
-- 互相促进：事业线为爱情线提供场景和冲突，爱情线为事业线增加情感投入和牵挂，最好的状态是两条线交织推进
-- 天花板：如果想要成绩的天花板突破，最终归宿是以事业线为主干，感情线为辅料。只有爱情线没有事业线，天花板会低很多。但纯事业线也可能因为缺乏情感投入而枯燥
+### 12.7 Trama principal é uma coisa, não "subir"
+Subir é só o ato de alcançar o objetivo; objetivo e ação separados: objetivo = enriquecer, ações = assaltar o banco/trabalhar/empreender; tratar subir como trama principal gera desvio de percepção e o livro "vai se entortando"; a trama principal verdadeira é uma coisa: um evento central que atravessa o texto; feita a grande trama, ou se abre a segunda por preparação, ou o livro acaba. *Exemplos*: "o noivado desfeito → vingar-se subindo à ordem rival" (treinar é ação); "curar um câncer" (o romance é ação); "voltar ao topo depois da demissão" (o que importa não é nível). **Trama principal de alto chamariz**: livro que não gira em subir: a abertura já é um evento (identidade exposta que desencadeia reação social); o núcleo da percepção tem de atravessar o livro e não pode desviar no meio.
 
-### 主线认知：主线是一件事，不是升级
+### 12.8 Técnicas de avanço da linha romântica
+**Puxar e empurrar**: avançar e afastar se alternam; só aproximar → é preciso empurrar → depois de empurrar não sobra o que escrever → o recurso se consome cedo; afastar não é terminar: é mágoa, esfriar, mal-entendido. **"Herói que salva"**: o modo mais eficaz de avançar a afinidade: o ato do protagonista na linha profissional salva a heroína sem querer; ele não corre atrás dela, faz o que tem de fazer e de passagem salva; ela passa a correr atrás dele (evita a sensação de "entrega grátis"); heroínas diferentes, dilemas diferentes, salvamentos diferentes, caminhos de paixão diferentes. **Mal-entendido**: "eu achava que era assim, mas não era": no romance, cria barreira e retarda; na virada, a modéstia do protagonista faz o outro achá-lo fraco → virada mais gostosa. **Evento "papel de janela"**: a afinidade muda, o estágio da relação muda: desenhe um evento em que uma das partes tem um salto de afinidade; com linha profissional em primeiro plano, ponha-o no pequeno clímax de uma estrutura de primeiro nível; com romântica em primeiro plano, no grande clímax de um volume.
 
-- 升级只是主角达成目标的行为，不是主线本身
-- 《斗破苍穹》主线是"被退婚羞辱→上云岚宗复仇"，修炼是实现目标的行动
-- 目标和行动要分开：目标是发财，行动可以是抢银行/打工/创业
-- 把升级当主线会导致认知偏差，越写越歪
-- 真正的主线更像是一件事：一个核心事件贯穿全文
-- 《电子女友》主线是"治疗癌症"，不是感情推进——感情是行动
-- 《全职高手》主线是"被辞退后重回巅峰"，不是升级
-- 大主线写完后，要么通过铺垫开启第二条大主线，要么完结
+### 12.9 Quatro fases da prática romântica
+Fase 1 *encontro casual*: mostrar aparência, personalidade, avaliações alheias, hábitos; fase 2 *coração acelerado*: surge afinidade, nota-se a existência do outro; fase 3 *ambiguidade crescente*: mais interação, relação sutilmente alterada; fase 4 *confirmação*: rompe a "janela" e formaliza. **Preencher a linha**: o romance se deduz mais para a frente do que para trás (ao contrário da profissional, que pode ser deduzida do clímax); em cada fase há vários nós, combinados com o modelo de primeiro nível; preencher com história não exige que cada cena empurre à fase seguinte: basta que combine com a fase atual. **Transições**: afinidade → fase da relação → fase da linha: as três se movem juntas; na transição, evento "janela" no clímax; saber o passado da heroína enriquece a linha, mas não avança a fase.
 
-**飞卢型高噱头主线**
+### 12.10 Regras do romance voltado ao público masculino
+- Não escreva romance de puxa-e-empurra: o romance feminino é de idas e vindas, açúcar e lâmina; o masculino não pode ter o protagonista correndo atrás e sacrificando-se (o leitor reclama); a essência da linha masculina é "fazer a mulher avançar": desconhecidos → conhecidos → íntimos → encontro a sós.
+- O leitor de hoje quer que a mulher dê afeto (lógica do "milionário" de romance feminino): o protagonista persegue a carreira → sem querer realiza o "herói que salva".
+- **Corrida atrás x entrega grátis**: entrega grátis = ela o ama sem motivo ao primeiro contato, não importa a distância de condição; correr atrás = o que ele fez na linha profissional gera afeto, e a lógica emocional se sustenta; a diferença é haver persuasão.
+- O objetivo real do leitor: receber o valor emocional que falta na vida real; mesmo quem tem namorada lê porque falta valor emocional; comportamentos de casal, mudança de atitude depois da ruptura de nível, etc.
+- **Vários pares x escolher um**: a estrutura do meio é a mesma (o protagonista passa por cada uma em ambiguidade sem confirmar até o final, quando fecha com todas ou escolhe uma); não confirme a relação com uma e depois conquiste a próxima (parece canalha, e as primeiras viram "a titular" e as seguintes "a outra"); contexto urbano contemporâneo, em geral "escolher um". **Três soluções para o confronto de rivais**: 1) passar rápido (briga contida: no máximo duas alfinetadas); 2) ligar à linha profissional (competem pela contribuição à carreira dele; a mais recomendada); 3) personagem "vítima" (a que sempre perde a vez porque o protagonista está ocupado, formando uma piada fixa). **Final de "escolher um"**: as pretendentes se declaram e ele escolhe: sugira final aberto: qualquer escolha gera reclamação, melhor não escolher.
 
-- 不是以升级为主线的书：开局就是一个事件
-- 如《过安检滴滴响，我满身枪伤被曝光了》——主线是身份曝光引发的社会反应
-- 这类书的核心观感必须贯穿始终，不能中途偏移
+### 12.11 Purificação da linha romântica em livros de linha profissional (regra "90/10")
+Em livro de linha profissional, o romance ocupa no máximo 10% e cada cena precisa servir a ela; só se escreve cena romântica se cumprir uma de três condições: 1) o romance ajuda ou atrapalha a carreira; 2) a pretendente é ajuda da carreira ou prêmio por concluí-la; 3) as relações da pretendente ajudam ou atrapalham a carreira. **A percepção central deve ser consistente**: a mesma vantagem pode gerar percepções diferentes (magia sem encantamento pode ser "superioridade" ou "treino que enlouquece"): desvio de percepção = desvio do conceito = leitor perdido; todas as histórias precisam ficar entre os pontos de expectativa e de recompensa do conceito. **Como inserir romance na linha profissional**: a heroína tem talento profissional e o protagonista participa com a vantagem; a origem familiar dela se liga à carreira dele (o pai dela é CEO de um estúdio); como em teatro, ponha dentro do "palco" conteúdo da carreira dela e o protagonista participa naturalmente.
 
-### 感情线推进技巧
+### 12.12 Paradigma de esboço
+**Três passos: esboço → detalhado → de capítulo**: *esboço*: defina o ponto de tempo e liste os eventos-chave na linha do tempo; *detalhado*: detalhe na linha do tempo, com datas e eventos; *de capítulo*: antes de escrever, planeje o conteúdo de cada capítulo. **Pontos**: não planeje o livro todo de início, fixe um ponto de tempo; o esboço é guiado pela linha profissional, mas a heroína precisa de forte ligação com ela; eventos de salto de afinidade não ficam no esboço, ficam no detalhado e no de capítulo; no cotidiano, a afinidade cresce com pequenos eventos encadeados, sem saltos. **Heroína e carreira**: cada heroína e sua família se ligam à carreira: cotidiano e carreira se misturam.
 
-**感情线的本质：关系拉扯**
+### 12.13 Prática de "doçura": dicas
+- Não comece a linha em fase de ambiguidade avançada (beijo de prêmio, vestir a camisa dele são ambiguidade tardia): comece por "como se conheceram → por que surgiu o sentimento → como o contato muda → choque de personalidades"; o erotismo é só expressão, não o centro.
+- **O detalhe da mudança emocional é o açúcar**: a heroína despachada, depois de gostar dele, passa a ter modos delicados: a mudança coerente com a personalidade por amor é o que satisfaz o leitor; não escreva "ela gostava dele"; mostre "ela, que nunca ligava para o cabelo, ajeitou a franja antes de abrir a porta".
+- **Expressão contida do casal**: olhares cruzados, close na expressão e atmosfera valem mais que descrição direta: "os olhares viravam fio"; trabalhe a mudança psicológica em passos.
+- **Palco**: transforme cenas interessantes em palco (fogos de artifício, acampamento, Natal, esqui, churrasco) e crie atmosfera + interação das caracterizações + contato íntimo: palco novo + caracterização estável + proximidade variável.
 
-- 推进和拉开交替进行，不能只拉近不扯开
-- 一直拉近关系→必须推→推了后面没得写→提前消耗完
-- 扯开关系不是分手，而是心有芥蒂/暂时冷静/误会阻碍
+### 12.14 Coadjuvantes e a linha romântica
+Toda caracterização de coadjuvante deve ajudar ou atrapalhar a linha profissional/romântica; não há "coadjuvante feminina imprescindível": só a protagonista precisa disso; rivais amorosas entram como antagonistas e precisam ser vencidas pela heroína; a ficção popular tem regras populares: coadjuvantes não podem roubar o centro. **Necessidades contraditórias do leitor de múltiplos pares**: alta exigência moral do protagonista (nada de hipócrita indeciso); não magoar nenhuma ("colecionar todas"); não confirmar com uma e continuar ambíguo com outra (seria traição); a heroína não o ama por dinheiro/posição; a heroína tem personalidade independente; a forma de reunir as pretendentes é razoável e preserva o jeito de cada uma. Seis condições que não se cumprem juntas: é preciso escolher.
 
-**英雄救美：最有效的推进手段**
+## 13. Lembretes gerais ao analisar livros
 
-- 男频最佳感情推进方式：男主在事业线上的行为无意间救了女主
-- 不是刻意去追女主，而是做自己的事顺便完成了英雄救美
-- 女主因此倒追男主，避免"白给"观感
-- 不同女主面临不同困境→不同的英雄救美→不同的爱上过程
+- Marque, por trecho, a emoção (dor, recompensa, acúmulo) e verifique se a distribuição é razoável
+- Ache os ganchos (ao menos dois, um deles de assimetria) e veja o nível de preparação antes de cada reviravolta
+- Verifique se a maior recompensa está entre 70% e 85% do texto
+- Veja o que é gênero (convenção) e o que é voz do autor (diferenciação)
+- Ao copiar a estrutura, troque o material: extraia a ficha de linha e a ficha de história (ver `outline-arrangement.md`, seção 24)
 
-**误会：制造拉扯的绝佳方法**
 
-- 误会的本质：我以为事情是这样的，但实际上不是
-- 感情线用误会：制造两人之间的隔阂，延缓关系推进
-- 装逼打脸也用误会：《都市修仙》主角谦虚→对方以为他真弱→打脸更爽
-- 经典案例：骨王的"我以为我很弱"、平平无奇大师兄的"以为师兄是天才"
+## 14. Eras da ficção: livre, de jogo e de vida cotidiana
+**Três eras**: *livre* (sem estilo fixo; inspiração de literatura tradicional e quadrinhos); *de jogo* (depois do modelo pago por capítulo: níveis + fases + chefes + instâncias + equipamento; a cobrança contínua exige guiar o consumo); *de vida cotidiana* (atual: mais história que subida de nível, com detalhes de vida, próxima da época, **anti-jogo**).
+**Obras de jogo** seguiram o processo de gamificação: níveis detalhados, instâncias completas, chefes em série. **Reformar para vida cotidiana**: faça o oposto do jogo, com os pés no chão e detalhes de vida; não é só "anticlichê": o anticlichê só troca o enredo de fórmula, e subir de nível e lutar continua na essência.
+*Exemplos de reforma por gênero*: **retorno da magia ao mundo atual**: sobretudo urbano, magia só um tempero; força não pode ser alta demais (a sociedade desmonta e a identificação cai); profissões de nicho (caçador de fantasmas, invocador com bichinhos, escritor/calígrafo) combinam mais; **segunda chance**: gente comum no dia a dia + ganhar pouco dinheiro para melhorar a vida + histórias típicas da época; chave: "ter lastro" para escrever os detalhes da vida.
 
-**窗户纸事件：阶段跨越的关键**
+## 15. Fantasia: três núcleos e ciclo de vida do gênero
+**Três núcleos**: *imersão* (dinastias de fantasia têm cinco mil anos de preparação, mais imersivas que o ciberpunk; o corpo que vira santo, soco a soco, imersiona mais que duelos de magia); *expectativa* (se a expectativa de um livro não desaba e atravessa o texto, a perda de leitores é lenta; quando o protagonista chega a um nível-chave ele "entra no período de fita adesiva" e tudo o que sofreu antes é cobrado); *aprovação* (o leitor se coloca no protagonista e aprova seus atos: ama o protagonista = fã fiel difícil de perder; o protagonista costuma ser "pode falhar no pequeno, jamais no grande").
+**Pontos de progressão**: sem forte opressão emocional nem forte pressão de crise; o sistema de evolução bem desenhado e o topo com estatura (a estatura do imperador e do artefato pesa até 30% no desempenho: se você faz um nível ter estatura, cada passagem do protagonista por ele vira grande recompensa).
+**Exemplo de "estatura de nível"**: no romance de fantasia, fazer o nível "Arquimago" ter estatura: três capítulos antes, vários personagens falam de como só um alcançou o cargo em um século; quando o protagonista o atinge, cada gesto dele é cobrado como feito histórico. **Ciclo de vida do gênero**: cada gênero novo cria um pico de leitura, mas um padrão escrito em um ou dois livros explode, atinge o pico e depois cai: leitores antigos cansam e os novos não bastam; superar o pico é muito difícil: exige transformar-se, e a transformação costuma falhar; **contramedida**: ache um ponto de entrada novo que chame a atenção: só o padrão já não basta.
 
-- 好感度改变→关系阶段变化→爱情线阶段变化
-- 设计一个"窗户纸"事件，一方好感度猛然提升
-- 事业线为主：放在一级结构的小高潮上
-- 爱情线为主：放在某一卷的大高潮上
+## 16. Ficção urbana: quatro elementos da ambiguidade, vantagem e conquista
+**Quatro elementos da ambiguidade** (a ficção urbana não vive sem ela; a ambiguidade lógica é o primeiro passo para prender): 1) **a mulher** (sem personagem feminina não há ficção urbana de público masculino); 2) **leveza** (o leitor busca prazer, sem drama pesado); 3) **interação** (entre personagens + o "segredo" entre leitor e protagonista: o leitor sabe, os outros do livro não); 4) **privacidade** (esconder a capacidade do protagonista, um segredinho só do leitor com ele).
+**Princípios da vantagem**: deve ter relação direta com a vida/profissão do protagonista, sem juntar coisas desconexas: médico + manual de medicina = razoável; médico + invisibilidade/parar o tempo = forçado; ligada à trama principal e evoluindo com o enredo; uma habilidade pode gerar efeitos diversos; não abra vantagens novas toda hora.
+**Exemplo de "quatro elementos da ambiguidade"**: numa comédia romântica de escritório: *mulher* (a colega nova), *leveza* (briga por causa da cafeteira), *interação* (o leitor sabe que o protagonista escreve o blog que ela adora), *privacidade* (só o leitor sabe). **Desenho da conquista**: o mais fascinante não é cena erótica, é o conflito de histórias criado pela diferença de personalidades do casal; **conquista > fluidez natural**; mude sem parar o "iceberg" a conquistar, mas sem mudar de uma vez: quando está quase mudado, volte de modo dramático: é o que mais rende conversa.
 
-### 爱情线四阶段实操
+## 17. Romance voltado a leitor masculino: barra de afinidade e assimetria
+O mais atraente é o processo de ambiguidade e puxa-e-empurra, não o resultado. **Barra de afinidade**: desconhecido → pessoa boa → pessoa boa, íntegra e corajosa → bom amigo → gosta, mas não percebe; cada evento é uma evolução, por conflito, resolução, compreensão e ressonância, e a afinidade cresce aos poucos. **Assimetria dos ritmos** (técnica central): duas linhas: *social* (desconhecido → amigo → casal → noivo) e *emocional* (afinidade interior); elas não andam juntas: a assimetria é contradição. *Emocional à frente*: afinidade máxima, mas nenhum se declara: dúvida e conjectura = tensão; *social à frente*: casamento arranjado, mas a afinidade dela é zero: o vínculo externo faz o sentimento esquentar. **Assimetria de informação**: identidade dupla (virtual x real), sem que se conheçam, e o leitor espera a reação ao desmascarar.
 
-**四阶段概述**
+## 18. Heroína única: duas linhas e família em quatro direções
 
-- 阶段一：萍水相逢——展示外貌、性格、他人评价、爱好习惯
-- 阶段二：怦然心动——产生好感，注意对方的存在
-- 阶段三：暧昧升温——互动增多，关系微妙变化
-- 阶段四：确认关系——突破窗户纸，正式确立
+*Exemplo de separação de linhas*: o protagonista quer abrir uma editora (linha profissional, objetivo final: ser o maior editor do país) e se aproxima da autora que a torna possível (romântica, objetivo final: ela aceitar o pedido); a editora só fecha o balanço no capítulo 80, mas o pedido de casamento é no 60; assim, quando a meta de uma é cumprida, a outra segue.
+**Separar as duas linhas**: afeto + carreira com o mesmo objetivo = ao atingir o objetivo a trama principal quebra e o livro vira "água". **Solução**: as linhas podem se entrelaçar, mas não se confundir, e os objetivos finais devem ser deslocados; o objetivo final da carreira deve ter forte relação com o protagonista e ser separado da conquista da heroína, e os nós intermediários podem impulsionar a conquista. **Família em quatro direções**: do lado dele/dela × ajuda/obstáculo = quatro combinações; *ajuda*: recursos e posição, atua antes do clímax e depois só vira cotidiano; *obstáculo*: meta a ser superada, serve antes e depois do nó e rende mais enredo. **Competidor = bagre**: pressiona o par e acelera, antes do clímax, na preparação; depois do clímax serve pouco.
 
-**填充爱情线的方法**
+## 19. Classificação de ideias (remissão)
+Os quatro tipos de ideia (vantagem, enredo, configuração, personagem) e as cinco fases de criação estão em `micro-innovation.md`, na seção "Quatro tipos de ideia e como desenvolvê-las".
 
-- 爱情线更多顺推而非逆推，不像事业线可以从高潮倒推
-- 每个阶段内有多个节点，结合一级结构模板设计情节
-- 填充故事不需要每个都奔着下一阶段推进
-- 只要符合两人当前关系阶段，落在节点范围内即可
+## 20. Escolha de trilha e transição suave
+**Estratégia para iniciantes: nicho + diferenciação**: não vá direto às trilhas de massa (fantasia épica/romance clássico): a concorrência é cruel e o iniciante sem vantagem de estilo dificilmente aparece; escolha uma trilha que já traga tráfego próprio e tenha pouca concorrência, de modo que mesmo mal escrito atraia alguns leitores; dentro dela, diferencie: se todos escrevem o treinador, escreva o criador: mercado vazio e destaque imediato. **Estratégia avançada: ampliar a trilha com suavidade**: o nicho logo atinge teto e gargalo; é preciso ampliar; não salte do gênero A para o B no livro seguinte (espanta os leitores antigos); o essencial: o livro novo e o antigo devem ter elementos que se sobreponham, mantendo os leitores antigos e atraindo novos. *Caminho de exemplo*: uma série animada de criaturas → versão urbana (sai da animação e atrai passantes) → versão urbana original (livre da restrição de fanfic) → versão de fantasia de domadores → fantasia pura; cada passo tem elementos de sobreposição. **Princípio da estabilidade**: renda de escritor é instável (um livro de grande sucesso e o seguinte sem garantia); primeiro estabilidade financeira, depois o sonho literário; ampliar a trilha é uma melhora segura, não uma aposta.
 
-**不同阶段的过渡**
+## 21. Diferenças entre públicos e comércio
+**Públicos de plataformas diferentes**: de leitura rápida: jovens, só querem prazer, sem miséria real; de leitura paciente: custo de filtro alto, leitores mais pacientes, aceitam ritmo lento; de leitores acima de 30: preferem histórias próximas do real, a vida que apanha é o normal. **Comércio = respeitar quem paga**: pode haver expressão pessoal, mas sem arrogância sobre o conjunto; comércio não é enojar o leitor de propósito, o que você publica deve ser algo que você mesmo leria. **Origem da emoção**: nasce da "injustiça" e do "por quê": tratamento desigual → o leitor naturalmente sente injustiça: é a raiz da emoção. *Exemplo urbano*: pequeno sucesso no trabalho → o pai quer abrir um negócio → a mãe quer comprar casa para o irmão → a sensação de injustiça nasce sozinha.
 
-- 好感度→关系阶段→爱情线阶段，三者联动
-- 过渡时设计"窗户纸"事件，在高潮中完成阶段跨越
-- 了解女主过往经历属于爱情线的补充丰富，不等于阶段推进
-
-### 男频感情线特殊规则
-
-- 男频不写拉扯式恋爱：女频感情线是分分合合、制造糖和刀，男频不能写男主追女人、为女人付出——读者会骂。男频感情线本质是推女：从陌生→认识→熟知→单独约会→牵手→接吻→发生关系，功利、直白，递进关系清晰
-- 现代读者的心态变化：现在男生普遍希望爱情里由女性来付出（类似女频霸总文的逻辑），不能再写男主追女人的情节。正确逻辑：男主追求事业→过程中无意间达成英雄救美→女主倒追。女主因为男主的行为而喜欢他，不是男主刻意讨好
-- 女主倒追 vs 白给：白给是女主一接触就无理由爱上男主，不管条件差距；倒追是男主之前在事业线上的行为让女主产生好感，情绪逻辑成立。区别在于是否有说服力的铺垫
-- 读者看感情线的真正目的：收获现实中缺失的异性情绪价值补偿。有女友/已婚的人也会看后宫文，因为现实缺乏情绪价值。CP行为、关系突破后的态度转变、展示给主角区别于他人的另一面——本质都是给予情绪价值。人设重要：某种人设里就有读者幻想的完美伴侣
-
-### 后宫与炒股的写法区别
-
-- 结构上的共性：后宫和炒股在中间写法上基本一致，都是男主和多个女主逐个进入暧昧阶段，但不确认关系，直到结局才确认关系（后宫全收/炒股多选一）
-- 后宫写法的注意事项：不能和一个女主确认关系后再攻略下一个——会显得渣男；先确认的女主和后确认的女主身份失衡，后者有"小三"嫌疑；现代都市背景默认炒股（一夫一妻），古代/玄幻可放开；大结局时一次性全部确认关系，或大结局前集体确认
-- 后宫修罗场的三种处理：
-  1. 一笔带过：《斗破苍穹》式——两个女人互相看不惯，最多嘲讽两句，克制处理
-  2. 关联回事业线：女主们争风吃醋→比谁对男主事业贡献更大→给事业线带来助力（最推荐）
-  3. 被害人设：给女主塑造"每次忙事业就被偷家"的被迫害梗，形成固定笑点
-- 炒股文的结尾：女主纷纷表白→男主多选一。建议开放性结局：不管选哪个都会被骂，不如不选
-
-### 事业线为主文中的爱情线处理（提纯思路）
-
-**九一开原则**
-
-- 事业线为主的文，爱情线最多占一成
-- 爱情线的每个情节都必须为事业线服务
-- 三个条件满足其一才能写爱情线情节：
-  - 爱情线为事业线带来帮助或阻碍
-  - 可攻略对象是事业线的助力或完成奖励
-  - 可攻略对象的人际关系为事业线带来帮助或阻碍
-
-**核心观感必须一致**
-
-- 同一个金手指也可以产生不同观感
-- 如"无咏唱魔法"可以是降维打击观感，也可以是练功发疯观感
-- 观感偏移 = 核心梗偏移 = 读者流失
-- 所有故事必须夹在核心梗相关的期待点与爽点之间
-
-**事业线中插入爱情线的方法**
-
-- 女主自身有事业天赋，男主通过金手指参与其中
-- 女主的家庭背景与男主事业线挂钩（如女主父亲是影视公司CEO）
-- 按舞台剧目写法：往舞台里塞女主事业线相关内容，男主自然参与
-
-### 创作大纲范式
-
-**三步走：大纲→细纲→章纲**
-
-- 大纲：敲定时间节点，按时间线罗列关键事件
-- 细纲：按时间线细化，标注具体日期和事件
-- 章纲：码字前根据细纲写具体章节内容规划
-
-**大纲设计要点**
-
-- 不要一开始就规划全书，先敲定一个时间节点
-- 大纲以事业线为主导，但让女主与事业线产生强联系
-- 好感度质变的大事件不要放在大纲层面，放在细纲和章纲
-- 日常文好感度应该是小事件串联的缓慢增长，不要猛增
-
-**女主与事业线的绑定**
-
-- 每个女主自身及背后的家庭都和事业线串联→日常与事业互相糅合
-
-### 狗粮文/感情线实操要点
-
-- 感情线不要从暧昧后期开始：香吻奖励、穿男主衬衫等属于暧昧后期阶段。开头要写：如何认识→为什么产生情愫→接触的变化→人设碰撞。涩涩只是表现，不是重点，重心放感情线设计
-- 情感转变的细节才是糖：女主大大咧咧→喜欢上男主后变得小女儿作态→这种转变才是狗粮。前后对比：符合人设但因爱做出微小改变→读者满足。不是直接写"她对他好"，而是写因爱而生的行为变化
-- CP含蓄表达的东方美学：眼神交织、表情特写、环境氛围烘托比直接描写更有效果。"眼神都在拉丝"——用笔力把这种拉丝感表达出来。分步骤循序渐进：心理变化→肢体接触（从牵手开始）→暧昧感。情报密度控制：一个有趣的转折场景胜过千字心理描写
-- 舞台写法：把有趣的场景当舞台：烟火大会、宿营、圣诞节、滑雪、烧烤。在舞台里营造氛围感+女主人设互动+亲密接触。新鲜的舞台 + 稳定的人设 + 变化的亲密接触 = 有效循环
-
-### 配角与感情线的关系
-
-- 所有配角的塑造必须有助于或阻碍事业线/爱情线发展
-- 没有不可或缺的女配——只有女主才需要追求不可或缺的作用
-- 情敌角色划进反派，必须被女主打倒
-- 通俗小说有通俗小说的规则，不能让配角喧宾夺主
-
-**后宫文读者的矛盾需求**
-
-- 对男主道德洁癖高，不允许优柔寡断的感情伪君子
-- 不能辜负任何一个女主的感情，应收尽收
-- 不能和其中一个确认关系后继续暧昧（坐实出轨）
-- 女主不是因为金钱地位爱上男主
-- 女主是独立人格，不能纯依附男主
-- 收后宫方式要合情合理，保留原汁原味人物性格
-- 这六个条件不可能全部满足，必须取舍
-
-## 卖报小郎君直播精华：题材解析
-
-- **无限流**：写游戏副本式结构（20-30章一个副本），每个副本自成一个完整小故事；同时设现实主线保底，副本之间用现实线串联，避免读者因单个副本无趣而弃书
-- **悬疑**：核心靠铺垫+氛围描写营造悬疑感，而非靠血腥暴力；平淡时抛世界观解密来维持好奇心，信息释放节奏要控好
-- **高武**：爽点相对单一（升级打怪），但新人可尝试，套路成熟不易翻车；可高仿成功作品的世界观架构降低创作门槛
-- **后悔流**：避免退婚等老套外衣，需要创新包装（如后悔的不是爱情而是事业选择、人生抉择），在老题材上找新切入点
-- **都市题材与感情线**：都市不写女主感情线，爽度直接减半；都市文的核心爽点之一就是感情互动
-- **影视改编倾向**：脑力解决型主角+剧情冲突强+武力相对弱的题材更受影视改编青睐（如大奉打更人、庆余年），武力值爆表的反而不易改编
-
----
-
-## 十四、规则怪谈
-
-### 题材定位
-规则怪谈是类无限流题材，玩家被抽入规则副本冒险求生。番茄长期有量的小分类，套路简单适合入门，但已非常卷。
-
-### 世界观框架
-绑定国运流+直播是性价比最高的设置：
-- 读者天生代入主角阵营
-- 多国玩家可展示 dead end，增加恐怖感+对比度
-- 直播间弹幕可用来调节节奏（不超过单章30%）
-
-### 副本构建流程
-1. 想好副本背景故事（校园暴力、分配不公、矿山灾难等"能闹鬼"的事）
-2. 把闹鬼现象用规则半真半假包装
-3. 设计主角通关线 + 数个 dead end 让炮灰认领
-4. 节奏：别人死 → 主角装 → 别人再死 → 主角再装 → 揭露背景 → 升华主题
-
-副本趋势越来越短，第一个副本4-5万字，第二个4-5万字。首秀11万字时第三个副本正好展开到一半，卡高潮拉追读。
-
-### 解题方向
-番茄主流不是智斗而是爽文——直接了当的爽，减少布局和伏笔。
-金手指内核是"力大飞砖"（无视规则与惩罚），但要包上合理外衣：战力超强 / 身份特殊 / 天赋异禀。
-
-### 开局技巧
-- 减少铺垫直接上：500字出主角+金手指+身份，500字国家骂战引动情绪，1000字写第一个危机
-- 第二三章：别人唱衰主角，炮灰以傻卵方式死去，唯主角屹立不倒
-- 书名必须包含"规则怪谈"关键词，直接说出金手指/特殊身份
-
-### 差异化方向
-- 女频可尝试双男主或感情线，当前蓝海
-- 扮演流怪谈：穿越成原神/崩铁角色进入怪谈，首秀可期，20万字快钱模式
-
-
-## 十五、长生流
-
-### 核心卖点
-时移世易、沧海桑田——主角长生不老，从苍茫大世抽离，看别人浴血搏杀而自己云淡风轻，经年后对方渴求的东西唾手可得。
-
-凡俗时期最好看：主角极端弱小，只有长生倚仗，外界风吹草动都有大影响。可套历史典故、名人故事，"观"配角一生。极短篇幅蕴藏极深信息量，一两章立一个角色再砍掉。
-
-### 天然缺陷
-一旦开始修仙就迅速拉跨：
-- 实力增长 → 身边出现同级别修士 → 寿元动辄五六百年 → "熬时间"对读者失去意义
-- 十块/一百块读者有感觉，一百万/一亿没感觉——百年千年的跨度读者没有切身体会
-- 不能再用"亲朋老死"衬托岁月沉重，不能用短时间翻转制造爽感
-- 长生文变成寻常修仙文，丢失"沧海桑田"内核，字数越长越难看
-
-起点数本万订长生文都难逃此坑，太监/烂尾。
-
-### 延续核心卖点的方向
-- 即使实力提升也要让主角面对"短寿"的对手，保持时间维度上的碾压感
-- 用代际传承：培养弟子 → 看弟子成长 → 看弟子老去
-- 分层世界：修仙界之上还有更高层，那里的存在寿元以万计，重新制造时间差异
-- 凡俗时期充分展开，不要急着让主角脱离——长生是唯一倚仗时才有味道
-
-
-## 十六、西幻/骑士文
-
-### 本质定位
-西幻 = 东方玄幻内核换皮。骑士是西幻最重要的元素，自带晋升属性（农奴可当骑士），是天然的力量体系骨架。
-
-西幻只是借了西方一层皮，核心写法可以搬用玄幻经验。推荐写 DND 式、巫师式、种田/历史向领主文等常青树题材，不要写日式奇幻（水平要求太高）。
-
-### 元素拼接论
-题材本质 = 元素拼接。元素 ≠ 金手指，元素 ≠ 频道分类。元素 = 读者感兴趣的东西 + 在网文里流行过的东西。
-
-例：签到流的元素是【苟+高强度收获+强期待感】，而非签到本身。两个割裂元素拼接（仙侠+科技）难度极高，要先自圆其说+制造趣味。
-
-### 骑士文开篇框架
-- 身份：从低位开始（马奴、铁匠学徒），出身卑微但不耻辱
-- 品质：凿壁偷光式的努力——国人喜欢的经典穷酸秀才品质
-- 主线：受人赏识 → 晋升途径 → 一步步往上爬
-- 金手指：提供保障但不是唯一倚仗，主角自身要有上进心
-
-### 低位开篇实操（铁匠案例）
-第一章不写冲突，写环境——用对话和细节把读者带入氛围。
-压力渐进：父亲病倒 → 矿石用完 → 揭不开锅 → 锻造任务繁重（小压力比大压力更容易写长）。
-
-金手指时机：主角先积极应对困境 → 能力不够 → 金手指来了 → 主角不是废物。
-留钩子：激活铸剑能力 → 指向骑士大剑 → 暗示晋升路线（铁匠→骑士侍从）。
-
-即时反馈：给出金手指后要有即时变化，粗劣→优良，把变化掺杂在故事里。
-
-### 不同题材不同写法
-- 东方玄幻：第一章只出现主角一人，节奏快，冲突驱动
-- 西幻：需要多角色登场，对话带氛围，节奏慢，环境驱动
-- 冲突型开篇（锦衣卫、美漫）：反转、拉扯、节奏快
-- 环境型开篇（铁匠、西幻低位）：流畅、丝滑、慢慢带过去
-
-### 阶层差写法
-不要花笔墨写平民和贵族的差距——所有人都知道，写多了烦躁。写平民之间也有差距——这才是有趣的，读者不知道的。
-
-让主角处于同一小阶层里的高位（如少爷书童 vs 家奴），增加趣味感和优越感。
-
-### 身份与行为匹配
-主角确定身份后，什么样的身份做什么样的事。马奴不配有道德，不能吼不能行动——等级不够格时强行表现会出戏。
-
-写任何高潮剧情前先问：主角目前的等级够不够格？
-
-### 强情绪开局陷阱
-不建议普通作者写强情绪开局：前面强行拉高情绪阈值，后面写不出超过阈值的内容，期待感反而下降。
-
-小压力开局（生活上的压力）更容易写长——冲突型开局需要不断加码，最后容易崩。
-
-
-## 十七、新媒体文
-
-### 核心原则：情绪第一
-新媒体小说一切为情绪服务，剧情为辅，写法第一。
-第一情绪对：不爽 → 装逼 / 愤怒 → 解气。
-压的越狠 → 释放越爽，但必须恰到好处。
-
-### 双向结构
-一个完整构架 = 强 + 虐（反差/矛盾）。单独看虐是不精确的。
-例：战神无人敢惹为国贡献 + 女儿在国内饱受折磨 → 双向 → 信息差拉满。
-反派越不知死活虐得越狠 → 情绪/信息差越高。
-
-### 矛盾展开手法
-矛盾必须源于现实逻辑，读者才能共情。
-反面：老板无缘无故说"我看你不顺眼要揍你" → 脱离现实 → 为压而压。
-正面：老板说你给假钱（其实真的被他换了）→ 老板靠这坑钱 → 矛盾自然构建。
-
-### 选题标准
-- 创作简单（都市题材背景要求低）
-- 易出成绩（读者基数多）
-- 有条件写到百万字
-都市题材最符合以上三点。
-
-### 创作三重点：用梗 + 节奏 + 情绪
-- 用梗：新手遵循前辈套路，不要搞特殊
-- 节奏：无用的对话砍，细节描写砍，先把故事讲简单明了
-- 情绪：决定能否爆款，开篇压抑情绪，主角多惨，情绪起伏关联性强
-
-### 信息差与期待感
-极致信息差 = 强烈期待感。信息差拉满 → 压感攀升 → 互补。
-压感服务于期待感，压越狠 → 期待越强 → 暴露身份时越爽。
-
-节奏快 ≠ 剧情快，而是整体连贯性，一波爽点接一波。
-
-
-## 十八、搞笑文
-
-### 两大核心原则
-1. 搞笑必须符合逻辑——不是神经病式胡闹，而是"规则之内"的出人预料
-2. 玩梗要化用内核——不是照搬热门梗，而是提炼梗的搞笑逻辑化用到小说中
-
-### 规则之内的出人预料 = 高级搞笑
-正确示范：移山填海把隔壁州经济城搬过来 → 逻辑：没被朝廷禁止 + 大修士确实常移山填海 + 确实能提升经济。
-正确示范：闯关用规则内的办法 → 不在主办方预料内 → 但确实符合规则 → 只能让通关。
-
-### 玩梗的正确方式
-硬玩梗不如不玩梗。网上什么梗火就写什么 = 无效。梗有生命周期，热度过去后读者只觉得尴尬。
-正确：理解梗为什么搞笑 → 提炼内在搞笑逻辑 → 化用到小说场景中。
-
-### 写作底线
-自己先觉得爽；主角身边的人无条件对主角好。
-搞笑文长期活力的关键 = 逻辑 + 化用梗，缺一不可。
-
-
-## 十九、四合院题材
-
-### 核心：情绪
-四合院原剧成功两大要素：矛盾冲突 + 人物塑造。
-年代天然矛盾 + 人物性格冲突 + 价值观冲突 + 情感冲突融合。
-人物塑造成功 → 尤其坏人角色 → 越坏越作 → 观众越带劲 → 严惩时越爽。
-
-核心 = 利用人设展开矛盾 → 调动情绪 → 满足释放情绪。
-
-### 开篇三法
-1. **代入感**：上帝视角盘点人物扣禽兽帽子 → 观点认可 → 读者感同身受
-2. **期待感**：书名直接写噱头故事 → 如"开局棒梗偷我钱我打断他手" → 首日数据最好
-3. **年代感**：抓住50-90年代社会特点 → 写出年代特有气息 → 温馨舒适 → 但难度大吃笔力
-
-### 情节设计
-一切围绕情绪 → 不断引出矛盾 → 加强冲突 → 越激烈越好。
-把原剧人物的缺点放大极端化 → 揍他们时读者越爽。
-人设一定不能变 → 你写的情节要能无缝融入原剧。
-长期人物别一棒子打死 → 起码虐两三回，50万字后再考虑。
-
-### 节奏把控
-详略得当 → 该简略一笔带过 → 该详细多细节刻画。
-离不开心理描写和动作神态 → 但谁的波动最大视角给谁。
-矛盾冲突要有逐渐拉高的过程 → 不能开头就最高潮后面全是小打小闹。
-
-
-## 二十、网文时代变革与生活化写作
-
-### 三个时代
-- **自由时代**（远古）：无固定风格，灵感来自传统文学/漫画
-- **游戏化时代**（收费制度后）：等级+关卡+BOSS+副本+装备，持续性收费需要引导消费
-- **生活化时代**（当前）：重故事轻升级，有生活细节，贴近时代，反游戏化
-
-### 游戏化代表作
-斗破苍穹 = 细化等级 + 完善副本 + 花式推 boss，顺应游戏化进程。
-中原五白全部在游戏化时代登顶。
-
-### 生活化改造的核心方法
-与游戏化对着来 + 接地气 + 有生活细节。
-不是简单反套路——反套路流只是换故事套路，升级打怪本质没变。
-
-### 各题材的生活化改造示例
-
-**灵气复苏流**：都市为主玄幻为辅，武力值不能太高（社会崩坏代入感弱）。小众职业（捉鬼师/召唤师+萌宠/书画小说家）更适合。
-
-**重生文**：小老百姓日常 + 赚小钱改善生活 + 时代特色故事。关键 = 肚子里有货，能写出生活细节。
-
-**竞技类**：赛场外细节 > 赛场上。选秀/转会/绯闻炒作 → 真实职业体验。
-
-**末日流（有限化末日）**：旧有社会体系崩溃即末日，不必大量死亡。核心卖点 = 身份地位改变 → 挖掘关系转变的代入感。
-
-**无限流**：低武世界循环 → 港片/美剧/国产剧 → 情怀驱动。不必升级，把世界本身写精彩。
-
-### 创作四维框架
-- **思想·形式**：有无思想内涵
-- **题材·风格**：是否发挥题材优势，还是元素化表象化
-- **组织·结构**：叙事手法/人物描写复杂度
-- **文本·工艺**：辞藻修饰/修辞手法
-
-小白文不一定贬义——四项全白直接扑，善于运用会有出色效果。
-
-
-## 历史文深度补充
-
-### 核心立场："基于民族主义的圣主平等"
-- 民族主义一条路走到黑，即便走到民粹也不会有大问题
-- 不能往民族平等走，番将要当宠物来写
-- 圣主：主角必须悲天悯人，符合仁义礼智信，仁义换来忠诚/感化他人
-- 平等 = 主角"赐予"的平等，本质是世界作为主角的附属
-- 前后立场摇摆 = 严重割裂 → 追订暴跌
-
-### 历史网文 ≠ 历史
-任何历史小说只要出现与时代格格不入的穿越者，就已经不是历史，变成了传奇故事。
-三国演义不是历史，水浒传更不是历史。流传广泛不是因为真实，而是满足人们对历史精神渴求的变种。
-以读者为第一要素，不是以历史真实为第一要素。历史传奇故事不应放在历史研究的放大镜下考究。
-
-### 主角视角的三种装饰（替代底层逻辑）
-长篇中小人物戏剧性不能支撑几百万字，三种装饰覆盖底层逻辑：
-1. 打压豪强一切都会好
-2. 科举提拔寒门一切都会好
-3. 军事胜利一切都会好
-
-三种装饰核心是同一种 → 培养属于自己的"宠物"：百姓感恩 / 寒门效忠 / 下层军官脱颖而出。
-
-### 历史人物评判红线
-一切评判都要跟随当代权威共识，尤其是教员的评判，不要逾越。
-知识丰富的作者要克制表达欲——黑料抖出来 → 道德压力 → 历史人物被迫走向反面。
-去抖音多看历史视频，强迫忘掉一手史料中的争议内容。
-
-### 爽感阈值管理
-前期家族/势力升级过快 → 爽感阈值到巅峰 → 后续难以为继。
-这是升级流的变种问题，应当避免前期拔高太快。
-
-
-## 玄幻进阶补充
-
-### 三大核心
-- **代入感**：玄幻王朝比赛博朋克代入感强百倍，有五千年历史铺垫；肉身成圣拳拳到肉比斗法对波好代入
-- **期待感**：一本书期待感不崩，贯穿全文，读者流失就很慢。韩立结婴 = 进入胶带期，前面受的气统统找回
-- **认同感**：读者代入主角，对主角行事认同，爱上主角 = 死忠粉极难流失。起点主角一般"小德可缺大义不能失"
-
-### 升级文要点
-- 不要有强情绪压迫和太强危机压迫
-- 升级体系设定要做好，顶端战力境界要有逼格
-- 遮天大帝和帝兵的逼格占成绩三成——把某个境界逼格设好，单主角突破这个境界就是巨大爽点
-
-### 题材生命周期
-每一个新题材出现都会引起阅读高峰，但一个套路写一两本后会有爆发，爆发巅峰后同套路下降——老读者疲惫 + 新读者不够。
-突破甚至超越巅峰很难，需要转型但转型扑死概率极大。
-对策：找到新颖的切入点吸引眼球，纯粹靠套路已经不够了。
-
-
-## 都市文进阶补充
-
-### 暧昧四要素
-都市文不能离开"暧昧"——合乎逻辑的暧昧是抓人眼球的第一步。
-1. **女人**：没有女人的都市文不是都市文（男频）
-2. **轻松**：读者图轻松愉悦，不写苦大仇深
-3. **互动**：角色间互动 + 读者与主角的"秘密"互动（读者知道但书中其他人不知道）
-4. **私密**：隐藏主角能力，只有读者和主角之间才有的小秘密
-
-### 金手指设定原则
-必须与主角生活/职业息息相关，不要把风马牛不相及的东西联系在一起。
-医生配医术秘籍 = 合理；医生配隐身时间暂停 = 牵强。
-金手指跟主线有关，随剧情发展技能能升级。可以一个技能衍生不同效果，不要频繁开新金手指。
-
-### 征服感设计
-最抓人眼球的不是肉戏，而是男女主性格差产生的冲突故事。
-征服感 > 水到渠成的顺畅感。不断改变征服冰山，但不能一次改变彻底——改到差不多又戏剧化背道而驰，更令人津津乐道。
-
-### 双视角技巧
-写读者能看见但女主看不见的内容。让读者和男主同时分享秘密 → 促进高潮时爽快感。
-
-
-## 文娱文进阶补充
-
-### 金手指模糊化
-先知性（重生预知）前期帮助腾飞，后期制约越来越大——与主角创造出的"新未来"冲突。
-解决：模糊化处理。用"梦"的方式在关键时刻完成剧情自洽。
-核心：金手指最大作用不是让主角行为合理，而是让读者觉得合理。
-
-### 配角情景剧理论
-不停推主线（一部电影接一部电影）→ 书的寿命非常短。主线之间必须填充有趣剧情，日常是为了丰富配角性格。
-情景剧 = 把日常设定在某个空间里，几个角色产生化学反应。用4-5个梗串联一段3000字的日常。
-读者说"水"没关系，你自己不能觉得是在水——日常是在给配角添骨肉。
-
-### 共情反差法
-角色可以高高在上，但不能让读者产生距离感。所有角色身上必须有一份普通人的特质。
-反差 = 窥探欲。众王之王微服私访在小摊吃面接旁人递来的蒜 → 比高端聚会侃侃而谈更打动人。
-都市娱乐文本质 = 帮读者放大不切实际的想法在书里完成，帮他们做一场足够美的梦。
-
-
-## 男频恋爱文进阶补充
-
-### 好感度进度条
-恋爱文最有吸引力的是暧昧拉扯的过程，不是在一起的结果。
-设置"好感度进度条"：路人 → 好人 → 正直勇敢的好人 → 不错的朋友 → 喜欢但不自知。
-每一个事件都是一次"升级"，通过冲突/化解/理解/共鸣，好感度一点一点攀升。
-
-### 感情升级的不对称性（核心技巧）
-两条进度线：
-- 表面社会关系进度：路人 → 朋友 → 情侣 → 订婚
-- 实际情感关系进度：内心好感度
-
-这两条线不应齐头并进，一条快一条慢 = 不对称性 = 矛盾冲突。
-- 情感线快于社会线：双方好感拉满但不肯表白 → 内心挣扎揣测 = 情节张力
-- 社会线快于情感线：穿越自带老婆但女方好感为零 → 外界羁绊绑定 → 推动情感升温
-
-### 信息差拉期待
-男女主双重身份（网络身份 vs 现实身份），彼此不知情 → 读者期待揭开马甲时的反应。
-双重身份打破固有刻板印象，看到对方不为人知的另一面。
-
-
-## 单女主文进阶补充
-
-### 双线分离
-感情线 + 事业线 = 同一目标 → 目标实现 → 主线断 → 看着水。
-解决：事业线和感情线可以交织但不能混淆，最终目标必须错开。
-事业线最终目标要与男主强相关且与攻略女主分离，中间节点可以对攻略女主起推进作用。
-
-### 亲情线四个方向
-男方/女方 × 助力/阻力 → 四种组合。
-- 助力：提供资源地位，高潮前发挥作用，高潮后只能写日常
-- 阻力：设置需克服的目标，节点前后都能用，可水较多剧情
-
-### 竞争者 = 鲶鱼
-定位 = 给男主/女主上压力推进度，放在高潮节点前，属于铺垫。对高潮后续写剧情作用不大。
-
-
-## 脑洞分类法补充
-
-> 四类脑洞（金手指/剧情/设定/角色）及创造五阶段详见 `micro-innovation.md` 的"脑洞四类与开发方法"。
-
-
-## 赛道选择与丝滑转型法
-
-### 新人策略：赛道小众化+区别化
-不要直接冲仙侠/玄幻等大众赛道——竞争残酷，新人没文笔优势很难出头。
-选择自带读者流量但竞争少的赛道，哪怕写得烂也有几个读者点进去。
-在选定赛道内再做区别化：别人都写训练家你写培育家 → 空白市场直接出圈。
-
-### 进阶策略：丝滑赛道扩宽
-小众赛道很快达到上限和瓶颈，需要扩宽赛道。
-不能前一本写A题材后一本直接跳B题材——明牌赶走老读者。
-关键：新作与老作要有"重叠性"要素 → 保留老读者 + 吸引新受众。
-
-案例路径：动画宝可梦 → 都市宝可梦（跳出动画吸引路人）→ 都市原创御兽（脱离同人限制）→ 仙侠御兽 → 纯仙侠。每一步之间有重叠要素，最大限度减少读者流失。
-
-### 稳住别浪原则
-网文收入不稳定，上一本四万订，下一本可能万订不稳。
-先财务自由再追文学梦。赛道扩宽是稳健的提升，不是豪赌。
-
-
-## 飞卢市场专题
-
-### 飞卢读者画像
-- 年龄偏小，偏宅系但不软宅，更偏爱热血装逼类
-- 喜欢二次元、游戏，对游戏面板有天然熟悉代入感
-- 爱国情绪高涨：任何可以抬高爱国情怀的书都容易吸引大量订阅
-- 偏爱快节奏爽文，不爱虐主开局，不爱贴近现实的苦情
-- 偏爱养成感和收获感，喜爱装逼
-
-### 飞卢四大毒点
-1. **绿帽**：主角女人出轨 → 写就完蛋
-2. **圣母**：能杀反派不杀还帮忙 → 订阅掉一半
-3. **虐主**：打压主角/虐队友/虐后宫 → 全都是毒点
-4. **无脑**：不符合逻辑 → 读者发现后直接删书
-
-### 飞卢天榜密码（高概率上榜题材）
-
-**五星推荐**：
-
-| 题材 | 核心写法 | 关键点 |
-|------|----------|--------|
-| 都市嘘头装逼文 | 用社会热点/抖音爆款做嘘头 | 掌握社会风向=掌握天榜密码 |
-| 都市娱乐文 | 唱歌震惊+高身份才华主角+曝光类 | 必须有火热女明星互动 |
-| 都市军工文 | 震惊威慑+增强国力+降维打击 | 爱国情怀是天榜核心驱动力 |
-| 游戏制作文 | 制作原神/崩坏等火爆游戏 | 玩家反应推动爽点 |
-| 原神文 | 多和原神美女互动+势力养成 | 飞卢以原创对待，推荐权重高 |
-| 洪荒文 | 封神时期+职业类+精怪类 | 原创，千订享受全部好推荐 |
-| 综武同人 | 伪无敌+火热元素 | 常青树，古装网剧热播带动爆发 |
-| 群像曝光文 | 金榜/视频剪辑/名场面/盘点 | 收订比高，万订正常 |
-| 全民御兽文 | 宠物升级快+金手指突出升级感 | 收订比极高，养成代入感强 |
-
-**九死无生（不建议）**：大唐/大秦历史文（审美疲劳）、西游文（过度开发）、原创仙侠修真（读者更爱看起点大神）、传统末日文（偏生存节奏慢）、老套玄幻文（退婚/废材开局已过时十多年）。
-
-### 题材选择核心思维
-不要因"竞争激烈"而避开热门题材：
-1. 写的人多 = 受众广、上限高，一旦成功收益远超冷门
-2. 热门题材的读者基数大，即使普通水平也能有基础订阅
-3. 应该写自己最擅长的领域，而非盲目切换赛道
-
-正确策略：先选热门类别提升成功率（乘风而行），在热门题材中作出创新（御风而变），热门不行再改冷门（迷途知返）。
-
-创新核心公式：嘘头（博眼球）+ 装逼拉满 + 情感共鸣 = 天榜潜力。
-
-### 飞卢同人写法
-飞卢定位：超级快餐。简单粗暴爽 ≠ 无脑小白文。
-同人核心写法：主角熟悉剧情 → 世界对他没秘密 → 他就是 bug → 来爽的。
-单线高潮 = 从原点出发 → 遇见原著人物 → 杀反派/推美女 → 到达目标 → 如愿以偿。
-单线高潮写好 → 1000首订稳。
-
-
-## 刺猬猫平台要点
-
-- 同人比原创火，将火热人物带入文章有意外加成
-- 脑洞很重要，但要加成在次元文化里
-- 对逻辑要求不是很高，大部分读者可以接受
-- 少写打斗，读者更在意事件发展而非剧情推动，日常文可以写很多人喜欢
-- 对"梗"要求很高，需要学习。扫榜是必须的，看不懂就不要写，先去补番了解次元文化
-
-
-## 读者群体差异与商业化认知
-
-### 不同网站读者差异
-- **飞卢**：青年少年居多，只想爽，不想看真实苦难
-- **起点**：筛选成本高，读者更耐心，慢节奏也能接受
-- **新媒体（30岁+）**：偏爱接近真实的故事，被打击的生活才是常态
-
-### 商业化 = 尊重买单的人
-可以有私人表达，但不能傲慢地凌驾于整体内容上面。
-商业化不是故意恶心读者，发出去的东西自己至少能看。
-
-### 情绪根源
-情绪来自"不公平"和"为什么"。区别对待 → 读者理所当然觉得不公平 → 这就是情绪根源。
-都市情绪：事业小有成就 → 爸要创业 → 妈要给弟弟买婚房 → 不公平感自然产生。
-
-
-## 代入感与塑料感
-
-### 代入感高度重叠于爽感
-代入感低的情况下，主角做什么读者都不觉得爽。越代入越爽，越爽越想看。
-
-### 塑料感来源
-仙侠不仙、武侠不侠、画风撕裂（仙侠世界搞科研）。
-去塑料感：让世界像一个真实存在的世界，而不是纸糊的。
-
-### 同人为什么开头高追读
-世界观够硬，初始代入感够高。
-例外：搞笑文/梗文的核心不是爽而是有趣，需要旁观者视角，不需要强代入感。
-
-### 有效扫榜
-扫榜要看新出来成绩好的书（近期风向标），看老书用处不大。
-大神的开头不要学——他们自带粉丝基础和期待感，读者会硬着头皮顶过前期。
-不是大神的作者必须在开头决出胜负，一万字定高下。
+## 22. Imersão e "sensação de plástico"
+**Imersão e prazer se sobrepõem muito**: com imersão baixa, nada que o protagonista faça dá prazer; quanto mais imersão, mais prazer, e quanto mais prazer, mais se quer ler. **Origem da sensação de plástico**: fantasia que não é fantástica, artes marciais sem marcial, estilo visual rachado (mundo de cultivo com pesquisa científica). **Tirar o plástico**: faça o mundo parecer existir de verdade, e não de papel machê. **Por que fanfic começa com leitura alta**: mundo sólido e imersão inicial alta; exceção: comédia/de piadas: o núcleo não é prazer, é diversão, pede ponto de vista de observador e não imersão forte. **Varredura eficaz**: olhe livros novos com bom desempenho (o termômetro recente); livros antigos servem pouco; **não imite aberturas de grandes nomes**: eles têm fãs e expectativa próprios e o leitor engole o início; quem não é grande nome precisa decidir na abertura, em dez mil palavras.

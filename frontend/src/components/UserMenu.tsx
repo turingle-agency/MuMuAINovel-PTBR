@@ -5,6 +5,7 @@ import { authApi } from '../services/api';
 import type { User } from '../types';
 import type { MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
@@ -16,6 +17,7 @@ interface UserMenuProps {
 }
 
 export default function UserMenu({ showFullInfo = false, compact = false }: UserMenuProps) {
+  const { t } = useTranslation('userMenu');
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -33,24 +35,24 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
       const user = await authApi.getCurrentUser();
       setCurrentUser(user);
     } catch (error) {
-      console.error('获取用户信息失败:', error);
+      console.error(t('falhaAoObterInformacoesDo'), error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await authApi.logout();
-      message.success('已退出登录');
+      message.success(t('sessaoEncerrada'));
       window.location.href = '/login';
     } catch (error) {
-      console.error('退出登录失败:', error);
-      message.error('退出登录失败');
+      console.error(t('falhaAoSair'), error);
+      message.error(t('falhaAoSair2'));
     }
   };
 
   const handleShowUserManagement = () => {
     if (!currentUser?.is_admin) {
-      message.warning('只有管理员可以访问用户管理');
+      message.warning(t('somenteAdministradoresPodemAcessarO'));
       return;
     }
     navigate('/user-management');
@@ -60,13 +62,13 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
     try {
       setChangingPassword(true);
       await authApi.setPassword(values.newPassword);
-      message.success('密码修改成功');
+      message.success(t('senhaAlteradaComSucesso'));
       setShowChangePassword(false);
       changePasswordForm.resetFields();
     } catch (error: unknown) {
-      console.error('修改密码失败:', error);
+      console.error(t('falhaAoAlterarASenha'), error);
       const err = error as { response?: { data?: { detail?: string } } };
-      message.error(err.response?.data?.detail || '修改密码失败');
+      message.error(err.response?.data?.detail || t('falhaAoAlterarASenha2'));
     } finally {
       setChangingPassword(false);
     }
@@ -81,7 +83,7 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
           <br />
           <Text type="secondary" style={{ fontSize: 12 }}>
             Trust Level: {currentUser?.trust_level}
-            {currentUser?.is_admin && ' · 管理员'}
+            {currentUser?.is_admin && t('administrador')}
           </Text>
         </div>
       ),
@@ -94,7 +96,7 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
       {
         key: 'user-management',
         icon: <TeamOutlined />,
-        label: '用户管理',
+        label: t('gerenciarUsuarios'),
         onClick: handleShowUserManagement,
       },
       {
@@ -104,7 +106,7 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
     {
       key: 'change-password',
       icon: <LockOutlined />,
-      label: '修改密码',
+      label: t('alterarSenha'),
       onClick: () => setShowChangePassword(true),
     },
     {
@@ -113,7 +115,7 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
     {
       key: 'logout',
       icon: <LogoutOutlined />,
-      label: '退出登录',
+      label: t('sair'),
       onClick: handleLogout,
     },
   ];
@@ -194,14 +196,14 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
               fontSize: 12,
               lineHeight: '18px',
             }}>
-              {currentUser.is_admin ? '👑 管理员' : `🎖️ Trust Level ${currentUser.trust_level}`}
+              {currentUser.is_admin ? t('administrador2') : `🎖️ Trust Level ${currentUser.trust_level}`}
             </Text>
           </Space>
         </div>
       </Dropdown>
 
       <Modal
-        title="修改密码"
+        title={t('alterarSenha')}
         open={showChangePassword}
         onCancel={() => {
           setShowChangePassword(false);
@@ -218,39 +220,39 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
           autoComplete="off"
         >
           <Form.Item
-            label="新密码"
+            label={t('novaSenha')}
             name="newPassword"
             rules={[
-              { required: true, message: '请输入新密码' },
-              { min: 6, message: '密码至少6个字符' },
+              { required: true, message: t('digiteANovaSenha') },
+              { min: 6, message: t('aSenhaDeveTerPelo') },
             ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="请输入新密码（至少6个字符）"
+              placeholder={t('digiteANovaSenhaMinimo')}
               autoComplete="new-password"
             />
           </Form.Item>
 
           <Form.Item
-            label="确认密码"
+            label={t('confirmarSenha')}
             name="confirmPassword"
             dependencies={['newPassword']}
             rules={[
-              { required: true, message: '请确认新密码' },
+              { required: true, message: t('confirmeANovaSenha') },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue('newPassword') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject(new Error('两次输入的密码不一致'));
+                  return Promise.reject(new Error(t('asSenhasDigitadasNaoCoincidem')));
                 },
               }),
             ]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              placeholder="请再次输入新密码"
+              placeholder={t('digiteANovaSenhaNovamente')}
               autoComplete="new-password"
             />
           </Form.Item>
@@ -260,11 +262,9 @@ export default function UserMenu({ showFullInfo = false, compact = false }: User
               <Button onClick={() => {
                 setShowChangePassword(false);
                 changePasswordForm.resetFields();
-              }}>
-                取消
+              }}>{t('cancelar')}
               </Button>
-              <Button type="primary" htmlType="submit" loading={changingPassword}>
-                确认修改
+              <Button type="primary" htmlType="submit" loading={changingPassword}>{t('confirmarAlteracao')}
               </Button>
             </Space>
           </Form.Item>

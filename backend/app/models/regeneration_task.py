@@ -12,34 +12,34 @@ class RegenerationTask(Base):
     # 基本信息
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     chapter_id = Column(String(36), ForeignKey('chapters.id', ondelete='CASCADE'), nullable=False, index=True)
-    analysis_id = Column(String(36), nullable=True, comment="关联的分析结果ID")
+    analysis_id = Column(String(36), nullable=True, comment="ID do resultado de análise associado")
     user_id = Column(String(50), nullable=False, index=True)
     project_id = Column(String(36), nullable=False, index=True)
     
     # 修改指令
-    modification_instructions = Column(Text, nullable=False, comment="综合修改指令")
-    original_suggestions = Column(JSON, comment="来自分析的原始建议列表")
-    selected_suggestion_indices = Column(JSON, comment="用户选择的建议索引")
-    custom_instructions = Column(Text, comment="用户自定义修改意见")
+    modification_instructions = Column(Text, nullable=False, comment="Instruções consolidadas de modificação")
+    original_suggestions = Column(JSON, comment="Lista original de sugestões da análise")
+    selected_suggestion_indices = Column(JSON, comment="Índices das sugestões escolhidas pelo usuário")
+    custom_instructions = Column(Text, comment="Observações de modificação do usuário")
     
     # 生成参数
-    style_id = Column(Integer, nullable=True, comment="写作风格ID")
-    target_word_count = Column(Integer, default=3000, comment="目标字数")
-    focus_areas = Column(JSON, comment="重点优化方向")
-    preserve_elements = Column(JSON, comment="需要保留的元素配置")
+    style_id = Column(Integer, nullable=True, comment="ID do estilo de escrita")
+    target_word_count = Column(Integer, default=3000, comment="Meta de palavras")
+    focus_areas = Column(JSON, comment="Focos de otimização")
+    preserve_elements = Column(JSON, comment="Configuração dos elementos a preservar")
     
     # 状态跟踪
     status = Column(String(20), default='pending', comment="pending/running/completed/failed")
-    progress = Column(Integer, default=0, comment="进度 0-100")
+    progress = Column(Integer, default=0, comment="Progresso 0-100")
     error_message = Column(Text, nullable=True)
     
     # 内容版本
-    original_content = Column(Text, comment="原始章节内容快照")
-    original_word_count = Column(Integer, comment="原始字数")
-    regenerated_content = Column(Text, comment="重新生成的内容")
-    regenerated_word_count = Column(Integer, comment="新内容字数")
-    version_number = Column(Integer, default=1, comment="版本号")
-    version_note = Column(String(500), comment="版本说明")
+    original_content = Column(Text, comment="Snapshot do conteúdo original do capítulo")
+    original_word_count = Column(Integer, comment="Contagem original de palavras")
+    regenerated_content = Column(Text, comment="Conteúdo regenerado")
+    regenerated_word_count = Column(Integer, comment="Contagem de palavras do novo conteúdo")
+    version_number = Column(Integer, default=1, comment="Número da versão")
+    version_note = Column(String(500), comment="Descrição da versão")
     
     # 时间戳
     created_at = Column(DateTime, server_default=func.now())

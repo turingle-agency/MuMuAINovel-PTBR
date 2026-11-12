@@ -133,12 +133,12 @@ class ProjectAgentToolRegistry:
         tools = [
             ProjectAgentTool(
                 "get_project_overview",
-                "获取当前项目基本信息、世界设定和数据数量。",
+                "Obtém as informações básicas do projeto atual, a ambientação do mundo e as contagens de dados.",
                 _object_schema({}),
             ),
             ProjectAgentTool(
                 "list_outlines",
-                "查询当前项目的大纲列表，可按标题或正文关键词筛选。",
+                "Lista os esboços do projeto atual, com filtro opcional por palavra-chave no título ou no conteúdo.",
                 _object_schema({
                     "query": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -146,7 +146,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_outline_detail",
-                "按大纲ID或序号获取当前项目的一条完整大纲。",
+                "Obtém um esboço completo do projeto atual pelo ID ou pelo número de ordem.",
                 _selector_schema({
                     "outline_id": identifier,
                     "order_index": {"type": "integer", "minimum": 1},
@@ -154,7 +154,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_characters",
-                "查询当前项目的角色或组织，可按名称筛选。",
+                "Lista os personagens ou organizações do projeto atual, com filtro opcional por nome.",
                 _object_schema({
                     "query": {"type": "string"},
                     "entity_type": {"type": "string", "enum": ["all", "character", "organization"]},
@@ -163,7 +163,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_character_detail",
-                "按角色ID或名称获取当前项目的角色/组织详情。",
+                "Obtém os detalhes de um personagem/organização do projeto atual pelo ID ou pelo nome.",
                 _selector_schema({
                     "character_id": identifier,
                     "name": {"type": "string"},
@@ -171,7 +171,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_chapters",
-                "查询当前项目章节列表和摘要，不返回完整正文。",
+                "Lista os capítulos do projeto atual com seus resumos, sem devolver o texto completo.",
                 _object_schema({
                     "query": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -179,7 +179,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "get_chapter_detail",
-                "按章节ID或章节号获取章节详情，可返回完整正文。",
+                "Obtém os detalhes de um capítulo pelo ID ou pelo número do capítulo, podendo devolver o texto completo.",
                 _selector_schema({
                     "chapter_id": identifier,
                     "chapter_number": {"type": "integer", "minimum": 1},
@@ -188,12 +188,12 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "list_relationships",
-                "查询当前项目的角色关系。",
+                "Lista as relações entre personagens do projeto atual.",
                 _object_schema({"limit": {"type": "integer", "minimum": 1, "maximum": 100}}),
             ),
             ProjectAgentTool(
                 "list_foreshadows",
-                "查询当前项目伏笔，可按状态筛选。",
+                "Lista as pistas (foreshadowing) do projeto atual, com filtro opcional por status.",
                 _object_schema({
                     "status": {"type": "string"},
                     "limit": {"type": "integer", "minimum": 1, "maximum": 100},
@@ -201,7 +201,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_project",
-                "修改当前项目的基本信息或世界设定。调用后必须等待用户确认。",
+                "Modifica as informações básicas ou a ambientação do projeto atual. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _object_schema({
                     "title": required_text, "description": text, "theme": text, "genre": text,
                     "target_words": integer,
@@ -216,7 +216,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_outline",
-                "按ID或序号修改当前项目的大纲标题和内容。调用后必须等待用户确认。",
+                "Modifica o título e o conteúdo de um esboço do projeto atual pelo ID ou pelo número de ordem. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "outline_id": identifier,
                     "order_index": {"type": "integer", "minimum": 1},
@@ -228,7 +228,7 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_character",
-                "按ID或名称修改当前项目角色信息。调用后必须等待用户确认。",
+                "Modifica as informações de um personagem do projeto atual pelo ID ou pelo nome. Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "character_id": identifier, "character_name": {"type": "string", "pattern": r".*\S.*"},
                     "name": required_text, "age": text, "gender": text, "role_type": text,
@@ -244,9 +244,9 @@ class ProjectAgentToolRegistry:
             ),
             ProjectAgentTool(
                 "update_chapter",
-                "按ID或章节号修改章节标题、摘要或状态，不修改正文；只传需要修改的字段，"
-                "未修改的字段必须省略，清空摘要请显式传空字符串；一对一模式会同步对应大纲。"
-                "调用后必须等待用户确认。",
+                "Modifica o título, o resumo ou o status de um capítulo pelo ID ou pelo número do capítulo, sem alterar o texto; envie apenas os campos que precisam mudar, "
+                "os campos não modificados devem ser omitidos, e para limpar o resumo envie explicitamente uma string vazia; no modo 1-1 o esboço correspondente é sincronizado. "
+                "Depois de chamar, é preciso aguardar a confirmação do usuário.",
                 _selector_schema({
                     "chapter_id": identifier,
                     "chapter_number": {"type": "integer", "minimum": 1},
@@ -267,14 +267,14 @@ class ProjectAgentToolRegistry:
     def get(self, name: str) -> ProjectAgentTool:
         tool = self._tools.get(name)
         if tool is None:
-            raise ValueError(f"未注册的项目工具：{name}")
+            raise ValueError(f"Ferramenta de projeto não registrada: {name}")
         return tool
 
     async def preview(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         arguments = normalize_tool_arguments(arguments)
         tool = self.get(name)
         if not tool.requires_confirmation:
-            raise ValueError("只读工具不需要修改预览")
+            raise ValueError("Ferramentas somente leitura não precisam de prévia de modificação")
         if name in WRITE_TOOL_NAMES:
             return await self.extended.preview(name, arguments)
         if name in OPERATIONAL_WRITE_TOOL_NAMES:
@@ -286,7 +286,7 @@ class ProjectAgentToolRegistry:
             if getattr(entity, field) != value
         }
         if not changes:
-            raise ValueError("没有检测到需要修改的字段")
+            raise ValueError("Nenhum campo a modificar foi detectado")
         return {
             "entity_type": entity.__class__.__name__.lower(),
             "entity_id": entity.id,
@@ -337,7 +337,7 @@ class ProjectAgentToolRegistry:
             await self.db.flush()
             after = {field: _json_value(getattr(entity, field)) for field in fields}
             return {
-                "message": f"已更新{self._entity_label(entity)}",
+                "message": f"Atualizado: {self._entity_label(entity)}",
                 "entity_id": entity.id,
                 "before": before,
                 "after": after,
@@ -350,7 +350,7 @@ class ProjectAgentToolRegistry:
             return await self.operational.read(name, arguments)
         handler: ToolHandler = getattr(self, f"_{name}", None)
         if handler is None:
-            raise ValueError(f"工具尚未实现：{name}")
+            raise ValueError(f"Ferramenta ainda não implementada: {name}")
         return await handler(arguments)
 
     async def _resolve_update(
@@ -377,18 +377,18 @@ class ProjectAgentToolRegistry:
             fields = self._pick_fields(arguments, self.CHAPTER_FIELDS)
             self._validate_update_fields(name, fields)
             return entity, fields, self._entity_label(entity)
-        raise ValueError(f"不支持的写入工具：{name}")
+        raise ValueError(f"Ferramenta de escrita não suportada: {name}")
 
     @staticmethod
     def _entity_label(entity: Any) -> str:
         if isinstance(entity, Project):
-            return f"项目《{entity.title}》"
+            return f"Projeto «{entity.title}»"
         if isinstance(entity, Outline):
-            return f"大纲《{entity.title}》"
+            return f"Esboço «{entity.title}»"
         if isinstance(entity, Character):
-            return f"角色《{entity.name}》"
+            return f"Personagem «{entity.name}»"
         if isinstance(entity, Chapter):
-            return f"第{entity.chapter_number}章《{entity.title}》"
+            return f"Capítulo {entity.chapter_number} «{entity.title}»"
         return entity.__class__.__name__
 
     @staticmethod
@@ -402,7 +402,7 @@ class ProjectAgentToolRegistry:
             if key in allowed and value is not None
         }
         if not fields:
-            raise ValueError("缺少可修改字段")
+            raise ValueError("Faltam campos modificáveis")
         return fields
 
     @staticmethod
@@ -418,9 +418,9 @@ class ProjectAgentToolRegistry:
                 continue
             value = fields[field]
             if not isinstance(value, str) or not value.strip():
-                raise ValueError(f"{field} 不能为空")
+                raise ValueError(f"{field} não pode ficar vazio")
             if len(value) > max_length:
-                raise ValueError(f"{field} 不能超过 {max_length} 个字符")
+                raise ValueError(f"{field} não pode ultrapassar {max_length} caracteres")
 
         status_values = {
             "update_project": {"planning", "writing", "revising", "completed"},
@@ -428,18 +428,18 @@ class ProjectAgentToolRegistry:
             "update_chapter": {"draft", "pending", "writing", "completed"},
         }
         if "status" in fields and name in status_values and fields["status"] not in status_values[name]:
-            raise ValueError("status 不是支持的状态值")
+            raise ValueError("status não é um valor de status suportado")
 
         if name == "update_project":
             for field in ("target_words", "chapter_count", "character_count"):
                 value = fields.get(field)
                 if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 0):
-                    raise ValueError(f"{field} 必须是非负整数")
+                    raise ValueError(f"{field} deve ser um inteiro não negativo")
         if name == "update_character":
             for field in ("status_changed_chapter", "state_updated_chapter"):
                 value = fields.get(field)
                 if value is not None and (not isinstance(value, int) or isinstance(value, bool) or value < 1):
-                    raise ValueError(f"{field} 必须是正整数或 null")
+                    raise ValueError(f"{field} deve ser um inteiro positivo ou null")
 
     async def _find_outline(self, arguments: dict[str, Any]) -> Outline:
         return await find_outline(self.db, self.project.id, arguments)

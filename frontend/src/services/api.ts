@@ -1,10 +1,19 @@
 import axios from 'axios';
+
+declare module 'axios' {
+  interface AxiosRequestConfig {
+    /**
+     * 'all': nenhum aviso global de erro (o chamador trata).
+     * 'transient': sem aviso global só para 409 e falhas de rede/tempo esgotado.
+     */
+    silentErrors?: 'all' | 'transient';
+  }
+}
 import { message } from 'antd';
 import { ssePost } from '../utils/sseClient';
 import type { SSEClientOptions } from '../utils/sseClient';
 import type {
   User,
-  AuthUrlResponse,
   Project,
   ProjectCreate,
   ProjectUpdate,
@@ -37,15 +46,6 @@ import type {
   WritingStyleUpdate,
   PresetStyle,
   WritingStyleListResponse,
-  PromptWorkshopListResponse,
-  PromptWorkshopItem,
-  PromptSubmission,
-  PromptSubmissionCreate,
-  Announcement,
-  AnnouncementCreate,
-  AnnouncementListResponse,
-  AnnouncementStatusResponse,
-  AnnouncementUpdate,
   MCPPlugin,
   MCPPluginCreate,
   MCPPluginUpdate,
@@ -73,15 +73,21 @@ import type {
   AgentToolDecision,
   AgentExecutionStep,
 } from '../types';
+import i18n from '../i18n';
 
 interface MCPPluginSimpleCreate {
   config_json: string;
   enabled: boolean;
 }
 
+// O backend deixa o Codex rodar até `codex_timeout_s` (600 s); chamadas que podem acionar
+// uma geração do Codex (request/response, sem SSE) precisam esperar mais que isso.
+export const DEFAULT_REQUEST_TIMEOUT = 120_000;
+export const LONG_REQUEST_TIMEOUT = 660_000;
+
 const api = axios.create({
   baseURL: '/api',
-  timeout: 120000,
+  timeout: DEFAULT_REQUEST_TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -102,7 +108,7 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    let errorMessage = '请求失败';
+    let errorMessage = i18n.t('errors:falhaNaRequisicao');
 
     if (error.response) {
       const status = error.response.status;
@@ -110,19 +116,20 @@ api.interceptors.response.use(
 
       switch (status) {
         case 400:
-          errorMessage = data?.detail || '请求参数错误';
+          errorMessage = data?.detail || i18n.t('errors:parametrosRequisicaoInvalidos');
           break;
         case 401: {
           const backendDetail = data?.detail || data?.message;
           const unauthenticatedDetails = [
-            '未登录',
-            '需要登录',
-            '未登录或用户ID缺失',
-            '未登录，无法刷新会话',
+            // Mensagens exatas enviadas pelo backend (HTTP 401) — não traduzir.
+            'Não autenticado',
+            'É necessário fazer login',
+            'Não autenticado ou ID de usuário ausente',
+            'Não autenticado, não é possível renovar a sessão',
           ];
           const isUnauthenticated = unauthenticatedDetails.includes(backendDetail);
 
-          errorMessage = backendDetail || '登录状态已失效，请重新登录';
+          errorMessage = backendDetail || i18n.t('errors:sessaoExpiradaFacaLogin');
 
           if (isUnauthenticated && window.location.pathname !== '/login') {
             window.location.href = '/login';
@@ -130,33 +137,37 @@ api.interceptors.response.use(
           break;
         }
         case 403:
-          errorMessage = data?.detail || '没有权限访问';
+          errorMessage = data?.detail || i18n.t('errors:semPermissaoAcesso');
           break;
         case 404:
-          errorMessage = data?.detail || '请求的资源不存在';
+          errorMessage = data?.detail || i18n.t('errors:recursoSolicitadoNaoExiste');
           break;
         case 422:
-          errorMessage = data?.detail || '请求参数验证失败';
+          errorMessage = data?.detail || i18n.t('errors:falhaValidacaoParametrosRequisicao');
           if (data?.errors) {
-            console.error('验证错误详情:', data.errors);
+            console.error('Detalhes do erro de validação:', data.errors);
           }
           break;
         case 500:
-          errorMessage = data?.detail || '服务器内部错误';
+          errorMessage = data?.detail || i18n.t('errors:erroInternoServidor');
           break;
         case 503:
-          errorMessage = '服务暂时不可用，请稍后重试';
+          errorMessage = i18n.t('errors:servicoTemporariamenteIndisponivelTente');
           break;
         default:
-          errorMessage = data?.detail || data?.message || `请求失败 (${status})`;
+          errorMessage = data?.detail || data?.message || i18n.t('errors:falhaNaRequisicao2', { status });
       }
     } else if (error.request) {
-      errorMessage = '网络错误，请检查网络连接';
+      errorMessage = i18n.t('errors:erroRedeVerifiqueSua');
     } else {
-      errorMessage = error.message || '请求失败';
+      errorMessage = error.message || i18n.t('errors:falhaNaRequisicao');
     }
 
-    message.error(errorMessage);
+    const silent = error.config?.silentErrors;
+    const transient = error.response?.status === 409 || !error.response;
+    if (!(silent === 'all' || (silent === 'transient' && transient))) {
+      message.error(errorMessage);
+    }
     console.error('API Error:', errorMessage, error);
 
     return Promise.reject(error);
@@ -166,7 +177,6 @@ api.interceptors.response.use(
 export const authApi = {
   getAuthConfig: () => api.get<unknown, {
     local_auth_enabled: boolean;
-    linuxdo_enabled: boolean;
     email_auth_enabled: boolean;
     email_register_enabled: boolean;
   }>('/auth/config'),
@@ -188,8 +198,6 @@ export const authApi = {
 
   resetEmailPassword: (payload: import('../types').EmailResetPasswordPayload) =>
     api.post<unknown, { success: boolean; message: string }>('/auth/email/reset-password', payload),
-
-  getLinuxDOAuthUrl: () => api.get<unknown, AuthUrlResponse>('/auth/linuxdo/url'),
 
   getCurrentUser: () => api.get<unknown, User>('/auth/user'),
 
@@ -258,7 +266,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>('/settings/test', params),
+    }>('/settings/test', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   testCoverConnection: (params: { cover_api_provider: string; cover_api_key: string; cover_api_base_url?: string; cover_image_model: string }) =>
     api.post<unknown, {
@@ -266,7 +274,7 @@ export const settingsApi = {
       message: string;
       provider?: string;
       model?: string;
-    }>('/settings/cover/test', params),
+    }>('/settings/cover/test', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   checkFunctionCalling: (params: { api_key?: string; api_base_url?: string; provider: string; llm_model: string }) =>
     api.post<unknown, {
@@ -296,7 +304,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>('/settings/check-function-calling', params),
+    }>('/settings/check-function-calling', params, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // API配置预设管理
   getPresets: () =>
@@ -326,7 +334,7 @@ export const settingsApi = {
       error?: string;
       error_type?: string;
       suggestions?: string[];
-    }>(`/settings/presets/${presetId}/test`),
+    }>(`/settings/presets/${presetId}/test`, undefined, { timeout: LONG_REQUEST_TIMEOUT }),
 
   setChapterAnalysisPresetSelection: (presetId?: string) =>
     api.put<unknown, { message: string; chapter_analysis_preset_id?: string; preset_name?: string }>('/settings/presets/usage/chapter-analysis', {
@@ -353,6 +361,10 @@ export const projectApi = {
 
   getProject: (id: string) => api.get<unknown, Project>(`/projects/${id}`),
 
+  // Consulta o estado da capa sem avisos de erro (usada no polling)
+  getProjectQuiet: (id: string) =>
+    api.get<unknown, Project>(`/projects/${id}`, { silentErrors: 'all' }),
+
   createProject: (data: ProjectCreate) => api.post<unknown, Project>('/projects', data),
 
   updateProject: (id: string, data: ProjectUpdate) =>
@@ -369,7 +381,7 @@ export const projectApi = {
       provider?: string;
       model?: string;
       message: string;
-    }>(`/projects/${id}/cover/generate`, { overwrite }),
+    }>(`/projects/${id}/cover/generate`, { overwrite }, { timeout: LONG_REQUEST_TIMEOUT, silentErrors: 'transient' }),
 
   downloadCover: async (id: string, filename?: string) => {
     const response = await axios.get(`/api/projects/${id}/cover/download`, {
@@ -401,7 +413,7 @@ export const projectApi = {
     window.open(`/api/projects/${id}/export`, '_blank');
   },
 
-  // 导出项目数据为JSON
+  // Exporta os dados do projeto em JSON
   exportProjectData: async (id: string, options: {
     include_generation_history?: boolean;
     include_writing_styles?: boolean;
@@ -420,7 +432,7 @@ export const projectApi = {
       }
     );
 
-    // 从响应头获取文件名
+    // Obtém o nome do arquivo a partir dos cabeçalhos da resposta
     const contentDisposition = response.headers['content-disposition'];
     let filename = 'project_export.json';
     if (contentDisposition) {
@@ -430,7 +442,7 @@ export const projectApi = {
       }
     }
 
-    // 创建下载链接
+    // Cria o link de download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
@@ -441,7 +453,7 @@ export const projectApi = {
     window.URL.revokeObjectURL(url);
   },
 
-  // 验证导入文件
+  // Valida o arquivo de importação
   validateImportFile: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -457,7 +469,7 @@ export const projectApi = {
     });
   },
 
-  // 导入项目
+  // Importa o projeto
   importProject: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -591,7 +603,7 @@ export const outlineApi = {
     api.post<unknown, { message: string; updated_outlines: number; updated_chapters: number }>('/outlines/reorder', data),
 
   generateOutline: (data: GenerateOutlineRequest) =>
-    api.post<unknown, { total: number; items: Outline[] }>('/outlines/generate', data).then(res => res.items),
+    api.post<unknown, { total: number; items: Outline[] }>('/outlines/generate', data, { timeout: LONG_REQUEST_TIMEOUT }).then(res => res.items),
 
   // 获取大纲关联的章节
   getOutlineChapters: (outlineId: string) =>
@@ -629,7 +641,7 @@ export const outlineApi = {
 
   // 单个大纲展开为多章
   expandOutline: (outlineId: string, data: OutlineExpansionRequest) =>
-    api.post<unknown, OutlineExpansionResponse>(`/outlines/${outlineId}/expand`, data),
+    api.post<unknown, OutlineExpansionResponse>(`/outlines/${outlineId}/expand`, data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 根据已有规划创建章节（避免重复AI调用）
   createChaptersFromPlans: (outlineId: string, chapterPlans: ChapterPlanItem[]) =>
@@ -650,7 +662,7 @@ export const outlineApi = {
 
   // 批量展开大纲
   batchExpandOutlines: (data: BatchOutlineExpansionRequest) =>
-    api.post<unknown, BatchOutlineExpansionResponse>('/outlines/batch-expand', data),
+    api.post<unknown, BatchOutlineExpansionResponse>('/outlines/batch-expand', data, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 
 export const characterApi = {
@@ -688,7 +700,7 @@ export const characterApi = {
   deleteCharacter: (id: string) => api.delete(`/characters/${id}`),
 
   generateCharacter: (data: GenerateCharacterRequest) =>
-    api.post<unknown, Character>('/characters/generate', data),
+    api.post<unknown, Character>('/characters/generate', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 导出角色/组织
   exportCharacters: async (characterIds: string[]) => {
@@ -703,7 +715,7 @@ export const characterApi = {
       }
     );
 
-    // 从响应头获取文件名
+    // Obtém o nome do arquivo a partir dos cabeçalhos da resposta
     const contentDisposition = response.headers['content-disposition'];
     let filename = 'characters_export.json';
     if (contentDisposition) {
@@ -713,7 +725,7 @@ export const characterApi = {
       }
     }
 
-    // 创建下载链接
+    // Cria o link de download
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement('a');
     link.href = url;
@@ -724,7 +736,7 @@ export const characterApi = {
     window.URL.revokeObjectURL(url);
   },
 
-  // 验证导入文件
+  // Valida o arquivo de importação
   validateImportCharacters: (file: File) => {
     const formData = new FormData();
     formData.append('file', file);
@@ -882,142 +894,12 @@ export const writingStyleApi = {
     api.post<unknown, WritingStyleListResponse>(`/writing-styles/project/${projectId}/initialize`, {}),
 };
 
-export const promptWorkshopApi = {
-  // 检查服务状态
-  getStatus: () =>
-    api.get<unknown, { mode: string; instance_id: string; cloud_url?: string; cloud_connected?: boolean }>('/prompt-workshop/status'),
-
-  // 获取工坊提示词列表
-  getItems: (params?: {
-    category?: string;
-    search?: string;
-    tags?: string;
-    sort?: 'newest' | 'popular' | 'downloads';
-    page?: number;
-    limit?: number;
-  }) => api.get<unknown, PromptWorkshopListResponse>('/prompt-workshop/items', { params }),
-
-  // 获取单个提示词
-  getItem: (itemId: string) =>
-    api.get<unknown, { success: boolean; data: PromptWorkshopItem }>(`/prompt-workshop/items/${itemId}`),
-
-  // 导入到本地
-  importItem: (itemId: string, customName?: string) =>
-    api.post<unknown, { success: boolean; message: string; writing_style: WritingStyle }>(
-      `/prompt-workshop/items/${itemId}/import`,
-      { custom_name: customName }
-    ),
-
-  // 点赞
-  toggleLike: (itemId: string) =>
-    api.post<unknown, { success: boolean; liked: boolean; like_count: number }>(
-      `/prompt-workshop/items/${itemId}/like`
-    ),
-
-  // 提交提示词
-  submit: (data: PromptSubmissionCreate) =>
-    api.post<unknown, { success: boolean; message: string; submission: PromptSubmission }>('/prompt-workshop/submit', data),
-
-  // 我的提交
-  getMySubmissions: (status?: string) =>
-    api.get<unknown, { success: boolean; data: { total: number; items: PromptSubmission[] } }>(
-      '/prompt-workshop/my-submissions',
-      { params: { status } }
-    ),
-
-  // 撤回提交（pending状态）
-  withdrawSubmission: (submissionId: string) =>
-    api.delete<unknown, { success: boolean; message: string }>(`/prompt-workshop/submissions/${submissionId}`),
-
-  // 删除提交记录（所有状态，需要 force=true）
-  deleteSubmission: (submissionId: string) =>
-    api.delete<unknown, { success: boolean; message: string }>(`/prompt-workshop/submissions/${submissionId}`, {
-      params: { force: true }
-    }),
-
-  // ========== 管理员 API（仅服务端模式可用） ==========
-  
-  // 获取待审核列表
-  adminGetSubmissions: (params?: { status?: string; source?: string; page?: number; limit?: number }) =>
-    api.get<unknown, {
-      success: boolean;
-      data: {
-        total: number;
-        pending_count: number;
-        page: number;
-        limit: number;
-        items: PromptSubmission[];
-      };
-    }>('/prompt-workshop/admin/submissions', { params }),
-
-  // 审核提交
-  adminReviewSubmission: (submissionId: string, data: { action: 'approve' | 'reject'; review_note?: string; category?: string; tags?: string[] }) =>
-    api.post<unknown, { success: boolean; message: string; workshop_item?: PromptWorkshopItem; submission?: PromptSubmission }>(
-      `/prompt-workshop/admin/submissions/${submissionId}/review`,
-      data
-    ),
-
-  // 添加官方提示词
-  adminCreateItem: (data: { name: string; description?: string; prompt_content: string; category: string; tags?: string[] }) =>
-    api.post<unknown, { success: boolean; item: PromptWorkshopItem }>('/prompt-workshop/admin/items', data),
-
-  // 编辑提示词
-  adminUpdateItem: (itemId: string, data: { name?: string; description?: string; prompt_content?: string; category?: string; tags?: string[]; status?: string }) =>
-    api.put<unknown, { success: boolean; item: PromptWorkshopItem }>(`/prompt-workshop/admin/items/${itemId}`, data),
-
-  // 删除提示词
-  adminDeleteItem: (itemId: string) =>
-    api.delete<unknown, { success: boolean; message: string }>(`/prompt-workshop/admin/items/${itemId}`),
-
-  // 获取统计数据
-  adminGetStats: () =>
-    api.get<unknown, {
-      success: boolean;
-      data: {
-        total_items: number;
-        total_official: number;
-        total_pending: number;
-        total_downloads: number;
-        total_likes: number;
-      };
-    }>('/prompt-workshop/admin/stats'),
-};
-
-export const announcementApi = {
-  getStatus: () =>
-    api.get<unknown, AnnouncementStatusResponse>('/announcements/status'),
-
-  list: (params?: { page?: number; limit?: number }) =>
-    api.get<unknown, AnnouncementListResponse>('/announcements', { params }),
-
-  sync: (params?: { since?: string; limit?: number }) =>
-    api.get<unknown, AnnouncementListResponse>('/announcements/sync', { params }),
-
-  adminList: (params?: { status?: string; q?: string; page?: number; limit?: number; include_expired?: boolean }) =>
-    api.get<unknown, AnnouncementListResponse>('/announcements/admin/items', { params }),
-
-  adminCreate: (data: AnnouncementCreate) =>
-    api.post<unknown, { success: boolean; item: Announcement }>('/announcements/admin/items', data),
-
-  adminUpdate: (id: string, data: AnnouncementUpdate) =>
-    api.put<unknown, { success: boolean; item: Announcement }>(`/announcements/admin/items/${id}`, data),
-
-  adminDelete: (id: string) =>
-    api.delete<unknown, { success: boolean; message: string }>(`/announcements/admin/items/${id}`),
-
-  adminPublish: (id: string) =>
-    api.post<unknown, { success: boolean; item: Announcement }>(`/announcements/admin/items/${id}/publish`),
-
-  adminHide: (id: string) =>
-    api.post<unknown, { success: boolean; item: Announcement }>(`/announcements/admin/items/${id}/hide`),
-};
-
 export const polishApi = {
   polishText: (data: PolishTextRequest) =>
-    api.post<unknown, { polished_text: string }>('/polish', data),
+    api.post<unknown, { polished_text: string }>('/polish', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   polishBatch: (texts: string[]) =>
-    api.post<unknown, { polished_texts: string[] }>('/polish/batch', { texts }),
+    api.post<unknown, { polished_texts: string[] }>('/polish/batch', { texts }, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 export const inspirationApi = {
   // 生成选项建议
@@ -1033,7 +915,7 @@ export const inspirationApi = {
       prompt?: string;
       options: string[];
       error?: string;
-    }>('/inspiration/generate-options', data),
+    }>('/inspiration/generate-options', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 基于用户反馈重新生成选项（新增）
   refineOptions: (data: {
@@ -1051,7 +933,7 @@ export const inspirationApi = {
       prompt?: string;
       options: string[];
       error?: string;
-    }>('/inspiration/refine-options', data),
+    }>('/inspiration/refine-options', data, { timeout: LONG_REQUEST_TIMEOUT }),
 
   // 智能补全缺失信息
   quickGenerate: (data: {
@@ -1066,7 +948,7 @@ export const inspirationApi = {
       theme: string;
       genre: string[];
       narrative_perspective: string;
-    }>('/inspiration/quick-generate', data),
+    }>('/inspiration/quick-generate', data, { timeout: LONG_REQUEST_TIMEOUT }),
 };
 
 export default api;
@@ -1080,6 +962,7 @@ export const wizardStreamApi = {
       theme: string;
       genre: string | string[];
       narrative_perspective?: string;
+      language?: string;
       target_words?: number;
       chapter_count?: number;
       character_count?: number;
@@ -1451,7 +1334,7 @@ export const projectAgentApi = {
       signal,
     });
     if (!response.ok) {
-      let detail = `请求失败 (${response.status})`;
+      let detail = i18n.t('errors:falhaNaRequisicao2', { status: response.status });
       try {
         const body = await response.json();
         detail = body.detail || detail;
@@ -1460,7 +1343,7 @@ export const projectAgentApi = {
       }
       throw new Error(detail);
     }
-    if (!response.body) throw new Error('无法读取木木创作助手响应流');
+    if (!response.body) throw new Error(i18n.t('errors:naoFoiPossivelLer'));
 
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
@@ -1486,8 +1369,8 @@ export const projectAgentApi = {
         else if (event.type === 'final_done') callbacks.onFinalDone?.(event.data);
         else if (event.type === 'result') callbacks.onResult?.(event.data);
         else if (event.type === 'error') {
-          callbacks.onError?.(event.error || '木木创作助手执行失败');
-          throw new Error(event.error || '木木创作助手执行失败');
+          callbacks.onError?.(event.error || i18n.t('errors:falhaExecucaoAssistenteCriacao'));
+          throw new Error(event.error || i18n.t('errors:falhaExecucaoAssistenteCriacao'));
         }
       }
     }

@@ -1,0 +1,23 @@
+{
+  "falhaAplicarNovoConteudo": "Falha ao aplicar o novo conteúdo",
+  "novoConteudoAplicado": "Novo conteúdo aplicado!",
+  "analiseCapituloFoiIniciada": "A análise do capítulo foi iniciada; veja o resultado em instantes",
+  "falhaIniciarAnaliseCapitulo": "Falha ao iniciar a análise do capítulo; você pode iniciá-la manualmente",
+  "falhaAoAplicar": "Falha ao aplicar",
+  "confirmarDescarte": "Confirmar descarte",
+  "temCertezaDesejaDescartar": "Tem certeza de que deseja descartar o conteúdo recém-gerado? Esta ação não pode ser desfeita.",
+  "descartar": "Descartar",
+  "cancelar": "Cancelar",
+  "novoConteudoDescartado": "Novo conteúdo descartado",
+  "comparacaoDeConteudo": "Comparação de conteúdo - {{chapterTitle}}",
+  "descartarNovoConteudo": "Descartar novo conteúdo",
+  "alternarVisualizacao": "Alternar visualização",
+  "aplicarNovoConteudo": "Aplicar novo conteúdo",
+  "palavrasConteudoOriginal": "Palavras do conteúdo original",
+  "palavras": "palavras",
+  "palavrasNovoConteudo": "Palavras do novo conteúdo",
+  "variacaoDePalavras": "Variação de palavras",
+  "proporcaoDaVariacao": "Proporção da variação",
+  "conteudoOriginal": "Conteúdo original",
+  "novoConteudo": "Novo conteúdo"
+}

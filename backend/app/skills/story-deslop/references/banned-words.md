@@ -1,71 +1,74 @@
-# AI味禁用词与句式表
+# Lista de palavras e construções proibidas (tom de IA)
 
-## 一级禁用词（出现即替换）
+## Palavras proibidas de nível 1 (trocar sempre que aparecerem)
 
-### 情态类
-仿佛、好像、犹如、宛若、一丝、一抹、些许、几分、隐约
+### Modalização
+como se, parecia, quase, um quê de, um toque de, uma ponta de, certo ar de, vagamente
 
-### 动作类
-深吸一口气、缓缓、不禁、微微、轻轻、淡淡
+### Ações
+respirou fundo, lentamente, não pôde evitar, levemente, suavemente
 
-### 表情类
-眼中闪过、嘴角勾起、眉头微皱、眉眼低垂、瞳孔微缩
+### Expressões faciais
+um brilho passou pelos olhos, um sorriso se formou nos lábios, franziu levemente a testa, olhos baixos, as pupilas se contraíram
 
-### 心理类
-心中一动、心头一震、心下了然、心中暗道、心底泛起、不由得
+### Interior
+o coração deu um salto, o peito apertou, entendeu em silêncio, pensou consigo, algo se agitou no fundo, sem querer
 
-### 判断类
-不容置疑、不易察觉、显而易见、毫无疑问、不可否认
+### Julgamento
+sem dúvida, imperceptível, evidente, indiscutível, não se pode negar
 
-### 形容类
-坚定、闪烁着光芒、狡黠、深邃、凛冽
+### Adjetivação
+determinado, olhos brilhando de determinação, matreiro, profundo, gélido
 
-### 过渡类
-突然、瞬间、不由自主、情不自禁、自然而然
+### Transições
+de repente, num instante, involuntariamente, naturalmente
 
-## 二级禁用词（高频出现时替换）
+### Clichês típicos em português
+soltou o ar que não sabia que estava prendendo, um arrepio percorreu a espinha, o tempo pareceu parar, o silêncio era ensurdecedor, um misto de X e Y, o coração disparou, o mundo ao redor desapareceu, sorriso enigmático, um mar de emoções
 
-### 总结句式
-- "他/她终于明白..."
-- "他/她这才意识到..."
-- "此刻，他/她..."
-- "一切...都..."
-- "原来..."
+## Palavras proibidas de nível 2 (trocar quando muito frequentes)
 
-### 排比句式
-- 连续3句以上相同结构的排比
-- "有的...有的...有的..."
-- "一边...一边...一边..."
+### Frases de resumo
+- "Ele/Ela finalmente entendeu..."
+- "Ele/Ela só então percebeu..."
+- "Naquele momento, ele/ela..."
+- "Tudo... era..."
+- "Então era isso..."
 
-### 升华句式
-- "这一刻..."
-- "他知道..."
-- "她明白..."
-- "这就是..."
+### Enumerações paralelas
+- Três ou mais frases seguidas com a mesma estrutura
+- "Alguns... outros... outros ainda..."
+- "Ao mesmo tempo... ao mesmo tempo... ao mesmo tempo..."
 
-## 禁用句式模板
+### Frases de elevação
+- "Naquele instante..."
+- "Ele sabia que..."
+- "Ela compreendeu que..."
+- "Era isso o que..."
 
-| 句式 | 示例 | 问题 |
+## Modelos de construção proibidos
+
+| Construção | Exemplo | Problema |
 |------|------|------|
-| "...，带着..." | "他说，带着一丝无奈" | 万能状语 |
-| "像XX一样" | "像刀子一样锋利" | 陈词滥调 |
-| "他的声音很轻，却像..." | AI最爱声音描写 | 过于文艺 |
-| "仿佛能...一般" | "仿佛能穿透一切一般" | 文言腔 |
-| "XX说道" | "好的，他说道" | 机械标签 |
-| "他/她感到..." | "她感到一丝失落" | 告诉而非展示 |
-| "他/她意识到..." | "他意识到事情不对" | 直接告知 |
-| "眼中闪过一丝XX" | "眼中闪过一丝悲伤" | 模板化 |
-| "嘴角勾起一抹XX" | "嘴角勾起一抹冷笑" | 模板化 |
-| "心中涌起一股XX" | "心中涌起一股暖流" | 模板化 |
+| "..., com um misto de..." | "Ele disse, com um misto de resignação" | Complemento coringa |
+| "como XX" | "afiado como uma faca" | Clichê |
+| "Sua voz era baixa, mas como..." | Descrição de voz que a IA adora | Literário demais |
+| "como se pudesse... por completo" | "como se pudesse atravessar tudo" | Tom empolado |
+| "XX disse" colado em toda fala | "Está bem, disse ele" | Rótulo mecânico |
+| "Ele/Ela sentiu..." | "Ela sentiu uma ponta de decepção" | Diz em vez de mostrar |
+| "Ele/Ela percebeu..." | "Ele percebeu que algo estava errado" | Informa direto |
+| "Um brilho de XX passou pelos olhos" | "Um brilho de tristeza passou pelos olhos" | Modelo pronto |
+| "Um sorriso XX se formou nos lábios" | "Um sorriso frio se formou nos lábios" | Modelo pronto |
+| "Uma onda de XX tomou conta dele" | "Uma onda de calor tomou conta dele" | Modelo pronto |
 
-## 替换策略速查
+## Guia rápido de estratégias de troca
 
-| 原文类型 | 替换方法 | 示例 |
+| Tipo de trecho | Método | Exemplo |
 |----------|----------|------|
-| 抽象情绪词 | 具体动作 | "紧张"->"手在抖" |
-| "感到XX" | 外化表现 | "感到愤怒"->"攥紧拳头" |
-| 形容词堆砌 | 白描手法 | "美丽动人的笑容"->"她笑了" |
-| 书面表达 | 口语化 | "不容置疑"->"就是" |
-| 解释性描写 | 留白 | "他因为害怕而..."->"他退后一步" |
-| 连续排比 | 保留最强一条 | 3句排比留1句 |
-| 总结升华句 | 直接删除 | "这一刻，她终于明白了..."->删 |
+| Palavra de emoção abstrata | Ação concreta | "nervoso" -> "a mão tremia" |
+| "sentiu XX" | Manifestação externa | "sentiu raiva" -> "cerrou os punhos" |
+| Acúmulo de adjetivos | Descrição seca | "um sorriso lindo e encantador" -> "ela sorriu" |
+| Expressão formal | Linguagem oral | "inegável" -> "é isso aí" |
+| Descrição explicativa | Deixar em aberto | "ele, com medo, ..." -> "ele recuou um passo" |
+| Enumeração paralela | Manter a mais forte | de 3 frases, ficar com 1 |
+| Frase de resumo/elevação | Cortar | "Naquele momento, ela finalmente entendeu..." -> cortar |

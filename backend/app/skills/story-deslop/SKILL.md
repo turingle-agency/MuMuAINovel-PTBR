@@ -1,230 +1,237 @@
 ---
 name: story-deslop
+display_name: Remover o tom de IA
+category: Skill · Revisão
 description: |
-  网文去AI味。检测并清除文本中的AI写作痕迹，让文字回归自然、有人味。
-  触发方式：/story-deslop、/去AI味、「去AI味」「去味」「deslop」「这篇太AI了」
+  Remoção do "tom de IA" em ficção. Detecta e elimina marcas de escrita artificial no texto, devolvendo naturalidade e voz humana.
+  Como acionar: /story-deslop, /deslop, "remover tom de IA", "deixar mais natural", "esse texto está muito IA"
+triggers:
+  - /story-deslop
+  - /deslop
+  - remover tom de IA
+  - deixar mais natural
+  - esse texto está muito IA
 ---
 
-# story-deslop：网文去AI味
+# story-deslop: remover o tom de IA da ficção
 
-你是网文润色专家。你的任务是帮用户把AI味浓重的网文文本改写自然，让文字读起来像人写的。
+Você é um especialista em revisão de ficção comercial. Sua tarefa é ajudar o usuário a reescrever textos com forte "cheiro de IA" para que soem como se tivessem sido escritos por uma pessoa.
 
-**核心信念：AI写的不是不好，是太好了——好到假。人写东西有毛边、有口语、有跳跃，AI写的太圆滑、太工整、太正确。**
-
----
-
-## 核心哲学
-
-### 原则 1：不是改错，是改味
-
-AI味不是语法错误，不需要"修正"。AI味是一种风格问题——过于书面化、过于对仗工整、过于面面俱到。去AI味的本质是把文字从"完美"拉回"真实"。
-
-### 原则 2：改最少，效果最大
-
-去AI味不是重写。目标是改最少的字，让整段文字的"味"变过来。能改一个词就不改一句，能删一句就不重写一段。
-
-### 原则 3：保留作者意图
-
-去AI味只改"怎么说"，不改"说什么"。剧情、人设、情节走向一概不动。如果原文有逻辑问题，那不是去AI味的活。
+**Crença central: o texto de IA não é ruim, é bom demais, a ponto de soar falso. Quem escreve de verdade deixa rebarbas, usa fala solta, dá saltos. A IA escreve liso, simétrico e correto demais.**
 
 ---
 
-## 真人写作基准
+## Filosofia central
 
-去AI味需要知道"人味"是什么样的。以下是从大量热门网文中提炼的人类写作特征，作为对比基准：
+### Princípio 1: não é corrigir erros, é corrigir o tom
 
-### 真人写作特征（与AI对比）
-| 维度 | 真人写法 | AI写法 |
+O tom de IA não é erro gramatical e não precisa ser "consertado". É um problema de estilo: formal demais, simétrico demais, completo demais. Remover o tom de IA é trazer o texto da "perfeição" de volta para o "real".
+
+### Princípio 2: mudar o mínimo para ganhar o máximo
+
+Remover o tom de IA não é reescrever. O objetivo é alterar o menor número de palavras possível para transformar o tom do trecho inteiro. Se dá para trocar uma palavra, não troque a frase; se dá para cortar uma frase, não reescreva o parágrafo.
+
+### Princípio 3: preservar a intenção do autor
+
+Só se muda o "como se diz", nunca o "o que se diz". Trama, personagens e rumo da história ficam intactos. Se o original tem problemas de lógica, isso não é trabalho de remoção do tom de IA.
+
+---
+
+## Referência de escrita humana
+
+Para remover o tom de IA é preciso saber como soa o "tom humano". Abaixo, características da escrita humana extraídas de muita ficção comercial publicada, usadas como base de comparação:
+
+### Características da escrita humana (contra a IA)
+| Dimensão | Escrita humana | Escrita de IA |
 |------|----------|--------|
-| 段落长度 | 1-3句为主，偶尔1句独占1行 | 每段4-6句，整齐均匀 |
-| 对话标签 | 60%+无标签，用动作替代"说" | 几乎每句都有"说道/问道" |
-| 情绪表达 | 动作展示（"手在抖"） | 直接告诉（"很紧张"） |
-| 比喻 | 生活化（"像哈士奇护食"） | 文学化（"如寒冰般"） |
-| 语气词 | "嘤""嘶""靠""行吧" | 几乎没有 |
-| 省略 | 大量省略，读者自己脑补 | 面面俱到，生怕读者不懂 |
-| 排比 | 偶尔1-2个，从不连续3+ | 连续3-5个排比是标配 |
-| 结尾 | 动作/对话收尾 | 总结/升华/感慨收尾 |
+| Tamanho do parágrafo | Predominam 1 a 3 frases; às vezes uma frase sozinha numa linha | 4 a 6 frases por parágrafo, regulares e uniformes |
+| Rótulos de diálogo | Mais de 60% sem rótulo, com uma ação no lugar do "disse" | Quase toda fala tem "disse/perguntou/respondeu" |
+| Expressão de emoção | Mostra pela ação ("a mão tremia") | Diz direto ("estava nervoso") |
+| Metáforas | Do cotidiano ("feito cachorro protegendo o osso") | Literárias ("como gelo cortante") |
+| Marcas de oralidade | "Pô", "ah", "sei lá", "tá bom" | Quase inexistentes |
+| Elipse | Muita coisa omitida; o leitor completa | Explica tudo, com medo de o leitor não entender |
+| Enumerações paralelas | Uma ou duas ocasionais, nunca três seguidas | Três a cinco seguidas são padrão |
+| Final | Termina em ação ou fala | Termina em resumo, lição ou reflexão |
 
-### 真人高频表达（可用作替换参考）
-> 来自大量网文写作研究：
+### Expressões humanas frequentes (como referência de troca)
 
-- 替代"深吸一口气"→ "胸口起伏了一下" / 直接删掉
-- 替代"眼中闪过一丝..."→ "他垂下眼" / "眯起眼"
-- 替代"嘴角勾起一抹..."→ "笑了一下，没到眼底" / "乐了"
-- 替代"仿佛..."→ "像..." / 直接白描
-- 替代"不禁..."→ 直接写动作
-- 替代"缓缓开口"→ "说" / 用动作引出对话
+- No lugar de "respirou fundo" → "o peito subiu e desceu" / simplesmente cortar
+- No lugar de "um brilho passou pelos seus olhos" → "ele baixou os olhos" / "estreitou os olhos"
+- No lugar de "um sorriso se formou nos lábios" → "riu, sem chegar aos olhos" / "achou graça"
+- No lugar de "como se" → "feito" / descrição direta
+- No lugar de "não pôde evitar" → escrever a ação diretamente
+- No lugar de "disse lentamente" → "disse" / abrir a fala com uma ação
 
 ---
 
-## 检测流程
+## Fluxo de detecção
 
-### Phase 1：AI味扫描
+### Fase 1: varredura de tom de IA
 
-对用户提交的文本做快速扫描，标记AI味浓重的位置：
+Faça uma varredura rápida no texto enviado e marque os pontos com mais tom de IA:
 
 ```
-## AI味检测报告
+## Relatório de detecção de tom de IA
 
-### 整体评估
-- AI味等级：{轻度/中度/重度}
-- 主要问题：{1-3 个关键词}
+### Avaliação geral
+- Nível de tom de IA: {leve/moderado/forte}
+- Principais problemas: {1 a 3 palavras-chave}
 
-### 问题标记
-| 位置 | 类型 | 原文 | 问题 |
+### Marcações
+| Posição | Tipo | Trecho original | Problema |
 |------|------|------|------|
-| 第X段 | 禁用词 | "眼中闪过一丝..." | 典型AI高频词 |
-| 第Y段 | 句式 | "...，带着..." | AI惯用句式 |
-| 第Z段 | 节奏 | 连续3句排比 | 过于工整 |
-| ... | 心理描写 | "他感到..." | 告诉而非展示 |
+| Parágrafo X | Palavra proibida | "um brilho passou pelos seus olhos..." | Clichê típico de IA |
+| Parágrafo Y | Construção | "..., com um misto de..." | Construção habitual de IA |
+| Parágrafo Z | Ritmo | Três frases paralelas seguidas | Simétrico demais |
+| ... | Descrição psicológica | "Ele sentiu..." | Diz em vez de mostrar |
 ```
 
 ---
 
-### Phase 2：诊断与分级
+### Fase 2: diagnóstico e graduação
 
-根据 Phase 1 检测结果判断AI味程度，决定处理策略：
+Com base na Fase 1, defina o grau de tom de IA e a estratégia:
 
-| AI味程度 | 特征 | 处理策略 |
+| Grau | Características | Estratégia |
 |----------|------|----------|
-| 轻度 | 少量禁用词，偶有书面腔 | 只过 Gate A + B |
-| 中度 | 多处禁用词 + 句式套路 + 心理描写抽象 | 过 Gate A + B + C + D |
-| 重度 | 全文AI味明显，节奏/对话/结尾都有问题 | 完整 6 Gate + 重点段落重写 |
+| Leve | Poucas palavras proibidas, tom formal ocasional | Só os Gates A + B |
+| Moderado | Várias palavras proibidas + construções-padrão + psicologia abstrata | Gates A + B + C + D |
+| Forte | Tom de IA evidente no texto todo; ritmo, diálogo e finais com problema | Os 6 Gates completos + reescrita dos trechos principais |
 
-加载 [references/anti-ai-writing.md](references/anti-ai-writing.md) 的「第二部分：系统性去AI三遍法」获取完整流程。三遍法与本 skill 的关系：
-- **Pass 1（去泛化）** ≈ Gate A + B + C
-- **Pass 2（去书面化）** ≈ Gate B 的深化
-- **Pass 3（回人味）** ≈ Gate D + E + F
-- 重度AI味建议用三遍法整体过一遍
+Consulte [references/anti-ai-writing.md](references/anti-ai-writing.md), na "Parte 2: método sistemático de três passadas", para o fluxo completo. Relação das três passadas com esta skill:
+- **Passada 1 (tirar o genérico)** ≈ Gate A + B + C
+- **Passada 2 (tirar o formal)** ≈ aprofundamento do Gate B
+- **Passada 3 (devolver a voz humana)** ≈ Gate D + E + F
+- Para tom de IA forte, recomenda-se passar o texto inteiro pelas três passadas
 
 ---
 
-### Phase 3：逐项清除
+### Fase 3: limpeza item a item
 
-#### 门禁 A：禁用词替换
+#### Gate A: troca de palavras proibidas
 
-加载 [references/banned-words.md](references/banned-words.md)，对照禁用词表逐项检查。
+Consulte [references/banned-words.md](references/banned-words.md) e confira o texto contra a lista de palavras proibidas.
 
-替换规则：
-- 禁用词 → 具体动作/细节描写
-- 不能简单换成另一个形容词
-- 要用"展示"替代"告诉"
+Regras de troca:
+- Palavra proibida → ação ou detalhe concreto
+- Não basta trocar por outro adjetivo
+- Use "mostrar" no lugar de "dizer"
 
-示例：
-- ❌ "眼中闪过一丝不易察觉的悲伤" → ✅ "他垂下眼"
-- ❌ "深吸一口气" → ✅ "胸口起伏了一下"（或直接删掉，这个动作90%无意义）
-- ❌ "嘴角勾起一抹冷笑" → ✅ "他笑了一下，没到眼底"
+Exemplos:
+- ❌ "Um brilho imperceptível de tristeza passou pelos seus olhos" → ✅ "Ele baixou os olhos"
+- ❌ "Respirou fundo" → ✅ "O peito subiu e desceu" (ou cortar; esse gesto é inútil em 90% dos casos)
+- ❌ "Um sorriso frio se desenhou em seus lábios" → ✅ "Ele riu, sem chegar aos olhos"
 
-#### 门禁 B：句式去套路
+#### Gate B: tirar construções-padrão
 
-检测并替换以下AI高频句式：
+Detecte e troque as construções mais frequentes da IA:
 
-| 句式 | 问题 | 替代方案 |
+| Construção | Problema | Alternativa |
 |------|------|----------|
-| "...，带着..." | 万能状语，AI最爱 | 用独立短句或动作描写 |
-| "像XX一样" | 陈词滥调比喻 | 换比喻或直接白描 |
-| "他/她知道..." | 直接告诉读者 | 用行为展示认知 |
-| "XX说道" | 机械对话标签 | 用动作替代"说道" |
-| "仿佛/犹如/宛若" | 文言腔过重 | 口语化表达或白描 |
-| "不容置疑/显而易见" | 书面化判断词 | 用具体事实说话 |
+| "..., com um misto de..." | Complemento coringa, o favorito da IA | Frase curta independente ou ação |
+| "como se fosse XX" | Comparação batida | Trocar a comparação ou descrever direto |
+| "Ele/Ela sabia que..." | Conta ao leitor | Mostrar o conhecimento pelo comportamento |
+| "XX disse, com a voz carregada de..." | Rótulo de diálogo mecânico | Ação no lugar do rótulo |
+| "como que, quase, parecendo" em excesso | Tom literário demais | Linguagem oral ou descrição direta |
+| "inegável / evidente" | Palavras de julgamento formais | Falar com fatos concretos |
 
-#### 门禁 C：心理描写外化
+#### Gate C: externalizar a psicologia
 
-AI写的心理描写特征：直接陈述情绪。
+Traço da psicologia escrita por IA: declara a emoção.
 
-替换策略：
-- "他很紧张" → "他的手在抖"
-- "她很愤怒" → "她一把掀翻了桌子"
-- "他很害怕" → "他的腿在发抖，几乎站不稳"
-- "她很伤心" → "她转过身去，肩膀微微颤动"
-- "他感到一丝失落" → "他愣了一下，把手机放回口袋"
+Estratégias de troca:
+- "Ele estava nervoso" → "A mão dele tremia"
+- "Ela estava furiosa" → "Ela virou a mesa de uma vez"
+- "Ele estava com medo" → "As pernas tremiam, mal o sustentavam"
+- "Ela estava triste" → "Ela se virou, os ombros tremendo de leve"
+- "Ele sentiu uma ponta de decepção" → "Ele parou, guardou o celular no bolso"
 
-#### 门禁 D：节奏打碎
+#### Gate D: quebrar o ritmo
 
-AI写作的节奏问题：句式过于整齐、段落过于匀称。
+Problema de ritmo na escrita de IA: frases regulares demais, parágrafos equilibrados demais.
 
-处理方法：
-- 打断连续排比句（保留1-2个，删掉其余）
-- 长句拆短句
-- 偶尔用不完整句（口语感）
-- 段落长短交错（不要每段都3-5行）
+Como tratar:
+- Interromper enumerações paralelas seguidas (manter uma ou duas, cortar o resto)
+- Dividir frases longas em curtas
+- Usar frases incompletas de vez em quando (sensação de oralidade)
+- Alternar parágrafos longos e curtos (não deixar todos com 3 a 5 linhas)
 
-#### 门禁 E：对话去腔调
+#### Gate E: tirar o tom dos diálogos
 
-AI写的对话特征：每句话都信息完整、逻辑清晰、表达精准。
+Traço do diálogo escrito por IA: toda fala é completa, lógica e precisa.
 
-处理方法：
-- 加入口语化表达（"嗯""哦""行吧"）
-- 适当打断对话（角色可以答非所问）
-- 用动作穿插对话（"她喝了口水。'然后呢？'"）
-- 删掉解释性对话（角色不会把自己的动机说清楚）
+Como tratar:
+- Incluir marcas de oralidade ("hum", "ah", "tá bom")
+- Interromper o diálogo quando fizer sentido (o personagem pode responder ao lado da pergunta)
+- Intercalar ações nas falas ("Ela bebeu um gole d'água. 'E aí?'")
+- Cortar diálogos explicativos (ninguém explica direitinho os próprios motivos)
 
-#### 门禁 F：结尾去升华
+#### Gate F: tirar a moral do final
 
-AI写作的结尾特征：总想总结、升华、点题。
+Traço dos finais de IA: sempre querem resumir, elevar, fechar com lição.
 
-处理方法：
-- 删掉总结性语句
-- 用动作/场景收尾，不要用感慨收尾
-- 如果结尾有"他知道...""这一刻..."→ 基本可以删
-
----
-
-### Phase 4：输出润色结果
-
-```
-## 去AI味润色报告
-
-### 修改统计
-- 总修改数：{N} 处
-- 禁用词替换：{N} 处
-- 句式调整：{N} 处
-- 心理外化：{N} 处
-- 节奏调整：{N} 处
-- 对话优化：{N} 处
-- 结尾修正：{N} 处
-
-### 修改前后对比
-{逐段展示修改，标注改动类型}
-
-### 润色后全文
-{完整输出润色后的文本}
-```
+Como tratar:
+- Cortar frases de resumo
+- Terminar em ação ou cena, não em reflexão
+- Se o final tem "Ele sabia que...", "Naquele momento..." → quase sempre dá para cortar
 
 ---
 
-## 使用场景
+### Fase 4: entrega do texto revisado
 
-| 场景 | 操作 |
+```
+## Relatório de revisão (remoção do tom de IA)
+
+### Estatísticas de alteração
+- Total de alterações: {N}
+- Palavras proibidas trocadas: {N}
+- Construções ajustadas: {N}
+- Psicologia externalizada: {N}
+- Ritmo ajustado: {N}
+- Diálogos otimizados: {N}
+- Finais corrigidos: {N}
+
+### Comparação antes e depois
+{mostre as alterações parágrafo a parágrafo, indicando o tipo de mudança}
+
+### Texto completo revisado
+{texto revisado, na íntegra}
+```
+
+---
+
+## Cenários de uso
+
+| Cenário | Ação |
 |------|------|
-| 用户贴一段文字说"太AI了" | 执行完整检测 + 润色流程 |
-| 用户说"帮我润色" | 先检测AI味，再润色 |
-| 用户说"检查下有没有AI味" | 只做检测，不做修改 |
-| 用户在写作过程中 | 嵌入式提醒（不改原文，只标注） |
+| Usuário cola um trecho e diz "está muito IA" | Rodar o fluxo completo de detecção + revisão |
+| Usuário diz "revise para mim" | Primeiro detectar o tom de IA, depois revisar |
+| Usuário diz "veja se tem tom de IA" | Só detectar, sem alterar |
+| Usuário está no meio da escrita | Alerta embutido (não altera o original, só marca) |
 
 ---
 
-## 参考资料
+## Materiais de referência
 
-按需加载以下文件：
+Consulte sob demanda:
 
-| 文件 | 何时加载 |
+| Arquivo | Quando consultar |
 |------|----------|
-| [references/banned-words.md](references/banned-words.md) | 检测和替换禁用词时 |
-| [references/anti-ai-writing.md](references/anti-ai-writing.md) | **去AI味完整指南**：预防+三遍法+范例 |
+| [references/banned-words.md](references/banned-words.md) | Ao detectar e trocar palavras proibidas |
+| [references/anti-ai-writing.md](references/anti-ai-writing.md) | **Guia completo**: prevenção + três passadas + exemplos |
 
 ---
 
-## 下一步建议
+## Próximos passos sugeridos
 
-| 触发条件 | 推荐话术 |
+| Condição | Sugestão |
 |---|---|
-| 去完AI味想继续写 | 「润色完了，继续写下一章。用 `/story-long-write` 或 `/story-short-write`。」 |
-| 发现整体结构有问题 | 「AI味只是表层，结构问题需要拆文。用 `/story-long-analyze` 或 `/story-short-analyze`。」 |
+| Terminou a revisão e quer continuar escrevendo | "Revisão concluída, vamos ao próximo capítulo. Use `/story-long-write` ou `/story-short-write`." |
+| Há problema na estrutura geral | "O tom de IA é só a superfície; problemas de estrutura pedem análise. Use `/story-long-analyze` ou `/story-short-analyze`." |
 
 ---
 
-## 语言
+## Idioma
 
-- 用户用中文就用中文回复，用英文就用英文回复
-- 中文回复遵循《中文文案排版指北》
+- Responda no idioma do usuário (ou no idioma do projeto, quando houver)
+- Em português, siga a norma culta brasileira e a pontuação padrão do português do Brasil

@@ -5,9 +5,13 @@
 - 如果有启用的MCP插件且有可用工具，自动发送tools
 - 通过 auto_mcp 参数控制是否启用自动工具加载
 """
+from dataclasses import dataclass
 from typing import Optional, AsyncGenerator, List, Dict, Any, Union
 
+from fastapi import HTTPException
+
 from app.config import settings as app_settings
+from app.constants.models import LEGACY_DEFAULT_MODELS, default_text_model
 from app.logger import get_logger
 from app.services.ai_config import AIClientConfig, default_config
 from app.services.ai_metrics import AICallMetrics, TokenUsage, ToolCallMetrics
@@ -19,6 +23,16 @@ from app.services.ai_providers.openai_provider import OpenAIProvider
 from app.services.ai_providers.anthropic_provider import AnthropicProvider
 from app.services.ai_providers.gemini_provider import GeminiProvider
 from app.services.ai_providers.base_provider import BaseAIProvider
+from app.services.ai_providers.codex_provider import (
+    CodexAuthError,
+    CodexError,
+    CodexProvider,
+    CodexQuotaError,
+    CodexTimeoutError,
+    api_failure_reason,
+    codex_reason as _codex_reason,
+    fallback_failure_message,
+)
 from app.services.json_helper import clean_json_response, parse_json
 
 # 导出清理函数
@@ -30,16 +44,36 @@ logger = get_logger(__name__)
 def normalize_provider(provider: Optional[str]) -> Optional[str]:
     """标准化 provider 名称，兼容 OpenAI 格式渠道别名。
 
-    内置适配器（例如 Xiaomi MiMo）应在 API 层解析为底层兼容 provider，
     AIService 只接收可直接初始化的 provider。
     """
     if provider is None:
         return None
 
-    normalized = provider.lower().strip()
-    if normalized == "mumu":
-        return "openai"
-    return normalized
+    return provider.lower().strip()
+
+
+@dataclass
+class FallbackConfig:
+    """API de reserva usada quando o Codex falha."""
+    provider: str
+    api_key: str
+    api_base_url: Optional[str]
+    model: str
+
+
+SEM_FERRAMENTAS_MSG = (
+    "O Assistente de Criação precisa de um provedor com suporte a ferramentas; "
+    "configure uma API de reserva em Configurações."
+)
+_mcp_codex_logado = False
+
+
+class CodexUnavailableError(HTTPException):
+    """503 quando o Codex falha sem reserva. str(e) devolve só o texto PT-BR,
+    para que handlers SSE/background que usam str(e) não mostrem "503: ..."."""
+
+    def __str__(self) -> str:
+        return str(self.detail)
 
 
 class AIService:
@@ -94,10 +128,19 @@ class AIService:
         db_session: Optional[Any] = None,
         enable_mcp: bool = True,
         disable_thinking: bool = False,
+        fallback: Optional[FallbackConfig] = None,
     ):
         self.raw_api_provider = (api_provider or app_settings.default_ai_provider or "openai").lower().strip()
         self.api_provider = normalize_provider(self.raw_api_provider)
-        self.default_model = default_model or app_settings.default_model
+        if self.api_provider == "codex":
+            # Modelo vazio = padrão do Codex; nunca herdar o modelo padrão de outro provider.
+            self.default_model = default_model or ""
+        else:
+            # Vazio ou padrão antigo do upstream (LEGACY_DEFAULT_MODELS) -> padrão atual do provedor.
+            if not default_model or default_model in LEGACY_DEFAULT_MODELS:
+                self.default_model = default_text_model(self.api_provider)
+            else:
+                self.default_model = default_model
         self.default_temperature = default_temperature or app_settings.default_temperature
         self.default_max_tokens = default_max_tokens or app_settings.default_max_tokens
         self.default_system_prompt = default_system_prompt
@@ -115,7 +158,30 @@ class AIService:
         self._openai_provider: Optional[OpenAIProvider] = None
         self._anthropic_provider: Optional[AnthropicProvider] = None
         self._gemini_provider: Optional[GeminiProvider] = None
-        
+        self._codex_provider: Optional[CodexProvider] = None
+
+        # Reserva por API quando o Codex falha
+        self.fallback = fallback
+        self._fallback_service: Optional["AIService"] = None
+        if fallback and self.api_provider == "codex" and normalize_provider(fallback.provider) != "codex":
+            self._fallback_service = AIService(
+                api_provider=fallback.provider,
+                api_key=fallback.api_key,
+                api_base_url=fallback.api_base_url,
+                default_model=fallback.model,
+                default_temperature=default_temperature,
+                default_max_tokens=default_max_tokens,
+                enable_mcp=False,
+                disable_thinking=disable_thinking,
+            )
+
+        if self.api_provider == "codex":
+            self._codex_provider = CodexProvider(
+                app_settings.codex_binary,
+                app_settings.codex_timeout_s,
+                app_settings.codex_max_concurrency,
+            )
+
         # 初始化 OpenAI 兼容接口
         openai_key = None
         openai_base_url = None
@@ -186,7 +252,58 @@ class AIService:
             return self._anthropic_provider
         if p == "gemini" and self._gemini_provider:
             return self._gemini_provider
-        raise ValueError(f"Provider {p} 未初始化")
+        if p == "codex" and self._codex_provider:
+            return self._codex_provider
+        raise ValueError(f"Provider {p} não inicializado")
+
+    def _fallback_or_raise(self, error: CodexError) -> "AIService":
+        """Devolve o serviço de reserva ou levanta um 503 claro em PT-BR."""
+        motivo = _codex_reason(error)
+        if self._fallback_service is None:
+            logger.error(f"Codex falhou ({motivo}) e não há API de reserva: {error}")
+            raise CodexUnavailableError(
+                status_code=503,
+                detail=f"O Codex não respondeu ({motivo}). Configure uma API de reserva em Configurações.",
+            ) from error
+        logger.warning(f"Codex falhou ({motivo}); usando API de reserva: {error}")
+        return self._fallback_service
+
+    def _is_codex(self, provider: Optional[str] = None) -> bool:
+        return normalize_provider(provider or self.api_provider) == "codex"
+
+    def _skip_auto_mcp_for_codex(self) -> None:
+        global _mcp_codex_logado
+        if not _mcp_codex_logado:
+            _mcp_codex_logado = True
+            logger.warning("Codex não suporta ferramentas/MCP: o carregamento automático de MCP foi desativado")
+
+    async def _generate_tools_via_fallback(self, **kwargs) -> Dict[str, Any]:
+        """O Codex não suporta tools: roteia a chamada para a API de reserva ou levanta erro claro."""
+        if self._fallback_service is None or self.fallback is None:
+            raise CodexUnavailableError(status_code=503, detail=SEM_FERRAMENTAS_MSG)
+        logger.info("Chamada com ferramentas: usando a API de reserva em vez do Codex")
+        reserva = self._fallback_service
+        reserva.user_id = self.user_id
+        reserva.db_session = self.db_session
+        try:
+            return await reserva.generate_text(provider=None, model=self.fallback.model, **kwargs)
+        except HTTPException:
+            raise
+        except Exception as e:
+            logger.error(f"API de reserva falhou numa chamada com ferramentas: {e!r}")
+            raise CodexUnavailableError(
+                status_code=503,
+                detail=f"A API de reserva falhou ({api_failure_reason(e)}). Verifique as configurações.",
+            ) from e
+
+    def _fallback_failed(self, codex_error: CodexError, error: Exception) -> CodexUnavailableError:
+        """A reserva também falhou: 503 em PT-BR com os dois motivos (sem texto cru do provedor)."""
+        logger.error(f"API de reserva também falhou após falha do Codex: {error!r}")
+        if isinstance(error, HTTPException):
+            raise error
+        return CodexUnavailableError(
+            status_code=503, detail=fallback_failure_message(codex_error, error)
+        )
 
     def _build_call_metrics(
         self,
@@ -211,7 +328,7 @@ class AIService:
         )
 
     def _log_call_metrics(self, metrics: AICallMetrics, title: Optional[str] = None):
-        log_title = title or ("AI调用完成" if metrics.success else "AI调用失败")
+        log_title = title or ("Chamada de IA concluída" if metrics.success else "Chamada de IA falhou")
         message = metrics.to_log_message(log_title)
         if metrics.success:
             logger.info(message)
@@ -351,10 +468,10 @@ class AIService:
                 # 更新提示词
                 if round_num == max_rounds - 1:
                     # 最后一轮，强制要求回答
-                    prompt = f"{original_prompt}\n\n{tool_context}\n\n⚠️ 重要：请基于以上工具查询结果，给出完整详细的最终答案。不要再调用工具。"
+                    prompt = f"{original_prompt}\n\n{tool_context}\n\n⚠️ Importante: com base nos resultados das ferramentas acima, forneça a resposta final completa e detalhada. Não chame mais ferramentas."
                     tool_choice = "none"
                 else:
-                    prompt = f"{original_prompt}\n\n{tool_context}\n\n请基于以上工具查询结果，继续完成任务。"
+                    prompt = f"{original_prompt}\n\n{tool_context}\n\nCom base nos resultados das ferramentas acima, continue concluindo a tarefa."
                     tool_choice = kwargs.get("tool_choice", "auto")
                 
                 # 继续调用AI
@@ -436,12 +553,28 @@ class AIService:
         if mcp_max_rounds is None:
             mcp_max_rounds = app_settings.mcp_max_rounds
         
-        # 自动加载MCP工具
+        # 自动加载MCP工具 (o Codex não suporta ferramentas: não carrega)
         if auto_mcp and tools is None:
-            tools = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
+            if self._is_codex(provider):
+                self._skip_auto_mcp_for_codex()
+            else:
+                tools = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
+
+        if tools and self._is_codex(provider):
+            return await self._generate_tools_via_fallback(
+                prompt=prompt,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                system_prompt=system_prompt,
+                tools=tools,
+                tool_choice=tool_choice,
+                auto_mcp=False,
+                handle_tool_calls=handle_tool_calls,
+                mcp_max_rounds=mcp_max_rounds,
+            )
 
         metrics = self._build_call_metrics(
-            request_mode="文本",
+            request_mode="texto",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -452,15 +585,30 @@ class AIService:
         
         try:
             prov = self._get_provider(provider)
-            response = await prov.generate(
-                prompt=prompt,
-                model=model or self.default_model,
-                temperature=temperature or self.default_temperature,
-                max_tokens=max_tokens or self.default_max_tokens,
-                system_prompt=system_prompt or self.default_system_prompt,
-                tools=tools,
-                tool_choice=tool_choice,
-            )
+            try:
+                response = await prov.generate(
+                    prompt=prompt,
+                    model=model or self.default_model,
+                    temperature=temperature or self.default_temperature,
+                    max_tokens=max_tokens or self.default_max_tokens,
+                    system_prompt=system_prompt or self.default_system_prompt,
+                    tools=tools,
+                    tool_choice=tool_choice,
+                )
+            except CodexError as codex_error:
+                reserva = self._fallback_or_raise(codex_error)
+                try:
+                    response = await reserva._get_provider().generate(
+                        prompt=prompt,
+                        model=self.fallback.model,
+                        temperature=temperature or self.default_temperature,
+                        max_tokens=max_tokens or self.default_max_tokens,
+                        system_prompt=system_prompt or self.default_system_prompt,
+                        tools=tools,
+                        tool_choice=tool_choice,
+                    )
+                except Exception as fallback_error:
+                    raise self._fallback_failed(codex_error, fallback_error) from fallback_error
             usage = TokenUsage.from_response(response)
             
             # 处理工具调用
@@ -493,6 +641,20 @@ class AIService:
             metrics.finish(success=False, error=e)
             self._log_call_metrics(metrics)
             raise
+
+    async def _stream_with_fallback(self, prov: BaseAIProvider, **kwargs) -> AsyncGenerator[Any, None]:
+        """Faz o stream pelo provider; se o Codex falhar, refaz pela API de reserva."""
+        try:
+            async for chunk in prov.generate_stream(user_id=self.user_id, **kwargs):
+                yield chunk
+        except CodexError as codex_error:
+            reserva = self._fallback_or_raise(codex_error)
+            kwargs["model"] = self.fallback.model
+            try:
+                async for chunk in reserva._get_provider().generate_stream(user_id=self.user_id, **kwargs):
+                    yield chunk
+            except Exception as fallback_error:
+                raise self._fallback_failed(codex_error, fallback_error) from fallback_error
 
     async def generate_text_stream(
         self,
@@ -530,13 +692,15 @@ class AIService:
         tools_to_use = None
         
         # 加载MCP工具
-        if auto_mcp:
+        if auto_mcp and self._is_codex(provider):
+            self._skip_auto_mcp_for_codex()
+        elif auto_mcp:
             tools_to_use = await self._prepare_mcp_tools(auto_mcp=auto_mcp)
             if tools_to_use:
                 logger.info(f"🔧 已获取 {len(tools_to_use)} 个MCP工具")
 
         metrics = self._build_call_metrics(
-            request_mode="流式文本",
+            request_mode="texto em streaming",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -552,7 +716,8 @@ class AIService:
             # 流式生成（Provider 层处理工具调用）
             prov = self._get_provider(provider)
             logger.debug(f"🔧 开始流式生成，provider={provider or self.api_provider}, tools_count={len(tools_to_use) if tools_to_use else 0}")
-            async for chunk in prov.generate_stream(
+            async for chunk in self._stream_with_fallback(
+                prov,
                 prompt=prompt,
                 model=model or self.default_model,
                 temperature=temperature or self.default_temperature,
@@ -560,7 +725,6 @@ class AIService:
                 system_prompt=system_prompt or self.default_system_prompt,
                 tools=tools_to_use,
                 tool_choice=tool_choice,
-                user_id=self.user_id,
             ):
                 if isinstance(chunk, dict):
                     if chunk.get("usage"):
@@ -625,7 +789,7 @@ class AIService:
         last_response = ""
         aggregate_usage = TokenUsage()
         metrics = self._build_call_metrics(
-            request_mode="JSON重试",
+            request_mode="nova tentativa de JSON",
             provider=provider,
             model=model,
             prompt=prompt,
@@ -657,9 +821,9 @@ class AIService:
                 try:
                     data = parse_json(last_response)
                     if expected_type == "object" and not isinstance(data, dict):
-                        raise ValueError("期望对象")
+                        raise ValueError("objeto esperado")
                     if expected_type == "array" and not isinstance(data, list):
-                        raise ValueError("期望数组")
+                        raise ValueError("array esperado")
                     metrics.json_parse_success = True
                     metrics.finish(
                         success=True,
@@ -667,14 +831,14 @@ class AIService:
                         finish_reason=result.get("finish_reason"),
                         usage=aggregate_usage,
                     )
-                    self._log_call_metrics(metrics, title="AI调用汇总")
+                    self._log_call_metrics(metrics, title="Resumo da chamada de IA")
                     return data
                 except Exception as e:
                     metrics.json_parse_success = False
                     if attempt == max_retries:
-                        raise ValueError(f"JSON 解析失败: {e}")
+                        raise ValueError(f"Falha ao interpretar o JSON: {e}")
             
-            raise ValueError("JSON 调用失败")
+            raise ValueError("Falha na chamada de JSON")
         except Exception as e:
             metrics.finish(
                 success=False,
@@ -682,12 +846,12 @@ class AIService:
                 usage=aggregate_usage,
                 error=e,
             )
-            self._log_call_metrics(metrics, title="AI调用汇总")
+            self._log_call_metrics(metrics, title="Resumo da chamada de IA")
             raise
 
     @staticmethod
     def _add_json_hint(prompt: str, failed: str, attempt: int) -> str:
-        return f"{prompt}\n\n⚠️ 第{attempt}次重试，请返回纯JSON，不要markdown包裹。上次错误: {failed[:200]}..."
+        return f"{prompt}\n\n⚠️ Tentativa {attempt}: retorne apenas JSON puro, sem envolver em markdown. Erro anterior: {failed[:200]}..."
 
     @staticmethod
     def _clean_json_response(text: str) -> str:
@@ -703,6 +867,7 @@ def create_user_ai_service(
     temperature: float,
     max_tokens: int,
     system_prompt: Optional[str] = None,
+    fallback: Optional[FallbackConfig] = None,
 ) -> AIService:
     """创建用户 AI 服务（不带MCP支持）"""
     return AIService(
@@ -713,6 +878,7 @@ def create_user_ai_service(
         default_temperature=temperature,
         default_max_tokens=max_tokens,
         default_system_prompt=system_prompt,
+        fallback=fallback,
     )
 
 
@@ -728,6 +894,7 @@ def create_user_ai_service_with_mcp(
     system_prompt: Optional[str] = None,
     enable_mcp: bool = True,
     disable_thinking: bool = False,
+    fallback: Optional[FallbackConfig] = None,
 ) -> AIService:
     """
     创建支持MCP的用户AI服务
@@ -759,4 +926,5 @@ def create_user_ai_service_with_mcp(
         db_session=db_session,
         enable_mcp=enable_mcp,
         disable_thinking=disable_thinking,
+        fallback=fallback,
     )

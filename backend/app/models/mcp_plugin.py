@@ -10,38 +10,38 @@ class MCPPlugin(Base):
     __tablename__ = "mcp_plugins"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(50), nullable=False, index=True, comment="用户ID")
+    user_id = Column(String(50), nullable=False, index=True, comment="ID do usuário")
     
     # 插件基本信息
-    plugin_name = Column(String(100), nullable=False, comment="插件名称（唯一标识）")
-    display_name = Column(String(200), nullable=False, comment="显示名称")
-    description = Column(Text, comment="插件描述")
-    plugin_type = Column(String(50), default="http", comment="插件类型：http/stdio")
+    plugin_name = Column(String(100), nullable=False, comment="Nome do plugin (identificador único)")
+    display_name = Column(String(200), nullable=False, comment="Nome de exibição")
+    description = Column(Text, comment="Descrição do plugin")
+    plugin_type = Column(String(50), default="http", comment="Tipo de plugin: http/stdio")
     
     # 连接配置
-    server_url = Column(String(500), comment="服务器URL（HTTP类型）")
-    command = Column(String(500), comment="启动命令（stdio类型）")
-    args = Column(JSON, comment="命令参数（stdio类型）")
-    env = Column(JSON, comment="环境变量")
-    headers = Column(JSON, comment="HTTP请求头")
+    server_url = Column(String(500), comment="URL do servidor (tipo HTTP)")
+    command = Column(String(500), comment="Comando de inicialização (tipo stdio)")
+    args = Column(JSON, comment="Argumentos do comando (tipo stdio)")
+    env = Column(JSON, comment="Variáveis de ambiente")
+    headers = Column(JSON, comment="Cabeçalhos HTTP")
     
     # 插件配置
-    config = Column(JSON, comment="插件特定配置（JSON）")
-    tools = Column(JSON, comment="提供的工具列表")
+    config = Column(JSON, comment="Configuração específica do plugin (JSON)")
+    tools = Column(JSON, comment="Lista de ferramentas fornecidas")
     
     # 状态管理
-    enabled = Column(Boolean, default=True, comment="是否启用")
-    status = Column(String(50), default="inactive", comment="状态：active/inactive/error")
-    last_error = Column(Text, comment="最后错误信息")
-    last_test_at = Column(DateTime, comment="最后测试时间")
+    enabled = Column(Boolean, default=True, comment="Habilitado")
+    status = Column(String(50), default="inactive", comment="Status: active/inactive/error")
+    last_error = Column(Text, comment="Última mensagem de erro")
+    last_test_at = Column(DateTime, comment="Data do último teste")
     
     # 排序和分组
-    category = Column(String(100), default="general", comment="分类")
-    sort_order = Column(Integer, default=0, comment="排序顺序")
+    category = Column(String(100), default="general", comment="Categoria")
+    sort_order = Column(Integer, default=0, comment="Ordem de exibição")
     
     # 时间戳
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     __table_args__ = (
         Index('idx_user_plugin', 'user_id', 'plugin_name', unique=True),

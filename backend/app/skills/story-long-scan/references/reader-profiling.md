@@ -1,105 +1,113 @@
-# 读者画像系统
+# Sistema de perfil do leitor
 
-## 9 维画像
+## Perfil em 9 dimensões
 
-| 维度 | 包含什么 | 示例 |
+| Dimensão | O que inclui | Exemplo |
 |------|----------|------|
-| 平台 | 起点/番茄/晋江/知乎/七猫 | 起点=付费硬核，番茄=免费下沉 |
-| 标签 | 题材标签决定读者预期 | 看到「系统文」期待升级节奏 |
-| 阅读量 | 新手读者 vs 老书虫，耐受度不同 | 老书虫能识别套路，新手不能 |
-| 性别 | 男频女频审美差异巨大 | 男频重爽，女频重情感 |
-| 年龄 | 16-25 vs 25-35，代入角色不同 | 05后大学生 vs 90后打工人 |
-| 地域 | 一线城市 vs 下沉市场 | 北上广深 vs 三四线城市 |
-| 学历 | 影响对文笔和逻辑的要求 | 大学生 vs 初中辍学 |
-| 阶层 | 底层/中产/富人 | 决定什么样的逆袭有共鸣 |
-| 社会角色 | 学生/宝妈/打工者/自由职业 | 决定什么样的日常有代入感 |
+| Plataforma | Amazon/Wattpad/Royal Road/Kobo/Skoob | Amazon = leitor que paga e lê em série; Wattpad = comunidade jovem e gratuita |
+| Etiquetas | As etiquetas de gênero definem a expectativa | Ao ver "progressão de poder", espera ritmo de evolução |
+| Volume de leitura | Leitor novo vs. leitor voraz têm tolerâncias diferentes | O leitor voraz reconhece fórmulas; o novo não |
+| Gênero do público | Público de romance e de fantasia/ficção científica tem gostos bem diferentes | Fantasia de ação valoriza recompensa; romance valoriza emoção |
+| Idade | 16-25 vs. 25-45, identificação com personagens diferente | Universitário da geração Z vs. profissional millennial |
+| Região | Capitais vs. cidades do interior | São Paulo e Rio vs. cidades médias |
+| Escolaridade | Influencia a exigência de estilo e de lógica | Pós-graduado vs. ensino médio |
+| Classe social | Baixa/média/alta | Define qual superação gera identificação |
+| Papel social | Estudante/mãe/trabalhador/autônomo | Define qual cotidiano gera imersão |
 
-画像组合示例：「起点+古代官场+夺嫡+文抄+高阅读量+女+05后+二线城市+大学生+中产」-> 节奏快、权谋爽、感情线甜但不傻白甜、文化梗要新
-
----
-
-## 画像关联元素法（70/20/10）
-
-构建读者共鸣的三层比例：
-
-- **70% 怀旧元素**：读者有过类似经历的场景
-- **20% 当前生活**：读者正在面对的压力
-- **10% 热点话题**：当下流行的梗和话题
-
-### 70% 怀旧元素来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 共同代际记忆 | 90后的网吧/MP3/非主流 | 都市重生、年代文 |
-| 流行文化 | 经典影视剧、游戏、音乐 | 同人、穿越 |
-| 校园生活 | 高考、宿舍、社团 | 校园文 |
-| 童年回忆 | 村里/小区里的事 | 乡村、都市日常 |
-
-### 20% 当前生活来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 工作压力 | 996、内卷、副业 | 都市、职场 |
-| 感情状态 | 相亲、催婚、丁克 | 言情、世情 |
-| 经济压力 | 房贷、消费降级 | 都市、种田 |
-| 社交焦虑 | 社恐、独居、社交恐惧 | 治愈、日常 |
-
-### 10% 热点话题来源
-
-| 来源 | 内容 | 适用题材 |
-|------|------|----------|
-| 社会热点 | 新闻事件、社会议题 | 都市、现实 |
-| 网络热梗 | 梗、表情包、流行语 | 轻松向 |
-| 影视联动 | 热门影视带动题材 | 蹭热度 |
+Exemplo de combinação de perfil: "Amazon + fantasia romântica + inimigos que viram amantes + leitora voraz + mulher + 25-34 anos + capital + universitária + classe média" -> ritmo rápido, tensão romântica bem dosada, protagonista ativa (nada de ingenuidade), referências culturais atuais
 
 ---
 
-## 平台读者画像速查
+## Método dos elementos de identificação (70/20/10)
 
-### 起点男频读者
+Três camadas de proporção para criar ressonância com o leitor:
 
-- 核心需求：爽感、升级、碾压
-- 容忍度：开头慢可以，但不能超过5章
-- 爽点偏好：实力碾压 > 智谋取胜 > 运气好
-- 雷区：绿帽、憋屈、女主太强压过男主
-- 黄金标准：三章一爽点，十章一大高潮
+- **70% elementos de nostalgia**: cenas que o leitor já viveu de alguma forma
+- **20% vida atual**: as pressões que o leitor enfrenta agora
+- **10% assuntos do momento**: memes e temas em circulação
 
-### 番茄读者
+### Fontes dos 70% de nostalgia
 
-- 核心需求：快节奏、强爽感、不费脑
-- 容忍度：3章不爽就走
-- 爽点偏好：打脸 > 装逼 > 获得机缘
-- 雷区：慢热、虐主、需要思考的剧情
-- 黄金标准：每章都有爽点，3000字内必须爆
+| Fonte | Conteúdo | Gêneros adequados |
+|------|------|----------|
+| Memória geracional | Lan houses, MP3, MSN e Orkut para quem viveu os anos 2000 | Contemporâneo com volta no tempo, ficção de época recente |
+| Cultura pop | Filmes, séries, jogos e músicas clássicos | Fanfic, viagem no tempo |
+| Vida escolar | Vestibular/ENEM, república, grêmio | Ficção jovem, ficção escolar |
+| Memórias de infância | O que acontecia na rua, no bairro, na vila | Ficção rural, cotidiano urbano |
 
-### 晋江女频读者
+### Fontes dos 20% de vida atual
 
-- 核心需求：情感细腻、人设好、有共鸣
-- 容忍度：开头可以慢，但人设必须立住
-- 爽点偏好：虐完后的甜 > 反转打脸 > 身份翻盘
-- 雷区：女主傻白甜、男主渣且不追妻、三观不正
-- 黄金标准：人物有弧光，情感有层次
+| Fonte | Conteúdo | Gêneros adequados |
+|------|------|----------|
+| Pressão no trabalho | Burnout, excesso de trabalho, renda extra | Contemporâneo, ficção de escritório |
+| Estado emocional | Aplicativos de namoro, pressão para casar, escolha de não ter filhos | Romance, drama de costumes |
+| Pressão financeira | Aluguel, financiamento, queda do consumo | Contemporâneo, vida simples |
+| Ansiedade social | Introversão, morar sozinho, medo de socializar | Conforto, cotidiano |
 
-### 知乎盐言读者
+### Fontes dos 10% de assuntos do momento
 
-- 核心需求：情绪冲击、反转、代入感
-- 容忍度：前500字决定生死
-- 爽点偏好：反转震撼 > 虐后治愈 > 现实共鸣
-- 雷区：说教、道德绑架、结局强行HE
-- 黄金标准：情绪拉扯 + 一个炸裂反转
+| Fonte | Conteúdo | Gêneros adequados |
+|------|------|----------|
+| Assuntos sociais | Notícias, debates sociais | Contemporâneo, realista |
+| Memes da internet | Memes, figurinhas, gírias | Tom leve |
+| Ligação com cinema e séries | Produções em alta puxando o gênero | Aproveitar a onda |
 
-### 七猫读者
+---
 
-- 核心需求：快节奏、强剧情、不拖沓
-- 容忍度：3章定生死
-- 爽点偏好：逆袭 > 打脸 > 获得认可
-- 雷区：文艺腔、节奏慢、不爽
-- 黄金标准：开篇即冲突，绝不平淡
+## Consulta rápida de perfis de leitor por plataforma
 
-### 刺猬猫读者
+### Leitor de Amazon KDP / Kindle Unlimited
 
-- 核心需求：二次元、轻小说、有趣
-- 容忍度：开头必须有趣
-- 爽点偏好：有趣 > 有梗 > 有梗但意想不到
-- 雷区：太严肃、太现实、没有二次元元素
-- 黄金标准：有梗有笑点，偶尔有深度
+- Necessidade central: ler muito, em série, com continuidade; promessa de gênero cumprida
+- Tolerância: abertura mais lenta é aceitável, mas a amostra gratuita decide a compra
+- Preferência de recompensa: promessa do gênero cumprida > surpresa inteligente > sorte
+- Pontos de rejeição: final sem resolução, cliffhanger sem aviso de continuação, capa que promete outro gênero
+- Padrão ouro: capa, título e sinopse alinhados ao gênero, primeiro capítulo forte, série com volumes consistentes
+
+### Leitor de Wattpad
+
+- Necessidade central: ritmo, emoção, identificação, interação com a autora ou o autor
+- Tolerância: baixa; os primeiros capítulos decidem se continua
+- Preferência de recompensa: tensão romântica > reviravolta > segredo revelado
+- Pontos de rejeição: atualização irregular, protagonista passiva demais, enredo arrastado
+- Padrão ouro: capítulos curtos com gancho, interação nos comentários, atualização constante
+
+### Leitor de Royal Road
+
+- Necessidade central: progressão clara, sistema de poder coerente, mundo rico
+- Tolerância: aceita capítulos longos e exposição, desde que o sistema faça sentido
+- Preferência de recompensa: crescimento do protagonista > solução inteligente > recompensa por esforço
+- Pontos de rejeição: regras do sistema que mudam por conveniência, protagonista sem custo ou risco
+- Padrão ouro: regras consistentes, escalada gradual, comunidade ativa nos comentários
+
+### Leitor de romance (Amazon/Skoob)
+
+- Necessidade central: relação bem construída, personagens amados, final emocionalmente satisfatório
+- Tolerância: abertura pode ser lenta, mas os protagonistas precisam cativar logo
+- Preferência de recompensa: superação após o conflito > reviravolta > reconciliação
+- Pontos de rejeição: protagonista ingênua demais, par romântico abusivo sem consequência, valores problemáticos romantizados
+- Padrão ouro: personagens com arco, emoção em camadas, final emocionalmente justo (HEA/HFN no romance)
+
+### Leitor de thriller e mistério
+
+- Necessidade central: tensão, enigma bem armado, reviravolta justa
+- Tolerância: baixa para lentidão; os capítulos precisam terminar em ganchos
+- Preferência de recompensa: reviravolta chocante > dedução satisfatória > catarse
+- Pontos de rejeição: solução que sai do nada, pistas injustas, vilão genérico
+- Padrão ouro: pistas plantadas com justiça + uma reviravolta que faz reler o livro
+
+### Leitor de fantasia e ficção científica
+
+- Necessidade central: mundo imersivo, regras claras, senso de descoberta
+- Tolerância: aceita construção de mundo, mas exige que a história avance
+- Preferência de recompensa: revelação do mundo > crescimento do herói > grandes batalhas
+- Pontos de rejeição: exposição excessiva, magia sem custo, personagens esquecidos
+- Padrão ouro: mundo com regras e custos, personagens com desejos próprios
+
+### Leitor de young adult
+
+- Necessidade central: identificação, autodescoberta, primeiras vezes, ritmo rápido
+- Tolerância: aceita narrativa mais leve, mas quer emoção real
+- Preferência de recompensa: acerto de contas com quem o subestimava > romance > revelação de identidade
+- Pontos de rejeição: tom professoral, adultos que resolvem tudo, protagonista sem iniciativa
+- Padrão ouro: voz autêntica, dilemas reais, final que respeita a inteligência do leitor

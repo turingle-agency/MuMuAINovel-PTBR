@@ -18,7 +18,7 @@ class AgentConversation(Base):
         nullable=False,
         index=True,
     )
-    title = Column(String(200), nullable=False, default="新对话")
+    title = Column(String(200), nullable=False, default="Nova conversa")
     summary = Column(Text)
     status = Column(String(20), nullable=False, default="active")
     last_message_at = Column(DateTime, server_default=func.now(), nullable=False)

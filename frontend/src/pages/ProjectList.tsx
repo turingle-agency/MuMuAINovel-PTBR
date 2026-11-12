@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Card, Button, Modal, message, Spin, Space, Tag, Typography, Upload, Checkbox, Tooltip, Drawer, Menu, theme, Badge } from 'antd';
-import { EditOutlined, BookOutlined, CalendarOutlined, FileTextOutlined, TrophyOutlined, SettingOutlined, UploadOutlined, ApiOutlined, FileSearchOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbOutlined, MoonOutlined, DesktopOutlined, MailOutlined, BellOutlined } from '@ant-design/icons';
+import { Card, Button, Modal, message, Spin, Space, Tag, Typography, Upload, Checkbox, Tooltip, Drawer, Menu, theme } from 'antd';
+import { EditOutlined, BookOutlined, CalendarOutlined, FileTextOutlined, TrophyOutlined, SettingOutlined, UploadOutlined, ApiOutlined, FileSearchOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbOutlined, MoonOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons';
+import axios from 'axios';
 import { authApi, projectApi } from '../services/api';
 import { useStore } from '../store';
 import { useProjectSync } from '../store/hooks';
@@ -9,7 +10,6 @@ import { eventBus, EventNames } from '../store/eventBus';
 import type { ReactNode } from 'react';
 import type { Project, User } from '../types';
 import UserMenu from '../components/UserMenu';
-import ChangelogFloatingButton from '../components/ChangelogFloatingButton';
 import ThemeSwitch from '../components/ThemeSwitch';
 import { useThemeMode } from '../theme/useThemeMode';
 import SettingsPage from './Settings';
@@ -19,30 +19,29 @@ import PromptTemplates from './PromptTemplates';
 import BookImport from './BookImport';
 import BookshelfPage from './BookshelfPage';
 import { getStoredSidebarCollapsed, setStoredSidebarCollapsed } from '../utils/sidebarState';
-import AnnouncementTimelineModal from '../components/AnnouncementTimelineModal';
-import { useAnnouncements } from '../hooks/useAnnouncements';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
 /**
  * 格式化字数显示
  * @param count 字数
- * @returns 格式化后的字符串，如 "1.2K", "3.5W", "1.2M"
+ * @returns formatted string such as "1.2K" or "1.2M"
  */
 const formatWordCount = (count: number): string => {
   if (count < 1000) {
     return count.toString();
-  } else if (count < 10000) {
-    // 1K - 9.9K
-    return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
   } else if (count < 1000000) {
-    // 1W - 99.9W (万)
-    return (count / 10000).toFixed(1).replace(/\.0$/, '') + 'W';
+    // 1K - 999.9K
+    return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
   } else {
     // 1M+ (百万)
     return (count / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   }
 };
+
+const COVER_POLL_INTERVAL_MS = 5000;
+const COVER_POLL_MAX_MS = 12 * 60 * 1000;
 
 type ProjectListView = 'projects' | 'settings' | 'system-settings' | 'mcp' | 'prompts' | 'book-import';
 
@@ -55,11 +54,11 @@ const parseViewFromSearch = (search: string): ProjectListView => {
 };
 
 export default function ProjectList() {
+  const { t } = useTranslation('projectList');
   const navigate = useNavigate();
   const location = useLocation();
   const { projects, loading } = useStore();
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [announcementVisible, setAnnouncementVisible] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(() => getStoredSidebarCollapsed());
   const [modal, contextHolder] = Modal.useModal();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -83,8 +82,6 @@ export default function ProjectList() {
   const { mode, resolvedMode, setMode } = useThemeMode();
   const { token } = theme.useToken();
   const alphaColor = (color: string, alpha: number) => `color-mix(in srgb, ${color} ${(alpha * 100).toFixed(0)}%, transparent)`;
-
-  const { announcements, loading: announcementsLoading, hasUnread: hasUnreadAnnouncements, refresh: refreshAnnouncements, markAllRead: markAllAnnouncementsRead } = useAnnouncements();
 
   const activeView = useMemo<ProjectListView>(() => parseViewFromSearch(location.search), [location.search]);
   const cycleThemeMode = () => {
@@ -152,10 +149,10 @@ export default function ProjectList() {
   const handleDelete = (id: string) => {
     const isMobile = window.innerWidth <= 768;
     modal.confirm({
-      title: '确认删除',
-      content: '删除项目将同时删除所有相关数据，此操作不可恢复。确定要删除吗？',
-      okText: '确定',
-      cancelText: '取消',
+      title: t('confirmarExclusao'),
+      content: t('excluirOProjetoTambemExclui'),
+      okText: t('confirmar'),
+      cancelText: t('cancelar'),
       okType: 'danger',
       centered: true,
       ...(isMobile && {
@@ -164,9 +161,9 @@ export default function ProjectList() {
       onOk: async () => {
         try {
           await deleteProject(id);
-          message.success('项目删除成功');
+          message.success(t('projetoExcluidoComSucesso'));
         } catch {
-          message.error('删除项目失败');
+          message.error(t('falhaAoExcluirOProjeto'));
         }
       },
     });
@@ -180,34 +177,88 @@ export default function ProjectList() {
     }
   };
 
+  // Se o navegador desistir da requisição (ou houver 409 por reenvio), a geração segue no
+  // servidor: acompanhamos o `cover_status` em vez de mostrar falha.
+  const coverPollingRef = useRef<Set<string>>(new Set());
+  const unmountedRef = useRef(false);
+  useEffect(() => {
+    unmountedRef.current = false;
+    return () => { unmountedRef.current = true; };
+  }, []);
+
+  const pollCoverStatus = useCallback(async (project: Project) => {
+    if (coverPollingRef.current.has(project.id)) return;
+    coverPollingRef.current.add(project.id);
+    const key = `cover-${project.id}`;
+    message.loading({ content: t('capaAindaEmGeracao', { title: project.title }), key, duration: 0 });
+    try {
+      const deadline = Date.now() + COVER_POLL_MAX_MS;
+      while (Date.now() < deadline && !unmountedRef.current) {
+        await new Promise((resolve) => setTimeout(resolve, COVER_POLL_INTERVAL_MS));
+        let current: Project;
+        try {
+          current = await projectApi.getProjectQuiet(project.id);
+        } catch {
+          continue;
+        }
+        if (current.cover_status === 'generating') continue;
+        await refreshProjects();
+        if (current.cover_status === 'ready') {
+          message.success({ content: t('capaDeGeradaComSucesso', { title: project.title }), key });
+        } else {
+          message.error({ content: current.cover_error || t('falhaAoGerarACapa2', { title: project.title }), key });
+        }
+        return;
+      }
+      if (!unmountedRef.current) {
+        message.warning({ content: t('capaDemorandoMaisQueOEsperado', { title: project.title }), key });
+      } else {
+        message.destroy(key);
+      }
+    } finally {
+      coverPollingRef.current.delete(project.id);
+    }
+  }, [refreshProjects, t]);
+
+  // Capas que já estavam em geração ao abrir/recarregar a página
+  useEffect(() => {
+    projects.filter((p) => p.cover_status === 'generating').forEach((p) => { void pollCoverStatus(p); });
+  }, [projects, pollCoverStatus]);
+
   const handleGenerateCover = async (project: Project, overwrite: boolean = true) => {
     try {
-      message.loading({ content: `正在为《${project.title}》生成封面...`, key: `cover-${project.id}` });
+      message.loading({ content: t('gerandoACapaDe', { title: project.title }), key: `cover-${project.id}` });
       await projectApi.generateCover(project.id, overwrite);
-      message.success({ content: `《${project.title}》封面生成成功`, key: `cover-${project.id}` });
+      message.success({ content: t('capaDeGeradaComSucesso', { title: project.title }), key: `cover-${project.id}` });
       await refreshProjects();
     } catch (error) {
-      console.error('生成封面失败:', error);
-      message.error({ content: `《${project.title}》封面生成失败`, key: `cover-${project.id}` });
+      console.error(t('falhaAoGerarACapa'), error);
+      if (axios.isAxiosError(error) && (error.response?.status === 409 || !error.response)) {
+        // Tempo esgotado no navegador, rede instável ou "já está em geração": confere o estado real.
+        await refreshProjects();
+        void pollCoverStatus(project);
+        return;
+      }
+      message.error({ content: t('falhaAoGerarACapa2', { title: project.title }), key: `cover-${project.id}` });
     }
   };
 
   const handleDownloadCover = async (project: Project) => {
     try {
       await projectApi.downloadCover(project.id, `${project.title}-cover.png`);
-      message.success(`《${project.title}》封面已开始下载`);
+      message.success(t('oDownloadDaCapaDe', { title: project.title }));
     } catch (error) {
-      console.error('下载封面失败:', error);
-      message.error('下载封面失败');
+      console.error(t('falhaAoBaixarACapa'), error);
+      message.error(t('falhaAoBaixarACapa2'));
     }
   };
 
   const getStatusTag = (status: string) => {
     const statusConfig: Record<string, { color: string; text: string; icon: ReactNode }> = {
-      planning: { color: 'blue', text: '规划', icon: <CalendarOutlined /> },
-      writing: { color: 'green', text: '创作', icon: <EditOutlined /> },
-      revising: { color: 'orange', text: '修订', icon: <FileTextOutlined /> },
-      completed: { color: 'purple', text: '已完结', icon: <TrophyOutlined /> },
+      planning: { color: 'blue', text: t('planejamento'), icon: <CalendarOutlined /> },
+      writing: { color: 'green', text: t('escrita'), icon: <EditOutlined /> },
+      revising: { color: 'orange', text: t('revisao'), icon: <FileTextOutlined /> },
+      completed: { color: 'purple', text: t('concluido'), icon: <TrophyOutlined /> },
     };
     const config = statusConfig[status] || statusConfig.planning;
     return (
@@ -243,10 +294,10 @@ export default function ProjectList() {
     const diff = now.getTime() - date.getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (days === 0) return '今天';
-    if (days === 1) return '昨天';
-    if (days < 7) return `${days}天前`;
-    return date.toLocaleDateString('zh-CN');
+    if (days === 0) return t('hoje');
+    if (days === 1) return t('ontem');
+    if (days < 7) return t('haDias', { days });
+    return date.toLocaleDateString('pt-BR');
   };
 
   const totalWords = projects.reduce((sum, p) => sum + (p.current_words || 0), 0);
@@ -265,11 +316,11 @@ export default function ProjectList() {
       const result = await projectApi.validateImportFile(file);
       setValidationResult(result);
       if (!result.valid) {
-        message.error('文件验证失败');
+        message.error(t('falhaNaValidacaoDoArquivo'));
       }
     } catch (error) {
-      console.error('验证失败:', error);
-      message.error('文件验证失败');
+      console.error(t('falhaNaValidacao'), error);
+      message.error(t('falhaNaValidacaoDoArquivo'));
     } finally {
       setValidating(false);
     }
@@ -278,14 +329,14 @@ export default function ProjectList() {
 
   const handleImport = async () => {
     if (!selectedFile || !validationResult?.valid) {
-      message.warning('请选择有效的导入文件');
+      message.warning(t('selecioneUmArquivoDeImportacao'));
       return;
     }
     try {
       setImporting(true);
       const result = await projectApi.importProject(selectedFile);
       if (result.success) {
-        message.success(`项目导入成功！${result.message}`);
+        message.success(t('projetoImportadoComSucesso', { message: result.message }));
         setImportModalVisible(false);
         setSelectedFile(null);
         setValidationResult(null);
@@ -294,11 +345,11 @@ export default function ProjectList() {
           navigate(`/project/${result.project_id}`);
         }
       } else {
-        message.error(result.message || '导入失败');
+        message.error(result.message || t('falhaNaImportacao'));
       }
     } catch (error) {
-      console.error('导入失败:', error);
-      message.error('导入失败，请重试');
+      console.error(t('falhaNaImportacao2'), error);
+      message.error(t('falhaNaImportacaoTenteNovamente'));
     } finally {
       setImporting(false);
     }
@@ -340,7 +391,7 @@ export default function ProjectList() {
 
   const handleExport = async () => {
     if (selectedProjectIds.length === 0) {
-      message.warning('请至少选择一个项目');
+      message.warning(t('selecionePeloMenosUmProjeto'));
       return;
     }
     try {
@@ -355,7 +406,7 @@ export default function ProjectList() {
           include_memories: exportOptions.includeMemories,
           include_plot_analysis: exportOptions.includePlotAnalysis
         });
-        message.success(`项目 "${project?.title}" 导出成功`);
+        message.success(t('projetoExportadoComSucesso', { title: project?.title }));
       } else {
         let successCount = 0;
         let failCount = 0;
@@ -371,20 +422,20 @@ export default function ProjectList() {
             successCount++;
             await new Promise(resolve => setTimeout(resolve, 500));
           } catch (error) {
-            console.error(`导出项目 ${projectId} 失败:`, error);
+            console.error(t('falhaAoExportarOProjeto', { projectId }), error);
             failCount++;
           }
         }
         if (failCount === 0) {
-          message.success(`成功导出 ${successCount} 个项目`);
+          message.success(t('projetosExportadosComSucesso', { successCount }));
         } else {
-          message.warning(`导出完成：成功 ${successCount} 个，失败 ${failCount} 个`);
+          message.warning(t('exportacaoConcluidaComSucessoCom', { successCount, failCount }));
         }
       }
       handleCloseExportModal();
     } catch (error) {
-      console.error('导出失败:', error);
-      message.error('导出失败，请重试');
+      console.error(t('falhaNaExportacao'), error);
+      message.error(t('falhaNaExportacaoTenteNovamente'));
     } finally {
       setExporting(false);
     }
@@ -397,16 +448,16 @@ export default function ProjectList() {
   const desktopSiderWidth = collapsed ? collapsedSiderWidth : expandedSiderWidth;
 
   const currentViewTitle = activeView === 'projects'
-    ? '我的书架'
+    ? t('minhaEstante')
     : activeView === 'prompts'
-      ? '提示词模板'
+      ? t('modelosDePrompt')
       : activeView === 'book-import'
-        ? '拆书导入'
+        ? t('importarLivro')
         : activeView === 'mcp'
-          ? 'MCP 插件'
+          ? t('pluginsMcp')
           : activeView === 'system-settings'
-            ? '系统设置'
-            : 'API 设置';
+            ? t('configuracoesDoSistema')
+            : t('configuracoesDeApi');
 
   const isAdmin = !!currentUser?.is_admin;
 
@@ -414,48 +465,43 @@ export default function ProjectList() {
     {
       key: 'projects',
       icon: <BookOutlined />,
-      label: '我的书架',
+      label: t('minhaEstante'),
     },
     {
       type: 'group' as const,
-      label: '创作工具',
+      label: t('ferramentasDeCriacao'),
       children: [
         {
           key: 'book-import',
           icon: <UploadOutlined />,
-          label: '拆书导入',
+          label: t('importarLivro'),
         },
         {
           key: 'mcp',
           icon: <ApiOutlined />,
-          label: 'MCP 插件',
+          label: t('pluginsMcp'),
         },
         {
           key: 'prompts',
           icon: <FileSearchOutlined />,
-          label: '提示词管理',
+          label: t('modelosDePrompt'),
         },
       ],
     },
     {
       type: 'group' as const,
-      label: '系统设置',
+      label: t('configuracoesDoSistema'),
       children: [
         {
           key: 'settings',
           icon: <SettingOutlined />,
-          label: 'API 设置',
+          label: t('configuracoesDeApi'),
         },
         ...(isAdmin ? [{
           key: 'system-settings',
           icon: <MailOutlined />,
-          label: '系统设置',
+          label: t('configuracoesDoSistema'),
         }] : []),
-        {
-          key: 'mumu-api',
-          icon: <ApiOutlined />,
-          label: 'MuMuのAPI',
-        },
       ],
     },
   ];
@@ -464,38 +510,33 @@ export default function ProjectList() {
     {
       key: 'projects',
       icon: <BookOutlined />,
-      label: '我的书架',
+      label: t('minhaEstante'),
     },
     {
       key: 'book-import',
       icon: <UploadOutlined />,
-      label: '拆书导入',
+      label: t('importarLivro'),
     },
     {
       key: 'mcp',
       icon: <ApiOutlined />,
-      label: 'MCP 插件',
+      label: t('pluginsMcp'),
     },
     {
       key: 'prompts',
       icon: <FileSearchOutlined />,
-      label: '提示词管理',
+      label: t('modelosDePrompt'),
     },
     {
       key: 'settings',
       icon: <SettingOutlined />,
-      label: 'API 设置',
+      label: t('configuracoesDeApi'),
     },
     ...(isAdmin ? [{
       key: 'system-settings',
       icon: <MailOutlined />,
-      label: '系统设置',
+      label: t('configuracoesDoSistema'),
     }] : []),
-    {
-      key: 'mumu-api',
-      icon: <ApiOutlined />,
-      label: 'MuMuのAPI',
-    },
   ];
 
   return (
@@ -604,10 +645,6 @@ export default function ProjectList() {
               selectedKeys={[activeView]}
               style={{ borderRight: 0, paddingTop: 12, width: '100%' }}
               onClick={({ key }) => {
-                if (key === 'mumu-api') {
-                  window.open('https://ai.mumuverse.space/register?aff=gt7d', '_blank', 'noopener,noreferrer');
-                  return;
-                }
                 changeView(key as ProjectListView);
               }}
               items={collapsed ? sideMenuItemsCollapsed : sideMenuItems}
@@ -625,7 +662,7 @@ export default function ProjectList() {
                   type="text"
                   icon={collapsedThemeIcon}
                   onClick={cycleThemeMode}
-                  title={`主题模式：${mode === 'light' ? '浅色' : mode === 'dark' ? '深色' : '跟随系统'}（点击切换）`}
+                  title={t('temaModo', { mode: mode === 'light' ? t('claro') : mode === 'dark' ? t('escuro') : t('seguirSistema') })}
                   style={{
                     width: 40,
                     height: 40,
@@ -640,8 +677,8 @@ export default function ProjectList() {
             ) : (
               <Space direction="vertical" style={{ width: '100%' }} size={12}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: token.colorTextTertiary }}>
-                  <span>主题模式</span>
-                  <span>{resolvedMode === 'dark' ? '深色' : '浅色'}</span>
+                  <span>{t('tema')}</span>
+                  <span>{resolvedMode === 'dark' ? t('escuro') : t('claro')}</span>
                 </div>
                 <ThemeSwitch block />
                 <UserMenu />
@@ -700,19 +737,7 @@ export default function ProjectList() {
               {currentViewTitle}
             </h2>
 
-            <Badge dot={hasUnreadAnnouncements} offset={[-4, 4]}>
-              <Button
-                type="text"
-                icon={<BellOutlined />}
-                onClick={() => setAnnouncementVisible(true)}
-                style={{
-                  fontSize: 18,
-                  color: token.colorWhite,
-                  width: 36,
-                  height: 36
-                }}
-              />
-            </Badge>
+            <div style={{ width: 36, height: 36 }} />
           </>
         ) : (
           <>
@@ -736,30 +761,14 @@ export default function ProjectList() {
             </h2>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, zIndex: 1 }}>
-              <Badge dot={hasUnreadAnnouncements} offset={[-4, 4]}>
-                <Button
-                  type="text"
-                  icon={<BellOutlined />}
-                  onClick={() => setAnnouncementVisible(true)}
-                  style={{
-                    color: token.colorWhite,
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20,
-                    background: alphaColor(token.colorWhite, 0.12),
-                    border: `1px solid ${alphaColor(token.colorWhite, 0.18)}`,
-                  }}
-                  title="系统公告"
-                />
-              </Badge>
               {activeView === 'projects' && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
                   {projects.length > 0 && (
                     <div style={{ display: 'flex', gap: '16px' }}>
                       {[
-                        { label: '创作中', value: activeProjects, unit: '本' },
-                        { label: '已完结', value: completedProjects, unit: '本' },
-                        { label: '总字数', value: totalWords, unit: '字' },
+                        { label: t('emCriacao'), value: activeProjects, unit: t('livros') },
+                        { label: t('concluidos'), value: completedProjects, unit: t('livros') },
+                        { label: t('totalDePalavras'), value: totalWords, unit: t('palavras') },
                       ].map((item, index) => (
                         <div
                           key={index}
@@ -791,7 +800,7 @@ export default function ProjectList() {
                             {item.label}
                           </span>
                           <span style={{ fontSize: '15px', fontWeight: '600', color: token.colorWhite, lineHeight: 1, fontFamily: 'Monaco, monospace' }}>
-                            {item.label === '总字数' ? formatWordCount(item.value) : item.value}
+                            {item.label === t('totalDePalavras') ? formatWordCount(item.value) : item.value}
                             {item.unit && <span style={{ fontSize: '10px', marginLeft: '2px', opacity: 0.8 }}>{item.unit}</span>}
                           </span>
                         </div>
@@ -837,11 +846,6 @@ export default function ProjectList() {
               selectedKeys={[activeView]}
               style={{ borderRight: 0, paddingTop: 8 }}
               onClick={({ key }) => {
-                if (key === 'mumu-api') {
-                  window.open('https://ai.mumuverse.space/register?aff=gt7d', '_blank', 'noopener,noreferrer');
-                  setDrawerVisible(false);
-                  return;
-                }
                 changeView(key as ProjectListView);
                 setDrawerVisible(false);
               }}
@@ -853,8 +857,8 @@ export default function ProjectList() {
           <div style={{ padding: 16, borderTop: `1px solid ${token.colorBorderSecondary}` }}>
             <Space direction="vertical" style={{ width: '100%' }} size={12}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: token.colorTextTertiary }}>
-                <span>主题模式</span>
-                <span>{resolvedMode === 'dark' ? '深色' : '浅色'}</span>
+                <span>{t('tema')}</span>
+                <span>{resolvedMode === 'dark' ? t('escuro') : t('claro')}</span>
               </div>
               <ThemeSwitch block />
               <UserMenu showFullInfo />
@@ -920,37 +924,25 @@ export default function ProjectList() {
               formatDate={formatDate}
             />
           )}
-        
-        <ChangelogFloatingButton />
         </div>
       </div>
 
-      <AnnouncementTimelineModal
-        visible={announcementVisible}
-        announcements={announcements}
-        loading={announcementsLoading}
-        onClose={() => setAnnouncementVisible(false)}
-        onRefresh={() => void refreshAnnouncements({ full: true })}
-        onMarkAllRead={markAllAnnouncementsRead}
-      />
-
       {/* 导入项目对话框 */}
       <Modal
-        title="导入项目"
+        title={t('importarProjeto')}
         open={importModalVisible}
         onOk={handleImport}
         onCancel={handleCloseImportModal}
         confirmLoading={importing}
-        okText="导入"
-        cancelText="取消"
+        okText={t('importar')}
+        cancelText={t('cancelar')}
         width={isMobile ? '90%' : 500}
         centered
         okButtonProps={{ disabled: !validationResult?.valid }}
       >
         <Space direction="vertical" size={16} style={{ width: '100%' }}>
           <div>
-            <p style={{ marginBottom: '12px', color: token.colorTextSecondary }}>
-              选择之前导出的 JSON 格式项目文件
+            <p style={{ marginBottom: '12px', color: token.colorTextSecondary }}>{t('selecioneUmArquivoDeProjeto')}
             </p>
             <Upload
               accept=".json"
@@ -963,13 +955,13 @@ export default function ProjectList() {
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               fileList={selectedFile ? [{ uid: '-1', name: selectedFile.name, status: 'done' }] as any : []}
             >
-              <Button icon={<UploadOutlined />} block>选择文件</Button>
+              <Button icon={<UploadOutlined />} block>{t('selecionarArquivo')}</Button>
             </Upload>
           </div>
 
           {validating && (
             <div style={{ textAlign: 'center', padding: '20px' }}>
-              <Spin tip="验证文件中..." />
+              <Spin tip={t('validandoOArquivo')} />
             </div>
           )}
 
@@ -978,37 +970,37 @@ export default function ProjectList() {
               <Space direction="vertical" size={8} style={{ width: '100%' }}>
                 <div>
                   <Text strong style={{ color: validationResult.valid ? token.colorSuccess : token.colorError }}>
-                    {validationResult.valid ? '✓ 文件验证通过' : '✗ 文件验证失败'}
+                    {validationResult.valid ? t('arquivoValidadoComSucesso') : t('falhaNaValidacaoDoArquivo2')}
                   </Text>
                 </div>
                 {validationResult.project_name && (
                   <div>
-                    <Text type="secondary">项目名称：</Text>
+                    <Text type="secondary">{t('nomeDoProjeto')}</Text>
                     <Text strong>{validationResult.project_name}</Text>
                   </div>
                 )}
                 {validationResult.statistics && (
                    <div style={{ marginTop: 8 }}>
-                      <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 6 }}>数据统计：</Text>
+                      <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 6 }}>{t('estatisticasDosDados')}</Text>
                       <Space size={[6, 6]} wrap>
-                        {validationResult.statistics.chapters > 0 && <Tag color="blue">章节: {validationResult.statistics.chapters}</Tag>}
-                        {validationResult.statistics.characters > 0 && <Tag color="green">角色: {validationResult.statistics.characters}</Tag>}
-                        {validationResult.statistics.outlines > 0 && <Tag color="cyan">大纲: {validationResult.statistics.outlines}</Tag>}
-                        {validationResult.statistics.relationships > 0 && <Tag color="purple">关系: {validationResult.statistics.relationships}</Tag>}
-                        {validationResult.statistics.organizations > 0 && <Tag color="orange">组织: {validationResult.statistics.organizations}</Tag>}
-                        {validationResult.statistics.careers > 0 && <Tag color="magenta">职业: {validationResult.statistics.careers}</Tag>}
-                        {validationResult.statistics.character_careers > 0 && <Tag color="geekblue">职业关联: {validationResult.statistics.character_careers}</Tag>}
-                        {validationResult.statistics.writing_styles > 0 && <Tag color="lime">写作风格: {validationResult.statistics.writing_styles}</Tag>}
-                        {validationResult.statistics.story_memories > 0 && <Tag color="gold">故事记忆: {validationResult.statistics.story_memories}</Tag>}
-                        {validationResult.statistics.plot_analysis > 0 && <Tag color="volcano">剧情分析: {validationResult.statistics.plot_analysis}</Tag>}
-                        {validationResult.statistics.generation_history > 0 && <Tag>生成历史: {validationResult.statistics.generation_history}</Tag>}
-                        {validationResult.statistics.has_default_style && <Tag color="success">含默认风格</Tag>}
+                        {validationResult.statistics.chapters > 0 && <Tag color="blue">{t('capitulos', { chapters: validationResult.statistics.chapters })}</Tag>}
+                        {validationResult.statistics.characters > 0 && <Tag color="green">{t('personagens', { characters: validationResult.statistics.characters })}</Tag>}
+                        {validationResult.statistics.outlines > 0 && <Tag color="cyan">{t('outline', { outlines: validationResult.statistics.outlines })}</Tag>}
+                        {validationResult.statistics.relationships > 0 && <Tag color="purple">{t('relacionamentos', { relationships: validationResult.statistics.relationships })}</Tag>}
+                        {validationResult.statistics.organizations > 0 && <Tag color="orange">{t('organizacoes', { organizations: validationResult.statistics.organizations })}</Tag>}
+                        {validationResult.statistics.careers > 0 && <Tag color="magenta">{t('carreiras', { careers: validationResult.statistics.careers })}</Tag>}
+                        {validationResult.statistics.character_careers > 0 && <Tag color="geekblue">{t('vinculosDeCarreira', { character_careers: validationResult.statistics.character_careers })}</Tag>}
+                        {validationResult.statistics.writing_styles > 0 && <Tag color="lime">{t('estilosDeEscrita', { writing_styles: validationResult.statistics.writing_styles })}</Tag>}
+                        {validationResult.statistics.story_memories > 0 && <Tag color="gold">{t('memoriasDaHistoria', { story_memories: validationResult.statistics.story_memories })}</Tag>}
+                        {validationResult.statistics.plot_analysis > 0 && <Tag color="volcano">{t('analiseDeEnredo', { plot_analysis: validationResult.statistics.plot_analysis })}</Tag>}
+                        {validationResult.statistics.generation_history > 0 && <Tag>{t('historicoDeGeracao', { generation_history: validationResult.statistics.generation_history })}</Tag>}
+                        {validationResult.statistics.has_default_style && <Tag color="success">{t('incluiEstilosPadrao')}</Tag>}
                       </Space>
                    </div>
                 )}
                 {validationResult.warnings?.length > 0 && (
                    <div style={{ marginTop: 8 }}>
-                     <Text type="warning" strong style={{ fontSize: 12 }}>提示：</Text>
+                     <Text type="warning" strong style={{ fontSize: 12 }}>{t('aviso')}</Text>
                      <ul style={{ margin: '4px 0 0 0', paddingLeft: 20, color: token.colorWarning, fontSize: 12 }}>
                        {validationResult.warnings.map((w: string, i: number) => <li key={i}>{w}</li>)}
                      </ul>
@@ -1016,7 +1008,7 @@ export default function ProjectList() {
                 )}
                 {validationResult.errors?.length > 0 && (
                    <div>
-                     <Text type="danger" strong>错误：</Text>
+                     <Text type="danger" strong>{t('erro')}</Text>
                      <ul style={{ margin: '4px 0 0 0', paddingLeft: 20, color: token.colorError, fontSize: 13 }}>
                        {validationResult.errors.map((e: string, i: number) => <li key={i}>{e}</li>)}
                      </ul>
@@ -1030,13 +1022,13 @@ export default function ProjectList() {
 
       {/* 导出项目对话框 */}
       <Modal
-        title="导出项目"
+        title={t('exportarProjetos')}
         open={exportModalVisible}
         onOk={handleExport}
         onCancel={handleCloseExportModal}
         confirmLoading={exporting}
-        okText={selectedProjectIds.length > 0 ? `导出 (${selectedProjectIds.length})` : '导出'}
-        cancelText="取消"
+        okText={selectedProjectIds.length > 0 ? t('exportar', { length: selectedProjectIds.length }) : t('exportar2')}
+        cancelText={t('cancelar')}
         width={isMobile ? '90%' : 700}
         centered
         okButtonProps={{ disabled: selectedProjectIds.length === 0 }}
@@ -1044,18 +1036,18 @@ export default function ProjectList() {
          <Space direction="vertical" size={16} style={{ width: '100%' }}>
             <Card size="small" style={{ background: token.colorFillTertiary }}>
               <Space direction="vertical" size={12} style={{ width: '100%' }}>
-                <Text strong>导出选项</Text>
+                <Text strong>{t('opcoesDeExportacao')}</Text>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 24px' }}>
-                  <Checkbox checked={exportOptions.includeWritingStyles} onChange={e => setExportOptions(prev => ({...prev, includeWritingStyles: e.target.checked}))}>写作风格</Checkbox>
-                  <Checkbox checked={exportOptions.includeCareers} onChange={e => setExportOptions(prev => ({...prev, includeCareers: e.target.checked}))}>职业系统</Checkbox>
-                  <Tooltip title="包含生成历史记录，文件可能较大">
-                    <Checkbox checked={exportOptions.includeGenerationHistory} onChange={e => setExportOptions(prev => ({...prev, includeGenerationHistory: e.target.checked}))}>生成历史</Checkbox>
+                  <Checkbox checked={exportOptions.includeWritingStyles} onChange={e => setExportOptions(prev => ({...prev, includeWritingStyles: e.target.checked}))}>{t('estilosDeEscrita2')}</Checkbox>
+                  <Checkbox checked={exportOptions.includeCareers} onChange={e => setExportOptions(prev => ({...prev, includeCareers: e.target.checked}))}>{t('sistemaDeCarreiras')}</Checkbox>
+                  <Tooltip title={t('incluiOHistoricoDeGeracao')}>
+                    <Checkbox checked={exportOptions.includeGenerationHistory} onChange={e => setExportOptions(prev => ({...prev, includeGenerationHistory: e.target.checked}))}>{t('historicoDeGeracao2')}</Checkbox>
                   </Tooltip>
-                  <Tooltip title="包含故事记忆数据，文件可能较大">
-                    <Checkbox checked={exportOptions.includeMemories} onChange={e => setExportOptions(prev => ({...prev, includeMemories: e.target.checked}))}>故事记忆</Checkbox>
+                  <Tooltip title={t('incluiDadosDeMemoriaDa')}>
+                    <Checkbox checked={exportOptions.includeMemories} onChange={e => setExportOptions(prev => ({...prev, includeMemories: e.target.checked}))}>{t('memoriasDaHistoria2')}</Checkbox>
                   </Tooltip>
-                  <Tooltip title="包含AI剧情分析数据">
-                    <Checkbox checked={exportOptions.includePlotAnalysis} onChange={e => setExportOptions(prev => ({...prev, includePlotAnalysis: e.target.checked}))}>剧情分析</Checkbox>
+                  <Tooltip title={t('incluiDadosDeAnaliseDe')}>
+                    <Checkbox checked={exportOptions.includePlotAnalysis} onChange={e => setExportOptions(prev => ({...prev, includePlotAnalysis: e.target.checked}))}>{t('analiseDeEnredo2')}</Checkbox>
                   </Tooltip>
                 </div>
               </Space>
@@ -1063,13 +1055,12 @@ export default function ProjectList() {
 
             <div>
                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                  <Text>选择项目 ({exportableProjects.length})</Text>
+                  <Text>{t('selecionarProjetos', { length: exportableProjects.length })}</Text>
                   <Checkbox 
                     checked={selectedProjectIds.length === exportableProjects.length && exportableProjects.length > 0}
                     indeterminate={selectedProjectIds.length > 0 && selectedProjectIds.length < exportableProjects.length}
                     onChange={handleToggleAll}
-                  >
-                    全选
+                  >{t('selecionarTodos')}
                   </Checkbox>
                </div>
                <div style={{ maxHeight: 300, overflowY: 'auto', border: `1px solid ${token.colorBorderSecondary}`, borderRadius: 8, padding: 8 }}>
@@ -1091,7 +1082,7 @@ export default function ProjectList() {
                         <Checkbox checked={selectedProjectIds.includes(p.id)} />
                         <div style={{ flex: 1 }}>
                            <div>{p.title}</div>
-                           <div style={{ fontSize: 12, color: token.colorTextTertiary }}>{formatWordCount(p.current_words || 0)} 字 · {getStatusTag(getDisplayStatus(p.status, getProgress(p.current_words || 0, p.target_words || 0)))}</div>
+                           <div style={{ fontSize: 12, color: token.colorTextTertiary }}>{t('palavras2', { words: formatWordCount(p.current_words || 0) })} · {getStatusTag(getDisplayStatus(p.status, getProgress(p.current_words || 0, p.target_words || 0)))}</div>
                         </div>
                       </div>
                     ))}

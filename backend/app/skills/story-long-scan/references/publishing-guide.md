@@ -1,345 +1,306 @@
-# 网文投稿与平台运营指南
+# Guia de publicação e operação em plataformas
 
-## 目录
+> Adaptado ao ecossistema ocidental e brasileiro de ficção comercial: publicação independente (Amazon KDP, Kobo Writing Life, Hotmart e similares), plataformas de leitura serial (Wattpad, Royal Road, Patreon) e submissão a editoras. Regras e programas das plataformas mudam com frequência: confirme sempre nos termos atuais antes de decidir.
 
-1. [平台选择与定位](#平台选择与定位)
-2. [投稿与签约](#投稿与签约)
-3. [推荐机制](#推荐机制)
-4. [数据指标解读](#数据指标解读)
-5. [保底与收入](#保底与收入)
-6. [编辑收稿倾向](#编辑收稿倾向)
-7. [短剧改编](#短剧改编)
-8. [AI文问题](#ai文问题)
-9. [海外平台](#海外平台)
-10. [新人投稿十问自检](#新人投稿十问自检)
-11. [投稿实战经验](#投稿实战经验)
-12. [封面/书名/简介设计](#封面书名简介设计)
+## Sumário
+
+1. [Escolha da plataforma e posicionamento](#escolha-da-plataforma-e-posicionamento)
+2. [Publicação e contratos](#publicação-e-contratos)
+3. [Mecanismos de recomendação](#mecanismos-de-recomendação)
+4. [Interpretação dos indicadores](#interpretação-dos-indicadores)
+5. [Renda e previsibilidade](#renda-e-previsibilidade)
+6. [Tendências de aceitação de editoras](#tendências-de-aceitação-de-editoras)
+7. [Adaptações audiovisuais](#adaptações-audiovisuais)
+8. [A questão do texto gerado por IA](#a-questão-do-texto-gerado-por-ia)
+9. [Mercado internacional](#mercado-internacional)
+10. [Dez perguntas de autoverificação para quem está começando](#dez-perguntas-de-autoverificação-para-quem-está-começando)
+11. [Experiência prática de publicação](#experiência-prática-de-publicação)
+12. [Design de capa, título e sinopse](#design-de-capa-título-e-sinopse)
 
 ---
 
-## 平台选择与定位
+## Escolha da plataforma e posicionamento
 
-### 主流平台对比
+### Comparação das principais plataformas
 
-| 平台 | 特点 | 适合人群 |
+| Plataforma | Características | Indicada para |
 |------|------|----------|
-| 起点 | 主站标杆，订阅制，推荐机制完善 | 想走长线订阅的男频作者 |
-| 番茄 | 免费阅读，流量大，AI文冲击严重 | 新人试水、追读型作者 |
-| 七猫 | 下沉市场，强情绪流，保底友好 | 感情流女频作者、想拿保底 |
-| 飞卢 | 快节奏，日收模式，但流量持续下滑 | 擅长快节奏爽文的作者 |
-| 书旗 | 保底门槛低，新人友好，正在崛起 | 无历史成绩想拿保底的新人 |
-| 纵横 | 老牌但流量一般 | 特定题材作者 |
-| 晋江 | 女频主阵地 | 想出成绩的女频作者 |
-| 云起（Q阅） | 流量最高的阅文女频 | 快钱、流水线热点 |
+| Amazon KDP | Maior alcance de vendas; Kindle Unlimited paga por páginas lidas; exclusividade opcional | Autores que querem construir série e renda recorrente |
+| Kobo Writing Life / outras livrarias | Distribuição ampla, concorrência menor em algumas categorias | Autores que preferem não depender de uma loja |
+| Wattpad | Comunidade grande e jovem, leitura gratuita, interação por capítulo | Quem quer testar ideias, formar público e ganhar tração |
+| Royal Road | Serialização gratuita, público fiel de fantasia/progressão | Autores de fantasia, LitRPG, ficção científica |
+| Patreon / Ko-fi / Apoia-se | Apoio direto de leitores, capítulos antecipados | Quem já tem público e quer renda direta |
+| Editoras tradicionais | Curadoria, distribuição em livrarias físicas, adiantamento variável | Quem busca prestígio e distribuição física |
 
-### 选择原则
+### Princípios de escolha
 
-- 分成去大网站，流量越大越好
-- 保底考虑七猫、书旗等，新人也能过
-- 精力多可以主站+小网站多开搭配
-- 根据写作风格、题材噱头、个人积累三个方向选平台
+- Priorize a plataforma onde o seu gênero tem leitores ativos
+- Autopublicação em série costuma ter melhor retorno do que livros isolados
+- Com tempo e energia, combine uma plataforma principal com plataformas menores
+- Escolha pela combinação de estilo de escrita, gancho do gênero e bagagem pessoal
 
-### 女频平台收稿倾向
+### Preferências por gênero
 
-| 平台 | 收稿倾向 |
+| Plataforma | O que costuma funcionar |
 |------|----------|
-| 七猫 | 强情绪流，甜虐交替极限推拉；爹系男主VS大美人、追妻火葬场、60-90年代甜宠+对照组、多男主修罗场 |
-| 纵横女频 | 与七猫类似，强感情线拉扯 |
-| 起点女频 | 流量极低，仅适合吃全勤 |
+| Amazon (romance) | Séries com tropos claros (inimigos que viram amantes, casamento por contrato, segunda chance), capas de gênero, volumes consecutivos |
+| Amazon (fantasia/ficção científica) | Séries longas, progressão de poder, universos compartilhados |
+| Wattpad | Romance jovem, fantasia, fanfic, histórias com protagonista carismática e capítulos curtos |
+| Royal Road | Fantasia de progressão, LitRPG, sistema de poder coerente |
 
 ---
 
-## 投稿与签约
+## Publicação e contratos
 
-### 内投 vs 直发
+### Autopublicação vs. submissão a editora
 
-- **内投**：通过编辑邮箱投稿，6000字即可投，成本低
-- **直发**：起点直发后编辑捞书签约规则已收紧，时间成本翻倍
-- **建议**：内投几乎成本最低，先探网站收文风口
+- **Autopublicação**: você controla capa, preço e cronograma; custo inicial de capa, revisão e divulgação
+- **Editora**: você envia uma carta de apresentação, sinopse e capítulos de amostra; o processo é lento e seletivo
+- **Sugestão**: para iniciantes que querem aprender o mercado, publicar de forma independente em série costuma ser o caminho mais rápido de feedback
 
-### 起点签约流程
+### Fluxo básico de publicação no KDP
 
-1. 进入起点作家专区，查看编辑内投QQ表
-2. 6000字即可投，找对应编辑邮箱发送
-3. 内投通过后，编辑通知6000字过审后提签
-4. 上架后每天VIP卷需发4000字以上（免费不算）
-5. 24小时未回复基本等于没签
+1. Criar a conta e preencher dados fiscais
+2. Preparar manuscrito revisado, capa e sinopse
+3. Escolher categorias e palavras-chave adequadas ao gênero
+4. Definir preço e se entra no Kindle Unlimited (exclusividade)
+5. Planejar o lançamento (pré-venda, lista de e-mails, leitores beta)
+6. Manter cadência de lançamento: séries rendem mais com intervalos curtos entre volumes
 
-### 对标书原则
+### Princípio das obras de referência
 
-- 对标开头切入点、世界观、金手指、升级体系
-- 世界观/金手指/人设/剧情循环相同不叫抄袭，只有剧情走向一模一样才算
-- 至少5本同网站同题材参考书中选1本对标
-- 不要拆大神的书，找精品到万订之间的作品
+- Observe aberturas, mundos, vantagens do protagonista e sistemas de progressão das obras de referência
+- Mundo, vantagem, caracterização e ciclos parecidos não são plágio; só é plágio copiar o enredo
+- Escolha pelo menos 5 obras do mesmo gênero e plataforma, e adote 1 como referência principal
+- Não analise obras de recordistas; prefira livros bem-sucedidos, mas alcançáveis
 
-### 签约注意事项
+### Cuidados com contratos e direitos
 
-- 内投通过后加不上编辑：可能QQ风险号被过滤，换QQ/让其他作者代问/发邮件说明
-- 写同人不要抄袭原著内容，也不要把其他同人改改就发
-- 起点尺度的灰色地带：涉政/擦边/道德问题可通过设置日韩美背景规避，但标准随时可能收紧
+- Leia com atenção cláusulas de exclusividade, prazo e direitos derivados
+- Em fanfic, não copie trechos da obra original nem reedite fanfic de outros
+- Atenção aos limites de conteúdo de cada plataforma (violência, conteúdo adulto, temas sensíveis); as regras mudam
 
 ---
 
-## 推荐机制
+## Mecanismos de recomendação
 
-### 起点推荐流程
+### Dinâmica de lançamento na Amazon
 
 ```
-出库 -> 试水期(7天) -> 培育期(21-42天) -> 三江/上架
+Lançamento -> janela inicial (primeiros 30 dias de visibilidade) -> fase de consolidação -> posição estável nas listas
 ```
 
-**试水期**：同期新书在同一流量池，七天总流量恒定。
+**Janela inicial**: livros novos recebem visibilidade extra; vendas e leitura nessa janela ajudam a posicionar o livro.
 
-**培育期**：四个等级：放量包++ > 放量包+ > 放量包 > 扶持包（安慰奖）。每1-2天一个流量包，共21个。下一个流量包大小取决于上一个的成绩（追读+留存）。噱头强但留存差 -> 恶性循环。
+**Consolidação**: o algoritmo passa a considerar vendas contínuas, páginas lidas, avaliações e retenção. Uma série com volumes seguintes alimenta o interesse do leitor.
 
-**关键数据**：
-- 出库时300假追可无缝衔接试水
-- 冲三江至少500假追
-- 1000假追以下全是扶贫包，2000以上有放量+
+**Dados importantes**:
+- Lista de e-mails e leitores beta ajudam a ter avaliações logo nos primeiros dias
+- Capa, título e sinopse fortes aumentam a conversão
+- Lançar o volume 2 logo após o 1 mantém o leitor engajado
 
-### 起点新书榜规则
+### Rankings de ascensão (Wattpad e Royal Road)
 
-上榜条件（三选一即下榜）：满20万字 / 签约满30天 / 断更超3天
+Condições gerais para entrar em listas de ascensão: ritmo regular de atualização, boa taxa de leitura por capítulo, comentários e seguidores crescentes. Atualizar com regularidade e interagir nos comentários melhora a visibilidade.
 
-**多待榜单技巧**：内投通过后和编辑商量，先发到3万字左右再完成签约流程，可多待4-5天。
+### A importância de título e sinopse
 
-### 番茄推荐机制
-
-- 十万字首测，三十万字二测，中间二十万字时有流量包扶持
-- 书旗将和番茄一样只有前十万字静默期
-- 番茄被AI文冲击，验证期给量减少，验证期每天200-500为常态
-- 建议写到13万字后再观察数据
-
-### 书名简介的重要性
-
-起点新推荐机制下，书名和简介是第一道筛选：
-- 书名点明题材可保下限
-- 书名简介吸量 >> 追读 >> 读完率/书架比
-- 文艺书名在新机制下会被拉长培育期
+Nos mecanismos modernos de recomendação, título e sinopse são o primeiro filtro:
+- Título que deixa claro o gênero garante o piso
+- Título e sinopse atraem cliques >> leitura seguida >> avaliações e continuidade
+- Títulos excessivamente abstratos tendem a ter conversão menor
 
 ---
 
-## 数据指标解读
+## Interpretação dos indicadores
 
-### 番茄核心数据
+### Indicadores da Amazon
 
-**追更人数** = 阅读最近7日更新章节的有效读者数 = 自身80%的水平实力
+- **Conversão da página do produto**: capa, título, sinopse e amostra
+- **Páginas lidas (KENP)**: retenção real da leitura no Kindle Unlimited
+- **Avaliações**: quantidade e nota; poucas avaliações no início atrapalham a conversão
+- **Continuidade na série**: leitores do volume 1 que seguem para o 2
 
-| 追更人数(验证期) | 预估首秀量 |
-|------------------|-----------|
-| 10-30 | 基本废了 |
-| 30+ | 1000-3000量 |
-| 50-80+ | 稳定万量 |
-| 200+ | 2万-3万量 |
-| 500+ | 5万-10万量 |
+### Indicadores do Wattpad e do Royal Road
 
-验证期追更估算：每天100-200人流量，7天700-1400人中80人追更
+- **Leituras por capítulo**: queda brusca entre capítulos indica problema de gancho
+- **Votos e comentários**: engajamento e identificação
+- **Seguidores e favoritos**: demanda por atualizações
 
-### 起点核心数据
+### Lógica geral dos dados
 
-- **收订比**：收藏与首订的比例，反映转化效率
-- **24小时追读**：VIP读者的实时追读，上推荐看这个数据
-- **首订数据参考**：上架首订不到100属中游水平
-
-### 通用数据逻辑
-
-- 读完率高 = 内容质量好，追更高 = 期待感足
-- 书架比好但完读差 = 中间内容出了问题
-- 日收与追更人数强挂钩
-- 数据不好时优先检查：开头吸量、章节留存、期待感断档
+- Boa conclusão de leitura = conteúdo bom; muitos seguidores = expectativa alta
+- Boa estante e baixa conclusão = problema no meio do livro
+- Receita depende fortemente da retenção
+- Quando os dados estão ruins, verifique primeiro: atração da abertura, retenção por capítulo e interrupção da expectativa
 
 ---
 
-## 保底与收入
+## Renda e previsibilidade
 
-### 保底 vs 分成
+### Renda variável vs. adiantamento
 
-| 模式 | 特点 | 适合 |
+| Modelo | Características | Indicado para |
 |------|------|------|
-| 保底 | 稳定收入，写作热情消耗大，更新压力大 | 需要稳定现金流、历史成绩不足 |
-| 分成 | 上限高但不稳定，订阅说话 | 有信心写好追读的作者 |
+| Adiantamento (editora) | Renda mais previsível, menos controle | Quem quer estabilidade e distribuição física |
+| Royalties diretos (autopublicação) | Teto alto, mas instável; depende de vendas e leitura | Quem confia em construir público e série |
 
-- 新人无历史成绩也能拿保底，热门题材比冷门容易过
-- 书旗：白菜价只要脑洞好，新人也能拿保底
-- 飞卢：全勤和月均订阅直接挂钩，防AI充数文
+- Iniciantes podem começar com baixo investimento e reinvestir parte da renda em capa e revisão
+- Gêneros populares costumam ter mais leitores, mas também mais concorrência
+- Frequência de lançamento e série pesam muito na renda
 
-### 起点福利
+### Benefícios e programas
 
-有针对千钧以下原创的扶持计划，需三个编辑点头审核。追收比例必须靠谱，文字功底和规划能力不能少。不要为了冲补贴写自己不熟悉的小众题材。
+Plataformas oferecem programas de bônus ou promoções (ofertas por tempo limitado, bônus de leitura). Os termos mudam; leia as regras vigentes e não escreva em um gênero que você não domina só para perseguir bônus.
 
-### 番茄福利
+### Referências de renda
 
-- 星耀计划等奖励集中在30-80万字阶段
-- 百万字后基本裸奔
-- 断更超过15天后复更，全勤仍可拿（需满足当月全勤要求）
-
-### 收入参考
-
-- 番茄：九千在读约150日收（参考值，波动大）
-- 起点首订100以下属中游
-- 写得好+数据稳 = 月入8000+可期
+- Os números variam muito; não faça planejamento com base em casos extremos
+- Série consistente + capa profissional + boa sinopse = base de renda possível ao longo do tempo
 
 ---
 
-## 编辑收稿倾向
+## Tendências de aceitação de editoras
 
-### 起点编辑（八组）
+### Perfis típicos de editores
 
-**青狐**：偏剧情流/升级流，不擅长感情/恋爱/日常
-- 玄幻：极道流、传统玄幻、现代星际高武、御兽流、巫师流、异兽流、种田文、脑洞玄幻、召唤流、原始流、两界穿梭
-- 科幻：末世类（脑洞/种田/游戏设定）、异兽流
-- 仙侠：古典仙侠变种（大神专属），新人走脑洞融合路线
+- Editoras de romance e ficção de gênero costumam aceitar séries com tropos claros e protagonistas bem definidos
+- Editoras de fantasia e ficção científica valorizam mundo original com regras consistentes
+- Editoras de thriller e mistério valorizam gancho, reviravolta justa e ritmo
 
-**朱砂**：都市：娱乐文、种田文、重生文、医生文、诸天无限同人
+### Pontos de atenção na hora de enviar
 
-### 起点编辑（九组）
-
-**好运**：历史穿越秦/唐/明/宋/三国。要求合理利用历史人物、要有危机感、从小到大发展、有清晰成长主线。历史文需要查资料+每日至少6000字稳定更新。
-
-### 编辑建议要点
-
-- 起点仙侠：新人多听劝，头铁搞传统一定碰壁
-- 传统玄幻：有可复制路线，但新人需找到对标的固定题材范围
-- 同人/类同人：降低写作难度，利用读者已有认知
-- 编辑第一句话通常问："你参考的哪本书？"
+- Fantasia clássica: há rotas reproduzíveis, mas iniciantes precisam encontrar referências em recortes específicos
+- Fanfic e obras derivadas diminuem a dificuldade de escrita ao aproveitar conhecimento prévio do leitor, mas exigem cuidado com direitos
+- A primeira pergunta do editor costuma ser: "Qual livro é a sua referência de mercado?"
 
 ---
 
-## 短剧改编
+## Adaptações audiovisuais
 
-### 版权与分成
+### Direitos e participação
 
-- 番茄自制剧：后台直接收到站短通知版权卖出，不用主动联系编辑
-- 第三方保底一般3万起步
-- 番茄自制剧评级：1.25万/2.5万/3万保底
-- 短剧分成可能远超稿费（案例：短剧分成6.6万 + 稿费3.1万）
+- Direitos de adaptação costumam ser negociados à parte; mantenha-os sempre que possível ao publicar de forma independente
+- Contratos com agentes ou produtoras devem ser lidos com atenção
+- A renda de adaptação pode superar a de venda de livros, mas é rara
 
-### 短剧数据参考
+### O que costuma interessar a produtoras
 
-| 指标 | 说明 |
+| Indicador | Descrição |
 |------|------|
-| 红果首集点赞 | 2-3万可破S级保底；1万出头可破1.25万保底 |
-| 番茄点赞 | 约为红果的1/4-1/3 |
-| 破保底标志 | 新片期后标签变为"爆剧" |
-| 收入估算 | 首集点赞每涨1万，收入约增3k-6k |
+| Premissa de uma frase | Facilidade de resumir em um logline |
+| Personagens marcantes | Protagonistas que atores querem interpretar |
+| Cenas visuais | Momentos fortes de imagem e emoção |
+| Série consolidada | Obra com leitores fiéis e volumes sucessivos |
 
-### 题材差异
+### Cuidados
 
-- 脑洞类：第一集点赞偏多
-- 女频：点赞量总体高于男频，热度持续更久
-- 男频玄幻：长期增长能力强，延续收入可观
-- 男频都市：衰减速度快，两个月后收益大幅降低
-
-### 引流注意
-
-- 书中引流短剧可能拉低书籍数据（影响读者完读/留存）
-- 建议：短剧上线头两周引流，不超过一个月
-- 短剧上线一周追剧人数不超10万/首集点赞不超2万 -> 不要引流
+- Divulgue adaptações só quando confirmadas em contrato
+- Não prometa aos leitores adaptações que ainda não existem
 
 ---
 
-## AI文问题
+## A questão do texto gerado por IA
 
-- 番茄被AI文大量冲击，一天参加首秀的书达1000本（2025年2月）
-- AI文作者五开甚至七开同时更新，严重挤占流量池
-- 机器人识别不了AI作品，但平台有真人编辑把关
-- 编辑内投邮箱已被AI文挤爆
-- 对策：写出AI无法替代的质量（情绪、人设、互动细节）
+- Plataformas de venda e de leitura têm regras sobre conteúdo gerado por IA; leia os termos e declare o uso quando exigido
+- O excesso de livros gerados em massa disputa a atenção do leitor e prejudica a visibilidade de todos
+- Plataformas e editoras podem exigir declaração de uso de IA e responsabilizam o autor pelo conteúdo
+- Estratégia: entregue qualidade que a IA sozinha não consegue (emoção, personagens, detalhes de interação, voz própria) e revise o texto de forma cuidadosa
 
 ---
 
-## 海外平台
+## Mercado internacional
 
-| 平台 | 定位 | 特点 |
+| Mercado | Posicionamento | Características |
 |------|------|------|
-| Webnovel | 起点国际版 | 男频为主，很多起点作品翻译版 |
-| Dreame | 女频为主 | 最喜欢收狼人文、悔婚打脸世情文 |
-| GoodNovel | 综合女频 | 海外晋江类 |
-| MegaNovel | 男频 | 新媒体向（出轨/战神/兵王/妻子后悔） |
+| Amazon (EUA, Reino Unido, Brasil e outros) | Maior mercado de ebooks | Concorrência alta, séries e gêneros bem definidos |
+| Kobo | Presença forte no Canadá, Brasil e Europa | Menos concorrência em algumas categorias |
+| Wattpad | Comunidade global | Forte em ficção jovem e fanfic |
+| Royal Road | Público anglófono | Forte em fantasia de progressão e LitRPG |
 
-海外写作要点：签约难度显著低于国内但流量也显著低于国内；满4000字自动新书审核，满1.2万字可申请签约；签约后每月200美元保底；编辑不主动联系作者，一切通过站短。
-
----
-
-## 新人投稿十问自检
-
-1. 参考的对标书是哪本？
-2. 选的题材在目标网站有市场吗？
-3. 书名和简介能吸量吗？
-4. 开头前三章有明确的期待感吗？
-5. 金手指/核心梗在前五章交代清楚了吗？
-6. 主角动机是否充分、读者能否共情？
-7. 对这个题材有足够的阅读积累吗？
-8. 能保证每日稳定更新吗？
-9. 写的是自己有激情的题材吗？
-10. 清楚目标网站的推荐机制和数据要求吗？
+Pontos para a escrita voltada ao exterior: traduções e edições em outros idiomas ampliam o alcance, mas exigem revisão profissional; confira sempre os requisitos de cada loja, como extensão mínima, formatos aceitos e política de preços.
 
 ---
 
-## 投稿实战经验
+## Dez perguntas de autoverificação para quem está começando
 
-### 起点投稿
-
-- 凉频（宋朝以后）审核风险高，容易碰线
-- 写作需有足够积累，否则几万字就卡文
-- 下兼容读者：成熟题材的设定/写法/切入点是降低难度的工具，不是限制
-
-### 番茄投稿
-
-- 验证期给量波动大，不要首日数据差就慌
-- 首秀第一天来量，第二天可能回落，第三天可能再涨
-- 书测是重要节点，30万字前后会有明显流量变化
-- 小众题材验证期追更10-30基本废了
-
-### 保底站投稿
-
-- 脑洞的难度明显低于传统题材
-- 热门题材比冷门容易过稿
-- 升星晋级策略：集中火力写熟、写透一个类型套路
+1. Qual é o livro de referência?
+2. O gênero escolhido tem mercado na plataforma-alvo?
+3. Título e sinopse atraem cliques?
+4. Os três primeiros capítulos criam uma expectativa clara?
+5. A vantagem ou o conceito central ficam claros nos cinco primeiros capítulos?
+6. A motivação do protagonista é suficiente e o leitor consegue se identificar?
+7. Você tem bagagem de leitura suficiente neste gênero?
+8. Consegue manter um ritmo de publicação regular?
+9. Você escreve algo que lhe dá entusiasmo?
+10. Conhece o mecanismo de recomendação e os indicadores exigidos pela plataforma-alvo?
 
 ---
 
-## 封面/书名/简介设计
+## Experiência prática de publicação
 
-### 书名起名法
+### Publicação na Amazon
 
-**身份法（最实用）**：
+- Gêneros com muitas regras de conteúdo exigem leitura atenta das diretrizes
+- É preciso ter bagagem suficiente, senão a história trava com poucos milhares de palavras
+- Gênero maduro: configuração, escrita e ponto de entrada são ferramentas para reduzir a dificuldade, não limites
 
-| 变体 | 公式 | 示例 |
+### Publicação em plataformas seriadas
+
+- A visibilidade inicial oscila bastante; não entre em pânico com dados ruins no primeiro dia
+- O primeiro dia traz leitores, o segundo pode cair, o terceiro pode subir de novo
+- O fim dos primeiros capítulos é ponto de decisão importante para o leitor
+- Em nichos menores, poucos seguidores no início costumam indicar que é preciso ajustar o gancho
+
+### Estratégia de gênero
+
+- Ideias originais costumam ser mais difíceis de vender do que gêneros conhecidos
+- Gêneros populares têm mais concorrência, mas é mais fácil ser aceito
+- Estratégia de crescimento: concentre-se em dominar e aprofundar um tipo de fórmula de gênero
+
+---
+
+## Design de capa, título e sinopse
+
+### Métodos para escolher o título
+
+**Método da identidade (o mais prático)**:
+
+| Variação | Fórmula | Exemplo |
 |------|------|------|
-| 高逼格身份+爽点 | 至高身份+后半句描述爽点 | 武神爹，财阀妈，我当躺赢狗怎么了？ |
-| 戏剧身份对照 | 有差距且有关联的身份做置换 | 让你当书童，你替少爷科举中状元？ |
-| 身份反差 | 身份与成就的不匹配 | 让你修钢琴，你怎么演奏进维也纳了？ |
-| 身份组合 | 两种有张力的身份放一起 | 第99次成为嫌犯，警花老婆崩溃 |
+| Identidade de alto status + recompensa | Identidade elevada + descrição do retorno | A herdeira do império que só queria dormir até tarde |
+| Troca de identidade com drama | Papéis diferentes, mas ligados, trocados | Você me contratou como assistente, e eu virei a sócia |
+| Contraste de identidade | Identidade incompatível com a conquista | Você me mandou consertar o piano, e eu toquei no Carnegie Hall |
+| Combinação de identidades | Duas identidades com tensão juntas | A detetive que casou com o suspeito |
 
-**伪同人法**：在原创中加入热门IP元素（甲斗腰带/帝皇腰带/超兽召唤器等），从同人排行榜前10拆解元素融入书名。
+**Método da referência velada**: incluir elementos de um universo famoso no título, a partir dos elementos que aparecem nas listas de fanfic mais lidas (respeitando direitos autorais).
 
-**其他方向**：逼格起名法、乐子文起名法、反义词起名法、热梗起名法、金手指起名法、主线+爽点起名法。
+**Outras direções**: título de prestígio, título cômico, título de antônimos, título de meme, título da vantagem, título de trama principal + recompensa.
 
-**平台差异**：
-- **番茄**：书名决定流量上限，相当于免费抖加，可以大胆噱头
-- **起点**：排斥过于傻白甜的噱头，内容必须与书名紧密贴合，轻度反差为主
-- 噱头书名在长篇网站会榨干前期潜力
+**Diferenças entre plataformas**:
+- **Wattpad / plataformas de leitura gratuita**: o título define o teto de tráfego; pode ser mais ousado
+- **Amazon**: o título precisa combinar com o gênero e a capa; promessa clara e coerente com o conteúdo
+- Títulos apenas chamativos gastam o potencial inicial em obras longas
 
-### 封面制作
+### Criação da capa
 
-- 番茄封面规格：600x800像素
-- 流程：选网图 -> AI生成字体图片 -> 醒图智能抠图贴图 -> 加作者名 -> 导出
-- 字体是最关键元素，图可以一般，字必须好看
-- 字体风格匹配小说类型（玄幻粗犷/言情柔美/悬疑冷峻）
+- Formatos comuns: proporção vertical de livro (por exemplo, 2:3) em alta resolução, conforme as exigências da plataforma
+- Fluxo: escolher referência de gênero -> criar ou contratar a arte -> compor o título e o nome do autor -> exportar nos formatos exigidos
+- A tipografia é o elemento mais importante; a imagem pode ser simples, mas a letra precisa ser bonita e legível em miniatura
+- O estilo da fonte deve combinar com o gênero (fantasia mais marcante, romance mais delicado, suspense mais frio)
 
-### 章节名技巧
+### Técnicas para títulos de capítulo
 
-- 章节名是本章核心凝练，也是期待感的一部分
-- 先写内容再从章节中挑最有戏剧性、最有梗的话当标题
-- 避免使用"分析""局势""博弈"等暴露铺垫性质的词语，会掉追读
-- 铺垫章也要用标题把读者"骗"进来
-- 常见错误："金手指觉醒"这类直白标题等于剧透且没有悬念
+- O título do capítulo é o núcleo condensado dele e parte da expectativa
+- Escreva primeiro o conteúdo, depois escolha a frase mais dramática ou curiosa para o título
+- Evite palavras como "análise", "situação", "estratégia", que denunciam um capítulo de preparação e derrubam a leitura
+- Capítulos de preparação também precisam de título que atraia o leitor
+- Erro comum: "O poder desperta" entrega o segredo e não cria suspense
 
-### 简介写法
+### Como escrever a sinopse
 
-核心结构：主角处境 -> 金手指能干嘛 -> 第一个爽点预览。不要写成设定说明书，要写成广告。好处要说具体。
+Estrutura central: situação do protagonista -> o que a vantagem faz -> prévia da primeira recompensa. Não escreva como manual de configuração; escreva como anúncio. Os benefícios devem ser concretos.
 
-**常见错误**：东扯一句西塞一句没有核心主题 | 创意名字但实际是普通积分类系统 | "且看主角如何如何"空话套话 | 自称用"俺"等过于出戏
+**Erros comuns**: frases soltas sem tema central | nome criativo, mas por trás só um sistema de pontos comum | "Descubra como o protagonista..." (frase vazia) | linguagem que quebra a imersão
 
-**仿写建议**：去三江榜或销售榜找同类型爆款仿写简介结构。简介逻辑：先给读者一个想知道答案的问题，再暗示答案很爽。
+**Sugestão de prática**: procure nas listas de mais vendidos ou de destaque do mesmo gênero os livros de sucesso e imite a estrutura da sinopse (sem copiar o texto). Lógica da sinopse: primeiro dê ao leitor uma pergunta cuja resposta ele quer saber, depois sugira que a resposta é deliciosa.

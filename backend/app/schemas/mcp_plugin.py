@@ -14,30 +14,30 @@ class MCPToolSchema(BaseModel):
 
 class MCPPluginBase(BaseModel):
     """插件基础模式"""
-    plugin_name: str = Field(..., description="插件唯一标识")
-    display_name: Optional[str] = Field(None, description="显示名称")
-    description: Optional[str] = Field(None, description="插件描述")
-    plugin_type: str = Field(default="http", description="插件类型：http/stdio")
-    category: str = Field(default="general", description="分类")
-    sort_order: int = Field(default=0, description="排序顺序")
+    plugin_name: str = Field(..., description="Identificador único do plugin")
+    display_name: Optional[str] = Field(None, description="Nome de exibição")
+    description: Optional[str] = Field(None, description="Descrição do plugin")
+    plugin_type: str = Field(default="http", description="Tipo de plugin: http/stdio")
+    category: str = Field(default="general", description="Categoria")
+    sort_order: int = Field(default=0, description="Ordem de exibição")
 
 
 class MCPPluginCreate(MCPPluginBase):
     """创建插件"""
-    server_url: Optional[str] = Field(None, description="服务器URL（HTTP类型）")
-    command: Optional[str] = Field(None, description="启动命令（stdio类型）")
-    args: Optional[List[str]] = Field(None, description="命令参数")
-    env: Optional[Dict[str, str]] = Field(None, description="环境变量")
-    headers: Optional[Dict[str, str]] = Field(None, description="HTTP请求头")
-    config: Optional[Dict[str, Any]] = Field(None, description="插件特定配置")
-    enabled: bool = Field(default=True, description="是否启用")
+    server_url: Optional[str] = Field(None, description="URL do servidor (tipo HTTP)")
+    command: Optional[str] = Field(None, description="Comando de inicialização (tipo stdio)")
+    args: Optional[List[str]] = Field(None, description="Argumentos do comando")
+    env: Optional[Dict[str, str]] = Field(None, description="Variáveis de ambiente")
+    headers: Optional[Dict[str, str]] = Field(None, description="Cabeçalhos HTTP")
+    config: Optional[Dict[str, Any]] = Field(None, description="Configuração específica do plugin")
+    enabled: bool = Field(default=True, description="Habilitado")
 
 
 class MCPPluginSimpleCreate(BaseModel):
     """简化的插件创建（通过标准MCP配置JSON）"""
-    config_json: str = Field(..., description="标准MCP配置JSON字符串")
-    enabled: bool = Field(default=True, description="是否启用")
-    category: str = Field(default="general", description="插件分类")
+    config_json: str = Field(..., description="String JSON de configuração MCP padrão")
+    enabled: bool = Field(default=True, description="Habilitado")
+    category: str = Field(default="general", description="Categoria do plugin")
 
 
 class MCPPluginUpdate(BaseModel):
@@ -87,9 +87,9 @@ class MCPPluginResponse(BaseModel):
 
 class MCPToolCall(BaseModel):
     """工具调用请求"""
-    plugin_id: str = Field(..., description="插件ID")
-    tool_name: str = Field(..., description="工具名称")
-    arguments: Dict[str, Any] = Field(default_factory=dict, description="工具参数")
+    plugin_id: str = Field(..., description="ID do plugin")
+    tool_name: str = Field(..., description="Nome da ferramenta")
+    arguments: Dict[str, Any] = Field(default_factory=dict, description="Parâmetros da ferramenta")
 
 
 class MCPTestResult(BaseModel):

@@ -22,9 +22,10 @@ from app.models import (
     RelationshipType, CharacterRelationship, Organization, OrganizationMember,
     StoryMemory, PlotAnalysis, AnalysisTask, BatchGenerationTask,
     RegenerationTask, Career, CharacterCareer, User, MCPPlugin, PromptTemplate,
-    BackgroundTask, Announcement,
+    BackgroundTask,
     AgentConversation, AgentMessage, AgentToolCall, AgentExecutionStep,
     KnowledgeBase, KnowledgeDocument, KnowledgeChunk,
+    Series, NicheResearch, Offer, OfferItem,
 )
 
 # 引擎缓存：每个用户一个引擎
@@ -153,7 +154,7 @@ async def get_db(request: Request):
     user_id = getattr(request.state, "user_id", None)
     
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录或用户ID缺失")
+        raise HTTPException(status_code=401, detail="Não autenticado ou ID de usuário ausente")
     
     engine = await get_engine(user_id)
     
@@ -321,33 +322,33 @@ async def get_database_stats():
     if _session_stats["active"] > settings.database_session_leak_threshold:
         stats["health"]["status"] = "critical"
         stats["health"]["errors"].append(
-            f"活跃会话数 {_session_stats['active']} 超过泄漏阈值 {settings.database_session_leak_threshold}"
+            f"Sessões ativas: {_session_stats['active']} acima do limite de vazamento {settings.database_session_leak_threshold}"
         )
     elif _session_stats["active"] > settings.database_session_max_active:
         stats["health"]["status"] = "warning"
         stats["health"]["warnings"].append(
-            f"活跃会话数 {_session_stats['active']} 超过警告阈值 {settings.database_session_max_active}"
+            f"Sessões ativas: {_session_stats['active']} acima do limite de alerta {settings.database_session_max_active}"
         )
     
     if _session_stats["active"] < 0:
         stats["health"]["status"] = "error"
-        stats["health"]["errors"].append(f"活跃会话数异常: {_session_stats['active']}")
+        stats["health"]["errors"].append(f"Número anormal de sessões ativas: {_session_stats['active']}")
     
     # 连接池使用率检查
     if pool_stats and "usage_percent" in pool_stats:
         usage = pool_stats["usage_percent"]
         if usage > 90:
             stats["health"]["status"] = "warning"
-            stats["health"]["warnings"].append(f"连接池使用率过高: {usage:.1f}%")
+            stats["health"]["warnings"].append(f"Uso do pool de conexões muito alto: {usage:.1f}%")
         elif usage > 95:
             stats["health"]["status"] = "critical"
-            stats["health"]["errors"].append(f"连接池几乎耗尽: {usage:.1f}%")
+            stats["health"]["errors"].append(f"Pool de conexões quase esgotado: {usage:.1f}%")
     
     error_rate = (_session_stats["errors"] / max(_session_stats["created"], 1)) * 100
     if error_rate > 5:
         if stats["health"]["status"] == "healthy":
             stats["health"]["status"] = "warning"
-        stats["health"]["warnings"].append(f"会话错误率过高: {error_rate:.2f}%")
+        stats["health"]["warnings"].append(f"Taxa de erro de sessões muito alta: {error_rate:.2f}%")
     
     stats["health"]["error_rate"] = f"{error_rate:.2f}%"
     
@@ -405,7 +406,7 @@ async def check_database_health(user_id: str = None) -> dict:
             # 连接池健康检查
             if engine.pool.overflow() >= settings.database_max_overflow:
                 pool_status["healthy"] = False
-                pool_status["warning"] = "连接池溢出已满"
+                pool_status["warning"] = "Overflow do pool de conexões esgotado"
                 result["healthy"] = False
             
             result["checks"]["pool"] = pool_status

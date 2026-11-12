@@ -40,7 +40,7 @@ async def verify_project_access(
             - 404: 项目不存在或用户无权访问
     """
     if not user_id:
-        raise HTTPException(status_code=401, detail="未登录")
+        raise HTTPException(status_code=401, detail="Não autenticado")
     
     result = await db.execute(
         select(Project).where(
@@ -52,7 +52,7 @@ async def verify_project_access(
     
     if not project:
         logger.warning(f"项目访问被拒绝: project_id={project_id}, user_id={user_id}")
-        raise HTTPException(status_code=404, detail="项目不存在或无权访问")
+        raise HTTPException(status_code=404, detail="Projeto não encontrado ou sem permissão de acesso")
     
     return project
 

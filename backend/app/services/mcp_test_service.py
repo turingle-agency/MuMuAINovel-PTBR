@@ -63,9 +63,9 @@ class MCPTestService:
             if not self._check_plugin_registered(plugin, user_id):
                 return MCPTestResult(
                     success=False,
-                    message="插件未注册",
-                    error="MCP会话不存在，请先启用插件",
-                    suggestions=["请先启用插件", "如果已启用，请稍等片刻后重试"]
+                    message="Plugin não registrado",
+                    error="Sessão MCP não encontrada; habilite o plugin primeiro",
+                    suggestions=["Habilite o plugin primeiro", "Se já estiver habilitado, aguarde um instante e tente novamente"]
                 )
 
             # 使用统一门面测试连接
@@ -77,25 +77,25 @@ class MCPTestService:
             if test_result["success"]:
                 return MCPTestResult(
                     success=True,
-                    message=f"✅ 连接测试成功",
+                    message=f"✅ Teste de conexão bem-sucedido",
                     response_time_ms=response_time,
                     tools_count=test_result.get("tools_count", 0),
                     suggestions=[
-                        f"响应时间: {response_time}ms",
-                        f"可用工具数: {test_result.get('tools_count', 0)}"
+                        f"Tempo de resposta: {response_time}ms",
+                        f"Ferramentas disponíveis: {test_result.get('tools_count', 0)}"
                     ]
                 )
             else:
                 return MCPTestResult(
                     success=False,
-                    message="❌ 连接测试失败",
+                    message="❌ Falha no teste de conexão",
                     response_time_ms=response_time,
-                    error=test_result.get("message", "未知错误"),
+                    error=test_result.get("message", "Erro desconhecido"),
                     error_type=test_result.get("error_type"),
                     suggestions=[
-                        "请检查服务器是否在线",
-                        "请确认配置正确",
-                        "请检查API Key是否有效"
+                        "Verifique se o servidor está online",
+                        "Confirme se a configuração está correta",
+                        "Verifique se a API Key é válida"
                     ]
                 )
                 
@@ -107,14 +107,14 @@ class MCPTestService:
             
             return MCPTestResult(
                 success=False,
-                message="❌ 测试失败",
+                message="❌ Falha no teste",
                 response_time_ms=response_time,
                 error=str(e),
                 error_type=type(e).__name__,
                 suggestions=[
-                    "请检查服务器是否在线",
-                    "请确认配置正确",
-                    "请检查API Key是否有效"
+                    "Verifique se o servidor está online",
+                    "Confirme se a configuração está correta",
+                    "Verifique se a API Key é válida"
                 ]
             )
     
@@ -150,10 +150,10 @@ class MCPTestService:
             if not tools:
                 return MCPTestResult(
                     success=False,
-                    message="插件没有提供任何工具",
-                    error="工具列表为空",
+                    message="O plugin não fornece nenhuma ferramenta",
+                    error="A lista de ferramentas está vazia",
                     response_time_ms=connection_result.response_time_ms,
-                    suggestions=["请检查插件配置", "请确认MCP服务器正常运行"]
+                    suggestions=["Verifique a configuração do plugin", "Confirme se o servidor MCP está funcionando normalmente"]
                 )
             
             # 3. 获取用户的AI设置
@@ -162,31 +162,37 @@ class MCPTestService:
             )
             user_settings = settings_result.scalar_one_or_none()
             
-            if not user_settings or not user_settings.api_key:
+            if not user_settings or (
+                not user_settings.api_key
+                and (user_settings.api_provider or "").lower().strip() != "codex"
+            ):
                 # 没有AI配置，返回简单测试结果
                 logger.warning("用户未配置AI服务，跳过智能测试")
                 return MCPTestResult(
                     success=True,
-                    message=f"✅ 连接测试成功（未配置AI，跳过工具调用测试）",
+                    message=f"✅ Teste de conexão bem-sucedido (IA não configurada; teste de chamada de ferramentas ignorado)",
                     response_time_ms=connection_result.response_time_ms,
                     tools_count=len(tools),
                     suggestions=[
-                        f"连接测试: 成功",
-                        f"可用工具数: {len(tools)}",
-                        "提示: 配置AI服务后可进行智能工具调用测试"
+                        f"Teste de conexão: sucesso",
+                        f"Ferramentas disponíveis: {len(tools)}",
+                        "Dica: configure o serviço de IA para testar a chamada inteligente de ferramentas"
                     ]
                 )
             
             # 4. 使用AI选择工具并生成测试参数
             logger.info(f"使用AI分析工具并生成测试计划...")
             
+            from app.api.settings import build_fallback_config
+
             ai_service = create_user_ai_service(
                 api_provider=user_settings.api_provider,
                 api_key=user_settings.api_key,
                 api_base_url=user_settings.api_base_url,
                 model_name=user_settings.llm_model,
                 temperature=0.3,
-                max_tokens=1000
+                max_tokens=1000,
+                fallback=build_fallback_config(user_settings),
             )
             
             # 使用统一门面转换为OpenAI Function Calling格式
@@ -218,13 +224,13 @@ class MCPTestService:
                 logger.error(f"❌ AI未返回工具调用")
                 return MCPTestResult(
                     success=False,
-                    message="❌ AI Function Calling失败",
-                    error=f"AI未返回工具调用请求。响应: {accumulated_text[:200] if accumulated_text else 'N/A'}",
+                    message="❌ Falha no Function Calling da IA",
+                    error=f"A IA não retornou uma solicitação de chamada de ferramenta. Resposta: {accumulated_text[:200] if accumulated_text else 'N/A'}",
                     tools_count=len(tools),
                     suggestions=[
-                        "请确认使用的AI模型支持Function Calling",
-                        f"当前Provider: {user_settings.api_provider}",
-                        f"当前模型: {user_settings.llm_model}"
+                        "Confirme se o modelo de IA usado suporta Function Calling",
+                        f"Provider atual: {user_settings.api_provider}",
+                        f"Modelo atual: {user_settings.llm_model}"
                     ]
                 )
             
@@ -243,8 +249,8 @@ class MCPTestService:
                     logger.error(f"❌ 解析AI参数失败: {e}")
                     return MCPTestResult(
                         success=False,
-                        message="❌ AI返回的参数格式错误",
-                        error=f"无法解析参数JSON: {str(e)}",
+                        message="❌ Formato de parâmetros retornado pela IA inválido",
+                        error=f"Não foi possível interpretar o JSON dos parâmetros: {str(e)}",
                         tools_count=len(tools)
                     )
             
@@ -274,20 +280,20 @@ class MCPTestService:
                 # 格式化结果
                 result_str = str(tool_result)
                 if len(result_str) > 800:
-                    result_preview = result_str[:800] + "\n...(结果已截断)"
+                    result_preview = result_str[:800] + "\n...(resultado truncado)"
                 else:
                     result_preview = result_str
                 
                 return MCPTestResult(
                     success=True,
-                    message=f"✅ Function Calling测试成功！工具 '{tool_name}' 调用正常",
+                    message=f"✅ Teste de Function Calling bem-sucedido! A ferramenta '{tool_name}' foi chamada normalmente",
                     response_time_ms=total_time,
                     tools_count=len(tools),
                     suggestions=[
-                        f"🤖 AI选择: {tool_name}",
-                        f"📝 参数: {json.dumps(test_arguments, ensure_ascii=False)}",
-                        f"⏱️ 耗时: {call_time}ms",
-                        f"📊 结果:\n{result_preview}"
+                        f"🤖 Escolha da IA: {tool_name}",
+                        f"📝 Parâmetros: {json.dumps(test_arguments, ensure_ascii=False)}",
+                        f"⏱️ Duração: {call_time}ms",
+                        f"📊 Resultado:\n{result_preview}"
                     ]
                 )
                 
@@ -299,16 +305,16 @@ class MCPTestService:
                 
                 return MCPTestResult(
                     success=True,  # 连接成功就算测试通过
-                    message=f"⚠️ 连接成功，但工具调用失败",
+                    message=f"⚠️ Conexão bem-sucedida, mas a chamada da ferramenta falhou",
                     response_time_ms=total_time,
                     tools_count=len(tools),
-                    error=f"工具 '{tool_name}' 调用失败: {str(call_error)}",
+                    error=f"Ferramenta '{tool_name}' falhou na chamada: {str(call_error)}",
                     suggestions=[
-                        f"✅ 连接测试: 成功",
-                        f"❌ 工具调用测试: 失败",
-                        f"🤖 AI选择: {tool_name}",
-                        f"❌ 错误: {str(call_error)}",
-                        "💡 可能原因: API Key无效、参数错误或服务限制"
+                        f"✅ Teste de conexão: sucesso",
+                        f"❌ Teste de chamada de ferramenta: falha",
+                        f"🤖 Escolha da IA: {tool_name}",
+                        f"❌ Erro: {str(call_error)}",
+                        "💡 Causas possíveis: API Key inválida, parâmetros incorretos ou limitação do serviço"
                     ]
                 )
                 
@@ -320,14 +326,14 @@ class MCPTestService:
             
             return MCPTestResult(
                 success=False,
-                message="❌ 测试失败",
+                message="❌ Falha no teste",
                 response_time_ms=total_time,
                 error=str(e),
                 error_type=type(e).__name__,
                 suggestions=[
-                    "请检查服务器是否在线",
-                    "请确认配置正确",
-                    "请检查API Key是否有效"
+                    "Verifique se o servidor está online",
+                    "Confirme se a configuração está correta",
+                    "Verifique se a API Key é válida"
                 ]
             )
 

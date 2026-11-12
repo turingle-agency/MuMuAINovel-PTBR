@@ -1,187 +1,187 @@
-# 小说素材拆解方法论
+# Metodologia de desconstrução de material de romance
 
-## 目录
+## Sumário
 
-1. [拆解流程 5 阶段](#拆解流程-5-阶段)
-2. [原子提取六大铁律](#原子提取六大铁律)
-3. [输出目录结构](#输出目录结构)
-4. [质量阈值体系](#质量阈值体系)
-5. [孤立情节兜底](#孤立情节兜底)
-6. [Claude Code 执行指引](#claude-code-执行指引)
-
----
-
-## 拆解流程 5 阶段
-
-### 阶段 1：章节解析
-
-- 识别章节分隔符（第X章、Chapter X、数字编号等）
-- 提取章节标题，记录每章字数
-
-### 阶段 2：原子提取（并行处理每章）
-
-#### A. 章节摘要
-
-- 一句话概括（100-300 字，因果链叙事）
-- 关键事件（3-5 个，按时间顺序）
-- 出场人物、主题标签、章节基调
-- 剧情推进度（大转折/日常过渡/铺垫伏笔）
-
-#### B. 情节点提取（每章 10-15 个）
-
-写入章节摘要 .md 的情节点子章节（不单独输出 .json）。每个情节点：
-
-| 字段 | 说明 |
-|------|------|
-| 序号 | 严格时间顺序 |
-| 类型 | 转折点/信息揭示/冲突/解决/铺垫/行动/对话/状态变化 |
-| 描述 | 客观白描，只记录发生了什么 |
-| 原文引用 | <=400 字直接引用 |
-| 涉及人物 | 全名，不用代词 |
-| 地点 | 地理位置信息 |
-| 关键物品 | 与剧情相关的物品 |
-| 时间标记 | 相对时间（次日、半月后、同时） |
-
-#### C. 角色提取
-
-每个角色提取：外在表现（身份/言行/外貌）、内在分析（性格/目标/秘密）、本章功能、别名。只记录新出场角色或已有角色的新发展。
-
-### 阶段 3：聚合分析（跨章节）
-
-#### A. 剧情聚合
-
-将情节点按叙事弧线聚合为「剧情」：
-- 每条剧情包含 75-225 个情节点
-- 提取：标题、概要、核心目标、核心冲突、类型（主线/爱情/成长/复仇/寻宝/悬疑）
-- 标记结构分布：铺垫期/发展期/高潮期/收尾期 各包含哪些章节
-
-#### B. 故事线提取
-
-将多条剧情聚合为「故事线」：标题、描述、主要人物、主题关键词、包含的剧情列表。
-
-#### C. 小说概要生成
-
-整体故事框架识别 + 一段话概括全书。
-
-### 阶段 4：世界观与设定提取
-
-#### 世界观
-
-| 字段 | 说明 |
-|------|------|
-| 类型 | 奇幻/现实/平行世界 |
-| 力量体系 | 名称、等级、晋升方式 |
-| 地理 | 分布、主要区域、关键地点 |
-| 势力 | 门派/组织/家族/国家 |
-| 核心规则 | 世界运转的基本规则 |
-| 特殊设定 | 区别于现实的独特设定 |
-
-#### 金手指
-
-| 字段 | 说明 |
-|------|------|
-| 类型 | 系统/空间/重生/穿越/特殊体质/神器/血脉/其他 |
-| 名称 | 金手指名称 |
-| 描述 | 能力、功能、限制 |
-| 获取方式 | 如何获得 |
-| 核心机制 | 激活条件、核心资源、使用方式 |
-| 进化史 | 升级和变化轨迹 |
-| 当前能力 | 已解锁的能力列表 |
-
-### 阶段 5：人物关系提取
-
-每对关系：
-
-| 字段 | 说明 |
-|------|------|
-| 角色A | 全名 |
-| 角色B | 全名 |
-| 关系类型 | 家人/师徒/朋友/敌人/恋人/同事/上下级/商业/其他 |
-| 情感倾向 | 正面/负面/中性/复杂 |
-| 状态 | 新建立/关系演变 |
-| 描述 | 关系描述 |
-| 关键互动 | 导致关系建立或变化的具体事件 |
-| 演变详情 | 从之前状态如何变为当前状态 |
-
-每 5 章批量提取一次，只记录新关系或关系变化。
+1. [Fluxo de desconstrução em 5 etapas](#fluxo-de-desconstrução-em-5-etapas)
+2. [As seis regras de ouro da extração atômica](#as-seis-regras-de-ouro-da-extração-atômica)
+3. [Estrutura da pasta de saída](#estrutura-da-pasta-de-saída)
+4. [Sistema de limites de qualidade](#sistema-de-limites-de-qualidade)
+5. [Rede de segurança para tramas órfãs](#rede-de-segurança-para-tramas-órfãs)
+6. [Orientações de execução](#orientações-de-execução)
 
 ---
 
-## 原子提取六大铁律
+## Fluxo de desconstrução em 5 etapas
 
-1. 绝对按时间顺序排列
-2. 只用客观白描，不用叙事框架词
-3. 信息保真，不遗漏改变语境的细节
-4. 高度浓缩，一个情节点一句话
-5. 复合动作要合并（为同一戏剧目的服务的连续微动作）
-6. 信息点提取客观事实，不做叙事分析
+### Etapa 1: análise de capítulos
 
-**客观白描 vs 叙事框架词**：
-- 错误：「通过对话，郑松得知张子豪在韩国训练」（有叙事框架词）
-- 正确：「吴志斌告诉郑松，张子豪在韩国训练」（直接陈述事件）
-- 错误：「林风展现了自己的实力」（抽象总结）
-- 正确：「林风三招击败对手，围观者倒吸一口凉气」（具体描述结果）
+- Identificar os separadores de capítulo (Capítulo X, Chapter X, numeração etc.)
+- Extrair o título de cada capítulo e registrar a contagem de palavras
+
+### Etapa 2: extração atômica (processar cada capítulo em paralelo)
+
+#### A. Sumário do capítulo
+
+- Resumo em uma frase (70 a 200 palavras, narrado como cadeia de causa e efeito)
+- Eventos-chave (3 a 5, em ordem cronológica)
+- Personagens em cena, etiquetas de tema, tom do capítulo
+- Grau de avanço da trama (grande virada / transição cotidiana / preparação de pistas)
+
+#### B. Extração de pontos de enredo (10 a 15 por capítulo)
+
+Gravados na subseção de pontos de enredo do .md do sumário (sem gerar .json separado). Cada ponto de enredo:
+
+| Campo | Descrição |
+|------|------|
+| Número | Rigorosamente em ordem cronológica |
+| Tipo | ponto de virada/revelação de informação/conflito/resolução/preparação/ação/diálogo/mudança de estado |
+| Descrição | Descrição objetiva, só registra o que aconteceu |
+| Citação do original | Citação direta de <=250 palavras |
+| Personagens envolvidos | Nome completo, sem pronomes |
+| Local | Informação geográfica |
+| Objetos-chave | Objetos relevantes para a trama |
+| Marcador de tempo | Tempo relativo (no dia seguinte, duas semanas depois, ao mesmo tempo) |
+
+#### C. Extração de personagens
+
+Para cada personagem: aparência externa (identidade/fala e ação/aspecto físico), análise interna (personalidade/objetivo/segredos), função no capítulo, apelidos. Registrar só personagens que entram em cena pela primeira vez ou novos desenvolvimentos de personagens já existentes.
+
+### Etapa 3: análise agregada (entre capítulos)
+
+#### A. Agregação de tramas
+
+Agrupar os pontos de enredo em "tramas" segundo o arco narrativo:
+- Cada trama contém de 75 a 225 pontos de enredo
+- Extrair: título, resumo, objetivo central, conflito central, tipo (principal/romance/amadurecimento/vingança/caça ao tesouro/mistério)
+- Marcar a distribuição estrutural: quais capítulos pertencem à preparação, desenvolvimento, clímax e desfecho
+
+#### B. Extração das linhas narrativas
+
+Agrupar várias tramas em "linhas narrativas": título, descrição, personagens principais, palavras-chave de tema, lista de tramas incluídas.
+
+#### C. Geração do resumo do livro
+
+Identificar o arcabouço geral da história + resumir o livro em um parágrafo.
+
+### Etapa 4: extração de mundo e ambientação
+
+#### Mundo
+
+| Campo | Descrição |
+|------|------|
+| Tipo | fantasia/realista/mundo paralelo |
+| Sistema de poder | nome, níveis, forma de progressão |
+| Geografia | distribuição, regiões principais, locais-chave |
+| Forças | ordens/organizações/famílias/países |
+| Regras centrais | regras básicas de funcionamento do mundo |
+| Configurações especiais | elementos únicos que diferem da realidade |
+
+#### Vantagem especial do protagonista
+
+| Campo | Descrição |
+|------|------|
+| Tipo | sistema/espaço/segunda chance/viagem no tempo/constituição especial/artefato/linhagem/outro |
+| Nome | Nome da vantagem |
+| Descrição | Capacidades, funções, limites |
+| Forma de obtenção | Como foi obtida |
+| Mecanismo central | Condição de ativação, recurso principal, forma de uso |
+| História de evolução | Trajetória de evolução e mudanças |
+| Capacidades atuais | Lista de capacidades já desbloqueadas |
+
+### Etapa 5: extração das relações entre personagens
+
+Para cada relação:
+
+| Campo | Descrição |
+|------|------|
+| Personagem A | Nome completo |
+| Personagem B | Nome completo |
+| Tipo de relação | família/mestre e discípulo/amigos/inimigos/casal/colegas/hierarquia/negócios/outro |
+| Tendência emocional | positiva/negativa/neutra/complexa |
+| Estado | recém-formada/em evolução |
+| Descrição | Descrição da relação |
+| Interações-chave | Eventos concretos que criaram ou mudaram a relação |
+| Detalhes da evolução | Como o estado anterior se transformou no atual |
+
+Extração em lote a cada 5 capítulos, registrando apenas relações novas ou mudanças de relação.
 
 ---
 
-## 输出目录结构
+## As seis regras de ouro da extração atômica
+
+1. Seguir rigorosamente a ordem cronológica
+2. Usar só descrição objetiva, sem palavras de moldura narrativa
+3. Fidelidade da informação, sem omitir detalhes que mudam o contexto
+4. Alta concisão: um ponto de enredo, uma frase
+5. Fundir ações compostas (microações seguidas que servem ao mesmo propósito dramático)
+6. Extrair fatos objetivos nos pontos de informação, sem análise narrativa
+
+**Descrição objetiva vs. palavras de moldura narrativa**:
+- Errado: "Por meio do diálogo, Marcos descobre que Rafael treina no exterior" (palavra de moldura narrativa)
+- Certo: "Paulo conta a Marcos que Rafael treina no exterior" (enuncia o evento diretamente)
+- Errado: "Lucas demonstrou sua força" (resumo abstrato)
+- Certo: "Lucas derrota o oponente em três golpes, e a plateia prende a respiração" (descreve o resultado concreto)
+
+---
+
+## Estrutura da pasta de saída
 
 ```
-小说标题/
-  chapters/   第{N}章_深度拆解.md + 第{N}章_摘要.md
-  characters/ {角色名}.md + 角色关系.md
-  plots/      {剧情标题}.md + 故事线.md + 散落情节.md
-  settings/   世界观.md + 金手指.md
-  拆文报告.md
-  概要.md
+titulo-do-livro/
+  capitulos/     capitulo_{N}_analise_profunda.md + capitulo_{N}_sumario.md
+  personagens/   {nome do personagem}.md + relacoes.md
+  enredo/        {título da trama}.md + linhas_narrativas.md + fios_soltos.md
+  ambientacao/   mundo.md + vantagem_do_protagonista.md
+  relatorio_de_analise.md
+  resumo.md
   _progress.md
 ```
 
 ---
 
-## 质量阈值体系
+## Sistema de limites de qualidade
 
-阶段 3 和阶段 4 完成后自检：
+Autoverificação ao concluir as etapas 3 e 4:
 
-| 指标 | 阈值 | 计算 | 不达标处理 |
+| Indicador | Limite | Cálculo | Tratamento se abaixo da meta |
 |------|------|------|------------|
-| 置信度 | >= 0.85 | 有明确归属的情节点 / 剧情条内情节点总数 | 低于 0.85 标记「待复核」 |
-| 覆盖率 | 85%-95% | 已归类情节点 / 总情节点数 | <85% 触发孤立情节二次分类；>95% 复核边界 |
-| 重叠率 | <= 35% | 跨剧情条共享情节点 / 总情节点数 | >35% 提示边界模糊，建议合并 |
+| Confiança | >= 0.85 | pontos de enredo com atribuição clara / total de pontos de enredo dentro das tramas | Abaixo de 0.85, marcar "a revisar" |
+| Cobertura | 85%-95% | pontos de enredo classificados / total de pontos de enredo | <85% aciona segunda classificação dos órfãos; >95% revisar fronteiras |
+| Sobreposição | <= 35% | pontos de enredo compartilhados entre tramas / total de pontos de enredo | >35% indica fronteiras difusas; sugerir fusão |
 
 ---
 
-## 孤立情节兜底
+## Rede de segurança para tramas órfãs
 
-阶段 3 聚合完成后执行：
+Executar depois da agregação da etapa 3:
 
-1. 筛选未分配到任何剧情条的情节点
-2. 按相关性归入现有剧情条（置信度 >= 0.7 可归入）
-3. 相关性不足的按主题聚类形成候选剧情条
-4. 仍无法归类的归入「散落情节」附录（不丢弃）
+1. Filtrar os pontos de enredo que não foram atribuídos a nenhuma trama
+2. Incluir nas tramas existentes por relevância (confiança >= 0.7 pode ser incorporada)
+3. Os de relevância insuficiente são agrupados por tema, formando tramas candidatas
+4. Os que ainda não se encaixam vão para o apêndice "fios soltos" (não descartar)
 
 ---
 
-## Claude Code 执行指引
+## Orientações de execução
 
-### 分块策略
+### Estratégia de divisão em blocos
 
-| 规模 | 策略 | 块大小 |
+| Porte | Estratégia | Tamanho do bloco |
 |------|------|--------|
-| <100 章 | 按阶段整体处理 | 无需分块 |
-| 100-500 章 | 按章节分块 | 5-8 章/块 |
-| >500 章 | 先按卷分组，卷内再分块 | 5-8 章/块 |
+| <100 capítulos | Processar por etapa, de uma vez | Sem necessidade de blocos |
+| 100-500 capítulos | Dividir por capítulos | 5-8 capítulos por bloco |
+| >500 capítulos | Agrupar por volume, depois dividir em blocos | 5-8 capítulos por bloco |
 
-块大小 6-8K token/块，章节边界对齐。每块完成后更新 _progress.md。
+Bloco de 6 a 8 mil tokens, alinhado aos limites de capítulo. Atualizar _progress.md ao concluir cada bloco.
 
-### 跨会话恢复
+### Retomada entre sessões
 
-- 进度通过 _progress.md 追踪
-- 新会话读 _progress.md 定位断点
-- 从断点所在块的起始章节重新开始（覆盖该块已有输出）
+- O progresso é acompanhado em _progress.md
+- Em uma nova sessão, ler _progress.md para localizar o ponto de interrupção
+- Recomeçar a partir do primeiro capítulo do bloco em que parou (sobrescrevendo a saída existente do bloco)
 
-### 与 SKILL.md 的关系
+### Relação com SKILL.md
 
-- SKILL.md = 路由逻辑 + 管道概要（阶段名称/输入/输出）
-- 本文件 = 方法论细节（5 阶段操作步骤 + 六大铁律 + 输出结构 + 质量阈值）
-- references/output-templates.md = 具体输出格式模板
+- SKILL.md = lógica de roteamento + visão geral do pipeline (nome das etapas/entradas/saídas)
+- Este arquivo = detalhes da metodologia (passos das 5 etapas + seis regras de ouro + estrutura de saída + limites de qualidade)
+- references/output-templates.md = modelos concretos de formato de saída
