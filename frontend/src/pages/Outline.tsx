@@ -490,7 +490,7 @@ export default function Outline() {
             message.success(t('esbocoAtualizadoSucesso'));
           } catch (error) {
             console.error(t('falhaAtualizar'), error);
-            message.error(t('falhaAtualizar2'));
+            message.error(t('falhaAtualizarToast'));
           }
         },
       });
@@ -593,7 +593,7 @@ export default function Outline() {
 
     } catch (error) {
       console.error(t('falhaGeracaoIa'), error);
-      message.error(t('falhaGeracaoIa2'));
+      message.error(t('falhaGeracaoIaToast'));
       setIsGenerating(false);
     }
   };
@@ -747,9 +747,9 @@ export default function Outline() {
                     rules={[{ required: true, message: t('selecionePerspectivaNarrativa') }]}
                   >
                     <Select>
-                      <Select.Option value={t('primeiraPessoa')}>{t('primeiraPessoa')}</Select.Option>
-                      <Select.Option value={t('terceiraPessoa')}>{t('terceiraPessoa')}</Select.Option>
-                      <Select.Option value={t('onisciente')}>{t('onisciente')}</Select.Option>
+                      <Select.Option value="primeira pessoa">{t('primeiraPessoa')}</Select.Option>
+                      <Select.Option value="terceira pessoa">{t('terceiraPessoa')}</Select.Option>
+                      <Select.Option value="onisciente">{t('onisciente')}</Select.Option>
                     </Select>
                   </Form.Item>
 
@@ -942,7 +942,7 @@ export default function Outline() {
                         {t('precisoExpandirPrimeiro')}
                       </div>
                       <div style={{ color: token.colorTextSecondary }}>
-                        {t('volume2', { order_index: prevOutline.order_index, title: prevOutline.title })}
+                        {t('volumeTitulo', { order_index: prevOutline.order_index, title: prevOutline.title })}
                       </div>
                     </div>
                     <p style={{ marginTop: 12, color: token.colorTextSecondary, fontSize: 13 }}>
@@ -1056,14 +1056,14 @@ export default function Outline() {
 
           } catch (error) {
             console.error(t('falhaExpansao'), error);
-            message.error(error instanceof Error ? error.message : t('falhaExpansao2'));
+            message.error(error instanceof Error ? error.message : t('falhaExpansaoToast'));
             setIsExpanding(false);
           }
         },
       });
     } catch (error) {
       console.error(t('falhaVerificarCapitulos'), error);
-      message.error(t('falhaVerificarCapitulos2'));
+      message.error(t('falhaVerificarCapitulosToast'));
       setIsExpanding(false);
     }
   };
@@ -1451,7 +1451,7 @@ export default function Outline() {
 
         } catch (error) {
           console.error(t('falhaExpansaoLote'), error);
-          message.error(error instanceof Error ? error.message : t('falhaExpansaoLote2'));
+          message.error(error instanceof Error ? error.message : t('falhaExpansaoLoteToast'));
           setIsExpanding(false);
         }
       },
@@ -1689,7 +1689,7 @@ export default function Outline() {
             </h2>
             {currentProject?.outline_mode && (
               <Tag color={currentProject.outline_mode === 'one-to-one' ? 'blue' : 'green'} style={{ width: 'fit-content' }}>
-                {currentProject.outline_mode === 'one-to-one' ? t('modoTradicional11') : t('modoDetalhado1N')}
+                {currentProject.outline_mode === 'one-to-one' ? t('modoTradicional') : t('modoDetalhado1N')}
               </Tag>
             )}
           </div>
@@ -1807,8 +1807,8 @@ export default function Outline() {
                             <Space size="small" style={{ fontSize: isMobile ? 13 : 16, flexWrap: 'wrap', lineHeight: isMobile ? '1.4' : '1.5' }}>
                               <span style={{ color: token.colorPrimary, fontWeight: 'bold', fontSize: isMobile ? 13 : 16 }}>
                                 {currentProject?.outline_mode === 'one-to-one'
-                                  ? t('capitulo2', { v0: item.order_index || '?' })
-                                  : t('volume3', { v0: item.order_index || '?' })
+                                  ? t('capituloNumero', { v0: item.order_index || '?' })
+                                  : t('volumeNumero', { v0: item.order_index || '?' })
                                 }
                               </span>
                               <span style={{ fontSize: isMobile ? 13 : 16 }}>{item.title}</span>
@@ -1848,7 +1848,7 @@ export default function Outline() {
                                     color: token.colorTextSecondary,
                                     fontSize: isMobile ? 12 : 13
                                   }}>
-                                    {t('conteudoEsboco2')}
+                                    {t('conteudoEsbocoSecao')}
                                   </div>
                                   <Button
                                     type="link"
@@ -1906,7 +1906,7 @@ export default function Outline() {
                                       alignItems: 'center',
                                       gap: 4
                                     }}>
-                                      {t('personagensEnvolvidos2')}
+                                      {t('personagensEnvolvidosSecao')}
                                       <Tag
                                         color="purple"
                                         style={{
@@ -1970,7 +1970,7 @@ export default function Outline() {
                                       alignItems: 'center',
                                       gap: 4
                                     }}>
-                                      {t('organizacoesEnvolvidas2')}
+                                      {t('organizacoesEnvolvidasSecao')}
                                       <Tag
                                         color="orange"
                                         style={{
@@ -2042,7 +2042,7 @@ export default function Outline() {
                                         alignItems: 'center',
                                         gap: 4
                                       }}>
-                                        {t('cenas2')}
+                                        {t('cenasSecao')}
                                         <Tag
                                           color="cyan"
                                           style={{
@@ -2070,7 +2070,7 @@ export default function Outline() {
                                             color: token.colorInfo
                                           }}
                                         >
-                                          {isExpanded ? t('recolher2') : t('expandir2', { v0: structureData.scenes!.length - maxVisibleScenes })}
+                                          {isExpanded ? t('recolherCenas') : t('expandirContagem', { v0: structureData.scenes!.length - maxVisibleScenes })}
                                         </Button>
                                       )}
                                     </div>
@@ -2207,7 +2207,7 @@ export default function Outline() {
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                               }}>
-                                                <span style={{ fontWeight: 500 }}>{t('personagens2')}</span>
+                                                <span style={{ fontWeight: 500 }}>{t('personagensCena')}</span>
                                                 {scene.characters.join(' · ')}
                                               </div>
                                             )}
@@ -2221,7 +2221,7 @@ export default function Outline() {
                                                 textOverflow: 'ellipsis',
                                                 whiteSpace: 'nowrap'
                                               }}>
-                                                <span style={{ fontWeight: 500 }}>{t('objetivo2')}</span>
+                                                <span style={{ fontWeight: 500 }}>{t('objetivoCena')}</span>
                                                 {scene.purpose}
                                               </div>
                                             )}
@@ -2257,7 +2257,7 @@ export default function Outline() {
                                     alignItems: 'center',
                                     gap: 4
                                   }}>
-                                    {t('eventosChave2')}
+                                    {t('eventosChaveSecao')}
                                     <Tag
                                       color="orange"
                                       style={{
@@ -2334,7 +2334,7 @@ export default function Outline() {
                                     alignItems: 'center',
                                     gap: 4
                                   }}>
-                                    {t('pontosTrama2')}
+                                    {t('pontosTramaSecao')}
                                     <Tag
                                       color="green"
                                       style={{
@@ -2429,7 +2429,7 @@ export default function Outline() {
                                   fontWeight: 600,
                                   color: token.colorWarning
                                 }}>
-                                  {t('tomEmocional2')}
+                                  {t('tomEmocionalCard')}
                                 </span>
                                 <Tag
                                   color="gold"
@@ -2463,7 +2463,7 @@ export default function Outline() {
                                   color: token.colorInfo,
                                   marginBottom: 6
                                 }}>
-                                  {t('objetivoNarrativo2')}
+                                  {t('objetivoNarrativoSecao')}
                                 </div>
                                 <div style={{
                                   fontSize: 12,
