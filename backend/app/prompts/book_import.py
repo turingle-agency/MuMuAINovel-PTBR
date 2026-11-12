@@ -6,22 +6,22 @@ Você é um editor-chefe experiente em planejamento de ficção comercial, espec
 </system>
 
 <task>
-【Tarefa】
+[Tarefa]
 Com base no conteúdo dos 3 primeiros capítulos fornecidos, extraia as informações centrais do livro para criar um novo projeto.
 
-【Objetivo】
+[Objetivo]
 Sem se afastar do texto original, produzir informações estruturadas que possam ser usadas diretamente para inicializar o projeto.
 </task>
 
 <input priority="P0">
-【Dados de entrada】
+[Dados de entrada]
 Título: {title}
 Conteúdo dos 3 primeiros capítulos:
 {sampled_text}
 </input>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Produza somente um objeto JSON puro (sem markdown, sem bloco de código, sem explicações):
 
 {{
@@ -32,7 +32,7 @@ Produza somente um objeto JSON puro (sem markdown, sem bloco de código, sem exp
   "target_words": 100000
 }}
 
-【Requisitos dos campos】
+[Requisitos dos campos]
 1) description: de 80 a 180 palavras, focada no protagonista, no conflito central, no objetivo principal e na tensão da história.
 2) theme: de 80 a 180 palavras, extraindo a proposição central que a obra quer expressar.
 3) genre: de 1 a 4 palavras, como fantasia, romance, thriller, ficção científica, mistério etc.
@@ -42,14 +42,14 @@ Produza somente um objeto JSON puro (sem markdown, sem bloco de código, sem exp
 </output>
 
 <constraints>
-【Deve cumprir】
+[Deve cumprir]
 ✅ Basear-se estritamente no texto fornecido, sem inventar do nada configurações importantes
 ✅ Manter as informações coerentes, sem contradições entre si
 ✅ A saída deve ser um objeto JSON que possa ser interpretado por um parser
 ✅ O gênero do livro pode ser composto por vários gêneros
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Produzir qualquer texto fora do JSON
 ❌ Usar marcação markdown ou envolver a saída em bloco de código
 ❌ Produzir em narrative_perspective qualquer valor fora dos valores permitidos
@@ -62,15 +62,15 @@ Você é um editor-chefe e planejador de enredos experiente, especialista em ext
 </system>
 
 <task>
-【Tarefa】
+[Tarefa]
 Com base no texto dos capítulos fornecidos (no máximo 5 por lote), gere de forma reversa a estrutura de esboço correspondente a cada capítulo.
 
-【Objetivo principal】
+[Objetivo principal]
 A estrutura de saída deve ser rigorosamente idêntica à estrutura de geração de esboço já existente no sistema (mesmos campos de OUTLINE_CREATE), para ser gravada diretamente no banco.
 </task>
 
 <project priority="P0">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
@@ -78,15 +78,15 @@ Ponto de vista narrativo: {narrative_perspective}
 </project>
 
 <input priority="P0">
-【Faixa do lote】
+[Faixa do lote]
 Capítulo {start_chapter} a capítulo {end_chapter} ({expected_count} capítulos no total)
 
-【Conteúdo dos capítulos】
+[Conteúdo dos capítulos]
 {chapters_text}
 </input>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Produza somente um array JSON puro (sem markdown, sem bloco de código, sem explicações).
 O tamanho do array deve ser exatamente igual a {expected_count}.
 
@@ -107,7 +107,7 @@ Os campos de cada objeto devem ser exatamente estes:
   }}
 ]
 
-【Restrições dos campos】
+[Restrições dos campos]
 - chapter_number: deve coincidir com o número do capítulo de entrada
 - title: deve coincidir com o título do capítulo de entrada
 - summary: extraído do texto do próprio capítulo, sem inventar eventos-chave que não aparecem
@@ -120,14 +120,14 @@ Os campos de cada objeto devem ser exatamente estes:
 </output>
 
 <constraints>
-【Deve cumprir】
+[Deve cumprir]
 ✅ Exatamente um objeto por capítulo, com quantidade e ordem idênticas às da entrada
 ✅ Nomes, hierarquia e tipos dos campos rigorosamente idênticos ao formato acima
 ✅ Extrair apenas do texto de entrada, sem ampliar configurações por conta própria
 ✅ A saída deve poder ser interpretada diretamente como JSON
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Produzir qualquer texto fora do JSON
 ❌ Omitir campos ou acrescentar campos novos
 ❌ chapter_number/title diferentes dos de entrada

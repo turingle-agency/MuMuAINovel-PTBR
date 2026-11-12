@@ -96,6 +96,19 @@ def _parse_allowed_hosts(raw: Iterable[str] | str | None) -> set[str]:
     return {_normalize_hostname(item) for item in items if str(item).strip()}
 
 
+# Mensagens de validate_public_http_url que indicam endereço local/interno;
+# usadas para sugerir a configuração de endpoints privados.
+_PRIVATE_URL_DETAILS = frozenset(
+    {
+        "A URL não pode apontar para o endereço da própria máquina",
+        "A URL não pode apontar para endereços link-local, multicast ou não especificados",
+        "A URL não pode apontar para rede interna ou endereços reservados",
+        "A URL resolve para endereços link-local, multicast ou não especificados",
+        "A URL resolve para rede interna ou endereços reservados",
+    }
+)
+
+
 def validate_public_http_url(
     raw_url: str,
     *,
@@ -110,28 +123,28 @@ def validate_public_http_url(
     MCP plugins or other callers.
     """
     if not raw_url or not isinstance(raw_url, str):
-        raise HTTPException(status_code=400, detail="URL不能为空")
+        raise HTTPException(status_code=400, detail="A URL não pode estar vazia")
 
     parsed = urlparse(raw_url.strip())
     if parsed.scheme not in set(allowed_schemes):
-        raise HTTPException(status_code=400, detail="仅支持 HTTP/HTTPS URL")
+        raise HTTPException(status_code=400, detail="Apenas URLs HTTP/HTTPS são suportadas")
     if not parsed.hostname:
-        raise HTTPException(status_code=400, detail="URL缺少主机名")
+        raise HTTPException(status_code=400, detail="A URL não tem nome de host")
     if parsed.username or parsed.password:
-        raise HTTPException(status_code=400, detail="URL不允许包含认证信息")
+        raise HTTPException(status_code=400, detail="A URL não pode conter credenciais")
 
     host = _normalize_hostname(parsed.hostname)
     host_allowed = allow_private or host in _parse_allowed_hosts(allowed_hosts)
 
     if host in {"localhost", "localhost.localdomain"} and not host_allowed:
-        raise HTTPException(status_code=400, detail="URL不允许指向本机地址")
+        raise HTTPException(status_code=400, detail="A URL não pode apontar para o endereço da própria máquina")
 
     try:
         ip = ipaddress.ip_address(host)
         if _is_always_blocked_ip(ip):
-            raise HTTPException(status_code=400, detail="URL不允许指向链路本地、组播或未指定地址")
+            raise HTTPException(status_code=400, detail="A URL não pode apontar para endereços link-local, multicast ou não especificados")
         if _is_forbidden_ip(ip) and not host_allowed:
-            raise HTTPException(status_code=400, detail="URL不允许指向内网或保留地址")
+            raise HTTPException(status_code=400, detail="A URL não pode apontar para rede interna ou endereços reservados")
     except ValueError:
         try:
             infos = socket.getaddrinfo(
@@ -140,13 +153,13 @@ def validate_public_http_url(
                 type=socket.SOCK_STREAM,
             )
         except socket.gaierror:
-            raise HTTPException(status_code=400, detail="URL主机名无法解析")
+            raise HTTPException(status_code=400, detail="Não foi possível resolver o nome de host da URL")
         for info in infos:
             resolved_ip = ipaddress.ip_address(info[4][0])
             if _is_always_blocked_ip(resolved_ip):
-                raise HTTPException(status_code=400, detail="URL解析到链路本地、组播或未指定地址")
+                raise HTTPException(status_code=400, detail="A URL resolve para endereços link-local, multicast ou não especificados")
             if _is_forbidden_ip(resolved_ip) and not host_allowed:
-                raise HTTPException(status_code=400, detail="URL解析到内网或保留地址")
+                raise HTTPException(status_code=400, detail="A URL resolve para rede interna ou endereços reservados")
 
     return raw_url.strip().rstrip("/")
 
@@ -167,15 +180,13 @@ def validate_ai_http_url(raw_url: str) -> str:
         )
     except HTTPException as exc:
         detail = str(exc.detail or "")
-        if exc.status_code == 400 and any(
-            token in detail for token in ("本机", "内网", "链路本地")
-        ):
+        if exc.status_code == 400 and detail in _PRIVATE_URL_DETAILS:
             raise HTTPException(
                 status_code=400,
                 detail=(
-                    f"{detail}。如需连接本地或 Docker 内网 LLM，"
-                    "请设置 ALLOW_PRIVATE_AI_ENDPOINTS=true，"
-                    "或把主机名加入 ALLOWED_AI_HOSTS（例如 host.docker.internal,127.0.0.1）。"
+                    f"{detail}. Para conectar a um LLM local ou em rede interna do Docker, "
+                    "defina ALLOW_PRIVATE_AI_ENDPOINTS=true "
+                    "ou adicione o host a ALLOWED_AI_HOSTS (por exemplo host.docker.internal,127.0.0.1)."
                 ),
             ) from exc
         raise

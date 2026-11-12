@@ -6,11 +6,11 @@ Você é um editor literário e analista de enredo profissional, especialista em
 </system>
 
 <task>
-【Tarefa de análise】
+[Tarefa de análise]
 Analise por completo os elementos de enredo, ganchos, foreshadowing, conflitos e desenvolvimento dos personagens do capítulo {chapter_number}, "{title}".
 
-【🔴 Tarefa de rastreamento de foreshadowing (importante)】
-O sistema fornece a 【lista de foreshadowing já plantado】. Quando você identificar que o capítulo resolve um foreshadowing:
+[🔴 Tarefa de rastreamento de foreshadowing (importante)]
+O sistema fornece a [lista de foreshadowing já plantado]. Quando você identificar que o capítulo resolve um foreshadowing:
 1. Encontre na lista o ID do foreshadowing correspondente
 2. Associe-o no array foreshadows pelo campo reference_foreshadow_id
 3. Se não for possível determinar qual foreshadowing foi resolvido, preencha reference_foreshadow_id com null
@@ -19,31 +19,31 @@ Escreva todo o conteúdo textual da análise em {output_language}. Os nomes dos 
 </task>
 
 <chapter priority="P0">
-【Informações do capítulo】
+[Informações do capítulo]
 Capítulo: {chapter_number}
 Título: {title}
 Palavras: {word_count}
 
-【Conteúdo do capítulo】
+[Conteúdo do capítulo]
 {content}
 </chapter>
 
 <existing_foreshadows priority="P1">
-【Lista de foreshadowing já plantado - para identificar resoluções】
+[Lista de foreshadowing já plantado - para identificar resoluções]
 Abaixo estão os foreshadowings já plantados neste projeto e ainda não resolvidos. Se o capítulo resolver algum deles, use o ID correspondente:
 
 {existing_foreshadows}
 </existing_foreshadows>
 
 <characters priority="P1">
-【Informações dos personagens do projeto - para a análise de estados】
+[Informações dos personagens do projeto - para a análise de estados]
 Abaixo está a lista de personagens já existentes no projeto. Ao analisar character_states e relationship_changes, use exatamente os nomes destes personagens:
 
 {characters_info}
 </characters>
 
 <analysis_framework priority="P0">
-【Dimensões de análise】
+[Dimensões de análise]
 
 **1. Ganchos de enredo (Hooks)**
 Identifique os elementos-chave que prendem o leitor:
@@ -57,13 +57,13 @@ Cada gancho precisa de:
 - Descrição do conteúdo
 - Nota de intensidade (1-10)
 - Posição em que aparece (início/meio/fim)
-- **Palavra-chave**: 【obrigatório】copie literalmente do texto original um trecho de 5 a 15 palavras, usado para localizar o ponto com exatidão
+- **Palavra-chave**: [obrigatório]copie literalmente do texto original um trecho de 5 a 15 palavras, usado para localizar o ponto com exatidão
 
 **2. Análise de foreshadowing (Foreshadowing) - 🔴 com rastreamento de ID**
 - Novos foreshadowings plantados: conteúdo, função esperada, grau de ocultação (1-10)
-- Foreshadowings antigos resolvidos: 【obrigatório】encontre o ID na lista de foreshadowing já plantado
+- Foreshadowings antigos resolvidos: [obrigatório]encontre o ID na lista de foreshadowing já plantado
 - Qualidade do foreshadowing: engenhosidade e plausibilidade
-- **Palavra-chave**: 【obrigatório】copie literalmente 5 a 15 palavras do texto original
+- **Palavra-chave**: [obrigatório]copie literalmente 5 a 15 palavras do texto original
 
 Cada foreshadowing precisa de:
 - **title**: título curto (3-8 palavras, resumindo o núcleo do foreshadowing)
@@ -74,15 +74,15 @@ Cada foreshadowing precisa de:
 - **strength**: intensidade de 1 a 10 (poder de atração sobre o leitor)
 - **subtlety**: grau de ocultação de 1 a 10 (quanto maior, mais discreto)
 - **reference_chapter**: número do capítulo em que foi plantado, ao resolver; null ao plantar
-- **reference_foreshadow_id**: 【obrigatório ao resolver】ID do foreshadowing resolvido (escolhido na lista de foreshadowing já plantado); null ao plantar
-  - 🔴 Importante: ao resolver um foreshadowing, é obrigatório encontrar na 【lista de foreshadowing já plantado】 o ID correspondente e preenchê-lo
-  - Se a lista traz foreshadowings marcados com 【ID: xxx】, use esse ID ao resolver
+- **reference_foreshadow_id**: [obrigatório ao resolver]ID do foreshadowing resolvido (escolhido na lista de foreshadowing já plantado); null ao plantar
+  - 🔴 Importante: ao resolver um foreshadowing, é obrigatório encontrar na [lista de foreshadowing já plantado] o ID correspondente e preenchê-lo
+  - Se a lista traz foreshadowings marcados com [ID: xxx], use esse ID ao resolver
   - Só preencha null se for impossível determinar qual foreshadowing foi resolvido (e evite isso sempre que possível)
-- **keyword**: 【obrigatório】texto de localização copiado literalmente do original, com 5 a 15 palavras
+- **keyword**: [obrigatório]texto de localização copiado literalmente do original, com 5 a 15 palavras
 - **category**: categoria (identity=origem/identidade, mystery=mistério, item=objeto, relationship=relação, event=evento, ability=habilidade, prophecy=profecia)
 - **is_long_term**: se é um foreshadowing de longo prazo (true quando só será resolvido em mais de 10 capítulos)
 - **related_characters**: lista dos nomes dos personagens envolvidos
-- **estimated_resolve_chapter**: 【obrigatório】número estimado do capítulo de resolução (ao plantar, é obrigatório estimar; ao resolver, é o capítulo atual)
+- **estimated_resolve_chapter**: [obrigatório]número estimado do capítulo de resolução (ao plantar, é obrigatório estimar; ao resolver, é o capítulo atual)
 
 **3. Análise de conflito (Conflict)**
 - Tipo de conflito: pessoa contra pessoa / pessoa contra si mesma / pessoa contra o ambiente / pessoa contra a sociedade
@@ -135,7 +135,7 @@ Liste de 3 a 5 pontos centrais do enredo:
 - Tipo (revelation/conflict/resolution/transition)
 - Importância (0.0-1.0)
 - Impacto na história
-- **Palavra-chave**: 【obrigatório】copie literalmente 5 a 15 palavras do texto original
+- **Palavra-chave**: [obrigatório]copie literalmente 5 a 15 palavras do texto original
 
 **7. Cenas e ritmo**
 - Cenas principais
@@ -185,7 +185,7 @@ Cada sugestão deve:
 </analysis_framework>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro (sem marcação markdown):
 
 {{
@@ -306,14 +306,14 @@ Retorne um objeto JSON puro (sem marcação markdown):
   }},
   "plot_stage": "desenvolvimento",
   "suggestions": [
-    "【Problema de ritmo】A descrição psicológica da terceira cena é longa demais (cerca de 300 palavras); sugere-se reduzi-la a menos de 120 palavras, mantendo só a emoção central",
-    "【Pouca capacidade de prender】O meio do capítulo não tem um gancho eficaz; sugere-se acrescentar um pequeno suspense depois que o protagonista descobre a pista"
+    "[Problema de ritmo]A descrição psicológica da terceira cena é longa demais (cerca de 300 palavras); sugere-se reduzi-la a menos de 120 palavras, mantendo só a emoção central",
+    "[Pouca capacidade de prender]O meio do capítulo não tem um gancho eficaz; sugere-se acrescentar um pequeno suspense depois que o protagonista descobre a pista"
   ]
 }}
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Campo keyword obrigatório: o keyword de ganchos, foreshadowings e pontos da trama não pode ficar vazio
 ✅ Cópia literal: o keyword deve ser copiado do texto original, com 5 a 15 palavras
 ✅ Localização exata: o keyword deve poder ser encontrado exatamente no texto original
@@ -322,14 +322,14 @@ Retorne um objeto JSON puro (sem marcação markdown):
 ✅ Estado de organização opcional: preencha apenas quando o capítulo descrever claramente mudanças de poder, sede ou objetivo da organização (campo organization_states no nível superior)
 ✅ Estado de sobrevivência com cautela: survival_status só deve ser preenchido quando o capítulo trouxer descrição explícita de morte, desaparecimento ou saída de cena; o padrão é null
 ✅ Destruição de organização com cautela: is_destroyed só é true quando a organização foi completamente aniquilada; uma organização apenas abalada não conta como destruída
-✅ 【Rastreamento de ID de foreshadowing】ao resolver um foreshadowing, é obrigatório buscar na 【lista de foreshadowing já plantado】 o ID correspondente e preencher reference_foreshadow_id
+✅ [Rastreamento de ID de foreshadowing]ao resolver um foreshadowing, é obrigatório buscar na [lista de foreshadowing já plantado] o ID correspondente e preencher reference_foreshadow_id
 ✅ relationship_changes: cada chave é o nome exato de um personagem da lista, e cada valor é um objeto com "change" (texto) e "intimacy_delta" (inteiro de -30 a 30)
-✅ 【Formato estrito de suggestions】suggestions deve ser um "array de strings", e cada elemento deve ser uma string pura
-✅ Formato correto de exemplo para suggestions: "suggestions": ["【Problema de ritmo】...", "【Descrição insuficiente】..."]
+✅ [Formato estrito de suggestions]suggestions deve ser um "array de strings", e cada elemento deve ser uma string pura
+✅ Formato correto de exemplo para suggestions: "suggestions": ["[Problema de ritmo]...", "[Descrição insuficiente]..."]
 ✅ É proibido devolver em suggestions objetos, dicionários, pares chave-valor ou estruturas aninhadas, por exemplo {{"suggestion": "..."}} ou {{"content": "..."}}
 ✅ Se não houver sugestões de melhoria, devolva obrigatoriamente um array vazio [], sem null e sem omitir o campo
 
-【Restrições de pontuação - cumprir rigorosamente】
+[Restrições de pontuação - cumprir rigorosamente]
 ✅ Pontue estritamente conforme os critérios, aceitando decimais (ex.: 6.5, 7.2, 8.3)
 ✅ Não dê 7.0-8.0 por padrão: conteúdo fraco deve receber nota baixa (1.0-5.0), e só o conteúdo bom recebe nota alta (8.0-10.0)
 ✅ score_justification obrigatório: explique brevemente o fundamento de cada nota
@@ -338,10 +338,10 @@ Retorne um objeto JSON puro (sem marcação markdown):
    - overall 4.0-6.0 → 3-4 sugestões
    - overall 6.0-8.0 → 1-2 sugestões
    - overall ≥ 8.0 → 0-1 sugestão
-✅ Cada sugestão deve indicar o tipo do problema (como 【Problema de ritmo】, 【Descrição insuficiente】, etc.)
+✅ Cada sugestão deve indicar o tipo do problema (como [Problema de ritmo], [Descrição insuficiente], etc.)
 ✅ Cada sugestão deve ser escrita como texto completo, sem ser envolvida em campos de objeto
 
-【Proibido】
+[Proibido]
 ❌ keyword com texto resumido ou reescrito
 ❌ Saída com marcação markdown
 ❌ Omitir o campo keyword obrigatório

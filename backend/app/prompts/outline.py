@@ -6,10 +6,10 @@ Você é um romancista e roteirista experiente, especialista em projetar abertur
 </system>
 
 <task>
-【Tarefa de criação】
+[Tarefa de criação]
 Gere o esboço dos {chapter_count} primeiros capítulos do livro "{title}".
 
-【Observação importante】
+[Observação importante]
 Esta é a parte inicial do projeto, e não o esboço completo:
 - Conclua a apresentação da ambientação e do mundo
 - Apresente os personagens principais e estabeleça as relações iniciais
@@ -19,7 +19,7 @@ Esta é a parte inicial do projeto, e não o esboço completo:
 </task>
 
 <project priority="P0">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Tema: {theme}
 Gênero: {genre}
@@ -28,7 +28,7 @@ Ponto de vista narrativo: {narrative_perspective}
 </project>
 
 <worldview priority="P1">
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -36,7 +36,7 @@ Regras do mundo: {rules}
 </worldview>
 
 <characters priority="P1">
-【Informações dos personagens】
+[Informações dos personagens]
 {characters_info}
 </characters>
 
@@ -45,14 +45,14 @@ Regras do mundo: {rules}
 </mcp_context>
 
 <requirements priority="P1">
-【Outros requisitos】
+[Outros requisitos]
 {requirements}
 
 Escreva todo o conteúdo em {output_language}.
 </requirements>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um array JSON com {chapter_count} objetos de capítulo:
 
 [
@@ -84,11 +84,11 @@ Retorne um array JSON com {chapter_count} objetos de capítulo:
  }}
 ]
 
-【Sobre o campo characters】
+[Sobre o campo characters]
 - type "character" indica um personagem individual; type "organization" indica uma organização, facção, ordem, gangue, etc.
 - É obrigatório distinguir personagens de organizações; não trate uma organização como personagem
 
-【Regras de formato】
+[Regras de formato]
 - Saída em array JSON puro, sem marcação markdown
 - Nas descrições, é proibido usar símbolos especiais
 - Escreva nomes próprios diretamente
@@ -96,7 +96,7 @@ Retorne um array JSON com {chapter_count} objetos de capítulo:
 </output>
 
 <constraints>
-【Requisitos do esboço de abertura】
+[Requisitos do esboço de abertura]
 ✅ Apresentação inicial: nos primeiros capítulos, mostre o mundo, a entrada do protagonista e a situação de partida
 ✅ Introdução do conflito: apresente o conflito central, sem pressa de desenvolvê-lo
 ✅ Entrada dos personagens: os personagens principais surgem aos poucos, mostrando personalidade e relações
@@ -105,7 +105,7 @@ Retorne um array JSON com {chapter_count} objetos de capítulo:
 ✅ Ponto de vista único: adote o ponto de vista {narrative_perspective}
 ✅ A arte do que fica em aberto: não feche o final com firmeza demais, deixe espaço para a história crescer
 
-【Obrigatório】
+[Obrigatório]
 ✅ Quantidade exata: o array contém {chapter_count} objetos de capítulo
 ✅ Fiel ao gênero: a trama respeita as características de {genre}
 ✅ Aderência ao tema: expresse o tema "{theme}"
@@ -113,7 +113,7 @@ Retorne um array JSON com {chapter_count} objetos de capítulo:
 ✅ Descrição detalhada: cada summary com 500 a 1000 palavras
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown ou blocos de código
 ❌ Usar símbolos especiais nas descrições
 ❌ Tentar encerrar a história na abertura
@@ -126,18 +126,18 @@ Você é um romancista e roteirista experiente, especialista em continuar esboç
 </system>
 
 <task>
-【Tarefa de continuação】
+[Tarefa de continuação]
 Com base nos {current_chapter_count} capítulos já existentes, continue o esboço do capítulo {start_chapter} ao capítulo {end_chapter} (total de {chapter_count} capítulos).
 
-【Fase atual da trama】
+[Fase atual da trama]
 {plot_stage_instruction}
 
-【Direção da história】
+[Direção da história]
 {story_direction}
 </task>
 
 <project priority="P0">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Tema: {theme}
 Gênero: {genre}
@@ -145,7 +145,7 @@ Ponto de vista narrativo: {narrative_perspective}
 </project>
 
 <worldview priority="P1">
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -157,12 +157,12 @@ Regras do mundo: {rules}
 </previous_context>
 
 <characters priority="P0">
-【Informações de todos os personagens】
+[Informações de todos os personagens]
 {characters_info}
 </characters>
 
 <user_input priority="P0">
-【Pedido do usuário】
+[Pedido do usuário]
 Capítulos a continuar: {chapter_count}
 Fase da trama: {plot_stage_instruction}
 Direção da história: {story_direction}
@@ -176,7 +176,7 @@ Escreva todo o conteúdo em {output_language}.
 </mcp_context>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um array JSON do capítulo {start_chapter} ao capítulo {end_chapter} (total de {chapter_count} objetos):
 
 [
@@ -208,11 +208,11 @@ Retorne um array JSON do capítulo {start_chapter} ao capítulo {end_chapter} (t
  }}
 ]
 
-【Sobre o campo characters】
+[Sobre o campo characters]
 - type "character" indica um personagem individual; type "organization" indica uma organização, facção, ordem, gangue, etc.
 - É obrigatório distinguir personagens de organizações; não trate uma organização como personagem
 
-【Regras de formato】
+[Regras de formato]
 - Saída em array JSON puro, sem marcação markdown
 - Nas descrições, é proibido usar símbolos especiais
 - Escreva nomes próprios diretamente
@@ -220,21 +220,21 @@ Retorne um array JSON do capítulo {start_chapter} ao capítulo {end_chapter} (t
 </output>
 
 <constraints>
-【Requisitos da continuação】
+[Requisitos da continuação]
 ✅ Coerência da trama: encaixe naturalmente com o que veio antes, mantendo a continuidade
 ✅ Evolução dos personagens: siga a trajetória de crescimento de cada um e aproveite bem as informações dos personagens
 ✅ Fase da trama: siga as exigências de {plot_stage_instruction}
 ✅ Estilo consistente: mantenha o mesmo estilo e o mesmo nível de detalhe dos capítulos existentes
 ✅ Esboço detalhado: analise a fundo as informações do campo structure dos esboços dos últimos 10 capítulos
 
-【Obrigatório】
+[Obrigatório]
 ✅ Quantidade exata: o array contém {chapter_count} capítulos
 ✅ Numeração correta: comece pelo capítulo {start_chapter}
 ✅ Descrição detalhada: cada summary com 500 a 1000 palavras
 ✅ Elo entre passado e futuro: encaixe naturalmente com o que veio antes
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown ou blocos de código
 ❌ Usar símbolos especiais nas descrições
 ❌ Contradizer ou desconectar-se do que veio antes

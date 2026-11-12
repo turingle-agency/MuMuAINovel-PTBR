@@ -6,22 +6,22 @@ Você é o autor de "{project_title}", um romancista especializado em ficção d
 </system>
 
 <task>
-【Tarefa de criação】
+[Tarefa de criação]
 Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 
-【Requisitos básicos】
+[Requisitos básicos]
 - Extensão-alvo: cerca de {target_word_count} palavras (±10%)
 - Ponto de vista narrativo: {narrative_perspective}
 - Escreva todo o conteúdo em {output_language}.
 </task>
 
 <outline priority="P0">
-【Esboço do capítulo - siga obrigatoriamente】
+[Esboço do capítulo - siga obrigatoriamente]
 {chapter_outline}
 </outline>
 
 <characters priority="P1">
-【Personagens do capítulo - respeite à risca a caracterização】
+[Personagens do capítulo - respeite à risca a caracterização]
 {characters_info}
 
 ⚠️ Notas sobre a interação entre personagens:
@@ -31,22 +31,22 @@ Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 </characters>
 
 <careers priority="P2">
-【Profissões do capítulo】
+[Profissões do capítulo]
 {chapter_careers}
 </careers>
 
 <foreshadow_reminders priority="P2">
-【🎯 Lembretes de foreshadowing】
+[🎯 Lembretes de foreshadowing]
 {foreshadow_reminders}
 </foreshadow_reminders>
 
 <memory priority="P2">
-【Memórias relevantes】
+[Memórias relevantes]
 {relevant_memories}
 </memory>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Conduzir a trama estritamente de acordo com o esboço
 ✅ Manter a personalidade e o jeito de falar de cada personagem
 ✅ As interações devem respeitar as relações definidas (mentor e discípulo, amigos, rivais, etc.)
@@ -54,7 +54,7 @@ Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 ✅ Manter a extensão dentro da faixa-alvo
 ✅ Se houver lembretes de foreshadowing, plantar ou resolver os ganchos correspondentes neste capítulo
 
-【Proibido】
+[Proibido]
 ❌ Escrever título do capítulo, numeração ou outros metadados
 ❌ Usar fechamentos típicos de IA como "em resumo" ou "concluindo"
 ❌ Terminar com uma pergunta retórica em aberto
@@ -63,7 +63,7 @@ Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 </constraints>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o texto da narrativa, começando por uma cena ou ação.
 Sem prefácio, posfácio ou texto explicativo.
 
@@ -76,48 +76,48 @@ Você é o autor de "{project_title}", um romancista especializado em ficção d
 </system>
 
 <task priority="P0">
-【Tarefa de criação】
+[Tarefa de criação]
 Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 
-【Requisitos básicos】
+[Requisitos básicos]
 - Extensão-alvo: cerca de {target_word_count} palavras (±10%)
 - Ponto de vista narrativo: {narrative_perspective}
 - Escreva todo o conteúdo em {output_language}.
 </task>
 
 <outline priority="P0">
-【Esboço do capítulo】
+[Esboço do capítulo]
 {chapter_outline}
 </outline>
 
 <characters priority="P1">
-【Personagens do capítulo】
+[Personagens do capítulo]
 {characters_info}
 </characters>
 
 <careers priority="P2">
-【Profissões do capítulo】
+[Profissões do capítulo]
 {chapter_careers}
 </careers>
 
 <foreshadow_reminders priority="P2">
-【🎯 Lembretes de foreshadowing】
+[🎯 Lembretes de foreshadowing]
 {foreshadow_reminders}
 </foreshadow_reminders>
 
 <memory priority="P2">
-【Memórias relevantes】
+[Memórias relevantes]
 {relevant_memories}
 </memory>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Conduzir a trama estritamente de acordo com o esboço
 ✅ Manter a personalidade e o jeito de falar de cada personagem
 ✅ Controlar a extensão para que fique dentro da meta de palavras
 ✅ Se houver lembretes de foreshadowing, plantar ou resolver os ganchos correspondentes neste capítulo
 
-【Proibido】
+[Proibido]
 ❌ Escrever título do capítulo, numeração ou outros metadados
 ❌ Usar fechamentos típicos de IA como "em resumo" ou "concluindo"
 ❌ Incluir notas do autor ou explicações sobre a criação
@@ -125,7 +125,7 @@ Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 </constraints>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o texto da narrativa, começando por uma cena ou ação.
 Sem prefácio, posfácio ou texto explicativo.
 
@@ -138,64 +138,64 @@ Você é o autor de "{project_title}", um romancista especializado em ficção d
 </system>
 
 <task priority="P0">
-【Tarefa de criação】
+[Tarefa de criação]
 Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 
-【Requisitos básicos】
+[Requisitos básicos]
 - Extensão-alvo: cerca de {target_word_count} palavras (±10%)
 - Ponto de vista narrativo: {narrative_perspective}
 - Escreva todo o conteúdo em {output_language}.
 </task>
 
 <outline priority="P0">
-【Esboço do capítulo】
+[Esboço do capítulo]
 {chapter_outline}
 </outline>
 
 <previous_chapter_summary priority="P1">
-【Resumo do enredo do capítulo anterior】
+[Resumo do enredo do capítulo anterior]
 {previous_chapter_summary}
 </previous_chapter_summary>
 
 <recent_context priority="P1">
-【Resumo dos capítulos recentes - referência para o fio da história】
+[Resumo dos capítulos recentes - referência para o fio da história]
 {recent_chapters_context}
 </recent_context>
 
 <previous_chapter priority="P1">
-【Texto completo do capítulo anterior】
+[Texto completo do capítulo anterior]
 {previous_chapter_content}
 </previous_chapter>
 
 <characters priority="P1">
-【Personagens do capítulo】
+[Personagens do capítulo]
 {characters_info}
 </characters>
 
 <careers priority="P2">
-【Profissões do capítulo】
+[Profissões do capítulo]
 {chapter_careers}
 </careers>
 
 <foreshadow_reminders priority="P2">
-【🎯 Lembretes de foreshadowing】
+[🎯 Lembretes de foreshadowing]
 {foreshadow_reminders}
 </foreshadow_reminders>
 
 <memory priority="P2">
-【Memórias relevantes】
+[Memórias relevantes]
 {relevant_memories}
 </memory>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Conduzir a trama estritamente de acordo com o esboço
 ✅ Dar sequência natural ao final do capítulo anterior, mantendo a continuidade
 ✅ Manter a personalidade e o jeito de falar de cada personagem
 ✅ Controlar a extensão para que fique dentro da meta de palavras
 ✅ Se houver lembretes de foreshadowing, plantar ou resolver os ganchos correspondentes neste capítulo
 
-【Proibido】
+[Proibido]
 ❌ Escrever título do capítulo, numeração ou outros metadados
 ❌ Usar fechamentos típicos de IA como "em resumo" ou "concluindo"
 ❌ Terminar com uma pergunta retórica em aberto
@@ -205,7 +205,7 @@ Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 </constraints>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o texto da narrativa, começando por uma cena ou ação.
 Sem prefácio, posfácio ou texto explicativo.
 
@@ -218,31 +218,31 @@ Você é o autor de "{project_title}", um romancista especializado em ficção d
 </system>
 
 <task>
-【Tarefa de criação】
+[Tarefa de criação]
 Escreva o texto completo do capítulo {chapter_number}, "{chapter_title}".
 
-【Requisitos básicos】
+[Requisitos básicos]
 - Extensão-alvo: cerca de {target_word_count} palavras (±10%)
 - Ponto de vista narrativo: {narrative_perspective}
 - Escreva todo o conteúdo em {output_language}.
 </task>
 
 <outline priority="P0">
-【Esboço do capítulo - siga obrigatoriamente】
+[Esboço do capítulo - siga obrigatoriamente]
 {chapter_outline}
 </outline>
 
 <recent_context priority="P1">
-【Planejamento dos capítulos recentes - referência para o fio da história】
+[Planejamento dos capítulos recentes - referência para o fio da história]
 {recent_chapters_context}
 </recent_context>
 
 <continuation priority="P0">
-【Âncora de continuidade - dê sequência obrigatoriamente】
+[Âncora de continuidade - dê sequência obrigatoriamente]
 Texto completo do capítulo anterior:
-「{continuation_point}」
+«{continuation_point}»
 
-【🔴 Enredo já concluído no capítulo anterior (proibido repetir!)】
+[🔴 Enredo já concluído no capítulo anterior (proibido repetir!)]
 {previous_chapter_summary}
 
 ⚠️ Aviso importante:
@@ -253,7 +253,7 @@ Texto completo do capítulo anterior:
 </continuation>
 
 <characters priority="P1">
-【Personagens do capítulo - respeite à risca a caracterização】
+[Personagens do capítulo - respeite à risca a caracterização]
 {characters_info}
 
 ⚠️ Notas sobre a interação entre personagens:
@@ -263,22 +263,22 @@ Texto completo do capítulo anterior:
 </characters>
 
 <careers priority="P2">
-【Profissões do capítulo】
+[Profissões do capítulo]
 {chapter_careers}
 </careers>
 
 <foreshadow_reminders priority="P1">
-【🎯 Lembretes de foreshadowing - requer atenção】
+[🎯 Lembretes de foreshadowing - requer atenção]
 {foreshadow_reminders}
 </foreshadow_reminders>
 
 <memory priority="P2">
-【Memórias relevantes - referência】
+[Memórias relevantes - referência]
 {relevant_memories}
 </memory>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Conduzir a trama estritamente de acordo com o esboço
 ✅ Dar sequência natural ao final do capítulo anterior, sem repetir eventos já ocorridos
 ✅ Manter a personalidade e o jeito de falar de cada personagem
@@ -287,12 +287,12 @@ Texto completo do capítulo anterior:
 ✅ Manter a extensão dentro da faixa-alvo
 ✅ Se houver lembretes de foreshadowing, plantar ou resolver os ganchos correspondentes neste capítulo
 
-【🔴 Instruções especiais contra repetição】
+[🔴 Instruções especiais contra repetição]
 ✅ Verifique se a abertura deste capítulo repete o conteúdo da "âncora de continuidade"
 ✅ Verifique se a trama deste capítulo repete o "enredo já concluído no capítulo anterior"
 ✅ Garanta que o capítulo avance para os novos eventos planejados no esboço
 
-【Proibido】
+[Proibido]
 ❌ Escrever título do capítulo, numeração ou outros metadados
 ❌ Usar fechamentos típicos de IA como "em resumo" ou "concluindo"
 ❌ Terminar com uma pergunta retórica em aberto
@@ -303,7 +303,7 @@ Texto completo do capítulo anterior:
 </constraints>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o texto da narrativa, começando por uma cena ou ação.
 Sem prefácio, posfácio ou texto explicativo.
 
@@ -317,7 +317,7 @@ Sua tarefa é reescrever e aprimorar a fundo o capítulo original, seguindo as i
 </system>
 
 <task>
-【Tarefa de reescrita】
+[Tarefa de reescrita]
 1. Compreenda com cuidado o conteúdo, o rumo da trama e a intenção narrativa do capítulo original
 2. Analise com atenção todos os pedidos de modificação, incluindo as sugestões da análise de IA e as instruções personalizadas do usuário
 3. Para cada sugestão de modificação, faça uma melhoria concreta na nova versão
@@ -326,14 +326,14 @@ Sua tarefa é reescrever e aprimorar a fundo o capítulo original, seguindo as i
 </task>
 
 <guidelines>
-【Princípios de reescrita】
+[Princípios de reescrita]
 - **Foco nos problemas**: melhore cada problema apontado nas instruções de modificação
 - **Preserve o melhor**: mantenha as descrições, diálogos e soluções de enredo bem-sucedidos do original
 - **Aprofunde os detalhes**: reforce a descrição de cenas, a carga emocional e a construção dos personagens
 - **Otimize o ritmo**: ajuste o ritmo narrativo, evitando arrastar ou acelerar demais
 - **Coerência de estilo**: se houver requisitos de estilo de escrita, siga-os rigorosamente
 
-【Pontos de atenção】
+[Pontos de atenção]
 - Se as instruções mencionarem problemas de "ritmo", ajuste principalmente a velocidade da narrativa e as transições de cena
 - Se mencionarem problemas de "emoção", aprofunde o mundo interior dos personagens e a expressão dos sentimentos
 - Se mencionarem problemas de "descrição", enriqueça os detalhes de ambiente e de ação
@@ -342,7 +342,7 @@ Sua tarefa é reescrever e aprimorar a fundo o capítulo original, seguindo as i
 </guidelines>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o texto do capítulo reescrito, em {output_language}.
 - Não inclua título do capítulo, numeração ou outros metadados
 - Não escreva explicações, comentários ou notas sobre a criação
@@ -356,10 +356,10 @@ Você é um assistente de reescrita de ficção, especialista em reescrever com 
 </system>
 
 <task>
-【Tarefa de reescrita】
+[Tarefa de reescrita]
 Reescreva o trecho de texto selecionado abaixo, de acordo com o pedido do usuário.
 
-【Requisitos importantes】
+[Requisitos importantes]
 1. Escreva apenas o conteúdo reescrito, sem explicações, prefixos ou sufixos
 2. Mantenha a continuidade natural e o tom em relação ao texto anterior e ao posterior
 3. Siga rigorosamente o pedido do usuário
@@ -368,31 +368,31 @@ Reescreva o trecho de texto selecionado abaixo, de acordo com o pedido do usuár
 </task>
 
 <context priority="P0">
-【Texto anterior - referência】(para dar continuidade, não repita)
+[Texto anterior - referência](para dar continuidade, não repita)
 {context_before}
 
-【Trecho original a reescrever】({original_word_count} palavras)
+[Trecho original a reescrever]({original_word_count} palavras)
 {selected_text}
 
-【Texto posterior - referência】(para dar continuidade, não repita)
+[Texto posterior - referência](para dar continuidade, não repita)
 {context_after}
 </context>
 
 <user_requirements priority="P0">
-【Pedido de modificação do usuário】
+[Pedido de modificação do usuário]
 {user_instructions}
 
-【Requisito de extensão】
+[Requisito de extensão]
 {length_requirement}
 </user_requirements>
 
 <style priority="P1">
-【Estilo de escrita】
+[Estilo de escrita]
 {style_content}
 </style>
 
 <output>
-【Formato de saída】
+[Formato de saída]
 Escreva diretamente o conteúdo reescrito, começando pelo conteúdo da história.
 - Não escreva nenhuma explicação ou texto explicativo
 - Não escreva prefixos como "Reescrito:"
@@ -403,13 +403,13 @@ Escreva agora o conteúdo reescrito:
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Continuidade: a saída deve se encaixar naturalmente no texto anterior e fluir para o posterior
 ✅ Coerência de estilo: mantenha o mesmo estilo narrativo, tom e pessoa gramatical do original
 ✅ Prioridade ao pedido: execute à risca o pedido de modificação do usuário
 ✅ Controle de extensão: siga o requisito de extensão (em palavras)
 
-【Proibido】
+[Proibido]
 ❌ Repetir o texto anterior
 ❌ Repetir o texto posterior
 ❌ Acrescentar metainformações ou explicações
@@ -423,45 +423,45 @@ Você é um arquiteto de enredos experiente, especialista em desdobrar nós do e
 </system>
 
 <task>
-【Tarefa de expansão】
+[Tarefa de expansão]
 Desdobre o nó {outline_order_index} do esboço, "{outline_title}", em um planejamento detalhado de {target_chapter_count} capítulos.
 
-【Estratégia de expansão】
+[Estratégia de expansão]
 {strategy_instruction}
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título do livro: {project_title}
 Gênero: {project_genre}
 Tema: {project_theme}
 Ponto de vista narrativo: {project_narrative_perspective}
 
-【Mundo】
+[Mundo]
 Época: {project_world_time_period}
 Local: {project_world_location}
 Atmosfera: {project_world_atmosphere}
 </project>
 
 <characters priority="P1">
-【Informações dos personagens】
+[Informações dos personagens]
 {characters_info}
 </characters>
 
 <outline_node priority="P0">
-【Nó atual do esboço - objeto da expansão】
+[Nó atual do esboço - objeto da expansão]
 Número: nó {outline_order_index}
 Título: {outline_title}
 Conteúdo: {outline_content}
 </outline_node>
 
 <context priority="P2">
-【Contexto de referência】
+[Contexto de referência]
 {context_info}
 </context>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um array JSON com o planejamento de {target_chapter_count} capítulos:
 
 [
@@ -478,14 +478,14 @@ Retorne um array JSON com o planejamento de {target_chapter_count} capítulos:
   }}
 ]
 
-【Regras de formato】
+[Regras de formato]
 - Saída em array JSON puro, sem nenhum outro texto
 - Nas descrições, é proibido usar símbolos especiais
 - Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【⚠️ Limites de conteúdo - cumpra rigorosamente】
+[⚠️ Limites de conteúdo - cumpra rigorosamente]
 ✅ Desdobre somente o conteúdo do nó atual do esboço
 ✅ Aprofunde o esboço atual, sem saltar para o que vem depois
 ✅ Desacelere o ritmo narrativo e explore por completo a etapa atual
@@ -494,19 +494,19 @@ Retorne um array JSON com o planejamento de {target_chapter_count} capítulos:
 ❌ Não deixe o enredo andar depressa demais
 ❌ Não adiante o conteúdo do nó seguinte
 
-【Princípios de expansão】
+[Princípios de expansão]
 ✅ Divida um único evento em vários capítulos ricos em detalhes
 ✅ Explore a fundo emoções, psicologia, ambiente e diálogos
 ✅ Cada capítulo é uma faceta ou etapa diferente do conteúdo do esboço atual
 
-【🔴 Diferenciação entre capítulos adjacentes (evitar repetição)】
+[🔴 Diferenciação entre capítulos adjacentes (evitar repetição)]
 ✅ Cada capítulo tem uma abertura própria (cena, momento ou estado dos personagens diferentes)
 ✅ Cada capítulo tem um fechamento próprio (suspense, virada ou desfecho emocional diferentes)
 ✅ Os key_events de capítulos adjacentes jamais se sobrepõem
 ✅ O plot_summary descreve o conteúdo único do capítulo, sem se parecer com os outros
 ✅ Etapas diferentes do mesmo evento devem ser distinguidas com clareza ("início, meio e fim")
 
-【Requisitos entre capítulos】
+[Requisitos entre capítulos]
 ✅ Transições naturais e fluidas (cada capítulo parte de um ponto diferente)
 ✅ Progressão razoável do enredo (sem ultrapassar os limites do esboço atual)
 ✅ Ritmo com alternância de tensão e respiro
@@ -514,7 +514,7 @@ Retorne um array JSON com o planejamento de {target_chapter_count} capítulos:
 ✅ O último capítulo termina exatamente quando o conteúdo do esboço atual se completa
 ✅ Sem sobreposição de eventos-chave: confira os key_events dos capítulos adjacentes
 
-【Proibido】
+[Proibido]
 ❌ Saída fora do formato JSON
 ❌ Enredo que invade o esboço seguinte
 ❌ Conteúdo repetido entre capítulos adjacentes
@@ -527,54 +527,54 @@ Você é um arquiteto de enredos experiente, especialista em expandir nós do es
 </system>
 
 <task>
-【Tarefa de expansão】
+[Tarefa de expansão]
 Continue desdobrando o nó {outline_order_index} do esboço, "{outline_title}", gerando o planejamento detalhado dos capítulos {start_index} a {end_index} ({target_chapter_count} capítulos no total).
 
-【Sobre os lotes】
+[Sobre os lotes]
 - Esta é apenas uma parte da expansão completa
 - Deve se encaixar naturalmente nos capítulos já gerados
 - A numeração começa no capítulo {start_index}
 - Continue aprofundando o conteúdo do esboço atual
 
-【Estratégia de expansão】
+[Estratégia de expansão]
 {strategy_instruction}
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título do livro: {project_title}
 Gênero: {project_genre}
 Tema: {project_theme}
 Ponto de vista narrativo: {project_narrative_perspective}
 
-【Mundo】
+[Mundo]
 Época: {project_world_time_period}
 Local: {project_world_location}
 Atmosfera: {project_world_atmosphere}
 </project>
 
 <characters priority="P1">
-【Informações dos personagens】
+[Informações dos personagens]
 {characters_info}
 </characters>
 
 <outline_node priority="P0">
-【Nó atual do esboço - objeto da expansão】
+[Nó atual do esboço - objeto da expansão]
 Número: nó {outline_order_index}
 Título: {outline_title}
 Conteúdo: {outline_content}
 </outline_node>
 
 <context priority="P2">
-【Contexto de referência】
+[Contexto de referência]
 {context_info}
 
-【Capítulos anteriores já gerados】
+[Capítulos anteriores já gerados]
 {previous_context}
 </context>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um array JSON com o planejamento dos capítulos {start_index} a {end_index} ({target_chapter_count} objetos):
 
 [
@@ -591,7 +591,7 @@ Retorne um array JSON com o planejamento dos capítulos {start_index} a {end_ind
   }}
 ]
 
-【Regras de formato】
+[Regras de formato]
 - Saída em array JSON puro, sem nenhum outro texto
 - Nas descrições, é proibido usar símbolos especiais
 - sub_index começa em {start_index}
@@ -599,7 +599,7 @@ Retorne um array JSON com o planejamento dos capítulos {start_index} a {end_ind
 </output>
 
 <constraints>
-【⚠️ Limites de conteúdo】
+[⚠️ Limites de conteúdo]
 ✅ Desdobre somente o conteúdo do nó atual do esboço
 ✅ Aprofunde o esboço atual, sem saltar para o que vem depois
 ✅ Desacelere o ritmo narrativo
@@ -607,26 +607,26 @@ Retorne um array JSON com o planejamento dos capítulos {start_index} a {end_ind
 ❌ Jamais avance para o conteúdo dos nós seguintes
 ❌ Não deixe o enredo andar depressa demais
 
-【Continuidade entre lotes】
+[Continuidade entre lotes]
 ✅ Encaixe-se naturalmente nos capítulos já gerados
 ✅ Comece a numeração no capítulo {start_index}
 ✅ Mantenha a coerência narrativa
 
-【🔴 Diferenciação entre capítulos adjacentes (evitar repetição)】
+[🔴 Diferenciação entre capítulos adjacentes (evitar repetição)]
 ✅ Cada capítulo tem abertura e fechamento próprios
 ✅ Os key_events de capítulos adjacentes jamais se sobrepõem
 ✅ O plot_summary descreve o conteúdo único do capítulo
 ✅ Atenção especial à diferença em relação aos capítulos anteriores
 ✅ Evite repetir conteúdo já existente
 
-【Requisitos entre capítulos】
+[Requisitos entre capítulos]
 ✅ Transições naturais e fluidas com os capítulos anteriores
 ✅ Progressão razoável do enredo (sem ultrapassar os limites do esboço atual)
 ✅ Ritmo com alternância de tensão e respiro
 ✅ Cada capítulo tem um valor narrativo claro e único
 ✅ Sem sobreposição de eventos-chave: confira os key_events deste lote e dos capítulos anteriores
 
-【Proibido】
+[Proibido]
 ❌ Saída fora do formato JSON
 ❌ Enredo que invade o esboço seguinte
 ❌ Conteúdo repetido entre capítulos adjacentes

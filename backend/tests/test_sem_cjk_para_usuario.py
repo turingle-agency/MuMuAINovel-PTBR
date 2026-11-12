@@ -15,12 +15,31 @@ _ALLOWED_ASSIGN = {
 }
 
 
+# Arquivos cujo trabalho é justamente normalizar/pontuar texto CJK de entrada
+# (TXT importado em chinês, JSON de IAs que respondem em chinês, etc.).
+_CJK_INPUT_FILES = {
+    "json_helper.py",
+    "knowledge_parser.py",
+    "txt_parser_service.py",
+    "text_metrics.py",
+}
+# Constantes de módulo com prefixo CJK_COMPAT_ guardam palavras-chave chinesas
+# usadas só para detectar padrões em texto importado antigo.
+_CJK_COMPAT_PREFIX = "CJK_COMPAT_"
+
+
 def _is_log_call(node: ast.Call) -> bool:
     f = node.func
+    if not isinstance(f, ast.Attribute):
+        return False
+    v = f.value
+    if isinstance(v, ast.Name):
+        return v.id in {"logging", "log"} or v.id.endswith("logger")
+    # get_logger(__name__).warning(...) / logging.getLogger(...).info(...)
     return (
-        isinstance(f, ast.Attribute)
-        and isinstance(f.value, ast.Name)
-        and f.value.id in {"logger", "logging", "log"}
+        isinstance(v, ast.Call)
+        and isinstance(v.func, (ast.Name, ast.Attribute))
+        and getattr(v.func, "id", getattr(v.func, "attr", "")) in {"get_logger", "getLogger"}
     )
 
 
@@ -43,6 +62,8 @@ def find_cjk_user_strings(root: Path) -> list[tuple[str, int, str]]:
         except SyntaxError as exc:
             out.append((str(path), exc.lineno or 0, f"SyntaxError: {exc.msg}"))
             continue
+        if path.name in _CJK_INPUT_FILES:
+            continue
         skip = _docstring_nodes(tree)
         for n in ast.walk(tree):
             if isinstance(n, ast.Call) and _is_log_call(n):
@@ -54,7 +75,10 @@ def find_cjk_user_strings(root: Path) -> list[tuple[str, int, str]]:
             elif isinstance(n, ast.AnnAssign) and isinstance(n.target, ast.Name):
                 targets = [n.target]
             for t in targets:
-                if (path.name, t.id) in _ALLOWED_ASSIGN and n.value is not None:
+                if n.value is not None and (
+                    (path.name, t.id) in _ALLOWED_ASSIGN
+                    or t.id.lstrip("_").startswith(_CJK_COMPAT_PREFIX)
+                ):
                     for sub in ast.walk(n.value):
                         skip.add(id(sub))
         for n in ast.walk(tree):

@@ -6,13 +6,13 @@ Você é um criador de personagens profissional, especialista em construir perso
 </system>
 
 <task>
-【Tarefa de geração】
+[Tarefa de geração]
 Gere {count} entidades entre personagens e organizações.
 
-【Quantidade exigida - cumpra rigorosamente】
+[Quantidade exigida - cumpra rigorosamente]
 O array deve conter exatamente {count} objetos, nem mais nem menos.
 
-【Distribuição dos tipos de entidade】
+[Distribuição dos tipos de entidade]
 - Pelo menos 1 protagonista (protagonist)
 - Vários coadjuvantes (supporting)
 - Pode incluir antagonistas (antagonist)
@@ -20,7 +20,7 @@ O array deve conter exatamente {count} objetos, nem mais nem menos.
 </task>
 
 <worldview priority="P0">
-【Informações do mundo】
+[Informações do mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -31,14 +31,14 @@ Gênero: {genre}
 </worldview>
 
 <requirements priority="P1">
-【Requisitos especiais】
+[Requisitos especiais]
 {requirements}
 
 Escreva todo o conteúdo em {output_language}.
 </requirements>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um array JSON puro, em que cada objeto contém:
 
 **Objeto de personagem**:
@@ -88,13 +88,13 @@ Retorne um array JSON puro, em que cada objeto contém:
   "traits": []
 }}
 
-【Referência de tipos de relação】
+[Referência de tipos de relação]
 - Família: pai, mãe, irmão, irmã, filho(a), cônjuge, namorado(a)
 - Social: mestre, aprendiz, amigo, colega de escola, colega de trabalho, vizinho, confidente
 - Profissional: chefe, subordinado, parceiro de negócios
 - Hostil: inimigo, desafeto, concorrente, arqui-inimigo
 
-【Faixas de valores】
+[Faixas de valores]
 - intimacy_level: de -100 a 100 (valores negativos indicam hostilidade)
 - loyalty: de 0 a 100
 - rank: de 0 a 10 (nível do cargo)
@@ -102,7 +102,7 @@ Retorne um array JSON puro, em que cada objeto contém:
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Quantidade exata: o array deve conter {count} objetos
 ✅ Coerência com o mundo: personagens alinhados à ambientação
 ✅ Profundidade: personalidade e história tridimensionais
@@ -110,18 +110,18 @@ Retorne um array JSON puro, em que cada objeto contém:
 ✅ Organizações plausíveis: organizações são forças que movem a trama
 ✅ Todo o conteúdo em {output_language}
 
-【Restrições de relações】
+[Restrições de relações]
 ✅ relationships_array só pode citar personagens que já apareceram neste lote
 ✅ organization_memberships só pode citar organizações deste lote
 ✅ O relationships_array do primeiro personagem deve ser []
 ✅ Sem alucinações: não cite personagens ou organizações inexistentes
 
-【Restrições de formato】
+[Restrições de formato]
 ✅ Saída em array JSON puro, sem marcação markdown
 ✅ Nas descrições, é proibido usar símbolos especiais (aspas, colchetes, etc.)
 ✅ Escreva nomes próprios diretamente, sem envolvê-los em símbolos
 
-【Proibido】
+[Proibido]
 ❌ Quantidade diferente de {count} (a mais ou a menos)
 ❌ Citar personagens ou organizações inexistentes
 ❌ Gerar organizações irrelevantes e de pouca influência
@@ -135,20 +135,20 @@ Você é um criador de personagens profissional, especialista em construir perso
 </system>
 
 <task>
-【Tarefa de design】
+[Tarefa de design]
 Com base no pedido do usuário e no contexto do projeto, crie uma ficha de personagem completa.
 </task>
 
 <context priority="P0">
-【Contexto do projeto】
+[Contexto do projeto]
 {project_context}
 
-【Pedido do usuário】
+[Pedido do usuário]
 {user_input}
 </context>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Gere um objeto JSON com a ficha completa do personagem:
 
 {{
@@ -191,7 +191,7 @@ Gere um objeto JSON com a ficha completa do personagem:
   }}
 }}
 
-【Informações de carreira】
+[Informações de carreira]
 Se o contexto do projeto incluir uma lista de carreiras:
 - Carreira principal: escolha, na lista de carreiras principais disponíveis, a que melhor combina com o personagem
 - Estágio da carreira principal: defina um estágio coerente com a força do personagem (de 1 até max_stage)
@@ -199,13 +199,13 @@ Se o contexto do projeto incluir uma lista de carreiras:
 - ⚠️ Preencha o nome da carreira, não o ID; o sistema faz a correspondência automaticamente
 - A escolha deve combinar muito bem com a história, as habilidades e o papel do personagem
 
-【Referência de tipos de relação】
+[Referência de tipos de relação]
 - Família: pai, mãe, irmão, irmã, filho(a), cônjuge, namorado(a)
 - Social: mestre, aprendiz, amigo, colega de escola, colega de trabalho, vizinho, confidente
 - Profissional: chefe, subordinado, parceiro de negócios
 - Hostil: inimigo, desafeto, concorrente, arqui-inimigo
 
-【Faixas de valores】
+[Faixas de valores]
 - intimacy_level: de -100 a 100 (valores negativos indicam hostilidade)
 - loyalty: de 0 a 100
 - rank: de 0 a 10
@@ -214,7 +214,7 @@ Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Coerência com o mundo: a ficha deve estar alinhada ao mundo do projeto
 ✅ Ligação com o tema: a história de vida se relaciona com o tema do projeto
 ✅ Tridimensionalidade: personalidade complexa e contraditória, sem estereótipos
@@ -222,22 +222,22 @@ Escreva todo o conteúdo em {output_language}.
 ✅ Carreira adequada: a carreira escolhida combina muito bem com o personagem
 ✅ Todo o conteúdo em {output_language}
 
-【Papel do personagem】
+[Papel do personagem]
 ✅ Protagonista: tem espaço para crescer, além de objetivo e motivação
 ✅ Antagonista: tem motivação plausível, sem ser caricato
 ✅ Coadjuvante: tem singularidade, não é mero instrumento da trama
 
-【Restrições de relações】
+[Restrições de relações]
 ✅ relationships só cita personagens existentes
 ✅ organization_memberships só cita organizações existentes
 ✅ Sem relações ou organizações, o array correspondente fica vazio []
 
-【Restrições de formato】
+[Restrições de formato]
 ✅ Saída em objeto JSON puro, sem marcação markdown
 ✅ Nas descrições, é proibido usar símbolos especiais
 ✅ Escreva nomes próprios diretamente
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown ou blocos de código
 ❌ Usar símbolos especiais nas descrições (aspas, colchetes, etc.)
 ❌ Citar personagens ou organizações inexistentes
@@ -250,20 +250,20 @@ Você é um designer de organizações profissional, especialista em criar organ
 </system>
 
 <task>
-【Tarefa de design】
+[Tarefa de design]
 Com base no pedido do usuário e no contexto do projeto, crie a ficha completa de uma organização ou facção.
 </task>
 
 <context priority="P0">
-【Contexto do projeto】
+[Contexto do projeto]
 {project_context}
 
-【Pedido do usuário】
+[Pedido do usuário]
 {user_input}
 </context>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Gere um objeto JSON com a ficha completa da organização:
 
 {{
@@ -282,7 +282,7 @@ Gere um objeto JSON com a ficha completa da organização:
   "organization_members": ["Membro importante 1", "Membro importante 2", "Membro importante 3"]
 }}
 
-【Descrição dos campos】
+[Descrição dos campos]
 - power_level: inteiro de 0 a 100, indica a influência no mundo
 - organization_members: lista de nomes dos membros importantes (pode se ligar a personagens existentes)
 - Data de fundação: descreva dentro de background
@@ -291,7 +291,7 @@ Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Coerência com o mundo: a organização deve estar alinhada ao mundo do projeto
 ✅ Ligação com o tema: a história se relaciona com o tema do projeto
 ✅ Move a trama: a organização deve impulsionar a história
@@ -299,17 +299,17 @@ Escreva todo o conteúdo em {output_language}.
 ✅ Interação entre forças: relações com outras facções
 ✅ Todo o conteúdo em {output_language}
 
-【Papel da organização】
+[Papel da organização]
 ✅ Necessária: não é um mero cenário dispensável
 ✅ Objetivos plausíveis: nem idealizados demais nem caricatos
 ✅ Detalhes concretos: descrição específica, sem generalidades
 
-【Restrições de formato】
+[Restrições de formato]
 ✅ Saída em objeto JSON puro, sem marcação markdown
 ✅ Nas descrições, é proibido usar símbolos especiais
 ✅ Escreva nomes próprios diretamente
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown ou blocos de código
 ❌ Usar símbolos especiais nas descrições (aspas, colchetes, etc.)
 ❌ Criar organizações idealizadas demais ou caricatas
@@ -319,13 +319,13 @@ Escreva todo o conteúdo em {output_language}.
 # Pesquisa MCP para personagens
 MCP_CHARACTER_PLANNING = """Você está desenvolvendo os personagens do livro "{title}".
 
-【Informações do livro】
+[Informações do livro]
 - Gênero: {genre}
 - Tema: {theme}
 - Época: {time_period}
 - Local: {location}
 
-【Tarefa】
+[Tarefa]
 Use as ferramentas disponíveis para pesquisar material de referência e criar personagens mais verossímeis e mais profundos.
 Você pode consultar:
 1. Características de figuras históricas reais dessa época ou região
@@ -343,33 +343,33 @@ Você é um consultor de design de personagens para romances, especialista em pr
 </system>
 
 <task>
-【Tarefa de análise】
+[Tarefa de análise]
 Preveja se, nos próximos {chapter_count} capítulos a serem escritos, será preciso introduzir novos personagens, de acordo com a direção e a fase da trama.
 
-【Observação importante】
+[Observação importante]
 Esta é uma análise preditiva, e não uma análise posterior de conteúdo já gerado.
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
 
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
 </project>
 
 <context priority="P0">
-【Personagens existentes】
+[Personagens existentes]
 {existing_characters}
 
-【Visão geral dos capítulos existentes】
+[Visão geral dos capítulos existentes]
 {all_chapters_brief}
 
-【Plano de continuação】
+[Plano de continuação]
 - Capítulo inicial: capítulo {start_chapter}
 - Quantidade a escrever: {chapter_count} capítulos
 - Fase da trama: {plot_stage}
@@ -377,7 +377,7 @@ Atmosfera: {atmosphere}
 </context>
 
 <analysis_framework priority="P0">
-【Dimensões da análise preditiva】
+[Dimensões da análise preditiva]
 
 **1. Necessidades da trama**
 Pela direção da história, quais cenas e conflitos exigem novos personagens?
@@ -391,7 +391,7 @@ Em qual capítulo cada novo personagem deve aparecer?
 **4. Grau de importância**
 Qual será o impacto do novo personagem na trama a seguir?
 
-【Bases da previsão】
+[Bases da previsão]
 - Necessidades típicas de personagens em cada fase da trama (por exemplo: no clímax pode ser preciso um oponente forte)
 - Necessidades lógicas da direção da história (por exemplo: ao chegar a um novo lugar, são necessários personagens locais)
 - Necessidades da escalada do conflito (por exemplo: um vilão mais forte, um aliado inesperado)
@@ -399,7 +399,7 @@ Qual será o impacto do novo personagem na trama a seguir?
 </analysis_framework>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro (um dos dois casos):
 
 **Caso A: são necessários novos personagens**
@@ -437,14 +437,14 @@ Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ É uma análise preditiva, voltada para a trama futura
 ✅ Considere o desenvolvimento natural e o ritmo da trama
 ✅ Garanta a necessidade da entrada, sem introduzir só por introduzir
 ✅ Dê prioridade ao papel de longo prazo do personagem
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown
 ❌ Fazer análise posterior com base em conteúdo já gerado
 ❌ Forçar a entrada de um personagem sem necessidade
@@ -457,17 +457,17 @@ Você é um criador de personagens profissional, especialista em criar fichas co
 </system>
 
 <task>
-【Tarefa de geração】
+[Tarefa de geração]
 Gere a ficha completa de um novo personagem para o romance, incluindo dados básicos, personalidade e história, rede de relações e informações de carreira.
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
 
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -475,40 +475,40 @@ Regras do mundo: {rules}
 </project>
 
 <context priority="P0">
-【Personagens existentes】
+[Personagens existentes]
 {existing_characters}
 
-【Contexto da trama】
+[Contexto da trama]
 {plot_context}
 
-【Especificação do personagem】
+[Especificação do personagem]
 {character_specification}
 </context>
 
 <mcp_context priority="P2">
-【Referências das ferramentas MCP】
+[Referências das ferramentas MCP]
 {mcp_references}
 </mcp_context>
 
 <requirements priority="P0">
-【Requisitos centrais】
+[Requisitos centrais]
 1. O personagem deve atender às necessidades da trama e à ambientação do mundo
 2. **É obrigatório analisar a relação do novo personagem com os existentes**, estabelecendo pelo menos 1 a 3 relações significativas
 3. Personalidade e história devem ter profundidade e singularidade
 4. A descrição da aparência deve ser concreta e vívida
 5. Talentos e habilidades devem combinar com o papel do personagem
-6. **Se a seção 【Personagens existentes】 trouxer uma lista de carreiras, é obrigatório definir uma carreira para o personagem**
+6. **Se a seção [Personagens existentes] trouxer uma lista de carreiras, é obrigatório definir uma carreira para o personagem**
 7. Escreva todo o conteúdo em {output_language}
 
-【Orientação para estabelecer relações】
-- Examine com atenção a lista de 【Personagens existentes】 e pense com quais deles o novo personagem se conecta
+[Orientação para estabelecer relações]
+- Examine com atenção a lista de [Personagens existentes] e pense com quais deles o novo personagem se conecta
 - Estabeleça relações plausíveis conforme as necessidades da trama
 - Cada relação precisa de tipo, grau de intimidade e descrição claros
 - As relações devem servir ao desenvolvimento da trama
 - Se o novo personagem for membro de uma organização, não se esqueça de preencher organization_memberships
 
-【Requisitos de carreira】
-Se a seção 【Personagens existentes】 contiver a "Lista de carreiras principais disponíveis" ou a "Lista de carreiras secundárias disponíveis":
+[Requisitos de carreira]
+Se a seção [Personagens existentes] contiver a "Lista de carreiras principais disponíveis" ou a "Lista de carreiras secundárias disponíveis":
 - Examine com atenção as listas de carreiras principais e secundárias disponíveis
 - Escolha a carreira mais adequada conforme a história, as habilidades e o papel do personagem na trama
 - Carreira principal: escolha uma da "Lista de carreiras principais disponíveis" e preencha o nome
@@ -518,7 +518,7 @@ Se a seção 【Personagens existentes】 contiver a "Lista de carreiras princip
 </requirements>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro:
 
 {{
@@ -562,25 +562,25 @@ Retorne um objeto JSON puro:
   }}
 }}
 
-【Referência de tipos de relação】
+[Referência de tipos de relação]
 Relações familiares, sociais, profissionais, hostis e de outros tipos
 
-【Faixas de valores】
+[Faixas de valores]
 - intimacy_level: de -100 a 100 (valores negativos indicam hostilidade)
 - loyalty: de 0 a 100
 - rank: de 0 a 10
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Atender às necessidades da trama e à ambientação do mundo
 ✅ O array relationships é obrigatório: pelo menos 1 a 3 relações
-✅ target_character_name deve corresponder exatamente a um nome em 【Personagens existentes】
+✅ target_character_name deve corresponder exatamente a um nome em [Personagens existentes]
 ✅ organization_memberships só pode citar organizações existentes
 ✅ A carreira deve ser escolhida entre as listas disponíveis
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown
 ❌ Usar símbolos especiais nas descrições
 ❌ Citar personagens ou organizações inexistentes
@@ -593,37 +593,37 @@ Você é um consultor de construção de mundos para romances, especialista em p
 </system>
 
 <task>
-【Tarefa de análise】
+[Tarefa de análise]
 Preveja se, nos próximos {chapter_count} capítulos a serem escritos, será preciso introduzir novas organizações ou facções, de acordo com a direção e a fase da trama.
 
-【Observação importante】
+[Observação importante]
 Esta é uma análise preditiva, e não uma análise posterior de conteúdo já gerado.
 Organizações incluem: gangues, ordens, empresas, órgãos governamentais, grupos misteriosos, famílias, etc.
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
 
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
 </project>
 
 <context priority="P0">
-【Organizações existentes】
+[Organizações existentes]
 {existing_organizations}
 
-【Personagens existentes】
+[Personagens existentes]
 {existing_characters}
 
-【Visão geral dos capítulos existentes】
+[Visão geral dos capítulos existentes]
 {all_chapters_brief}
 
-【Plano de continuação】
+[Plano de continuação]
 - Capítulo inicial: capítulo {start_chapter}
 - Quantidade a escrever: {chapter_count} capítulos
 - Fase da trama: {plot_stage}
@@ -631,7 +631,7 @@ Atmosfera: {atmosphere}
 </context>
 
 <analysis_framework priority="P0">
-【Dimensões da análise preditiva】
+[Dimensões da análise preditiva]
 
 **1. Necessidade de expandir o mundo**
 Pela direção da história, são necessárias novas forças ou organizações para enriquecer o mundo?
@@ -648,7 +648,7 @@ A nova organização pode se tornar uma força decisiva para a história?
 **5. Momento da entrada**
 Em qual capítulo a nova organização deve aparecer?
 
-【Bases da previsão】
+[Bases da previsão]
 - Necessidades típicas de organizações em cada fase da trama (por exemplo: no clímax pode ser preciso uma força hostil poderosa)
 - Necessidades lógicas da direção da história (por exemplo: ao chegar a um novo lugar, são necessárias forças locais)
 - Necessidade de completude do mundo (por exemplo: o equilíbrio de poder exige várias forças)
@@ -656,7 +656,7 @@ Em qual capítulo a nova organização deve aparecer?
 </analysis_framework>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro (um dos dois casos):
 
 **Caso A: são necessárias novas organizações**
@@ -703,7 +703,7 @@ Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ É uma análise preditiva, voltada para a trama futura
 ✅ Considere a riqueza e a completude do mundo
 ✅ Garanta a necessidade da entrada, sem introduzir só por introduzir
@@ -711,7 +711,7 @@ Escreva todo o conteúdo em {output_language}.
 ✅ A organização deve ser uma força que impulsiona a trama
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown
 ❌ Fazer análise posterior com base em conteúdo já gerado
 ❌ Forçar a entrada de uma organização sem necessidade
@@ -725,17 +725,17 @@ Você é um construtor de mundos profissional, especialista em criar fichas comp
 </system>
 
 <task>
-【Tarefa de geração】
+[Tarefa de geração]
 Gere a ficha completa de uma nova organização para o romance, incluindo dados básicos, características, história e estrutura de membros.
 </task>
 
 <project priority="P1">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
 
-【Mundo】
+[Mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -743,26 +743,26 @@ Regras do mundo: {rules}
 </project>
 
 <context priority="P0">
-【Organizações existentes】
+[Organizações existentes]
 {existing_organizations}
 
-【Personagens existentes】
+[Personagens existentes]
 {existing_characters}
 
-【Contexto da trama】
+[Contexto da trama]
 {plot_context}
 
-【Especificação da organização】
+[Especificação da organização]
 {organization_specification}
 </context>
 
 <mcp_context priority="P2">
-【Referências das ferramentas MCP】
+[Referências das ferramentas MCP]
 {mcp_references}
 </mcp_context>
 
 <requirements priority="P0">
-【Requisitos centrais】
+[Requisitos centrais]
 1. A organização deve atender às necessidades da trama e à ambientação do mundo
 2. A organização precisa de propósito, estrutura e identidade claros
 3. Características e história devem ter profundidade e singularidade
@@ -773,7 +773,7 @@ Regras do mundo: {rules}
 </requirements>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro:
 
 {{
@@ -811,22 +811,22 @@ Retorne um objeto JSON puro:
 ]
 }}
 
-【Faixas de valores】
+[Faixas de valores]
 - power_level: inteiro de 0 a 100, indica a influência no mundo
 - rank: de 0 a 10 (nível do cargo)
 - loyalty: de 0 a 100 (lealdade do membro)
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Atender às necessidades da trama e à ambientação do mundo
 ✅ A organização deve ter posicionamento e valor únicos
-✅ character_name deve corresponder exatamente a um nome em 【Personagens existentes】
-✅ target_organization_name deve corresponder exatamente a um nome em 【Organizações existentes】
+✅ character_name deve corresponder exatamente a um nome em [Personagens existentes]
+✅ target_organization_name deve corresponder exatamente a um nome em [Organizações existentes]
 ✅ A organização deve impulsionar a trama
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar marcação markdown
 ❌ Usar símbolos especiais nas descrições
 ❌ Citar personagens ou organizações inexistentes

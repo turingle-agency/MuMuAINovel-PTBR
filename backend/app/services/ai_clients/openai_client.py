@@ -137,7 +137,7 @@ class OpenAIClient(BaseAIClient):
 
         choices = data.get("choices", [])
         if not choices or len(choices) == 0:
-            raise ValueError("API 返回空 choices 或 choices 为空列表")
+            raise ValueError("A API retornou choices vazio ou ausente")
 
         choice = choices[0]
         message = choice.get("message", {})

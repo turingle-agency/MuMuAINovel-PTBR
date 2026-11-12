@@ -77,8 +77,8 @@ async def lifespan(app: FastAPI):
                 .where(BackgroundTask.status.in_(["pending", "running"]))
                 .values(
                     status="failed",
-                    error_message="服务重启，后台任务已中断",
-                    status_message="服务重启，任务已中断，请重新发起",
+                    error_message="Serviço reiniciado; a tarefa em segundo plano foi interrompida",
+                    status_message="Serviço reiniciado; a tarefa foi interrompida, inicie-a novamente",
                     completed_at=interrupted_at,
                     updated_at=interrupted_at,
                 )
@@ -88,7 +88,7 @@ async def lifespan(app: FastAPI):
                 .where(BatchGenerationTask.status.in_(["pending", "running"]))
                 .values(
                     status="failed",
-                    error_message="服务重启，批量生成任务已中断",
+                    error_message="Serviço reiniciado; a geração em lote foi interrompida",
                     completed_at=interrupted_at,
                 )
             )
@@ -97,7 +97,7 @@ async def lifespan(app: FastAPI):
                 .where(AnalysisTask.status.in_(["pending", "running"]))
                 .values(
                     status="failed",
-                    error_message="服务重启，章节分析任务已中断",
+                    error_message="Serviço reiniciado; a análise de capítulos foi interrompida",
                     progress=0,
                     completed_at=interrupted_at,
                 )
@@ -126,7 +126,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=config_settings.app_name,
     version=config_settings.app_version,
-    description="AI写小说工具 - 智能小说创作助手",
+    description="Ferramenta de escrita de livros com IA - assistente inteligente de criação",
     lifespan=lifespan
 )
 
@@ -137,7 +137,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content={
-            "detail": "请求参数验证失败",
+            "detail": "Falha na validação dos parâmetros da requisição",
             "errors": exc.errors()
         }
     )
@@ -149,8 +149,8 @@ async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={
-            "detail": "服务器内部错误",
-            "message": str(exc) if config_settings.debug else "请稍后重试"
+            "detail": "Erro interno do servidor",
+            "message": str(exc) if config_settings.debug else "Tente novamente mais tarde"
         }
     )
 
@@ -195,11 +195,11 @@ async def db_session_stats(request: Request):
     - last_check: 最后检查时间
     """
     if not getattr(request.state, "is_admin", False):
-        raise HTTPException(status_code=403, detail="需要管理员权限")
+        raise HTTPException(status_code=403, detail="Permissão de administrador necessária")
     return {
         "status": "ok",
         "session_stats": _session_stats,
-        "warning": "活跃会话数过多" if _session_stats["active"] > 10 else None
+        "warning": "Número excessivo de sessões ativas" if _session_stats["active"] > 10 else None
     }
 
 
@@ -257,7 +257,7 @@ if static_dir.exists():
         if full_path.startswith("api/"):
             return JSONResponse(
                 status_code=404,
-                content={"detail": "API路径不存在"}
+                content={"detail": "Caminho de API não encontrado"}
             )
         
         file_path = static_dir / full_path
@@ -268,7 +268,7 @@ if static_dir.exists():
         except ValueError:
             return JSONResponse(
                 status_code=404,
-                content={"detail": "页面不存在"}
+                content={"detail": "Página não encontrada"}
             )
 
         if resolved_file.is_file():
@@ -283,7 +283,7 @@ if static_dir.exists():
         
         return JSONResponse(
             status_code=404,
-            content={"detail": "页面不存在"}
+            content={"detail": "Página não encontrada"}
         )
 else:
     logger.warning("静态文件目录不存在，请先构建前端: cd frontend && npm run build")

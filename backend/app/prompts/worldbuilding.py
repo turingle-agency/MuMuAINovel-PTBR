@@ -6,10 +6,10 @@ Você é um designer de mundos experiente, especialista em construir universos v
 </system>
 
 <task>
-【Tarefa de design】
+[Tarefa de design]
 Construir a ambientação completa do mundo do livro "{title}".
 
-【Requisitos centrais】
+[Requisitos centrais]
 - Aderência ao tema: o mundo deve sustentar o tema "{theme}"
 - Coerência com a sinopse: oferecer um pano de fundo plausível para os acontecimentos da sinopse
 - Adequação ao gênero: respeitar as características do gênero {genre}
@@ -18,7 +18,7 @@ Construir a ambientação completa do mundo do livro "{title}".
 </task>
 
 <input priority="P0">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
@@ -26,7 +26,7 @@ Sinopse: {description}
 </input>
 
 <guidelines priority="P1">
-【Diretrizes por gênero】
+[Diretrizes por gênero]
 
 **Contemporâneo urbano / romance / juvenil**:
 - Tempo: sociedade atual (anos 2020) ou futuro próximo (2030-2050)
@@ -57,7 +57,7 @@ Sinopse: {description}
 </guidelines>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Gere um objeto JSON com os quatro campos abaixo, cada um com 300 a 500 palavras:
 
 1. **time_period** (época e estado da sociedade)
@@ -86,14 +86,14 @@ Gere um objeto JSON com os quatro campos abaixo, cada um com 300 a 500 palavras:
    - Estrutura de poder e jogo de interesses
    - Tabus sociais e suas consequências
 
-【Regras de formato】
+[Regras de formato]
 - Saída em JSON puro, começando com {{ e terminando com }}
 - Sem marcação markdown nem blocos de código
 - Cada campo é um texto corrido, em parágrafos completos
 - Não envolva conteúdos em símbolos especiais
 - Entregue conteúdo original e substancioso
 
-【Exemplo de JSON】
+[Exemplo de JSON]
 {{
   "time_period": "Descrição detalhada da época e do estado da sociedade (300-500 palavras)",
   "location": "Descrição detalhada do ambiente espacial e das características geográficas (300-500 palavras)",
@@ -103,7 +103,7 @@ Gere um objeto JSON com os quatro campos abaixo, cada um com 300 a 500 palavras:
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Coerência com a sinopse: ofereça pano de fundo plausível para os acontecimentos da sinopse
 ✅ Adequação ao gênero: respeite as características de {genre}
 ✅ Aderência ao tema: sustente o tema "{theme}"
@@ -111,7 +111,7 @@ Gere um objeto JSON com os quatro campos abaixo, cada um com 300 a 500 palavras:
 ✅ Coerência interna: todos os elementos devem se sustentar mutuamente
 ✅ Idioma: escreva todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Gerar ambientações que não combinam com o gênero
 ❌ Usar uma estrutura de mundo grandiosa para histórias de escala pequena
 ❌ Usar expressões genéricas, de modelo pronto
@@ -124,23 +124,23 @@ Você é um designer especializado em sistemas de carreiras e profissões, capaz
 </system>
 
 <task>
-【Tarefa de design】
+[Tarefa de design]
 Com base nas informações do mundo e na sinopse do projeto, projete um sistema de carreiras completo e coerente.
 O sistema deve combinar de forma rigorosa com o pano de fundo da história e com os personagens descritos na sinopse.
 
-【Quantidade exigida】
+[Quantidade exigida]
 - Carreira principal: gere exatamente 1
 - Carreira secundária: gere exatamente 1
 </task>
 
 <worldview priority="P0">
-【Informações do projeto】
+[Informações do projeto]
 Título: {title}
 Gênero: {genre}
 Tema: {theme}
 Sinopse: {description}
 
-【Ambientação do mundo】
+[Ambientação do mundo]
 Época: {time_period}
 Local: {location}
 Atmosfera: {atmosphere}
@@ -148,7 +148,7 @@ Regras do mundo: {rules}
 </worldview>
 
 <design_requirements priority="P0">
-【Requisitos de design】
+[Requisitos de design]
 
 **1. Carreira principal (main_careers) - gere exatamente 1**
 - A carreira principal é o caminho central de desenvolvimento do personagem
@@ -178,7 +178,7 @@ Regras do mundo: {rules}
 </design_requirements>
 
 <output priority="P0">
-【Formato de saída】
+[Formato de saída]
 Retorne um objeto JSON puro:
 
 {{
@@ -217,7 +217,7 @@ Escreva todo o conteúdo em {output_language}.
 </output>
 
 <constraints>
-【Obrigatório】
+[Obrigatório]
 ✅ Carreiras principais: exatamente 1, nem mais nem menos
 ✅ Carreiras secundárias: exatamente 1, nem mais nem menos
 ✅ Estágios sugeridos para a carreira principal: 8 a 12
@@ -227,7 +227,7 @@ Escreva todo o conteúdo em {output_language}.
 ✅ O design deve sustentar a trama descrita na sinopse
 ✅ Todo o conteúdo em {output_language}
 
-【Proibido】
+[Proibido]
 ❌ Usar o mesmo número de estágios em todas as carreiras
 ❌ Gerar marcação markdown
 ❌ Criar carreiras desconectadas do mundo ou da sinopse
@@ -237,12 +237,12 @@ Escreva todo o conteúdo em {output_language}.
 # Planejamento de pesquisa MCP para o mundo
 MCP_WORLD_BUILDING_PLANNING = """Você está desenvolvendo o mundo do livro "{title}".
 
-【Informações do livro】
+[Informações do livro]
 - Gênero: {genre}
 - Tema: {theme}
 - Sinopse: {description}
 
-【Tarefa】
+[Tarefa]
 Use as ferramentas disponíveis para pesquisar material de referência e construir uma ambientação mais verossímil e mais profunda.
 Você pode consultar:
 1. Contexto histórico (se for uma história de época)
