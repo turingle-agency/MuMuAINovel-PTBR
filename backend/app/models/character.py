@@ -13,44 +13,44 @@ class Character(Base):
     project_id = Column(String(36), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
     
     # 基本信息
-    name = Column(String(100), nullable=False, comment="角色/组织名称")
-    age = Column(String(50), comment="年龄")
-    gender = Column(String(50), comment="性别")
-    is_organization = Column(Boolean, default=False, comment="是否为组织")
+    name = Column(String(100), nullable=False, comment="Nome do personagem/organização")
+    age = Column(String(50), comment="Idade")
+    gender = Column(String(50), comment="Gênero")
+    is_organization = Column(Boolean, default=False, comment="É uma organização")
     
-    # 角色类型：protagonist(主角)/supporting(配角)/antagonist(反派)
-    role_type = Column(String(50), comment="角色类型")
+    # Tipo de personagem：protagonist(主角)/supporting(配角)/antagonist(反派)
+    role_type = Column(String(50), comment="Tipo de personagem")
     
     # 角色详细信息
-    personality = Column(Text, comment="性格特点/组织特性")
-    background = Column(Text, comment="背景故事")
-    appearance = Column(Text, comment="外貌描述")
-    relationships = Column(Text, comment="人物关系(JSON)")
+    personality = Column(Text, comment="Personalidade / características da organização")
+    background = Column(Text, comment="História de fundo")
+    appearance = Column(Text, comment="Descrição da aparência")
+    relationships = Column(Text, comment="Relações entre personagens (JSON)")
     
     # 组织特有字段
-    organization_type = Column(String(100), comment="组织类型")
-    organization_purpose = Column(String(500), comment="组织目的")
-    organization_members = Column(Text, comment="组织成员(JSON)")
+    organization_type = Column(String(100), comment="Tipo de organização")
+    organization_purpose = Column(String(500), comment="Propósito da organização")
+    organization_members = Column(Text, comment="Membros da organização (JSON)")
     
     # 角色/组织存活状态
-    status = Column(String(20), default="active", comment="状态：active/deceased/missing/retired/destroyed")
-    status_changed_chapter = Column(Integer, comment="状态变更的章节号")
+    status = Column(String(20), default="active", comment="Status: active/deceased/missing/retired/destroyed")
+    status_changed_chapter = Column(Integer, comment="Capítulo da mudança de status")
     
     # 心理状态追踪（由章节分析自动更新）
-    current_state = Column(Text, comment="角色当前心理状态（由分析自动更新）")
-    state_updated_chapter = Column(Integer, comment="心理状态最后更新的章节号")
+    current_state = Column(Text, comment="Estado psicológico atual do personagem (atualizado pela análise)")
+    state_updated_chapter = Column(Integer, comment="Capítulo da última atualização do estado psicológico")
     
     # 职业相关字段（冗余字段，用于提升查询性能）
-    main_career_id = Column(String(36), ForeignKey("careers.id", ondelete="SET NULL"), comment="主职业ID")
-    main_career_stage = Column(Integer, comment="主职业当前阶段")
+    main_career_id = Column(String(36), ForeignKey("careers.id", ondelete="SET NULL"), comment="ID da carreira principal")
+    main_career_stage = Column(Integer, comment="Estágio atual da carreira principal")
     sub_careers = Column(Text, comment="副职业列表(JSON): [{\"career_id\": \"xxx\", \"stage\": 3}, ...]")
     
     # 其他
-    avatar_url = Column(String(500), comment="头像URL")
-    traits = Column(Text, comment="特征标签(JSON)")
+    avatar_url = Column(String(500), comment="URL do avatar")
+    traits = Column(Text, comment="Etiquetas de traços (JSON)")
     
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     def __repr__(self):
         entity_type = "组织" if self.is_organization else "角色"

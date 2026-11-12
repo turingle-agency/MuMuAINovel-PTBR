@@ -10,28 +10,28 @@ class Project(Base):
     __tablename__ = "projects"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(100), nullable=False, index=True, comment="用户ID")
-    title = Column(String(200), nullable=False, comment="项目标题")
-    description = Column(Text, comment="项目简介")
-    theme = Column(Text, comment="主题")
-    genre = Column(String(50), comment="小说类型")
-    target_words = Column(Integer, default=0, comment="目标字数")
-    current_words = Column(Integer, default=0, comment="当前字数")
-    status = Column(String(20), default="planning", comment="创作状态")
-    wizard_status = Column(String(20), default="incomplete", comment="向导完成状态: incomplete/completed")
-    wizard_step = Column(Integer, default=0, comment="向导当前步骤: 0-4")
-    outline_mode = Column(String(20), nullable=False, default="one-to-many", comment="大纲章节模式: one-to-one(传统模式) 或 one-to-many(细化模式)")
+    user_id = Column(String(100), nullable=False, index=True, comment="ID do usuário")
+    title = Column(String(200), nullable=False, comment="Título do projeto")
+    description = Column(Text, comment="Descrição do projeto")
+    theme = Column(Text, comment="Tema")
+    genre = Column(String(50), comment="Gênero do livro")
+    target_words = Column(Integer, default=0, comment="Meta de palavras")
+    current_words = Column(Integer, default=0, comment="Contagem atual de palavras")
+    status = Column(String(20), default="planning", comment="Status de criação")
+    wizard_status = Column(String(20), default="incomplete", comment="Status do assistente: incomplete/completed")
+    wizard_step = Column(Integer, default=0, comment="Etapa atual do assistente: 0-4")
+    outline_mode = Column(String(20), nullable=False, default="one-to-many", comment="Modo de capítulos do esboço: one-to-one (tradicional) ou one-to-many (detalhado)")
     
     # 世界构建字段
-    world_time_period = Column(Text, comment="时间背景")
-    world_location = Column(Text, comment="地理位置")
-    world_atmosphere = Column(Text, comment="氛围基调")
-    world_rules = Column(Text, comment="世界规则")
+    world_time_period = Column(Text, comment="Contexto temporal")
+    world_location = Column(Text, comment="Localização geográfica")
+    world_atmosphere = Column(Text, comment="Atmosfera e tom")
+    world_rules = Column(Text, comment="Regras do mundo")
     
     # 项目配置
-    chapter_count = Column(Integer, comment="章节数量")
-    narrative_perspective = Column(String(50), comment="叙事视角：first_person/third_person/omniscient")
-    character_count = Column(Integer, default=5, comment="角色数量")
+    chapter_count = Column(Integer, comment="Quantidade de capítulos")
+    narrative_perspective = Column(String(50), comment="Perspectiva narrativa: first_person/third_person/omniscient")
+    character_count = Column(Integer, default=5, comment="Quantidade de personagens")
 
     # Fábrica de ebooks
     language = Column(String(10), nullable=False, default="pt-BR", server_default="pt-BR", comment="Idioma do projeto")
@@ -40,14 +40,14 @@ class Project(Base):
     volume_number = Column(Integer, nullable=True, comment="Número do volume na série")
 
     # 封面字段
-    cover_image_url = Column(String(1000), comment="封面图片访问地址")
-    cover_prompt = Column(Text, comment="最近一次生成封面使用的提示词")
-    cover_status = Column(String(20), default="none", nullable=False, comment="封面状态: none/generating/ready/failed")
-    cover_error = Column(Text, comment="最近一次封面生成失败原因")
-    cover_updated_at = Column(DateTime, comment="最近一次封面生成成功时间")
+    cover_image_url = Column(String(1000), comment="URL de acesso à imagem de capa")
+    cover_prompt = Column(Text, comment="Prompt usado na última geração de capa")
+    cover_status = Column(String(20), default="none", nullable=False, comment="Status da capa: none/generating/ready/failed")
+    cover_error = Column(Text, comment="Motivo da última falha na geração de capa")
+    cover_updated_at = Column(DateTime, comment="Data da última geração de capa bem-sucedida")
     
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     __table_args__ = (
         CheckConstraint(
