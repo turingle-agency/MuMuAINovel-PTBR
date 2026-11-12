@@ -90,3 +90,13 @@ async def test_com_reserva_usa_gemini(monkeypatch):
         prompt="x", codex_error=_Quota("limite"),
     )
     assert r["provider"] == "gemini" and chamado == {"key": "k", "model": "img"}
+
+
+async def test_capa_nunca_passa_flag_m(monkeypatch, tmp_path):
+    args_file = tmp_path / "args.txt"
+    monkeypatch.setenv("FAKE_CODEX_MODE", "image")
+    monkeypatch.setenv("FAKE_CODEX_ARGS_FILE", str(args_file))
+    r = await CodexCoverProvider(FAKE, 5).generate_cover(**{**ARGS, "model": "gpt-image-1"})
+    argv = args_file.read_text().split("\n")
+    assert "-m" not in argv and "gpt-image-1" not in argv
+    assert r["model"] == "codex"

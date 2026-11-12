@@ -61,8 +61,7 @@ class CodexCoverProvider(BaseCoverProvider):
                     "-C", tmp, "--skip-git-repo-check", "--ephemeral",
                     "-o", str(Path(tmp) / "last.txt"),
                 ]
-                if model:
-                    cmd += ["-m", model]
+                # Nunca passa -m: cover_image_model é nome de modelo de imagem de outro provider.
                 cmd.append("-")
 
                 await run_codex_process(cmd, stdin_text, self.timeout_s, self.binary)
@@ -83,5 +82,5 @@ class CodexCoverProvider(BaseCoverProvider):
             "file_extension": suffix.lstrip(".").replace("jpeg", "jpg"),
             "revised_prompt": None,
             "provider": "codex",
-            "model": model or "codex",
+            "model": "codex",
         }
