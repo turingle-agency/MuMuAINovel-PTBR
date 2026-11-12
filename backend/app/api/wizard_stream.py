@@ -1778,7 +1778,7 @@ async def world_building_regenerate_generator(
         yield await tracker.error(f"Falha na geração: {str(e)}")
 
 
-@router.post("/world-building/{project_id}/regenerate", summary="流式重新生成世界观")
+@router.post("/world-building/{project_id}/regenerate", summary="Regenerar a construção de mundo em streaming")
 async def regenerate_world_building_stream(
     project_id: str,
     request: Request,
