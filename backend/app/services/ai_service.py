@@ -5,7 +5,10 @@
 - 如果有启用的MCP插件且有可用工具，自动发送tools
 - 通过 auto_mcp 参数控制是否启用自动工具加载
 """
+from dataclasses import dataclass
 from typing import Optional, AsyncGenerator, List, Dict, Any, Union
+
+from fastapi import HTTPException
 
 from app.config import settings as app_settings
 from app.logger import get_logger
@@ -19,6 +22,13 @@ from app.services.ai_providers.openai_provider import OpenAIProvider
 from app.services.ai_providers.anthropic_provider import AnthropicProvider
 from app.services.ai_providers.gemini_provider import GeminiProvider
 from app.services.ai_providers.base_provider import BaseAIProvider
+from app.services.ai_providers.codex_provider import (
+    CodexAuthError,
+    CodexError,
+    CodexProvider,
+    CodexQuotaError,
+    CodexTimeoutError,
+)
 from app.services.json_helper import clean_json_response, parse_json
 
 # 导出清理函数
@@ -36,6 +46,25 @@ def normalize_provider(provider: Optional[str]) -> Optional[str]:
         return None
 
     return provider.lower().strip()
+
+
+@dataclass
+class FallbackConfig:
+    """API de reserva usada quando o Codex falha."""
+    provider: str
+    api_key: str
+    api_base_url: Optional[str]
+    model: str
+
+
+def _codex_reason(error: CodexError) -> str:
+    if isinstance(error, CodexQuotaError):
+        return "cota esgotada"
+    if isinstance(error, CodexAuthError):
+        return "não logado"
+    if isinstance(error, CodexTimeoutError):
+        return "tempo esgotado"
+    return "erro de execução"
 
 
 class AIService:
@@ -90,10 +119,15 @@ class AIService:
         db_session: Optional[Any] = None,
         enable_mcp: bool = True,
         disable_thinking: bool = False,
+        fallback: Optional[FallbackConfig] = None,
     ):
         self.raw_api_provider = (api_provider or app_settings.default_ai_provider or "openai").lower().strip()
         self.api_provider = normalize_provider(self.raw_api_provider)
-        self.default_model = default_model or app_settings.default_model
+        if self.api_provider == "codex":
+            # Modelo vazio = padrão do Codex; nunca herdar o modelo padrão de outro provider.
+            self.default_model = default_model or ""
+        else:
+            self.default_model = default_model or app_settings.default_model
         self.default_temperature = default_temperature or app_settings.default_temperature
         self.default_max_tokens = default_max_tokens or app_settings.default_max_tokens
         self.default_system_prompt = default_system_prompt
@@ -111,7 +145,30 @@ class AIService:
         self._openai_provider: Optional[OpenAIProvider] = None
         self._anthropic_provider: Optional[AnthropicProvider] = None
         self._gemini_provider: Optional[GeminiProvider] = None
-        
+        self._codex_provider: Optional[CodexProvider] = None
+
+        # Reserva por API quando o Codex falha
+        self.fallback = fallback
+        self._fallback_service: Optional["AIService"] = None
+        if fallback and self.api_provider == "codex" and normalize_provider(fallback.provider) != "codex":
+            self._fallback_service = AIService(
+                api_provider=fallback.provider,
+                api_key=fallback.api_key,
+                api_base_url=fallback.api_base_url,
+                default_model=fallback.model,
+                default_temperature=default_temperature,
+                default_max_tokens=default_max_tokens,
+                enable_mcp=False,
+                disable_thinking=disable_thinking,
+            )
+
+        if self.api_provider == "codex":
+            self._codex_provider = CodexProvider(
+                app_settings.codex_binary,
+                app_settings.codex_timeout_s,
+                app_settings.codex_max_concurrency,
+            )
+
         # 初始化 OpenAI 兼容接口
         openai_key = None
         openai_base_url = None
@@ -182,7 +239,21 @@ class AIService:
             return self._anthropic_provider
         if p == "gemini" and self._gemini_provider:
             return self._gemini_provider
+        if p == "codex" and self._codex_provider:
+            return self._codex_provider
         raise ValueError(f"Provider {p} 未初始化")
+
+    def _fallback_or_raise(self, error: CodexError) -> "AIService":
+        """Devolve o serviço de reserva ou levanta um 503 claro em PT-BR."""
+        motivo = _codex_reason(error)
+        if self._fallback_service is None:
+            logger.error(f"Codex falhou ({motivo}) e não há API de reserva: {error}")
+            raise HTTPException(
+                status_code=503,
+                detail=f"O Codex não respondeu ({motivo}). Configure uma API de reserva em Configurações.",
+            ) from error
+        logger.warning(f"Codex falhou ({motivo}); usando API de reserva: {error}")
+        return self._fallback_service
 
     def _build_call_metrics(
         self,
@@ -448,15 +519,27 @@ class AIService:
         
         try:
             prov = self._get_provider(provider)
-            response = await prov.generate(
-                prompt=prompt,
-                model=model or self.default_model,
-                temperature=temperature or self.default_temperature,
-                max_tokens=max_tokens or self.default_max_tokens,
-                system_prompt=system_prompt or self.default_system_prompt,
-                tools=tools,
-                tool_choice=tool_choice,
-            )
+            try:
+                response = await prov.generate(
+                    prompt=prompt,
+                    model=model or self.default_model,
+                    temperature=temperature or self.default_temperature,
+                    max_tokens=max_tokens or self.default_max_tokens,
+                    system_prompt=system_prompt or self.default_system_prompt,
+                    tools=tools,
+                    tool_choice=tool_choice,
+                )
+            except CodexError as codex_error:
+                reserva = self._fallback_or_raise(codex_error)
+                response = await reserva._get_provider().generate(
+                    prompt=prompt,
+                    model=self.fallback.model,
+                    temperature=temperature or self.default_temperature,
+                    max_tokens=max_tokens or self.default_max_tokens,
+                    system_prompt=system_prompt or self.default_system_prompt,
+                    tools=tools,
+                    tool_choice=tool_choice,
+                )
             usage = TokenUsage.from_response(response)
             
             # 处理工具调用
@@ -489,6 +572,17 @@ class AIService:
             metrics.finish(success=False, error=e)
             self._log_call_metrics(metrics)
             raise
+
+    async def _stream_with_fallback(self, prov: BaseAIProvider, **kwargs) -> AsyncGenerator[Any, None]:
+        """Faz o stream pelo provider; se o Codex falhar, refaz pela API de reserva."""
+        try:
+            async for chunk in prov.generate_stream(user_id=self.user_id, **kwargs):
+                yield chunk
+        except CodexError as codex_error:
+            reserva = self._fallback_or_raise(codex_error)
+            kwargs["model"] = self.fallback.model
+            async for chunk in reserva._get_provider().generate_stream(user_id=self.user_id, **kwargs):
+                yield chunk
 
     async def generate_text_stream(
         self,
@@ -548,7 +642,8 @@ class AIService:
             # 流式生成（Provider 层处理工具调用）
             prov = self._get_provider(provider)
             logger.debug(f"🔧 开始流式生成，provider={provider or self.api_provider}, tools_count={len(tools_to_use) if tools_to_use else 0}")
-            async for chunk in prov.generate_stream(
+            async for chunk in self._stream_with_fallback(
+                prov,
                 prompt=prompt,
                 model=model or self.default_model,
                 temperature=temperature or self.default_temperature,
@@ -556,7 +651,6 @@ class AIService:
                 system_prompt=system_prompt or self.default_system_prompt,
                 tools=tools_to_use,
                 tool_choice=tool_choice,
-                user_id=self.user_id,
             ):
                 if isinstance(chunk, dict):
                     if chunk.get("usage"):
@@ -699,6 +793,7 @@ def create_user_ai_service(
     temperature: float,
     max_tokens: int,
     system_prompt: Optional[str] = None,
+    fallback: Optional[FallbackConfig] = None,
 ) -> AIService:
     """创建用户 AI 服务（不带MCP支持）"""
     return AIService(
@@ -709,6 +804,7 @@ def create_user_ai_service(
         default_temperature=temperature,
         default_max_tokens=max_tokens,
         default_system_prompt=system_prompt,
+        fallback=fallback,
     )
 
 
@@ -724,6 +820,7 @@ def create_user_ai_service_with_mcp(
     system_prompt: Optional[str] = None,
     enable_mcp: bool = True,
     disable_thinking: bool = False,
+    fallback: Optional[FallbackConfig] = None,
 ) -> AIService:
     """
     创建支持MCP的用户AI服务
@@ -755,4 +852,5 @@ def create_user_ai_service_with_mcp(
         db_session=db_session,
         enable_mcp=enable_mcp,
         disable_thinking=disable_thinking,
+        fallback=fallback,
     )

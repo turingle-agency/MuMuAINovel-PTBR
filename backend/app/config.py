@@ -79,6 +79,10 @@ class Settings(BaseSettings):
     anthropic_api_key: Optional[str] = None
     anthropic_base_url: Optional[str] = None
     default_ai_provider: str = "openai"
+    # Codex via CLI oficial (`codex exec`)
+    codex_binary: str = "codex"
+    codex_timeout_s: int = 600
+    codex_max_concurrency: int = 2
     default_model: str = "gpt-4"
     default_temperature: float = 0.7
     default_max_tokens: int = 32000

@@ -20,6 +20,12 @@ class Settings(Base):
     system_prompt = Column(Text, comment="系统级别提示词，每次AI调用都会使用")
     disable_thinking = Column(Boolean, default=False, server_default="0", nullable=False, comment="是否关闭模型思考（开启后思考型模型跳过思考阶段直接输出正文）")
 
+    # API de reserva usada quando o Codex falha (cota, login, timeout)
+    fallback_api_provider = Column(String(50), nullable=True, comment="Provider da API de reserva")
+    fallback_api_key = Column(String(500), nullable=True, comment="Chave da API de reserva")
+    fallback_api_base_url = Column(String(500), nullable=True, comment="URL da API de reserva")
+    fallback_llm_model = Column(String(100), nullable=True, comment="Modelo da API de reserva")
+
     # 封面图片生成配置
     cover_api_provider = Column(String(50), comment="封面图片API提供商")
     cover_api_key = Column(String(500), comment="封面图片API密钥")

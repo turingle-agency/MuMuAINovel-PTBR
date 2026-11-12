@@ -25,7 +25,7 @@ from app.schemas.settings import (
 from app.user_manager import User
 from app.logger import get_logger, safe_preview
 from app.config import settings as app_settings, PROJECT_ROOT
-from app.services.ai_service import AIService, create_user_ai_service, create_user_ai_service_with_mcp, normalize_provider
+from app.services.ai_service import AIService, FallbackConfig, create_user_ai_service, create_user_ai_service_with_mcp, normalize_provider
 from app.services.email_service import email_service
 from app.security import validate_ai_http_url
 
@@ -63,6 +63,9 @@ def _normalize_raw_provider(provider: Optional[str]) -> str:
 def _resolve_provider_defaults(provider: Optional[str]) -> Dict[str, str]:
     """按 provider 解析环境变量默认配置，避免在代码中硬编码真实密钥。"""
     raw_provider = _normalize_raw_provider(provider)
+    if raw_provider == "codex":
+        # O Codex usa o login da CLI oficial; não há chave nem URL.
+        return {"api_key": "", "api_base_url": ""}
     if raw_provider == "anthropic":
         return {
             "api_key": app_settings.anthropic_api_key or "",
@@ -102,6 +105,24 @@ def resolve_runtime_ai_config(provider: Optional[str], api_key: Optional[str], a
         "api_key": resolved["api_key"],
         "api_base_url": resolved["api_base_url"],
     }
+
+
+def build_fallback_config(settings: Settings) -> Optional[FallbackConfig]:
+    """Monta a API de reserva a partir das colunas fallback_* (None se incompleta)."""
+    provider = getattr(settings, "fallback_api_provider", None)
+    if not provider:
+        return None
+    resolved = resolve_runtime_ai_config(
+        provider, getattr(settings, "fallback_api_key", None), getattr(settings, "fallback_api_base_url", None)
+    )
+    if not resolved["api_key"] or resolved["api_provider"] == "codex":
+        return None
+    return FallbackConfig(
+        provider=resolved["api_provider"],
+        api_key=resolved["api_key"],
+        api_base_url=resolved["api_base_url"] or None,
+        model=getattr(settings, "fallback_llm_model", None) or "",
+    )
 
 
 def _safe_load_preferences(raw_preferences: Optional[str]) -> Dict[str, Any]:
@@ -263,6 +284,7 @@ async def get_user_ai_service(
         system_prompt=settings.system_prompt,
         enable_mcp=enable_mcp,         # 根据MCP插件状态动态决定
         disable_thinking=bool(getattr(settings, 'disable_thinking', False)),
+        fallback=build_fallback_config(settings),
     )
 
 
@@ -329,6 +351,7 @@ async def get_user_ai_service_from_db_by_usage(
         system_prompt=settings.system_prompt,
         enable_mcp=enable_mcp,
         disable_thinking=bool(getattr(settings, 'disable_thinking', False)),
+        fallback=build_fallback_config(settings),
     )
 
 
@@ -634,6 +657,12 @@ async def get_available_models(
         raw_provider = _normalize_raw_provider(provider)
         resolved_config = resolve_runtime_ai_config(raw_provider, api_key, api_base_url)
         provider = resolved_config["api_provider"]
+        if provider == "codex":
+            return {
+                "provider": provider,
+                "models": [{"value": "", "label": "Padrão do Codex", "description": ""}],
+                "count": 1,
+            }
         api_key = resolved_config["api_key"]
         api_base_url = validate_ai_http_url(resolved_config["api_base_url"])
         async with httpx.AsyncClient(timeout=10.0) as client:
@@ -998,7 +1027,7 @@ async def test_api_connection(data: ApiTestRequest):
         )
         
         # 发送简单的测试请求
-        test_prompt = "请用一句话回复：测试成功"
+        test_prompt = "Responda em uma frase: teste bem-sucedido" if provider == "codex" else "请用一句话回复：测试成功"
         
         logger.info(f"🧪 开始测试 API 连接")
         logger.info(f"  - 提供商: {provider}")
@@ -1075,6 +1104,17 @@ async def test_api_connection(data: ApiTestRequest):
             ]
         }
         
+    except HTTPException as e:
+        # Falha do Codex (sem API de reserva no teste de conexão): mensagem já vem em PT-BR
+        logger.error(f"❌ API 测试失败: {e.detail}")
+        return {
+            "success": False,
+            "message": "Falha no teste de conexão",
+            "error": str(e.detail),
+            "error_type": "CodexError",
+            "suggestions": ["Verifique se a CLI `codex` está instalada e logada (`codex login`)"],
+        }
+
     except TimeoutError as e:
         # 超时错误
         error_msg = str(e)
