@@ -75,9 +75,9 @@ A consulta rápida de estruturas de conto está na [biblioteca de estruturas em 
 | [references/output-templates.md](references/output-templates.md) | Na análise: modelos de saída + biblioteca de estruturas + campos obrigatórios |
 | [references/deconstruction-examples.md](references/deconstruction-examples.md) | Para aprender o método de análise (3 casos completos) |
 | [references/short-platform-style.md](references/short-platform-style.md) | Ao analisar contos de plataformas de leitura de histórias curtas |
-| [references/genre-frameworks-unified.md](references/genre-frameworks-unified.md) | Ao analisar um gênero específico: carregar a seção "visão de conto" do gênero |
-| [references/hook-techniques.md](references/hook-techniques.md) | Na análise aprofundada do desenho de ganchos |
-| [references/character-design.md](references/character-design.md) | Na análise aprofundada do desenho de personagens |
+| [references/genre-frameworks-unified.md](references/genre-frameworks-unified.md) | Arcabouços de gênero com visão de romance longo (oito nós) e de conto (três atos), notas de outros gêneros e escolha de gênero |
+| [references/hook-techniques.md](references/hook-techniques.md) | Ganchos de fim e início de capítulo, 11 ganchos de conto e combinações, suspense, choque em camadas, expectativa e "duas longas e uma curta", técnicas de abertura |
+| [references/character-design.md](references/character-design.md) | Fichas e níveis de personagens, motivações, três camadas de etiquetas, antagonista, linha romântica, análise de personagens e consistência |
 | [references/quality-checklist.md](references/quality-checklist.md) | Na avaliação de qualidade |
 
 > **Fórmulas de escrita por gênero**: `references/genre-writing-formulas.md` (fórmulas dos principais gêneros)

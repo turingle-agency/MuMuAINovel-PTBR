@@ -246,17 +246,17 @@ Consulte os arquivos abaixo sob demanda:
 
 | Arquivo | Quando consultar |
 |------|----------|
-| [references/genre-writing-formulas.md](references/genre-writing-formulas.md) | **Referência central**: fórmulas de escrita para os principais gêneros + nove métodos de cenas de choque + técnica de três viradas e quatro choques + cenas de competição + quatro fases da linha romântica + mecanismo de promessas na comédia + extração e validação do conceito central + controle de ponto de vista no conto + psicologia do público feminino e técnicas + técnicas de escrita com apoio de IA + técnicas avançadas de manipulação emocional + regras de escrita da linha romântica + verificação de pontos de rejeição + teoria das âncoras emocionais + novas ideias para o antagonista debochado + método de desmontagem de personagens + quatro elementos de "o pequeno vence o grande" + a essência da recompensa + aprendizado por feedback |
-| [references/female-audience-writing.md](references/female-audience-writing.md) | Técnicas de escrita para público feminino + preferências de leitoras + descrição de emoções + escolha de gênero + método de análise de livros de referência + padrões da linha romântica |
-| [references/emotional-arc-design.md](references/emotional-arc-design.md) | Ao desenhar a curva emocional: modelos de arco + gestão de expectativa + estratégia por trilha de gênero |
-| [references/reversal-toolkit.md](references/reversal-toolkit.md) | Ao desenhar reviravoltas: tipos + momento certo + caminhos de despiste |
+| [references/genre-writing-formulas.md](references/genre-writing-formulas.md) | 21 fórmulas de gênero (esqueleto, batidas emocionais, cenas obrigatórias, escrita-chave; as de 7 a 21 são adaptações), regras gerais de escrita, manipulação emocional, linha romântica, nove formas de choque, cenas de competição, fases do romance, comédia, conceito central, ponto de vista, âncoras emocionais |
+| [references/female-audience-writing.md](references/female-audience-writing.md) | Princípios para escrever romance e drama para público feminino, sinopse, leitoras, tropos populares, erros de sinopse e personagem, aprofundar a linha romântica (versão resumida) |
+| [references/emotional-arc-design.md](references/emotional-arc-design.md) | Seis arcos emocionais, gestão de expectativa, fórmulas de emoção, condução emocional (versão resumida) |
+| [references/reversal-toolkit.md](references/reversal-toolkit.md) | Cinco tipos de reviravolta, reviravoltas encaixadas, momento, técnicas de despiste, autoverificação (versão resumida) |
 | [references/quality-checklist.md](references/quality-checklist.md) | Verificação de revisão + diagnóstico de pontos de rejeição |
 | [references/anti-ai-writing.md](references/anti-ai-writing.md) | Ao remover o tom de IA |
-| [references/character-design.md](references/character-design.md) | Ao definir personagens |
-| [references/dialogue-mastery.md](references/dialogue-mastery.md) | Ao escrever diálogos |
-| [references/hook-techniques.md](references/hook-techniques.md) | Ao desenhar ganchos + arranjo de suspense + teoria da expectativa |
-| [references/opening-design.md](references/opening-design.md) | Ao desenhar a abertura + regras do primeiro capítulo + modelos de abertura |
-| [references/genre-frameworks-unified.md](references/genre-frameworks-unified.md) | Arcabouços de gênero + conceito central + linha profissional/romântica |
+| [references/character-design.md](references/character-design.md) | Fichas e níveis de personagens, motivações, três camadas de etiquetas, antagonista, linha romântica, análise de personagens e consistência |
+| [references/dialogue-mastery.md](references/dialogue-mastery.md) | Funções do diálogo, subtexto e agenda, diferenciação de falas, padrões e ritmo, autoverificação (versão resumida) |
+| [references/hook-techniques.md](references/hook-techniques.md) | Ganchos de fim e início de capítulo, 11 ganchos de conto e combinações, suspense, choque em camadas, expectativa e "duas longas e uma curta", técnicas de abertura |
+| [references/opening-design.md](references/opening-design.md) | Regras do primeiro capítulo, seis critérios, organização de informação, problemas comuns de abertura (versão resumida) |
+| [references/genre-frameworks-unified.md](references/genre-frameworks-unified.md) | Arcabouços de gênero com visão de romance longo (oito nós) e de conto (três atos), notas de outros gêneros e escolha de gênero |
 
 ---
 
