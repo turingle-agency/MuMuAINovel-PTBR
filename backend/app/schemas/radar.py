@@ -157,6 +157,18 @@ class ResearchProgress(BaseModel):
     current_source: str | None = None
 
 
+class SummaryItem(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+    evidence_ids: list[str] = Field(min_length=1, max_length=5)
+
+
+class SummaryResult(BaseModel):
+    status: Literal["skipped", "ok", "error"] = "skipped"
+    items: list[SummaryItem] = Field(default_factory=list, max_length=8)
+    detail: str | None = None
+
+
 class ResearchSnapshot(BaseModel):
     model_config = ConfigDict(validate_assignment=True)
 
@@ -169,6 +181,14 @@ class ResearchSnapshot(BaseModel):
     sources: dict[str, SourceResult] = Field(default_factory=dict)
     progress: ResearchProgress = Field(default_factory=ResearchProgress)
     score: ScoreResult | None = None
+    summary: SummaryResult = Field(default_factory=SummaryResult)
+
+    def citable_evidence(self) -> dict[str, EvidenceItem]:
+        return {
+            f"{name}:{item.id}": item
+            for name, source in self.sources.items() if source.status in {"ok", "partial"}
+            for item in source.items if item.url
+        }
 
 
 class ResearchInput(BaseModel):

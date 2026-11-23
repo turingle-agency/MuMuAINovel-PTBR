@@ -58,6 +58,12 @@ ISOLATION_FLAGS: List[str] = [
     "-c", "mcp_servers={}",
     "-c", "project_doc_max_bytes=0",
 ]
+NO_TOOL_FLAGS = [
+    "--disable", "shell_tool",
+    "--disable", "multi_agent",
+    "--disable", "multi_agent_v2",
+    "-c", 'web_search="disabled"',
+]
 
 
 # Memória de falhas do Codex (por processo): evita esperar N x timeout num lote.
@@ -245,8 +251,11 @@ class CodexProvider(BaseAIProvider):
                 last = Path(tmp) / "last.txt"
                 cmd = [
                     self.binary, "exec", "--json", "--ephemeral", "--skip-git-repo-check",
-                    "-s", "read-only", *ISOLATION_FLAGS, "-C", tmp, "-o", str(last),
+                    "-s", "read-only", *ISOLATION_FLAGS,
                 ]
+                if tools == []:
+                    cmd.extend(NO_TOOL_FLAGS)
+                cmd.extend(["-C", tmp, "-o", str(last)])
                 if _modelo_e_do_codex(model):
                     cmd += ["-m", model]
                 cmd.append("-")

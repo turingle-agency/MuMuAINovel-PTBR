@@ -3,16 +3,19 @@ import asyncio
 from datetime import timedelta, timezone
 import logging
 
+from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from app.database import NicheResearch, get_engine
+from app.api.settings import get_user_ai_service_from_db
+from app.database import NicheResearch, Settings, get_engine
 from app.schemas.radar import ResearchProgress, ResearchSnapshot
 from app.services.radar_collectors import CollectorRegistry
 from app.services.radar_collectors.base import Clock, CollectionContext, utc_now
 from app.services.radar_repository import (
     LEASE_DURATION, claim_next, finish_snapshot, save_running_snapshot, seal_expired, unavailable_source,
 )
+from app.services.radar_summary import summarize_research, summary_error
 
 logger = logging.getLogger(__name__)
 RUN_DURATION = timedelta(minutes=12)
@@ -69,8 +72,21 @@ async def process_research(research_id: str, registry: CollectorRegistry, *, clo
 
     now = clock()
     status = finish_snapshot(snapshot, now, "Prazo total de coleta esgotado.")
+    if snapshot.citable_evidence() and now < deadline:
+        try:
+            async with asyncio.timeout((deadline - now).total_seconds()):
+                async with sessions() as db:
+                    configured = await db.scalar(select(Settings.id).where(
+                        Settings.user_id == row.user_id,
+                        (Settings.api_provider == "codex") | (Settings.api_key != ""),
+                    ))
+                    ai = await get_user_ai_service_from_db(row.user_id, db) if configured else None
+                if ai is not None:
+                    snapshot.summary = await summarize_research(ai, snapshot)
+        except Exception:
+            snapshot.summary = summary_error()
     async with sessions.begin() as db:
-        await save_running_snapshot(db, research_id, lease, now, snapshot, terminal=status)
+        await save_running_snapshot(db, research_id, lease, clock(), snapshot, terminal=status)
 
 
 async def run_radar_loop(stop: asyncio.Event, registry: CollectorRegistry) -> None:
