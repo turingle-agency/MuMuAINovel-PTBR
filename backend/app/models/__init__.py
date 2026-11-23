@@ -22,6 +22,7 @@ from app.models.project_agent import AgentConversation, AgentMessage, AgentToolC
 from app.models.knowledge import KnowledgeBase, KnowledgeDocument, KnowledgeChunk
 from app.models.series import Series
 from app.models.niche_research import NicheResearch
+from app.models.radar import RadarSettings, RadarSourceCache, RadarBudgetMonth, RadarBudgetReservation, WritingBrief
 from app.models.offer import Offer, OfferItem
 
 __all__ = [
@@ -61,4 +62,9 @@ __all__ = [
     "KnowledgeBase",
     "KnowledgeDocument",
     "KnowledgeChunk",
+    "RadarSettings",
+    "RadarSourceCache",
+    "RadarBudgetMonth",
+    "RadarBudgetReservation",
+    "WritingBrief",
 ]
