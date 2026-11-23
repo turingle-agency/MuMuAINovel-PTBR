@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Card, Button, Modal, message, Spin, Space, Tag, Typography, Upload, Checkbox, Tooltip, Drawer, Menu, theme } from 'antd';
-import { EditOutlined, BookOutlined, CalendarOutlined, FileTextOutlined, TrophyOutlined, SettingOutlined, UploadOutlined, ApiOutlined, FileSearchOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbOutlined, MoonOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons';
+import { EditOutlined, BookOutlined, CalendarOutlined, FileTextOutlined, TrophyOutlined, SettingOutlined, UploadOutlined, ApiOutlined, FileSearchOutlined, MenuUnfoldOutlined, MenuFoldOutlined, BulbOutlined, MoonOutlined, DesktopOutlined, MailOutlined, RadarChartOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { authApi, projectApi } from '../services/api';
 import { useStore } from '../store';
@@ -22,6 +22,7 @@ import { getStoredSidebarCollapsed, setStoredSidebarCollapsed } from '../utils/s
 import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
+const NicheRadar = lazy(() => import('./NicheRadar'));
 
 /**
  * 格式化字数显示
@@ -43,11 +44,12 @@ const formatWordCount = (count: number): string => {
 const COVER_POLL_INTERVAL_MS = 5000;
 const COVER_POLL_MAX_MS = 12 * 60 * 1000;
 
-type ProjectListView = 'projects' | 'settings' | 'system-settings' | 'mcp' | 'prompts' | 'book-import';
+type ProjectListView = 'projects' | 'settings' | 'system-settings' | 'mcp' | 'prompts' | 'book-import' | 'radar';
 
 const parseViewFromSearch = (search: string): ProjectListView => {
   const view = new URLSearchParams(search).get('view');
-  if (view === 'settings' || view === 'system-settings' || view === 'mcp' || view === 'prompts' || view === 'book-import' || view === 'projects') {
+  if (view === 'settings' || view === 'system-settings' || view === 'mcp' || view === 'prompts' ||
+    view === 'book-import' || view === 'projects' || view === 'radar') {
     return view;
   }
   return 'projects';
@@ -83,7 +85,9 @@ export default function ProjectList() {
   const { token } = theme.useToken();
   const alphaColor = (color: string, alpha: number) => `color-mix(in srgb, ${color} ${(alpha * 100).toFixed(0)}%, transparent)`;
 
-  const activeView = useMemo<ProjectListView>(() => parseViewFromSearch(location.search), [location.search]);
+  const requestedView = useMemo<ProjectListView>(() => parseViewFromSearch(location.search), [location.search]);
+  const isAdmin = !!currentUser?.is_admin;
+  const activeView = requestedView === 'radar' && currentUser && !isAdmin ? 'projects' : requestedView;
   const cycleThemeMode = () => {
     const nextMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'system' : 'light';
     setMode(nextMode);
@@ -447,7 +451,9 @@ export default function ProjectList() {
   const collapsedSiderWidth = 60;
   const desktopSiderWidth = collapsed ? collapsedSiderWidth : expandedSiderWidth;
 
-  const currentViewTitle = activeView === 'projects'
+  const currentViewTitle = activeView === 'radar'
+    ? t('radarDeNichos')
+    : activeView === 'projects'
     ? t('minhaEstante')
     : activeView === 'prompts'
       ? t('modelosDePrompt')
@@ -459,7 +465,7 @@ export default function ProjectList() {
             ? t('configuracoesDoSistema')
             : t('configuracoesDeApi');
 
-  const isAdmin = !!currentUser?.is_admin;
+  const radarMenuItem = { key: 'radar', icon: <RadarChartOutlined />, label: t('radarDeNichos') };
 
   const sideMenuItems = [
     {
@@ -471,6 +477,7 @@ export default function ProjectList() {
       type: 'group' as const,
       label: t('ferramentasDeCriacao'),
       children: [
+        ...(isAdmin ? [radarMenuItem] : []),
         {
           key: 'book-import',
           icon: <UploadOutlined />,
@@ -512,6 +519,7 @@ export default function ProjectList() {
       icon: <BookOutlined />,
       label: t('minhaEstante'),
     },
+    ...(isAdmin ? [radarMenuItem] : []),
     {
       key: 'book-import',
       icon: <UploadOutlined />,
@@ -893,6 +901,8 @@ export default function ProjectList() {
           }}
         >
           {activeView === 'settings' && <SettingsPage />}
+          {activeView === 'radar' && isAdmin && <Suspense fallback={<Spin />}><NicheRadar /></Suspense>}
+          {activeView === 'radar' && !currentUser && <Spin />}
           {activeView === 'system-settings' && <SystemSettingsPage />}
           {activeView === 'mcp' && <MCPPluginsPage />}
           {activeView === 'prompts' && <PromptTemplates />}

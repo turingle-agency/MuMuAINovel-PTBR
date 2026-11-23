@@ -108,6 +108,9 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    if (axios.isCancel(error) && error.config?.url?.startsWith('/radar/')) {
+      return Promise.reject(error);
+    }
     let errorMessage = i18n.t('errors:falhaNaRequisicao');
 
     if (error.response) {
@@ -167,6 +170,11 @@ api.interceptors.response.use(
     const transient = error.response?.status === 409 || !error.response;
     if (!(silent === 'all' || (silent === 'transient' && transient))) {
       message.error(errorMessage);
+    }
+    if (error.config?.url === '/radar/settings') {
+      // O erro do Axios carrega o corpo original, que pode conter uma credencial.
+      console.error('API Error:', errorMessage);
+      return Promise.reject(new Error(errorMessage));
     }
     console.error('API Error:', errorMessage, error);
 
