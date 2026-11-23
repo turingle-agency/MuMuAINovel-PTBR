@@ -16,6 +16,8 @@ from app.services.radar_repository import (
     LEASE_DURATION, claim_next, finish_snapshot, save_running_snapshot, seal_expired, unavailable_source,
 )
 from app.services.radar_summary import summarize_research, summary_error
+from app.services.radar_schedule import enqueue_due_weeks
+from app.services.radar_settings import read_source_secret
 
 logger = logging.getLogger(__name__)
 RUN_DURATION = timedelta(minutes=12)
@@ -37,17 +39,18 @@ async def process_research(research_id: str, registry: CollectorRegistry, *, clo
     for name in snapshot.enabled_sources:
         if name in snapshot.sources:
             continue
-        context = CollectionContext(row.user_id, research_id, deadline, clock)
-        if not context.remaining():
+        if clock() >= deadline:
             break
         snapshot.progress = ResearchProgress(
             done=len(snapshot.sources), total=len(snapshot.enabled_sources), current_source=name,
         )
+        collector = registry.get(name)
         async with sessions.begin() as db:
             if not await save_running_snapshot(db, research_id, lease, clock(), snapshot):
                 return
+            secret = await read_source_secret(db, row.user_id, name) if collector else None
 
-        collector = registry.get(name)
+        context = CollectionContext(row.user_id, research_id, deadline, clock, secret)
         if collector is None or snapshot.input is None:
             result = unavailable_source(name, snapshot, clock(), "unsupported", "Fonte indisponível.")
         else:
@@ -95,8 +98,10 @@ async def run_radar_loop(stop: asyncio.Event, registry: CollectorRegistry) -> No
     while not stop.is_set():
         try:
             async with sessions.begin() as db:
-                await seal_expired(db, utc_now())
-                row = await claim_next(db, utc_now())
+                now = utc_now()
+                await seal_expired(db, now)
+                await enqueue_due_weeks(db, now)
+                row = await claim_next(db, now)
             if row is not None:
                 await process_research(row.id, registry)
                 continue

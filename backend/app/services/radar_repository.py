@@ -33,6 +33,13 @@ def insert_once(db, model, values, key):
 
 
 async def enqueue_research(db: AsyncSession, admin_id: str, input: ResearchInput) -> NicheResearch:
+    research, _ = await enqueue_research_once(db, admin_id, input)
+    return research
+
+
+async def enqueue_research_once(
+    db: AsyncSession, admin_id: str, input: ResearchInput,
+) -> tuple[NicheResearch, bool]:
     topic_key = normalize_topic(input.topic)
     identidade = (topic_key, input.country, input.product_type)
     origem = (*identidade, input.week_key) if input.mode == "weekly" else (input.input_key,)
@@ -43,7 +50,10 @@ async def enqueue_research(db: AsyncSession, admin_id: str, input: ResearchInput
         topic_hash=hashlib.sha256(topic_key.encode()).hexdigest(),
         input_key=key, signals=input.snapshot.model_dump(mode="json"),
     )
-    await db.execute(insert_once(db, NicheResearch, values, NicheResearch.input_key))
+    stmt = insert_once(db, NicheResearch, values, NicheResearch.input_key).returning(NicheResearch)
+    inserted = await db.scalar(stmt)
+    if inserted is not None:
+        return inserted, True
     research = (await db.scalars(select(NicheResearch).where(
         NicheResearch.user_id == admin_id, NicheResearch.input_key == key,
     ))).one()
@@ -52,7 +62,7 @@ async def enqueue_research(db: AsyncSession, admin_id: str, input: ResearchInput
         != (values["topic"], input.country, input.product_type)
     ):
         raise ResearchConflict("Esta chave já foi usada em uma pesquisa diferente.")
-    return research
+    return research, False
 
 
 async def get_research(db: AsyncSession, admin_id: str, research_id: str) -> NicheResearch | None:

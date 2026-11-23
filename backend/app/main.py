@@ -1,9 +1,11 @@
 """FastAPI应用主入口"""
+import asyncio
 from fastapi import FastAPI, Request, status, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
 from fastapi.exceptions import RequestValidationError
+from httpx import AsyncClient
 from contextlib import asynccontextmanager
 from pathlib import Path
 from datetime import datetime
@@ -16,6 +18,8 @@ from app.logger import setup_logging, get_logger
 from app.middleware import RequestIDMiddleware
 from app.middleware.auth_middleware import AuthMiddleware
 from app.mcp import mcp_client, register_status_sync
+from app.services.radar_collectors import build_registry
+from app.services.radar_worker import run_radar_loop
 
 setup_logging(
     level=config_settings.log_level,
@@ -116,21 +120,25 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Falha ao redefinir capas interrompidas (não impede a inicialização): {e}")
 
-    logger.info("应用启动完成")
-    
-    yield
-    
-    # 清理MCP插件
-    await mcp_client.cleanup()
-    
-    # 清理HTTP客户端池
-    from app.services.ai_service import cleanup_http_clients
-    await cleanup_http_clients()
-    
-    # 关闭数据库连接
-    await close_db()
-    
-    logger.info("应用已关闭")
+    try:
+        async with AsyncClient(timeout=25) as radar_http:
+            stop_radar = asyncio.Event()
+            radar_task = asyncio.create_task(run_radar_loop(stop_radar, build_registry(radar_http)))
+            logger.info("应用启动完成")
+            try:
+                yield
+            finally:
+                stop_radar.set()
+                try:
+                    await asyncio.wait_for(radar_task, timeout=5)
+                except TimeoutError:
+                    logger.info("Executor do Radar interrompido durante o encerramento.")
+    finally:
+        await mcp_client.cleanup()
+        from app.services.ai_service import cleanup_http_clients
+        await cleanup_http_clients()
+        await close_db()
+        logger.info("应用已关闭")
 
 
 app = FastAPI(
