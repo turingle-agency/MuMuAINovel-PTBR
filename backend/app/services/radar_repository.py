@@ -1,15 +1,22 @@
 """Persistência das pesquisas no âmbito do administrador."""
+from datetime import datetime, timedelta, timezone
 import hashlib
 import json
 import unicodedata
 
-from sqlalchemy import case, func, select
+from sqlalchemy import case, func, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import NicheResearch, WritingBrief
-from app.schemas.radar import PageFilters, ResearchFilters, ResearchInput, ResearchPage
+from app.schemas.radar import (
+    PageFilters, ResearchFilters, ResearchInput, ResearchPage, ResearchProgress, ResearchSnapshot,
+    ResearchStatus, SourceResult, SourceStatus,
+)
+from app.services.radar_scoring import score_research
+
+LEASE_DURATION = timedelta(minutes=15)
 
 
 class ResearchConflict(ValueError):
@@ -105,3 +112,78 @@ async def create_brief(db: AsyncSession, research: NicheResearch) -> tuple[Writi
         WritingBrief.research_id == research.id, WritingBrief.admin_id == research.user_id,
     ))).one()
     return brief, False
+
+
+async def claim_next(db: AsyncSession, now: datetime) -> NicheResearch | None:
+    model = NicheResearch
+    candidate = select(model.id).where(
+        model.status == "pending", model.mode.is_not(None),
+    ).order_by(model.created_at.asc().nulls_last(), model.id).limit(1).scalar_subquery()
+    stmt = update(model).where(model.id == candidate, model.status == "pending").values(
+        status="running", lease_until=_db_utc(now) + LEASE_DURATION,
+    ).returning(model)
+    return await db.scalar(stmt)
+
+
+def _db_utc(value: datetime) -> datetime:
+    return value.astimezone(timezone.utc).replace(tzinfo=None) if value.tzinfo else value
+
+
+def unavailable_source(name: str, snapshot: ResearchSnapshot, now: datetime, status: SourceStatus,
+                       reason: str) -> SourceResult:
+    return SourceResult(
+        source=name, status=status, collected_at=now, scope=snapshot.input.country if snapshot.input else "",
+        method_version="1", limits={"notes": [reason]},
+    )
+
+
+def finish_snapshot(
+    snapshot: ResearchSnapshot, now: datetime, reason: str, *, interrupted: bool = False,
+) -> ResearchStatus:
+    for source in snapshot.enabled_sources:
+        if source not in snapshot.sources:
+            snapshot.sources[source] = unavailable_source(source, snapshot, now, "error", reason)
+    snapshot.progress = ResearchProgress(done=len(snapshot.sources), total=len(snapshot.enabled_sources))
+    snapshot.score = score_research(snapshot)
+    results = list(snapshot.sources.values())
+    usable = any(
+        result.status == "empty" or (result.status in {"ok", "partial"} and result.items)
+        for result in results
+    )
+    if not interrupted and snapshot.score.score is not None and all(
+        result.status in {"ok", "empty", "not_applicable"} for result in results
+    ):
+        return "complete"
+    return "partial" if usable else "failed"
+
+
+async def save_running_snapshot(
+    db: AsyncSession, research_id: str, lease: datetime, now: datetime, snapshot: ResearchSnapshot,
+    *, terminal: ResearchStatus | None = None,
+) -> bool:
+    values = {"signals": snapshot.model_dump(mode="json")}
+    if terminal:
+        values.update(status=terminal, finished_at=_db_utc(now),
+                      score=snapshot.score.score if snapshot.score else None, lease_until=None)
+    query = update(NicheResearch).where(
+        NicheResearch.id == research_id, NicheResearch.status == "running",
+        NicheResearch.lease_until == lease, NicheResearch.lease_until > _db_utc(now),
+    ).values(**values).returning(NicheResearch.id)
+    return await db.scalar(query) is not None
+
+
+async def seal_expired(db: AsyncSession, now: datetime) -> int:
+    model = NicheResearch
+    expired = await db.scalars(select(model).where(
+        model.status == "running", model.lease_until <= _db_utc(now),
+    ))
+    count = 0
+    for row in expired:
+        snapshot = ResearchSnapshot.model_validate(row.signals)
+        status = finish_snapshot(snapshot, now, "A coleta foi interrompida.", interrupted=True)
+        query = update(model).where(
+            model.id == row.id, model.status == "running", model.lease_until <= _db_utc(now),
+        ).values(status=status, signals=snapshot.model_dump(mode="json"), finished_at=_db_utc(now),
+                 score=snapshot.score.score, lease_until=None).returning(model.id)
+        count += await db.scalar(query) is not None
+    return count
