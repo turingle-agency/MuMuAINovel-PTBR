@@ -143,6 +143,8 @@ app = FastAPI(
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
     """处理请求验证错误"""
+    if request.url.path.startswith("/api/radar/"):
+        return JSONResponse(status_code=422, content={"detail": "Dados do Radar inválidos."})
     logger.error(f"请求验证失败: {exc.errors()}")
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -155,6 +157,9 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """处理所有未捕获的异常"""
+    if request.url.path.startswith("/api/radar/"):
+        logger.error("Falha interna no Radar.")
+        return JSONResponse(status_code=500, content={"detail": "Erro interno do Radar."})
     logger.error(f"未处理的异常: {type(exc).__name__}: {str(exc)}", exc_info=True)
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -219,13 +224,14 @@ from app.api import (
     auth, users, settings, writing_styles, memories,
     mcp_plugins, admin, inspiration, prompt_templates,
     careers, foreshadows, book_import,
-    project_covers, project_agent, tasks, skills, knowledge
+    project_covers, project_agent, tasks, skills, knowledge, radar
 )
 
 app.include_router(auth.router, prefix="/api")
 app.include_router(users.router, prefix="/api")
 app.include_router(settings.router, prefix="/api")
 app.include_router(admin.router, prefix="/api")
+app.include_router(radar.router, prefix="/api")
 
 app.include_router(projects.router, prefix="/api")
 app.include_router(project_covers.router, prefix="/api")

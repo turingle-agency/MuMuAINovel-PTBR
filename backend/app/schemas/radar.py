@@ -5,8 +5,9 @@ from ipaddress import ip_address
 import re
 from typing import Annotated, Generic, Literal, TypeVar
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, SecretStr, StringConstraints, field_validator, model_validator
 
 ProductType = Literal["lowticket", "fiction"]
 ResearchMode = Literal["manual", "weekly"]
@@ -200,3 +201,136 @@ class ResearchPage(BaseModel, Generic[ResearchRow], arbitrary_types_allowed=True
     total: int
     page: int
     page_size: int
+
+
+SourceName = Literal["firecrawl", "youtube", "trends", "amazon", "meta", "agent_reach", "apify"]
+SecretSource = Literal["firecrawl", "youtube", "meta", "apify"]
+CountryCode = Annotated[str, StringConstraints(pattern=r"^[A-Z]{2}$")]
+LanguageCode = Annotated[str, StringConstraints(pattern=r"^[a-z]{2,3}(?:-[A-Z]{2})?$")]
+CurrencyCode = Annotated[str, StringConstraints(pattern=r"^[A-Z]{3}$")]
+Topic = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=300)]
+BudgetLimit = Annotated[PositivePrice, Field(decimal_places=6, max_digits=12)]
+
+
+class MarketProfile(BaseModel):
+    country: CountryCode
+    language: LanguageCode
+    currency: CurrencyCode
+    active: bool = False
+    sources: list[SourceName] = Field(default_factory=list, max_length=7)
+    kindle_categories: dict[Topic, Topic] = Field(default_factory=dict)
+    price_references: dict[ProductType, PositivePrice] = Field(default_factory=dict)
+
+    @field_validator("sources")
+    @classmethod
+    def unique_sources(cls, sources):
+        return list(dict.fromkeys(sources))
+
+
+class WeeklyEntry(BaseModel):
+    topic: Topic
+    country: CountryCode
+    product_type: ProductType
+
+
+class RadarSchedule(BaseModel):
+    enabled: bool = False
+    timezone: str = "America/Sao_Paulo"
+    entries: list[WeeklyEntry] = Field(default_factory=list, max_length=12)
+
+    @field_validator("timezone")
+    @classmethod
+    def valid_timezone(cls, value):
+        try:
+            ZoneInfo(value)
+        except (ZoneInfoNotFoundError, ValueError):
+            raise ValueError("Fuso IANA inválido.") from None
+        return value
+
+
+class RadarBudgetConfig(BaseModel):
+    monthly_limit_usd: BudgetLimit = Decimal("5")
+    threshold_percent: Literal[80] = 80
+    per_run_limit_usd: Literal["0.10"] = "0.10"
+
+
+def default_profiles() -> list[MarketProfile]:
+    return [
+        MarketProfile(country=country, language=language, currency=currency, active=country == "BR")
+        for country, language, currency in [
+            ("BR", "pt-BR", "BRL"), ("US", "en-US", "USD"), ("GB", "en-GB", "GBP"),
+            ("ES", "es-ES", "EUR"), ("PT", "pt-PT", "EUR"),
+        ]
+    ]
+
+
+class RadarConfig(BaseModel):
+    profiles: list[MarketProfile] = Field(default_factory=default_profiles, min_length=1)
+    weights: Weights = Field(default_factory=Weights)
+    schedule: RadarSchedule = Field(default_factory=RadarSchedule)
+    budget: RadarBudgetConfig = Field(default_factory=RadarBudgetConfig)
+
+    @model_validator(mode="after")
+    def validate_profiles(self):
+        codes = {p.country for p in self.profiles}
+        if len(codes) != len(self.profiles):
+            raise ValueError("Cada país deve ter um único perfil.")
+        active = {p.country for p in self.profiles if p.active}
+        if self.schedule.enabled and (
+            not self.schedule.entries or any(entry.country not in active for entry in self.schedule.entries)
+        ):
+            raise ValueError("A agenda ativa exige combinações em mercados ativos.")
+        return self
+
+
+class RadarSettingsPatch(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    profiles: list[MarketProfile] | None = None
+    weights: Weights | None = None
+    schedule: RadarSchedule | None = None
+    budget: RadarBudgetConfig | None = None
+    secrets: dict[SecretSource, SecretStr | None] = Field(default_factory=dict)
+
+    @field_validator("secrets")
+    @classmethod
+    def validate_secret_format(cls, secrets):
+        for secret in secrets.values():
+            if secret is not None and not re.fullmatch(r"[!-~]{1,1024}", secret.get_secret_value()):
+                raise ValueError("Credencial inválida.")
+        return secrets
+
+
+class CredentialView(BaseModel):
+    present: bool
+    usable: bool
+
+
+class CoverageView(BaseModel):
+    enabled: bool
+    status: Literal["ready", "not_configured", "unsupported", "disabled"]
+    detail: str
+
+
+class RadarSettingsView(RadarConfig):
+    encryption_available: bool
+    credentials: dict[SecretSource, CredentialView]
+    coverage: dict[str, dict[SourceName, CoverageView]]
+
+
+class SourceCheck(BaseModel):
+    source: SourceName
+    configured: bool
+    access: Literal["ok", "error", "not_tested"] = "not_tested"
+    last_status: SourceStatus | None = None
+    coverage: dict[str, CoverageView]
+    detail: str
+
+
+class BudgetView(BaseModel):
+    month: str
+    limit_microusd: int
+    charged_microusd: int
+    reserved_microusd: int
+    committed_microusd: int
+    blocked: bool
+    pending_count: int

@@ -48,6 +48,8 @@ class Settings(BaseSettings):
     qdrant_url: str | None = None
     qdrant_path: str = "data/qdrant"
     qdrant_api_key: str | None = None
+    # Chave Fernet para as credenciais do Radar. O banco guarda apenas os valores cifrados.
+    radar_secret_key: str | None = None
 
     # PostgreSQL连接池配置（优化后支持150-200并发用户）
     database_pool_size: int = 50  # 核心连接池大小（优化：从30提升到50）
