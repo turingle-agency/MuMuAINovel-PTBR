@@ -4,7 +4,7 @@ import hashlib
 import json
 import unicodedata
 
-from sqlalchemy import case, func, select, update
+from sqlalchemy import and_, case, func, or_, select, update
 from sqlalchemy.dialects.postgresql import insert as pg_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,7 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import NicheResearch, WritingBrief
 from app.schemas.radar import (
     PageFilters, ResearchFilters, ResearchInput, ResearchPage, ResearchProgress, ResearchSnapshot,
-    ResearchStatus, SourceResult, SourceStatus,
+    ResearchRequest, ResearchStatus, SourceResult, SourceStatus,
 )
 from app.services.radar_scoring import score_research
 
@@ -32,6 +32,32 @@ def insert_once(db, model, values, key):
     return insert(model).values(**values).on_conflict_do_nothing(index_elements=[key])
 
 
+def _manual_key(admin_id: str, request_id: str) -> str:
+    return hashlib.sha256(f"manual:{admin_id}:{request_id}".encode()).hexdigest()
+
+
+def _verify_manual_input(research: NicheResearch, topic: str, country: str, product_type: str,
+                         confirmation: bool) -> None:
+    original = (
+        research.topic, research.country, research.product_type,
+        (research.signals or {}).get("budget_confirmation", False),
+    )
+    if original != (topic.strip(), country, product_type, confirmation):
+        raise ResearchConflict("Esta chave já foi usada em uma pesquisa diferente.")
+
+
+async def get_manual_retry(
+    db: AsyncSession, admin_id: str, payload: ResearchRequest,
+) -> NicheResearch | None:
+    row = await db.scalar(select(NicheResearch).where(
+        NicheResearch.user_id == admin_id,
+        NicheResearch.input_key == _manual_key(admin_id, str(payload.request_id)),
+    ))
+    if row is not None:
+        _verify_manual_input(row, payload.topic, payload.country, payload.product_type, payload.budget_confirmation)
+    return row
+
+
 async def enqueue_research(db: AsyncSession, admin_id: str, input: ResearchInput) -> NicheResearch:
     research, _ = await enqueue_research_once(db, admin_id, input)
     return research
@@ -41,9 +67,11 @@ async def enqueue_research_once(
     db: AsyncSession, admin_id: str, input: ResearchInput,
 ) -> tuple[NicheResearch, bool]:
     topic_key = normalize_topic(input.topic)
-    identidade = (topic_key, input.country, input.product_type)
-    origem = (*identidade, input.week_key) if input.mode == "weekly" else (input.input_key,)
-    key = hashlib.sha256(json.dumps((admin_id, input.mode, origem)).encode()).hexdigest()
+    if input.mode == "manual":
+        key = _manual_key(admin_id, input.input_key)
+    else:
+        identity = (admin_id, input.mode, input.week_key, topic_key, input.country, input.product_type)
+        key = hashlib.sha256(json.dumps(identity).encode()).hexdigest()
     values = dict(
         user_id=admin_id, topic=input.topic.strip(), topic_key=topic_key, country=input.country,
         product_type=input.product_type, mode=input.mode, week_key=input.week_key,
@@ -57,11 +85,10 @@ async def enqueue_research_once(
     research = (await db.scalars(select(NicheResearch).where(
         NicheResearch.user_id == admin_id, NicheResearch.input_key == key,
     ))).one()
-    if input.mode == "manual" and (
-        (research.topic, research.country, research.product_type)
-        != (values["topic"], input.country, input.product_type)
-    ):
-        raise ResearchConflict("Esta chave já foi usada em uma pesquisa diferente.")
+    if input.mode == "manual":
+        _verify_manual_input(
+            research, input.topic, input.country, input.product_type, input.snapshot.budget_confirmation,
+        )
     return research, False
 
 
@@ -93,10 +120,13 @@ async def list_researches(db: AsyncSession, admin_id: str, filters: ResearchFilt
             rank = rank.where(getattr(research, name) == value)
     ranked = rank.subquery()
     query = select(research).join(ranked, ranked.c.id == research.id).where(ranked.c.position == 1)
+    if filters.mode == "weekly" or filters.week_key:
+        order = (research.score.desc().nulls_last(), research.topic_key, research.country,
+                 research.product_type, research.id)
     return await _page(db, query, filters, *order)
 
 
-async def list_history(db: AsyncSession, research: NicheResearch, filters: PageFilters) -> ResearchPage:
+def _history_query(research: NicheResearch):
     model = NicheResearch
     query = select(model).where(model.user_id == research.user_id)
     if research.topic_key is None:
@@ -108,7 +138,40 @@ async def list_history(db: AsyncSession, research: NicheResearch, filters: PageF
             model.country == research.country,
             model.product_type == research.product_type,
         )
-    return await _page(db, query, filters, model.created_at.desc().nulls_last(), model.id.desc())
+    return query
+
+
+async def list_history(db: AsyncSession, research: NicheResearch, filters: PageFilters) -> ResearchPage:
+    model = NicheResearch
+    return await _page(db, _history_query(research), filters, model.created_at.desc().nulls_last(), model.id.desc())
+
+
+async def previous_research(db: AsyncSession, research: NicheResearch) -> NicheResearch | None:
+    if research.topic_key is None or research.created_at is None:
+        return None
+    model = NicheResearch
+    return await db.scalar(_history_query(research).where(or_(
+        model.created_at < research.created_at,
+        and_(model.created_at == research.created_at, model.id < research.id),
+    )).order_by(model.created_at.desc(), model.id.desc()).limit(1))
+
+
+def _brief_query(admin_id: str):
+    return select(WritingBrief, NicheResearch).join(
+        NicheResearch, NicheResearch.id == WritingBrief.research_id,
+    ).where(WritingBrief.admin_id == admin_id, NicheResearch.user_id == admin_id)
+
+
+async def get_brief(db: AsyncSession, admin_id: str, brief_id: str):
+    return (await db.execute(_brief_query(admin_id).where(WritingBrief.id == brief_id))).one_or_none()
+
+
+async def list_briefs(db: AsyncSession, admin_id: str, filters: PageFilters) -> ResearchPage:
+    query = _brief_query(admin_id)
+    total = await db.scalar(select(func.count()).select_from(query.subquery()))
+    pairs = await db.execute(query.order_by(WritingBrief.created_at.desc(), WritingBrief.id.desc())
+        .limit(filters.page_size).offset((filters.page - 1) * filters.page_size))
+    return ResearchPage(items=list(pairs), total=total, page=filters.page, page_size=filters.page_size)
 
 
 async def create_brief(db: AsyncSession, research: NicheResearch) -> tuple[WritingBrief, bool]:

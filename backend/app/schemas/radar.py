@@ -5,6 +5,7 @@ from ipaddress import ip_address
 import re
 from typing import Annotated, Generic, Literal, TypeVar
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from uuid import UUID
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, StringConstraints, field_validator, model_validator
@@ -175,6 +176,7 @@ class ResearchSnapshot(BaseModel):
     version: Literal[1] = 1
     input: CollectorInput | None = None
     writing_language: str = "pt-BR"
+    budget_confirmation: bool = False
     weights: Weights = Field(default_factory=Weights)
     price_reference: PositivePrice | None = None
     enabled_sources: list[str] = Field(default_factory=list)
@@ -207,10 +209,10 @@ class PageFilters(BaseModel):
 
 
 class ResearchFilters(PageFilters):
-    country: str | None = None
+    country: str | None = Field(default=None, pattern=r"^[A-Z]{2}$")
     product_type: ProductType | None = None
     mode: ResearchMode | None = None
-    week_key: str | None = None
+    week_key: str | None = Field(default=None, pattern=r"^\d{4}-W(0[1-9]|[1-4]\d|5[0-3])$")
 
 
 ResearchRow = TypeVar("ResearchRow")
@@ -354,3 +356,57 @@ class BudgetView(BaseModel):
     committed_microusd: int
     blocked: bool
     pending_count: int
+
+
+class ResearchRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    topic: Topic
+    country: CountryCode
+    product_type: ProductType
+    request_id: UUID
+    budget_confirmation: bool = False
+
+
+class ResearchAccepted(BaseModel):
+    id: str
+    status: ResearchStatus
+
+
+class ResearchListItem(ResearchAccepted):
+    topic: str
+    country: str | None
+    product_type: str | None
+    mode: ResearchMode | None
+    week_key: str | None
+    created_at: datetime | None
+    finished_at: datetime | None
+    legacy: bool
+    score: float | None = None
+    direction_points: float | None = None
+    currency: str | None = None
+    amazon_average: Decimal | None = None
+    amazon_count: int = 0
+    kindle_category: str | None = None
+    kindle_best_rank: int | None = None
+    meta_ads_count: int | None = None
+    source_statuses: dict[str, SourceStatus] = Field(default_factory=dict)
+    citable_count: int = 0
+
+
+class ResearchDetail(ResearchListItem):
+    snapshot: ResearchSnapshot | None
+    score_delta: float | None = None
+
+
+class BriefEntry(BaseModel):
+    id: str
+    status: str
+    created_at: datetime
+
+
+class BriefListItem(BriefEntry):
+    research: ResearchListItem
+
+
+class BriefDetail(BriefEntry):
+    research: ResearchDetail
