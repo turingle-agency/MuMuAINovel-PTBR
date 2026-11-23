@@ -1,340 +1,315 @@
-# 网文题材趋势与流派参考
+# Referência de tendências e subgêneros de ficção comercial
 
-## 目录
+> Esta referência descreve padrões duradouros do mercado de ficção comercial (Amazon, Wattpad, Royal Road, livrarias). Tendências específicas variam por mês: valide sempre com rankings atuais.
 
-1. [脑洞文创作](#脑洞文创作)
-2. [题材选择方法论](#题材选择方法论)
-3. [边界感与题材认知](#边界感与题材认知)
-4. [扫榜技巧](#扫榜技巧)
-5. [流派写作要点](#流派写作要点)
-6. [都市重生文要点](#都市重生文要点)
-7. [轻小说写作思路](#轻小说写作思路)
-8. [喜剧/沙雕文写法](#喜剧沙雕文写法)
-9. [霸道总裁文（女频）](#霸道总裁文女频)
-10. [爆款灵感素材库](#爆款灵感素材库)
-11. [命名规律](#命名规律)
+## Sumário
 
----
-
-## 脑洞文创作
-
-### 从灵感到成书
-
-1. 得到点子（金手指雏形/画面/切入点）
-2. 评估潜力（纯原创？有市场铺垫？很多人写过？）
-3. 匹配题材（放进熟悉题材看效果）
-4. 提炼核心卖点（创意能否转化为具体情绪缺口或期待感）
-5. 梳理故事雏形（框架/金手指/切入点）
-6. 动笔验证（围绕核心不断丰富剧情表现形式）
-
-### 金手指创新手法
-
-基础模式 = 满足条件->得到反馈。创新手法：
-- 多个条件对应一个反馈
-- 一个条件对应阶段性反馈，完成后升级
-- 一个条件对应概率性反馈
-- 反馈本身可叠加（倍率返还->概率触发灵魂->拘灵遣将）
-
-### 提升上限思路
-
-- 金手指升级线发散（掠夺->选择性升级->词条融合）
-- 世界观丰富（加入诡物、同人元素、新阵营）
-- 核心始终不变，只丰富表现形式
-
-### 脑洞文写长
-
-1. 从一个核心卖点找多个角度，归纳若干不同矛盾的套路，每个写1-2卷
-2. 叠加框架：将多种角度融入框架，交织循环支撑几百万字
-3. 从"脑洞设定"扩展比从卖点扩展角度更简单
-4. 框架+小剧情循环：大目标->分解中目标->分解小目标->设计细纲
-
-### 跟风设计脑洞题材
-
-**跟风 = 换皮**：照搬核心设定，换自己熟悉的题材
-- 金手指类（旅行青蛙/签到/悟性逆天/言出法随/垂钓诸天）——几乎兼容所有题材
-- 期待感类：需动脑子，换大众熟知的大众切入点
-- 同题材跟风：保留底层情绪，另换角度写
-
-发散性思维扩展：从世界观/切入点/人设/金手指/情节五个角度横向纵向放大缩小；可找另外一本火书再度融合；在抖音搜相关热点看评论区获取素材。
+1. [Criação a partir de ideias originais](#criação-a-partir-de-ideias-originais)
+2. [Metodologia de escolha de gênero](#metodologia-de-escolha-de-gênero)
+3. [Noção de fronteira e de gênero](#noção-de-fronteira-e-de-gênero)
+4. [Técnicas de varredura de rankings](#técnicas-de-varredura-de-rankings)
+5. [Pontos de escrita por subgênero](#pontos-de-escrita-por-subgênero)
+6. [Romance contemporâneo e recomeço](#romance-contemporâneo-e-recomeço)
+7. [Ideias para light novel e ficção jovem](#ideias-para-light-novel-e-ficção-jovem)
+8. [Escrita de comédia](#escrita-de-comédia)
+9. [Romance de milionário (romance)](#romance-de-milionário-romance)
+10. [Banco de ideias de alto potencial](#banco-de-ideias-de-alto-potencial)
+11. [Padrões de títulos](#padrões-de-títulos)
 
 ---
 
-## 题材选择方法论
+## Criação a partir de ideias originais
 
-### 选题本质 = 选人群的需求切入点
+### Da inspiração ao livro
 
-- 从自身出发：你的生活经验积累 = 你最擅长的题材素材库
-- 例子：喜欢画画 -> 写画画职业文/经营文/直播文 -> 你就是精准受众 -> 能踩准爽点
+1. Obter a ideia (embrião da vantagem do protagonista / imagem / ponto de entrada)
+2. Avaliar o potencial (totalmente original? já tem mercado? muita gente já escreveu?)
+3. Combinar com um gênero (colocar a ideia num gênero conhecido e ver o efeito)
+4. Extrair o atrativo central (a criatividade se converte em uma lacuna emocional ou expectativa concreta?)
+5. Organizar o embrião da história (arcabouço / vantagem / ponto de entrada)
+6. Começar a escrever para validar (enriquecer as formas de apresentação em torno do núcleo)
 
-### 85%熟悉+15%惊喜
+### Inovações na vantagem especial do protagonista
 
-读者最舒适比例：大部分内容熟悉（代入感），小部分内容意外（新鲜感）。
+Modelo básico = cumprir condição -> receber retorno. Variações:
+- Várias condições para um retorno
+- Uma condição com retorno por etapas; ao completar, sobe de nível
+- Uma condição com retorno probabilístico
+- O próprio retorno pode se acumular (retorno multiplicado -> chance de ativar -> comando de aliados)
 
-### 从自身积累出发
+### Como elevar o teto
 
-- 选择有阅读积累的题材
-- 选择有生活经验的领域
-- 选择真正感兴趣的赛道
+- Abrir a linha de evolução da vantagem (absorver -> evoluir seletivamente -> fundir traços)
+- Enriquecer o mundo (criaturas, elementos de outras obras, novas facções)
+- O núcleo nunca muda; só se enriquece a forma de apresentação
 
-不熟悉某个题材的世界观/价值观/社会运行规律，就无法构建出"那味儿"的代入感。
+### Como alongar uma ideia original
+
+1. A partir de um atrativo central, buscar vários ângulos, resumir alguns tipos de conflito e escrever 1 ou 2 volumes de cada
+2. Empilhar arcabouços: incorporar vários ângulos num arcabouço, em ciclos que sustentam centenas de milhares de palavras
+3. Expandir a partir da "configuração criativa" é mais fácil do que a partir do atrativo
+4. Arcabouço + ciclo de pequenos episódios: grande objetivo -> dividir em objetivos médios -> dividir em pequenos objetivos -> desenhar o esboço detalhado
+
+### Seguir uma tendência sem copiar
+
+**Seguir tendência = trocar a casca**: manter a configuração central, mas mudar para um gênero que você domina
+- Vantagens do tipo "mecânica de jogo / rotina diária / talento fora de série" são compatíveis com quase todos os gêneros
+- Tipo expectativa: exige raciocínio; trocar por um ponto de entrada que o grande público conhece
+- Mesmo gênero: manter a emoção de base, mudar o ângulo
+
+Expansão por pensamento divergente: ampliar ou reduzir mundo, ponto de entrada, personagens, vantagem e enredo, na horizontal e na vertical; combinar com outro livro de sucesso; olhar comentários de vídeos curtos e redes sociais para colher material.
 
 ---
 
-## 边界感与题材认知
+## Metodologia de escolha de gênero
 
-### 边界感三层圈
+### Escolher tema = escolher o ponto de entrada da necessidade de um público
 
-- **题材圈**：都市、玄幻、仙侠等大分类
-- **流派圈**：极道流、凡人流、种田流等细分
-- **核心梗圈**：具体的卖点、金手指、情绪点
+- Parta de si mesmo: sua experiência de vida é o seu banco de material mais forte
+- Exemplo: gosta de desenhar -> escrever sobre profissão de artista, negócio criativo ou transmissão ao vivo -> você é o público exato e acerta os pontos de recompensa
 
-写书时必须清楚自己在哪个圈里，内容不能踏出核心梗圈。
+### 85% familiar + 15% surpresa
 
-### 常见边界感错误
+Proporção mais confortável para o leitor: a maior parte conhecida (identificação) e uma parte pequena inesperada (novidade).
 
-| 错误 | 后果 |
+### Parta do que você acumulou
+
+- Escolha um gênero em que você tem bagagem de leitura
+- Escolha uma área em que você tem experiência de vida
+- Escolha uma trilha que realmente lhe interesse
+
+Sem conhecer a visão de mundo, os valores e a lógica social de um gênero, não há como criar a imersão "autêntica".
+
+---
+
+## Noção de fronteira e de gênero
+
+### Três círculos de fronteira
+
+- **Círculo de gênero**: contemporâneo, fantasia, ficção científica etc.
+- **Círculo de subgênero**: fantasia de progressão, romance de época, cozy mystery etc.
+- **Círculo do conceito central**: atrativo específico, vantagem, ponto emocional
+
+Ao escrever, é preciso saber em que círculo você está e não sair do círculo do conceito central.
+
+### Erros comuns de fronteira
+
+| Erro | Consequência |
 |------|------|
-| 高武文里写官场 | 踏破边界 |
-| 种田文里写深度商战 | 串味 |
-| 悬疑文里去掉悬念和恐怖 | 核心卖点消失 |
-| 轻松日常里加重虐 | 基调变化 |
+| Colocar política de corte numa fantasia de combate | Quebra de fronteira |
+| Colocar disputa empresarial pesada numa história de vida simples | Mistura de sabores |
+| Tirar o suspense e o terror de um suspense | Some o atrativo central |
+| Colocar tragédia pesada num cotidiano leve | Muda o tom |
 
 ---
 
-## 扫榜技巧
+## Técnicas de varredura de rankings
 
-### 扫榜三级分类
+### Três níveis de classificação
 
-| 级别 | 说明 | 出现频率 |
+| Nível | Descrição | Frequência |
 |------|------|----------|
-| 新题材 | 一年甚至几年才出现，出来可吃2-3年 | 极少 |
-| 新金手指 | 以翻新为主，老金手指新瓶装旧酒 | 较少 |
-| 新噱头 | 爆炸开头拉期待，需作者实力支撑 | 常见 |
+| Gênero novo | Surge a cada um ou vários anos; quando surge, rende 2 ou 3 anos | Raríssimo |
+| Vantagem nova | Principalmente renovação; vantagem antiga em embalagem nova | Pouco frequente |
+| Novo chamariz | Abertura explosiva que cria expectativa; exige fôlego do autor | Comum |
 
-### 扫榜要点
+### Pontos da varredura
 
-- **题材**：新题材火就写哪个，不要自创题材
-- **金手指**：最适新人跟风，本身既是期待点又是噱头
-- **噱头**：没实力不建议写噱头文，一波吸完就萎
+- **Gênero**: se um gênero novo está em alta, escreva nele; não invente gênero
+- **Vantagem**: o mais indicado para iniciantes seguirem; é ao mesmo tempo expectativa e chamariz
+- **Chamariz**: sem fôlego, não recomendo livros de chamariz; ele se esgota numa onda e murcha
 
-### 各网站扫榜方法
+### Método de varredura por plataforma
 
-**起点**：三江必刷 -> 首订图（看收订比）-> 签约作者新书榜前15 -> 大神新书看趋势不学细节 -> 新人最好拆精品到万订之间的书
+**Amazon**: listas por categoria e subcategoria -> avaliar vendas e avaliações dos 20 primeiros -> observar lançamentos de autores independentes -> ver tendência em livros de grandes nomes sem copiar detalhes -> iniciantes devem analisar livros de bom desempenho, mas não de recorde
 
-**番茄**：新书榜拉到底 -> 在读30万以上为标准 -> 找数据公众号看新书榜和大热榜
+**Wattpad / Royal Road**: listas de ascensão e de mais lidos -> usar como referência obras com muitas leituras por capítulo e comentários ativos -> acompanhar newsletters e comunidades que resumem as listas
 
-### 起点热门题材
+### Gêneros populares
 
-| 题材 | 要点 |
+| Gênero | Pontos principais |
 |------|------|
-| 都市 | 重生/种田/娱乐三大块；重生可与任何元素融合 |
-| 玄幻 | 极道流碾压一切，传统玄幻新人慎碰 |
-| 仙侠 | 古典仙侠变种（大神专属），新人走脑洞融合路线 |
-| 历史 | 秦/唐/明/宋/三国；类同人写法，从名人物开局 |
-| 诸天无限 | 不要写原创副本，用同人才好留住读者 |
-| 科幻 | 末世类（含脑洞/种田/游戏设定）、异兽流 |
+| Romance contemporâneo | Segunda chance, inimigos que viram amantes, romance de escritório; combina com quase qualquer elemento |
+| Fantasia | Fantasia de progressão ou romântica domina; fantasia épica tradicional é difícil para iniciantes |
+| Fantasia de mundo antigo | Variações de fantasia clássica exigem experiência; iniciantes devem misturar ideias |
+| Ficção histórica | Épocas conhecidas e figuras famosas; escrita com tom de "fanfic" histórica, abrindo com um personagem conhecido |
+| Multiverso e fanfic | Evite criar mundos originais; use obras conhecidas para reter o leitor |
+| Ficção científica | Pós-apocalipse (com ideias originais, vida simples, mecânicas de jogo), criaturas |
 
 ---
 
-## 流派写作要点
+## Pontos de escrita por subgênero
 
-### 极道流
+### Fantasia de progressão
 
-滚开开创（《极道天魔》），金手指属性加点，横推一切。适合新人学习。
+Núcleo: ganhar poder em etapas claras, com custo e recompensa. Atributos e níveis em números, regras estáveis. Muito indicada para iniciantes por ter estrutura clara.
 
-### 凡人流
+### Sobrevivente comum que ascende
 
-核心：小人物向上攀爬的举步维艰+精打细算。战力数据化+境界与寿命绑定+以寿命为核心驱动。用古代背景规避现代社会管理，又能享受现代人的好处。主角人设偏单薄，靠剧情和金手指驱动。
+Núcleo: a dificuldade e o cálculo de um personagem comum para subir. Poder em números, níveis ligados ao tempo de vida, tempo de vida como motor central. Protagonista com personalidade mais enxuta, movido pelo enredo e pela vantagem.
 
-### 巫师流
+### Magia por conhecimento
 
-门槛较高，不建议不看巫师作品的作者专门研究。核心在于知识体系+实验探索的升级路线。
+Barreira de entrada mais alta; não recomendado a quem não lê o gênero. O núcleo está no sistema de conhecimento e na progressão por experimentação.
 
-### 种田流
+### Vida simples e construção (cozy)
 
-创作门槛最低的历史文路线。经营餐馆/书店/渔场/种田/赶海/猎场等。可与多界穿梭结合增加看点。
+Gênero de menor barreira de entrada em ficção histórica ou fantasia. Gerenciar restaurante, livraria, fazenda, pesca, caça. Combina com viagem entre mundos para dar mais atrativo.
 
-### 都市高武
+### Fantasia urbana de ação
 
-高频套路：武馆+学校双线、死党对比、师姐诱惑、模拟考装逼。前期数据弱但十万字后可能爆发。武馆戏份多：高中生无法像玄幻宗门下山历练，反派种类少。《武圣》前三章是黄金模板。
+Fórmulas frequentes: duas linhas (academia e escola), amigos de contraste, mentora sedutora, simulação de exame para "virar a mesa". Dados fracos no início, mas pode explodir depois dos 100 mil palavras.
 
-### 同人文
+### Fanfic
 
-火影/西游/红楼/霍格沃茨是大类，近期宝可梦、霍格沃茨热门。同人不需要硬核——多数读者是"云爱好者"。名场面/名人物开局是打开受众面的好方式。写同人不要洗白读者讨厌的角色。
+Grandes categorias: Harry Potter, Marvel, Star Wars, anime, jogos. Fanfic não precisa ser hardcore: a maioria dos leitores é fã casual. Abrir com uma cena ou personagem famoso amplia o público. Não redima personagens que o leitor detesta.
 
-### 盘点文
+### Listas e curiosidades ("o que aconteceria se")
 
-难度低，找对切入点就行。消消乐+历史感给的核心梗可复用。盘点方向能共鸣就开搞。
+Baixa dificuldade, basta encontrar o ponto de entrada. A mistura de "efeito dominó" + senso histórico dá um conceito reutilizável.
 
-### 模拟文
+### Simulação
 
-结构：模拟制造情绪缺口->得奖励（拉期待）->现实满足。卷纲：模拟得知大危机->多次模拟+现实推进->满足最终期待。
+Estrutura: a simulação cria uma lacuna emocional -> recebe recompensa (cria expectativa) -> satisfação na realidade. Esboço de volume: a simulação revela uma grande crise -> várias simulações + avanço na realidade -> satisfação da expectativa final.
 
-### 两界穿梭文
+### Histórias de dois mundos
 
-标准模板：利用两界金手指+震惊历史人物+改变命运。可与经营、种田等结合。适合新人学习。
+Modelo padrão: usar a vantagem de transitar entre dois mundos + surpreender figuras históricas + mudar o destino. Combina com negócios, vida simples etc. Boa para iniciantes.
 
-### 历史文
+### Ficção histórica
 
-秦/唐/明/宋/三国是主流。合理利用历史人物（相当于同人增加代入感）。需危机感+从小到大发展+清晰成长主线。凉频（宋朝以后）审核风险高。
-
----
-
-## 都市重生文要点
-
-### 事业和感情配比
-
-- 五五开上限最高但对作者要求极高
-- 感情线能力弱 -> 事业8感情2
-- 感情线还行 -> 感情8事业2起步（数据会掉但新增不崩就稳）
-
-### 期待感必须前置
-
-- 没有明确升级线，必须时刻注意期待感是否明确
-- 悬疑和反转少用——读者讨厌不安全感
-- 养成构思未来两万字剧情的习惯
-- 让读者相信主角能力能解决问题（抄书抄歌是经典做法）
-
-### 短视频化趋势
-
-- 每章至少有几个点能像短视频一样逗人一笑
-- 搭建正反馈人际关系网，在关系中无限循环玩梗逗趣
-- "梗剧情"：把人设和可重复小情节绑定，灵活使用
-- 同一个梗反复出现不会让读者厌倦（与传统套路重复不同）
-
-### 避免同质化
-
-都市重生同质化严重，但受众基础庞大：微创新开头+中正的常规内容=足够精品。不需要想太花哨的东西。缺的不是内容和质量，缺的是足够的流量。
+Épocas conhecidas são a base. Use figuras históricas de forma inteligente (funcionam como fanfic e aumentam a identificação). Precisa de senso de crise + crescimento do pequeno ao grande + trama principal clara de evolução. Períodos menos conhecidos têm maior risco.
 
 ---
 
-## 轻小说写作思路
+## Romance contemporâneo e recomeço
 
-当前轻小说 = 以卖各种有戏剧性的人设为主的小说，尤其是卖美少女人设。
+### Proporção entre carreira e romance
 
-**事业线**：美少女当前人生阶段最大困境（可被叙事主角解决）+ 美少女与别人的恩怨情仇（可直接带来矛盾和戏剧性）
+- 50/50 tem o teto mais alto, mas exige muito do autor
+- Linha romântica fraca -> 80% carreira, 20% romance
+- Linha romântica razoável -> comece com 80% romance, 20% carreira (os números caem, mas se a base nova não desaba, é estável)
 
-**爱情线**：有戏剧性的爱情发展 + 有戏剧性的人设搭配造成一系列有戏剧性的事件
+### A expectativa precisa vir antes
 
-**核心竞争力**：美少女的人设设计好不好 + 叙事主角和美少女们的互动状态是否令人羡慕。
+- Sem linha de evolução clara, é preciso verificar sempre se a expectativa está nítida
+- Use pouco suspense e reviravoltas; o leitor detesta insegurança
+- Cultive o hábito de planejar as próximas 15 mil palavras
+- Faça o leitor acreditar que a habilidade do protagonista resolve o problema
+
+### Tendência de vídeos curtos
+
+- Cada capítulo deve ter alguns pontos que façam rir como um vídeo curto
+- Monte uma rede de relações com retorno positivo, onde as piadas giram sem parar
+- "Piada recorrente": associar a caracterização do personagem a pequenos episódios repetíveis
+- A mesma piada repetida não cansa o leitor (diferente das fórmulas tradicionais repetidas)
+
+### Evitar a homogeneidade
+
+O gênero é muito homogêneo, mas tem um público enorme: microinovação na abertura + conteúdo convencional sólido = um livro de boa qualidade. Não é preciso inventar nada extravagante. O que falta não é conteúdo nem qualidade, é tráfego.
 
 ---
 
-## 喜剧/沙雕文写法
+## Ideias para light novel e ficção jovem
 
-### 喜剧结构套路
+Hoje, a ficção jovem vende principalmente personagens dramáticos, em especial protagonistas carismáticos.
 
-- **中计掉坑+弄巧成拙**：反派掉进自己给别人挖的坑
-- **降智反派**：用于装逼故事的反派丑角身上
-- **误解错位**：角色之间信息不对称产生的笑料
-- 各套路可组合运用
+**Linha de carreira ou vida**: o maior dilema da protagonista nesta fase da vida (que o narrador possa resolver) + as rixas dela com outros (que geram conflito e drama)
 
-### 幽默底层原理
+**Linha amorosa**: evolução romântica dramática + combinações de personagens que produzem uma série de eventos dramáticos
 
-根据读者对角色好感度，让剧情对角色的忧惧因素产生攻击性——攻击技能、计划、认知、关系等各个方面。
+**Competitividade central**: a qualidade do desenho dos personagens + se a dinâmica entre protagonista e personagens provoca inveja no leitor.
 
 ---
 
-## 霸道总裁文（女频）
+## Escrita de comédia
 
-### 传统框架
+### Padrões estruturais da comédia
 
-相遇男主爱上女主 -> 男主依仗身份追求带来便利 -> 女主心动在一起 -> 男主阶层的人反对阻挠 -> 一起克服困难说服/打败阻挠者 -> 正式在一起大结局
+- **Cair na própria armadilha**: o vilão cai na cova que cavou para os outros
+- **Vilão desastrado**: usado em histórias de virada de mesa como figura cômica
+- **Mal-entendido**: humor da assimetria de informação entre personagens
+- Os padrões podem ser combinados
 
-### 现代调整
+### Princípio do humor
 
-| 维度 | 传统 | 现代 |
+Conforme a simpatia do leitor pelo personagem, a trama ataca os pontos de receio dele: habilidades, planos, percepção, relações.
+
+---
+
+## Romance de milionário (romance)
+
+### Estrutura tradicional
+
+Os dois se encontram e ele se apaixona -> ele usa status para facilitar a vida dela -> ela cede e ficam juntos -> o círculo social dele se opõe -> juntos vencem os obstáculos -> ficam juntos de vez, final feliz
+
+### Ajustes modernos
+
+| Dimensão | Tradicional | Moderno |
 |------|------|------|
-| 女主 | 傻白甜 | 独立职业女性 |
-| 相遇逻辑 | 善良行为偶遇 | 职业交集+独特价值 |
-| 男主提供的便利 | 全方位照顾 | 情绪价值+锦上添花 |
-| 底层逻辑 | 嫁个好男人什么都不用干 | 我很强+征服了强者的心 |
+| Protagonista | Ingênua | Profissional independente |
+| Lógica do encontro | Encontro por bondade | Interseção profissional + valor único |
+| Facilidades que ele oferece | Cuidado total | Valor emocional + o que soma |
+| Lógica de fundo | Casar bem e não precisar fazer nada | Eu sou forte + conquistei o coração de alguém forte |
 
-爱情线矛盾：女主也出很大力气，处理方法与女主人设的戏剧性相关。情敌反派：避免传统"绿茶"模式，从其他思路塑造同阶层反派。
-
----
-
-## 爆款灵感素材库
-
-### 古代言情 / 宫闱宅斗
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 重生后公府长媳要跑路，首辅大人疯魔了 | 前世替公府操碎心还被逼给假千金腾位，重生后她决定卷走一切直接跑路 | 古代言情、宫闱宅斗 |
-| 权臣偏宠掌上娇，重生真千金杀疯了 | 真千金重生归来，先盯上将来权倾天下的养子，结果把自己也算进了局里 | 古代言情、宫闱宅斗 |
-| 惨死重生，捂不热的权臣我不要了 | 为妾五年被锁枯院，她带着孩子惨死火海，重生后捂不热的权臣她不要了 | 古代言情、宫闱宅斗 |
-| 被逼替嫁我不慌，我送全家火葬场 | 被逼替嫁我不慌，我送全家火葬场 | 古代言情、宫闱宅斗 |
-| 世子逼我拿亡母嫁妆养花魁，我转身嫁当朝太子 | 世子逼我跪茶养花魁，大婚前夜太子回京来娶 | 古代言情、反转、爽文 |
-
-### 现代言情 / 总裁豪门
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 逼我给青梅打官司，离婚你哭什么 | 逼我给青梅打官司，离婚你哭什么 | 现代言情、总裁豪门 |
-| 刚出狱就提离婚，渣父子悔断肠 | 刚出狱就提离婚，渣父子悔断肠 | 现代言情、总裁豪门 |
-| 抛夫弃子离婚后，她火遍全球 | 抛夫弃子离婚后，她火遍全球 | 现代言情、总裁豪门 |
-| 真千金出狱后，全家悔哭求原谅 | 她是方家千金，却被亲爹亲哥联手送进监狱，为假千金顶罪 | 现代言情、总裁豪门 |
-| 重生后，我复仇总裁丈夫和他的寡嫂 | 带女儿闯婚礼却被推下天台后，我重生回总裁丈夫再娶那天 | 现代言情、总裁豪门 |
-
-### 现实主义 / 世情复仇
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 班主任断我舞台梦，十五年后我封杀她女儿 | 年会试镜那天，我在评委席亲手刷掉了班主任的女儿 | 世情文、复仇、虐渣、打脸 |
-| 被女同事造黄谣后，天生爱较真的我杀疯了 | 茶水间黄谣传开那刻，我推门报警要她当场对质 | 职场、维权 |
-| 伤害转移100次，我妈终于杀疯了 | 病床上挨满百次剧痛后，妈妈抬眼说该你们还了 | 亲情、反转 |
-| 元宵节全家吃汤圆没我份，我杀疯了 | 元宵节那锅汤圆没我份时，我当着全家面端起了那碗毒汤 | 家庭、反转 |
-| 听到全家心声后我离婚做回首富千金 | 手术后听见丈夫儿子盼我滚出家门那晚，我给首富父亲回了电话 | 短篇、精品短篇 |
-
-### 都市 / 年代重生
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 高武：开局就氪命，你小子是个狠人！ | 开局就被亲人陷害，他拿寿命换武学，一路氪命氪成高武疯批 | 都市、都市高武 |
-| 真没必要让我重生 | 身家几十个小目标的成功人士陈凌霄，重生回到了高考前 | 都市、都市生活 |
-| 重生八零，我选择成全教授妻子和妹夫 | 重生回龙凤胎惨死前夜，我先把离婚书拍到妻子面前 | 都市、乡村生活 |
-
-### 玄幻奇幻 / 东方玄幻
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 剑仙：从杀敌爆经验开始无敌 | 镖局被灭、父亲逃亡，他靠杀敌爆经验从苟命少年一路杀成无敌剑仙 | 玄幻奇幻、东方玄幻 |
-| 全宗通魔，唯有小师弟正的发邪 | 李长生眼神坚定：那便恭请师尊赴死 | 玄幻奇幻、东方玄幻 |
-| 收养的五个徒弟，全是重生女魔头 | 仇家杀上门那晚，我亲手养大的五个徒弟在血海里露出了魔头真身 | 玄幻、东方玄幻 |
-
-### 历史 / 穿越
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 我老婆是东晋第一女魔头 | 荒诞乱世里子杀父、弟杀兄，他只想自保，却被逼提刀把旧秩序烧穿 | 历史、穿越历史 |
-| 穿越女要过愚人节，我赐欺君之罪 | 春日宴上宠妃逼满朝陪她说假话时，我一句欺君就判了她死罪 | 大女主、爽文、穿越、打脸虐渣 |
-
-### 末世 / 生存
-
-| 标题 | 一句话卖点 | 标签 |
-|------|-----------|------|
-| 被妹妹推去喂丧尸后，我重生囤满物资 | 被妹妹推进丧尸群死过一次后，我先在地下藏满十年物资 | 末世、重生、打脸 |
+Conflito da linha amorosa: a protagonista também faz muito esforço, e o jeito de lidar com os obstáculos se liga ao drama da personalidade dela. Rival: evitar o padrão tradicional da "falsa boazinha"; criar rivais do mesmo nível social por outros caminhos.
 
 ---
 
-## 命名规律
+## Banco de ideias de alto potencial
 
-### 短篇命名公式
+Premissas genéricas (ponto de partida, não títulos reais):
 
-`[极端事件] + [被逼/死亡] + [反击手段]`
+### Romance de época e intriga familiar
 
-高频词统计：
-- 疯了/杀疯了/悔疯了 -> 17次（极端情绪词）
-- 我反手/我让他 -> 4次（反击型）
-- 全家/所有人都 -> 4次（集体压迫）
-- 清明节/愚人节/除夕夜 -> 4次（时间节点开场）
+| Premissa | Atrativo em uma frase | Etiquetas |
+|------|-----------|------|
+| Nora traída que renasce e decide ir embora | Na vida anterior sustentou a família do marido e foi trocada; agora leva tudo e some | romance, intriga familiar |
+| Filha verdadeira volta e muda o jogo | A herdeira legítima retorna e mira o rival mais perigoso, mas acaba entrando no jogo | romance, intriga |
+| Segunda chance contra o homem que não valorizou | Cinco anos na sombra e sem reconhecimento; ao recomeçar, ela deixa de esperar por ele | romance, drama |
 
-示例：`白眼狼妹妹把家产送人，我让她净身出户` / `剖腹产第七天我死在厨房`
+### Romance contemporâneo e milionários
 
-### 长篇命名公式
+| Premissa | Atrativo em uma frase | Etiquetas |
+|------|-----------|------|
+| Divórcio e ascensão | Depois do divórcio, ela vira a profissional mais cobiçada do país | romance contemporâneo |
+| Casamento por contrato que vira de verdade | Casamento de fachada, sentimentos reais, segredos de família | romance, contrato |
+| Reencontro após prisão injusta | Saiu da prisão e exige a verdade da família que a traiu | romance, drama |
 
-高频词：快穿、系统、一见钟情、离婚后、反派、开局秒杀
+### Drama realista e vingança
 
-### 知乎命名风格
+| Premissa | Atrativo em uma frase | Etiquetas |
+|------|-----------|------|
+| Professora que destruiu um sonho | Quinze anos depois, a vítima está na bancada que decide o futuro da filha da professora | drama, vingança |
+| Boato no trabalho | Ela decide enfrentar quem espalhou a calúnia, com provas | drama, trabalho |
+| Família que nunca a incluiu | No dia em que a deixaram de fora, ela mudou o jogo | drama familiar |
 
-平均 7.9 字，比黑岩/点众短得多：事件型（`除夕夜，婆婆让我老公兼祧两房`）/ 反差型（`夫君他柔弱不能自理`）/ 互动型（`弹幕叫我远离男主，我偏不`）
+### Fantasia e ficção científica
+
+| Premissa | Atrativo em uma frase | Etiquetas |
+|------|-----------|------|
+| Herói que ganha poder a cada derrota | Cada inimigo vencido vira experiência; ele sobe de um camponês a lenda | fantasia de progressão |
+| Aprendizes que são, todos, antigos vilões renascidos | Cinco aprendizes de uma mestra aposentada escondem passados sombrios | fantasia |
+| Sobrevivente do apocalipse que se prepara antes | Morreu uma vez; agora enche o abrigo de suprimentos antes do desastre | pós-apocalipse, segunda chance |
+
+---
+
+## Padrões de títulos
+
+### Fórmula para histórias curtas
+
+`[Evento extremo] + [Situação de pressão ou morte] + [Forma de reação]`
+
+Palavras frequentes:
+- Emoções extremas (enlouquecer, se arrepender, explodir)
+- Verbos de reação ("eu revido", "eu faço ele...")
+- Pressão coletiva ("a família toda", "todo mundo")
+- Datas marcantes (Natal, Ano-Novo, aniversário) como cenário de abertura
+
+### Fórmula para histórias longas
+
+Palavras frequentes: segunda chance, sistema, amor à primeira vista, depois do divórcio, vilão, começo explosivo
+
+### Estilo de títulos de plataformas de leitura rápida
+
+Títulos curtos de 3 a 7 palavras: de evento (`No Natal, a sogra me pediu uma coisa impensável`), de contraste (`Meu marido frágil não sabe se cuidar`), de interação (`Os comentários mandaram eu fugir do protagonista, eu não fui`)

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Spin, Button, theme } from 'antd';
 import { LoadingOutlined, StopOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface SSEProgressModalProps {
   visible: boolean;
@@ -21,12 +22,13 @@ export const SSEProgressModal: React.FC<SSEProgressModalProps> = ({
   visible,
   progress,
   message,
-  title = 'AI生成中...',
+  title,
   showPercentage = true,
   showIcon = true,
   onCancel,
-  cancelButtonText = '取消任务',
+  cancelButtonText,
 }) => {
+  const { t } = useTranslation('sse');
   const { token } = theme.useToken();
 
   if (!visible) return null;
@@ -63,7 +65,7 @@ export const SSEProgressModal: React.FC<SSEProgressModalProps> = ({
               marginTop: 16,
               color: token.colorText
             }}>
-              {title}
+              {title ?? t('gerandoComIa')}
             </div>
           </div>
         )}
@@ -114,7 +116,7 @@ export const SSEProgressModal: React.FC<SSEProgressModalProps> = ({
           padding: '0 20px',
           marginBottom: 16
         }}>
-          {message || '准备生成...'}
+          {message || t('preparandoGeracao')}
         </div>
 
         {/* 提示文字 */}
@@ -123,8 +125,7 @@ export const SSEProgressModal: React.FC<SSEProgressModalProps> = ({
           fontSize: 13,
           color: token.colorTextTertiary,
           marginBottom: onCancel ? 16 : 0
-        }}>
-          请勿关闭页面，生成过程需要一定时间
+        }}>{t('naoFecheAPaginaA')}
         </div>
 
         {/* 取消按钮 */}
@@ -139,7 +140,7 @@ export const SSEProgressModal: React.FC<SSEProgressModalProps> = ({
               icon={<StopOutlined />}
               onClick={onCancel}
             >
-              {cancelButtonText}
+              {cancelButtonText ?? t('cancelarTarefa')}
             </Button>
           </div>
         )}

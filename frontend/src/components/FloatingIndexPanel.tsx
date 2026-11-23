@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Drawer, Input, List, Typography, Empty, Tag, theme } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 import type { Chapter } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const { Link } = Typography;
 
@@ -24,6 +25,7 @@ export default function FloatingIndexPanel({
   groupedChapters,
   onChapterSelect,
 }: FloatingIndexPanelProps) {
+  const { t } = useTranslation('floatingIndexPanel');
   const { token } = theme.useToken();
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -48,7 +50,7 @@ export default function FloatingIndexPanel({
 
   return (
     <Drawer
-      title="章节目录"
+      title={t('indiceDeCapitulos')}
       placement="right"
       onClose={onClose}
       open={visible}
@@ -59,7 +61,7 @@ export default function FloatingIndexPanel({
     >
       <div style={{ padding: '16px', borderBottom: `1px solid ${token.colorBorderSecondary}` }}>
         <Input
-          placeholder="搜索章节标题"
+          placeholder={t('buscarTituloCapitulo')}
           prefix={<SearchOutlined />}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -83,7 +85,7 @@ export default function FloatingIndexPanel({
                 renderItem={chapter => (
                   <List.Item style={{ paddingLeft: 16, borderBlockStart: 'none' }}>
                     <Link onClick={() => handleChapterClick(chapter.id)}>
-                      {`第${chapter.chapter_number}章: ${chapter.title}`}
+                      {t('capitulo', { chapter_number: chapter.chapter_number, title: chapter.title })}
                     </Link>
                   </List.Item>
                 )}
@@ -94,7 +96,7 @@ export default function FloatingIndexPanel({
           style={{ height: 'calc(100vh - 120px)', overflowY: 'auto' }}
         />
       ) : (
-        <Empty description="没有找到匹配的章节" style={{ marginTop: 48 }} />
+        <Empty description={t('nenhumCapituloCorrespondenteEncontrado')} style={{ marginTop: 48 }} />
       )}
     </Drawer>
   );

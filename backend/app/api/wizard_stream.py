@@ -1,11 +1,12 @@
 """项目创建向导流式API - 使用SSE避免超时"""
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func
 from typing import Dict, Any, AsyncGenerator
 import json
 import re
 
+from app.utils.narrative import narrative_perspective_pt
 from app.database import get_db
 from app.models.project import Project
 from app.models.character import Character
@@ -18,13 +19,14 @@ from app.models.project_default_style import ProjectDefaultStyle
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import DEFAULT_LANGUAGE, SUPPORTED_LANGUAGES, language_name
 from app.services.plot_expansion_service import PlotExpansionService
 from app.logger import get_logger, safe_preview
 from app.utils.sse_response import SSEResponse, create_sse_response, WizardProgressTracker
 from app.api.settings import get_user_ai_service
 from app.services.knowledge_service import knowledge_service
 
-router = APIRouter(prefix="/wizard-stream", tags=["项目创建向导(流式)"])
+router = APIRouter(prefix="/wizard-stream", tags=["Assistente de criação de projeto (streaming)"])
 logger = get_logger(__name__)
 
 
@@ -49,7 +51,7 @@ async def world_building_generator(
     # 标记数据库会话是否已提交
     db_committed = False
     # 初始化标准进度追踪器
-    tracker = WizardProgressTracker("世界观")
+    tracker = WizardProgressTracker("construção de mundo")
     
     try:
         # 发送开始消息
@@ -71,18 +73,19 @@ async def world_building_generator(
         user_id = data.get("user_id")  # 从中间件注入
         
         if not title or not description or not theme or not genre:
-            yield await tracker.error("title、description、theme 和 genre 是必需的参数", 400)
+            yield await tracker.error("title, description, theme e genre são parâmetros obrigatórios", 400)
             return
         
         # 获取基础提示词（支持自定义）
-        yield await tracker.preparing("准备AI提示词...")
+        yield await tracker.preparing("Preparando o prompt da IA...")
         template = await PromptService.get_template("WORLD_BUILDING", user_id, db)
         base_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(data.get("language")),
             title=title,
             theme=theme,
-            genre=genre or "通用类型",
-            description=description or "暂无简介"
+            genre=genre or "Gênero geral",
+            description=description or "Sem sinopse"
         )
         
         # 设置用户信息以启用MCP
@@ -155,22 +158,22 @@ async def world_building_generator(
                     logger.warning(f"⚠️ AI返回空世界观（尝试{world_retry_count+1}/{MAX_WORLD_RETRIES}）")
                     world_retry_count += 1
                     if world_retry_count < MAX_WORLD_RETRIES:
-                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "AI返回为空")
+                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "A IA retornou vazio")
                         continue
                     else:
                         # 达到最大重试次数，使用默认值
                         logger.error("❌ 世界观生成多次返回空响应")
                         world_data = {
-                            "time_period": "AI多次返回为空，请稍后重试",
-                            "location": "AI多次返回为空，请稍后重试",
-                            "atmosphere": "AI多次返回为空，请稍后重试",
-                            "rules": "AI多次返回为空，请稍后重试"
+                            "time_period": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "location": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "atmosphere": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "rules": "A IA retornou vazio várias vezes, tente novamente mais tarde"
                         }
                         world_generation_success = True  # 标记为成功以继续流程
                         break
                 
                 # 解析结果 - 使用统一的JSON清洗方法
-                yield await tracker.parsing("解析世界观数据...")
+                yield await tracker.parsing("Analisando os dados da construção de mundo...")
                 
                 try:
                     logger.info(f"🔍 开始清洗JSON，原始长度: {len(accumulated_text)}")
@@ -191,15 +194,15 @@ async def world_building_generator(
                     logger.debug(f"   原始内容预览: {safe_preview(accumulated_text, 200)}")
                     world_retry_count += 1
                     if world_retry_count < MAX_WORLD_RETRIES:
-                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "JSON解析失败")
+                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "Falha ao interpretar o JSON")
                         continue
                     else:
                         # 达到最大重试次数，使用默认值
                         world_data = {
-                            "time_period": "AI返回格式错误，请重试",
-                            "location": "AI返回格式错误，请重试",
-                            "atmosphere": "AI返回格式错误，请重试",
-                            "rules": "AI返回格式错误，请重试"
+                            "time_period": "Formato de resposta da IA inválido, tente novamente",
+                            "location": "Formato de resposta da IA inválido, tente novamente",
+                            "atmosphere": "Formato de resposta da IA inválido, tente novamente",
+                            "rules": "Formato de resposta da IA inválido, tente novamente"
                         }
                         world_generation_success = True  # 标记为成功以继续流程
                         
@@ -207,7 +210,7 @@ async def world_building_generator(
                 logger.error(f"❌ 世界构建生成异常（尝试{world_retry_count+1}/{MAX_WORLD_RETRIES}）: {type(e).__name__}: {e}")
                 world_retry_count += 1
                 if world_retry_count < MAX_WORLD_RETRIES:
-                    yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "生成异常")
+                    yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "Erro na geração")
                     continue
                 else:
                     # 最后一次重试仍失败，抛出异常
@@ -215,11 +218,11 @@ async def world_building_generator(
                     raise
         
         # 保存到数据库
-        yield await tracker.saving("保存世界观到数据库...")
+        yield await tracker.saving("Salvando a construção de mundo no banco de dados...")
         
         # 确保user_id存在
         if not user_id:
-            yield await SSEResponse.send_error("用户ID缺失，无法创建项目", 401)
+            yield await SSEResponse.send_error("ID do usuário ausente, não é possível criar o projeto", 401)
             return
         
         project = Project(
@@ -232,11 +235,12 @@ async def world_building_generator(
             world_location=world_data.get("location"),
             world_atmosphere=world_data.get("atmosphere"),
             world_rules=world_data.get("rules"),
-            narrative_perspective=narrative_perspective,
+            narrative_perspective=narrative_perspective_pt(narrative_perspective),
             target_words=target_words,
             chapter_count=chapter_count,
             character_count=character_count,
             outline_mode=outline_mode,  # 设置大纲模式
+            language=data.get("language") if data.get("language") in SUPPORTED_LANGUAGES else DEFAULT_LANGUAGE,
             wizard_status="incomplete",
             wizard_step=1,
             status="planning"
@@ -304,10 +308,10 @@ async def world_building_generator(
         if not db_committed and db.in_transaction():
             await db.rollback()
             logger.info("世界构建事务已回滚（异常）")
-        yield await tracker.error(f"生成失败: {str(e)}")
+        yield await tracker.error(f"Falha na geração: {str(e)}")
 
 
-@router.post("/world-building", summary="流式生成世界构建")
+@router.post("/world-building", summary="Gerar a construção de mundo em streaming")
 async def generate_world_building_stream(
     request: Request,
     data: Dict[str, Any],
@@ -333,7 +337,7 @@ async def career_system_generator(
     """职业体系生成流式生成器 - 独立接口"""
     db_committed = False
     # 初始化标准进度追踪器
-    tracker = WizardProgressTracker("职业体系")
+    tracker = WizardProgressTracker("sistema de carreiras")
     
     try:
         yield await tracker.start()
@@ -345,14 +349,14 @@ async def career_system_generator(
         user_id = data.get("user_id")
         
         if not project_id:
-            yield await tracker.error("project_id 是必需的参数", 400)
+            yield await tracker.error("project_id é um parâmetro obrigatório", 400)
             return
         
         # 获取项目信息
-        yield await tracker.loading("加载项目信息...")
+        yield await tracker.loading("Carregando as informações do projeto...")
         project = await get_owned_project(db, project_id, user_id)
         if not project:
-            yield await tracker.error("项目不存在或无权访问", 404)
+            yield await tracker.error("Projeto não encontrado ou sem permissão de acesso", 404)
             return
         
         # 设置用户信息以启用MCP
@@ -362,25 +366,26 @@ async def career_system_generator(
         
         # 获取世界观数据
         world_data = {
-            "time_period": project.world_time_period or "未设定",
-            "location": project.world_location or "未设定",
-            "atmosphere": project.world_atmosphere or "未设定",
-            "rules": project.world_rules or "未设定"
+            "time_period": project.world_time_period or "Não definido",
+            "location": project.world_location or "Não definido",
+            "atmosphere": project.world_atmosphere or "Não definido",
+            "rules": project.world_rules or "Não definido"
         }
         
         # 获取职业生成提示词模板（支持用户自定义）
-        yield await tracker.preparing("准备AI提示词...")
+        yield await tracker.preparing("Preparando o prompt da IA...")
         template = await PromptService.get_template("CAREER_SYSTEM_GENERATION", user_id, db)
         career_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
-            genre=project.genre or '未设定',
-            theme=project.theme or '未设定',
-            description=project.description or '暂无简介',
-            time_period=world_data.get('time_period', '未设定'),
-            location=world_data.get('location', '未设定'),
-            atmosphere=world_data.get('atmosphere', '未设定'),
-            rules=world_data.get('rules', '未设定')
+            genre=project.genre or 'Não definido',
+            theme=project.theme or 'Não definido',
+            description=project.description or 'Sem sinopse',
+            time_period=world_data.get('time_period', 'Não definido'),
+            location=world_data.get('location', 'Não definido'),
+            atmosphere=world_data.get('atmosphere', 'Não definido'),
+            rules=world_data.get('rules', 'Não definido')
         )
         
         estimated_total = 5000
@@ -434,13 +439,13 @@ async def career_system_generator(
                     logger.warning(f"⚠️ AI返回空职业体系（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）")
                     career_retry_count += 1
                     if career_retry_count < MAX_CAREER_RETRIES:
-                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "AI返回为空")
+                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "A IA retornou vazio")
                         continue
                     else:
-                        yield await tracker.error("职业体系生成失败（AI多次返回为空）")
+                        yield await tracker.error("Falha ao gerar o sistema de carreiras (a IA retornou vazio várias vezes)")
                         return
                 
-                yield await tracker.parsing("解析职业体系数据...")
+                yield await tracker.parsing("Analisando os dados do sistema de carreiras...")
                 
                 # 清洗并解析JSON
                 try:
@@ -448,7 +453,7 @@ async def career_system_generator(
                     career_data = loads_json(cleaned_response)
                     logger.info(f"✅ 职业体系JSON解析成功（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）")
                     
-                    yield await tracker.saving("保存职业数据...")
+                    yield await tracker.saving("Salvando os dados de carreira...")
                     
                     # 保存主职业
                     main_careers_created = []
@@ -460,7 +465,7 @@ async def career_system_generator(
                             
                             career = Career(
                                 project_id=project.id,
-                                name=career_info.get("name", f"未命名主职业{idx+1}"),
+                                name=career_info.get("name", f"Carreira principal sem nome {idx+1}"),
                                 type="main",
                                 description=career_info.get("description"),
                                 category=career_info.get("category"),
@@ -490,7 +495,7 @@ async def career_system_generator(
                             
                             career = Career(
                                 project_id=project.id,
-                                name=career_info.get("name", f"未命名副职业{idx+1}"),
+                                name=career_info.get("name", f"Carreira secundária sem nome {idx+1}"),
                                 type="sub",
                                 description=career_info.get("description"),
                                 category=career_info.get("category"),
@@ -538,29 +543,29 @@ async def career_system_generator(
                     logger.error(f"❌ 职业体系JSON解析失败（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）: {e}")
                     career_retry_count += 1
                     if career_retry_count < MAX_CAREER_RETRIES:
-                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "JSON解析失败")
+                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "Falha ao interpretar o JSON")
                         continue
                     else:
-                        yield await tracker.error("职业体系解析失败（已达最大重试次数）")
+                        yield await tracker.error("Falha ao interpretar o sistema de carreiras (limite de tentativas atingido)")
                         return
                 except Exception as e:
                     logger.error(f"❌ 职业体系保存失败（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）: {e}")
                     career_retry_count += 1
                     if career_retry_count < MAX_CAREER_RETRIES:
-                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "保存失败")
+                        yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "Falha ao salvar")
                         continue
                     else:
-                        yield await tracker.error("职业体系保存失败（已达最大重试次数）")
+                        yield await tracker.error("Falha ao salvar o sistema de carreiras (limite de tentativas atingido)")
                         return
             
             except Exception as e:
                 logger.error(f"❌ 职业体系生成异常（尝试{career_retry_count+1}/{MAX_CAREER_RETRIES}）: {e}")
                 career_retry_count += 1
                 if career_retry_count < MAX_CAREER_RETRIES:
-                    yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "生成异常")
+                    yield await tracker.retry(career_retry_count, MAX_CAREER_RETRIES, "Erro na geração")
                     continue
                 else:
-                    yield await tracker.error(f"职业体系生成失败: {str(e)}")
+                    yield await tracker.error(f"Falha ao gerar o sistema de carreiras: {str(e)}")
                     return
         
     except GeneratorExit:
@@ -573,10 +578,10 @@ async def career_system_generator(
         if not db_committed and db.in_transaction():
             await db.rollback()
             logger.info("职业体系事务已回滚（异常）")
-        yield await tracker.error(f"生成失败: {str(e)}")
+        yield await tracker.error(f"Falha na geração: {str(e)}")
 
 
-@router.post("/career-system", summary="流式生成职业体系")
+@router.post("/career-system", summary="Gerar o sistema de carreiras em streaming")
 async def generate_career_system_stream(
     request: Request,
     data: Dict[str, Any],
@@ -602,7 +607,7 @@ async def characters_generator(
     """角色批量生成流式生成器 - 优化版:分批+重试+MCP工具增强"""
     db_committed = False
     # 初始化标准进度追踪器
-    tracker = WizardProgressTracker("角色")
+    tracker = WizardProgressTracker("personagens")
     
     try:
         yield await tracker.start()
@@ -619,19 +624,19 @@ async def characters_generator(
         user_id = data.get("user_id")  # 从中间件注入
         
         # 验证项目
-        yield await tracker.loading("验证项目...", 0.3)
+        yield await tracker.loading("Validando o projeto...", 0.3)
         project = await get_owned_project(db, project_id, user_id)
         if not project:
-            yield await tracker.error("项目不存在或无权访问", 404)
+            yield await tracker.error("Projeto não encontrado ou sem permissão de acesso", 404)
             return
         
         project.wizard_step = 2
         
         world_context = world_context or {
-            "time_period": project.world_time_period or "未设定",
-            "location": project.world_location or "未设定",
-            "atmosphere": project.world_atmosphere or "未设定",
-            "rules": project.world_rules or "未设定"
+            "time_period": project.world_time_period or "Não definido",
+            "location": project.world_location or "Não definido",
+            "atmosphere": project.world_atmosphere or "Não definido",
+            "rules": project.world_rules or "Não definido"
         }
         
         # 设置用户信息以启用MCP
@@ -640,7 +645,7 @@ async def characters_generator(
             user_ai_service.db_session = db
         
         # 获取项目的职业列表，用于角色职业分配
-        yield await tracker.loading("加载职业体系...", 0.8)
+        yield await tracker.loading("Carregando o sistema de carreiras...", 0.8)
         career_result = await db.execute(
             select(Career).where(Career.project_id == project_id).order_by(Career.type, Career.id)
         )
@@ -652,23 +657,23 @@ async def characters_generator(
         # 构建职业上下文
         careers_context = ""
         if main_careers or sub_careers:
-            careers_context = "\n\n【职业体系】\n"
+            careers_context = "\n\n[Sistema de carreiras]\n"
             if main_careers:
-                careers_context += "主职业：\n"
+                careers_context += "Carreiras principais:\n"
                 for career in main_careers:
-                    careers_context += f"- {career.name}: {career.description or '暂无描述'}\n"
+                    careers_context += f"- {career.name}: {career.description or 'Sem descrição'}\n"
             if sub_careers:
-                careers_context += "\n副职业：\n"
+                careers_context += "\nCarreiras secundárias:\n"
                 for career in sub_careers:
-                    careers_context += f"- {career.name}: {career.description or '暂无描述'}\n"
+                    careers_context += f"- {career.name}: {career.description or 'Sem descrição'}\n"
             
-            careers_context += "\n请为每个角色分配职业：\n"
-            careers_context += "- 每个角色必须有1个主职业（从上述主职业中选择）\n"
-            careers_context += "- 每个角色可以有0-2个副职业（从上述副职业中选择，可选）\n"
-            careers_context += "- 主职业初始阶段建议为1-3\n"
-            careers_context += "- 副职业初始阶段建议为1-2\n"
-            careers_context += "- 请在返回的JSON中包含 career_assignment 字段：\n"
-            careers_context += '  {"main_career": "职业名称", "main_stage": 2, "sub_careers": [{"career": "副职业名称", "stage": 1}]}\n'
+            careers_context += "\nAtribua carreiras a cada personagem:\n"
+            careers_context += "- Cada personagem deve ter 1 carreira principal (escolhida entre as carreiras principais acima)\n"
+            careers_context += "- Cada personagem pode ter de 0 a 2 carreiras secundárias (escolhidas entre as carreiras secundárias acima, opcional)\n"
+            careers_context += "- O estágio inicial recomendado da carreira principal é de 1 a 3\n"
+            careers_context += "- O estágio inicial recomendado da carreira secundária é de 1 a 2\n"
+            careers_context += "- Inclua no JSON retornado o campo career_assignment:\n"
+            careers_context += '  {"main_career": "Nome da carreira", "main_stage": 2, "sub_careers": [{"career": "Nome da carreira secundária", "stage": 1}]}\n'
             logger.info(f"✅ 加载了{len(main_careers)}个主职业和{len(sub_careers)}个副职业")
         else:
             logger.warning("⚠️ 项目没有职业体系，跳过职业分配")
@@ -705,7 +710,7 @@ async def characters_generator(
                     yield await tracker.generating(
                         current_chars=0,
                         estimated_total=BATCH_SIZE * 800,
-                        message=f"生成第{batch_idx+1}/{total_batches}批角色 ({current_batch_size}个)",
+                        message=f"Gerando o lote {batch_idx+1}/{total_batches} de personagens ({current_batch_size})",
                         retry_count=retry_count,
                         max_retries=MAX_RETRIES
                     )
@@ -713,29 +718,30 @@ async def characters_generator(
                     # 构建批次要求 - 包含已生成角色信息保持连贯
                     existing_chars_context = ""
                     if all_characters:
-                        existing_chars_context = "\n\n【已生成的角色】:\n"
+                        existing_chars_context = "\n\n[Personagens já gerados]:\n"
                         for char in all_characters:
-                            existing_chars_context += f"- {char.get('name')}: {char.get('role_type', '未知')}, {char.get('personality', '暂无')[:50]}...\n"
-                        existing_chars_context += "\n请确保新角色与已有角色形成合理的关系网络和互动。\n"
+                            existing_chars_context += f"- {char.get('name')}: {char.get('role_type', 'Desconhecido')}, {char.get('personality', 'Sem informação')[:50]}...\n"
+                        existing_chars_context += "\nGaranta que os novos personagens formem uma rede de relações e interações coerente com os já existentes.\n"
                     
                     # 构建精确的批次要求,明确告诉AI要生成的数量
                     if batch_idx == 0:
                         if current_batch_size == 1:
-                            batch_requirements = f"{requirements}\n请生成1个主角(protagonist)"
+                            batch_requirements = f"{requirements}\nGere 1 protagonista (protagonist)"
                         else:
-                            batch_requirements = f"{requirements}\n请精确生成{current_batch_size}个角色:1个主角(protagonist)和{current_batch_size-1}个核心配角(supporting)"
+                            batch_requirements = f"{requirements}\nGere exatamente {current_batch_size} personagens: 1 protagonista (protagonist) e {current_batch_size-1} coadjuvantes centrais (supporting)"
                     else:
-                        batch_requirements = f"{requirements}\n请精确生成{current_batch_size}个角色{existing_chars_context}"
+                        batch_requirements = f"{requirements}\nGere exatamente {current_batch_size} personagens{existing_chars_context}"
                         if batch_idx == total_batches - 1:
-                            batch_requirements += "\n可以包含组织或反派(antagonist)"
+                            batch_requirements += "\nPode incluir organizações ou antagonistas (antagonist)"
                         else:
-                            batch_requirements += "\n主要是配角(supporting)和反派(antagonist)"
+                            batch_requirements += "\nPrincipalmente coadjuvantes (supporting) e antagonistas (antagonist)"
                     
                     # 获取自定义提示词模板
                     template = await PromptService.get_template("CHARACTERS_BATCH_GENERATION", user_id, db)
                     # 构建基础提示词
                     base_prompt = PromptService.format_prompt(
                         template,
+                        output_language=language_name(project.language),
                         count=current_batch_size,  # 传递精确数量
                         time_period=world_context.get("time_period", ""),
                         location=world_context.get("location", ""),
@@ -782,7 +788,7 @@ async def characters_generator(
                             yield await tracker.generating(
                                 current_chars=current_len,
                                 estimated_total=estimated_total,
-                                message=f"生成第{batch_idx+1}/{total_batches}批角色中",
+                                message=f"Gerando o lote {batch_idx+1}/{total_batches} de personagens",
                                 retry_count=retry_count,
                                 max_retries=MAX_RETRIES
                             )
@@ -799,7 +805,7 @@ async def characters_generator(
                     
                     # 严格验证生成数量是否精确匹配
                     if len(characters_data) != current_batch_size:
-                        error_msg = f"批次{batch_idx+1}生成数量不正确: 期望{current_batch_size}个, 实际{len(characters_data)}个"
+                        error_msg = f"Quantidade incorreta no lote {batch_idx+1}: esperado {current_batch_size}, obtido {len(characters_data)}"
                         logger.error(error_msg)
                         
                         # 如果还有重试机会，继续重试
@@ -818,20 +824,20 @@ async def characters_generator(
                     
                 except json.JSONDecodeError as e:
                     logger.error(f"批次{batch_idx+1}解析失败(尝试{retry_count+1}/{MAX_RETRIES}): {e}")
-                    batch_error_message = f"JSON解析失败: {str(e)}"
+                    batch_error_message = f"Falha ao interpretar o JSON: {str(e)}"
                     retry_count += 1
                     if retry_count < MAX_RETRIES:
-                        yield await tracker.retry(retry_count, MAX_RETRIES, "JSON解析失败")
+                        yield await tracker.retry(retry_count, MAX_RETRIES, "Falha ao interpretar o JSON")
                 except Exception as e:
                     logger.error(f"批次{batch_idx+1}生成异常(尝试{retry_count+1}/{MAX_RETRIES}): {e}")
-                    batch_error_message = f"生成异常: {str(e)}"
+                    batch_error_message = f"Erro na geração: {str(e)}"
                     retry_count += 1
                     if retry_count < MAX_RETRIES:
-                        yield await tracker.retry(retry_count, MAX_RETRIES, "生成异常")
+                        yield await tracker.retry(retry_count, MAX_RETRIES, "Erro na geração")
             
             # 检查批次是否成功
             if not batch_success:
-                error_msg = f"批次{batch_idx+1}在{MAX_RETRIES}次重试后仍然失败"
+                error_msg = f"O lote {batch_idx+1} ainda falhou após {MAX_RETRIES} tentativas"
                 if batch_error_message:
                     error_msg += f": {batch_error_message}"
                 logger.error(error_msg)
@@ -839,7 +845,7 @@ async def characters_generator(
                 return
         
         # 保存到数据库 - 分阶段处理以保证一致性
-        yield await tracker.parsing("验证角色数据...")
+        yield await tracker.parsing("Validando os dados dos personagens...")
         
         # 预处理：构建本批次所有实体的名称集合
         valid_entity_names = set()
@@ -883,9 +889,9 @@ async def characters_generator(
         
         if cleaned_count > 0:
             logger.info(f"✨ 清理了{cleaned_count}个AI幻觉引用")
-            yield await tracker.parsing(f"已清理{cleaned_count}个无效引用", 0.7)
+            yield await tracker.parsing(f"{cleaned_count} referências inválidas removidas", 0.7)
         
-        yield await tracker.saving("保存角色到数据库...")
+        yield await tracker.saving("Salvando os personagens no banco de dados...")
         
         # 第一阶段：创建所有Character记录
         created_characters = []
@@ -899,8 +905,8 @@ async def characters_generator(
                 # 将关系数组转换为可读文本
                 rel_descriptions = []
                 for rel in relationships_array:
-                    target = rel.get("target_character_name", "未知")
-                    rel_type = rel.get("relationship_type", "关系")
+                    target = rel.get("target_character_name", "Desconhecido")
+                    rel_type = rel.get("relationship_type", "relação")
                     desc = rel.get("description", "")
                     rel_descriptions.append(f"{target}({rel_type}): {desc}")
                 relationships_text = "; ".join(rel_descriptions)
@@ -915,7 +921,7 @@ async def characters_generator(
             
             character = Character(
                 project_id=project_id,
-                name=char_data.get("name", "未命名角色"),
+                name=char_data.get("name", "Personagem sem nome"),
                 age=str(char_data.get("age", "")) if not is_organization else None,
                 gender=char_data.get("gender") if not is_organization else None,
                 is_organization=is_organization,
@@ -935,7 +941,7 @@ async def characters_generator(
         
         # 第二阶段：为角色分配职业并创建CharacterCareer关联
         if main_careers or sub_careers:
-            yield await tracker.saving("分配角色职业...", 0.3)
+            yield await tracker.saving("Atribuindo carreiras aos personagens...", 0.3)
             careers_assigned = 0
             
             # 构建职业名称到对象的映射
@@ -1019,7 +1025,7 @@ async def characters_generator(
             
             await db.flush()
             logger.info(f"💼 职业分配完成：共分配{careers_assigned}个职业")
-            yield await tracker.saving(f"已分配{careers_assigned}个职业", 0.4)
+            yield await tracker.saving(f"{careers_assigned} carreiras atribuídas", 0.4)
         
         # 刷新并建立名称映射
         for character, _ in created_characters:
@@ -1028,7 +1034,7 @@ async def characters_generator(
             logger.info(f"向导创建角色：{character.name} (ID: {character.id}, 是否组织: {character.is_organization})")
         
         # 第三阶段：为is_organization=True的角色创建Organization记录
-        yield await tracker.saving("创建组织记录...", 0.5)
+        yield await tracker.saving("Criando os registros de organizações...", 0.5)
         organization_name_to_obj = {}  # 组织名称到Organization对象的映射
         
         for character, char_data in created_characters:
@@ -1065,7 +1071,7 @@ async def characters_generator(
             await db.refresh(character)
         
         # 第四阶段：创建角色间的关系
-        yield await tracker.saving("创建角色关系...", 0.7)
+        yield await tracker.saving("Criando as relações entre personagens...", 0.7)
         relationships_created = 0
         
         for character, char_data in created_characters:
@@ -1106,7 +1112,7 @@ async def characters_generator(
                                 project_id=project_id,
                                 character_from_id=character.id,
                                 character_to_id=target_char.id,
-                                relationship_name=rel.get("relationship_type", "未知关系"),
+                                relationship_name=rel.get("relationship_type", "relação desconhecida"),
                                 intimacy_level=rel.get("intimacy_level", 50),
                                 description=rel.get("description", ""),
                                 started_at=rel.get("started_at"),
@@ -1116,10 +1122,10 @@ async def characters_generator(
                             # 匹配预定义关系类型
                             rel_type_result = await db.execute(
                                 select(RelationshipType).where(
-                                    RelationshipType.name == rel.get("relationship_type")
+                                    func.lower(RelationshipType.name) == str(rel.get("relationship_type") or "").strip().lower()
                                 )
                             )
-                            rel_type = rel_type_result.scalar_one_or_none()
+                            rel_type = rel_type_result.scalars().first()
                             if rel_type:
                                 relationship.relationship_type_id = rel_type.id
                             
@@ -1133,7 +1139,7 @@ async def characters_generator(
                         continue
             
         # 第五阶段：创建组织成员关系
-        yield await tracker.saving("创建组织成员关系...", 0.9)
+        yield await tracker.saving("Criando as relações de membros das organizações...", 0.9)
         members_created = 0
         
         for character, char_data in created_characters:
@@ -1170,7 +1176,7 @@ async def characters_generator(
                             member = OrganizationMember(
                                 organization_id=org.id,
                                 character_id=character.id,
-                                position=membership.get("position", "成员"),
+                                position=membership.get("position", "Membro"),
                                 rank=membership.get("rank", 0),
                                 loyalty=membership.get("loyalty", 50),
                                 joined_at=membership.get("joined_at"),
@@ -1213,7 +1219,7 @@ async def characters_generator(
         
         # 发送结果
         yield await tracker.result({
-            "message": f"成功生成{len(created_characters)}个角色/组织（分{total_batches}批完成）",
+            "message": f"{len(created_characters)} personagens/organizações gerados com sucesso (em {total_batches} lotes)",
             "count": len(created_characters),
             "batches": total_batches,
             "characters": [
@@ -1251,10 +1257,10 @@ async def characters_generator(
         if not db_committed and db.in_transaction():
             await db.rollback()
             logger.info("角色生成事务已回滚（异常）")
-        yield await tracker.error(f"生成失败: {str(e)}")
+        yield await tracker.error(f"Falha na geração: {str(e)}")
 
 
-@router.post("/characters", summary="流式批量生成角色")
+@router.post("/characters", summary="Gerar personagens em lote em streaming")
 async def generate_characters_stream(
     request: Request,
     data: Dict[str, Any],
@@ -1280,7 +1286,7 @@ async def outline_generator(
     """大纲生成流式生成器 - 向导仅生成大纲节点，不展开章节（避免等待过久）"""
     db_committed = False
     # 初始化标准进度追踪器
-    tracker = WizardProgressTracker("大纲")
+    tracker = WizardProgressTracker("esboço")
     
     try:
         yield await tracker.start()
@@ -1297,10 +1303,10 @@ async def outline_generator(
         user_id = data.get("user_id")  # 从中间件注入
         
         # 获取项目信息
-        yield await tracker.loading("加载项目信息...", 0.3)
+        yield await tracker.loading("Carregando as informações do projeto...", 0.3)
         project = await get_owned_project(db, project_id, user_id)
         if not project:
-            yield await tracker.error("项目不存在或无权访问", 404)
+            yield await tracker.error("Projeto não encontrado ou sem permissão de acesso", 404)
             return
 
         # 设置用户信息以启用MCP，并确保后续自动角色/组织补全使用当前请求的AI服务上下文
@@ -1309,42 +1315,43 @@ async def outline_generator(
             user_ai_service.db_session = db
         
         # 获取角色信息
-        yield await tracker.loading("加载角色信息...", 0.8)
+        yield await tracker.loading("Carregando as informações dos personagens...", 0.8)
         result = await db.execute(
             select(Character).where(Character.project_id == project_id)
         )
         characters = result.scalars().all()
         
         characters_info = "\n".join([
-            f"- {char.name} ({'组织' if char.is_organization else '角色'}, {char.role_type}): {char.personality[:100] if char.personality else '暂无描述'}"
+            f"- {char.name} ({'organização' if char.is_organization else 'personagem'}, {char.role_type}): {char.personality[:100] if char.personality else 'Sem descrição'}"
             for char in characters
         ])
         
         # 准备提示词
-        yield await tracker.preparing(f"准备生成{outline_count}个大纲节点...")
+        yield await tracker.preparing(f"Preparando a geração de {outline_count} nós do esboço...")
         
-        outline_requirements = f"{requirements}\n\n【重要说明】这是小说的开局部分，请生成{outline_count}个大纲节点，重点关注：\n"
-        outline_requirements += "1. 引入主要角色和世界观设定\n"
-        outline_requirements += "2. 建立主线冲突和故事钩子\n"
-        outline_requirements += "3. 展开初期情节，为后续发展埋下伏笔\n"
-        outline_requirements += "4. 不要试图完结故事，这只是开始部分\n"
-        outline_requirements += "5. 不要在JSON字符串值中使用中文引号（""''），请使用【】或《》标记\n"
+        outline_requirements = f"{requirements}\n\nObservação importante: esta é a parte inicial do romance. Gere {outline_count} nós de esboço, com foco em:\n"
+        outline_requirements += "1. Apresentar os personagens principais e a construção do mundo\n"
+        outline_requirements += "2. Estabelecer o conflito central e os ganchos da história\n"
+        outline_requirements += "3. Desenvolver o enredo inicial, plantando foreshadowing para o que vem depois\n"
+        outline_requirements += "4. Não tente concluir a história, esta é apenas a parte inicial\n"
+        outline_requirements += "5. Nos valores de string do JSON, não use aspas duplas sem escape; use aspas simples ou escape as aspas duplas\n"
         
         # 获取自定义提示词模板
         template = await PromptService.get_template("OUTLINE_CREATE", user_id, db)
         outline_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
-            theme=project.theme or "未设定",
-            genre=project.genre or "通用",
+            theme=project.theme or "Não definido",
+            genre=project.genre or "Geral",
             chapter_count=outline_count,
-            narrative_perspective=narrative_perspective,
+            narrative_perspective=narrative_perspective_pt(narrative_perspective),
             target_words=target_words // 10,  # 开局约占总字数的1/10
-            time_period=project.world_time_period or "未设定",
-            location=project.world_location or "未设定",
-            atmosphere=project.world_atmosphere or "未设定",
-            rules=project.world_rules or "未设定",
-            characters_info=characters_info or "暂无角色信息",
+            time_period=project.world_time_period or "Não definido",
+            location=project.world_location or "Não definido",
+            atmosphere=project.world_atmosphere or "Não definido",
+            rules=project.world_rules or "Não definido",
+            characters_info=characters_info or "Nenhuma informação de personagens",
             mcp_references="",
             requirements=outline_requirements
         )
@@ -1390,7 +1397,7 @@ async def outline_generator(
                 yield await tracker.heartbeat()
         
         # 解析大纲结果 - 使用统一的JSON清洗方法
-        yield await tracker.parsing("解析大纲数据...")
+        yield await tracker.parsing("Analisando os dados do esboço...")
         
         try:
             cleaned_text = user_ai_service._clean_json_response(accumulated_text)
@@ -1399,16 +1406,16 @@ async def outline_generator(
                 outline_data = [outline_data]
         except json.JSONDecodeError as e:
             logger.error(f"大纲JSON解析失败: {e}")
-            yield await tracker.error("大纲生成失败，请重试")
+            yield await tracker.error("Falha ao gerar o esboço, tente novamente")
             return
         
         # 保存大纲到数据库
-        yield await tracker.saving("保存大纲到数据库...")
+        yield await tracker.saving("Salvando o esboço no banco de dados...")
         created_outlines = []
         for index, outline_item in enumerate(outline_data[:outline_count], 1):
             outline = Outline(
                 project_id=project_id,
-                title=outline_item.get("title", f"第{index}节"),
+                title=outline_item.get("title", f"Seção {index}"),
                 content=outline_item.get("summary") or outline_item.get("content") or "",
                 structure=json.dumps(outline_item, ensure_ascii=False),
                 order_index=index
@@ -1423,7 +1430,7 @@ async def outline_generator(
         logger.info(f"✅ 成功创建{len(created_outlines)}个大纲节点")
         
         # 🎭 角色校验：检查大纲structure中的characters是否存在对应角色
-        yield await tracker.saving("🎭 校验角色信息...", 0.5)
+        yield await tracker.saving("🎭 Verificando as informações dos personagens...", 0.5)
         try:
             from app.services.auto_character_service import get_auto_character_service
             
@@ -1439,14 +1446,14 @@ async def outline_generator(
                 created_names = [c.name for c in char_check_result["created_characters"]]
                 logger.info(f"🎭 向导大纲：自动创建了 {char_check_result['created_count']} 个角色: {', '.join(created_names)}")
                 yield await tracker.saving(
-                    f"🎭 自动创建了 {char_check_result['created_count']} 个角色: {', '.join(created_names)}",
+                    f"🎭 {char_check_result['created_count']} personagens criados automaticamente: {', '.join(created_names)}",
                     0.6
                 )
         except Exception as e:
             logger.error(f"⚠️ 向导大纲角色校验失败（不影响主流程）: {e}")
         
         # 🏛️ 组织校验：检查大纲structure中的characters（type=organization）是否存在对应组织
-        yield await tracker.saving("🏛️ 校验组织信息...", 0.55)
+        yield await tracker.saving("🏛️ Verificando as informações das organizações...", 0.55)
         try:
             from app.services.auto_organization_service import get_auto_organization_service
             
@@ -1462,7 +1469,7 @@ async def outline_generator(
                 created_names = [c.name for c in org_check_result["created_organizations"]]
                 logger.info(f"🏛️ 向导大纲：自动创建了 {org_check_result['created_count']} 个组织: {', '.join(created_names)}")
                 yield await tracker.saving(
-                    f"🏛️ 自动创建了 {org_check_result['created_count']} 个组织: {', '.join(created_names)}",
+                    f"🏛️ {org_check_result['created_count']} organizações criadas automaticamente: {', '.join(created_names)}",
                     0.65
                 )
         except Exception as e:
@@ -1472,7 +1479,7 @@ async def outline_generator(
         created_chapters = []
         if project.outline_mode == 'one-to-one':
             # 一对一模式：自动为每个大纲创建对应的章节
-            yield await tracker.saving("一对一模式：自动创建章节...", 0.7)
+            yield await tracker.saving("Modo um a um: criando os capítulos automaticamente...", 0.7)
             
             for outline in created_outlines:
                 chapter = Chapter(
@@ -1491,16 +1498,16 @@ async def outline_generator(
                 await db.refresh(chapter)
             
             logger.info(f"✅ 一对一模式：自动创建了{len(created_chapters)}个章节")
-            yield await tracker.saving(f"已自动创建{len(created_chapters)}个章节", 0.9)
+            yield await tracker.saving(f"{len(created_chapters)} capítulos criados automaticamente", 0.9)
         else:
             # 一对多模式：跳过自动创建，用户可手动展开
-            yield await tracker.saving("细化模式：跳过自动创建章节", 0.9)
+            yield await tracker.saving("Modo detalhado: criação automática de capítulos ignorada", 0.9)
             logger.info(f"📝 细化模式：跳过章节创建，用户可在大纲页面手动展开")
         
         # 更新项目信息
         # wizard_step: 0=未开始, 1=世界观已完成, 2=职业体系已完成, 3=角色已完成, 4=大纲已完成
         project.chapter_count = len(created_chapters)  # 记录实际创建的章节数
-        project.narrative_perspective = narrative_perspective
+        project.narrative_perspective = narrative_perspective_pt(narrative_perspective)
         project.target_words = target_words
         project.status = "writing"
         project.wizard_status = "completed"
@@ -1516,11 +1523,11 @@ async def outline_generator(
         
         # 构建结果消息
         if project.outline_mode == 'one-to-one':
-            result_message = f"成功生成{len(created_outlines)}个大纲节点并自动创建{len(created_chapters)}个章节（传统模式）"
-            result_note = "已自动创建章节，可直接生成内容"
+            result_message = f"{len(created_outlines)} nós de esboço gerados e {len(created_chapters)} capítulos criados automaticamente (modo tradicional)"
+            result_note = "Os capítulos foram criados automaticamente, já é possível gerar o conteúdo"
         else:
-            result_message = f"成功生成{len(created_outlines)}个大纲节点（细化模式，可在大纲页面手动展开）"
-            result_note = "可在大纲页面展开为多个章节"
+            result_message = f"{len(created_outlines)} nós de esboço gerados (modo detalhado, podem ser expandidos manualmente na página do esboço)"
+            result_note = "Na página do esboço, é possível expandir cada nó em vários capítulos"
         
         yield await tracker.complete()
         
@@ -1561,9 +1568,9 @@ async def outline_generator(
         if not db_committed and db.in_transaction():
             await db.rollback()
             logger.info("大纲生成事务已回滚（异常）")
-        yield await tracker.error(f"生成失败: {str(e)}")
+        yield await tracker.error(f"Falha na geração: {str(e)}")
 
-@router.post("/outline", summary="流式生成完整大纲")
+@router.post("/outline", summary="Gerar o esboço completo em streaming")
 async def generate_outline_stream(
     request: Request,
     data: Dict[str, Any],
@@ -1589,10 +1596,10 @@ async def world_building_regenerate_generator(
     """世界观重新生成流式生成器"""
     db_committed = False
     # 初始化标准进度追踪器
-    tracker = WizardProgressTracker("世界观")
+    tracker = WizardProgressTracker("construção de mundo")
     
     try:
-        yield await tracker.start("开始重新生成世界观...")
+        yield await tracker.start("Iniciando a regeneração da construção de mundo...")
         
         # 提取参数
         provider = data.get("provider")
@@ -1601,21 +1608,22 @@ async def world_building_regenerate_generator(
         user_id = data.get("user_id")
 
         # 获取项目信息
-        yield await tracker.loading("加载项目信息...")
+        yield await tracker.loading("Carregando as informações do projeto...")
         project = await get_owned_project(db, project_id, user_id)
         if not project:
-            yield await tracker.error("项目不存在或无权访问", 404)
+            yield await tracker.error("Projeto não encontrado ou sem permissão de acesso", 404)
             return
         
         # 获取基础提示词（支持自定义）
-        yield await tracker.preparing("准备AI提示词...")
+        yield await tracker.preparing("Preparando o prompt da IA...")
         template = await PromptService.get_template("WORLD_BUILDING", user_id, db)
         base_prompt = PromptService.format_prompt(
             template,
+            output_language=language_name(project.language),
             title=project.title,
-            theme=project.theme or "未设定",
-            genre=project.genre or "通用",
-            description=project.description or "暂无简介"
+            theme=project.theme or "Não definido",
+            genre=project.genre or "Geral",
+            description=project.description or "Sem sinopse"
         )
         
         # 设置用户信息以启用MCP
@@ -1649,7 +1657,7 @@ async def world_building_regenerate_generator(
                 yield await tracker.generating(
                     current_chars=0,
                     estimated_total=estimated_total,
-                    message="重新生成世界观",
+                    message="Regenerando a construção de mundo",
                     retry_count=world_retry_count,
                     max_retries=MAX_WORLD_RETRIES
                 )
@@ -1675,7 +1683,7 @@ async def world_building_regenerate_generator(
                         yield await tracker.generating(
                             current_chars=current_len,
                             estimated_total=estimated_total,
-                            message="重新生成世界观",
+                            message="Regenerando a construção de mundo",
                             retry_count=world_retry_count,
                             max_retries=MAX_WORLD_RETRIES
                         )
@@ -1688,22 +1696,22 @@ async def world_building_regenerate_generator(
                     logger.warning(f"⚠️ AI返回空世界观（尝试{world_retry_count+1}/{MAX_WORLD_RETRIES}）")
                     world_retry_count += 1
                     if world_retry_count < MAX_WORLD_RETRIES:
-                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "AI返回为空")
+                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "A IA retornou vazio")
                         continue
                     else:
                         # 达到最大重试次数，使用默认值
                         logger.error("❌ 世界观重新生成多次返回空响应")
                         world_data = {
-                            "time_period": "AI多次返回为空，请稍后重试",
-                            "location": "AI多次返回为空，请稍后重试",
-                            "atmosphere": "AI多次返回为空，请稍后重试",
-                            "rules": "AI多次返回为空，请稍后重试"
+                            "time_period": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "location": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "atmosphere": "A IA retornou vazio várias vezes, tente novamente mais tarde",
+                            "rules": "A IA retornou vazio várias vezes, tente novamente mais tarde"
                         }
                         world_generation_success = True
                         break
                 
                 # 解析结果 - 使用统一的JSON清洗方法
-                yield await tracker.parsing("解析AI返回结果...")
+                yield await tracker.parsing("Analisando o resultado da IA...")
                 
                 try:
                     logger.info(f"🔍 开始清洗JSON，原始长度: {len(accumulated_text)}")
@@ -1720,15 +1728,15 @@ async def world_building_regenerate_generator(
                     logger.debug(f"   原始内容预览: {safe_preview(accumulated_text, 200)}")
                     world_retry_count += 1
                     if world_retry_count < MAX_WORLD_RETRIES:
-                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "JSON解析失败")
+                        yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "Falha ao interpretar o JSON")
                         continue
                     else:
                         # 达到最大重试次数，使用默认值
                         world_data = {
-                            "time_period": "AI返回格式错误，请重试",
-                            "location": "AI返回格式错误，请重试",
-                            "atmosphere": "AI返回格式错误，请重试",
-                            "rules": "AI返回格式错误，请重试"
+                            "time_period": "Formato de resposta da IA inválido, tente novamente",
+                            "location": "Formato de resposta da IA inválido, tente novamente",
+                            "atmosphere": "Formato de resposta da IA inválido, tente novamente",
+                            "rules": "Formato de resposta da IA inválido, tente novamente"
                         }
                         world_generation_success = True
                         
@@ -1736,7 +1744,7 @@ async def world_building_regenerate_generator(
                 logger.error(f"❌ 世界观重新生成异常（尝试{world_retry_count+1}/{MAX_WORLD_RETRIES}）: {type(e).__name__}: {e}")
                 world_retry_count += 1
                 if world_retry_count < MAX_WORLD_RETRIES:
-                    yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "生成异常")
+                    yield await tracker.retry(world_retry_count, MAX_WORLD_RETRIES, "Erro na geração")
                     continue
                 else:
                     # 最后一次重试仍失败，抛出异常
@@ -1744,7 +1752,7 @@ async def world_building_regenerate_generator(
                     raise
         
         # 不保存到数据库，仅返回生成结果供用户预览
-        yield await tracker.saving("生成完成，等待用户确认...", 0.5)
+        yield await tracker.saving("Geração concluída, aguardando a confirmação do usuário...", 0.5)
         
         yield await tracker.complete()
         
@@ -1768,10 +1776,10 @@ async def world_building_regenerate_generator(
         if not db_committed and db.in_transaction():
             await db.rollback()
             logger.info("世界观重新生成事务已回滚（异常）")
-        yield await tracker.error(f"生成失败: {str(e)}")
+        yield await tracker.error(f"Falha na geração: {str(e)}")
 
 
-@router.post("/world-building/{project_id}/regenerate", summary="流式重新生成世界观")
+@router.post("/world-building/{project_id}/regenerate", summary="Regenerar a construção de mundo em streaming")
 async def regenerate_world_building_stream(
     project_id: str,
     request: Request,

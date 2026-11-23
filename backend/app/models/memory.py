@@ -15,45 +15,45 @@ class StoryMemory(Base):
     
     # 记忆类型
     memory_type = Column(String(50), nullable=False, index=True, comment="""
-    记忆类型:
-    - plot_point: 情节点
-    - character_event: 角色事件
-    - world_detail: 世界观细节
-    - hook: 钩子(悬念/冲突)
-    - foreshadow: 伏笔
-    - dialogue: 重要对话
-    - scene: 场景描写
+    Tipo de memória:
+    - plot_point: ponto da trama
+    - character_event: evento de personagem
+    - world_detail: detalhe do mundo
+    - hook: gancho (suspense/conflito)
+    - foreshadow: foreshadowing
+    - dialogue: diálogo importante
+    - scene: descrição de cena
     """)
     
     # 记忆内容
-    title = Column(String(200), comment="记忆标题/简述")
-    content = Column(Text, nullable=False, comment="记忆内容摘要(100-500字)")
-    full_context = Column(Text, comment="完整上下文(可选,用于详细记录)")
+    title = Column(String(200), comment="Título/resumo breve da memória")
+    content = Column(Text, nullable=False, comment="Resumo do conteúdo da memória (100-500 palavras)")
+    full_context = Column(Text, comment="Contexto completo (opcional, para registro detalhado)")
     
     # 关联信息
-    related_characters = Column(JSON, comment="涉及角色ID列表: ['char_id_1', 'char_id_2']")
-    related_locations = Column(JSON, comment="涉及地点列表: ['地点1', '地点2']")
-    tags = Column(JSON, comment="标签列表: ['悬念', '转折', '伏笔', '高潮']")
+    related_characters = Column(JSON, comment="IDs dos personagens envolvidos: ['char_id_1', 'char_id_2']")
+    related_locations = Column(JSON, comment="Locais envolvidos: ['Local 1', 'Local 2']")
+    tags = Column(JSON, comment="Lista de etiquetas: ['suspense', 'reviravolta', 'foreshadowing', 'clímax']")
     
     # 重要性评分 (用于过滤和排序)
-    importance_score = Column(Float, default=0.5, comment="重要性评分 0.0-1.0")
+    importance_score = Column(Float, default=0.5, comment="Pontuação de importância 0.0-1.0")
     
     # 时间线定位
-    story_timeline = Column(Integer, nullable=False, index=True, comment="故事时间线位置(章节序号)")
-    chapter_position = Column(Integer, default=0, comment="章节内位置(字符位置)")
-    text_length = Column(Integer, default=0, comment="文本长度(字符数)")
+    story_timeline = Column(Integer, nullable=False, index=True, comment="Posição na linha do tempo da história (número do capítulo)")
+    chapter_position = Column(Integer, default=0, comment="Posição dentro do capítulo (caractere)")
+    text_length = Column(Integer, default=0, comment="Tamanho do texto (caracteres)")
     
     # 伏笔相关字段
-    is_foreshadow = Column(Integer, default=0, comment="伏笔状态: 0=普通记忆, 1=已埋下伏笔, 2=伏笔已回收")
-    foreshadow_resolved_at = Column(String(100), ForeignKey("chapters.id", ondelete="SET NULL"), comment="伏笔回收的章节ID")
-    foreshadow_strength = Column(Float, comment="伏笔强度 0.0-1.0")
+    is_foreshadow = Column(Integer, default=0, comment="Status do foreshadowing: 0=memória comum, 1=plantado, 2=resolvido")
+    foreshadow_resolved_at = Column(String(100), ForeignKey("chapters.id", ondelete="SET NULL"), comment="ID do capítulo de resolução do foreshadowing")
+    foreshadow_strength = Column(Float, comment="Intensidade do foreshadowing 0.0-1.0")
     
     # 向量数据库关联
-    vector_id = Column(String(100), unique=True, comment="向量数据库中的唯一ID")
-    embedding_model = Column(String(100), default="paraphrase-multilingual-MiniLM-L12-v2", comment="使用的embedding模型")
+    vector_id = Column(String(100), unique=True, comment="ID único no banco vetorial")
+    embedding_model = Column(String(100), default="paraphrase-multilingual-MiniLM-L12-v2", comment="Modelo de embedding utilizado")
     
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     def __repr__(self):
         return f"<StoryMemory(id={self.id[:8]}, type={self.memory_type}, title={self.title})>"
@@ -86,84 +86,84 @@ class PlotAnalysis(Base):
     chapter_id = Column(String(36), ForeignKey("chapters.id", ondelete="CASCADE"), nullable=False, unique=True, index=True)
     
     # 剧情结构分析
-    plot_stage = Column(String(50), comment="剧情阶段: 开端/发展/高潮/结局/过渡")
-    conflict_level = Column(Integer, comment="冲突强度 1-10")
-    conflict_types = Column(JSON, comment="冲突类型列表: ['人与人', '人与己', '人与环境']")
+    plot_stage = Column(String(50), comment="Estágio da trama: abertura/desenvolvimento/clímax/desfecho/transição")
+    conflict_level = Column(Integer, comment="Intensidade do conflito 1-10")
+    conflict_types = Column(JSON, comment="Tipos de conflito: ['pessoa vs. pessoa', 'pessoa vs. si mesma', 'pessoa vs. ambiente']")
     
     # 情感分析
-    emotional_tone = Column(String(100), comment="主导情感: 紧张/温馨/悲伤/激昂/平静")
-    emotional_intensity = Column(Float, comment="情感强度 0.0-1.0")
-    emotional_curve = Column(JSON, comment="情感曲线: {start: 0.3, middle: 0.7, end: 0.5}")
+    emotional_tone = Column(String(100), comment="Emoção dominante: tensão/aconchego/tristeza/euforia/calma")
+    emotional_intensity = Column(Float, comment="Intensidade emocional 0.0-1.0")
+    emotional_curve = Column(JSON, comment="Curva emocional: {start: 0.3, middle: 0.7, end: 0.5}")
     
     # 钩子分析 (Hook Analysis)
-    hooks = Column(JSON, comment="""钩子列表 - 吸引读者的元素: [
+    hooks = Column(JSON, comment="""Lista de ganchos - elementos que prendem o leitor: [
         {
-            "type": "悬念|情感|冲突|认知",
-            "content": "具体内容",
+            "type": "suspense|emoção|conflito|cognição",
+            "content": "conteúdo específico",
             "strength": 8,
-            "position": "开头|中段|结尾"
+            "position": "início|meio|fim"
         }
     ]""")
-    hooks_count = Column(Integer, default=0, comment="钩子数量")
-    hooks_avg_strength = Column(Float, comment="钩子平均强度")
+    hooks_count = Column(Integer, default=0, comment="Quantidade de ganchos")
+    hooks_avg_strength = Column(Float, comment="Intensidade média dos ganchos")
     
     # 伏笔分析 (Foreshadowing Analysis)
-    foreshadows = Column(JSON, comment="""伏笔列表: [
+    foreshadows = Column(JSON, comment="""Lista de foreshadowings: [
         {
-            "content": "伏笔内容",
+            "content": "conteúdo do foreshadowing",
             "type": "planted|resolved",
             "strength": 7,
             "subtlety": 8,
             "reference_chapter": 3
         }
     ]""")
-    foreshadows_planted = Column(Integer, default=0, comment="本章埋下的伏笔数量")
-    foreshadows_resolved = Column(Integer, default=0, comment="本章回收的伏笔数量")
+    foreshadows_planted = Column(Integer, default=0, comment="Foreshadowings plantados neste capítulo")
+    foreshadows_resolved = Column(Integer, default=0, comment="Foreshadowings resolvidos neste capítulo")
     
     # 关键情节点 (Plot Points)
-    plot_points = Column(JSON, comment="""情节点列表: [
+    plot_points = Column(JSON, comment="""Lista de pontos da trama: [
         {
-            "content": "情节点描述",
+            "content": "descrição do ponto da trama",
             "importance": 0.9,
             "type": "revelation|conflict|resolution|transition",
-            "impact": "对故事的影响描述"
+            "impact": "descrição do impacto na história"
         }
     ]""")
-    plot_points_count = Column(Integer, default=0, comment="情节点数量")
+    plot_points_count = Column(Integer, default=0, comment="Quantidade de pontos da trama")
     
     # 角色状态追踪 (Character State Tracking)
-    character_states = Column(JSON, comment="""角色状态变化: [
+    character_states = Column(JSON, comment="""Mudanças de estado dos personagens: [
         {
             "character_id": "xxx",
-            "character_name": "张三",
-            "state_before": "犹豫不决",
-            "state_after": "坚定信念",
-            "psychological_change": "内心描述",
-            "key_event": "触发事件",
-            "relationship_changes": {"李四": "关系变化"}
+            "character_name": "João",
+            "state_before": "indeciso",
+            "state_after": "convicto",
+            "psychological_change": "descrição interior",
+            "key_event": "evento gatilho",
+            "relationship_changes": {"Pedro": "mudança na relação"}
         }
     ]""")
     
     # 场景和氛围
-    scenes = Column(JSON, comment="场景列表: [{location: '地点', atmosphere: '氛围', duration: '时长'}]")
-    pacing = Column(String(50), comment="节奏: slow|moderate|fast|varied")
+    scenes = Column(JSON, comment="Lista de cenas: [{location: 'local', atmosphere: 'atmosfera', duration: 'duração'}]")
+    pacing = Column(String(50), comment="Ritmo: slow|moderate|fast|varied")
     
     # 质量评分
-    overall_quality_score = Column(Float, comment="整体质量评分 0.0-10.0")
-    pacing_score = Column(Float, comment="节奏评分 0.0-10.0")
-    engagement_score = Column(Float, comment="吸引力评分 0.0-10.0")
-    coherence_score = Column(Float, comment="连贯性评分 0.0-10.0")
+    overall_quality_score = Column(Float, comment="Pontuação geral de qualidade 0.0-10.0")
+    pacing_score = Column(Float, comment="Pontuação de ritmo 0.0-10.0")
+    engagement_score = Column(Float, comment="Pontuação de atratividade 0.0-10.0")
+    coherence_score = Column(Float, comment="Pontuação de coerência 0.0-10.0")
     
     # 文本分析报告
-    analysis_report = Column(Text, comment="完整的文字分析报告")
-    suggestions = Column(JSON, comment="改进建议列表: ['建议1', '建议2']")
+    analysis_report = Column(Text, comment="Relatório de análise completo em texto")
+    suggestions = Column(JSON, comment="Lista de sugestões de melhoria: ['sugestão 1', 'sugestão 2']")
     
     # 统计信息
-    word_count = Column(Integer, comment="章节字数")
-    dialogue_ratio = Column(Float, comment="对话占比 0.0-1.0")
-    description_ratio = Column(Float, comment="描写占比 0.0-1.0")
+    word_count = Column(Integer, comment="Palavras do capítulo")
+    dialogue_ratio = Column(Float, comment="Proporção de diálogo 0.0-1.0")
+    description_ratio = Column(Float, comment="Proporção de descrição 0.0-1.0")
     
-    created_at = Column(DateTime, server_default=func.now(), comment="分析时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data da análise")
     
     def __repr__(self):
         return f"<PlotAnalysis(chapter_id={self.chapter_id[:8]}, stage={self.plot_stage}, quality={self.overall_quality_score})>"

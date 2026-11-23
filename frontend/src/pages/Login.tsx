@@ -29,14 +29,13 @@ import {
 } from '@ant-design/icons';
 import { authApi } from '../services/api';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import AnnouncementModal from '../components/AnnouncementModal';
 import ThemeSwitch from '../components/ThemeSwitch';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Paragraph, Text } = Typography;
 
 interface AuthConfig {
   local_auth_enabled: boolean;
-  linuxdo_enabled: boolean;
   email_auth_enabled: boolean;
   email_register_enabled: boolean;
 }
@@ -67,13 +66,13 @@ interface ResetPasswordValues {
 }
 
 export default function Login() {
+  const { t } = useTranslation('login');
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
   const [authConfig, setAuthConfig] = useState<AuthConfig>({
     local_auth_enabled: false,
-    linuxdo_enabled: false,
     email_auth_enabled: false,
     email_register_enabled: false,
   });
@@ -84,8 +83,6 @@ export default function Login() {
   const { token } = theme.useToken();
   const alphaColor = (color: string, alpha: number) => `color-mix(in srgb, ${color} ${(alpha * 100).toFixed(0)}%, transparent)`;
   const primaryButtonShadow = `0 8px 20px ${alphaColor(token.colorPrimary, 0.28)}`;
-  const hoverButtonShadow = `0 12px 28px ${alphaColor(token.colorPrimary, 0.36)}`;
-  const [showAnnouncement, setShowAnnouncement] = useState(false);
   const [loginCodeSending, setLoginCodeSending] = useState(false);
   const [registerCodeSending, setRegisterCodeSending] = useState(false);
   const [resetCodeSending, setResetCodeSending] = useState(false);
@@ -95,7 +92,6 @@ export default function Login() {
   const [showResetPassword, setShowResetPassword] = useState(false);
 
   const localAuthEnabled = authConfig.local_auth_enabled;
-  const linuxdoEnabled = authConfig.linuxdo_enabled;
   const emailAuthEnabled = authConfig.email_auth_enabled;
   const emailRegisterEnabled = authConfig.email_register_enabled;
 
@@ -139,10 +135,9 @@ export default function Login() {
           const config = await authApi.getAuthConfig();
           setAuthConfig(config);
         } catch (error) {
-          console.error('获取认证配置失败:', error);
+          console.error(t('falhaAoObterAConfiguracao'), error);
           setAuthConfig({
             local_auth_enabled: false,
-            linuxdo_enabled: true,
             email_auth_enabled: false,
             email_register_enabled: false,
           });
@@ -151,21 +146,13 @@ export default function Login() {
       }
     };
     checkAuth();
-  }, [navigate, searchParams]);
+  }, [navigate, searchParams, t]);
 
   const handleLoginSuccess = () => {
-    message.success('登录成功！');
+    message.success(t('loginRealizadoComSucesso'));
 
-    const hideForever = localStorage.getItem('announcement_hide_forever');
-    const hideToday = localStorage.getItem('announcement_hide_today');
-    const today = new Date().toDateString();
-
-    if (hideForever === 'true' || hideToday === today) {
-      const redirect = searchParams.get('redirect') || '/';
-      navigate(redirect);
-    } else {
-      setShowAnnouncement(true);
-    }
+    const redirect = searchParams.get('redirect') || '/';
+    navigate(redirect);
   };
 
   const handleLocalLogin = async (values: LocalLoginValues) => {
@@ -176,7 +163,7 @@ export default function Login() {
         handleLoginSuccess();
       }
     } catch (error) {
-      console.error('本地登录失败:', error);
+      console.error(t('falhaNoLoginLocal'), error);
     } finally {
       setLoading(false);
     }
@@ -193,7 +180,7 @@ export default function Login() {
         handleLoginSuccess();
       }
     } catch (error) {
-      console.error('邮箱验证码登录失败:', error);
+      console.error(t('falhaNoLoginPorCodigo'), error);
     } finally {
       setLoading(false);
     }
@@ -204,10 +191,10 @@ export default function Login() {
       const values = await emailLoginForm.validateFields(['email']);
       setLoginCodeSending(true);
       const result = await authApi.sendEmailCode({ email: values.email, scene: 'login' });
-      message.success(result.message || '验证码已发送');
+      message.success(result.message || t('codigoDeVerificacaoEnviado'));
       setLoginCountdown(result.resend_interval_seconds || 60);
     } catch (error) {
-      console.error('发送 login 验证码失败:', error);
+      console.error(t('falhaAoEnviarOCodigo'), error);
     } finally {
       setLoginCodeSending(false);
     }
@@ -218,10 +205,10 @@ export default function Login() {
       const values = await emailRegisterForm.validateFields(['email']);
       setRegisterCodeSending(true);
       const result = await authApi.sendEmailCode({ email: values.email, scene: 'register' });
-      message.success(result.message || '验证码已发送');
+      message.success(result.message || t('codigoDeVerificacaoEnviado'));
       setRegisterCountdown(result.resend_interval_seconds || 60);
     } catch (error) {
-      console.error('发送 register 验证码失败:', error);
+      console.error(t('falhaAoEnviarOCodigo2'), error);
     } finally {
       setRegisterCodeSending(false);
     }
@@ -232,10 +219,10 @@ export default function Login() {
       const values = await resetPasswordForm.validateFields(['email']);
       setResetCodeSending(true);
       const result = await authApi.sendEmailCode({ email: values.email, scene: 'reset_password' });
-      message.success(result.message || '验证码已发送');
+      message.success(result.message || t('codigoDeVerificacaoEnviado'));
       setResetCountdown(result.resend_interval_seconds || 60);
     } catch (error) {
-      console.error('发送 reset_password 验证码失败:', error);
+      console.error(t('falhaAoEnviarOCodigo3'), error);
     } finally {
       setResetCodeSending(false);
     }
@@ -251,13 +238,13 @@ export default function Login() {
         display_name: values.display_name?.trim() || undefined,
       });
       if (response.success) {
-        message.success('注册成功，已自动登录');
+        message.success(t('cadastroConcluidoLoginFeitoAutomaticamen'));
         emailRegisterForm.resetFields(['code', 'password', 'confirmPassword']);
         setRegisterCountdown(0);
         handleLoginSuccess();
       }
     } catch (error) {
-      console.error('邮箱注册失败:', error);
+      console.error(t('falhaNoCadastroPorE'), error);
     } finally {
       setLoading(false);
     }
@@ -271,86 +258,52 @@ export default function Login() {
         code: values.code,
         new_password: values.new_password,
       });
-      message.success(result.message || '密码重置成功');
+      message.success(result.message || t('senhaRedefinidaComSucesso'));
       resetPasswordForm.resetFields(['code', 'new_password', 'confirmNewPassword']);
       setResetCountdown(0);
       setShowResetPassword(false);
     } catch (error) {
-      console.error('重置密码失败:', error);
+      console.error(t('falhaAoRedefinirASenha'), error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLinuxDOLogin = async () => {
-    try {
-      setLoading(true);
-      const response = await authApi.getLinuxDOAuthUrl();
-
-      const redirect = searchParams.get('redirect');
-      if (redirect) {
-        sessionStorage.setItem('login_redirect', redirect);
-      }
-
-      window.location.href = response.auth_url;
-    } catch (error) {
-      console.error('获取授权地址失败:', error);
-      message.error('获取授权地址失败，请稍后重试');
-      setLoading(false);
-    }
-  };
-
-  const handleAnnouncementClose = () => {
-    setShowAnnouncement(false);
-    const redirect = searchParams.get('redirect') || '/';
-    navigate(redirect);
-  };
-
-  const handleDoNotShowToday = () => {
-    const today = new Date().toDateString();
-    localStorage.setItem('announcement_hide_today', today);
-  };
-
-  const handleNeverShow = () => {
-    localStorage.setItem('announcement_hide_forever', 'true');
-  };
-
   const loginTips = useMemo(() => {
     const tips = [
-      '首次 LinuxDO 登录会自动创建账号。',
     ];
 
     if (localAuthEnabled) {
-      tips.unshift('本地登录默认账号：admin / admin123');
+      tips.unshift(t('contaPadraoDoLoginLocal'));
     }
 
     if (emailAuthEnabled) {
-      tips.push('邮箱注册用户支持通过邮箱验证码重置密码。');
+      tips.push(t('usuariosCadastradosPorEMail'));
     }
 
     return tips;
-  }, [emailAuthEnabled, localAuthEnabled]);
+  }, [emailAuthEnabled, localAuthEnabled, t]);
 
   const featureItems = [
     {
       icon: <RobotOutlined />,
-      title: '多 AI 模型协同',
-      description: '支持 OpenAI、Gemini、Claude 等主流模型，按场景灵活切换。',
+      title: t('variosModelosDeIaEm'),
+      description: t('compativelComOpenaiGeminiClaude'),
     },
     {
       icon: <ThunderboltOutlined />,
-      title: '智能向导驱动',
-      description: '自动生成大纲、角色与世界观，快速搭建完整故事骨架。',
+      title: t('assistenteGuiadoInteligente'),
+      description: t('geraAutomaticamenteOutlinePersonagensE'),
     },
     {
       icon: <TeamOutlined />,
-      title: '角色组织管理',
-      description: '人物关系、组织架构可视化管理，复杂设定也能清晰掌控。',
+      title: t('gestaoDePersonagensEOrganizacoes'),
+      description: t('relacoesEntrePersonagensEEstruturas'),
     },
     {
       icon: <BookOutlined />,
-      title: '章节创作闭环',
-      description: '支持章节生成、编辑、重写与润色，持续提升内容质量。',
+      title: t('cicloCompletoDeCriacaoDe'),
+      description: t('geracaoEdicaoReescritaERevisao'),
     },
   ];
 
@@ -365,24 +318,24 @@ export default function Login() {
       >
         <Form.Item
           name="username"
-          label="管理账号"
-          rules={[{ required: true, message: '请输入管理账号/邮箱' }]}
+          label={t('contaDeAdministrador')}
+          rules={[{ required: true, message: t('informeAContaDeAdministrador') }]}
         >
           <Input
             prefix={<UserOutlined style={{ color: token.colorTextTertiary }} />}
-            placeholder="请输入管理账号/邮箱"
+            placeholder={t('informeAContaDeAdministrador')}
             autoComplete="username"
             style={{ height: 46, borderRadius: 12 }}
           />
         </Form.Item>
         <Form.Item
           name="password"
-          label="访问密钥"
-          rules={[{ required: true, message: '请输入访问密钥' }]}
+          label={t('chaveDeAcesso')}
+          rules={[{ required: true, message: t('informeAChaveDeAcesso') }]}
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: token.colorTextTertiary }} />}
-            placeholder="请输入访问密钥"
+            placeholder={t('informeAChaveDeAcesso')}
             autoComplete="current-password"
             style={{ height: 46, borderRadius: 12 }}
           />
@@ -402,18 +355,11 @@ export default function Login() {
               borderRadius: '12px',
               boxShadow: primaryButtonShadow,
             }}
-          >
-            登录系统
+          >{t('entrar')}
           </Button>
         </Form.Item>
       </Form>
 
-      {linuxdoEnabled ? (
-        <>
-          <Divider style={{ margin: '18px 0 16px' }}>第三方登录</Divider>
-          {renderLinuxDOLogin()}
-        </>
-      ) : null}
     </>
   );
 
@@ -423,9 +369,8 @@ export default function Login() {
         <div style={{ marginTop: 16 }}>
           <Space direction="vertical" size={12} style={{ width: '100%' }}>
             <Space style={{ width: '100%', justifyContent: 'space-between' }}>
-              <Title level={5} style={{ margin: 0 }}>忘记密码 / 重置密码</Title>
-              <Button type="link" style={{ paddingInline: 0 }} onClick={() => setShowResetPassword(false)}>
-                返回验证码登录
+              <Title level={5} style={{ margin: 0 }}>{t('esqueciASenhaRedefinirSenha')}</Title>
+              <Button type="link" style={{ paddingInline: 0 }} onClick={() => setShowResetPassword(false)}>{t('voltarAoLoginPorCodigo')}
               </Button>
             </Space>
 
@@ -438,65 +383,64 @@ export default function Login() {
               >
                 <Form.Item
                   name="email"
-                  label="注册邮箱"
+                  label={t('eMailCadastrado')}
                   rules={[
-                    { required: true, message: '请输入注册邮箱' },
-                    { type: 'email', message: '请输入有效的邮箱地址' },
+                    { required: true, message: t('informeOEMailCadastrado') },
+                    { type: 'email', message: t('informeUmEnderecoDeE') },
                   ]}
                 >
-                  <Input prefix={<MailOutlined />} placeholder="请输入注册邮箱" />
+                  <Input prefix={<MailOutlined />} placeholder={t('informeOEMailCadastrado')} />
                 </Form.Item>
-                <Form.Item label="重置验证码" required style={{ marginBottom: 12 }}>
+                <Form.Item label={t('codigoDeRedefinicao')} required style={{ marginBottom: 12 }}>
                   <Space.Compact style={{ width: '100%' }}>
                     <Form.Item
                       name="code"
                       noStyle
                       rules={[
-                        { required: true, message: '请输入重置验证码' },
-                        { len: 6, message: '验证码长度为 6 位' },
+                        { required: true, message: t('informeOCodigoDeRedefinicao') },
+                        { len: 6, message: t('oCodigoDeveTer6') },
                       ]}
                     >
-                      <Input placeholder="请输入重置验证码" maxLength={6} />
+                      <Input placeholder={t('informeOCodigoDeRedefinicao')} maxLength={6} />
                     </Form.Item>
                     <Button
                       onClick={sendResetCode}
                       loading={resetCodeSending}
                       disabled={resetCountdown > 0}
                     >
-                      {resetCountdown > 0 ? `${resetCountdown}s 后重发` : '发送验证码'}
+                      {resetCountdown > 0 ? t('reenviarEmS', { resetCountdown }) : t('enviarCodigo')}
                     </Button>
                   </Space.Compact>
                 </Form.Item>
                 <Form.Item
                   name="new_password"
-                  label="新密码"
+                  label={t('novaSenha')}
                   rules={[
-                    { required: true, message: '请输入新密码' },
-                    { min: 6, message: '密码长度至少为 6 个字符' },
+                    { required: true, message: t('informeANovaSenha') },
+                    { min: 6, message: t('aSenhaDeveTerPelo') },
                   ]}
                 >
-                  <Input.Password prefix={<LockOutlined />} placeholder="请输入新密码" />
+                  <Input.Password prefix={<LockOutlined />} placeholder={t('informeANovaSenha')} />
                 </Form.Item>
                 <Form.Item
                   name="confirmNewPassword"
-                  label="确认新密码"
+                  label={t('confirmarNovaSenha')}
                   dependencies={['new_password']}
                   rules={[
-                    { required: true, message: '请再次输入新密码' },
+                    { required: true, message: t('informeANovaSenhaNovamente') },
                     ({ getFieldValue }) => ({
                       validator(_, value) {
                         if (!value || getFieldValue('new_password') === value) {
                           return Promise.resolve();
                         }
-                        return Promise.reject(new Error('两次输入的新密码不一致'));
+                        return Promise.reject(new Error(t('asNovasSenhasDigitadasNao')));
                       },
                     }),
                   ]}
                 >
-                  <Input.Password prefix={<LockOutlined />} placeholder="请再次输入新密码" />
+                  <Input.Password prefix={<LockOutlined />} placeholder={t('informeANovaSenhaNovamente')} />
                 </Form.Item>
-                <Button type="default" htmlType="submit" loading={loading} block>
-                  重置密码
+                <Button type="default" htmlType="submit" loading={loading} block>{t('redefinirSenha')}
                 </Button>
               </Form>
             </Card>
@@ -515,33 +459,33 @@ export default function Login() {
       >
         <Form.Item
           name="email"
-          label="邮箱地址"
+          label={t('enderecoDeEMail')}
           rules={[
-            { required: true, message: '请输入邮箱地址' },
-            { type: 'email', message: '请输入有效的邮箱地址' },
+            { required: true, message: t('informeOEnderecoDeE') },
+            { type: 'email', message: t('informeUmEnderecoDeE') },
           ]}
         >
           <Input
             prefix={<MailOutlined style={{ color: token.colorTextTertiary }} />}
-            placeholder="请输入已注册邮箱"
+            placeholder={t('informeOEMailCadastrado')}
             autoComplete="email"
             style={{ height: 46, borderRadius: 12 }}
           />
         </Form.Item>
 
-        <Form.Item label="登录验证码" required style={{ marginBottom: 24 }}>
+        <Form.Item label={t('codigoDeLogin')} required style={{ marginBottom: 24 }}>
           <Space.Compact style={{ width: '100%' }}>
             <Form.Item
               name="code"
               noStyle
               rules={[
-                { required: true, message: '请输入登录验证码' },
-                { len: 6, message: '验证码长度为 6 位' },
+                { required: true, message: t('informeOCodigoDeLogin2') },
+                { len: 6, message: t('oCodigoDeveTer6') },
               ]}
             >
               <Input
                 prefix={<SafetyCertificateOutlined style={{ color: token.colorTextTertiary }} />}
-                placeholder="请输入 6 位登录验证码"
+                placeholder={t('informeOCodigoDeLogin')}
                 maxLength={6}
                 style={{ height: 46, borderRadius: '12px 0 0 12px' }}
               />
@@ -552,7 +496,7 @@ export default function Login() {
               loading={loginCodeSending}
               disabled={loginCountdown > 0}
             >
-              {loginCountdown > 0 ? `${loginCountdown}s 后重发` : '发送验证码'}
+              {loginCountdown > 0 ? t('reenviarEmS2', { loginCountdown }) : t('enviarCodigo')}
             </Button>
           </Space.Compact>
         </Form.Item>
@@ -572,14 +516,12 @@ export default function Login() {
               borderRadius: '12px',
               boxShadow: primaryButtonShadow,
             }}
-          >
-            验证码登录
+          >{t('entrarComCodigo')}
           </Button>
         </Form.Item>
 
         <div style={{ marginTop: 12, textAlign: 'right' }}>
-          <Button type="link" style={{ paddingInline: 0 }} onClick={() => setShowResetPassword(true)}>
-            忘记密码？点击重置
+          <Button type="link" style={{ paddingInline: 0 }} onClick={() => setShowResetPassword(true)}>{t('esqueceuASenhaCliquePara')}
           </Button>
         </div>
       </Form>
@@ -596,33 +538,33 @@ export default function Login() {
     >
       <Form.Item
         name="email"
-        label="注册邮箱"
+        label={t('eMailCadastrado')}
         rules={[
-          { required: true, message: '请输入注册邮箱' },
-          { type: 'email', message: '请输入有效的邮箱地址' },
+          { required: true, message: t('informeOEMailCadastrado') },
+          { type: 'email', message: t('informeUmEnderecoDeE') },
         ]}
       >
         <Input
           prefix={<MailOutlined style={{ color: token.colorTextTertiary }} />}
-          placeholder="请输入注册邮箱"
+          placeholder={t('informeOEMailCadastrado')}
           autoComplete="email"
           style={{ height: 46, borderRadius: 12 }}
         />
       </Form.Item>
 
-      <Form.Item label="邮箱验证码" required style={{ marginBottom: 12 }}>
+      <Form.Item label={t('codigoDoEMail')} required style={{ marginBottom: 12 }}>
         <Space.Compact style={{ width: '100%' }}>
           <Form.Item
             name="code"
             noStyle
             rules={[
-              { required: true, message: '请输入邮箱验证码' },
-              { len: 6, message: '验证码长度为 6 位' },
+              { required: true, message: t('informeOCodigoEnviadoPor') },
+              { len: 6, message: t('oCodigoDeveTer6') },
             ]}
           >
             <Input
               prefix={<SafetyCertificateOutlined style={{ color: token.colorTextTertiary }} />}
-              placeholder="请输入 6 位验证码"
+              placeholder={t('informeOCodigoDe6')}
               maxLength={6}
               style={{ height: 46, borderRadius: '12px 0 0 12px' }}
             />
@@ -633,19 +575,19 @@ export default function Login() {
             loading={registerCodeSending}
             disabled={registerCountdown > 0}
           >
-            {registerCountdown > 0 ? `${registerCountdown}s 后重发` : '发送验证码'}
+            {registerCountdown > 0 ? t('reenviarEmS3', { registerCountdown }) : t('enviarCodigo')}
           </Button>
         </Space.Compact>
       </Form.Item>
 
       <Form.Item
         name="display_name"
-        label="昵称"
-        rules={[{ max: 50, message: '昵称长度不能超过 50 个字符' }]}
+        label={t('apelido')}
+        rules={[{ max: 50, message: t('oApelidoNaoPodeTer') }]}
       >
         <Input
           prefix={<UserOutlined style={{ color: token.colorTextTertiary }} />}
-          placeholder="选填，默认使用邮箱前缀"
+          placeholder={t('opcionalPorPadraoUsaO')}
           autoComplete="nickname"
           style={{ height: 46, borderRadius: 12 }}
         />
@@ -653,15 +595,15 @@ export default function Login() {
 
       <Form.Item
         name="password"
-        label="登录密码"
+        label={t('senhaDeLogin')}
         rules={[
-          { required: true, message: '请输入登录密码' },
-          { min: 6, message: '密码长度至少为 6 个字符' },
+          { required: true, message: t('informeASenhaDeLogin') },
+          { min: 6, message: t('aSenhaDeveTerPelo') },
         ]}
       >
         <Input.Password
           prefix={<LockOutlined style={{ color: token.colorTextTertiary }} />}
-          placeholder="请输入登录密码"
+          placeholder={t('informeASenhaDeLogin')}
           autoComplete="new-password"
           style={{ height: 46, borderRadius: 12 }}
         />
@@ -669,23 +611,23 @@ export default function Login() {
 
       <Form.Item
         name="confirmPassword"
-        label="确认密码"
+        label={t('confirmarSenha')}
         dependencies={['password']}
         rules={[
-          { required: true, message: '请再次输入登录密码' },
+          { required: true, message: t('informeASenhaDeLogin2') },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('两次输入的密码不一致'));
+              return Promise.reject(new Error(t('asSenhasDigitadasNaoCoincidem')));
             },
           }),
         ]}
       >
         <Input.Password
           prefix={<LockOutlined style={{ color: token.colorTextTertiary }} />}
-          placeholder="请再次输入登录密码"
+          placeholder={t('informeASenhaDeLogin2')}
           autoComplete="new-password"
           style={{ height: 46, borderRadius: 12 }}
         />
@@ -706,59 +648,13 @@ export default function Login() {
             borderRadius: '12px',
             boxShadow: primaryButtonShadow,
           }}
-        >
-          注册并登录
+        >{t('cadastrarEEntrar')}
         </Button>
       </Form.Item>
 
-      <Text type="secondary" style={{ marginTop: 12, display: 'block' }}>
-        验证码将发送到你填写的邮箱，若未收到请检查垃圾箱或稍后重试。注册后可通过邮箱验证码登录，也支持邮箱重置密码。
+      <Text type="secondary" style={{ marginTop: 12, display: 'block' }}>{t('oCodigoSeraEnviadoAo')}
       </Text>
     </Form>
-  );
-
-  const renderLinuxDOLogin = () => (
-    <div>
-      <Button
-        type="primary"
-        size="large"
-        icon={(
-          <img
-            src="/favicon.ico"
-            alt="LinuxDO"
-            style={{
-              width: 20,
-              height: 20,
-              marginRight: 8,
-              verticalAlign: 'middle',
-            }}
-          />
-        )}
-        loading={loading}
-        onClick={handleLinuxDOLogin}
-        block
-        style={{
-          height: 46,
-          fontSize: 16,
-          fontWeight: 600,
-          background: `linear-gradient(90deg, ${token.colorPrimary} 0%, ${alphaColor(token.colorPrimary, 0.86)} 100%)`,
-          border: 'none',
-          borderRadius: '12px',
-          boxShadow: primaryButtonShadow,
-          transition: 'all 0.3s ease',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.transform = 'translateY(-2px)';
-          e.currentTarget.style.boxShadow = hoverButtonShadow;
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.transform = 'translateY(0)';
-          e.currentTarget.style.boxShadow = primaryButtonShadow;
-        }}
-      >
-        使用 LinuxDO OAuth 登录
-      </Button>
-    </div>
   );
 
   const authTabs = [
@@ -766,7 +662,7 @@ export default function Login() {
       ? [
           {
             key: 'local-login',
-            label: '本地登录',
+            label: t('loginLocal'),
             children: renderLocalLogin(),
           },
         ]
@@ -775,7 +671,7 @@ export default function Login() {
       ? [
           {
             key: 'email-login',
-            label: '邮箱登录',
+            label: t('loginPorEMail'),
             children: renderEmailLogin(),
           },
         ]
@@ -784,7 +680,7 @@ export default function Login() {
       ? [
           {
             key: 'email-register',
-            label: '邮箱注册',
+            label: t('cadastroPorEMail'),
             children: renderEmailRegister(),
           },
         ]
@@ -809,12 +705,6 @@ export default function Login() {
 
   return (
     <>
-      <AnnouncementModal
-        visible={showAnnouncement}
-        onClose={handleAnnouncementClose}
-        onDoNotShowToday={handleDoNotShowToday}
-        onNeverShow={handleNeverShow}
-      />
       <Layout style={{ minHeight: '100vh', background: token.colorBgLayout }}>
         <div
           style={{
@@ -902,8 +792,7 @@ export default function Login() {
                         fontWeight: 800,
                         fontSize: 'clamp(52px, 3vw, 78px)',
                       }}
-                    >
-                      基于 AI 的
+                    >{t('comBaseEmIa')}
                       <br />
                       <span
                         style={{
@@ -913,8 +802,7 @@ export default function Login() {
                           WebkitTextFillColor: 'transparent',
                           color: token.colorPrimary,
                         }}
-                      >
-                        智能小说创作助手
+                      >{t('oAssistenteInteligenteDeCriacao')}
                       </span>
                     </Title>
                     <Paragraph
@@ -925,8 +813,7 @@ export default function Login() {
                         marginBottom: 0,
                         maxWidth: 800,
                       }}
-                    >
-                      从灵感到成稿，围绕「多模型协同、创作流程自动化、角色关系管理、章节精修」构建一体化创作工作台。
+                    >{t('daInspiracaoAoTextoFinal')}
                     </Paragraph>
                   </div>
 
@@ -963,7 +850,6 @@ export default function Login() {
                   <Tag color="blue">OpenAI</Tag>
                   <Tag color="geekblue">Gemini</Tag>
                   <Tag color="purple">Claude</Tag>
-                  <Tag color="cyan">LinuxDO OAuth</Tag>
                   <Tag color="green">Docker Compose</Tag>
                   <Tag color="gold">PostgreSQL</Tag>
                 </Space>
@@ -997,11 +883,9 @@ export default function Login() {
             >
               <div style={{ width: '100%', maxWidth: 520 }}>
                 <Space direction="vertical" size={4}>
-                  <Title level={2} style={{ marginBottom: 0, fontWeight: 700, color: token.colorText }}>
-                    欢迎回来
+                  <Title level={2} style={{ marginBottom: 0, fontWeight: 700, color: token.colorText }}>{t('bemVindoDeVolta')}
                   </Title>
-                  <Paragraph style={{ marginBottom: 0, color: token.colorTextSecondary }}>
-                    登录 MuMuAINovel，继续你的小说创作项目。
+                  <Paragraph style={{ marginBottom: 0, color: token.colorTextSecondary }}>{t('entreNoMumuainovelEContinue')}
                   </Paragraph>
                 </Space>
 
@@ -1010,12 +894,12 @@ export default function Login() {
                     <Tabs defaultActiveKey={authTabs[0].key} items={authTabs} />
                   ) : null}
 
-                  {!localAuthEnabled && !linuxdoEnabled && !emailAuthEnabled ? (
+                  {!localAuthEnabled && !emailAuthEnabled ? (
                     <Alert
                       type="warning"
                       showIcon
-                      message="当前未启用可用登录方式"
-                      description="请联系管理员在系统配置中启用本地登录、邮箱认证或 LinuxDO OAuth 登录。"
+                      message={t('nenhumaFormaDeLoginEsta')}
+                      description={t('pecaAoAdministradorParaAtivar')}
                     />
                   ) : null}
 
@@ -1024,8 +908,8 @@ export default function Login() {
                       type="info"
                       showIcon
                       style={{ marginTop: 12, borderRadius: 12 }}
-                      message="邮箱注册暂未开放"
-                      description="当前仅开放邮箱验证码登录与找回密码，如需注册请联系管理员。"
+                      message={t('oCadastroPorEMail')}
+                      description={t('noMomentoSoEstaoDisponiveis')}
                     />
                   ) : null}
 
@@ -1035,7 +919,7 @@ export default function Login() {
                     showIcon
                     icon={<SafetyCertificateOutlined />}
                     style={{ background: alphaColor(token.colorPrimary, 0.06), borderRadius: 12 }}
-                    message="登录说明"
+                    message={t('informacoesDeLogin')}
                     description={(
                       <ul style={{ margin: 0, paddingLeft: 18 }}>
                         {loginTips.map((tip) => (

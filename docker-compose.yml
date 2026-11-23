@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-mumuai}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
       POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
-      TZ: ${TZ:-Asia/Shanghai}
+      TZ: ${TZ:-America/Sao_Paulo}
     volumes:
       - postgres_data:/var/lib/postgresql
       - ./backend/scripts/init_postgres.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -49,15 +49,26 @@ services:
       - -c
       - max_wal_size=${POSTGRES_MAX_WAL_SIZE:-4GB}
 
+  qdrant:
+    image: qdrant/qdrant
+    container_name: mumuainovel-qdrant
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+    networks:
+      - ai-story-network
+
   mumuainovel:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mumujie/mumuainovel:latest
+    image: mumuainovel-ptbr:local
     container_name: mumuainovel
     depends_on:
       postgres:
         condition: service_healthy
+      qdrant:
+        condition: service_started
     ports:
       - "${APP_PORT:-8000}:8000"
     volumes:
@@ -65,8 +76,8 @@ services:
       - ./storage/generated_covers:/app/storage/generated_covers
       - ./.env:/app/.env:ro
     environment:
-      # 时区配置
-      - TZ=${TZ:-Asia/Shanghai}
+      # Fuso horário
+      - TZ=${TZ:-America/Sao_Paulo}
       
       # 应用配置
       - APP_NAME=${APP_NAME:-MuMuAINovel}
@@ -91,6 +102,9 @@ services:
       - DATABASE_POOL_PRE_PING=${DATABASE_POOL_PRE_PING:-True}
       - DATABASE_POOL_USE_LIFO=${DATABASE_POOL_USE_LIFO:-True}
       
+      # Banco vetorial (Qdrant)
+      - QDRANT_URL=http://qdrant:6333
+
       # 全局代理配置（可选）
       - HTTP_PROXY=${HTTP_PROXY:-}
       - HTTPS_PROXY=${HTTPS_PROXY:-}
@@ -104,24 +118,19 @@ services:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - ANTHROPIC_BASE_URL=${ANTHROPIC_BASE_URL:-}
       - DEFAULT_AI_PROVIDER=${DEFAULT_AI_PROVIDER:-openai}
-      - DEFAULT_MODEL=${DEFAULT_MODEL:-gpt-4o-mini}
+      - DEFAULT_MODEL=${DEFAULT_MODEL:-gpt-6.1-terra}
       - DEFAULT_TEMPERATURE=${DEFAULT_TEMPERATURE:-0.7}
       - DEFAULT_MAX_TOKENS=${DEFAULT_MAX_TOKENS:-32000}
       - ALLOW_PRIVATE_AI_ENDPOINTS=${ALLOW_PRIVATE_AI_ENDPOINTS:-false}
       - ALLOWED_AI_HOSTS=${ALLOWED_AI_HOSTS:-}
       
-      # LinuxDO OAuth 配置
-      - LINUXDO_CLIENT_ID=${LINUXDO_CLIENT_ID:-11111}
-      - LINUXDO_CLIENT_SECRET=${LINUXDO_CLIENT_SECRET:-11111}
-      - LINUXDO_REDIRECT_URI=${LINUXDO_REDIRECT_URI:-http://localhost:8000/api/auth/linuxdo/callback}
-      - LINUXDO_PROXY_URL=${LINUXDO_PROXY_URL:-}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:8000}
       
-      # 本地账户登录配置
+      # Login local (administrador)
       - LOCAL_AUTH_ENABLED=${LOCAL_AUTH_ENABLED:-true}
       - LOCAL_AUTH_USERNAME=${LOCAL_AUTH_USERNAME:-admin}
       - LOCAL_AUTH_PASSWORD=${LOCAL_AUTH_PASSWORD:-admin123}
-      - LOCAL_AUTH_DISPLAY_NAME=${LOCAL_AUTH_DISPLAY_NAME:-本地管理员}
+      - LOCAL_AUTH_DISPLAY_NAME=${LOCAL_AUTH_DISPLAY_NAME:-Administrador}
       
       # 会话配置
       - SESSION_EXPIRE_MINUTES=${SESSION_EXPIRE_MINUTES:-120}
@@ -139,6 +148,8 @@ services:
 
 volumes:
   postgres_data:
+    driver: local
+  qdrant_data:
     driver: local
 
 networks:

@@ -7,13 +7,13 @@ from typing import List, Optional
 from app.user_manager import user_manager, User
 from app.user_password import password_manager
 
-router = APIRouter(prefix="/users", tags=["用户管理"])
+router = APIRouter(prefix="/users", tags=["Gerenciamento de usuários"])
 
 
 def require_login(request: Request):
     """依赖：要求用户已登录"""
     if not hasattr(request.state, "user") or not request.state.user:
-        raise HTTPException(status_code=401, detail="需要登录")
+        raise HTTPException(status_code=401, detail="É necessário fazer login")
     return request.state.user
 
 
@@ -21,7 +21,7 @@ def require_admin(request: Request):
     """依赖：要求用户为管理员"""
     user = require_login(request)
     if not request.state.is_admin:
-        raise HTTPException(status_code=403, detail="需要管理员权限")
+        raise HTTPException(status_code=403, detail="É necessária permissão de administrador")
     return user
 
 
@@ -67,7 +67,7 @@ async def set_admin(
     if data.user_id == admin_user.user_id and not data.is_admin:
         raise HTTPException(
             status_code=400,
-            detail="不能撤销自己的管理员权限"
+            detail="Você não pode revogar sua própria permissão de administrador"
         )
     
     # 尝试设置管理员权限
@@ -77,16 +77,16 @@ async def set_admin(
         if not data.is_admin:
             raise HTTPException(
                 status_code=400,
-                detail="无法撤销管理员权限，至少需要保留一个管理员"
+                detail="Não é possível revogar a permissão: é preciso manter pelo menos um administrador"
             )
         else:
             raise HTTPException(
                 status_code=404,
-                detail="用户不存在"
+                detail="Usuário não encontrado"
             )
     
     return {
-        "message": f"已{'授予' if data.is_admin else '撤销'}管理员权限",
+        "message": f"Permissão de administrador {'concedida' if data.is_admin else 'revogada'}",
         "user_id": data.user_id,
         "is_admin": data.is_admin
     }
@@ -108,11 +108,11 @@ async def delete_user(
     if not success:
         raise HTTPException(
             status_code=400,
-            detail="无法删除该用户（用户不存在或为管理员）"
+            detail="Não é possível excluir este usuário (não existe ou é administrador)"
         )
     
     return {
-        "message": "用户已删除",
+        "message": "Usuário excluído",
         "user_id": user_id
     }
 
@@ -126,7 +126,7 @@ async def get_user(
     user = await user_manager.get_user(user_id)
     
     if not user:
-        raise HTTPException(status_code=404, detail="用户不存在")
+        raise HTTPException(status_code=404, detail="Usuário não encontrado")
     
     return user.dict()
 
@@ -149,7 +149,7 @@ async def reset_user_password(
     if data.user_id == admin_user.user_id:
         raise HTTPException(
             status_code=400,
-            detail="不能重置自己的密码，请使用修改密码功能"
+            detail="Você não pode redefinir a própria senha, use a função de alterar senha"
         )
     
     # 检查目标用户是否存在
@@ -157,7 +157,7 @@ async def reset_user_password(
     if not target_user:
         raise HTTPException(
             status_code=404,
-            detail="目标用户不存在"
+            detail="Usuário de destino não encontrado"
         )
     
     # 重置密码
@@ -174,7 +174,7 @@ async def reset_user_password(
         )
         
         # 如果使用了默认密码，返回密码供管理员告知用户
-        message = "密码重置成功"
+        message = "Senha redefinida com sucesso"
         response_data = {
             "message": message,
             "user_id": data.user_id,
@@ -183,12 +183,12 @@ async def reset_user_password(
         
         if not data.new_password:
             response_data["temporary_password"] = generated_password
-            response_data["message"] = "密码已重置为系统生成的临时密码，请尽快通知用户修改"
+            response_data["message"] = "A senha foi redefinida para uma senha temporária gerada pelo sistema, avise o usuário para alterá-la o quanto antes"
         
         return response_data
         
     except Exception as e:
         raise HTTPException(
             status_code=500,
-            detail=f"重置密码失败: {str(e)}"
+            detail=f"Falha ao redefinir a senha: {str(e)}"
         )

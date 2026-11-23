@@ -39,10 +39,10 @@ from app.utils.data_consistency import (
 )
 
 logger = get_logger(__name__)
-router = APIRouter(prefix="/projects", tags=["项目管理"])
+router = APIRouter(prefix="/projects", tags=["Gerenciamento de projetos"])
 
 
-@router.post("", response_model=ProjectResponse, summary="创建项目")
+@router.post("", response_model=ProjectResponse, summary="Criar projeto")
 async def create_project(
     project: ProjectCreate,
     db: AsyncSession = Depends(get_db),
@@ -53,7 +53,7 @@ async def create_project(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试创建项目")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"创建新项目: {project.title}, user_id={user_id}")
         
@@ -75,7 +75,7 @@ async def create_project(
         raise
 
 
-@router.get("", response_model=ProjectListResponse, summary="获取项目列表")
+@router.get("", response_model=ProjectListResponse, summary="Listar projetos")
 async def get_projects(
     skip: int = 0,
     limit: int = 100,
@@ -88,7 +88,7 @@ async def get_projects(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试获取项目列表")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.debug(f"获取项目列表: user_id={user_id}, skip={skip}, limit={limit}")
         
@@ -116,7 +116,7 @@ async def get_projects(
         raise
 
 
-@router.get("/{project_id}", response_model=ProjectResponse, summary="获取项目详情")
+@router.get("/{project_id}", response_model=ProjectResponse, summary="Obter detalhes do projeto")
 async def get_project(
     project_id: str,
     db: AsyncSession = Depends(get_db),
@@ -127,7 +127,7 @@ async def get_project(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试获取项目详情")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.debug(f"获取项目详情: project_id={project_id}, user_id={user_id}")
         
@@ -142,7 +142,7 @@ async def get_project(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         logger.info(f"获取项目详情成功: {project.title}")
         return project
@@ -153,7 +153,7 @@ async def get_project(
         raise
 
 
-@router.put("/{project_id}", response_model=ProjectResponse, summary="更新项目")
+@router.put("/{project_id}", response_model=ProjectResponse, summary="Atualizar projeto")
 async def update_project(
     project_id: str,
     project_update: ProjectUpdate,
@@ -165,7 +165,7 @@ async def update_project(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试更新项目")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"更新项目: project_id={project_id}, user_id={user_id}")
         
@@ -180,7 +180,7 @@ async def update_project(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         update_data = project_update.model_dump(exclude_unset=True)
         logger.debug(f"更新字段: {list(update_data.keys())}")
@@ -198,7 +198,7 @@ async def update_project(
         raise
 
 
-@router.delete("/{project_id}", summary="删除项目")
+@router.delete("/{project_id}", summary="Excluir projeto")
 async def delete_project(
     project_id: str,
     request: Request,
@@ -209,7 +209,7 @@ async def delete_project(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试删除项目")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"删除项目: project_id={project_id}, user_id={user_id}")
         
@@ -224,7 +224,7 @@ async def delete_project(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         project_title = project.title
         
@@ -335,7 +335,7 @@ async def delete_project(
         await db.commit()
         
         logger.info(f"项目删除成功: {project_title}")
-        return {"message": "项目及所有关联数据（包括向量数据库）删除成功"}
+        return {"message": "Projeto e todos os dados associados (incluindo o banco vetorial) excluídos com sucesso"}
     except HTTPException:
         raise
     except Exception as e:
@@ -343,7 +343,7 @@ async def delete_project(
         raise
 
 
-@router.get("/{project_id}/export", summary="导出项目章节为TXT")
+@router.get("/{project_id}/export", summary="Exportar capítulos do projeto em TXT")
 async def export_project_chapters(
     project_id: str,
     db: AsyncSession = Depends(get_db),
@@ -358,7 +358,7 @@ async def export_project_chapters(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试导出项目")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始导出项目: project_id={project_id}, user_id={user_id}")
         
@@ -373,7 +373,7 @@ async def export_project_chapters(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         chapters_result = await db.execute(
             select(Chapter)
@@ -384,27 +384,27 @@ async def export_project_chapters(
         
         if not chapters:
             logger.warning(f"项目没有章节: {project_id}")
-            raise HTTPException(status_code=404, detail="项目没有任何章节")
+            raise HTTPException(status_code=404, detail="O projeto não tem nenhum capítulo")
         
         txt_content = []
         
         for idx, chapter in enumerate(chapters):
-            chapter_title = (chapter.title or "").strip() or f"未命名章节{chapter.chapter_number}"
+            chapter_title = (chapter.title or "").strip() or f"Capítulo sem título {chapter.chapter_number}"
             raw_content = (chapter.content or "").strip()
             if raw_content:
                 formatted_lines = []
                 for line in raw_content.splitlines():
                     stripped_line = line.strip()
                     if stripped_line:
-                        formatted_lines.append(f"　　{stripped_line}")
+                        formatted_lines.append(stripped_line)
                     else:
                         formatted_lines.append("")
                 chapter_content = "\n".join(formatted_lines)
             else:
-                chapter_content = "　　（本章暂无内容）"
+                chapter_content = "(Este capítulo ainda não tem conteúdo)"
             
             # 使用拆书强匹配可稳定识别的章节标题格式：第X章 标题
-            txt_content.append(f"第{chapter.chapter_number}章 {chapter_title}")
+            txt_content.append(f"Capítulo {chapter.chapter_number} {chapter_title}")
             txt_content.append(chapter_content)
             
             # 章节之间只保留一个空行，避免装饰性分割线干扰拆书识别
@@ -413,7 +413,7 @@ async def export_project_chapters(
         
         final_content = "\n".join(txt_content)
         
-        safe_title = "".join(c for c in (project.title or "未命名项目") if c.isalnum() or c in (' ', '-', '_', '，', '。', '、'))
+        safe_title = "".join(c for c in (project.title or "Projeto sem título") if c.isalnum() or c in (' ', '-', '_', ',', '.'))
         filename = f"{safe_title}.txt"
         
         from urllib.parse import quote
@@ -434,10 +434,10 @@ async def export_project_chapters(
         raise
     except Exception as e:
         logger.error(f"导出项目失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"导出失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na exportação: {str(e)}")
 
 
-@router.post("/{project_id}/check-consistency", summary="检查数据一致性")
+@router.post("/{project_id}/check-consistency", summary="Verificar a consistência dos dados")
 async def check_project_consistency(
     project_id: str,
     request: Request,
@@ -462,7 +462,7 @@ async def check_project_consistency(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试检查数据一致性")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始数据一致性检查: project_id={project_id}, user_id={user_id}, auto_fix={auto_fix}")
         
@@ -477,7 +477,7 @@ async def check_project_consistency(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         report = await run_full_data_consistency_check(project_id, db, auto_fix)
         
@@ -488,10 +488,10 @@ async def check_project_consistency(
         raise
     except Exception as e:
         logger.error(f"数据一致性检查失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"检查失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na verificação: {str(e)}")
 
 
-@router.post("/{project_id}/fix-organizations", summary="修复组织记录")
+@router.post("/{project_id}/fix-organizations", summary="Corrigir registros de organizações")
 async def fix_project_organizations(
     project_id: str,
     request: Request,
@@ -507,7 +507,7 @@ async def fix_project_organizations(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试修复组织记录")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始修复组织记录: project_id={project_id}, user_id={user_id}")
         
@@ -522,13 +522,13 @@ async def fix_project_organizations(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         fixed_count, total_count = await fix_missing_organization_records(project_id, db)
         
         logger.info(f"组织记录修复完成: {project_id}, 修复{fixed_count}/{total_count}")
         return {
-            "message": "组织记录修复完成",
+            "message": "Correção dos registros de organizações concluída",
             "fixed": fixed_count,
             "total": total_count
         }
@@ -537,10 +537,10 @@ async def fix_project_organizations(
         raise
     except Exception as e:
         logger.error(f"修复组织记录失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"修复失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na correção: {str(e)}")
 
 
-@router.post("/{project_id}/fix-member-counts", summary="修复成员计数")
+@router.post("/{project_id}/fix-member-counts", summary="Corrigir contagem de membros")
 async def fix_project_member_counts(
     project_id: str,
     request: Request,
@@ -556,7 +556,7 @@ async def fix_project_member_counts(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试修复成员计数")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始修复成员计数: project_id={project_id}, user_id={user_id}")
         
@@ -571,13 +571,13 @@ async def fix_project_member_counts(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         fixed_count, total_count = await fix_organization_member_counts(project_id, db)
         
         logger.info(f"成员计数修复完成: {project_id}, 修复{fixed_count}/{total_count}")
         return {
-            "message": "成员计数修复完成",
+            "message": "Correção da contagem de membros concluída",
             "fixed": fixed_count,
             "total": total_count
         }
@@ -586,10 +586,10 @@ async def fix_project_member_counts(
         raise
     except Exception as e:
         logger.error(f"修复成员计数失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"修复失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na correção: {str(e)}")
 
 
-@router.post("/{project_id}/export-data", summary="导出项目数据为JSON")
+@router.post("/{project_id}/export-data", summary="Exportar dados do projeto em JSON")
 async def export_project_data(
     project_id: str,
     request: Request,
@@ -616,7 +616,7 @@ async def export_project_data(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试导出项目数据")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始导出项目数据: project_id={project_id}, user_id={user_id}, options={options.model_dump()}")
         
@@ -631,7 +631,7 @@ async def export_project_data(
         
         if not project:
             logger.warning(f"项目不存在或无权访问: project_id={project_id}, user_id={user_id}")
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         
         # 导出数据（使用所有选项）
         export_data = await ImportExportService.export_project(
@@ -669,10 +669,10 @@ async def export_project_data(
         raise
     except Exception as e:
         logger.error(f"导出项目数据失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"导出失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na exportação: {str(e)}")
 
 
-@router.post("/validate-import", response_model=ImportValidationResult, summary="验证导入文件")
+@router.post("/validate-import", response_model=ImportValidationResult, summary="Validar arquivo de importação")
 async def validate_import_file(
     file: UploadFile = File(...)
 ):
@@ -690,7 +690,7 @@ async def validate_import_file(
         
         # 检查文件类型
         if not file.filename.endswith('.json'):
-            raise HTTPException(status_code=400, detail="只支持JSON格式文件")
+            raise HTTPException(status_code=400, detail="Apenas arquivos JSON são aceitos")
         
         # 读取文件内容
         content = await file.read()
@@ -698,13 +698,13 @@ async def validate_import_file(
         # 检查文件大小（50MB限制）
         max_size = 50 * 1024 * 1024  # 50MB
         if len(content) > max_size:
-            raise HTTPException(status_code=413, detail="文件大小超过50MB限制")
+            raise HTTPException(status_code=413, detail="O arquivo excede o limite de 50MB")
         
         # 解析JSON
         try:
             data = json.loads(content.decode('utf-8'))
         except json.JSONDecodeError as e:
-            raise HTTPException(status_code=400, detail=f"无效的JSON格式: {str(e)}")
+            raise HTTPException(status_code=400, detail=f"JSON inválido: {str(e)}")
         
         # 验证数据
         validation_result = ImportExportService.validate_import_data(data)
@@ -716,10 +716,10 @@ async def validate_import_file(
         raise
     except Exception as e:
         logger.error(f"验证导入文件失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"验证失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na validação: {str(e)}")
 
 
-@router.post("/import", response_model=ImportResult, summary="导入项目")
+@router.post("/import", response_model=ImportResult, summary="Importar projeto")
 async def import_project(
     file: UploadFile = File(...),
     request: Request = None,
@@ -739,13 +739,13 @@ async def import_project(
         user_id = getattr(request.state, 'user_id', None)
         if not user_id:
             logger.warning("未登录用户尝试导入项目")
-            raise HTTPException(status_code=401, detail="未登录")
+            raise HTTPException(status_code=401, detail="Não autenticado")
         
         logger.info(f"开始导入项目: {file.filename}, user_id={user_id}")
         
         # 检查文件类型
         if not file.filename.endswith('.json'):
-            raise HTTPException(status_code=400, detail="只支持JSON格式文件")
+            raise HTTPException(status_code=400, detail="Apenas arquivos JSON são aceitos")
         
         # 读取文件内容
         content = await file.read()
@@ -753,13 +753,13 @@ async def import_project(
         # 检查文件大小
         max_size = 50 * 1024 * 1024  # 50MB
         if len(content) > max_size:
-            raise HTTPException(status_code=413, detail="文件大小超过50MB限制")
+            raise HTTPException(status_code=413, detail="O arquivo excede o limite de 50MB")
         
         # 解析JSON
         try:
             data = json.loads(content.decode('utf-8'))
         except json.JSONDecodeError as e:
-            raise HTTPException(status_code=400, detail=f"无效的JSON格式: {str(e)}")
+            raise HTTPException(status_code=400, detail=f"JSON inválido: {str(e)}")
         
         # 导入数据（传入user_id）
         import_result = await ImportExportService.import_project(data, db, user_id)
@@ -775,4 +775,4 @@ async def import_project(
         raise
     except Exception as e:
         logger.error(f"导入项目失败: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"导入失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha na importação: {str(e)}")

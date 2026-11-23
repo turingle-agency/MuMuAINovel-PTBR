@@ -6,13 +6,13 @@ from datetime import datetime
 
 class PromptTemplateBase(BaseModel):
     """提示词模板基础模型"""
-    template_key: str = Field(..., description="模板键名")
-    template_name: str = Field(..., description="模板显示名称")
-    template_content: str = Field(..., description="模板内容")
-    description: Optional[str] = Field(None, description="模板描述")
-    category: Optional[str] = Field(None, description="模板分类")
-    parameters: Optional[str] = Field(None, description="模板参数定义(JSON)")
-    is_active: bool = Field(True, description="是否启用")
+    template_key: str = Field(..., description="Chave do template")
+    template_name: str = Field(..., description="Nome de exibição do template")
+    template_content: str = Field(..., description="Conteúdo do template")
+    description: Optional[str] = Field(None, description="Descrição do template")
+    category: Optional[str] = Field(None, description="Categoria do template")
+    parameters: Optional[str] = Field(None, description="Definição de parâmetros do template (JSON)")
+    is_active: bool = Field(True, description="Habilitado")
 
 
 class PromptTemplateCreate(PromptTemplateBase):
@@ -22,12 +22,12 @@ class PromptTemplateCreate(PromptTemplateBase):
 
 class PromptTemplateUpdate(BaseModel):
     """更新提示词模板请求模型"""
-    template_name: Optional[str] = Field(None, description="模板显示名称")
-    template_content: Optional[str] = Field(None, description="模板内容")
-    description: Optional[str] = Field(None, description="模板描述")
-    category: Optional[str] = Field(None, description="模板分类")
-    parameters: Optional[str] = Field(None, description="模板参数定义(JSON)")
-    is_active: Optional[bool] = Field(None, description="是否启用")
+    template_name: Optional[str] = Field(None, description="Nome de exibição do template")
+    template_content: Optional[str] = Field(None, description="Conteúdo do template")
+    description: Optional[str] = Field(None, description="Descrição do template")
+    category: Optional[str] = Field(None, description="Categoria do template")
+    parameters: Optional[str] = Field(None, description="Definição de parâmetros do template (JSON)")
+    is_active: Optional[bool] = Field(None, description="Habilitado")
 
 
 class PromptTemplateResponse(PromptTemplateBase):
@@ -56,15 +56,15 @@ class PromptTemplateCategoryResponse(BaseModel):
 
 class PromptTemplateExportItem(BaseModel):
     """提示词模板导出项模型"""
-    template_key: str = Field(..., description="模板键名")
-    template_name: str = Field(..., description="模板显示名称")
-    template_content: str = Field(..., description="模板内容")
-    description: Optional[str] = Field(None, description="模板描述")
-    category: Optional[str] = Field(None, description="模板分类")
-    parameters: Optional[str] = Field(None, description="模板参数定义(JSON)")
-    is_active: bool = Field(True, description="是否启用")
-    is_customized: bool = Field(..., description="是否为用户自定义（false=系统默认，true=用户自定义）")
-    system_content_hash: Optional[str] = Field(None, description="系统默认内容的哈希值，用于比对")
+    template_key: str = Field(..., description="Chave do template")
+    template_name: str = Field(..., description="Nome de exibição do template")
+    template_content: str = Field(..., description="Conteúdo do template")
+    description: Optional[str] = Field(None, description="Descrição do template")
+    category: Optional[str] = Field(None, description="Categoria do template")
+    parameters: Optional[str] = Field(None, description="Definição de parâmetros do template (JSON)")
+    is_active: bool = Field(True, description="Habilitado")
+    is_customized: bool = Field(..., description="Personalizado pelo usuário (false=padrão do sistema, true=personalizado)")
+    system_content_hash: Optional[str] = Field(None, description="Hash do conteúdo padrão do sistema, usado para comparação")
 
 
 class PromptTemplateExport(BaseModel):
@@ -72,17 +72,17 @@ class PromptTemplateExport(BaseModel):
     templates: List[PromptTemplateExportItem]
     export_time: datetime
     version: str = "2.0"
-    statistics: Optional[dict] = Field(None, description="导出统计信息")
+    statistics: Optional[dict] = Field(None, description="Estatísticas de exportação")
 
 
 class PromptTemplateImportResult(BaseModel):
     """提示词模板导入结果"""
     message: str
-    statistics: dict = Field(..., description="导入统计信息")
-    converted_templates: List[dict] = Field(default_factory=list, description="被转换为自定义的模板列表")
+    statistics: dict = Field(..., description="Estatísticas de importação")
+    converted_templates: List[dict] = Field(default_factory=list, description="Lista de templates convertidos em personalizados")
 
 
 class PromptTemplatePreviewRequest(BaseModel):
     """提示词模板预览请求"""
-    template_content: str = Field(..., description="模板内容")
-    parameters: dict = Field(..., description="参数字典")
+    template_content: str = Field(..., description="Conteúdo do template")
+    parameters: dict = Field(..., description="Dicionário de parâmetros")

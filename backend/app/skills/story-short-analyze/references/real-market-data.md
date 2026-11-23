@@ -1,77 +1,77 @@
-# 短篇网文跨平台写作参考
+# Referência de escrita de contos entre plataformas
 
-基于四大平台（七猫、黑岩、知乎、点众）热门作品研究整理。
+> Visão qualitativa e adaptada ao mercado ocidental e brasileiro de histórias curtas. Não traz números de mercado: confirme sempre com os dados atuais de cada plataforma.
 
 ---
 
-## 跨平台短篇写作差异对照表
+## Comparação de escrita de contos entre plataformas
 
-| 维度 | 七猫 | 黑岩 | 点众 | 知乎 |
+| Dimensão | Wattpad | Amazon Kindle (curtos/antologias) | Medium e newsletters | Revistas e antologias online |
 |------|------|------|------|------|
-| 主力字数 | 1-2万字 | 8千-4万字 | 1-2万字(10章x1000字) | 5千-1.5万字(中位1.2万) |
-| 章节数 | 7-19 | 4-14段(或1章4万字) | 5-10(标准10章) | 6-10 |
-| 人称 | 第一人称95%+ | 第一人称85%(女)/50%(男) | 第一人称95%+ | 混合(古言用第三人称) |
-| 章节字数 | 1000-1500 | 2000-5000 | 800-1500 | 800-1500 |
-| 对话占比 | 20-38%(均值27.7%) | 30-50% | 9%平均(功能化) | 20-40%(金句多) |
-| 段落结构 | 1-3句/段 | 1-3句/段 | 1-2句/段(16-37字) | 1-3句/段(30-60字) |
-| 导语/简介 | 必须(100-200字) | 必须(100-363字) | 必须(150-300字) | 简介即作品(200-500字) |
-| 开头模式 | 重生回溯/冲突前置 | 极端冲击/道德踩踏 | 标题即剧情/极端事件 | 一句话炸弹/金句开场 |
-| 结尾模式 | HE为主(50%+新恋情) | HE/BE各半 | HE为主(悔恨/打脸) | 多样化(开放式多) |
-| 独特元素 | 重生、穿书、心声流 | 灵魂视角、虐恋极致 | 弹幕流、读心、系统流 | 专业细节、脑洞、BL |
-| 反转手法 | 态度反转(重生后180度转变) | 道德反转+恐怖反转 | 身份反转+死亡反转 | 信息差+情感深层揭露 |
-| 爽点节奏 | 虐30%->觉醒15%->爽35%->治愈20% | 女:300-500字小反转/男:1000-2000字大爆发 | 每3章小转折/第10章大爆发 | 层层揭露/慢节奏但后劲大 |
-| 情绪密度 | 中-高 | 最高(女频3.23次/千字) | 极高(短句占比33-66%) | 中(克制但有力) |
-| 对话引号 | 「」或"" | 「」或"" | ""为主 | 「」为主 |
-| 核心定位 | 重生幻想 | 极致刺激 | 情绪快餐 | 情感精品 |
+| Extensão principal | 3 a 10 mil palavras | 5 a 20 mil palavras | 2 a 8 mil palavras | 3 a 8 mil palavras |
+| Divisão | Capítulos curtos | Capítulos ou texto único | Texto único | Texto único |
+| Pessoa narrativa | Primeira pessoa muito comum | Primeira ou terceira | Primeira ou terceira | Variada |
+| Tamanho do capítulo | 600 a 1.500 palavras | 1.000 a 3.000 palavras | Texto único | Texto único |
+| Proporção de diálogo | 30 a 50% | 25 a 45% | 15 a 35% | 15 a 40% |
+| Estrutura de parágrafo | 1 a 3 frases | 1 a 4 frases | 2 a 5 frases | 2 a 6 frases |
+| Sinopse | Obrigatória (curta e provocativa) | Obrigatória | Subtítulo/chamada | Chamada editorial |
+| Padrão de abertura | Conflito logo de cara, voz forte | Gancho de gênero | Frase de impacto ou imagem | Imagem ou voz marcante |
+| Padrão de final | Final emocional, muitas vezes feliz | Satisfaz a promessa do gênero | Aberto ou reflexivo | Ambíguo, de ressonância |
+| Elementos próprios | Fanfic, romance jovem, comentários por capítulo | Tropos de gênero claros | Ensaio narrativo, voz pessoal | Estilo e originalidade |
+| Reviravolta | Revelação emocional | Reviravolta de gênero | Ironia, virada de sentido | Virada sutil |
+| Ritmo de recompensa | Curto e frequente | Sustentado até a reviravolta final | Contido, com efeito tardio | Contido |
+| Densidade emocional | Alta | Média a alta | Média | Média |
+| Marcação de diálogo | Aspas ou travessão | Aspas ou travessão | Aspas | Aspas ou travessão |
+| Posicionamento | Emoção e comunidade | Entretenimento de gênero | Voz e reflexão | Qualidade literária |
 
 ---
 
-## 各平台简介写作公式
+## Fórmulas de sinopse por plataforma
 
-| 平台 | 简介公式 | 字数 | 核心特征 |
+| Plataforma | Fórmula | Extensão | Característica central |
 |------|---------|------|---------|
-| 七猫总裁 | 正常生活->伤害事件->最残忍对话->女主反转->悬念钩子 | 133-322字 | 70%含对话，对话选最伤人那句 |
-| 黑岩女频 | 递进式控诉/心声揭穿/绝症倒计时/重生对比/公开羞辱+底牌 | 103-363字 | 核心是"这一次我..." |
-| 黑岩男频 | 极简对白+信息炸弹/前世被害+重生/职场压榨+超自然 | 109-401字 | 第一段直接上最炸裂的场景或对白 |
-| 点众 | 场景设定+信任陷阱+致命真相+反击暗示 | 150-300字 | 简介浓缩前1/3精华 |
-| 知乎 | 人物关系+核心冲突+2-3转折+金句/留白 | 200-500字 | 简介即独立微小说，有金句收尾 |
+| Wattpad | Situação normal -> evento que fere -> frase mais cruel -> virada da protagonista -> gancho de suspense | 60 a 150 palavras | Frase de diálogo no meio da sinopse costuma funcionar |
+| Amazon (romance/thriller) | Promessa de gênero + conflito + o que está em jogo + gancho | 100 a 200 palavras | Clara, focada no gênero, sem spoiler |
+| Medium e newsletters | Cena ou pergunta de abertura + tese emocional | 20 a 60 palavras | Chamada curta com voz própria |
+| Antologias | Resumo editorial do conceito | 50 a 100 palavras | Mostra originalidade em poucas linhas |
 
 ---
 
-## 题材爆款公式
+## Fórmulas de sucesso por gênero
 
-| 题材 | 爆款公式 | 核心情绪 | 目标平台 |
+| Gênero | Fórmula | Emoção central | Plataforma-alvo |
 |------|----------|----------|----------|
-| 总裁豪门 | 契约婚姻+白月光+觉醒离开 | 虐->爽 | 七猫/黑岩 |
-| 现实生活 | 家庭不公+重生/觉醒+反杀 | 愤怒->解气 | 七猫 |
-| 宫闱宅斗 | 被害+隐忍布局+反攻称帝 | 压抑->极致释放 | 七猫 |
-| 年代重生 | 替罪冤屈+重生+选不同路 | 憋屈->痛快 | 七猫 |
-| 现代悬疑 | 超自然设定+犯罪+反转 | 紧张->震撼 | 七猫/知乎 |
-| 玄幻仙侠 | 重生+反常行为+对手自乱 | 爽->更爽 | 七猫 |
-| 灵魂虐文 | 极致虐待+灵魂旁观+悔恨 | 愤怒->意难平 | 点众/黑岩 |
-| 职场逆袭 | 重生/穿越+投资+前夫后悔 | 憋屈->极爽 | 点众 |
-| 架空历史 | 性别反转/身份错位+离开+后悔 | 憋屈->释然 | 七猫 |
-| 家庭复仇 | 出轨/背叛+收集证据+当众打脸 | 愤怒->痛快 | 七猫/黑岩 |
+| Romance contemporâneo | Casamento por contrato + ex idealizado + protagonista que vai embora | Dor -> catarse | Wattpad/Amazon |
+| Drama familiar | Injustiça em casa + reviravolta + acerto de contas | Raiva -> alívio | Wattpad/Amazon |
+| Intriga de corte | Traição + estratégia silenciosa + contra-ataque | Opressão -> liberação máxima | Amazon |
+| Segunda chance | Culpa por um erro + renascer + escolher outro caminho | Frustração -> satisfação | Wattpad |
+| Suspense moderno | Elemento sobrenatural + crime + reviravolta | Tensão -> choque | Amazon/Medium |
+| Fantasia | Recomeço + comportamento inesperado + oponente que se perde | Satisfação -> mais satisfação | Wattpad |
+| Drama de espírito | Sofrimento extremo + espírito que observa + arrependimento | Raiva -> amargura | Wattpad |
+| Virada profissional | Recomeço/viagem no tempo + investimento + ex que se arrepende | Frustração -> catarse | Wattpad/Amazon |
+| Histórico alternativo | Inversão de gênero/papel + ir embora + arrependimento | Frustração -> alívio | Amazon |
+| Vingança familiar | Traição + coleta de provas + confronto público | Raiva -> satisfação | Wattpad/Amazon |
 
 ---
 
-## 平台独特特征
+## Características próprias das plataformas
 
-### 七猫
+### Wattpad
 
-- 第一人称95%+，女性主角80%+
-- 每章1000-1500字，7-10章为主力区间
-- 几乎都有明确导语（前言概括全文核心冲突）
+- Primeira pessoa muito frequente, protagonista feminina predominante em romance
+- Capítulos curtos e frequentes, com gancho no final de cada um
+- Sinopse e capa decidem boa parte da leitura inicial
+- Comentários por capítulo guiam a continuidade
 
-### 知乎
+### Medium e newsletters
 
-- 专业细节丰富（医疗有医学知识，法律有法律细节）
-- 社会议题导向（婆媳、重男轻女、医疗纠纷）
-- 情绪更克制但后劲更大，对话更真实
-- 简介即作品：200-500字微小说，有金句收尾
+- Detalhes de experiência e de profissão dão credibilidade
+- Orientado a temas sociais (relações familiares, trabalho, saúde)
+- Emoção mais contida, mas com efeito mais duradouro; diálogos mais realistas
+- O texto de abertura funciona como microconto
 
-### 点众标题公式
+### Fórmulas de título
 
-- `白眼狼妹妹把家产送人，我让她净身出户` = 人物+行为+反杀
-- `愚人节死在棺材里后，三个哥哥都悔疯了` = 事件+后果+情绪
-- `春节返程，老公一家把我女儿挂车外狗笼子里` = 场景+冲突+愤怒
+- `A irmã ingrata deu a herança da família, e eu a deixei sem nada` = pessoa + ação + revide
+- `Morri num caixão no 1º de abril, e meus três irmãos enlouqueceram de remorso` = evento + consequência + emoção
+- `Na volta do feriado, minha família deixou minha filha presa do lado de fora do carro` = cena + conflito + raiva

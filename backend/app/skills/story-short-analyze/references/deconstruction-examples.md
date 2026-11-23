@@ -1,69 +1,69 @@
-# 拆文实例（3 个完整案例）
+# Exemplos de análise (3 casos completos)
 
-## 案例 1：现代虐恋（盲女保镖 x 霸总）
+## Caso 1: romance doloroso contemporâneo (segurança cega x empresário)
 
-**导语**
-- 背景：女主是盲人保镖，救过男主，男主承诺照顾她一辈子
-- 虐点：女主发现男主和女配出轨，为报恩忍耐
-- 反转：女主其实是假盲，她看得见一切背叛
-- 钩子：女主能看见但没人知道 | 她只给自己 7 天时间离开
+**Resumo de abertura**
+- Contexto: a protagonista é uma segurança cega que salvou o protagonista masculino, e ele prometeu cuidar dela para sempre
+- Ponto de dor: ela descobre que ele a trai com outra e, por gratidão, suporta
+- Reviravolta: ela, na verdade, não é cega, e vê cada traição
+- Ganchos: ela vê, mas ninguém sabe | ela se dá só 7 dias para ir embora
 
-**起**：女主在厨房听到男主打电话约女配 -> 假装不知道端汤出去 -> 男主手机弹出女配消息，女主"碰巧"看到屏幕 -> 虐点：男主在她面前毫无顾忌
+**Início**: na cozinha, a protagonista ouve o protagonista marcar encontro com a outra -> finge não saber e leva a sopa -> o celular dele acende com a mensagem da outra, e ela "por acaso" vê a tela -> ponto de dor: ele não se importa nem na frente dela
 
-**承+转1**：女主发现怀孕想告诉男主 -> 撞见男主给女配庆生 -> 看到项链是当年自己送的定情物 -> 虐点升级：信物被转赠
+**Desenvolvimento + virada 1**: ela descobre que está grávida e quer contar -> flagra a festa de aniversário da outra -> vê que o colar é o que ela havia dado como lembrança de namoro -> ponto de dor sobe: a lembrança foi repassada
 
-**承**：女主沉默回家收拾行李 -> 男主回来问眼睛 -> 她说"好多了，什么都能看见了"（双关，男主没听懂）
+**Desenvolvimento**: ela volta em silêncio e arruma as malas -> ele chega e pergunta dos olhos -> ela diz "estão bem melhores, já enxergo tudo" (duplo sentido, ele não entende)
 
-**承+转2**：男主生日宴会，女配以女伴身份出席，女主作为"保镖"在角落站着 -> 女主当众宣布离婚递协议 -> 爽点：全场震惊
+**Desenvolvimento + virada 2**: na festa de aniversário dele, a outra chega como acompanhante, e a protagonista fica num canto, como "segurança" -> ela entrega, diante de todos, o pedido de divórcio -> recompensa: o salão inteiro em choque
 
-**合**：女主离开后男主发现她留下的日记 -> 日记记录了她"看见"的每一次背叛 -> 男主崩溃但女主已消失 -> 爽点+悬念
-
----
-
-## 案例 2：古代虐恋（庶女 x 将军）
-
-**导语**
-- 背景：庶女与将军秘密相恋三年，将军承诺战后娶她
-- 虐点：将军凯旋带回正妻——是嫡姐
-- 反转：庶女发现自己只是嫡姐的"练手工具"
-- 钩子：庶女能否从贱籍翻身到龙床 | 将军会后悔到什么程度
-
-**起**：庶女在后院刺绣听到将军回城 -> 满心期待准备嫁衣 -> 门口传来嫡姐声音："夫君，你回来了"
-
-**承+转1**：庶女被迫给嫡姐敬茶 -> 偷听到"不过是拿她练练手，你别介意" -> 虐点：三年感情只是工具
-
-**承**：庶女表面顺从暗中接近太子宴席 -> 用才艺引起太子注意 -> 虐中蓄力
-
-**承+转2**：将军发现庶女被太子纳入府中震惊 -> 庶女当众揭穿将军靠嫡姐上位 -> 爽点：身份反转将军颜面尽失
-
-**合**：庶女成为太子侧妃后成正妃 -> 将军在战场被追杀无人救援 -> 临死前看到庶女画像终于后悔 -> 爽点：迟来的后悔比死更难受
+**Desfecho**: depois que ela vai embora, ele encontra o diário que ela deixou -> o diário registra cada traição que ela "viu" -> ele desmorona, mas ela já desapareceu -> recompensa + suspense
 
 ---
 
-## 案例 3：权谋公主（长公主 x 四位青梅竹马）
+## Caso 2: romance de época doloroso (filha ilegítima x general)
 
-**导语**
-- 背景：长公主有四位青梅竹马未婚夫，但她心里只有那个不爱她的将军
-- 虐点：她选了最没权势的那个，放弃了一直默默守护的将军
-- 反转：她选的那个才是害她母后的人
-- 钩子：公主放弃真爱会怎样 | 被放弃的人如何反击
+**Resumo de abertura**
+- Contexto: a filha ilegítima e o general se amam em segredo há três anos, e ele promete casar com ela depois da guerra
+- Ponto de dor: o general volta vitorioso com a esposa, a irmã legítima
+- Reviravolta: ela descobre que era só "ferramenta de treino" da irmã
+- Ganchos: a filha ilegítima conseguirá sair da condição humilhante e chegar ao trono? | até onde irá o arrependimento do general?
 
-**起**：抽签决定婚姻，公主表面顺从 -> 暗中做了手脚让最弱的那个中签 -> 读者知道她在保护将军
+**Início**: no pátio dos fundos, bordando, ela ouve que o general voltou -> prepara, cheia de expectativa, o vestido de noiva -> na porta, ouve a voz da irmã: "Meu marido, você voltou"
 
-**承+转1**：被选中的驸马展露野心 -> 发现驸马与敌国通信 -> 虐点：公主以为在保护人实际养虎为患
+**Desenvolvimento + virada 1**: forçada a servir chá à irmã, ouve: "Foi só para treinar um pouco, não se importe" -> ponto de dor: três anos de afeto eram um instrumento
 
-**承**：公主被软禁，将军在外征战不知情 -> 公主利用暗线传递消息反击 -> 虐中蓄力
+**Desenvolvimento**: por fora obediente, ela se aproxima em segredo do banquete do príncipe -> chama a atenção dele com seus talentos -> dor com acúmulo de força
 
-**承+转2**：将军回朝发现公主被囚 -> 公主早已安排好反击计划，不是等救援是在等时机 -> 爽点：公主从来不是弱者
+**Desenvolvimento + virada 2**: o general descobre, chocado, que a filha ilegítima foi acolhida pelo palácio do príncipe -> ela expõe em público que ele subiu graças à irmã -> recompensa: a inversão de status faz o general perder a face
 
-**合**：驸马叛变被镇压公主亲临城楼 -> 将军问为何当年不选自己 -> "因为只有你不在我身边，你才能成为最强的那把刀" -> 爽点+余韵
+**Desfecho**: ela vira concubina e depois consorte principal -> o general, perseguido no campo de batalha, fica sem socorro -> antes de morrer, vê o retrato dela e se arrepende -> recompensa: o arrependimento tardio dói mais que a morte
 
 ---
 
-## 拆文检查清单
+## Caso 3: intriga de corte (princesa x quatro amigos de infância)
 
-1. **标记情绪**：每段标注虐/爽/蓄力，检查分布是否合理
-2. **找钩子**：每篇至少 2 个钩子，至少 1 个信息差钩子
-3. **查结构**：起承转合是否完整，转折是否合理
-4. **看铺垫**：每个反转前是否至少 2 个铺垫线索
-5. **评估爽度**：最大爽点是否在全文 70-85% 位置
+**Resumo de abertura**
+- Contexto: a princesa tem quatro noivos amigos de infância, mas só pensa no general que não a ama
+- Ponto de dor: ela escolhe o de menos poder e abre mão do general que sempre a protegeu em silêncio
+- Reviravolta: o escolhido foi quem prejudicou sua mãe
+- Ganchos: o que acontece quando a princesa abre mão do verdadeiro amor? | como reage quem foi abandonado?
+
+**Início**: o casamento é decidido por sorteio, e a princesa obedece por fora -> em segredo, manipula para que o mais fraco seja sorteado -> o leitor sabe que ela protege o general
+
+**Desenvolvimento + virada 1**: o escolhido mostra ambição -> ela descobre cartas dele com o reino inimigo -> ponto de dor: ela achava que protegia alguém e na verdade criou uma cobra
+
+**Desenvolvimento**: ela é posta em prisão domiciliar, e o general guerreia fora sem saber -> ela usa a rede secreta para enviar mensagens e reagir -> dor com acúmulo de força
+
+**Desenvolvimento + virada 2**: o general volta e descobre a princesa presa -> ela já tinha armado o contra-ataque, não esperava resgate, esperava o momento -> recompensa: a princesa nunca foi fraca
+
+**Desfecho**: o noivo trai e é reprimido, a princesa vai à muralha -> o general pergunta por que não o escolheu -> "Porque só quando você não estava ao meu lado podia se tornar a lâmina mais forte" -> recompensa + ressonância
+
+---
+
+## Lista de verificação da análise
+
+1. **Marcar a emoção**: rotular cada trecho como dor/recompensa/acúmulo e verificar se a distribuição é razoável
+2. **Achar os ganchos**: pelo menos 2 por conto, ao menos 1 de assimetria de informação
+3. **Verificar a estrutura**: apresentação, desenvolvimento, virada e desfecho estão completos? As viradas são plausíveis?
+4. **Olhar a preparação**: antes de cada reviravolta, há ao menos 2 pistas plantadas?
+5. **Avaliar a recompensa**: a maior recompensa está entre 70% e 85% do texto?

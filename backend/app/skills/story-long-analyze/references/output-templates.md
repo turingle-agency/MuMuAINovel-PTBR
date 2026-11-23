@@ -1,358 +1,358 @@
-# 拆文输出模板
+# Modelos de saída da análise
 
-按需加载，配合 SKILL.md 和 material-decomposition.md 使用。
+Consulte sob demanda, junto com SKILL.md e material-decomposition.md.
 
-## 目录
+## Sumário
 
-1. [快速模式：Phase 2 第一章](#快速-phase-2-第一章)
-2. [快速模式：Phase 2 第二三章](#快速-phase-2-第二三章)
-3. [快速模式：Phase 3 整体结构](#快速-phase-3-整体结构)
-4. [快速模式：Phase 4 拆文报告](#快速-phase-4-拆文报告)
-5. [爽点类型速查](#爽点类型速查) / [钩子类型速查](#钩子类型速查)
-6. [深度 阶段0 概要](#深度-阶段0-概要)
-7. [深度 阶段1 黄金三章](#深度-阶段1-黄金三章)
-8. [深度 阶段2 章节摘要+情节点](#深度-阶段2-章节摘要情节点)
-9. [深度 阶段2 角色过滤规则](#深度-阶段2-角色过滤规则)
-10. [深度 阶段2 情节点粒度](#深度-阶段2-情节点粒度)
-11. [深度 阶段3 聚合分析](#深度-阶段3-聚合分析)
-12. [深度 阶段3 角色合并](#深度-阶段3-角色合并)
-13. [深度 阶段3 角色分级](#深度-阶段3-角色分级)
-14. [深度 阶段3 孤立情节兜底](#深度-阶段3-孤立情节兜底)
-15. [深度 阶段3 覆盖率](#深度-阶段3-覆盖率)
-16. [深度 阶段4 设定+关系](#深度-阶段4-设定关系)
-17. [深度 阶段5 汇总报告](#深度-阶段5-汇总报告)
-18. [_progress.md 模板](#_progressmd-模板)
-19. [错误处理表](#错误处理表)
-20. [质量阈值检查清单](#质量阈值检查清单)
+1. [Modo rápido: Fase 2, primeiro capítulo](#rápido-fase-2-primeiro-capítulo)
+2. [Modo rápido: Fase 2, segundo e terceiro capítulos](#rápido-fase-2-segundo-e-terceiro-capítulos)
+3. [Modo rápido: Fase 3, estrutura geral](#rápido-fase-3-estrutura-geral)
+4. [Modo rápido: Fase 4, relatório de análise](#rápido-fase-4-relatório-de-análise)
+5. [Consulta rápida de tipos de recompensa](#tipos-de-recompensa-ao-leitor) / [tipos de gancho](#tipos-de-gancho)
+6. [Profundo, etapa 0: resumo](#profundo-etapa-0-resumo)
+7. [Profundo, etapa 1: três primeiros capítulos](#profundo-etapa-1-três-primeiros-capítulos)
+8. [Profundo, etapa 2: sumário do capítulo + pontos de enredo](#profundo-etapa-2-sumário-do-capítulo--pontos-de-enredo)
+9. [Profundo, etapa 2: regras de filtro de personagens](#profundo-etapa-2-regras-de-filtro-de-personagens)
+10. [Profundo, etapa 2: granularidade dos pontos de enredo](#profundo-etapa-2-granularidade-dos-pontos-de-enredo)
+11. [Profundo, etapa 3: análise agregada](#profundo-etapa-3-análise-agregada)
+12. [Profundo, etapa 3: fusão de personagens](#profundo-etapa-3-fusão-de-personagens)
+13. [Profundo, etapa 3: hierarquia de personagens](#profundo-etapa-3-hierarquia-de-importância-dos-personagens)
+14. [Profundo, etapa 3: rede de segurança para tramas órfãs](#profundo-etapa-3-rede-de-segurança-para-tramas-órfãs)
+15. [Profundo, etapa 3: cobertura](#profundo-etapa-3-cobertura)
+16. [Profundo, etapa 4: ambientação + relações](#profundo-etapa-4-ambientação--relações)
+17. [Profundo, etapa 5: relatório final](#profundo-etapa-5-relatório-final)
+18. [Modelo de _progress.md](#modelo-de-_progressmd)
+19. [Tabela de tratamento de erros](#tabela-de-tratamento-de-erros)
+20. [Lista de limites de qualidade](#lista-de-limites-de-qualidade)
 
 ---
 
-## 快速模式模板
+## Modelos do modo rápido
 
-### 快速 Phase 2 第一章
+### Rápido: Fase 2, primeiro capítulo
 
-字数约{X}字 | 核心事件：{一句话}
+Cerca de {X} palavras | Evento central: {uma frase}
 
-**开篇钩子（前500字）**：类型{悬念/冲突/反差/信息差/代入感} | 手法{描述} | 效果{强/中/弱}—{原因}
+**Gancho de abertura (primeiras 300 palavras)**: tipo {suspense/conflito/contraste/assimetria de informação/identificação} | técnica {descrição} | efeito {forte/médio/fraco}: {motivo}
 
-**人物出场**：{列表} | 主角塑造{直接描写/对话/行为/他人评价} | 第一印象{描述}
+**Entrada dos personagens**: {lista} | caracterização do protagonista {descrição direta/diálogo/comportamento/opinião de outros} | primeira impressão {descrição}
 
-**世界观铺设**：透露{信息} | 隐藏{信息} | 方式{对话/旁白/事件}
+**Construção do mundo**: revela {informação} | esconde {informação} | forma {diálogo/narração/evento}
 
-**爽点设计**：{描述} | 类型{装逼打脸/逆袭反转/获得机缘/信息差碾压/情感满足} | 铺垫{X}字 / 释放{Y}字 / 铺放比{Z:1}
+**Desenho de recompensa**: {descrição} | tipo {virada de mesa/reviravolta/ganho de oportunidade/vantagem de informação/satisfação emocional} | preparação {X} palavras / liberação {Y} palavras / proporção {Z:1}
 
-**章尾钩子**：类型{悬念/反转/新信息/新角色} | 内容{描述} | 期待度{强/中/弱}
+**Gancho de fim de capítulo**: tipo {suspense/reviravolta/informação nova/personagem novo} | conteúdo {descrição} | expectativa {forte/média/fraca}
 
-### 快速 Phase 2 第二三章
+### Rápido: Fase 2, segundo e terceiro capítulos
 
-额外关注：**信息密度**（每章释放新信息量）、**冲突升级**（vs上一章）、**节奏变化**（快慢交替）、**爽点间隔**（两次爽点间字数）。
+Atenção extra a: **densidade de informação** (quanta informação nova cada capítulo libera), **escalada de conflito** (em relação ao capítulo anterior), **variação de ritmo** (alternância rápido/lento), **intervalo entre recompensas** (palavras entre duas recompensas).
 
-### 快速 Phase 3 整体结构
+### Rápido: Fase 3, estrutura geral
 
-**故事线**：
+**Linhas narrativas**:
 
-| 项目 | 内容 |
+| Item | Conteúdo |
 |------|------|
-| 主线核心矛盾 | {一句话} |
-| 主线终极目标 | {主角要达成什么} |
-| 副线1 | {描述} — 作用：{丰富人物/提供爽点/延长篇幅} |
-| 副线2 | {描述} — 作用：{...} |
-| 交织方式 | {主线和副线如何交叉推动} |
+| Contradição central da trama principal | {uma frase} |
+| Objetivo final da trama principal | {o que o protagonista quer alcançar} |
+| Subtrama 1 | {descrição}; função: {aprofundar personagens/fornecer recompensas/estender a duração} |
+| Subtrama 2 | {descrição}; função: {...} |
+| Entrelaçamento | {como a trama principal e as subtramas se cruzam e se impulsionam} |
 
-**人物架构**：
+**Arquitetura de personagens**:
 
-| 角色 | 核心特质/功能 | 与主角关系 | 出场频率 |
+| Personagem | Traço central/função | Relação com o protagonista | Frequência |
 |------|---------------|------------|----------|
-| 主角 | {2-3关键词}，弧线{起点->终点}，爽点来源{...} | — | 全书 |
-| {配角名} | {导师/对手/盟友/工具人} | {关系} | {高/中/低频} |
+| Protagonista | {2-3 palavras-chave}, arco {início->fim}, fonte de recompensa {...} | — | Livro todo |
+| {coadjuvante} | {mentor/rival/aliado/instrumento} | {relação} | {alta/média/baixa} |
 
-反派设计：层级{小反派->中反派->大反派} | 逼格控制{如何随主角成长}
+Desenho dos antagonistas: níveis {antagonista menor->médio->final} | controle de estatura {como acompanha o crescimento do protagonista}
 
-**节奏地图**：
+**Mapa de ritmo**:
 
-| 卷 | 章节范围 | 功能 | 节奏 |
+| Parte | Faixa de capítulos | Função | Ritmo |
 |----|----------|------|------|
-| 第一卷 | {X}-{Y} | {功能} | {快/中/慢} |
+| Parte 1 | {X}-{Y} | {função} | {rápido/médio/lento} |
 
-典型模式：{铺垫->冲突升级->爽点释放->新悬念}，每周期约{X}字。
+Padrão típico: {preparação->escalada de conflito->liberação de recompensa->novo suspense}, cerca de {X} palavras por ciclo.
 
-### 快速 Phase 4 拆文报告
+### Rápido: Fase 4, relatório de análise
 
-**一句话评价**：{成功核心原因}
+**Avaliação em uma frase**: {principal razão do sucesso}
 
-| 维度 | 评分 | 说明 |
+| Dimensão | Nota | Observação |
 |------|------|------|
-| 开篇钩子 | 1-5 | {说明} |
-| 主角塑造 | 1-5 | {说明} |
-| 爽点设计 | 1-5 | {说明} |
-| 世界观铺设 | 1-5 | {说明} |
-| 章尾悬念 | 1-5 | {说明} |
+| Gancho de abertura | 1-5 | {observação} |
+| Caracterização do protagonista | 1-5 | {observação} |
+| Desenho de recompensas | 1-5 | {observação} |
+| Construção do mundo | 1-5 | {observação} |
+| Suspense de fim de capítulo | 1-5 | {observação} |
 
-**核心机制**：爽点类型{...} | 节奏模式{...} | 更新策略{日更X章每更Y字}
-**可借鉴套路**：1.{套路+场景} 2.{...} 3.{...}
-**不建议模仿**：1.{问题+原因}
-**下一步**：{具体行动}
+**Mecanismo central**: tipo de recompensa {...} | padrão de ritmo {...} | estratégia de publicação {X capítulos por semana, Y palavras cada}
+**Recursos aproveitáveis**: 1.{recurso + cena} 2.{...} 3.{...}
+**Não recomendado imitar**: 1.{problema + motivo}
+**Próximo passo**: {ação concreta}
 
 ---
 
-## 速查参考
+## Consulta rápida
 
-### 爽点类型速查
+### Tipos de recompensa ao leitor
 
-| 类型 | 定义 | 经典例子 |
+| Tipo | Definição | Exemplo clássico |
 |------|------|----------|
-| 装逼打脸 | 实力碾压被轻视的人 | 「你也配？」 |
-| 逆袭反转 | 绝境翻盘 | 废材突然觉醒 |
-| 获得机缘 | 得到别人没有的东西 | 捡到神器/奇遇 |
-| 信息差碾压 | 读者和主角知道别人不知道的 | 重生者的先知优势 |
-| 情感满足 | 人物关系的发展 | 告白、团聚、认可 |
-| 扮猪吃虎 | 隐藏实力突然展露 | 扮演弱者实则是强者 |
+| Virada de mesa | Superioridade esmagadora sobre quem subestimava o protagonista | "Você acha que tem coragem?" |
+| Reviravolta | Virada no momento do desespero | O "inútil" desperta de repente |
+| Ganho de oportunidade | Obter o que os outros não têm | Achar um artefato ou ter um encontro extraordinário |
+| Vantagem de informação | Leitor e protagonista sabem o que os outros não sabem | A vantagem de quem já viveu o futuro |
+| Satisfação emocional | Evolução das relações | Declaração, reencontro, reconhecimento |
+| Força escondida | Poder escondido que se revela de repente | Quem parecia fraco era o mais forte |
 
-### 钩子类型速查
+### Tipos de gancho
 
-| 类型 | 定义 | 示例 |
+| Tipo | Definição | Exemplo |
 |------|------|------|
-| 悬念钩 | 抛出未解之谜 | 「这把剑为什么会认他为主？」 |
-| 冲突钩 | 直接展示对抗 | 开篇就是追杀 |
-| 反差钩 | 违反常识的信息 | 「穿越第一天就破产了」 |
-| 代入钩 | 让读者产生共鸣 | 和读者处境相似的困境 |
-| 信息差钩 | 给读者角色不知道的信息 | 「他还不知道，站在他面前的是……」 |
+| Gancho de suspense | Lança um mistério não resolvido | "Por que a espada o reconheceu como dono?" |
+| Gancho de conflito | Mostra o confronto direto | A abertura já é uma perseguição |
+| Gancho de contraste | Informação que contraria o senso comum | "No primeiro dia, ela já estava falida" |
+| Gancho de identificação | Gera empatia no leitor | Um dilema parecido com o do leitor |
+| Gancho de assimetria | Dá ao leitor o que o personagem não sabe | "Ele ainda não sabia que diante dele estava..." |
 
 ---
 
-## 深度模式输出模板
+## Modelos do modo profundo
 
-### 深度 阶段0：概要
+### Profundo, etapa 0: resumo
 
-输出 `概要.md`：总字数{X}万 | 总章数{N} | 题材{类型}
+Gerar `resumo.md`: total de {X} mil palavras | total de {N} capítulos | gênero {tipo}
 
-章节结构表：
+Tabela de estrutura de capítulos:
 
-| 卷/段 | 章节范围 | 章数 | 预估字数 |
+| Volume/parte | Faixa de capítulos | Nº de capítulos | Palavras estimadas |
 |-------|----------|------|----------|
-| {卷名} | 第1-X章 | {N} | {W}万 |
+| {nome do volume} | Cap. 1-X | {N} | {W} mil |
 
-全书概要：{一段话200-400字}
-章节索引：| 章节 | 标题 | 字数 |
+Resumo do livro: {um parágrafo de 150 a 300 palavras}
+Índice de capítulos: | Capítulo | Título | Palavras |
 
-### 深度 阶段1：黄金三章
+### Profundo, etapa 1: três primeiros capítulos
 
-输出 `章节/第{N}章_深度拆解.md`：
+Gerar `capitulos/capitulo_{N}_analise_profunda.md`:
 
-**开篇钩子**：类型{...} | 手法{...} | 效果{强/中/弱}
+**Gancho de abertura**: tipo {...} | técnica {...} | efeito {forte/médio/fraco}
 
-**结构拆解**：
+**Desmontagem da estrutura**:
 
-| 段落范围 | 功能 | 字数 |
+| Faixa de parágrafos | Função | Palavras |
 |----------|------|------|
-| {范围} | {铺垫/冲突/爽点/收尾} | {X} |
+| {faixa} | {preparação/conflito/recompensa/fechamento} | {X} |
 
-**爽点分析**：类型{...} | 铺垫{X}字 / 释放{Y}字 / 铺放比{Z:1} | 情绪曲线{低->高->回落}
+**Análise de recompensa**: tipo {...} | preparação {X} palavras / liberação {Y} palavras / proporção {Z:1} | curva emocional {baixa->alta->queda}
 
-**章尾钩子**：类型{...} | 效果{强/中/弱}
+**Gancho de fim de capítulo**: tipo {...} | efeito {forte/médio/fraco}
 
-**可借鉴要素**：{具体可复用技巧}
+**Elementos aproveitáveis**: {técnicas concretas e reutilizáveis}
 
-### 深度 阶段2：章节摘要+情节点
+### Profundo, etapa 2: sumário do capítulo + pontos de enredo
 
-输出 `章节/第{N}章_摘要.md`：
+Gerar `capitulos/capitulo_{N}_sumario.md`:
 
-**概要**：{一句话100-300字，因果链叙事}
-**关键事件**：1.{事件} 2.{事件} 3.{事件}
+**Resumo**: {uma frase de 70 a 200 palavras, narrada como cadeia de causa e efeito}
+**Eventos-chave**: 1.{evento} 2.{evento} 3.{evento}
 
-**出场人物**：
+**Personagens em cena**:
 
-| 角色 | 本章功能 | 新发展 |
+| Personagem | Função no capítulo | Novo desenvolvimento |
 |------|----------|--------|
-| {名} | {推动剧情/提供信息} | {有/无} |
+| {nome} | {impulsiona a trama/fornece informação} | {sim/não} |
 
-**情节点**（每章10-15个）：
+**Pontos de enredo** (10 a 15 por capítulo):
 
-P{序号} **{简短标题}**：类型{转折点/信息揭示/冲突/解决/铺垫/行动/对话/状态变化} | {客观白描一句话} | 涉及{全名} | 地点{位置} | 时间{相对时间}
+P{nº} **{título curto}**: tipo {ponto de virada/revelação de informação/conflito/resolução/preparação/ação/diálogo/mudança de estado} | {descrição objetiva em uma frase} | envolve {nome completo} | local {lugar} | tempo {tempo relativo}
 
-原文引用（<=400字）：{引用}
+Citação do original (<=250 palavras): {citação}
 
-主题标签：{复仇/成长/冲突等} | 基调：{紧张/轻松/悲伤/热血}
+Etiquetas de tema: {vingança/amadurecimento/conflito etc.} | Tom: {tenso/leve/triste/épico}
 
-### 深度 阶段2：角色过滤规则
+### Profundo, etapa 2: regras de filtro de personagens
 
-| 分类 | 标准 | 提取深度 |
+| Classificação | Critério | Profundidade da extração |
 |------|------|----------|
-| 不提取（路人） | 只出场1次且无台词，纯背景群像 | 跳过 |
-| 简化提取（功能角色） | 出场2-3次但只承担单一功能 | `{功能标签}` + `{首次出场章节}` |
-| 完整提取 | 出场3次以上，或有台词且推动剧情，或与主角有直接互动 | 完整档案 |
+| Não extrair (figurante) | Aparece 1 vez, sem fala, apenas fundo de cena | Ignorar |
+| Extração simplificada (função) | Aparece 2-3 vezes, com uma única função | `{etiqueta de função}` + `{capítulo da primeira aparição}` |
+| Extração completa | Aparece 3 vezes ou mais, ou tem fala e impulsiona a trama, ou interage diretamente com o protagonista | Ficha completa |
 
-**别名归类**：同一角色不同称呼合并为同一实体。主条目用首次正式名，别名列于 `aliases: [别名1, 别名2]`。
+**Agrupamento de apelidos**: nomes diferentes do mesmo personagem são fundidos numa só entidade. O registro principal usa o primeiro nome formal; os apelidos vão em `aliases: [apelido1, apelido2]`.
 
-### 深度 阶段2：情节点粒度
+### Profundo, etapa 2: granularidade dos pontos de enredo
 
-每章目标 10-15 个。一个情节点 = 一个可独立理解的叙事单元。
+Meta de 10 a 15 por capítulo. Um ponto de enredo = uma unidade narrativa compreensível por si só.
 
-- 太粗：「主角和反派打了一架」 -> 丢失细节
-- 太细：「主角举起右手」 -> 过度碎片化
-- 恰当：「主角以三招击败反派，围观者震惊」 -> 完整戏剧事件
+- Grosso demais: "o protagonista e o antagonista brigam" -> perde detalhes
+- Fino demais: "o protagonista levanta a mão direita" -> fragmentação excessiva
+- Adequado: "o protagonista vence o antagonista em três golpes e os espectadores ficam chocados" -> evento dramático completo
 
-每章10-15个 -> 每条剧情75-225个，即每条剧情覆盖5-15章。
+De 10 a 15 por capítulo -> de 75 a 225 por trama, ou seja, cada trama cobre de 5 a 15 capítulos.
 
-### 深度 阶段3：聚合分析
+### Profundo, etapa 3: análise agregada
 
-输出 `剧情/{剧情标题}.md`：
+Gerar `enredo/{título da trama}.md`:
 
-| 项目 | 内容 |
+| Item | Conteúdo |
 |------|------|
-| 类型 | {主线/爱情/成长/复仇/寻宝/悬疑} |
-| 核心目标 | {一句话} |
-| 核心冲突 | {一句话} |
-| 章节范围 | 第{X}-{Y}章 |
+| Tipo | {principal/romance/amadurecimento/vingança/caça ao tesouro/mistério} |
+| Objetivo central | {uma frase} |
+| Conflito central | {uma frase} |
+| Faixa de capítulos | Cap. {X}-{Y} |
 
-**结构分布**：铺垫期{章节范围} | 发展期{...} | 高潮期{...} | 收尾期{...}
+**Distribuição estrutural**: preparação {faixa de capítulos} | desenvolvimento {...} | clímax {...} | desfecho {...}
 
-**情节点索引**（75-225个）：
+**Índice de pontos de enredo** (75 a 225):
 
-| 序号 | 章节 | 描述 | 归属置信度 |
+| Nº | Capítulo | Descrição | Confiança de atribuição |
 |------|------|------|------------|
-| {N} | 第{X}章 | {一句话} | {0.x} |
+| {N} | Cap. {X} | {uma frase} | {0.x} |
 
 ---
 
-输出 `剧情/故事线.md`：
+Gerar `enredo/linhas_narrativas.md`:
 
-**主线**：{标题} | 核心矛盾{一句话} | 终极目标{...} | 包含剧情：{剧情1、剧情2、...}
+**Trama principal**: {título} | contradição central {uma frase} | objetivo final {...} | tramas incluídas: {trama 1, trama 2, ...}
 
-**副线**（每条）：{标题} | 描述{一句话} | 主要人物{列表} | 主题关键词 | 包含剧情{列表}
+**Subtramas** (cada uma): {título} | descrição {uma frase} | personagens principais {lista} | palavras-chave de tema | tramas incluídas {lista}
 
-**交织方式**：{主线和副线如何交叉推动}
+**Entrelaçamento**: {como a trama principal e as subtramas se cruzam e se impulsionam}
 
-### 深度 阶段3：角色合并
+### Profundo, etapa 3: fusão de personagens
 
-1. 收集所有章节出场人物
-2. 按别名匹配合并
-3. 按身份描述相似度>=0.8标记候选
-4. 候选需确认
+1. Reunir todos os personagens que aparecem nos capítulos
+2. Fundir por correspondência de apelidos
+3. Marcar candidatos quando a similaridade da descrição de identidade for >=0.8
+4. Candidatos precisam de confirmação
 
-**合并操作**：保留首次正式名为主条目，aliases取并集，出场章节取并集，功能标签取并集。
+**Operação de fusão**: manter o primeiro nome formal como registro principal; aliases = união; capítulos de aparição = união; etiquetas de função = união.
 
-**合并报告**（写入_progress.md）：
+**Relatório de fusão** (gravar em _progress.md):
 
-| 合并前A | 合并前B | 合并后 | 依据 | 确认 |
+| Antes A | Antes B | Depois | Base | Confirmado |
 |----------|----------|--------|------|------|
-| {名1} | {名2} | {正式名} | {别名/身份} | {是/否} |
+| {nome 1} | {nome 2} | {nome formal} | {apelido/identidade} | {sim/não} |
 
-### 深度 阶段3：角色重要性分级
+### Profundo, etapa 3: hierarquia de importância dos personagens
 
-| 等级 | 标准 | 提取深度 |
+| Nível | Critério | Profundidade da extração |
 |------|------|----------|
-| 主角 | 视角角色/故事核心驱动者 | 完整档案+成长弧线+动机链 |
-| 核心配角 | 出场>=10章 且 与主角有深度互动（>=3次直接对话/对抗） | 完整档案+与主角关系 |
-| 功能角色 | 出场3-9章或承担特定叙事功能 | 简化档案（身份+功能+关键行为） |
-| 路人 | 出场<3章 | 不建档，仅章节摘要中提及 |
+| Protagonista | Personagem de ponto de vista / motor central da história | Ficha completa + arco de crescimento + cadeia de motivações |
+| Coadjuvante central | Aparece em >=10 capítulos e tem interação profunda com o protagonista (>=3 diálogos/confrontos diretos) | Ficha completa + relação com o protagonista |
+| Função | Aparece em 3-9 capítulos ou cumpre uma função narrativa específica | Ficha simplificada (identidade + função + ações-chave) |
+| Figurante | Aparece em <3 capítulos | Sem ficha; só mencionado nos sumários dos capítulos |
 
-边界模糊时优先归入更低等级。
+Em caso de dúvida na fronteira, classifique no nível mais baixo.
 
-### 深度 阶段3：孤立情节兜底
+### Profundo, etapa 3: rede de segurança para tramas órfãs
 
-聚合完成后 4 步：
+Depois da agregação, 4 passos:
 
-1. 列出未分配情节点：| 序号 | 章节 | 描述 |
-2. 置信度>=0.7 直接归入现有剧情条，标注 `[孤立情节归入]`
-3. 相关性<0.7 按主题聚类形成候选剧情条，标注 `[聚类生成]`
-4. 仍无法归类写入 `剧情/散落情节.md`：| 序号 | 章节 | 描述 | 尝试归入 | 失败原因 |
+1. Listar os pontos de enredo sem atribuição: | Nº | Capítulo | Descrição |
+2. Com confiança >=0.7, incluir direto numa trama existente, marcando `[órfão incorporado]`
+3. Com relevância <0.7, agrupar por tema formando tramas candidatas, marcando `[gerado por agrupamento]`
+4. Os que ainda não se encaixam vão para `enredo/fios_soltos.md`: | Nº | Capítulo | Descrição | Tentativa de encaixe | Motivo da falha |
 
-### 深度 阶段3：覆盖率
+### Profundo, etapa 3: cobertura
 
-公式：覆盖率 = 已归类情节点数 / 总情节点数 x 100%
-（已归类 = 剧情条内 + 孤立归入；散落情节不计）
+Fórmula: cobertura = pontos de enredo classificados / total de pontos de enredo x 100%
+(classificados = dentro de tramas + órfãos incorporados; fios soltos não contam)
 
-目标 85%-95%
+Meta: 85% a 95%
 
-输出：总{N} | 已归类{M}（剧情条{P} + 孤立{Q}） | 散落{R} | 覆盖率{X%}
+Saída: total {N} | classificados {M} (tramas {P} + órfãos {Q}) | soltos {R} | cobertura {X%}
 
-### 深度 阶段4：设定+关系
+### Profundo, etapa 4: ambientação + relações
 
-输出 `设定/世界观.md`：类型{奇幻/现实/平行世界} | 力量体系{名称/等级/晋升} | 地理{分布/区域/地点} | 势力{门派/组织/家族/国家} | 核心规则{基本规则} | 特殊设定{独特设定}
+Gerar `ambientacao/mundo.md`: tipo {fantasia/realista/mundo paralelo} | sistema de poder {nome/níveis/progressão} | geografia {distribuição/regiões/locais} | forças {ordens/organizações/famílias/países} | regras centrais {regras básicas} | configurações especiais {configurações únicas}
 
-输出 `设定/金手指.md`：类型{系统/空间/重生/穿越/特殊体质/神器/血脉} | 名称 | 描述{能力/功能/限制} | 获取方式 | 核心机制{激活/资源/使用} | 进化史 | 当前能力
+Gerar `ambientacao/vantagem_do_protagonista.md`: tipo {sistema/espaço/segunda chance/viagem no tempo/constituição especial/artefato/linhagem} | nome | descrição {capacidades/funções/limites} | forma de obtenção | mecanismo central {ativação/recursos/uso} | história de evolução | capacidades atuais
 
-输出 `角色/角色关系.md`（每5章批量提取）：
+Gerar `personagens/relacoes.md` (extração em lotes a cada 5 capítulos):
 
-{角色A}<->{角色B}：关系类型{家人/师徒/朋友/敌人/恋人/...} | 情感{正面/负面/中性/复杂} | 状态{新建立/演变} | 描述{一句话} | 关键互动{事件} | 演变{从X到Y}
+{personagem A}<->{personagem B}: tipo de relação {família/mestre e discípulo/amigos/inimigos/casal/...} | sentimento {positivo/negativo/neutro/complexo} | estado {recém-formada/em evolução} | descrição {uma frase} | interações-chave {eventos} | evolução {de X para Y}
 
-### 深度 阶段5：汇总报告
+### Profundo, etapa 5: relatório final
 
-输出 `拆文报告.md`：
+Gerar `relatorio_de_analise.md`:
 
-**基本信息**：{X}万字 | {N}章 | 题材{类型}
+**Informações básicas**: {X} mil palavras | {N} capítulos | gênero {tipo}
 
-**黄金三章评分**：| 维度 | 评分 | 说明 | （开篇钩子/主角塑造/爽点设计/世界观铺设/章尾悬念）
+**Nota dos três primeiros capítulos**: | Dimensão | Nota | Observação | (gancho de abertura/caracterização do protagonista/desenho de recompensas/construção do mundo/suspense de fim de capítulo)
 
-**结构分析**：主线{一句话} | 副线{N}条 | 剧情条{N}条 | 覆盖率{X%}
+**Análise estrutural**: trama principal {uma frase} | subtramas {N} | tramas {N} | cobertura {X%}
 
-**核心机制**：爽点{类型} | 节奏{模式} | 更新{日更X章每更Y字}
+**Mecanismo central**: recompensa {tipo} | ritmo {padrão} | publicação {X capítulos por semana, Y palavras cada}
 
-**角色体系**：主角{名/特质} | 核心配角{N}人 | 功能角色{N}人
+**Sistema de personagens**: protagonista {nome/traços} | coadjuvantes centrais {N} | personagens de função {N}
 
-**质量评估**：置信度{X} | 覆盖率{X%} | 重叠率{X%}
+**Avaliação de qualidade**: confiança {X} | cobertura {X%} | sobreposição {X%}
 
-**可借鉴套路**：1.{套路+场景} 2.{...} 3.{...}
+**Recursos aproveitáveis**: 1.{recurso + cena} 2.{...} 3.{...}
 
 ---
 
-## 运维模板
+## Modelos operacionais
 
-### _progress.md 模板
+### Modelo de _progress.md
 
 ```markdown
-# 深度拆解进度：{小说标题}
+# Progresso da análise profunda: {título do livro}
 
-- 小说：{标题} | 总章数：{N} | 输出目录：{路径} | 开始：{日期}
+- Livro: {título} | Total de capítulos: {N} | Pasta de saída: {caminho} | Início: {data}
 
-## 管道进度
-| 阶段 | 状态 | 进度 | 备注 |
+## Progresso do pipeline
+| Etapa | Estado | Progresso | Observações |
 |------|------|------|------|
-| 阶段0 概要提取 | {未开始/进行中/完成} | - | |
-| 阶段1 黄金三章 | | 第1-3章 | |
-| 阶段2 章节摘要 | | {已完成}/{总数} | 当前块：第{X}-{Y}章 |
-| 阶段3 聚合分析 | | - | |
-| 阶段4 设定+关系 | | - | |
-| 阶段5 汇总报告 | | - | |
+| Etapa 0 Extração do resumo | {não iniciada/em andamento/concluída} | - | |
+| Etapa 1 Três primeiros capítulos | | Cap. 1-3 | |
+| Etapa 2 Sumário dos capítulos | | {concluídos}/{total} | Bloco atual: cap. {X}-{Y} |
+| Etapa 3 Análise agregada | | - | |
+| Etapa 4 Ambientação + relações | | - | |
+| Etapa 5 Relatório final | | - | |
 
-## 分块进度
-| 块 | 章节 | 状态 |
+## Progresso por bloco
+| Bloco | Capítulos | Estado |
 |----|------|------|
-| 1 | 第1-5章 | {完成/进行中/未开始} |
+| 1 | Cap. 1-5 | {concluído/em andamento/não iniciado} |
 
-## 质量检查
-| 检查项 | 阶段 | 结果 | 修正 |
+## Verificação de qualidade
+| Item | Etapa | Resultado | Correção |
 |--------|------|------|------|
-| 置信度 | 3 | {值} | {处理} |
-| 覆盖率 | 3 | {值} | |
-| 重叠率 | 3 | {值} | |
+| Confiança | 3 | {valor} | {tratamento} |
+| Cobertura | 3 | {valor} | |
+| Sobreposição | 3 | {valor} | |
 
-## 角色合并
-| 合并前 | 合并后 | 依据 | 确认 |
+## Fusão de personagens
+| Antes | Depois | Base | Confirmado |
 |--------|--------|------|------|
 
-## 断点
-- 最后处理：第{N}章 | 当前阶段：{阶段} | 下一操作：{描述}
+## Ponto de interrupção
+- Último processado: cap. {N} | Etapa atual: {etapa} | Próxima ação: {descrição}
 ```
 
-### 错误处理表
+### Tabela de tratamento de erros
 
-| 场景 | 识别方式 | 处理策略 |
+| Situação | Como identificar | Estratégia |
 |------|----------|----------|
-| 章节识别失败 | 无法匹配分隔符 | 提示用户确认格式；支持自定义正则 |
-| 分块中断 | 会话超时/用户中断 | 读_progress.md断点，从当前块起始恢复 |
-| 聚合质量不达标 | 覆盖率<85%或重叠率>35% | 孤立情节二次分类；放宽阈值至0.5重试 |
-| 角色合并冲突 | 同一角色拆为多实体 | 记录待确认列表；提示用户确认 |
-| 输出目录冲突 | 目录已有文件 | 追加不覆盖；冲突文件标记 `[重新分析]` |
+| Falha ao identificar capítulos | Nenhum separador reconhecido | Pedir ao usuário que confirme o formato; aceitar expressão regular personalizada |
+| Interrupção durante um bloco | Sessão expirada/interrupção do usuário | Ler o ponto de interrupção em _progress.md e retomar do início do bloco atual |
+| Qualidade da agregação abaixo da meta | Cobertura <85% ou sobreposição >35% | Segunda classificação dos órfãos; relaxar o limite para 0.5 e tentar de novo |
+| Conflito na fusão de personagens | Mesmo personagem dividido em várias entidades | Registrar na lista de pendências; pedir confirmação ao usuário |
+| Conflito na pasta de saída | A pasta já tem arquivos | Acrescentar sem sobrescrever; marcar arquivos em conflito com `[reanálise]` |
 
-### 质量阈值检查清单
+### Lista de limites de qualidade
 
-阶段3-4完成前自检（阈值定义见 material-decomposition.md）：
+Autoverificação antes de concluir as etapas 3-4 (definição dos limites em material-decomposition.md):
 
-- [ ] **置信度** >= 0.85（不达标 -> 标记「待复核」）
-- [ ] **覆盖率** 85%-95%（<85% -> 二次分类；>95% -> 复核边界）
-- [ ] **重叠率** <= 35%（>35% -> 提示边界模糊，建议合并）
-- [ ] **角色合并**：候选合并已确认或标记待确认
-- [ ] **散落情节**：散落情节附录已创建
-- [ ] **角色分级**：有意义的角色已分级
+- [ ] **Confiança** >= 0.85 (abaixo disso -> marcar "a revisar")
+- [ ] **Cobertura** 85%-95% (<85% -> segunda classificação; >95% -> revisar as fronteiras)
+- [ ] **Sobreposição** <= 35% (>35% -> indicar fronteiras difusas e sugerir fusão)
+- [ ] **Fusão de personagens**: fusões candidatas confirmadas ou marcadas como pendentes
+- [ ] **Fios soltos**: apêndice de fios soltos criado
+- [ ] **Hierarquia de personagens**: personagens relevantes classificados

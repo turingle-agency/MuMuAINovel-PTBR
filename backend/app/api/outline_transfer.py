@@ -18,7 +18,7 @@ from app.schemas.outline_transfer import (
 from app.services.outline_transfer_service import OutlineTransferService
 
 
-router = APIRouter(prefix="/outlines", tags=["大纲导入导出"])
+router = APIRouter(prefix="/outlines", tags=["Importação e exportação de esboços"])
 logger = get_logger(__name__)
 
 MAX_IMPORT_SIZE = 10 * 1024 * 1024
@@ -26,20 +26,20 @@ MAX_IMPORT_SIZE = 10 * 1024 * 1024
 
 async def _read_import_file(file: UploadFile) -> bytes:
     if not file.filename or not file.filename.lower().endswith(".json"):
-        raise HTTPException(status_code=400, detail="只支持 JSON 格式文件")
+        raise HTTPException(status_code=400, detail="Apenas arquivos JSON são aceitos")
     content = await file.read(MAX_IMPORT_SIZE + 1)
     if len(content) > MAX_IMPORT_SIZE:
-        raise HTTPException(status_code=413, detail="文件大小超过 10MB 限制")
+        raise HTTPException(status_code=413, detail="O arquivo excede o limite de 10MB")
     return content
 
 
 def _parse_mode(mode: str) -> OutlineImportMode:
     if mode not in {"append", "merge"}:
-        raise HTTPException(status_code=422, detail="导入模式必须是 append 或 merge")
+        raise HTTPException(status_code=422, detail="O modo de importação deve ser append ou merge")
     return cast(OutlineImportMode, mode)
 
 
-@router.post("/export", summary="导出项目大纲")
+@router.post("/export", summary="Exportar esboço do projeto")
 async def export_outlines(
     export_request: OutlineExportRequest,
     request: Request,
@@ -69,7 +69,7 @@ async def export_outlines(
 @router.post(
     "/import/preview",
     response_model=OutlineImportPreviewResponse,
-    summary="预览大纲导入",
+    summary="Pré-visualizar importação de esboço",
 )
 async def preview_outline_import(
     request: Request,
@@ -88,7 +88,7 @@ async def preview_outline_import(
 @router.post(
     "/import",
     response_model=OutlineImportResult,
-    summary="导入项目大纲",
+    summary="Importar esboço do projeto",
 )
 async def import_outlines(
     request: Request,
@@ -109,10 +109,10 @@ async def import_outlines(
             db=db,
         )
     except ValueError as exc:
-        raise HTTPException(status_code=400, detail=f"导入文件验证失败：{exc}") from exc
+        raise HTTPException(status_code=400, detail=f"Falha na validação do arquivo importado: {exc}") from exc
     except Exception as exc:
         logger.error("大纲导入失败: %s", exc, exc_info=True)
-        raise HTTPException(status_code=500, detail="大纲导入失败，请稍后重试") from exc
+        raise HTTPException(status_code=500, detail="Falha ao importar o esboço, tente novamente mais tarde") from exc
 
     logger.info(
         "用户 %s 向项目 %s 导入大纲：新增 %s，更新 %s",

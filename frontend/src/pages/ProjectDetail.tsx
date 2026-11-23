@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate, Outlet, Link, useLocation } from 'react-router-dom';
-import { Layout, Menu, Spin, Button, Drawer, Space, theme } from 'antd';
+import { Layout, Menu, Spin, Button, Drawer, Space, Select, message, theme } from 'antd';
 import {
   ArrowLeftOutlined,
   FileTextOutlined,
@@ -14,7 +14,6 @@ import {
   BankOutlined,
   EditOutlined,
   FundOutlined,
-  HeartOutlined,
   TrophyOutlined,
   BulbOutlined,
   CloudOutlined,
@@ -26,12 +25,14 @@ import {
 import { useStore } from '../store';
 import { useCharacterSync, useOutlineSync, useChapterSync } from '../store/hooks';
 import { projectApi } from '../services/api';
+import { DEFAULT_LANGUAGE, LANGUAGE_OPTIONS, type ProjectLanguage } from '../constants/projectOptions';
 import ThemeSwitch from '../components/ThemeSwitch';
 import { useThemeMode } from '../theme/useThemeMode';
 import { getStoredSidebarCollapsed, setStoredSidebarCollapsed } from '../utils/sidebarState';
 import FloatingTaskPanel from '../components/FloatingTaskPanel';
 import ProjectAgentPanel from '../components/project-agent/ProjectAgentPanel';
 import { eventBus, EventNames } from '../store/eventBus';
+import { useTranslation } from 'react-i18next';
 
 const { Header, Sider, Content } = Layout;
 
@@ -39,6 +40,7 @@ const { Header, Sider, Content } = Layout;
 const isMobile = () => window.innerWidth <= 768;
 
 export default function ProjectDetail() {
+  const { t } = useTranslation('projectDetail');
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
@@ -87,6 +89,17 @@ export default function ProjectDetail() {
     chapters,
   } = useStore();
 
+  const handleLanguageChange = async (language: ProjectLanguage) => {
+    if (!projectId || !currentProject) return;
+    try {
+      const updated = await projectApi.updateProject(projectId, { language });
+      setCurrentProject({ ...currentProject, ...updated, language });
+      message.success(t('idiomaDoConteudoAtualizado'));
+    } catch {
+      message.error(t('falhaAoAtualizarOIdioma'));
+    }
+  };
+
   // 使用同步 hooks
   const { refreshCharacters } = useCharacterSync();
   const { refreshOutlines } = useOutlineSync();
@@ -134,7 +147,7 @@ export default function ProjectDetail() {
           refreshChapters(id),
         ]);
       } catch (error) {
-        console.error('加载项目数据失败:', error);
+        console.error(t('falhaAoCarregarOsDados'), error);
       } finally {
         setLoading(false);
       }
@@ -147,96 +160,86 @@ export default function ProjectDetail() {
     return () => {
       clearProjectData();
     };
-  }, [projectId, clearProjectData, setLoading, setCurrentProject, refreshOutlines, refreshCharacters, refreshChapters]);
+  }, [projectId, clearProjectData, setLoading, setCurrentProject, refreshOutlines, refreshCharacters, refreshChapters, t]);
 
   // 移除事件监听，避免无限循环
   // Hook 内部已经更新了 store，不需要再次刷新
 
   const menuItems = [
     {
-      key: 'sponsor',
-      icon: <HeartOutlined />,
-      label: <Link to={`/project/${projectId}/sponsor`}>赞助支持</Link>,
-    },
-    {
       type: 'group' as const,
-      label: '创作管理',
+      label: t('gestaoDaCriacao'),
       children: [
         {
           key: 'world-setting',
           icon: <GlobalOutlined />,
-          label: <Link to={`/project/${projectId}/world-setting`}>世界设定</Link>,
+          label: <Link to={`/project/${projectId}/world-setting`}>{t('mundo')}</Link>,
         },
         {
           key: 'characters',
           icon: <TeamOutlined />,
-          label: <Link to={`/project/${projectId}/characters`}>角色管理</Link>,
+          label: <Link to={`/project/${projectId}/characters`}>{t('personagens')}</Link>,
         },
         {
           key: 'organizations',
           icon: <BankOutlined />,
-          label: <Link to={`/project/${projectId}/organizations`}>组织管理</Link>,
+          label: <Link to={`/project/${projectId}/organizations`}>{t('organizacoes')}</Link>,
         },
         {
           key: 'careers',
           icon: <TrophyOutlined />,
-          label: <Link to={`/project/${projectId}/careers`}>职业管理</Link>,
+          label: <Link to={`/project/${projectId}/careers`}>{t('carreiras')}</Link>,
         },
         {
           key: 'relationships',
           icon: <ApartmentOutlined />,
-          label: <Link to={`/project/${projectId}/relationships`}>关系管理</Link>,
+          label: <Link to={`/project/${projectId}/relationships`}>{t('relacionamentos')}</Link>,
         },
         {
           key: 'outline',
           icon: <FileTextOutlined />,
-          label: <Link to={`/project/${projectId}/outline`}>大纲管理</Link>,
+          label: <Link to={`/project/${projectId}/outline`}>{t('outline')}</Link>,
         },
         {
           key: 'chapters',
           icon: <BookOutlined />,
-          label: <Link to={`/project/${projectId}/chapters`}>章节管理</Link>,
+          label: <Link to={`/project/${projectId}/chapters`}>{t('capitulos')}</Link>,
         },
         {
           key: 'chapter-analysis',
           icon: <FundOutlined />,
-          label: <Link to={`/project/${projectId}/chapter-analysis`}>剧情分析</Link>,
+          label: <Link to={`/project/${projectId}/chapter-analysis`}>{t('analiseDeEnredo')}</Link>,
         },
         {
           key: 'foreshadows',
           icon: <BulbOutlined />,
-          label: <Link to={`/project/${projectId}/foreshadows`}>伏笔管理</Link>,
+          label: <Link to={`/project/${projectId}/foreshadows`}>{t('foreshadowing')}</Link>,
         },
         {
           key: 'knowledge-base',
           icon: <DatabaseOutlined />,
-          label: <Link to={`/project/${projectId}/knowledge-base`}>知识库管理</Link>,
+          label: <Link to={`/project/${projectId}/knowledge-base`}>{t('baseDeConhecimento')}</Link>,
         },
       ],
     },
     {
       type: 'group' as const,
-      label: '创作工具',
+      label: t('ferramentasDeCriacao'),
       children: [
         {
           key: 'writing-styles',
           icon: <EditOutlined />,
-          label: <Link to={`/project/${projectId}/writing-styles`}>写作风格</Link>,
-        },
-        {
-          key: 'prompt-workshop',
-          icon: <CloudOutlined />,
-          label: <Link to={`/project/${projectId}/prompt-workshop`}>提示词工坊</Link>,
+          label: <Link to={`/project/${projectId}/writing-styles`}>{t('estiloDeEscrita')}</Link>,
         },
         {
           key: 'skill-chat',
           icon: <ThunderboltOutlined />,
-          label: <Link to={`/project/${projectId}/skill-chat`}>Skill 工具箱</Link>,
+          label: <Link to={`/project/${projectId}/skill-chat`}>{t('caixaDeFerramentasDeSkills')}</Link>,
         },
         {
           key: 'skill-manage',
           icon: <SettingOutlined />,
-          label: <Link to={`/project/${projectId}/skill-manage`}>Skill 管理</Link>,
+          label: <Link to={`/project/${projectId}/skill-manage`}>{t('gerenciarSkills')}</Link>,
         },
       ],
     },
@@ -244,79 +247,69 @@ export default function ProjectDetail() {
 
   const menuItemsCollapsed = [
     {
-      key: 'sponsor',
-      icon: <HeartOutlined />,
-      label: <Link to={`/project/${projectId}/sponsor`}>赞助支持</Link>,
-    },
-    {
       key: 'world-setting',
       icon: <GlobalOutlined />,
-      label: <Link to={`/project/${projectId}/world-setting`}>世界设定</Link>,
+      label: <Link to={`/project/${projectId}/world-setting`}>{t('mundo')}</Link>,
     },
     {
       key: 'careers',
       icon: <TrophyOutlined />,
-      label: <Link to={`/project/${projectId}/careers`}>职业管理</Link>,
+      label: <Link to={`/project/${projectId}/careers`}>{t('carreiras')}</Link>,
     },
     {
       key: 'characters',
       icon: <TeamOutlined />,
-      label: <Link to={`/project/${projectId}/characters`}>角色管理</Link>,
+      label: <Link to={`/project/${projectId}/characters`}>{t('personagens')}</Link>,
     },
     {
       key: 'relationships',
       icon: <ApartmentOutlined />,
-      label: <Link to={`/project/${projectId}/relationships`}>关系管理</Link>,
+      label: <Link to={`/project/${projectId}/relationships`}>{t('relacionamentos')}</Link>,
     },
     {
       key: 'organizations',
       icon: <BankOutlined />,
-      label: <Link to={`/project/${projectId}/organizations`}>组织管理</Link>,
+      label: <Link to={`/project/${projectId}/organizations`}>{t('organizacoes')}</Link>,
     },
     {
       key: 'outline',
       icon: <FileTextOutlined />,
-      label: <Link to={`/project/${projectId}/outline`}>大纲管理</Link>,
+      label: <Link to={`/project/${projectId}/outline`}>{t('outline')}</Link>,
     },
     {
       key: 'chapters',
       icon: <BookOutlined />,
-      label: <Link to={`/project/${projectId}/chapters`}>章节管理</Link>,
+      label: <Link to={`/project/${projectId}/chapters`}>{t('capitulos')}</Link>,
     },
     {
       key: 'chapter-analysis',
       icon: <FundOutlined />,
-      label: <Link to={`/project/${projectId}/chapter-analysis`}>剧情分析</Link>,
+      label: <Link to={`/project/${projectId}/chapter-analysis`}>{t('analiseDeEnredo')}</Link>,
     },
     {
       key: 'foreshadows',
       icon: <BulbOutlined />,
-      label: <Link to={`/project/${projectId}/foreshadows`}>伏笔管理</Link>,
+      label: <Link to={`/project/${projectId}/foreshadows`}>{t('foreshadowing')}</Link>,
     },
     {
       key: 'knowledge-base',
       icon: <DatabaseOutlined />,
-      label: <Link to={`/project/${projectId}/knowledge-base`}>知识库管理</Link>,
+      label: <Link to={`/project/${projectId}/knowledge-base`}>{t('baseDeConhecimento')}</Link>,
     },
     {
       key: 'writing-styles',
       icon: <EditOutlined />,
-      label: <Link to={`/project/${projectId}/writing-styles`}>写作风格</Link>,
-    },
-    {
-      key: 'prompt-workshop',
-      icon: <CloudOutlined />,
-      label: <Link to={`/project/${projectId}/prompt-workshop`}>提示词工坊</Link>,
+      label: <Link to={`/project/${projectId}/writing-styles`}>{t('estiloDeEscrita')}</Link>,
     },
     {
       key: 'skill-chat',
       icon: <ThunderboltOutlined />,
-      label: <Link to={`/project/${projectId}/skill-chat`}>Skill 工具箱</Link>,
+      label: <Link to={`/project/${projectId}/skill-chat`}>{t('caixaDeFerramentasDeSkills')}</Link>,
     },
     {
       key: 'skill-manage',
       icon: <SettingOutlined />,
-      label: <Link to={`/project/${projectId}/skill-manage`}>Skill 管理</Link>,
+      label: <Link to={`/project/${projectId}/skill-manage`}>{t('gerenciarSkills')}</Link>,
     },
   ];
 
@@ -334,12 +327,10 @@ export default function ProjectDetail() {
     if (path.includes('/foreshadows')) return 'foreshadows';
     if (path.includes('/chapters')) return 'chapters';
     if (path.includes('/writing-styles')) return 'writing-styles';
-    if (path.includes('/prompt-workshop')) return 'prompt-workshop';
     if (path.includes('/skill-chat')) return 'skill-chat';
     if (path.includes('/skill-manage')) return 'skill-manage';
-    if (path.includes('/sponsor')) return 'sponsor';
     // if (path.includes('/polish')) return 'polish';
-    return 'sponsor'; // 默认选中赞助支持
+    return 'world-setting';
   }, [location.pathname]);
 
   if (loading || !currentProject) {
@@ -429,7 +420,7 @@ export default function ProjectDetail() {
           <Space size={2} style={{ zIndex: 1 }}>
             <Button
               type="text"
-              icon={<img src="/logo.svg" alt="木木创作助手" style={{ width: 20, height: 20, display: 'block' }} />}
+              icon={<img src="/logo.svg" alt={t('assistenteDeCriacao')} style={{ width: 20, height: 20, display: 'block' }} />}
               onClick={() => setAgentDrawerVisible(true)}
               style={{ color: token.colorWhite, width: 36, height: 36 }}
             />
@@ -443,20 +434,28 @@ export default function ProjectDetail() {
                 height: '36px',
                 padding: '0 6px',
               }}
-            >
-              主页
+            >{t('inicio')}
             </Button>
           </Space>
         )}
 
         {!mobile && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', zIndex: 1 }}>
+            <Select
+              size="small"
+              value={currentProject.language || DEFAULT_LANGUAGE}
+              options={LANGUAGE_OPTIONS}
+              onChange={handleLanguageChange}
+              title={t('idiomaDoConteudo')}
+              aria-label={t('idiomaDoConteudo')}
+              style={{ width: 190 }}
+            />
             <div style={{ display: 'flex', gap: '16px' }}>
               {[
-                { label: '大纲', value: outlines.length, unit: '条' },
-                { label: '角色', value: characters.length, unit: '个' },
-                { label: '章节', value: chapters.length, unit: '章' },
-                { label: '已写', value: currentProject.current_words, unit: '字' },
+                { label: t('outline'), value: outlines.length, unit: t('itens') },
+                { label: t('personagens'), value: characters.length, unit: t('pers') },
+                { label: t('capitulos'), value: chapters.length, unit: t('cap') },
+                { label: t('escritas'), value: currentProject.current_words, unit: t('palavras') },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -499,7 +498,7 @@ export default function ProjectDetail() {
                     lineHeight: 1,
                     fontFamily: 'Monaco, monospace'
                   }}>
-                    {item.value > 10000 ? (item.value / 10000).toFixed(1) + 'w' : item.value}
+                    {item.value >= 10000 ? (item.value / 1000).toFixed(1) + 'k' : item.value}
                     <span style={{ fontSize: '10px', marginLeft: '2px', opacity: 0.8 }}>{item.unit}</span>
                   </span>
                 </div>
@@ -539,8 +538,8 @@ export default function ProjectDetail() {
             {renderMenu()}
             <div style={{ padding: 16, borderTop: `1px solid ${token.colorBorderSecondary}` }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: token.colorTextTertiary, marginBottom: 8 }}>
-                <span>主题模式</span>
-                <span>{resolvedMode === 'dark' ? '深色' : '浅色'}</span>
+                <span>{t('tema')}</span>
+                <span>{resolvedMode === 'dark' ? t('escuro') : t('claro')}</span>
               </div>
               <ThemeSwitch block />
             </div>
@@ -653,7 +652,7 @@ export default function ProjectDetail() {
                       type="text"
                       icon={collapsedThemeIcon}
                       onClick={cycleThemeMode}
-                      title={`主题模式：${mode === 'light' ? '浅色' : mode === 'dark' ? '深色' : '跟随系统'}（点击切换）`}
+                      title={t('temaModo', { mode: mode === 'light' ? t('claro') : mode === 'dark' ? t('escuro') : t('seguirSistema') })}
                       style={{
                         width: 40,
                         height: 40,
@@ -682,8 +681,8 @@ export default function ProjectDetail() {
                 ) : (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: token.colorTextTertiary }}>
-                      <span>主题模式</span>
-                      <span>{resolvedMode === 'dark' ? '深色' : '浅色'}</span>
+                      <span>{t('tema')}</span>
+                      <span>{resolvedMode === 'dark' ? t('escuro') : t('claro')}</span>
                     </div>
                     <ThemeSwitch block />
                     <Button
@@ -697,8 +696,7 @@ export default function ProjectDetail() {
                         justifyContent: 'flex-start',
                         padding: '0 12px'
                       }}
-                    >
-                      返回主页
+                    >{t('voltarAoInicio')}
                     </Button>
                   </div>
                 )}

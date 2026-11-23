@@ -107,7 +107,7 @@ class GrokCoverProvider(BaseCoverProvider):
 
         if not images:
             logger.error("Grok 未返回图片结果: data=%s", summarize_log_value(data))
-            raise ValueError("Grok 未返回图片结果")
+            raise ValueError("O Grok não retornou resultado de imagem")
 
         image_item = images[0]
         revised_prompt = image_item.get("revised_prompt")
@@ -187,7 +187,7 @@ class GrokCoverProvider(BaseCoverProvider):
             }
 
         logger.error("Grok 返回内容中既没有 b64_json，也没有 url: %s", data)
-        raise ValueError("Grok 未返回可用的图片数据")
+        raise ValueError("O Grok não retornou dados de imagem utilizáveis")
 
     @staticmethod
     def _to_public_result(result: dict[str, Any]) -> CoverGenerationResult:

@@ -10,37 +10,37 @@ class BackgroundTask(Base):
     __tablename__ = "background_tasks"
     
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    user_id = Column(String(100), nullable=False, index=True, comment="用户ID")
-    project_id = Column(String(36), nullable=False, index=True, comment="项目ID")
+    user_id = Column(String(100), nullable=False, index=True, comment="ID do usuário")
+    project_id = Column(String(36), nullable=False, index=True, comment="ID do projeto")
     
     # 任务类型
-    task_type = Column(String(50), nullable=False, comment="任务类型: outline_new/outline_continue/outline_expand/chapter_generate/chapter_batch/wizard")
+    task_type = Column(String(50), nullable=False, comment="Tipo de tarefa: outline_new/outline_continue/outline_expand/chapter_generate/chapter_batch/wizard")
     
     # 任务状态
-    status = Column(String(20), default="pending", comment="任务状态: pending/running/completed/failed/cancelled")
-    progress = Column(Integer, default=0, comment="进度百分比(0-100)")
-    status_message = Column(String(500), comment="当前状态消息")
+    status = Column(String(20), default="pending", comment="Status da tarefa: pending/running/completed/failed/cancelled")
+    progress = Column(Integer, default=0, comment="Percentual de progresso (0-100)")
+    status_message = Column(String(500), comment="Mensagem de status atual")
     
     # 任务输入/输出
-    task_input = Column(JSON, comment="任务输入参数(JSON)")
-    task_result = Column(JSON, comment="任务结果(JSON)")
-    error_message = Column(Text, comment="错误信息")
+    task_input = Column(JSON, comment="Parâmetros de entrada da tarefa (JSON)")
+    task_result = Column(JSON, comment="Resultado da tarefa (JSON)")
+    error_message = Column(Text, comment="Mensagem de erro")
     
     # 进度详情（用于前端展示实时进度）
-    progress_details = Column(JSON, comment="进度详情: {stage, message, word_count, etc.}")
+    progress_details = Column(JSON, comment="Detalhes do progresso: {stage, message, word_count, etc.}")
     
     # 取消支持
-    cancel_requested = Column(Boolean, default=False, comment="是否请求取消")
+    cancel_requested = Column(Boolean, default=False, comment="Cancelamento solicitado")
     
     # 重试信息
-    retry_count = Column(Integer, default=0, comment="已重试次数")
-    max_retries = Column(Integer, default=3, comment="最大重试次数")
+    retry_count = Column(Integer, default=0, comment="Tentativas já realizadas")
+    max_retries = Column(Integer, default=3, comment="Máximo de tentativas")
     
     # 时间记录
-    created_at = Column(DateTime, server_default=func.now(), comment="创建时间")
-    started_at = Column(DateTime, comment="开始时间")
-    completed_at = Column(DateTime, comment="完成时间")
-    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="更新时间")
+    created_at = Column(DateTime, server_default=func.now(), comment="Data de criação")
+    started_at = Column(DateTime, comment="Data de início")
+    completed_at = Column(DateTime, comment="Data de conclusão")
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now(), comment="Data de atualização")
     
     def __repr__(self):
         return f"<BackgroundTask(id={self.id[:8]}, type={self.task_type}, status={self.status}, progress={self.progress}%)>"

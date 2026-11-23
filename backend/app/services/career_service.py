@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 import json
 
+from app.constants.languages import language_name
 from app.models.project import Project
 from app.models.career import Career
 from app.services.ai_service import AIService
@@ -33,75 +34,77 @@ class CareerService:
             完整的提示词
         """
         project_context = f"""
-项目信息：
-- 书名：{project.title}
-- 类型：{project.genre or '未设定'}
-- 主题：{project.theme or '未设定'}
-- 时间背景：{project.world_time_period or '未设定'}
-- 地理位置：{project.world_location or '未设定'}
-- 氛围基调：{project.world_atmosphere or '未设定'}
-- 世界规则：{project.world_rules or '未设定'}
+Informações do projeto:
+- Título: {project.title}
+- Gênero: {project.genre or 'Não definido'}
+- Tema: {project.theme or 'Não definido'}
+- Época: {project.world_time_period or 'Não definido'}
+- Localização: {project.world_location or 'Não definido'}
+- Atmosfera e tom: {project.world_atmosphere or 'Não definido'}
+- Regras do mundo: {project.world_rules or 'Não definido'}
 """
         
         user_requirements = f"""
-生成要求：
-- 主职业数量：{main_career_count}个
-- 副职业数量：{sub_career_count}个
-- 主职业必须严格符合世界观规则，体现核心能力体系
-- 副职业可以更加自由灵活，包含生产、辅助、特殊类型
+Requisitos de geração:
+- Quantidade de carreiras principais: {main_career_count}
+- Quantidade de carreiras secundárias: {sub_career_count}
+- As carreiras principais devem seguir rigorosamente as regras do mundo e refletir o sistema central de habilidades
+- As carreiras secundárias podem ser mais livres e flexíveis, incluindo tipos de produção, suporte e especiais
 """
         
         prompt = f"""{project_context}
 
 {user_requirements}
 
-请为这个小说项目生成完整的职业体系。返回JSON格式，结构如下：
+Gere o sistema completo de carreiras para este livro. Retorne em formato JSON, com a seguinte estrutura:
 
 {{
   "main_careers": [
     {{
-      "name": "职业名称",
-      "description": "职业描述（100-200字）",
-      "category": "职业分类（如：战斗系、法术系、体修系等）",
+      "name": "nome da carreira",
+      "description": "descrição da carreira (100-200 palavras)",
+      "category": "categoria da carreira (ex.: combate, magia, treinamento físico etc.)",
       "stages": [
-        {{"level": 1, "name": "阶段名称", "description": "阶段描述"}},
-        {{"level": 2, "name": "阶段名称", "description": "阶段描述"}},
-        ...（共10个阶段）
+        {{"level": 1, "name": "nome do estágio", "description": "descrição do estágio"}},
+        {{"level": 2, "name": "nome do estágio", "description": "descrição do estágio"}},
+        ... (10 estágios no total)
       ],
       "max_stage": 10,
-      "requirements": "职业要求（如：需要特定天赋、资质等）",
-      "special_abilities": "特殊能力描述",
-      "worldview_rules": "世界观规则关联（说明该职业如何融入世界观）",
+      "requirements": "requisitos da carreira (ex.: talento ou aptidão específicos)",
+      "special_abilities": "descrição das habilidades especiais",
+      "worldview_rules": "vínculo com as regras do mundo (explique como a carreira se encaixa no mundo)",
       "attribute_bonuses": {{"strength": "+10%", "intelligence": "+5%"}}
     }}
   ],
   "sub_careers": [
     {{
-      "name": "副职业名称",
-      "description": "职业描述",
-      "category": "生产系/辅助系/特殊系",
+      "name": "nome da carreira secundária",
+      "description": "descrição da carreira",
+      "category": "produção/suporte/especial",
       "stages": [
-        {{"level": 1, "name": "阶段名称", "description": "阶段描述"}},
-        ...（5-8个阶段）
+        {{"level": 1, "name": "nome do estágio", "description": "descrição do estágio"}},
+        ... (5 a 8 estágios)
       ],
       "max_stage": 5,
-      "requirements": "职业要求",
-      "special_abilities": "特殊能力"
+      "requirements": "requisitos da carreira",
+      "special_abilities": "habilidades especiais"
     }}
   ]
 }}
 
-重要注意事项：
-1. 主职业的阶段设定要详细，体现明确的成长路径，阶段名称要有特色
-2. 根据小说类型选择合适的职业：
-   - 修仙类：剑修、体修、法修、符修等，阶段如：炼气、筑基、金丹、元婴...
-   - 玄幻类：战士、法师、刺客等，阶段如：见习、初级、中级、高级...
-   - 都市异能：异能者分类，阶段如：觉醒、初阶、中阶、高阶...
-   - 科幻未来：基因战士、机甲师等，阶段如：E级、D级、C级、B级...
-3. 副职业要有实用性和趣味性，如：炼丹师、炼器师、阵法师、驯兽师、医师等
-4. 所有职业都要符合项目的整体世界观设定
-5. 阶段描述要简洁明了，体现该阶段的核心特征
-6. **只返回纯JSON对象，不要添加任何解释文字或markdown标记**
+Observações importantes:
+1. Os estágios das carreiras principais devem ser detalhados, com um caminho de crescimento claro e nomes de estágio marcantes
+2. Escolha carreiras adequadas ao gênero do livro:
+   - Fantasia / cultivo: guerreiro, mago, sacerdote etc., com estágios como: aprendiz, adepto, mestre, grão-mestre...
+   - Urbano com poderes: classificação dos poderosos, com estágios como: desperto, iniciante, intermediário, avançado...
+   - Ficção científica / futuro: soldado geneticamente modificado, piloto de mecha etc., com estágios como: classe E, D, C, B...
+   - Realismo / outros gêneros: carreiras reais do cenário (ofícios, cargos, especialidades), com estágios de senioridade
+3. As carreiras secundárias devem ser úteis e interessantes, como: alquimista, ferreiro, artífice de formações, domador, curandeiro etc.
+4. Todas as carreiras devem estar de acordo com o mundo geral do projeto
+5. As descrições dos estágios devem ser concisas e destacar a característica central de cada um
+6. **Retorne somente o objeto JSON puro, sem adicionar texto explicativo nem marcações markdown**
+
+Escreva todo o conteúdo em {language_name(project.language)}.
 """
         
         return prompt
@@ -137,7 +140,7 @@ class CareerService:
                 
                 career = Career(
                     project_id=project_id,
-                    name=career_info.get("name", f"未命名主职业{idx+1}"),
+                    name=career_info.get("name", f"Carreira principal sem nome {idx+1}"),
                     type="main",
                     description=career_info.get("description"),
                     category=career_info.get("category"),
@@ -166,7 +169,7 @@ class CareerService:
                 
                 career = Career(
                     project_id=project_id,
-                    name=career_info.get("name", f"未命名副职业{idx+1}"),
+                    name=career_info.get("name", f"Carreira secundária sem nome {idx+1}"),
                     type="sub",
                     description=career_info.get("description"),
                     category=career_info.get("category"),

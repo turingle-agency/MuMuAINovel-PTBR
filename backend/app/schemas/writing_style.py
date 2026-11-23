@@ -6,20 +6,20 @@ from datetime import datetime
 
 class WritingStyleBase(BaseModel):
     """写作风格基础模型"""
-    name: str = Field(..., description="风格名称")
-    style_type: str = Field(..., description="风格类型：preset/custom")
-    preset_id: Optional[str] = Field(None, description="预设风格ID")
-    description: Optional[str] = Field(None, description="风格描述")
-    prompt_content: str = Field(..., description="风格提示词内容")
+    name: str = Field(..., description="Nome do estilo")
+    style_type: str = Field(..., description="Tipo de estilo: preset/custom")
+    preset_id: Optional[str] = Field(None, description="ID do estilo predefinido")
+    description: Optional[str] = Field(None, description="Descrição do estilo")
+    prompt_content: str = Field(..., description="Conteúdo do prompt do estilo")
 
 
 class WritingStyleCreate(BaseModel):
     """创建写作风格（仅用于创建用户自定义风格）"""
-    name: str = Field(..., description="风格名称")
-    style_type: Optional[str] = Field(None, description="风格类型：preset/custom")
-    preset_id: Optional[str] = Field(None, description="预设风格ID")
-    description: Optional[str] = Field(None, description="风格描述")
-    prompt_content: str = Field(..., description="风格提示词内容")
+    name: str = Field(..., description="Nome do estilo")
+    style_type: Optional[str] = Field(None, description="Tipo de estilo: preset/custom")
+    preset_id: Optional[str] = Field(None, description="ID do estilo predefinido")
+    description: Optional[str] = Field(None, description="Descrição do estilo")
+    prompt_content: str = Field(..., description="Conteúdo do prompt do estilo")
 
 
 class WritingStyleUpdate(BaseModel):
@@ -31,7 +31,7 @@ class WritingStyleUpdate(BaseModel):
 
 class SetDefaultStyleRequest(BaseModel):
     """设置默认风格请求"""
-    project_id: str = Field(..., description="项目ID")
+    project_id: str = Field(..., description="ID do projeto")
 
 
 class WritingStyleResponse(BaseModel):

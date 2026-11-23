@@ -176,7 +176,7 @@ class CareerUpdateService:
             character.main_career_stage = new_stage
             
             # 记录变更日志
-            change_desc = f"{'晋升' if stage_change > 0 else '降级'}"
+            change_desc = f"{'promoção' if stage_change > 0 else 'rebaixamento'}"
             breakthrough_desc = career_changes.get('career_breakthrough', '')
             
             changes_log.append({

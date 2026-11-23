@@ -1,6 +1,7 @@
 """小说封面生成服务"""
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 from datetime import datetime
 import json
@@ -10,14 +11,22 @@ from urllib.parse import quote
 
 import httpx
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import select, update as sql_update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.config import PROJECT_ROOT
+from app.config import PROJECT_ROOT, settings as app_settings
+from app.constants.models import DEFAULT_COVER_MODELS
 from app.logger import get_logger
 from app.models.project import Project
 from app.models.settings import Settings
+from app.services.ai_providers.codex_provider import (
+    CodexError,
+    codex_reason,
+    fallback_failure_message,
+    reset_codex_cooldown,
+)
 from app.services.cover_providers.base_cover_provider import BaseCoverProvider, CoverGenerationResult
+from app.services.cover_providers.codex_cover_provider import CodexCoverProvider
 from app.services.cover_providers.gemini_cover_provider import GeminiCoverProvider
 from app.services.cover_providers.grok_cover_provider import GrokCoverProvider
 from app.services.prompt_service import PromptService
@@ -28,6 +37,26 @@ COVER_WIDTH = 1024
 COVER_HEIGHT = 1536
 GENERATED_COVER_STORAGE_DIR = PROJECT_ROOT / "storage" / "generated_covers"
 GENERATED_COVER_PUBLIC_PREFIX = "/generated-assets/covers"
+
+
+COVER_INTERRUPTED_MESSAGE = "A geração da capa foi interrompida; gere novamente."
+COVER_IN_PROGRESS_MESSAGE = "A capa ainda está em geração; aguarde a conclusão."
+
+
+async def reset_interrupted_covers(executor) -> int:
+    """Marca como falha as capas presas em "generating" (ex.: reinício do serviço).
+
+    `executor` é uma AsyncConnection ou AsyncSession. Devolve quantas linhas foram alteradas.
+    """
+    result = await executor.execute(
+        sql_update(Project)
+        .where(Project.cover_status == "generating")
+        .values(
+            cover_status="failed",
+            cover_error="Serviço reiniciado; a geração da capa foi interrompida, gere novamente.",
+        )
+    )
+    return result.rowcount or 0
 
 
 @dataclass
@@ -54,9 +83,9 @@ class CoverGenerationService:
         self._validate_cover_settings(settings)
 
         if project.cover_status == "generating":
-            raise HTTPException(status_code=409, detail="封面正在生成中，请勿重复提交")
+            raise HTTPException(status_code=409, detail=COVER_IN_PROGRESS_MESSAGE)
         if project.cover_status == "ready" and project.cover_image_url and not overwrite:
-            raise HTTPException(status_code=400, detail="当前项目已存在封面，如需覆盖请传入 overwrite=true")
+            raise HTTPException(status_code=400, detail="O projeto já tem capa; para sobrescrever, envie overwrite=true")
 
         prompt = await PromptService.build_novel_cover_prompt(
             project,
@@ -71,12 +100,17 @@ class CoverGenerationService:
 
         try:
             provider = self._build_provider(settings)
-            result = await provider.generate_cover(
-                prompt=prompt,
-                model=settings.cover_image_model or "",
-                width=COVER_WIDTH,
-                height=COVER_HEIGHT,
-            )
+            try:
+                result = await provider.generate_cover(
+                    prompt=prompt,
+                    model=settings.cover_image_model or "",
+                    width=COVER_WIDTH,
+                    height=COVER_HEIGHT,
+                )
+            except CodexError as codex_error:
+                result = await self._generate_with_fallback(
+                    settings=settings, prompt=prompt, codex_error=codex_error
+                )
             image_url = self._save_cover_file(
                 user_id=user_id,
                 project_id=project.id,
@@ -99,8 +133,13 @@ class CoverGenerationService:
                 "cover_prompt": project.cover_prompt,
                 "provider": result["provider"],
                 "model": result["model"],
-                "message": "封面生成成功",
+                "message": "Capa gerada com sucesso",
             }
+        except asyncio.CancelledError:
+            # Requisição cancelada (cliente desconectou/desligamento): não deixa a capa presa em "generating".
+            logger.warning("Geração de capa cancelada: project_id=%s", project.id)
+            await self._mark_cover_failed(db, project, COVER_INTERRUPTED_MESSAGE)
+            raise
         except httpx.HTTPStatusError as exc:
             logger.error("封面生成上游 HTTP 错误: project_id=%s error=%s", project.id, exc, exc_info=True)
             detail = self._extract_upstream_error_detail(exc)
@@ -121,6 +160,16 @@ class CoverGenerationService:
             await db.commit()
             raise HTTPException(status_code=500, detail=str(exc)) from exc
 
+    @staticmethod
+    async def _mark_cover_failed(db: AsyncSession, project: Project, message: str) -> None:
+        try:
+            await db.rollback()
+            project.cover_status = "failed"
+            project.cover_error = message
+            await db.commit()
+        except BaseException as exc:  # noqa: BLE001 - melhor esforço; a sessão pode estar inutilizável
+            logger.error("Não foi possível marcar a capa como falha: %r", exc)
+
     async def test_cover_settings(
         self,
         *,
@@ -129,14 +178,16 @@ class CoverGenerationService:
         api_base_url: Optional[str],
         model: str,
     ) -> CoverTestResult:
-        if not provider or not api_key or not model:
-            raise HTTPException(status_code=400, detail="封面图片配置不完整，请填写 provider、api_key 和 model")
+        is_codex = (provider or "").lower().strip() == "codex"
+        if not provider or (not is_codex and (not api_key or not model)):
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta: informe provider, api_key e model")
 
         provider_instance = self._build_provider_from_values(
             provider=provider,
             api_key=api_key,
             api_base_url=api_base_url,
         )
+        reset_codex_cooldown()  # teste explícito: ignora a espera pós-falha
         test_prompt = (
             "Create a clean fantasy novel cover illustration, vertical book cover, "
             "standard 2:3 ratio, atmospheric lighting, no text, no watermark."
@@ -148,13 +199,18 @@ class CoverGenerationService:
                 width=COVER_WIDTH,
                 height=COVER_HEIGHT,
             )
+        except CodexError as exc:
+            raise HTTPException(
+                status_code=503,
+                detail=f"Não foi possível gerar a imagem pelo Codex: {codex_reason(exc)}.",
+            ) from exc
         except httpx.HTTPStatusError as exc:
             detail = self._extract_upstream_error_detail(exc)
             raise HTTPException(status_code=exc.response.status_code, detail=detail) from exc
 
         return CoverTestResult(
             success=True,
-            message="封面图片接口测试成功",
+            message="Teste da API de imagem de capa bem-sucedido",
             provider=provider,
             model=model,
         )
@@ -168,11 +224,11 @@ class CoverGenerationService:
     ) -> tuple[Project, Path]:
         project = await self._get_project(db=db, user_id=user_id, project_id=project_id)
         if project.cover_status != "ready" or not project.cover_image_url:
-            raise HTTPException(status_code=404, detail="当前项目尚未生成可下载的封面")
+            raise HTTPException(status_code=404, detail="O projeto ainda não tem capa disponível para download")
 
         absolute_path = self._resolve_cover_path(project.cover_image_url)
         if not absolute_path.exists():
-            raise HTTPException(status_code=404, detail="封面文件不存在，请重新生成")
+            raise HTTPException(status_code=404, detail="Arquivo da capa não encontrado, gere novamente")
         return project, absolute_path
 
     async def clear_cover_metadata(self, *, db: AsyncSession, project: Project) -> None:
@@ -189,21 +245,24 @@ class CoverGenerationService:
         )
         project = result.scalar_one_or_none()
         if not project:
-            raise HTTPException(status_code=404, detail="项目不存在")
+            raise HTTPException(status_code=404, detail="Projeto não encontrado")
         return project
 
     async def _get_settings(self, *, db: AsyncSession, user_id: str) -> Settings:
         result = await db.execute(select(Settings).where(Settings.user_id == user_id))
         settings = result.scalar_one_or_none()
         if not settings:
-            raise HTTPException(status_code=400, detail="请先在设置页完成封面图片配置")
+            raise HTTPException(status_code=400, detail="Configure primeiro a imagem de capa na página de configurações")
         return settings
 
     def _validate_cover_settings(self, settings: Settings) -> None:
         if not settings.cover_enabled:
-            raise HTTPException(status_code=400, detail="封面图片功能未启用，请先在设置页开启")
-        if not settings.cover_api_provider or not settings.cover_api_key or not settings.cover_image_model:
-            raise HTTPException(status_code=400, detail="封面图片配置不完整，请前往设置页补全")
+            raise HTTPException(status_code=400, detail="A função de imagem de capa não está habilitada; ative-a na página de configurações")
+        is_codex = (settings.cover_api_provider or "").lower().strip() == "codex"
+        if not settings.cover_api_provider:
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta; complete-a na página de configurações")
+        if not is_codex and (not settings.cover_api_key or not settings.cover_image_model):
+            raise HTTPException(status_code=400, detail="Configuração da imagem de capa incompleta; complete-a na página de configurações")
 
     def _build_provider(self, settings: Settings) -> BaseCoverProvider:
         return self._build_provider_from_values(
@@ -221,15 +280,75 @@ class CoverGenerationService:
     ) -> BaseCoverProvider:
         provider_value = (provider or "").lower().strip()
         normalized_base_url = (api_base_url or "").rstrip("/")
+        if provider_value == "codex":
+            return CodexCoverProvider(
+                binary=app_settings.codex_binary,
+                timeout_s=app_settings.codex_timeout_s,
+            )
         if provider_value == "gemini":
             return GeminiCoverProvider(api_key=api_key, base_url=normalized_base_url)
         if provider_value == "grok":
             return GrokCoverProvider(api_key=api_key, base_url=normalized_base_url)
-        if provider_value == "mumu":
-            if normalized_base_url.endswith("/v1beta"):
-                return GeminiCoverProvider(api_key=api_key, base_url=normalized_base_url)
-            return GrokCoverProvider(api_key=api_key, base_url=normalized_base_url or "https://ai.mumuverse.space/v1")
-        raise HTTPException(status_code=400, detail="当前版本仅支持 Gemini、Grok 或 MuMuのAPI 作为封面图片 Provider")
+        raise HTTPException(status_code=400, detail="Provedor de capa não suportado: use Codex, Gemini ou Grok")
+
+    async def _generate_with_fallback(
+        self,
+        *,
+        settings: Settings,
+        prompt: str,
+        codex_error: CodexError,
+    ) -> CoverGenerationResult:
+        """Codex falhou: tenta a API de reserva (Gemini/Grok com chave) ou levanta 503 em PT-BR."""
+        fallback_provider = (settings.fallback_api_provider or "").lower().strip()
+        fallback_model = settings.fallback_llm_model or DEFAULT_COVER_MODELS.get(fallback_provider, "")
+        motivo_codex = codex_reason(codex_error)
+        if fallback_provider and settings.fallback_api_key:
+            if fallback_provider not in ("gemini", "grok"):
+                raise HTTPException(
+                    status_code=503,
+                    detail=(
+                        f"O Codex não gerou a capa ({motivo_codex}) e a API de reserva "
+                        f"({fallback_provider}) não gera imagens. Use Gemini ou Grok como reserva em Configurações."
+                    ),
+                ) from codex_error
+            if "imag" not in fallback_model.lower():
+                raise HTTPException(
+                    status_code=503,
+                    detail=(
+                        f"O Codex não gerou a capa ({motivo_codex}) e o modelo da API de reserva "
+                        f"({fallback_model or 'não definido'}) não parece gerar imagens. "
+                        "Configure um modelo de imagem (nome com \"image\" ou \"imagen\") em Configurações."
+                    ),
+                ) from codex_error
+        if (
+            fallback_provider in ("gemini", "grok")
+            and settings.fallback_api_key
+            and fallback_model
+        ):
+            logger.warning("Codex falhou ao gerar capa (%s); usando API de reserva %s", codex_error, fallback_provider)
+            provider = self._build_provider_from_values(
+                provider=fallback_provider,
+                api_key=settings.fallback_api_key,
+                api_base_url=settings.fallback_api_base_url,
+            )
+            try:
+                return await provider.generate_cover(
+                    prompt=prompt,
+                    model=fallback_model,
+                    width=COVER_WIDTH,
+                    height=COVER_HEIGHT,
+                )
+            except Exception as fallback_error:
+                logger.error("API de reserva da capa também falhou: %r", fallback_error)
+                raise HTTPException(
+                    status_code=503,
+                    detail=fallback_failure_message(codex_error, fallback_error),
+                ) from fallback_error
+        logger.error("Codex falhou ao gerar capa e não há reserva: %s", codex_error)
+        raise HTTPException(
+            status_code=503,
+            detail=f"Não foi possível gerar a imagem pelo Codex: {codex_reason(codex_error)}.",
+        ) from codex_error
 
     def _save_cover_file(
         self,
@@ -251,7 +370,7 @@ class CoverGenerationService:
 
     def _resolve_cover_path(self, cover_image_url: Optional[str]) -> Path:
         if not cover_image_url:
-            raise HTTPException(status_code=404, detail="当前项目尚未生成可下载的封面")
+            raise HTTPException(status_code=404, detail="O projeto ainda não tem capa disponível para download")
 
         if cover_image_url.startswith(f"{GENERATED_COVER_PUBLIC_PREFIX}/"):
             relative_path = cover_image_url.replace(f"{GENERATED_COVER_PUBLIC_PREFIX}/", "", 1)
@@ -261,7 +380,7 @@ class CoverGenerationService:
             relative_path = cover_image_url.replace("/assets/generated_covers/", "", 1)
             return GENERATED_COVER_STORAGE_DIR / relative_path
 
-        raise HTTPException(status_code=404, detail="封面文件路径无效，请重新生成")
+        raise HTTPException(status_code=404, detail="Caminho do arquivo da capa inválido, gere novamente")
 
     @staticmethod
     def _extract_upstream_error_detail(exc: httpx.HTTPStatusError) -> str:

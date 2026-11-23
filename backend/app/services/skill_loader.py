@@ -72,21 +72,28 @@ def _template_key(name: str) -> str:
 
 def _display_name_from_description(description: str, fallback: str) -> str:
     first_line = description.strip().splitlines()[0].strip() if description.strip() else ""
-    if "。" in first_line:
-        return first_line.split("。")[0].strip() or fallback
-    return first_line or fallback
+    # Primeira frase da descrição (aceita ponto final latino ou ideográfico)
+    first_sentence = re.split(r"\u3002|\.(?:\s|$)", first_line, maxsplit=1)[0].strip()
+    return first_sentence or fallback
 
 
 def _infer_category(name: str) -> str:
     if "long" in name:
-        return "Skill·长篇"
+        return "Skill · Romance longo"
     if "short" in name:
-        return "Skill·短篇"
+        return "Skill · Conto"
     if "deslop" in name:
-        return "Skill·润色"
+        return "Skill · Revisão"
     if "browser" in name:
-        return "Skill·工具"
+        return "Skill · Ferramentas"
     return "Skill"
+
+
+# Skills antigos em chinês descrevem os gatilhos com pontuação CJK; os padrões
+# abaixo aceitam essa pontuação e também « » / vírgulas usadas em português.
+CJK_COMPAT_TRIGGER_SPLIT = re.compile(r"[\n,，、]+")
+CJK_COMPAT_QUOTED_TRIGGER = re.compile(r"[「«](.+?)[」»]")
+CJK_COMPAT_SLASH_TRIGGER = re.compile(r"(?:^|[\s、，,。；;：:])(/[^\s、，,。；;：:「」«»]+)")
 
 
 def _extract_triggers(name: str, description: str, explicit_triggers: Any = None) -> List[str]:
@@ -96,12 +103,12 @@ def _extract_triggers(name: str, description: str, explicit_triggers: Any = None
     if isinstance(explicit_triggers, list):
         triggers.extend(str(item).strip() for item in explicit_triggers if str(item).strip())
     elif isinstance(explicit_triggers, str) and explicit_triggers.strip():
-        triggers.extend(item.strip() for item in re.split(r'[\n,，、]+', explicit_triggers) if item.strip())
+        triggers.extend(item.strip() for item in CJK_COMPAT_TRIGGER_SPLIT.split(explicit_triggers) if item.strip())
 
     if not triggers:
         triggers.append(f"/{name}")
-        triggers.extend(re.findall(r'「(.+?)」', description))
-        triggers.extend(match.group(1) for match in re.finditer(r'(?:^|[\s、，,。；;：:])(/[^\s、，,。；;：:「」]+)', description))
+        triggers.extend(CJK_COMPAT_QUOTED_TRIGGER.findall(description))
+        triggers.extend(match.group(1) for match in CJK_COMPAT_SLASH_TRIGGER.finditer(description))
 
     if f"/{name}" not in triggers:
         triggers.insert(0, f"/{name}")
@@ -208,10 +215,10 @@ def load_skills() -> List[Dict]:
             
             # 拼接参考知识库到内容（作为按需加载的附录）
             if references:
-                ref_section = "\n\n---\n\n## 附录：参考资料知识库\n"
-                ref_section += "（以下内容根据用户需求按需引用，不需要全部使用）\n"
+                ref_section = "\n\n---\n\n## Apêndice: base de conhecimento de referência\n"
+                ref_section += "(O conteúdo abaixo deve ser consultado conforme a necessidade do usuário; não é preciso usar tudo.)\n"
                 for ref_name, ref_content in references.items():
-                    ref_section += f"\n### 参考资料：{ref_name}\n\n{ref_content}\n"
+                    ref_section += f"\n### Material de referência: {ref_name}\n\n{ref_content}\n"
                 full_content = body + ref_section
             else:
                 full_content = body
@@ -265,28 +272,27 @@ def get_skill_by_trigger(user_input: str) -> Optional[Dict]:
     
     # 自然语言模糊匹配
     keyword_map = {
-        "长篇写作": ["SKILL_STORY_LONG_WRITE"],
-        "写长篇": ["SKILL_STORY_LONG_WRITE"],
-        "帮我开书": ["SKILL_STORY_LONG_WRITE"],
-        "写大纲": ["SKILL_STORY_LONG_WRITE"],
-        "短篇写作": ["SKILL_STORY_SHORT_WRITE"],
-        "写短篇": ["SKILL_STORY_SHORT_WRITE"],
-        "写个盐言": ["SKILL_STORY_SHORT_WRITE"],
-        "长篇拆文": ["SKILL_STORY_LONG_ANALYZE"],
-        "拆书": ["SKILL_STORY_LONG_ANALYZE"],
-        "分析黄金三章": ["SKILL_STORY_LONG_ANALYZE"],
-        "短篇拆文": ["SKILL_STORY_SHORT_ANALYZE"],
-        "分析短篇": ["SKILL_STORY_SHORT_ANALYZE"],
-        "长篇扫榜": ["SKILL_STORY_LONG_SCAN"],
-        "长篇什么火": ["SKILL_STORY_LONG_SCAN"],
-        "起点排行": ["SKILL_STORY_LONG_SCAN"],
-        "短篇扫榜": ["SKILL_STORY_SHORT_SCAN"],
-        "短篇什么火": ["SKILL_STORY_SHORT_SCAN"],
-        "去ai味": ["SKILL_STORY_DESLOP"],
-        "去味": ["SKILL_STORY_DESLOP"],
-        "太ai了": ["SKILL_STORY_DESLOP"],
-        "润色": ["SKILL_STORY_DESLOP"],
-        "浏览器": ["SKILL_BROWSER_CDP"],
+        "escrever romance": ["SKILL_STORY_LONG_WRITE"],
+        "romance longo": ["SKILL_STORY_LONG_WRITE"],
+        "começar um livro": ["SKILL_STORY_LONG_WRITE"],
+        "escrever esboço": ["SKILL_STORY_LONG_WRITE"],
+        "escrever conto": ["SKILL_STORY_SHORT_WRITE"],
+        "história curta": ["SKILL_STORY_SHORT_WRITE"],
+        "analisar romance": ["SKILL_STORY_LONG_ANALYZE"],
+        "analise este livro": ["SKILL_STORY_LONG_ANALYZE"],
+        "três primeiros capítulos": ["SKILL_STORY_LONG_ANALYZE"],
+        "analisar conto": ["SKILL_STORY_SHORT_ANALYZE"],
+        "analise este conto": ["SKILL_STORY_SHORT_ANALYZE"],
+        "panorama de romance longo": ["SKILL_STORY_LONG_SCAN"],
+        "mais vendidos": ["SKILL_STORY_LONG_SCAN"],
+        "ranking de romances": ["SKILL_STORY_LONG_SCAN"],
+        "panorama de contos": ["SKILL_STORY_SHORT_SCAN"],
+        "ranking de contos": ["SKILL_STORY_SHORT_SCAN"],
+        "tom de ia": ["SKILL_STORY_DESLOP"],
+        "muito ia": ["SKILL_STORY_DESLOP"],
+        "mais natural": ["SKILL_STORY_DESLOP"],
+        "revisar": ["SKILL_STORY_DESLOP"],
+        "navegador": ["SKILL_BROWSER_CDP"],
     }
     
     for keyword, skill_keys in keyword_map.items():
@@ -370,19 +376,19 @@ def get_skill_detail(skill_key: str) -> Optional[Dict]:
 
 def _validate_skill_metadata(name: str, display_name: str, category: str, description: str, triggers: List[str], body: str):
     if not name.strip():
-        raise ValueError("Skill 内部标识不能为空")
+        raise ValueError("O identificador interno do Skill não pode ser vazio")
     if not re.fullmatch(r'[a-z0-9][a-z0-9\-]*', name.strip()):
-        raise ValueError("Skill 内部标识只能包含小写字母、数字和短横线，且必须以字母或数字开头")
+        raise ValueError("O identificador interno do Skill só pode conter letras minúsculas, números e hifens, e deve começar com letra ou número")
     if not display_name.strip():
-        raise ValueError("显示名称不能为空")
+        raise ValueError("O nome de exibição não pode ser vazio")
     if not category.strip():
-        raise ValueError("分类不能为空")
+        raise ValueError("A categoria não pode ser vazia")
     if not description.strip():
-        raise ValueError("描述不能为空")
+        raise ValueError("A descrição não pode ser vazia")
     if not body.strip():
-        raise ValueError("工作流指令不能为空")
+        raise ValueError("As instruções do fluxo de trabalho não podem ser vazias")
     if not triggers:
-        raise ValueError("至少需要一个触发词")
+        raise ValueError("É necessário pelo menos um gatilho")
 
 
 def create_skill_files(
@@ -410,7 +416,7 @@ def create_skill_files(
     
     skill_dir = os.path.join(SKILLS_DIR, dir_name)
     if os.path.exists(skill_dir):
-        raise ValueError(f"Skill 目录已存在: {dir_name}")
+        raise ValueError(f"O diretório do Skill já existe: {dir_name}")
     
     os.makedirs(skill_dir, exist_ok=True)
     
@@ -459,11 +465,11 @@ def update_skill_files(
     """更新已有 Skill 文件"""
     detail = get_skill_detail(skill_key)
     if not detail:
-        raise ValueError(f"未找到 Skill: {skill_key}")
+        raise ValueError(f"Skill não encontrado: {skill_key}")
     
     skill_dir = detail.get("skill_dir", "")
     if not skill_dir or not os.path.isdir(skill_dir):
-        raise ValueError(f"Skill 目录不存在: {skill_dir}")
+        raise ValueError(f"O diretório do Skill não existe: {skill_dir}")
     
     skill_md_path = os.path.join(skill_dir, "SKILL.md")
     
@@ -525,11 +531,11 @@ def delete_skill_files(skill_key: str) -> bool:
     import shutil
     detail = get_skill_detail(skill_key)
     if not detail:
-        raise ValueError(f"未找到 Skill: {skill_key}")
+        raise ValueError(f"Skill não encontrado: {skill_key}")
     
     skill_dir = detail.get("skill_dir", "")
     if not skill_dir or not os.path.isdir(skill_dir):
-        raise ValueError(f"Skill 目录不存在")
+        raise ValueError(f"O diretório do Skill não existe")
     
     shutil.rmtree(skill_dir)
     refresh_skills_cache()

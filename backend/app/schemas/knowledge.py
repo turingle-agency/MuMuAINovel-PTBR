@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class KnowledgeBaseCreate(BaseModel):
-    name: str = Field(default="项目知识库", min_length=1, max_length=200)
+    name: str = Field(default="Base de conhecimento do projeto", min_length=1, max_length=200)
     description: Optional[str] = Field(default=None, max_length=2000)
 
 

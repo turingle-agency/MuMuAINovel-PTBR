@@ -45,19 +45,19 @@ class UserManager:
         
         return session_maker()
     
-    async def create_or_update_from_linuxdo(
+    async def create_or_update_user(
         self,
-        linuxdo_id: str,
+        external_id: str,
         username: str,
         display_name: str,
         avatar_url: Optional[str],
         trust_level: int
     ) -> User:
         """
-        从 LinuxDO 用户信息创建或更新用户
+        创建或更新用户
         
         Args:
-            linuxdo_id: LinuxDO 用户 ID（本地用户时为 local_xxx 格式）
+            external_id: 用户唯一标识（本地用户为 local_xxx 格式）
             username: 用户名
             display_name: 显示名称
             avatar_url: 头像 URL
@@ -69,10 +69,7 @@ class UserManager:
         from app.models.user import User as UserModel
         
         # 生成 user_id
-        if linuxdo_id.startswith("local_"):
-            user_id = linuxdo_id
-        else:
-            user_id = f"linuxdo_{linuxdo_id}"
+        user_id = external_id
         
         async with await self._get_session() as session:
             # 查询用户是否存在
@@ -81,11 +78,8 @@ class UserManager:
             )
             user = result.scalar_one_or_none()
             
-            # 检查是否为初始管理员或本地用户
-            initial_admin_id = settings.INITIAL_ADMIN_LINUXDO_ID
-            is_initial_admin = (initial_admin_id and linuxdo_id == initial_admin_id)
-            is_local_user = user_id.startswith("local_")
-            is_admin = is_initial_admin or is_local_user
+            # 本地用户即管理员
+            is_admin = user_id.startswith("local_")
             
             if user:
                 # 更新现有用户
@@ -107,7 +101,7 @@ class UserManager:
                     avatar_url=avatar_url,
                     trust_level=trust_level,
                     is_admin=is_admin,
-                    linuxdo_id=linuxdo_id,
+                    linuxdo_id=external_id,  # coluna legada: id único genérico
                     created_at=datetime.now(),
                     last_login=datetime.now()
                 )

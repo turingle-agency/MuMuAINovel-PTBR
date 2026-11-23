@@ -4,6 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.services.ai_service import AIService
 from app.services.json_helper import loads_json
 from app.services.prompt_service import prompt_service, PromptService
+from app.constants.languages import language_name
 from app.logger import get_logger, safe_preview
 import json
 import re
@@ -14,6 +15,11 @@ logger = get_logger(__name__)
 # 重试回调类型定义
 OnRetryCallback = Callable[[int, int, int, str], Awaitable[None]]
 # 参数: (当前重试次数, 最大重试次数, 等待时间秒数, 错误原因)
+
+
+# Pontuação removida na busca aproximada da posição de um trecho: CJK (texto
+# importado em chinês) mais a pontuação usual do português.
+CJK_COMPAT_PUNCTUATION = re.compile(r'[，。！？、；：“”‘’（）《》【】.,!?;:"\'()«»\[\]…—-]')
 
 
 class PlotAnalyzer:
@@ -40,7 +46,8 @@ class PlotAnalyzer:
         max_retries: int = 3,
         existing_foreshadows: Optional[List[Dict[str, Any]]] = None,
         on_retry: Optional[OnRetryCallback] = None,
-        characters_info: str = ""
+        characters_info: str = "",
+        output_language: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """
         分析单章内容（带重试机制）
@@ -82,12 +89,13 @@ class PlotAnalyzer:
         # 格式化提示词
         prompt = PromptService.format_prompt(
             template,
+            output_language=output_language or language_name(None),
             chapter_number=chapter_number,
             title=title,
             word_count=word_count,
             content=analysis_content,
             existing_foreshadows=foreshadows_text,
-            characters_info=characters_info if characters_info else "（暂无角色信息）"
+            characters_info=characters_info if characters_info else "(sem informações de personagens)"
         )
         
         last_error = None
@@ -111,7 +119,7 @@ class PlotAnalyzer:
                     logger.warning(f"⚠️ 流式响应被中断(GeneratorExit)，已累积 {len(accumulated_text)} 字符")
                     # 如果已经累积了足够内容，继续尝试解析
                     if len(accumulated_text) < 100:
-                        raise Exception("流式响应中断，内容不足")
+                        raise Exception("Resposta em streaming interrompida; conteúdo insuficiente")
                 except Exception as stream_error:
                     logger.error(f"❌ 流式生成出错: {str(stream_error)}")
                     raise
@@ -119,7 +127,7 @@ class PlotAnalyzer:
                 # 检查响应是否为空
                 if not accumulated_text or len(accumulated_text.strip()) < 10:
                     logger.warning(f"⚠️ AI响应为空或过短(长度: {len(accumulated_text)}), 尝试 {attempt}/{max_retries}")
-                    last_error = "AI响应为空或过短"
+                    last_error = "Resposta da IA vazia ou curta demais"
                     if attempt < max_retries:
                         wait_time = min(2 ** attempt, 10)
                         logger.info(f"  ⏳ 等待 {wait_time} 秒后重试...")
@@ -152,7 +160,7 @@ class PlotAnalyzer:
                 else:
                     # JSON解析失败，重试
                     logger.warning(f"⚠️ JSON解析失败, 尝试 {attempt}/{max_retries}")
-                    last_error = "JSON解析失败"
+                    last_error = "Falha ao interpretar o JSON"
                     if attempt < max_retries:
                         wait_time = min(2 ** attempt, 10)
                         logger.info(f"  ⏳ 等待 {wait_time} 秒后重试...")
@@ -210,7 +218,7 @@ class PlotAnalyzer:
             格式化的文本
         """
         if not foreshadows:
-            return "（暂无已埋入的伏笔）"
+            return "(nenhum foreshadowing plantado ainda)"
         
         # 分类伏笔
         must_resolve = [fs for fs in foreshadows if fs.get('resolve_status') == 'must_resolve_now']
@@ -222,48 +230,48 @@ class PlotAnalyzer:
         # === 第1层：本章必须回收的伏笔（最详细）===
         if must_resolve:
             lines.append("=" * 40)
-            lines.append("【🎯 本章必须回收的伏笔】")
+            lines.append("[🎯 Foreshadowings que DEVEM ser resolvidos neste capítulo]")
             lines.append("=" * 40)
             for i, fs in enumerate(must_resolve, 1):
                 fs_id = fs.get('id', 'unknown')
-                fs_title = fs.get('title', '未命名伏笔')
+                fs_title = fs.get('title', 'Foreshadowing sem título')
                 fs_content = fs.get('content', '')[:200]
                 plant_chapter = fs.get('plant_chapter_number', '?')
                 hint_text = fs.get('hint_text', '')
                 
-                lines.append(f"{i}. 【ID: {fs_id}】{fs_title}")
-                lines.append(f"   埋入章节：第{plant_chapter}章")
-                lines.append(f"   伏笔内容：{fs_content}{'...' if len(fs.get('content', '')) > 200 else ''}")
+                lines.append(f"{i}. [ID: {fs_id}]{fs_title}")
+                lines.append(f"   Plantado no capítulo {plant_chapter}")
+                lines.append(f"   Conteúdo do foreshadowing: {fs_content}{'...' if len(fs.get('content', '')) > 200 else ''}")
                 if hint_text:
-                    lines.append(f"   埋入暗示：{hint_text[:100]}")
-                lines.append(f"   ⚠️ 回收时 reference_foreshadow_id 填写: {fs_id}")
+                    lines.append(f"   Pista plantada: {hint_text[:100]}")
+                lines.append(f"   ⚠️ Ao resolver, preencha reference_foreshadow_id com: {fs_id}")
                 lines.append("")
         
         # === 第2层：超期伏笔 ===
         if overdue:
-            lines.append("【⚠️ 超期未回收伏笔 - 如章节内容回收了请标记】")
+            lines.append("[⚠️ Foreshadowings atrasados, ainda não resolvidos - marque se o capítulo os resolver]")
             for fs in overdue[:5]:
                 fs_id = fs.get('id', 'unknown')
                 fs_title = fs.get('title', '')
                 plant_chapter = fs.get('plant_chapter_number', '?')
-                lines.append(f"- 【ID: {fs_id}】{fs_title}（第{plant_chapter}章埋入）")
+                lines.append(f"- [ID: {fs_id}]{fs_title} (plantado no capítulo {plant_chapter})")
             lines.append("")
         
         # === 第3层：其他已埋入伏笔（精简）===
         if others:
-            lines.append("【📋 其他已埋入伏笔 - 如章节内容自然回收了请标记】")
+            lines.append("[📋 Outros foreshadowings plantados - marque se o capítulo os resolver naturalmente]")
             for fs in others[:10]:
                 fs_id = fs.get('id', 'unknown')
                 fs_title = fs.get('title', '')
                 plant_chapter = fs.get('plant_chapter_number', '?')
-                lines.append(f"- 【ID: {fs_id}】{fs_title}（第{plant_chapter}章埋入）")
+                lines.append(f"- [ID: {fs_id}]{fs_title} (plantado no capítulo {plant_chapter})")
             if len(others) > 10:
-                lines.append(f"  ... 还有{len(others) - 10}个伏笔未列出")
+                lines.append(f"  ... e mais {len(others) - 10} foreshadowing(s) não listado(s)")
             lines.append("")
         
         # 操作指引
-        lines.append("提示：如果章节内容回收了上述任一伏笔，请在 foreshadows 数组中")
-        lines.append("添加 type='resolved' 的记录，并在 reference_foreshadow_id 填写对应ID。")
+        lines.append("Dica: se o capítulo resolver qualquer um dos foreshadowings acima, ")
+        lines.append("adicione ao array foreshadows um registro com type='resolved' e preencha reference_foreshadow_id com o ID correspondente.")
         
         return "\n".join(lines)
     
@@ -335,7 +343,7 @@ class PlotAnalyzer:
             # 或者从情节点组合生成摘要
             elif analysis.get('plot_points'):
                 plot_summaries = [p.get('content', '') for p in analysis.get('plot_points', [])[:3]]
-                chapter_summary = "；".join(plot_summaries)
+                chapter_summary = "; ".join(plot_summaries)
             # 或者使用内容前300字
             elif chapter_content:
                 chapter_summary = chapter_content[:300] + ("..." if len(chapter_content) > 300 else "")
@@ -345,12 +353,12 @@ class PlotAnalyzer:
                 memories.append({
                     'type': 'chapter_summary',
                     'content': chapter_summary,
-                    'title': f"第{chapter_number}章《{chapter_title}》摘要",
+                    'title': f"Capítulo {chapter_number} «{chapter_title}» - resumo",
                     'metadata': {
                         'chapter_id': chapter_id,
                         'chapter_number': chapter_number,
                         'importance_score': 0.6,  # 中等重要性
-                        'tags': ['摘要', '章节概览', chapter_title],
+                        'tags': ['resumo', 'visão geral do capítulo', chapter_title],
                         'is_foreshadow': 0,
                         'text_position': 0,
                         'text_length': len(chapter_summary)
@@ -368,13 +376,13 @@ class PlotAnalyzer:
                     
                     memories.append({
                         'type': 'hook',
-                        'content': f"[{hook.get('type', '未知')}钩子] {hook.get('content', '')}",
-                        'title': f"{hook.get('type', '钩子')} - {hook.get('position', '')}",
+                        'content': f"[{hook.get('type', 'desconhecido')} (gancho)] {hook.get('content', '')}",
+                        'title': f"{hook.get('type', 'gancho')} - {hook.get('position', '')}",
                         'metadata': {
                             'chapter_id': chapter_id,
                             'chapter_number': chapter_number,
                             'importance_score': min(hook.get('strength', 5) / 10, 1.0),
-                            'tags': [hook.get('type', '钩子'), hook.get('position', '')],
+                            'tags': [hook.get('type', 'gancho'), hook.get('position', '')],
                             'is_foreshadow': 0,
                             'keyword': keyword,
                             'text_position': position,
@@ -395,12 +403,12 @@ class PlotAnalyzer:
                 memories.append({
                     'type': 'foreshadow',
                     'content': foreshadow.get('content', ''),
-                    'title': f"{'埋下伏笔' if is_planted else '回收伏笔'}",
+                    'title': f"{'foreshadowing plantado' if is_planted else 'foreshadowing resolvido'}",
                     'metadata': {
                         'chapter_id': chapter_id,
                         'chapter_number': chapter_number,
                         'importance_score': min(foreshadow.get('strength', 5) / 10, 1.0),
-                        'tags': ['伏笔', foreshadow.get('type', 'planted')],
+                        'tags': ['foreshadowing', foreshadow.get('type', 'planted')],
                         'is_foreshadow': 1 if is_planted else 2,
                         'reference_chapter': foreshadow.get('reference_chapter'),
                         'keyword': keyword,
@@ -421,13 +429,13 @@ class PlotAnalyzer:
                     
                     memories.append({
                         'type': 'plot_point',
-                        'content': f"{plot_point.get('content', '')}。影响: {plot_point.get('impact', '')}",
-                        'title': f"情节点 - {plot_point.get('type', '未知')}",
+                        'content': f"{plot_point.get('content', '')}. Impacto: {plot_point.get('impact', '')}",
+                        'title': f"Ponto da trama - {plot_point.get('type', 'desconhecido')}",
                         'metadata': {
                             'chapter_id': chapter_id,
                             'chapter_number': chapter_number,
                             'importance_score': plot_point.get('importance', 0.5),
-                            'tags': ['情节点', plot_point.get('type', '未知')],
+                            'tags': ['ponto da trama', plot_point.get('type', 'desconhecido')],
                             'is_foreshadow': 0,
                             'keyword': keyword,
                             'text_position': position,
@@ -437,16 +445,16 @@ class PlotAnalyzer:
             
             # 4. 提取角色状态变化
             for i, char_state in enumerate(analysis.get('character_states', [])):
-                char_name = char_state.get('character_name', '未知角色')
+                char_name = char_state.get('character_name', 'Personagem desconhecido')
                 memories.append({
                     'type': 'character_event',
-                    'content': f"{char_name}的状态变化: {char_state.get('state_before', '')} → {char_state.get('state_after', '')}。{char_state.get('psychological_change', '')}",
-                    'title': f"{char_name}的变化",
+                    'content': f"{char_name}: mudança de estado: {char_state.get('state_before', '')} → {char_state.get('state_after', '')}. {char_state.get('psychological_change', '')}",
+                    'title': f"{char_name}: mudança",
                     'metadata': {
                         'chapter_id': chapter_id,
                         'chapter_number': chapter_number,
                         'importance_score': 0.7,
-                        'tags': ['角色', char_name, '状态变化'],
+                        'tags': ['personagem', char_name, 'mudança de estado'],
                         'related_characters': [char_name],
                         'is_foreshadow': 0
                     }
@@ -467,13 +475,13 @@ class PlotAnalyzer:
                 
                 memories.append({
                     'type': 'plot_point',
-                    'content': f"重要冲突: {conflict.get('description', '')}。冲突各方: {', '.join(parties)}",
-                    'title': f"冲突 - 强度{conflict.get('level', 0)}",
+                    'content': f"Conflito importante: {conflict.get('description', '')}. Partes do conflito: {', '.join(parties)}",
+                    'title': f"Conflito - intensidade{conflict.get('level', 0)}",
                     'metadata': {
                         'chapter_id': chapter_id,
                         'chapter_number': chapter_number,
                         'importance_score': min(conflict.get('level', 5) / 10, 1.0),
-                        'tags': ['冲突'] + types,
+                        'tags': ['conflito'] + types,
                         'is_foreshadow': 0
                     }
                 })
@@ -507,8 +515,8 @@ class PlotAnalyzer:
             
             # 2. 去除标点符号后匹配
             import re
-            clean_keyword = re.sub(r'[，。！？、；：""''（）《》【】]', '', keyword)
-            clean_text = re.sub(r'[，。！？、；：""''（）《》【】]', '', full_text)
+            clean_keyword = CJK_COMPAT_PUNCTUATION.sub('', keyword)
+            clean_text = CJK_COMPAT_PUNCTUATION.sub('', full_text)
             pos = clean_text.find(clean_keyword)
             
             if pos != -1:
@@ -541,25 +549,25 @@ class PlotAnalyzer:
             格式化的摘要文本
         """
         try:
-            lines = ["=== 章节分析报告 ===\n"]
+            lines = ["=== Relatório de análise do capítulo ===\n"]
             
             # 整体评分
             scores = analysis.get('scores', {})
-            lines.append(f"【整体评分】")
-            lines.append(f"  整体质量: {scores.get('overall', 'N/A')}/10")
-            lines.append(f"  节奏把控: {scores.get('pacing', 'N/A')}/10")
-            lines.append(f"  吸引力: {scores.get('engagement', 'N/A')}/10")
-            lines.append(f"  连贯性: {scores.get('coherence', 'N/A')}/10\n")
+            lines.append(f"[Pontuação geral]")
+            lines.append(f"  Qualidade geral: {scores.get('overall', 'N/A')}/10")
+            lines.append(f"  Controle de ritmo: {scores.get('pacing', 'N/A')}/10")
+            lines.append(f"  Poder de atração: {scores.get('engagement', 'N/A')}/10")
+            lines.append(f"  Coerência: {scores.get('coherence', 'N/A')}/10\n")
             
             # 剧情阶段
-            lines.append(f"【剧情阶段】{analysis.get('plot_stage', '未知')}\n")
+            lines.append(f"[Estágio da trama] {analysis.get('plot_stage', 'desconhecido')}\n")
             
             # 钩子统计
             hooks = analysis.get('hooks', [])
             if hooks:
-                lines.append(f"【钩子分析】共{len(hooks)}个")
+                lines.append(f"[Análise de ganchos] total de {len(hooks)} item(ns)")
                 for hook in hooks[:3]:  # 只显示前3个
-                    lines.append(f"  • [{hook.get('type')}] {hook.get('content', '')[:50]}... (强度:{hook.get('strength', 0)})")
+                    lines.append(f"  • [{hook.get('type')}] {hook.get('content', '')[:50]}... (intensidade:{hook.get('strength', 0)})")
                 lines.append("")
             
             # 伏笔统计
@@ -567,20 +575,20 @@ class PlotAnalyzer:
             if foreshadows:
                 planted = sum(1 for f in foreshadows if f.get('type') == 'planted')
                 resolved = sum(1 for f in foreshadows if f.get('type') == 'resolved')
-                lines.append(f"【伏笔分析】埋下{planted}个, 回收{resolved}个\n")
+                lines.append(f"[Análise de foreshadowing] plantados: {planted}, resolvidos: {resolved}\n")
             
             # 冲突分析
             conflict = analysis.get('conflict', {})
             if conflict:
-                lines.append(f"【冲突分析】")
-                lines.append(f"  类型: {', '.join(conflict.get('types', []))}")
-                lines.append(f"  强度: {conflict.get('level', 0)}/10")
-                lines.append(f"  进度: {int(conflict.get('resolution_progress', 0) * 100)}%\n")
+                lines.append(f"[Análise de conflito]")
+                lines.append(f"  Tipos: {', '.join(conflict.get('types', []))}")
+                lines.append(f"  Intensidade: {conflict.get('level', 0)}/10")
+                lines.append(f"  Progresso: {int(conflict.get('resolution_progress', 0) * 100)}%\n")
             
             # 改进建议
             suggestions = analysis.get('suggestions', [])
             if suggestions:
-                lines.append(f"【改进建议】")
+                lines.append(f"[Sugestões de melhoria]")
                 for i, sug in enumerate(suggestions, 1):
                     lines.append(f"  {i}. {sug}")
             
@@ -588,7 +596,7 @@ class PlotAnalyzer:
             
         except Exception as e:
             logger.error(f"❌ 生成摘要失败: {str(e)}")
-            return "分析摘要生成失败"
+            return "Falha ao gerar o resumo da análise"
 
 
 # 创建全局实例(需要时手动初始化)

@@ -1,4 +1,5 @@
 import { authApi } from '../services/api';
+import i18n from '../i18n';
 
 /**
  * 会话管理工具
@@ -38,7 +39,7 @@ class SessionManager {
       return;
     }
     
-    console.log(`✅ [会话] 启动监控，剩余 ${remainingMinutes} 分钟`);
+    console.log(`✅ [Sessão] Monitoramento iniciado, restam ${remainingMinutes} minutos`);
     
     // 立即检查一次
     this.checkSession();
@@ -56,7 +57,7 @@ class SessionManager {
    * 停止会话监控
    */
   stop() {
-    console.log('[SessionManager] 停止会话监控');
+    console.log('[SessionManager] Monitoramento de sessão interrompido');
     
     if (this.checkInterval) {
       clearInterval(this.checkInterval);
@@ -90,7 +91,7 @@ class SessionManager {
       
       // 会话已过期
       if (remaining <= 0) {
-        console.log('⏰ [会话] 已过期，退出登录');
+        console.log('⏰ [Sessão] Expirada, saindo da conta');
         this.handleSessionExpired();
         return;
       }
@@ -98,8 +99,8 @@ class SessionManager {
       // 显示即将过期警告
       if (remaining <= this.WARNING_THRESHOLD && !this.warningShown) {
         this.warningShown = true;
-        console.warn(`[会话] 登录状态将在 ${remainingMinutes} 分钟后过期`);
-        this.showWarningCallback?.(`您的登录状态将在 ${remainingMinutes} 分钟后过期，请注意保存数据`);
+        console.warn(`[Sessão] O login expira em ${remainingMinutes} minutos`);
+        this.showWarningCallback?.(i18n.t('session:seuLoginExpiraMinutos', { remainingMinutes }));
       }
       
       // 需要刷新会话
@@ -124,7 +125,7 @@ class SessionManager {
       const result = await authApi.refreshSession();
       this.warningShown = false; // 重置警告状态
       
-      console.log(`🔄 [会话] 自动续期成功，延长 ${result.remaining_minutes} 分钟`);
+      console.log(`🔄 [Sessão] Renovação automática concluída, estendida em ${result.remaining_minutes} minutos`);
     } catch {
       // 刷新失败可能是会话已过期
       this.handleSessionExpired();
@@ -139,7 +140,7 @@ class SessionManager {
     
     const currentPath = window.location.pathname;
     // 如果已经在登录页或回调页，不显示错误提示
-    if (currentPath === '/login' || currentPath === '/auth/callback') {
+    if (currentPath === '/login') {
       return;
     }
     

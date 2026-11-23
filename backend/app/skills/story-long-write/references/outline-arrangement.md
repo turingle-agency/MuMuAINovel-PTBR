@@ -1,1599 +1,630 @@
-# 大纲排布方法论
+# Organização do esboço e estrutura da trama
 
-大纲的定义：在故事核的基础上，按故事架构的指引排布剧情，敲定故事线上的剧情和需预埋的信息点。
+> **Origem** (adaptação em português do material original, ~75 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - Terminologia e listas de plataformas chinesas ("renda por série de capítulos", comparação de rankings) e a seção "ponto de vista de rankings".
+> - Variantes de poder específicas de plataforma (cultivo, sistema de pontos), mantidas apenas como "progressão" e "vantagem especial"; exemplos de livros chineses foram trocados por exemplos genéricos.
+> - A tabela de "fórmulas de título" do final do original foi mantida em `hook-techniques.md`, seção 20.8, com exemplos ocidentais.
+> - Todas as demais seções do original, inclusive as do final (estrutura grande e pequena, abertura "batata", metodologia de esboço, classificação de clímaxes, mapa e mudança de cenário, engenharia de episódios, escrita longa em várias linhas, teoria do atrativo e da necessidade, ponto de entrada, métodos auxiliares), estão transpostas nas seções 28 a 38.
 
-## 目录
+## Sumário
 
-- [故事结构分级](#故事结构分级)
-- [五步大纲创建法](#五步大纲创建法)
-  - [第一步：确定高潮剧情](#第一步确定高潮剧情)
-  - [第二步：确定单元剧](#第二步确定单元剧)
-  - [第三步：故事线组织与信息点预埋](#第三步故事线组织与信息点预埋)
-  - [第四步：确定开篇舞台](#第四步确定开篇舞台)
-  - [第五步：确定收尾](#第五步确定收尾)
-- [剧情质量控制](#剧情质量控制)
-  - [剧情相似度检查](#剧情相似度检查)
-  - [剧情匹配度检查](#剧情匹配度检查)
-  - [约束规则](#约束规则)
-- [升级感三步设计法](#升级感三步设计法)
-  - [第一步：列出起点](#第一步列出起点)
-  - [第二步：列出终点](#第二步列出终点)
-  - [第三步：反向设置情绪缺口](#第三步反向设置情绪缺口)
-  - [升级循环嵌套](#升级循环嵌套)
-- [事业线与感情线配合](#事业线与感情线配合)
-  - [事业线为主](#事业线为主)
-  - [感情线为主](#感情线为主)
-  - [判断依据](#判断依据)
-- [节点设计法](#节点设计法)
-  - [核心框架](#核心框架)
-  - [节点设计原则](#节点设计原则)
-- [主线支线设计法](#主线支线设计法)
-  - [高潮逆推法](#高潮逆推法)
-  - [主线=冲突驱动（Os）](#主线冲突驱动os)
-  - [支线=完成主线的手段](#支线完成主线的手段)
-- [矛盾设计方法论](#矛盾设计方法论)
-  - [矛盾四重递进（《第一序列》拆解）](#矛盾四重递进第一序列拆解)
-  - [底层矛盾建设世界](#底层矛盾建设世界)
-  - [三种动机来源](#三种动机来源)
-  - [动机变化过渡](#动机变化过渡)
-- [三大驱动力反推剧情法](#三大驱动力反推剧情法)
-  - [三大驱动力](#三大驱动力)
-  - [操作：以成长结果反推剧情](#操作以成长结果反推剧情)
-  - [优势](#优势)
-- [设定推演剧情法](#设定推演剧情法)
-  - [核心公式](#核心公式)
-  - [操作](#操作)
-- [双线结构法](#双线结构法)
-  - [明线与暗线](#明线与暗线)
-  - [四象限结构](#四象限结构)
-- [升级文AB交织法](#升级文ab交织法)
-  - [两条核心线](#两条核心线)
-  - [AB交替节奏](#ab交替节奏)
-  - [丰富代入的方法](#丰富代入的方法)
-  - [核心卖点筛选](#核心卖点筛选)
-- [矛盾来源分类](#矛盾来源分类)
-- [设门槛拉长剧情法](#设门槛拉长剧情法)
-  - [核心思路](#核心思路)
-  - [操作方式](#操作方式)
-  - [效果](#效果)
-- [噱头-主线-核心爽点框架](#噱头-主线-核心爽点框架)
-  - [噱头类型与开篇写法](#噱头类型与开篇写法)
-  - [噱头→主线的嫁接](#噱头主线的嫁接)
-  - [核心爽点 = 切在主线上的爽点](#核心爽点--切在主线上的爽点)
-  - [情绪拉扯 = 打牌](#情绪拉扯--打牌)
-  - [逼格心态](#逼格心态)
-- [救赎文冲突设计八法](#救赎文冲突设计八法)
-- [压势不压人](#压势不压人)
-  - [核心理念](#核心理念)
-  - [操作](#操作-1)
-  - [优势](#优势-1)
-- ["给人物一个梦想"动机法](#给人物一个梦想动机法)
-  - [动机 vs 梦想的区别](#动机-vs-梦想的区别)
-  - [操作](#操作-2)
-- [基于设定推演冲突](#基于设定推演冲突)
-  - [核心方法](#核心方法)
-  - [冲突设计的优先级](#冲突设计的优先级)
-- [主角行动力设计](#主角行动力设计)
-  - [行动力 = 突破常规的能力](#行动力--突破常规的能力)
-- [爽点层次设计与循环写法](#爽点层次设计与循环写法)
-  - [循环（套娃）设计关系](#循环套娃设计关系)
-  - [并列式写法](#并列式写法)
-  - [多层爽点](#多层爽点)
-- [冲突设计要点](#冲突设计要点)
-  - [冲突核心标准](#冲突核心标准)
-  - [矛盾和冲突的区别](#矛盾和冲突的区别)
-  - [第一幕陷阱](#第一幕陷阱)
-  - [超额收获技巧](#超额收获技巧)
-  - [微创新与新瓶装旧酒](#微创新与新瓶装旧酒)
-  - [脑洞文从灵感到成书的完整思路](#脑洞文从灵感到成书的完整思路)
-  - [金手指"条件-反馈"模型](#金手指条件-反馈模型)
-  - [框架设计法：从卖点到大纲](#框架设计法从卖点到大纲)
-  - [小循环节奏模板](#小循环节奏模板)
-  - [卖点差异化原理](#卖点差异化原理)
-- [金手指设计要点](#金手指设计要点)
-  - [金手指合格五问](#金手指合格五问)
-  - [金手指碎片化处理](#金手指碎片化处理)
-- [拆书方法](#拆书方法)
-  - [拆书正确方法](#拆书正确方法)
-  - [素材积累方法](#素材积累方法)
-- [信息传达顺序体系](#信息传达顺序体系)
-  - [四种顺序模板](#四种顺序模板)
-  - [价值改变原则](#价值改变原则)
-- [事件驱动原理](#事件驱动原理)
-- [故事卡系统](#故事卡系统)
-  - [提炼层级](#提炼层级)
-  - [故事线卡 vs 故事卡](#故事线卡-vs-故事卡)
-  - [使用方式](#使用方式)
-  - [五种常见误区](#五种常见误区)
-  - [五种使用优点](#五种使用优点)
-- [常用故事卡公式](#常用故事卡公式)
-  - [英雄救美](#英雄救美)
-  - [装逼](#装逼)
-  - [以小博大](#以小博大)
-  - [点石成金](#点石成金)
-  - [慧眼识真](#慧眼识真)
-  - [歪打正着](#歪打正着)
-  - [少年热血](#少年热血)
-  - [临危受命](#临危受命)
-  - [故事卡组合技术](#故事卡组合技术)
-  - [好人好报的回执时机](#好人好报的回执时机)
-- [反派视角与信息差技巧](#反派视角与信息差技巧)
-  - [反派视角转接的功能](#反派视角转接的功能)
-  - [写法要点](#写法要点)
-  - [暗线与嵌套](#暗线与嵌套)
-- [主角生活路线扩展关系网](#主角生活路线扩展关系网)
-- [按题材设计循环核心](#按题材设计循环核心)
-- [困境循环结构（极道流拆解）](#困境循环结构极道流拆解)
-- [黄金五章开篇公式](#黄金五章开篇公式)
-- [开头精简法](#开头精简法)
-  - [操作步骤](#操作步骤)
-  - [对话水字数判定](#对话水字数判定)
-  - [开头节奏底线](#开头节奏底线)
-- [断期待诊断与修复框架](#断期待诊断与修复框架)
-  - [断期待的四种根本原因](#断期待的四种根本原因)
-  - [持续拉期待的操作原则](#持续拉期待的操作原则)
-  - [期待真空期急救](#期待真空期急救)
-- [核心梗三分法](#核心梗三分法)
-- [爱情线故事四阶段](#爱情线故事四阶段)
-  - [试探阶段写法（爱情线的核心阶段）](#试探阶段写法爱情线的核心阶段)
-  - [人设变化对冲法](#人设变化对冲法)
-- [三步两线法（智斗构型）](#三步两线法智斗构型)
-  - [构型](#构型)
-  - [牵扯方式](#牵扯方式)
-  - [智斗要点](#智斗要点)
-- [战斗系统设计](#战斗系统设计)
-  - [回合制卡牌思路](#回合制卡牌思路)
-  - [强弱对决的性价比](#强弱对决的性价比)
-  - [战力设定的关键规则](#战力设定的关键规则)
-  - [试探→结论→推进](#试探结论推进)
-- [升级文具体技法](#升级文具体技法)
-  - [升级前后铺垫](#升级前后铺垫)
-  - [升级次数控制](#升级次数控制)
-  - [即时反馈与延迟反馈](#即时反馈与延迟反馈)
-  - [升级与现实概念的关联](#升级与现实概念的关联)
-  - [升级后写长的三种方式](#升级后写长的三种方式)
-- [大结构小结构理论](#大结构小结构理论)
-  - [大结构：欺骗式主线](#大结构欺骗式主线)
-  - [小结构：爽点循环](#小结构爽点循环)
-  - [两种爽点的交替](#两种爽点的交替)
-- [土豆式开篇期待感建立法](#土豆式开篇期待感建立法)
-- [大纲体系方法论](#大纲体系方法论)
-  - [大纲三层结构法](#大纲三层结构法)
-  - [三种大纲写法](#三种大纲写法)
-  - [细纲与章纲实操](#细纲与章纲实操)
-- [高潮分类与反推体系](#高潮分类与反推体系)
-  - [高潮的两大类](#高潮的两大类)
-  - [高潮反推四要素](#高潮反推四要素)
-  - [逆推锚点法（前提法）](#逆推锚点法前提法)
-- [换地图与地图架构](#换地图与地图架构)
-  - [换地图方法论（四代演进）](#换地图方法论四代演进)
-  - [顶层框架法（防地图崩盘）](#顶层框架法防地图崩盘)
-  - [人际关系先行法](#人际关系先行法)
-- [桥段与节奏工程化](#桥段与节奏工程化)
-  - [工程化桥段拆解法](#工程化桥段拆解法)
-  - [高潮节奏与日常过渡法](#高潮节奏与日常过渡法)
-  - [阶段衔接不崩的三大解法](#阶段衔接不崩的三大解法)
-- [多线写长技法](#多线写长技法)
-  - [多线并进与挖坑填坑法](#多线并进与挖坑填坑法)
-  - [多线缓解疲劳法](#多线缓解疲劳法)
-- [卖点与需求理论](#卖点与需求理论)
-  - [卖点偏移论与需求分析法](#卖点偏移论与需求分析法)
-  - [卖点双层论](#卖点双层论)
-- [开篇与切入点设计](#开篇与切入点设计)
-  - [双身份双金手指切入点](#双身份双金手指切入点)
-  - [书名公式大全](#书名公式大全)
-- [创作辅助方法论](#创作辅助方法论)
-  - [改编法（从积累中提取剧情原型）](#改编法从积累中提取剧情原型)
-  - [同人衍生型大纲法](#同人衍生型大纲法)
-  - [三重重复循环法](#三重重复循环法)
-  - [极简大纲法（升级体系即骨架）](#极简大纲法升级体系即骨架)
+1. Níveis de estrutura da história
+2. Método do esboço em cinco passos
+3. Controle de qualidade do enredo
+4. Desenho da sensação de progresso em três passos
+5. Linha profissional e linha romântica juntas
+6. Método dos nós
+7. Trama principal e subtramas (clímax inverso, conflito, subtrama como meio)
+8. Metodologia de desenho de conflito (quatro níveis, bases do mundo, três fontes de motivação)
+9. Três motores para deduzir a trama
+10. Dedução por configuração
+11. Estrutura de duas linhas (linha visível, oculta, quatro quadrantes)
+12. Entrelaçamento AB para histórias de progressão
+13. Origem dos conflitos
+14. Alongar a trama com barreiras
+15. Estrutura chamariz, trama principal e recompensa central
+16. Conflito de redenção (oito métodos)
+17. Pressionar a situação, não a pessoa
+18. Dar ao personagem um sonho
+19. Ação do protagonista
+20. Recompensas em camadas e ciclos; desenho de conflito; primeiro ato; ganho acima do esperado
+21. Vantagem especial: modelo condição-retorno; da ideia ao livro; esboço por propósito
+22. Como analisar livros e acumular material
+23. Ordem da transmissão de informação; mudança de valor; eventos como motor
+24. Sistema de fichas de história e fórmulas (níveis de abstração, cinco fórmulas, fichas pequenas, doze fichas de elemento, fichas de técnica, enigmas, combinação, expectativa concreta)
+25. Abertura dos cinco primeiros capítulos; enxugar a abertura; piso de ritmo
+26. Diagnóstico e reparo da quebra de expectativa
+27. Conceito central em três tipos; quatro fases do romance; método das três etapas e duas linhas (duelo de inteligência)
+28. Técnicas concretas de progressão
+29. Estrutura grande e pequena
+30. Abertura "de herdade" (expectativa na entrada)
+31. Metodologia do esboço em três camadas
+32. Classificação de clímaxes e dedução inversa
+33. Mudança de cenário e arquitetura do mapa
+34. Engenharia de episódios e ritmo de clímax
+35. Escrita longa em várias linhas
+36. Teoria do atrativo e da necessidade
+37. Ponto de entrada: duas identidades e duas vantagens
+38. Métodos auxiliares (adaptação, esboço derivado)
 
-## 故事结构分级
+---
 
-| 级别 | 特征 | 适合 |
+## 1. Níveis de estrutura da história
+
+| Nível | Característica | Indicado para |
 |------|------|------|
-| 一级 | 单元剧松散连接，靠时间串联，最后大高潮 | 入门作者 |
-| 1.5 级 | 单元剧之间有逻辑线索串联，指向核心目标 | 进阶作者 |
-| 二级 | 小高潮 → 意外下行 → 上行转折 → 大高潮链 | 高阶作者 |
+| 1 | Episódios soltos, ligados só pelo tempo, com grande clímax no fim | Iniciantes |
+| 1,5 | Episódios ligados por pistas lógicas que apontam para um objetivo central | Intermediários |
+| 2 | Pequeno clímax → queda inesperada → virada ascendente → cadeia de grande clímax | Avançados |
 
-## 五步大纲创建法
+## 2. Método do esboço em cinco passos
 
-### 第一步：确定高潮剧情
+**Passo 1: definir o clímax.** O clímax tem prioridade absoluta: maior escala de conflito, mais personagens em cena, maior oscilação emocional. Checklist: é o maior conflito do volume? Tem o elenco mais numeroso? Está alinhado ao objetivo da fase? Gera a maior oscilação no leitor?
 
-高潮有绝对优先级——最大冲突规模、最多出场人物、最强情绪波动。
+**Passo 2: definir os episódios.** Episódio = como o protagonista usa sua vantagem para obter recompensa. Episódios do mesmo tipo repetidos formam um **padrão de enredo**; tipos com relação lógica em grupo formam uma **cadeia de padrões**. Pontos: cada episódio mostra um uso diferente da vantagem; episódios vizinhos não repetem a lógica; entre episódios há causa e efeito, não mero paralelismo.
 
-检查清单：
-- [ ] 这个场景是否是本卷最大的冲突？
-- [ ] 出场人物是否最多？
-- [ ] 是否与阶段目标高度一致？
-- [ ] 读者情绪波动是否最大？
+**Passo 3: organizar linhas e plantar informação.** Gerencie oito linhas ao mesmo tempo:
 
-### 第二步：确定单元剧
+| Linha | Conteúdo | O que plantar |
+|------|------|------|
+| Mapa | Locais em níveis (cidade → ponto de referência → interior) | Momento de liberar novo cenário |
+| Facção | Forças ligadas ao mapa | Pontos de explosão de conflito |
+| Personagens | Agrupados por tipo | Momento de entrada de novos |
+| Vantagem | Objetos/habilidades do protagonista | Nós de evolução |
+| Mundo | Regras do mundo | Momento de revelação |
+| Conflito | Conflitos numa rede | Cadeia de escalada |
+| Coleção | Materiais/pistas | Três ou mais níveis de coleta progressiva |
+| Romance | Evolução da relação | Nós de intimidade |
 
-单元剧 = 主角如何使用金手指优势获得爽点。
+**Passo 4: definir o palco de abertura.** Modelo: `gancho de enredo → entra rápido num estado anômalo → obtém/apresenta a vantagem → surge conflito/desejo e o protagonista aciona a vantagem → objetivo estabelecido`. Expectativas que a abertura precisa plantar: direção de novos objetivos/escalada de conflito; sugestão de evolução futura de poder e habilidades; de recursos; da linha romântica; da expansão da rede de relações; do aumento do caos; de novas pistas e configurações.
 
-同类型的故事重复出现 = **剧情套路**
-有逻辑关系的故事类型成组出现 = **剧情套路链路**
+**Passo 5: definir o fecho.** Checklist: resolver os clímaxes da trama principal e subtramas mostrando consequências; o protagonista ganha prêmio suficiente + prêmio extra (para a próxima fase); dar fim adequado aos personagens do volume; desacelerar o ritmo; preparar o próximo volume.
 
-设计要点：
-- 每个单元剧都要展示金手指的不同用法
-- 相邻单元剧不能使用相同的金手指逻辑
-- 单元剧之间要有因果关系，不能纯平行
+## 3. Controle de qualidade do enredo
 
-### 第三步：故事线组织与信息点预埋
+**Verificação de similaridade**: compare dois enredos quanto a tipo de conflito, uso da vantagem, trecho da cadeia e desfecho. **Verificação de ajuste**: *fase* (o avanço do enredo e do romance combina com a fase do volume?), *cena* (a cena está na lista do volume?), *personagens* (combinação, relações e comportamentos coerentes?). **Regras**: relação espaço-tempo : lógica ≥ 1:3 (para cada avanço causal, ao menos 3 cenas); a emoção dos enredos seguintes não pode ficar muito abaixo dos anteriores; a mesma lógica de vantagem não se usa em sequência; entre enredos do mesmo padrão, ao menos 3 de tipos diferentes.
 
-需要同时管理 8 条故事线：
+## 4. Desenho da sensação de progresso em três passos
 
-| 故事线 | 内容 | 预埋什么 |
-|--------|------|----------|
-| 地图线 | 层级地点（城→地标→室内） | 新地图解锁时机 |
-| 阵营线 | 势力与地图匹配 | 阵营冲突爆发点 |
-| 人物线 | 角色按类型分组 | 新角色登场时机 |
-| 金手指线 | 主角获得的物品/技能 | 能力升级节点 |
-| 世界观线 | 世界设定规则 | 设定揭示时机 |
-| 矛盾线 | 冲突放入矛盾网络 | 矛盾升级链 |
-| 收集线 | 材料/线索收集 | 3+ 渐进式收集层级 |
-| 感情线 | 感情关系进展 | 亲密度升级节点 |
+1) liste o ponto de partida (identidade, classe, posição, recursos); 2) liste o ponto de chegada (ganho e elevação ao fim do volume); 3) **crie lacunas emocionais de trás para frente**:
 
-### 第四步：确定开篇舞台
-
-开篇模板：
-```
-情节钩子 → 迅速陷入异常状态 → 获得/介绍金手指 → 矛盾/欲望出现，主角运转金手指 → 目标建立
-```
-
-必须在开篇预埋的期待感：
-- 新目标/冲突升级的方向
-- 未来实力升级和新技能的暗示
-- 未来资源升级的暗示
-- 未来感情线升级的暗示
-- 未来人际网络扩展的暗示
-- 混乱程度升级的暗示
-- 新线索/新设定的暗示
-
-### 第五步：确定收尾
-
-收尾功能清单：
-- [ ] 解决主线/副线高潮，展示后续影响
-- [ ] 主角获得足够奖励 + 额外奖励（用于下一阶段）
-- [ ] 给本卷角色合适的结局
-- [ ] 节奏放缓
-- [ ] 为下一卷内容做铺垫
-
-## 剧情质量控制
-
-### 剧情相似度检查
-
-比较两个剧情在以下维度是否过于相似：
-- 冲突/矛盾类型
-- 金手指使用方式
-- 剧情链路段落
-- 剧情结局
-
-### 剧情匹配度检查
-
-| 维度 | 检查内容 |
-|------|----------|
-| 阶段匹配 | 剧情/感情线进度是否匹配本卷阶段 |
-| 场景匹配 | 场景是否在本卷场景列表内 |
-| 人物匹配 | 出场人物组合、关系、行为是否一致 |
-
-### 约束规则
-
-- 时空关联 : 逻辑关联 ≥ 1:3（每 1 个因果推进，至少 3 个场景推进）
-- 后续剧情情绪值不能显著低于前序
-- 相同金手指逻辑不连续使用
-- 同类剧情套路间隔 ≥ 3 个不同类型剧情
-
----
-
-## 升级感三步设计法
-
-### 第一步：列出起点
-主角当前的身份、阶层、地位、资源
-
-### 第二步：列出终点
-本卷/本阶段结束后主角的收获和提升
-
-### 第三步：反向设置情绪缺口
-针对终点的收获，在前文铺垫需求：
-
-| 获得什么 | 铺垫什么 |
-|----------|----------|
-| 关键道具 | 配角强调稀缺性 + 别人求而不得 + 展示效果稀少 |
-| 地位提升 | 羡慕该地位的权力 + 凸显等级分明待遇差别 + 资源获取潜力 |
-| 人物帮助 | 展示该人物价值 + 别人对他的态度 |
-
-### 升级循环嵌套
-挑战A副本 → 获得B道具 → 达成C目的 → 升级 → 挑战D副本
-核心：**一直在升级，和为升级做准备。升级后能完成以前做不到的事。**
-
----
-
-## 事业线与感情线配合
-
-### 事业线为主
-- 被救者/恋爱对象是奖励
-- 重点在金手指展示和升级
-- 不需要细腻感情描写
-- 读者想看的是主角变强
-
-### 感情线为主
-- 重点在关系变化
-- 情节要根据对方人设设计
-- 英雄救美等故事卡要根据对方性格定制
-- 读者想看的是CP互动
-
-### 判断依据
-看书名简介吸引进来的读者想看什么。
-
----
-
-## 节点设计法
-
-### 核心框架
-- **起始状态**：主角初始状态（废材/穷困/弱小）
-- **终末状态**：主角最终状态（无敌/首富/最强）
-- **节点**：保证故事不偏离终点的关键成长点
-
-### 节点设计原则
-- 开始与终末越有戏剧性越好
-- 限定词：一个向上，一个向下（好的越好，坏的越坏）
-- 流派 = 主角从开始走向终末的手段
-- 节点确定后，大纲就是这些节点的排列
-
----
-
-## 主线支线设计法
-
-### 高潮逆推法
-1. 确定一句话结局
-2. 逆推各级目标（世界首富←本州←本国←省←市←县←镇←村←家庭）
-3. 大主线→中主线→小主线，不断细化拆分
-4. 小主线完成，中主线变新小主线，循环推进
-
-### 主线=冲突驱动（Os）
-- 主线故事 = 解决冲突，大冲突拆分为多个小冲突形成故事线
-- 每个阶段有一个无法解决的核心冲突，推进过程中拆解为子冲突
-
-### 支线=完成主线的手段
-- 赚钱（主线）→ 怎么赚（支线）→ 用什么赚（金手指确认）
-- 支线最终汇聚为主线
-
----
-
-## 矛盾设计方法论
-
-### 矛盾四重递进（《第一序列》拆解）
-人与自我 → 人与自然 → 人与人 → 人与世界
-
-### 底层矛盾建设世界
-- 从最根源、最直接、最不可调和的矛盾开始架设世界观
-- 确保核心梗不偏离，否则中期订阅下降
-
-### 三种动机来源
-| 来源 | 说明 |
+| O que se ganha | O que preparar |
 |------|------|
-| 世界背景 | 妖魔乱世→没实力就没自保之力 |
-| 金手指 | 斩妖获得实力→利益驱动 |
-| 人物关系 | 亲朋被欺负/被杀→复仇/救人 |
+| Objeto-chave | Coadjuvante enfatiza a escassez + outros o cobiçam sem conseguir + mostra o efeito raro |
+| Elevação de posição | Inveja do poder daquela posição + diferença nítida de tratamento por nível + potencial de recursos |
+| Ajuda de alguém | Mostrar o valor da pessoa + a atitude dos outros em relação a ela |
 
-### 动机变化过渡
-- 危机解除后，通过配角/反派强调"更强力量才能生存"
-- 生死危机不适合所有题材——调整困难烈度匹配题材边界
-- 上一个危机解决时要埋下下一个危机的伏笔
+**Ciclo encaixado**: desafiar instância A → obter objeto B → cumprir objetivo C → subir → desafiar instância D. Núcleo: **estar sempre subindo ou se preparando para subir; depois de subir, fazer o que antes não conseguia**.
 
----
+## 5. Linha profissional e linha romântica juntas
 
-## 三大驱动力反推剧情法
+*Profissional em primeiro plano*: quem é salvo ou amado é prêmio; o foco está em mostrar a vantagem e subir; sem descrição afetiva delicada; o leitor quer ver o protagonista ficar forte. *Romântica em primeiro plano*: o foco é a mudança da relação; o enredo se desenha conforme o personagem do outro; cenas como "herói que salva" são ajustadas à personalidade; o leitor quer ver a interação do casal. **Critério**: o que queria ver o leitor que chegou pelo título e pela sinopse?
 
-### 三大驱动力
-1. **戏剧性**：意外收获，阴差阳错
-2. **矛盾**：无法避免的冲突/灾难
-3. **欲望/恐惧**：想得到什么/害怕失去什么
+## 6. Método dos nós
 
-### 操作：以成长结果反推剧情
-先确定主角阶段性成长（7类：金手指升级、武力提升、CP好感、宝具、大佬人脉、金钱、地位），给每个成长尝试三种驱动力反设计剧情。
+**Núcleo**: *estado inicial* (fraco, pobre, sem poder) + *estado final* (invencível, rico, o mais forte) + *nós* (pontos-chave de crescimento que impedem desvio do destino). **Princípios**: quanto mais dramáticos início e fim, melhor; o qualificador é "um para cima, outro para baixo" (o bom melhora, o ruim piora); subgênero = o meio pelo qual o protagonista vai do começo ao fim; definidos os nós, o esboço é só a sua disposição.
 
-### 优势
-- 绝对不卡文（升级路线已安排好）
-- 随时充满新鲜感
-- 成长总结阶段将故事拉回主线
+## 7. Trama principal e subtramas
 
----
+**Clímax inverso**: 1) defina o desfecho em uma frase; 2) deduza de trás para frente os objetivos de cada nível (o mais rico do mundo ← do país ← do estado ← da cidade ← do bairro ← da família); 3) trama grande → média → pequena, detalhando; 4) concluída a pequena, a média vira a nova pequena. **Trama principal = conflito**: resolver conflito; o grande se divide em conflitos menores que formam linhas; cada fase tem um conflito central insolúvel, que se desmonta em subconflitos. **Subtrama = meio de completar a principal**: ganhar dinheiro (principal) → como? (subtrama) → com o quê? (a vantagem é confirmada); as subtramas acabam convergindo para a principal.
 
-## 设定推演剧情法
+## 8. Metodologia de desenho de conflito
 
-### 核心公式
-环境 + 人物 = 情节
+**Quatro níveis**: pessoa x si mesma → pessoa x natureza → pessoa x pessoa → pessoa x mundo. **Contradição de base constrói o mundo**: comece pela contradição mais radical, direta e irreconciliável para montar o mundo; assim o conceito central não se desvia (senão a assinatura cai no meio do livro). **Três fontes de motivação**
 
-设定信息越充分，情节和情绪自然涌出。戏剧性从设定本身层面驱动，而非牺牲逻辑性。
+| Fonte | Explicação |
+|------|------|
+| Contexto do mundo | Era de monstros → sem poder, sem autodefesa |
+| Vantagem | Matar monstros dá poder → interesse |
+| Relações | Parentes oprimidos ou mortos → vingar, salvar |
 
-### 操作
-1. 给出环境（时间/地点/情境）
-2. 给出人物（身份/关系/动机/弱点/梦想/过往）
-3. 每增加一个设定点，扮演法做逻辑推演
-4. 筛选最符合核心情绪的设定组合
+**Transição de motivação**: resolvida a crise, mostre por coadjuvantes/antagonistas que "só com poder maior se sobrevive"; crises de vida ou morte não servem a todos os gêneros: ajuste a intensidade à fronteira do gênero; ao resolver uma crise, plante a próxima.
 
----
+## 9. Três motores para deduzir a trama
 
-## 双线结构法
+1. **Dramaticidade**: ganhos inesperados, coincidências. 2. **Contradição**: conflito ou desastre inevitável. 3. **Desejo/medo**: o que quer ganhar, o que teme perder. **Operação — deduzir a trama a partir do resultado do crescimento**: defina o crescimento da fase (7 tipos: evolução da vantagem, força, afinidade do casal, artefato, relações com poderosos, dinheiro, posição) e, para cada crescimento, tente desenhar o enredo com os três motores. **Vantagens**: nunca trava (a linha de evolução já está pronta); sempre fresco; no balanço do crescimento a história volta à principal.
 
-### 明线与暗线
-- **明线**：主角线（读者直接看到的主角行动和成长）
-- **暗线**：反派线/隐藏元素线（暗线存在的目的是更好衔接、铺垫、嵌套后续剧情，不让读者有突兀之感）
-- 暗线可以是针对反派的，也可以针对道具、高层人脉关系、关键信息等
-- 暗线在后期必然与明线交汇，形成卷内高潮，推高明线情绪
+## 10. Dedução por configuração
 
-### 四象限结构
+**Fórmula**: ambiente + personagem = enredo. Com configuração rica, enredo e emoção brotam; o drama vem da configuração, sem sacrificar a lógica. **Operação**: 1) dê o ambiente (tempo, lugar, situação); 2) dê o personagem (identidade, relações, motivação, fraqueza, sonho, passado); 3) a cada ponto de configuração novo, deduza a lógica "interpretando" o personagem; 4) escolha a combinação que melhor serve à emoção central.
 
-| | 明线 | 暗线 |
+## 11. Estrutura de duas linhas
+
+**Linha visível** = protagonista (o que o leitor vê). **Linha oculta** = antagonista/elementos escondidos (existe para ligar, preparar e encaixar enredos futuros sem que pareçam bruscos); pode ser sobre o antagonista, objetos, relações de alto nível, informação-chave; no final ela se cruza com a visível e forma o clímax do volume.
+
+| | Visível | Oculta |
 |--|------|------|
-| **主线** | 主角主要能力升级+核心剧情推进 | 反派暗中行动/隐藏信息线 |
-| **支线** | 资源线、人脉线、地位线等副能力线 | 配角暗线（如老尼尔暗中出事） |
+| **Principal** | Evolução principal do protagonista + avanço do enredo central | Ação oculta do antagonista / linha de informação escondida |
+| **Secundária** | Linhas de recursos, relações, posição | Linha oculta de um coadjuvante |
 
-**性价比最高组合**：明线中有主线+支线（"二带一"），暗线只有主线。新手不建议把支线也分暗线。
+Melhor custo-benefício: na visível, principal + secundária ("dois levam um"); na oculta, só a principal. Iniciantes não devem ter linhas ocultas também para as secundárias. Na fase de clímax, quando as linhas se fundem, o ritmo acelera; as subtramas se fundem à principal ou ficam de lado temporariamente.
 
-**高潮阶段**：暗线与明线融合后，节奏加快推向高潮，支线要么融合到主线里，要么暂时放下，只走主线。
+## 12. Entrelaçamento AB para histórias de progressão
 
----
-
-## 升级文AB交织法
-
-### 两条核心线
-
-| 线路 | 定义 | 内容 |
+| Linha | Definição | Conteúdo |
 |------|------|------|
-| A线（升级线） | 战力升级 | 加点、学技能、肝技能、装备提升 |
-| B线（剧情线） | 矛盾冲突 | 拉出矛盾→卷入矛盾→爆发冲突→解决冲突→收获阐发→阐发中又有新矛盾 |
+| A (evolução) | Aumentar poder | Distribuir pontos, aprender habilidades, treinar, equipar |
+| B (enredo) | Conflito | Puxar o conflito → ser envolvido → explodir → resolver → balanço dos ganhos → novo conflito |
 
-### AB交替节奏
-```
-变强 → 拉出矛盾 → 变强 → 卷入矛盾 → 变强 → 引发冲突 → 变强 → 解决冲突 → 收获阐发 → 变强 → 拉出矛盾...
-```
+**Ritmo alternado**: `ficar forte → puxar conflito → ficar forte → ser envolvido → ficar forte → explodir conflito → ficar forte → resolver → balanço → ficar forte → puxar conflito...` **Núcleo**: em cada pequeno embate o protagonista leva leve vantagem e vence, até a grande vitória. **Enriquecer a imersão**: em A, reforce os benefícios de evoluir (detalhe recursos, relações, equipamento); em B, insira descrição de mundo, ambiente, emoção e interação, e dê etiquetas, gostos, defeitos, histórias e desejos a antagonistas e coadjuvantes. **Triagem pelo atrativo central**: subtramas fora do atrativo desalinham a expectativa; isso não é questão de habilidade, corrija com o livro de referência.
 
-**核心**：主角稍占上风的角力，每一次小角力都以主角胜利告终，最后迎来大胜利。
+## 13. Origem dos conflitos
 
-### 丰富代入的方法
-1. **A中丰富**：强化升级的好处，详细设定可掌握的资源、人脉、装备等
-2. **B中丰富**：插入世界观描述、环境描述、情绪描述、人物互动，给反派/配角贴标签、爱好、缺点、故事、追求
+Na maioria das vezes, a contradição vem de recursos e interesses, e escrever só isso está perfeito. Com configurações especiais, há mais fontes:
 
-### 核心卖点筛选
-时刻围绕核心卖点进行元素和剧情筛选。偏离核心卖点的支线剧情会导致期待错位，跟笔力无关，只能看对标书修正。
+| Origem | Explicação | Cenário |
+|------|------|------|
+| Recursos/interesses | A mais intuitiva, adapta-se a qualquer cena | Geral |
+| Facção/raça | Anjos x demônios, humanos x orcs: brigam ao se ver | Fantasia |
+| Caminho de poder | Cada caminho dá aliados e inimigos; nos níveis altos, inconciliável | Gêneros de ordens de poder |
+| Fé/religião | Fés diferentes em guerra | Fantasia medieval, ficção histórica |
+| Poder e igreja | Trono x igreja pela hegemonia | Medieval, intriga |
+| Disputa interna | "O herege é pior que o infiel" | Cenários de facções complexas |
+| Ideias/valores | Julgamentos diferentes sobre a mesma coisa | Todos |
 
----
+**Ponto**: quando se quer, o conflito pode surgir a todo instante: todos são movidos pelo que querem; por trás, valores diferentes, mais fundo o meio de criação, mais fundo a estrutura do mundo.
 
-## 矛盾来源分类
+## 14. Alongar a trama com barreiras
 
-绝大多数情况下，矛盾来自资源和利益之争，只写这一个是完全没问题的。但在特殊设定下，矛盾来源可以更丰富：
+**Ideia**: ponha barreiras de fase em volta do objetivo para esticar a trama e motivar o protagonista. **Operação**: 1) *barreira de sistema*: a primeira evolução é grátis (kit inicial), a segunda exige recursos, as seguintes podem ter duas faixas (comum e superior); 2) *barreira de objetivo*: entrar na melhor universidade exige capacidade física + histórico de combate + ranking, cada um proposto e cumprido; 3) *barreira de coleção*: romper um nível exige coletar vários itens, buscados um a um; 4) *barreira de consumo*: quando o protagonista tem recursos demais, suba a barreira para consumi-los (sistema por faixas). **Efeito**: divide a principal em pequenas tramas de fase, cada uma com impulso claro; combinando barreira de sistema e de objetivo, o volume de enredo passa facilmente de 50 capítulos; o protagonista fica sempre "quase subindo".
 
-| 来源 | 说明 | 适用场景 |
-|------|------|----------|
-| **资源/利益** | 最直观、最容易适配各类场景，方便读者接受 | 通用 |
-| **阵营/种族** | 天使与恶魔、人类与兽人，见面就打，从根源不可调和 | 奇幻、玄幻 |
-| **超凡途径** | 选择不同途径等于选择盟友和敌人，底层模糊但越高层越不可调和 | 诡秘类 |
-| **信仰/宗教** | 信基督vs信穆斯林，打出脑浆子 | 西幻、历史 |
-| **政教之争** | 王权vs教会争夺权力主导权 | 中世纪、权谋 |
-| **派系之争** | "异端比异教徒更可恶"，同一信仰内部的分裂 | 阵营复杂的设定 |
-| **理念/三观** | 不同人对同一事物的价值判断不同，产生冲突 | 所有题材 |
+## 15. Estrutura chamariz, trama principal e recompensa central
 
-**要点**：只要你想，一本书的矛盾冲突可以时时刻刻产生——所有人都在被自己想要的利益驱动，背后是三观不同，更深层是成长环境，再深层是世界观构造。
+| Tipo de chamariz | Característica | Como abrir |
+|------|------|------|
+| **Evento** | O título é o evento; entra na história rápido | Entre direto no evento, sem preparar viagem/vantagem; use evento cotidiano comum como entrada |
+| **Vantagem** | Distribuído pelo texto, mais no começo | Primeiro o protagonista → dificuldade atual → objetivo → primeiro uso da vantagem → algum resultado |
+| **Personagem** | A caracterização condiciona o enredo (cuidado: personagens brilhantes são raros) | A caracterização precisa gerar drama por si só |
 
----
+**Atenção**: chamariz de evento e de vantagem se escrevem diferente! Escrever evento com o método da vantagem faz o leitor desistir pela lentidão. A vantagem pode usar o método do evento: o evento de abertura vem antes da vantagem e é a trama principal. **Do chamariz à trama principal**: ao terminar o evento, **enxerte logo** o objetivo do protagonista (trama principal); ou prepare o objetivo durante o evento. **Recompensa central = a que está sobre a trama principal**: brilhar fora da trama principal é recompensa deslocada (o imperador fantoche cuja trama é recuperar o poder e que vai impressionar fidalgos no campo). **Jogo de cartas emocional**: o duelo entre protagonista e antagonista é como cartas: o protagonista joga um par de três, o antagonista um de quatro, o protagonista um ás, o antagonista um dois, o protagonista joga o curinga e fecha; **em cada pequeno embate o protagonista leva leve vantagem**; ganhar de lavada não é o mesmo que ganhar com prazer. **Postura de estatura**: ao escrever, imagine o protagonista um grande personagem, não um pé-rapado; xingado pelo antagonista: *ruim*: o protagonista fica vermelho de raiva; *bom*: sorri e não leva a sério ("ele não é nada, não vale brigar com mosca").
 
-## 设门槛拉长剧情法
+## 16. Conflito de redenção: oito métodos
 
-### 核心思路
-围绕主角的目标设置阶段性门槛，有效拉长剧情，让主角更有动力。
-
-### 操作方式
-1. **系统门槛**：第一次免费升级（新手礼包），第二次需要资源（1000灵石），后续可设置普通升级和超级升级两档
-2. **目标门槛**：考进顶级院校需要气血值+灭杀战绩+比赛排名，逐个提出、逐个完成
-3. **收集门槛**：突破境界需要收集东海龙珠+西域摄魂旗+南疆……逐个寻找
-4. **消耗门槛**：主角资源太多时，提高门槛消耗掉（系统分档消耗）
-
-### 效果
-- 拆分主线为阶段小主线，每个阶段都有明确的驱动力
-- 结合系统门槛+目标门槛，剧情量轻松扩展到50章以上
-- 让主角始终处于"差一点就能升级"的期待状态
-
----
-
-## 噱头-主线-核心爽点框架
-
-### 噱头类型与开篇写法
-
-| 噱头类型 | 特点 | 开篇写法 |
-|----------|------|----------|
-| **事件噱头** | 书名就是事件，极快进入故事 | 一上来就进入事件，不铺垫穿越/金手指，找日常常见事件做切入点 |
-| **金手指噱头** | 分布在全文，前期多后期少 | 先描写主角→当前困境→引出目标→金手指第一次施展→取得少许成果 |
-| **人设噱头** | 人设直接影响剧情构建（慎用，出彩人设很少） | 需要人设本身就能产生戏剧性 |
-
-**注意**：事件噱头和金手指噱头的写法不同！用金手指写法写事件，读者会因为磨叽而弃书。金手指可以用事件写法——开局事件在金手指出现前，事件即主线。
-
-### 噱头→主线的嫁接
-事件结束后**立马嫁接**主角目标（主线）。也可以在事件进行中就对主角目标进行铺垫渲染。
-
-### 核心爽点 = 切在主线上的爽点
-偏离主线的装逼是偏移爽点（如傀儡皇帝的主线是收复政权，却跑去民间震惊豪绅）。
-
-### 情绪拉扯 = 打牌
-主角与反派的角力就像斗地主：主角对三，反派对四，主角对A，反派对2，主角扔出王炸一锤定音。**每次小角力都让主角稍占上风**，最后迎来大胜利。赢麻了不等于一路碾压——经过拉扯后的爽感远比单纯碾压爽。
-
-### 逼格心态
-写书时幻想主角是大人物，不是小混混。被反派骂时：
-- 毒点写法：主角气得要死，面红耳赤
-- 不毒写法：主角微微一笑，毫不放在心上——"他什么都不是，没必要和苍蝇置气"
-
----
-
-## 救赎文冲突设计八法
-
-| 方法 | 说明 |
+| Método | Explicação |
 |------|------|
-| **救赎目标冲突** | 一方想得到的救赎来自另一方的牺牲；一方创伤制造者是另一方至亲 |
-| **救赎行为冲突** | 救赎靠谎言维持（顶替身份）；双方必须伤害对方才能完成自我救赎 |
-| **三角关系** | 一方对另一方的救赎导致第三方需要被救赎，第三方的救赎又伤害一方 |
-| **救赎倒计时** | 必须在某事发生前完成救赎，否则彻底堕入深渊 |
-| **增大救赎代价** | 一方救赎另一方的付出代价越来越大 |
-| **救赎资源稀缺** | 双方都需要救赎，但资源只够救赎一个人 |
-| **立场对立** | 双方立场分歧，但彼此又需要对方帮助来获得救赎 |
-| **性格反差** | 乐观vs悲观、冷血vs富有同情心 |
+| Objetivo de redenção em conflito | A redenção de um vem do sacrifício do outro; o causador do trauma de um é parente próximo do outro |
+| Ato de redenção em conflito | A redenção se sustenta em mentira (identidade trocada); os dois só se redimem ferindo o outro |
+| Triângulo | A redenção de A exige que um terceiro seja redimido, cuja redenção fere A |
+| Contagem regressiva | É preciso se redimir antes de certo evento, ou cair no abismo |
+| Aumento do custo | O que A paga para redimir B cresce sempre |
+| Recurso escasso | Ambos precisam de redenção, mas só há recurso para um |
+| Oposição de posições | Posições opostas, mas cada um precisa do outro para se redimir |
+| Contraste de personalidade | Otimista x pessimista, frio x compassivo |
 
----
+## 17. Pressionar a situação, não a pessoa
 
-## 压势不压人
+**Ideia**: o antagonista não precisa mirar o protagonista; seu plano para uma região/classe/grupo cria, **objetivamente**, a dificuldade do protagonista. **Operação**: 1) o antagonista tem objetivo próprio (oprimir praticantes de uma região e controlar os recursos de baixo); 2) o protagonista vive nesse ambiente e a política cria sua dificuldade, ainda que sem alvo pessoal; 3) derrubado o antagonista, os de baixo continuam apáticos (valores diferentes); 4) alguns exploram a boa vontade do protagonista → novo conflito. **Vantagens**: o conflito tem raiz lógica, não perseguição gratuita; nasce do mundo e é sustentável; os valores de cada personagem diferem, e o conflito escala em camadas.
 
-### 核心理念
-反派不需要刻意针对主角个人，而是针对一个地区/阶层/群体的规划，**客观上**导致主角陷入困境。
+## 18. Dar ao personagem um sonho
 
-### 操作
-1. 反派有自己的目的（如打压某地区修行者，掌控底层修行者的资源）
-2. 主角身处被压迫的环境，虽然反派没有针对主角本人，但方针导致了主角的困境
-3. 主角推翻反派后，底层人依旧麻木——三观取舍的不同
-4. 底层人中也可能有人利用主角善意攫取利益→新的冲突和矛盾
-
-### 优势
-- 矛盾有逻辑根基，不靠莫名针对
-- 从世界观层面自然产生冲突，可持续
-- 每个角色的三观不同，冲突可以层层递进
-
----
-
-## "给人物一个梦想"动机法
-
-### 动机 vs 梦想的区别
-
-| 概念 | 特征 | 示例 |
+| Conceito | Característica | Exemplo |
 |------|------|------|
-| 动机 | 外力推动，趋向物质，有压迫才有 | 因为穷→想买大房子 |
-| 梦想 | 内在驱动，追求精神，纯粹的 | 想当伟大的作家（不受外力影响） |
+| Motivação | Empurrada por força externa, material, só surge sob pressão | Pobre → quer comprar casa grande |
+| Sonho | Impulso interno, espiritual, puro | Quer ser um grande escritor (sem influência externa) |
 
-### 操作
-在设定人物动机时，除了外在的压迫/利益驱动，再给人物一个"梦想"——纯粹的精神追求。两个层次结合，人物不需要很费力就在脑海中鲜活起来。
+**Operação**: ao definir a motivação, além da pressão/interesse externos, dê ao personagem um **sonho**: busca espiritual pura. Combinadas as duas camadas, o personagem ganha vida na cabeça sem muito esforço.
 
-**注意**：人物目标要结合人设来定。一个杂役弟子梦想拯救宗门缺乏说服力，但宗门圣女/长老/宗主拯救宗门就合理——宗门是生她、养她、栽培她的地方，有亲友、师门长辈的寄望。
+## 19. Ação do protagonista
 
----
+**Ação = capacidade de romper o convencional**
 
-## 基于设定推演冲突
-
-### 核心方法
-在设计冲突时，先想"这件事情有没有趣"，再想"这个冲突有什么作用"。好的戏剧性事件足以在读者看到事情即将发生时，就让他们对接下来产生预期。
-
-### 冲突设计的优先级
-1. **先有趣再有用**：先确保事件有戏剧性（读者想看），再考虑人设/铺垫/伏笔等功能
-2. **拆出来的情节就是戏剧性**：拆书时有爽点的事件记录下来，写的时候直接用
-3. **不够有趣时做铺垫拉期待**：发现大纲/细纲写着没意思，就要提前做铺垫拉期待
-
----
-
-## 主角行动力设计
-
-### 行动力 = 突破常规的能力
-| 维度 | 含义 | 示例 |
+| Dimensão | Significado | Exemplo |
 |------|------|------|
-| 做别人不敢做的事 | 反抗权威，挑战强者 | 许七安斩上司 |
-| 做别人做不到的事 | 死里逃生，超越极限 | 必死局面生还 |
-| 做别人没想到可以这么做的事 | 阴差阳错，曲线救国 | 用烤肠秘籍凑收藏 |
+| Fazer o que ninguém ousa | Desafiar autoridade e fortes | Enfrentar o chefe |
+| Fazer o que ninguém consegue | Escapar da morte, superar limites | Sobreviver numa situação sem saída |
+| Fazer o que ninguém imaginou que se pudesse | Acaso e atalho | Usar um segredo de receita para conseguir apoios |
 
-戏剧性是展现行动力的方法，人设是行动的缘由，缺一不可。不能为了意外崩人设。
+A dramaticidade é o jeito de mostrar a ação; a caracterização é o motivo do ato; faltando um, não há. Não se quebra a caracterização por um imprevisto.
 
----
+## 20. Recompensas em camadas, ciclos, conflito, primeiro ato, ganho extra
 
-## 爽点层次设计与循环写法
+**Ciclo (matrioska)**: ideia → atrativo central → trama principal → vantagem complementa. **Escrita paralela**: na preparação do enredo A, intercale a do B, na do B a do C; use personagens para ligar dois enredos nos pontos de expectativa. **Recompensas em camadas**: 1) espanto de quem assiste na hora; 2) espanto de quem está em outro lugar; 3) espanto de especialistas ao ver a técnica; 4) novo espanto quando a assimetria entre coadjuvantes é nivelada. Recompensa = protagonista brilha + mudança de percepção dos coadjuvantes: foque na mudança deles.
 
-### 循环（套娃）设计关系
-脑洞 → 挖掘核心卖点 → 定主线 → 金手指配合主线衍生
+**Padrões de conflito**: o conflito escala (verbal → ação → confronto intenso → decide vencedor); tem resultado claro (vitória ou acordo); a essência: "alguém impede o protagonista de obter o que quer". **Contradição x conflito**: a "contradição" é a estrutura de primeiro nível (o quadro geral do livro/volume); o "conflito" é a de segundo nível (confronto de cena); a contradição define a direção da principal, o conflito é a expressão concreta; use uma **rede de contradições** para montar o quadro geral: o conflito final entre forças → deduz o comportamento de cada força → monta o mundo.
 
-### 并列式写法
-在剧情A的铺垫中穿插剧情B，B的铺垫中穿插C，保持铺垫和爽点相续不断。在期待感形成处利用出场人物衔接两段剧情。
+**Armadilha do primeiro ato**: ao resolver o primeiro conflito, o protagonista planta o que fará explodir o seguinte; a função é encadear a história com naturalidade: resolvido um conflito, o próximo surge suave. **Ganho acima do esperado** (técnica universal): pode ser pista futura, preparação, gancho de enredo, e é, ao aparecer, também uma recompensa; modelo de jogos: o chefe larga três coisas: 1) o que o protagonista usa logo; 2) o que pode dar a alguém para ganhar relações; 3) o que não serve agora, mas parece incrível.
 
-### 多层爽点
-1. 当场观众震惊
-2. 别处观众震惊
-3. 专家看到手法后震惊
-4. 配角之间信息差抹平后再震惊
+## 21. Vantagem especial, da ideia ao livro, esboço por propósito
 
-爽点 = 主角装逼 + 配角认知变化。把注意力放在配角的前后变化上。
+**Da ideia ao livro (sete passos)**: 1) obter a ideia (de leitura ou acúmulo); 2) avaliar o potencial (há espaço? alguém já escreveu? mercado?); 3) escolher o gênero (em qual gênero a ideia rende mais?); 4) extrair o atrativo (colocar a ideia em alguns gêneros conhecidos e ver se é interessante); 5) desenhar a lacuna emocional (transformar a ideia em expectativa concreta que o leitor perceba); 6) montar o arcabouço (embrião da história, estrutura, vantagem, ponto de entrada); 7) validar (escrever, enriquecendo a forma de apresentar o núcleo).
 
----
+**Modelo condição-retorno da vantagem**: toda vantagem é "cumprir condição → receber retorno":
 
-## 冲突设计要点
-
-### 冲突核心标准
-- 冲突必须升级：言语冲突→行动冲突→激烈对抗→决定胜负
-- 冲突必须有明确结果（胜负或妥协）
-- 冲突本质是"有人阻止你的主角得到他想要的东西"
-
-### 矛盾和冲突的区别
-- "矛盾"是一级结构（全书/全卷层面的大框架），"冲突"是二级结构（具体场景层面的对抗）
-- 矛盾决定主线方向，冲突是具体表现
-- 用"矛盾网"构建全书的大矛盾框架：不同势力之间的终极矛盾→推导各势力行为方式→搭建世界观
-
-### 第一幕陷阱
-- 主角在解决第一个冲突的过程中，为导致下一个冲突爆发而埋的伏笔
-- 功能：让故事自然衔接，不是解决完一个冲突就没事了，而是顺滑地引出下一个
-
-### 超额收获技巧
-- 超额收获是万能技巧：可以是后文伏笔、铺垫、情节钩子，本身出现时也是一个爽点
-- 网游文经典模式：Boss爆三样东西——1.主角接着就能用的 2.可以送人拉关系的 3.暂时用不到但一看就很厉害的
-
----
-
-### 微创新与新瓶装旧酒
-
-### 脑洞文从灵感到成书的完整思路
-
-从点子到成书的全流程：
-
-1. **获得点子**：从阅读经验或日常积累中得到一个有创意的点子
-2. **评估潜力**：这个点子有没有开发空间？是否有人写过？市场铺垫如何？
-3. **选择题材**：思考这个点子放进哪个题材能催化出最好的效果
-4. **提炼卖点**：把创意放进几个熟悉的题材里，看是否足够有趣
-5. **设计情绪缺口**：通过设定将想法加工为读者能明确感知的具体期待
-6. **构建框架**：梳理故事雏形、框架、金手指、切入点
-7. **验证市场**：动笔写，围绕核心不断丰富剧情表现形式
-
-### 金手指"条件-反馈"模型
-
-所有金手指本质都是"达成条件→得到反馈"：
-
-| 变体 | 设计 | 示例 |
+| Variante | Desenho | Exemplo |
 |------|------|------|
-| 一条件一反馈 | 最简单，入门级 | 摸尸→得宝物 |
-| 一条件阶段反馈 | 反馈分级，升级解锁 | 摸尸得点数→点数升级系统→解锁新功能 |
-| 多条件一反馈 | 增加达成难度 | 需要A+B+C才能触发 |
-| 一条件概率反馈 | 增加随机性和期待 | 摸尸→概率触发尸体灵魂 |
+| Uma condição, um retorno | O mais simples, iniciante | Revistar o cadáver → obter um tesouro |
+| Uma condição, retorno por fases | Retorno graduado, evolução desbloqueia | Pontos de revista → o sistema evolui → novas funções |
+| Várias condições, um retorno | Mais difícil de cumprir | Precisa de A+B+C para disparar |
+| Uma condição, retorno probabilístico | Acrescenta aleatoriedade e expectativa | Revistar → chance de ativar a alma do cadáver |
 
-**创新关键**：保留机制骨相，丰富金手指表现形式。
+**Chave da inovação**: manter o esqueleto do mecanismo e enriquecer a forma da vantagem.
 
-### 框架设计法：从卖点到大纲
+**Esboço por propósito**: cada enredo existe com um propósito e os propósitos formam o arcabouço. Passos: 1) estado inicial do protagonista (aluno do último ano); 2) primeiro enredo: simulado (propósito: ser selecionado para o treino); 3) segundo: treino (propósito: ganhar pontos extras); 4) terceiro: vestibular (propósito: passar na melhor universidade).
 
-**核心思路**：每个剧情的存在都有目的，剧情之间通过目的串联成框架。
+## 22. Como analisar livros e acumular material
+O objetivo da análise é estudar o "raciocínio" ou os pontos fortes; não importa se o livro é bom, você pode não ser o público; analise com perguntas concretas ("como o conflito puxa a emoção?": ache dez trechos de conflito e analise); organize em tabelas ou texto para forçar o pensamento. **Acúmulo**: faça varreduras periódicas de rankings com a mente de autor; faça notas regulares; com muita análise surge uma "reação alérgica": para quem lê muito acima da linha de corte, o enredo ruim salta aos olhos.
 
-操作步骤：
-1. 确定主角初始状态（如高三学生）
-2. 第一个剧情：模拟考（目的：选拔进入特训营）
-3. 第二个剧情：特训营（目的：获得高考加分）
-4. 第三个剧情：高考（目的：考上顶尖大学）
-5. 第四个剧情：大学军训（目的：进入英才班）
-6. 每个剧情的目的就是下一个剧情的入口
+## 23. Ordem da transmissão de informação; mudança de valor; eventos como motor
+**Quatro modelos de ordem**: direto, exploratório, de surpresa, surpresa + virada (ver `hook-techniques.md`, seção 6). A informação só interessa quando vira "pergunta"; quando o leitor pode não entender, acrescente logo uma pista normal; para mais gente entender, a ordem deve ser clara. **Princípio da mudança de valor**: valor = mudança em algo de dois polos (não sabe cozinhar → sabe; sem harmonia → harmonia); todo evento precisa de pelo menos uma mudança de valor e avançar a trama principal; evento sem mudança de valor = capítulo de enrolação, deve ser cortado; histórias de cotidiano também podem ser desenhadas para o protagonista crescer. **Evento como motor**: os capítulos devem ser feitos de eventos (mais da metade); o evento é a causa da mudança de valor (sem evento, o protagonista e a trama não mudam); a configuração deve ser mostrada por eventos, não por narração forçada; pode haver "evento para explicar a configuração" se afetar a trama e o protagonista não puder contornar.
 
-**关键**：框架确定后，具体剧情可以用素材灵活替换（模拟考可以换成副本/野外试炼），核心不变。
+## 24. Fichas de história e fórmulas
 
-### 小循环节奏模板
+**Níveis de extração** (do enredo original às ferramentas)
 
-```
-1、遭遇困境
-2、金手指提升
-3、剧情推进（装逼/震惊/收获）
-4、收获和日常调剂
-5、大目标铺垫 + 世界观扩展
-```
-
-一个次级循环 = 5次小循环 + 日常调剂
-
-大目标 → 次级循环1实现 → 次级循环2实现 → ... → 大目标实现
-
-**注意**：小循环里要提前铺垫好大循环的期待。
-
-### 卖点差异化原理
-
-卖点不是"卖的人多了就是卖点"，而是：
-
-1. **情绪体验的差异化**：同样的爽感，不同的演绎方式
-2. **装逼是手段不是情绪**：装逼只是载体，真正卖出的是装逼背后的情绪体验
-3. **核心情绪人人都有**：写小说就是把平凡的、每个人都有的情感抽取一样，艺术化、抽象化、极端化
-4. **同一情绪不同演绎**：每个时代/地区都有悲伤情歌，但演绎方式不同
-
----
-
-## 金手指设计要点
-
-### 金手指合格五问
-1. 能否凸显主角的与众不同？能否不断协助主角克服困难？
-2. 金手指和世界环境、设定之间是否存在紧密联系并拥有反差？
-3. 金手指是否有喧宾夺主、替主角做决定的可能？是否可以预防？
-4. 当主角资源提升百倍千倍时，金手指是否还能解决主要矛盾？
-5. 能否通过金手指解决矛盾的同时，通过主角的抉择来表达思想和主题？
-
-### 金手指碎片化处理
-- 把复杂金手指的能力拆分细分，碎片化融入到剧情中
-- 没收集完成之间就是远期期待，收集到每一片就意味着马上能解决至少一个冲突
-- 随着金手指功能补完，期待感逐渐累积
-
----
-
-## 拆书方法
-
-### 拆书正确方法
-- 拆书目的是研究"思路"或优点值得学习的地方
-- 不要纠结于书本身好不好看——你不是受众很正常
-- 带着具体问题去拆：怎么冲突拉扯情绪？找十段冲突情节分析
-- 用图表或文字整理输出，强迫自己思考
-
-### 素材积累方法
-- 定期去番茄/起点扫榜，带着作者思路去看别人怎么写
-- 定期做笔记，越积累越明了
-- 拆书积累多了会有"应激反应"——及格线以上作品看多了，不合格情节格外扎眼
-
----
-
-## 信息传达顺序体系
-
-### 四种顺序模板
-| 类型 | 结构 | 适用 |
-|------|------|------|
-| 直白剧情 | 提出疑问→公布答案 | 基础叙事 |
-| 探索剧情 | 提出疑问→正常提示→公布答案 | 铺垫段 |
-| 意外剧情 | 提出疑问→虚假提示→公布答案 | 反转段 |
-| 意外+反转 | 提出疑问→虚假提示1→虚假对立提示2→公布答案 | 高潮段 |
-
-- 信息只有成为"疑问"时，读者才会关心
-- 觉得读者可能看不懂时，立即增加正常提示
-- 网文要让更多人看懂，顺序必须足够清晰
-
-### 价值改变原则
-- 价值 = 具有两端性事物的改变（不会做饭→会做饭，不和睦→融洽）
-- 每个事件至少要有一个价值改变，且至少能推进主线目标
-- 没有价值改变的事件 = 水章节，应该删除
-- 日常小故事也可设计成主角因此成长、得到改变
-
----
-
-## 事件驱动原理
-
-- 正文章节必须由事件组成，事件内容比重不能小于一半
-- 事件是价值改变的契机因果：没有事件发生，主角不会改变，主线也不会改变
-- 设定尽量通过事件演绎，而非旁白强塞
-- 可设计"为了解释设定而出现的事件"，只要该事件符合影响主线推进、主角无法绕过
-
----
-
-## 故事卡系统
-
-### 提炼层级
-
-从原型故事（读到的优秀情节）中，可以逐级提炼出不同层次的套路工具：
-
-| 层级 | 名称 | 内容 | 说明 |
+| Nível | Nome | Conteúdo | Observação |
 |------|------|------|------|
-| 零级 | 具体故事 | 原文完整情节（含所有描述和素材） | 直接搬用 = 抄袭 |
-| 一级 | 经典故事情节 | 去除描写，保留核心素材（人名/地名/事件） | 换汤不换药，仍有雷同风险 |
-| 二级 | 故事构型 | 去除所有素材，只剩逻辑走向 | **故事线卡 + 故事卡 的组合体** |
-| 三级 | 故事线卡 | 戏剧性的抽象——有戏剧性的大致走向 | 单元化的逻辑结构，可自由组合 |
-| 四级 | 故事卡 | 情绪的抽象——读者想看什么 | 由期待感挖掘方向 + 爽感挖掘方向组成 |
+| 0 | História concreta | O enredo completo do original | Usar direto = plágio |
+| 1 | Enredo clássico | Sem descrição, com o material central (nomes, lugares, eventos) | Troca de casca, risco de semelhança |
+| 2 | Forma de história | Sem material, só a lógica | **Combinação de ficha de linha + ficha de história** |
+| 3 | Ficha de linha de história | Abstração dramática: o rumo dramático | Estrutura unitária, combinável |
+| 4 | Ficha de história | Abstração emocional: o que o leitor quer ver | Direção de expectativa + de recompensa |
+
+**Forma de história + material = história concreta.** *Ficha de linha x ficha de história*: a de linha constrói a lógica dramática (o drama se desgasta com o uso repetido; resolve "o que o autor pode escrever"); a de história é a necessidade emocional (a emoção não se desgasta, como o "herói que salva" desde a era das epopeias; resolve "o que o leitor quer ver"); quando o drama se desgasta, troque ou reforce a ficha de história correspondente. **Usos**: *reconstruir* (manter o material e mudar totalmente a forma, para dar sensação de "novo padrão"); *ajustar* (usar o enredo clássico, aprofundar a personalidade e ajustar o enredo: serve a contos; 500-600 mil palavras sem repetição). Se a personalidade ou a ideia conflitam com o enredo clássico, é preciso reconstruir. **Cinco erros comuns**: história idêntica (só nível 1); personagem quebrado; matar a inspiração (ou agrada o leitor ou o autor); incapaz de incluir literariedade; inovação fora de controle (sem a ficha de história vira ponto de rejeição). **Cinco vantagens**: não há repetição; encaixa qualquer comportamento de personagem; absorve qualquer inspiração; comporta literariedade (material literário + forma de história = história popular nota 6+); é fácil inovar.
+
+**Herói que salva** — `relação ruim ou morna entre salvador e salvo + crise + resolução + mudança de qualidade da relação (afinidade sobe)`. *Emoção central*: o prazer da mudança de relação. Serve para qualquer ponto em que uma relação dá salto positivo (casal, parceiros, bichos). *Profissional x romântica*: na profissional, o salvo é prêmio (a heroína só precisa ser bonita e de posição); na romântica, o foco é a mudança da relação e o enredo se ajusta à caracterização do outro.
+
+**Virada de mesa** — `humilhação (opcional) + mostrar vantagem/capacidade + criar contraste (reviravolta antes-depois + comparação paralela) + choque`. *Emoção central*: o **contraste**. *Cinco modos*: comparar (virada de primeiro nível); reviravolta; autonegação do protagonista + elogio dos outros; negação dos outros + tapa; por mãos alheias (variante da comparação). **Fórmula**: expectativa do lado do protagonista satisfeita + expectativa do lado oposto frustrada.
+
+**Pequeno contra grande** — `pequeno custo + ambiente favorável (explícito/implícito) + grande ganho`. *Prazer*: o público sente que "levou vantagem": quanto maior a razão ganho/custo, mais prazer. *Elementos*: o custo inclui as consequências se a aposta falhar; processo com aleatoriedade + iniciativa do protagonista (aumenta a chance com esforço); o prêmio precisa ser útil; pode não dar certo, mas deve render o esperado ou mais por acerto de acaso, apoio de benfeitor, boa ação recompensada. Em crise, combine com "herói que salva" (duplo prazer compensa a descida emocional).
+
+**Pedra em ouro** — `algo/alguém subestimado + transformação do protagonista (ativa ou inconsciente) + gera valor`. Diferença de **olho clínico**: a pedra em ouro não exige que o protagonista soubesse o valor, ele cria valor por mudança ativa; o olho clínico exige assimetria (ele já sabe que é tesouro) e a usa para revelar o valor.
+
+**Olho clínico** — `o protagonista sabe do valor (cognição elevada) + os outros desconfiam (cognição baixa) + informação que só ele tem + verdade revelada + choque/arrependimento`.
+
+### 24.1 Arquitetura do sistema de fichas
+- **Fichas grandes/médias** = fichas de linha de história (abstração dramática); dão o tom de um livro inteiro ou de um grande bloco de trama.
+- **Fichas pequenas** = abstração do núcleo emocional; correspondem a pontos concretos de prazer/emoção.
+- **Fichas de elemento e de técnica** (juntas, "fichas-ferramenta"): não formam uma história completa sozinhas, só funcionam dentro de um arcabouço. Elemento = ingrediente especial dentro da história; técnica = ajuste ao arcabouço.
+- **Drama desgasta, emoção não.** O leitor não se cansa do arquétipo, e sim da *repetição idêntica* dele. Para evitar a mesmice: ajuste o arcabouço com fichas de técnica e acrescente variação com fichas de elemento; ao variar a estrutura nas partes seguintes, mesmo o arquétipo com o mesmo nome vira outra história.
+- **Modelo de uso**: `ficha grande (tom) + ficha pequena (emoção) + ficha de elemento (tempero) + ficha de técnica (ajuste)`. Exemplo: tom de "dívida e culpa" (grande) + "herói que salva" (pequena) + "segredo" (elemento) + "triângulo dramático" (técnica).
+
+### 24.2 Fichas pequenas (complementos)
+
+**Cena de rivais (disputa pelo mesmo alvo afetivo)** — vários querem a mesma pessoa e, diante dela, se exibem, sabotam e competem.
+- *Como*: escolha o tom (leve: ciúme discreto e "chá" de personagem; intenso: tensão emocional forte) e o formato (1 contra vários, 4-6 pretendentes com papéis distintos; ou 1 contra 2, focado na rivalidade de duas pessoas). Planeje escalada em três degraus.
+- *Modelo*: `degrau 1 (flagra leve) -> degrau 2 (flagra comprometedor) -> degrau 3 (confronto aberto)`.
+- *Exemplo*: Marina sai para passear com Caio e é vista por Rafael (1); semanas depois ela beija Rafael e Caio presencia (2); no fim, os dois brigam fisicamente no estacionamento enquanto ela tenta separá-los (3).
+
+**Contagem regressiva** — precisa haver um relógio e algo tem de acontecer quando ele zera.
+- *Como*: marque o relógio com números (hora, recurso restante) ou com urgência dos eventos; reforce "algo que não pode acontecer está prestes a acontecer". Combina bem com luta de forças desiguais: "não dá para vencer, mas é preciso lutar, ou o inaceitável acontece".
+- *Modelo*: `evento inevitável + prazo visível + obstáculo + custo se zerar`.
+- *Exemplo*: a represa cede em 40 minutos; a engenheira tem de reiniciar a comporta manual enquanto o chefe tenta impedi-la; cada capítulo mostra o relógio descendo.
+
+**Mágoa e dívida (ficha grande/média: "rancor e laço")** — por um evento ou configuração, um lado carrega sobre o outro um peso emocional ou moral.
+- *Como*: o foco não é o *processo* de gerar a mágoa, mas as ações e sentimentos *depois* dela. Como ficha grande, é um tom, uma "névoa" sobre o livro todo, não um fato que se narra de modo linear como as fichas pequenas.
+- *Modelo*: `evento-origem (breve) + relação carregada de dívida/culpa + ações que a expressam em cada cena`.
+- *Exemplo*: o irmão que assumiu a culpa de um acidente; cada encontro dos dois é filtrado por gratidão, ressentimento e silêncio.
+
+**Dupla identidade** — o instante em que duas identidades se encontram causa surpresa e revela complexidade e motivação.
+- *Como*: três peças: construção cotidiana da identidade A + informação oculta (pistas) + o impacto da revelação da identidade B.
+- *Modelo*: `A rotineira + pistas plantadas + revelação de B no pior/melhor momento`.
+- *Exemplo*: o entregador simpático que todos tratam com condescendência é, na reunião do conselho, o investidor que decide o destino da empresa.
+
+**Tratamento especial** — a ficha que "salva" o personagem do OOC: justifica um desvio de comportamento por uma razão específica.
+- *Como*: dê ao personagem um motivo concreto para tratar o protagonista de modo diferente do habitual.
+- *Modelo*: `persona habitual + razão especial + comportamento fora do padrão apenas com ele/ela`.
+- *Exemplo*: a chefe gélida que nunca perdoa atrasos tolera os de Tomás porque ele a ajudou a sair do pior dia da carreira; todos estranham, e o leitor entende.
+
+**Mudança de afeto** — o núcleo é mostrar a mudança *qualitativa* na cadeia emocional (afinidade sobe), seja em carreira ou romance. "Herói que salva" é só um veículo: o que importa é a relação mudar, não *como* se salva.
+- *Modelo*: `relação inicial + evento de contato + percepção nova do outro + relação alterada`.
+- *Exemplo (ajuste)*: básico: ele salva a moça e ela passa a gostar dele. Ajustado: ela já estava armando uma emboscada para colher provas contra os valentões; ele estraga o plano; ela se irrita e parte para cima; ele derrota todos sem esforço; ela fica chocada, atraída e dividida. **Evitar repetição**: se todo volume tem um resgate, o resgate não pode ser só "salvar a moça": a complexidade e o ganho sobem a cada volume, a emoção em espiral ascendente.
+
+**Mal-entendido** — série de equívocos com regras de solução.
+- *Como (passos)*: definir o mal-entendido central e sua causa; derivar naturalmente os pequenos; definir condições e modo de desfazer; dar ao protagonista uma razão para precisar desfazê-lo; desenhar obstáculos.
+- *Regra*: mal-entendido que prejudica a linha de carreira/romance **deve** ser resolvido; o inócuo ou benéfico pode ficar. Variante divertida: "brigar com o ar" (o protagonista age contra um adversário que não existe).
+- *Exemplo*: ela acha que o novo sócio a denunciou; na verdade ele a protegia. Cada tentativa de explicação é interrompida por uma nova pista falsa, até o dia em que os dois ficam presos no elevador.
+
+**Aprofundamentos de fichas já vistas**
+- *Pose de "foda" (virada de mesa)*: o centro é o **contraste** entre ser e não ser extraordinário; a reviravolta é só uma ferramenta. Dá para contrastar com "quanto da força usei" (depois do golpe, dizer que usou 20%; fazer algo perigoso de olhos vendados). Preparação: emoção reprimida por zombarias; o protagonista que se faz de bobo e depois surpreende. Fusões: "queda de expectativa" (mais itens de comparação) e "agitar o jogo" (o ato do protagonista significa coisas diferentes para cada personagem).
+- *Pequeno contra grande*: a razão custo/ganho tem de ser enorme (pagar 50 com 1% de chance de ganhar 10.000 > pagar 50 com 20% de ganhar 5.000). Custo = o que o protagonista paga + o que sofre se falhar. O processo precisa de aleatoriedade e iniciativa (o leitor não deve ter certeza de 100% de sucesso). Pode falhar, desde que o vazio emocional seja compensado por acaso feliz, benfeitor ou boa ação recompensada.
+
+### 24.3 Doze fichas de elemento
+Cada ficha traz: *como usar* + *modelo* + *exemplo*.
+
+1. **Peão (personagem-ferramenta)** — personagem que cumpre uma necessidade narrativa numa cena. Funções: *ambientar* (mostrar dificuldade, perigo, desprezo pelo protagonista); *empurrar* (atender a uma necessidade do protagonista ou do vilão); *dar informação* (explicar evento, mundo, facções, personagens). Modelo: `função + aparição curta + saída`. Exemplo: o porteiro que, ao barrar o protagonista, mostra o prestígio do prédio e deixa escapar o nome do dono.
+2. **Garota misteriosa (pista em cena irreal)** — pista ou sugestão decisiva que surge em sonho, lembrança ou alucinação; pode ser um telescópio especial. Não a ponha na abertura: o começo pede concisão e continuidade, e cena irreal quebra isso. Uso clássico: no clímax o protagonista desmaia, em sonho uma figura misteriosa lhe entrega um objeto simbólico, ele acorda com força nova e salvá-la vira a trama seguinte.
+3. **Incapacitação (ficha de restrição)** — o personagem não controla o próprio corpo/objeto de modo consciente. Causas: patológica (loucura), farmacológica (embriaguez, veneno), efeito ou custo de habilidade/objeto. Tipos: perda permanente; perda temporária com recuperação sob condição; ativação sob condição. Não desafie o limite estético da maioria dos leitores e respeite o tom da obra; é possível ligar a incapacitação à persona como defeito. Exemplo: a espadachim que perde a mão da espada quando sente medo real.
+4. **Relação** — configuração específica entre dois personagens (mestre-aprendiz, rivais, amor secreto, inimigos jurados); define o padrão básico de interação. Modelo: `tipo de relação + assimetria + o que cada um quer do outro`. Exemplo: mentora e aprendiz que competem pela mesma vaga.
+5. **Segredo** — três usos: o personagem *guarda* um segredo; *busca* o segredo de outro; *descobre sem querer* o segredo alheio (bom motivo: entrar num lugar onde não deveria estar). Exemplo: ela entra no arquivo para devolver uma chave e encontra o dossiê do pai.
+6. **Briga** — desenho: opinião divergente sobre o mesmo assunto; mal-entendido; um magoa o outro, de propósito ou não. Manifestação: discussão, confronto, desfazer a equipe (temporário ou não). Reconciliação: arrependimento, mediador, negociação, crise que só os dois juntos resolvem, fim da causa. Resultado: a relação muda (aproxima ou afasta) e há crescimento pessoal. Exemplo: dois sócios brigam por um contrato, se separam e só voltam quando o cliente ameaça processar ambos.
+7. **Ligação entre dois mundos** — dois mundos muito diferentes se conectam em três formas: travessia (de um mundo ao outro, a mais comum), contato (dois mundos relacionados), fusão. Exemplo: um armário em Lisboa abre para um mercado de outro reino.
+8. **Perseguição** — três níveis: perseguição aberta e intensa; rastreamento (com investigação); seguimento (discreto). Exemplo: a repórter segue o carro à distância e anota cada parada.
+9. **Ação encoberta** — o personagem age às escondidas (quanto maior o ganho em caso de sucesso, ou o dano em caso de falha, maior a expectativa); investiga a ação encoberta de outros; ou outros agem contra ele sem que saiba (a assimetria de informação gera tensão). Exemplo: o contador copia as planilhas à noite, sem saber que a câmera do corredor foi religada.
+10. **Espiar o futuro** — vias: profecia, memória de vidas passadas, mensagens de sistema. Reações: evitar um futuro; buscar um futuro; deixar acontecer; agir com a informação; trocar a informação por vantagem. "Voltar ao passado/mudar o passado" é variante. Exemplo: ela vê a própria demissão em sonho e usa o aviso para negociar uma saída vantajosa antes.
+11. **Tabu** — tipos: tabus de um indivíduo, de um grupo, de um objeto, de um lugar, de uma atividade. É preciso mostrar ou sugerir a consequência de violá-lo. Modos de violação: voluntária, por necessidade; involuntária; quase certa e evitada com esforço. Exemplo: no vilarejo é proibido cantar após o pôr do sol; a forasteira canta sem saber.
+12. **Novo ambiente (interpretar/disfarçar/testar)** — um dos lados, ou ao menos o protagonista, desconhece o outro; vai testando, coletando informação. Usos: infiltração, sequestro, acolhida por mestre, amnésia, transmigração. Itens a confirmar: origem do outro, personalidade e gostos, habilidades, fraquezas. Exemplo: o agente disfarçado de novo funcionário testa cada colega para descobrir quem é o informante.
+
+### 24.4 Fichas de técnica
+- **Avaliação diferencial** — duas aplicações: *pressionar* (rebaixar) e *virar* (reverter); "pelas mãos de outro" é uma variante. Modelo: `avaliação X dada por A + avaliação Y dada por B + fato que decide`. Exemplo: o professor chama o aluno de medíocre, a banca o chama de promessa; o desempenho final dá razão à banca.
+- **Triângulo dramático** — perseguidor, vítima e salvador se alternam conforme situação e tempo. Modelo: `papéis iniciais -> evento -> inversão de papéis`. Exemplo: a mãe que "salvava" a filha da dívida vira perseguidora ao esconder o dinheiro; a filha se torna a salvadora quando a descobre e paga a conta.
+- **Agitar o jogo** — o ato do protagonista tem significado e efeitos diferentes para cada personagem; eleva expectativa e prazer. Exemplo: uma única fala do herói tranquiliza a equipe, assusta o rival e dá ao chefe o motivo que ele buscava.
+
+### 24.5 Dicas de desenho de enigma
+Método de lógica proposicional para esconder a solução:
+1. Fixe duas proposições verdadeiras, P1 e P2.
+2. Com um grupo de premissas, derive P3.
+3. Negando uma premissa do grupo, derive P4.
+4. Combinando várias, derive P5.
+5. **Esconda P3** e mostre só P1, P2, P4 e P5: o leitor se engana naturalmente.
+6. Use a conclusão como premissa de novos raciocínios; com uma trama paralela, esconda totalmente a linha principal.
+- *Exemplo*: P1 "a porta estava trancada por dentro", P2 "o morto tinha a chave no bolso"; P3 (escondida) "existe uma segunda chave"; P4 "se a segunda chave existe, o zelador mentiu"; mostra-se só o fato de o zelador ter mentido, e o leitor conclui culpa direta.
+
+### 24.6 Combinação e refinamento de fichas
+- **Refinamento de 1º nível**: extrair de obras bem-sucedidas o padrão narrativo básico (arcabouço mais geral). **De 2º nível**: acrescentar ao arcabouço elementos de um gênero específico; fica mais fácil escrever direto.
+- **Regras de combinação**: fichas de tipos diferentes se empilham; `ficha de conceito central + ficha de relação + ficha de restrição = uma unidade de trama completa`; a técnica serve à expressão, então misture várias se a cena ficar melhor; descarte a que não serve, nunca use técnica por usar.
+- **Reconstruir x ajustar**: *reconstruir* mantém o nome do material e troca o rumo (trocar "beldade conquistada + herói que salva" por "caminho de vingança"); *ajustar* mantém o rumo e acrescenta novas fichas no 3º nível de refinamento.
+- **Empilhamento de estruturas**: estrutura grande contém pequenas; fichas pequenas formam A+B+C; **espiral ascendente**: cada reaparição do mesmo padrão sobe em complexidade e ganho; emoção pequena se libera rápido, a grande pede preparação e explosão.
+- **Relação com o conceito central**: são conceitos semelhantes ou idênticos; cada ficha é uma estrutura abstrata com cadeia emocional; uma ficha grande pode servir direto de conceito central; extrair conceito central ao desmontar livros e fazer fichas são exercícios que se treinam juntos.
 
-**故事构型 + 素材 = 具体故事**
+### 24.7 Fichas de expectativa em forma concreta
+- Faça cartões físicos (ou cartões em planilha) para ajudar a escrita.
+- Modelo de cartão: `ponto de expectativa | modo de preparação | modo de colheita`.
+- Durante a escrita, deixe os cartões relevantes à vista para não esquecer nada.
+- *Exemplo*: cartão "revelação do disfarce" — expectativa: o público sabe que o entregador é o investidor; preparação: três cenas em que o tratam com desprezo; colheita: reunião do conselho no capítulo 30.
 
-### 故事线卡 vs 故事卡
+## 25. Abertura: cinco capítulos, enxugar, piso de ritmo
 
-| 维度 | 故事线卡 | 故事卡 |
-|------|---------|--------|
-| 本质 | 构建戏剧性的逻辑结构 | 读者想看什么的情绪需求 |
-| 磨损 | 戏剧性会磨损（同类结构用多了不好看） | **情绪不会磨损**（英雄救美从史诗时代到今天） |
-| 功能 | 解决"作者能写什么" | 解决"读者想看什么" |
-| 数量 | 总结够多后组建故事线卡系统，自由组合 | 总结够多后组建故事卡系统，指导情绪设计 |
-| 修复 | 戏剧性磨损后，可通过更换/强化对应故事卡重组新结构 | 情绪本身不磨损，是长期有效的底层工具 |
+**Cinco primeiros capítulos**
 
-### 使用方式
-
-**1. 重构使用**：保持原有素材不变，彻底修改故事构型（更换/增加/减少故事卡或故事线卡），使观感完全不同，给读者"新套路"的感觉。适用于长篇（百万字级别必须掌握）。
-
-**2. 微调使用**：直接使用经典故事情节，但深挖人物人设，根据人设微调情节，展现更细化的观感。适用于短篇（五六十万字可不重样写完一本书）。
-
-**注意**：当人设/灵感与经典故事情节有冲突时，必须重构使用，微调难以弥合鸿沟。
-
-### 五种常见误区
-
-1. **故事雷同**：只做一级提炼（换名字不换结构），读者眼里和抄袭无区别
-2. **人设崩坏**：为了套用经典情节强行让人物做不符合人设的事
-3. **扼杀灵感**：要读者爱看还是要自己爱写变成二选一
-4. **无法兼容文学性**：经典情节模板没有文学性插足空间
-5. **创新失控**：脱离故事卡的"创新"容易变成毒点
-
-### 五种使用优点
-
-1. 故事不会雷同，故事构型组合千变万化
-2. 完美衔接各种人物行为模式，不会人设崩坏
-3. 轻松融合任何灵感，既保证读者喜爱又写自己想写的
-4. 兼容文学性（有文学性的素材 + 故事构型 = 60分以上通俗故事）
-5. 易于创新（新套路/反套路 = 新故事构型，或新组合方式）
-
----
-
-## 常用故事卡公式
-
-### 英雄救美
-
-```
-英雄（拯救者）和美女（被解救者）关系平平或恶劣 + 危机产生 + 化解危机 + 关系质变（好感度 Up）
-```
-
-**情绪核心**：关系质变的爽感——救人者与被救者及其他人之间人际关系的转变。
-
-**关键洞察**英雄救美的核心功能是关系质变的催化剂。适用于任何角色关系向正向发生质变的节点（不限于男女，也适用于伙伴、宠物等）。
-
-**事业线 vs 感情线的写法差异**：
-- 事业线为主：被救者是奖励，重点在金手指展示，女主只需足够漂亮高身份
-- 感情线为主：重点在关系变化，情节要根据对方人设定制
-
-### 装逼
-
-```
-被打压嘲讽（可选铺垫项） + 展示金手指/能力 + 打造落差（前后反转 + 平行对比衬托） + 震惊
-```
-
-**情绪核心**：落差——包含单一前后落差（反转落差）和双对比落差（对比衬托）。
-
-**装逼五种模式**
-1. 作对比（一级结构装逼手法）
-2. 装逼打脸（反转）
-3. 主角自我否定 + 他人吹捧
-4. 他人否定 + 被主角打脸
-5. 借人之手（也是对比的变体）
-
-**装逼的核心公式**：主角方的期待得到满足 + 反派方的期待落空。
-
-### 以小博大
-
-```
-小的代价 + 入水之鱼的环境前提（显性/隐性） + 获得大的收获
-```
-
-**核心爽感**：观众有"占了便宜"的心理。成本与收获的倍数比例越大，爽感越强。
-
-**关键要素**：
-- 成本不仅是付出的代价，还包括赌博失败后的后果
-- 过程要有随机性 + 主角主观能动性（通过自身努力提高成功概率）
-- 奖励必须对主角有用
-- 可以不成功，但要通过歪打正着/贵人扶持/好人好报等方式让主角获得预期或超预期的奖赏
-
-**以小博大 + 危机组合**：以小博大处于危机情况时，需要与英雄救美等故事卡嵌套，用双重爽点弥补危机带来的情绪下行。
-
-### 点石成金
-
-```
-不被看好的某物/某人 + 主角的改造（主动或潜意识） + 产生价值
-```
-
-**与慧眼识真的区别**：点石成金不强调主角事先知晓价值，通过主动改变创造价值；慧眼识真强调主角拥有信息差（已知是宝物），利用信息差揭示价值。
-
-### 慧眼识真
-
-```
-主角已知某物有价值（高级认知） + 众人不看好（低级认知） + 唯有主角知晓的情报 + 真相揭晓 + 众人震惊/懊悔
-```
-
-### 歪打正着
-
-```
-暗示宝物重要性 + 主角在错误方向上努力（或摆烂） + 偶然获得宝物 + 众人震惊或猜测
-```
-
-**与意外之喜的区别**：歪打正着强调主角前期有主观能动性（努力了但方向错了）；意外之喜是主角完全没做努力，天降馅饼。
-
-### 少年热血
-
-```
-主角团面对强大恶劣环境 + 明知不可为仍然努力 + 打破困境
-```
-
-**塑造重点**：
-- 不公平伤害的施加方要足够庞大权威，远超主角团
-- 主角需要付出代价（最强烈的是牺牲奉献）
-- 需要铺垫可怜且可爱的人物来撬动读者情绪——主角先接触不公平制度，觉得无力改变，直到看到因制度受害的好人，才下定决心
-- 结局必须是好的
-
-### 临危受命
-
-```
-危机突然到来（超过现场人员处理能力） + 配角穷尽办法仍无法解决 + 主角接手使命 + 完成任务
-```
-
-**爽点四层**：
-1. 超过众人能力的爽感
-2. 孤单英雄的使命感和悲壮感
-3. 配角评价上升的爽感（接受前→过程中→完成后的评价反差）
-4. 超预期的收获感（建立奖励预期再超过奖励预期）
-
-### 故事卡组合技术
-
-故事卡可以自由组合嵌套，制造多层爽感：
-
-| 组合 | 效果 |
-|------|------|
-| 以小博大 + 英雄救美 | 以小博大作为英雄救美的途径，双重爽感 |
-| 点石成金 + 装逼 | 先压抑再爆发，双重爽点 |
-| 慧眼识真 + 装逼 | 利用信息差展示价值 + 众人震惊 |
-| 少年热血 + 神器认主 | 经典套路组合 |
-| 临危受命 + 装逼 + 英雄救美 | 危机中救人 + 展现实力 |
-| 英雄救美 + 争风吃醋 | 救美引发修罗场，或伪装争风吃醋实则救人 |
-| 歪打正着 + 以小博大 | 歪打正着作为以小博大失败后的补偿机制 |
-
-### 好人好报的回执时机
-
-不需要马上兑现好报，但**必须马上让读者知道主角这样做将来会有好报**。
-
-**操作**：在主角帮助某人之后较短的篇幅内，暗示该人物的身份/能力/潜在价值（如衣服下藏着昂贵玉佩、标志高手身份的器物）。没有暗示的帮助 = 读者觉得水剧情甚至毒点。
-
----
-
-## 反派视角与信息差技巧
-
-### 反派视角转接的功能
-
-转视角到反派密谋，制造读者知道而主角不知道的信息差：
-- 深化反派人设
-- 拉期待感——读者知道危机将至，期待主角如何应对
-- 让读者期待反派被打脸
-
-### 写法要点
-
-- 不要谜语人——模棱两可的反派对话显得故弄玄虚
-- 大大方方写出反派计划，让读者获得信息差
-- 信息差的本质 = 提前让读者知道部分信息，制造期待
-- 不是毒点，是网文常规操作
-
-### 暗线与嵌套
-
-- 暗线存在的目的是更好地衔接、铺垫、嵌套后续剧情
-- 暗线可以是针对反派的，也可以针对道具、高层人脉、关键信息等
-- 暗线在后期必然与明线交汇，形成卷内高潮
-
----
-
-## 主角生活路线扩展关系网
-
-借助主角日常路线自然引出新的故事线和人际网络：
-
-**操作方法**：
-1. 确定主角的日常活动路线（上学/归还装备/逛集市/上班）
-2. 在日常接触点引入新角色，该角色自带关系网
-3. 新角色的关系网 = 新的故事素材来源
-
-**例子**：
-- 男主出完任务回去还器材 → 认识负责管理的美女师妹 → 师妹是某长老孙女 → 新故事线展开
-- 男主放学偶遇隔壁学校前女友 → 引出隔壁学校人际网络 → 情敌、新事件源源不断
-
----
-
-## 按题材设计循环核心
-
-不同题材的循环核心不同，抓住核心就能持续产出剧情：
-
-| 题材 | 循环核心 | 循环持续条件 |
-|------|---------|-------------|
-| 肝熟练度/低位开局 | 地图（每张地图含三种势力：训练场/地头蛇/破坏者） | 地图不崩 |
-| 长生 | 社会变迁 | 社会一直在变 |
-| 无限游戏 | 副本与现实 | 副本现实不崩 |
-| 公路文 | 人际交往（人设） | 人物不崩 |
-| 无敌流 | 敌人 | 敌人不崩 |
-| 种田/签到/囤积 | 外部环境破坏 | 外部环境持续被破坏 |
-| 脑洞文 | 核心卖点循环（设定体现卖点 → 围绕设定循环） | 核心卖点不偏 |
-
-**要点**：循环偏离核心卖点 = 失去差异化竞争力。写着写着把设定写没了 = 把卖点写丢了。
-
----
-
-## 困境循环结构（极道流拆解）
-
-适合高压环境持续压迫的写法：
-
-```
-困境（环境压迫） → 行动（运行金手指，主动解决问题） → 转折（更大困境袭来） → 行动（更强实力突围）
-```
-
-**核心**：不停给主角上强度，主角始终主动努力解决问题。刚打破困境，更大困境马上铺面而来——"寸止"体验让读者欲罢不能。
-
-**要点**：
-- 压迫要有度：让读者觉得主角有破局希望，不能喘不过气把读者压死
-- 主角始终在主动行动，不是被动等待
-- 后期压力必须高于前期，否则变成"穿着屠龙刀砍史莱姆"
-- 搭配扮猪吃虎 + 情绪拉扯 + 装逼打脸，期待感持续给足
-
----
-
-## 黄金五章开篇公式
-
-| 章 | 内容 | 功能 |
-|----|------|------|
-| 第1章 | 穿越/世界背景/主角人设/金手指/建立欲望 | 建立基础认知 |
-| 第2章 | 明确主线（获取力量/金钱/地位） | 点题 |
-| 第3章 | 展示金手指强大，获得行动能力 | 运行金手指 |
-| 第4章 | 拉仇恨/设立正方反方/安排信息差/铺垫期待 | 拉期待 |
-| 第5章 | 装逼成功/获得接下来装逼资格/触发新事件 | 第一个爽点闭环 |
-
-顺序非绝对，但相应内容缺一不可
-
----
-
-## 开头精简法
-
-开头第一个一级结构的精修方法，确保没有无效信息拖慢节奏。
-
-### 操作步骤
-
-1. 把开头第一个一级结构中的矛盾整理出来：时间、人物、地点、矛盾核心内容（冲突起因、经过、结果）
-2. 把已经写出的介绍性、抒情性、描写环境的文字逐条向上连——尝试与矛盾直接关联
-3. 能直接连上的：确保用尽可能简洁的语言表达
-4. 隔了一层或好几层逻辑才能连上的：**无效信息，必须删除**
-5. 后文没戏份的配角根本不用给名字
-
-### 对话水字数判定
-
-开头水字数的重灾区在对话上，作者往往自己感觉不到。
-
-- 开头至少两章尽量不写介绍信息的对话，相应信息由旁白代替，只写推进剧情的对话
-- 对话本质是双向叙事，会包含很多重复信息，在作者感受不到的情况下造成水字数的感觉
-
-### 开头节奏底线
-
-| 要求 | 标准 |
-|------|------|
-| 爽点/期待点出现 | 1000字内必须看到 |
-| 打斗 | 开头第一章不能上来就打斗（小说需要大量信息铺垫才能从打斗中获得爽感） |
-| 爱情线对象 | 第一个一级结构内必须出场，且是关键角色之一 |
-| 救猫咪情节 | 开头必须有强调主角人设某方面的情节（外貌/行为模式的记忆点） |
-| 氛围 | 轻松明快或平顺自然，切忌悲伤压抑或迷之情怀 |
-| 金手指展示 | 第一个冲突由金手指解决，必须详细展露一次运作方式，且主角主动选择使用（被动使用的爽感差一个度） |
-
----
-
-## 断期待诊断与修复框架
-
-断期待 = 读者对后续剧情失去期待感，是网文最大的毒点。断期待不是"写得不好"，而是"读者不再想知道接下来会怎样"。
-
-### 断期待的四种根本原因
-
-| 原因 | 表现 | 读者感受 |
-|------|------|----------|
-| **延迟满足过度** | 一直在铺垫拉期待，爽点迟迟不来 | "到底什么时候才能爽？" |
-| **换地图/换阶段处理不当** | 新环境没有快速重建期待 | "之前期待的都没了，现在跟我有什么关系？" |
-| **核心梗重复度太高** | 同一套路反复用，读者能猜到全部走向 | "又是这样，没意思了" |
-| **爽点满足感不足** | 爽点来了但力度不够，低于期待值 | "就这？" |
-
-### 持续拉期待的操作原则
-
-**核心公式：拉期待速度 > 断期待速度**
-
-读者的期待感在不断消耗，写作者必须比消耗速度更快地制造新期待。具体操作：
-
-1. **当前目标完成前，提前铺设下一目标线索**——不让读者出现"目标真空期"
-2. **满足当前期待后迅速给出新期待**——爽点释放的瞬间就是下一个钩子的最佳植入时机
-3. **砍掉不服务于核心梗的支线**——每一条无关支线都在稀释读者对主线的期待浓度
-4. **保持主角目标始终清晰**——主角不知道该干什么的时候，读者也不知道该期待什么
-5. **同一核心梗做好差异化**——升级文的每次升级，收获类型、展示方式、震惊对象都不能重复
-
-### 期待真空期急救
-
-当发现当前剧情段落的期待感已经断裂时：
-
-| 急救手段 | 操作 |
-|----------|------|
-| 反派视角转接 | 转视角展示反派行动，制造"读者知道而主角不知道"的信息差 |
-| 突发意外 | 一个不按计划发展的事件强行介入，打破当前僵局 |
-| 配角杠杆 | 用配角的危机/机遇重新制造主角必须行动的紧迫感 |
-| 超额收获 | 在预期收获之外给一个远超预期的额外奖励，重新拉高期待阈值 |
-
----
-
-## 核心梗三分法
-
-核心梗按运行方式分为三类，选哪类取决于目标长度和故事要求。
-
-| 类型 | 运行方式 | 适用场景 | 要点 |
-|------|----------|----------|------|
-| **可重复型** | 每个一级结构中重复运行，制造持续爽感 | 升级文、系统文、文抄娱乐 | 每次重复必须做差异化（收获类型、展示方式、震惊对象不能雷同） |
-| **不可重复型** | 贯穿全文但只在全文最高潮爆发一次，一锤定音 | 追妻、掉马、禁忌之恋最终公开 | 爆发前每个一级结构都要有相关期待点铺垫，且让读者明确知道这是铺垫 |
-| **长期铺垫型** | 以期待点形式贯穿，不直接运行核心梗本身 | 悬疑、复仇、解谜 | 搭配可重复型核心梗转移读者注意力，避免长期等待导致断期待 |
-
-**核心梗运行节奏**：
-- 第一个一级结构中必须运行一次（可重复型）或完成首次铺垫（不可重复型）
-- 第二、三个一级结构中最好再运行一次
-- 读者冲核心梗而来，如果连续多个一级结构不运行，读者会觉得"没那味儿"而弃书
-
-**双线构思法**：当核心梗需要重复但担心读者审美疲劳时，布两条线——一条重复运行核心梗，另一条不重复。两条线交替推进，读者始终有新鲜感。
-
----
-
-## 爱情线故事四阶段
-
-这是以故事发展阶段为维度的爱情线框架，与"关系阶段"（熟悉→试探→暧昧→确认）是两套互补体系。
-
-| 阶段 | 核心内容 | 关键操作 |
-|------|----------|----------|
-| **萍水相逢** | 两人初次相遇，建立第一印象 | 用差异评价制造张力；身份差距越大越有戏剧性 |
-| **爱情喜剧** | 两人被迫/偶然频繁接触，甜蜜互动为主 | 试探阶段是核心，占全文30-50%剧情；酸甜交替 |
-| **爱隔山海** | 外部压力/身份真相/误会将两人分开 | 烈度要高，但人设变化不是随便改，要基于原人设部分转变 |
-| **大结局** | 克服最大阻碍，在一起 | 不要再设计新矛盾，专注发糖；读者等了那么久，要给足 |
-
-### 试探阶段写法（爱情线的核心阶段）
-
-凡是以体会爱情酸甜为核心卖点的故事，试探阶段一定是重中之重。
-
-- 占比：30-50%的剧情量（单爱情线故事可到70%但不建议，30万字左右就写完了）
-- 本质：两人在不确认对方心意的情况下，反复试探、拉扯、靠近又退缩
-- 关键：每次试探都要有"甜蜜"和"酸涩"两种读法，读者自己判断是哪种
-- 百合/耽美特殊技法：给角色设计一个同性好友，经常在一起玩，对象看到就吃醋——但好友实际上知情并主动助攻。只有同性之间才不显奇怪，三人非同性别观感会变奇怪
-
-### 人设变化对冲法
-
-爱情线高潮后两人关系需要升级时，最好的思路是**双方都改变**，而且改变后恰好与之前两人之间的对应关系**反转**。注意：
-- 人设变化基于原人设部分改变，不是凭空创造新人设
-- 变化后产生的新关系形成过程中，不要再设计新矛盾，专注发糖
-- 读者承受了前面所有艰难险阻，结尾必须给足甜度——用CP行为和悉心照顾表达爱意，不要挂嘴上的"我爱你"工业糖精
-
----
-
-## 三步两线法（智斗构型）
-
-适用于需要写"有脑子"的对决场景。
-
-### 构型
-
-布出反派和主角两条线：
-1. 反派制定**三步计划**（目标→手段→时间线），每步有独立的目标和手段
-2. 主角有自己既有的计划或既得利益
-3. 两人的计划**互相牵扯**：一方完成一步，另一方就难以或无法完成自己的某一步
-
-### 牵扯方式
-
-| 方式 | 说明 |
-|------|------|
-| 资源争夺 | 双方都需要同一个稀缺资源（丹药/情报/位置），谁先得到另一方就没机会 |
-| 利益威胁 | 反派计划本身与主角计划无关，但执行后会直接威胁主角安全 |
-| 间接碰撞 | 主角在推进自己计划的过程中意外发现/干扰了反派计划的某个环节 |
-
-### 智斗要点
-
-- 反派也会根据观察调整计划——利用信息差让反派误判，读者会感叹"正常人谁想得到主角这么变态"
-- 双方各自准备的"底牌"在交锋中一一碰撞，每碰撞一次产生一次矛盾/冲突
-- 双方根据获得的对方情报选择应对方式，这个过程本身就体现"有脑子"
-- 强强对决最难写，一个中故事里最多用一次，留给大高潮
-
----
-
-## 战斗系统设计
-
-### 回合制卡牌思路
-
-小说中的打斗本质沿用了回合制卡片游戏的思路：
-
-- 每个回合一般只能使用一张"牌"
-- 要打出"组合技"（同时使用两张以上的牌），其中**最多只有一张是读者没见过的**，其他都必须在本回合之前出现过或被介绍过
-- 突然出现太多读者没见过的牌，会增加阅读成本，读者不愿意理解这场打斗
-
-### 强弱对决的性价比
-
-| 对决类型 | 难度 | 效果 | 建议 |
-|----------|------|------|------|
-| 以强击弱 | 容易写，效果好 | 性价比最高 | 多用 |
-| 以弱胜强 | 难写，容易显得无脑 | 需要铺垫充足 | 少用，必须有合理解释 |
-| 强强对决 | 最难写 | 效果最好 | 一个中故事最多一次，留给大高潮 |
-
-### 战力设定的关键规则
-
-- 高等级意味着在当前世界中身居高位或影响深远
-- 高等级之间的战斗不能只写等级差异，必须写出"史诗感"——高逼格
-- 跨越大境界对敌要么有强行阻断，要么有逆天后手，不然主角以弱胜强就显无脑
-- 敌人的短板必须比主角的长板弱，赢了才是降智
-
-### 试探→结论→推进
-
-战斗中每次试探后必须得出结论，推进战局发展。若依旧老套路对拼，看书的人会觉得无聊。试探本身就是收集信息、判断对手弱点的过程。
-
----
-
-## 升级文具体技法
-
-### 升级前后铺垫
-
-- **升级前**：先铺垫未升级时的待遇差距、资源获取难度差异、六要素四需求的受限程度
-- **升级后**：多方面展示变化——不止战力提升，还要写待遇变化、人际关系变化、资源获取变化
-
-### 升级次数控制
-
-- 主角的升级最好不超过3次，在质量上提升而非数量上堆叠
-- 越升级应该越容易，所需经验越少——但为了显长，做取舍
-
-### 即时反馈与延迟反馈
-
-设计升级/种田/战斗系统时，最好同时设置两种反馈：
-
-| 反馈类型 | 作用 | 示例 |
-|----------|------|------|
-| 即时反馈 | 每次行动立刻给一个小奖励，维持阅读动力 | 打怪掉落资源/物品 |
-| 延迟反馈 | 积累到一定程度爆发一次大奖励 | 经验值满升级/药草成熟/技能解锁 |
-
-### 升级与现实概念的关联
-
-最好把升级机制与现实世界中人们熟悉的事物联系起来：呼吸变强、睡觉变强、晒太阳变强、多子多福生崽变强、泡妞变强——越日常越好理解，读者天然有代入感。
-
-### 升级后写长的三种方式
-
-| 方式 | 操作 |
-|------|------|
-| 扩展地图 | 增加力量体系上限，多层世界设定（但开篇不要一次性交代完整世界观） |
-| 压等级+复杂化 | 将一个原本简单的晋级目标拆成三个剧情的篇幅：去之前遇到意外→过程中遭遇挫折→完成其他装逼打脸，最后才达成目标 |
-| 转换写作内核 | 从写升级/装逼打脸，转向写人设——多写配角线和支线，从"线"到"网状"，配角与主角阶段性强互动，剧情线交叉 |
-
----
-
-## 大结构小结构理论
-
-### 大结构：欺骗式主线
-
-大结构是一种"欺骗式"的主线推进，本质是拼多多式的"砍一刀"：
-
-| 步骤 | 操作 |
-|------|------|
-| 1 | 设定一个噱头主线（如"马甲曝光线"） |
-| 2 | 看似推进，实际只推进 99% |
-| 3 | 剩余 1% 变成新的 100%，继续循环 |
-| 4 | 每次都差一点点才揭底 |
-
-**操作方法**：用世界剧情（两方势力对抗、两个种族对抗）制造持续质疑，主角每次打破质疑但都差一点点才完全暴露身份。
-
-### 小结构：爽点循环
-
-小结构是爽点的循环设计，核心在于：
-
-1. **选你喜欢的爽点**——如果不喜欢这个爽点，循环几次就写不下去了
-2. **不断扩展延伸**——保持核心情绪不变
-3. **填充大结构**——用小循环不断填充大循环内的空间
-
-### 两种爽点的交替
-
-| 类型 | 特征 | 示例 |
+| Cap. | Conteúdo | Função |
 |------|------|------|
-| 普通爽点 | 套路化装逼打脸，所有人不看好→主角逆转 | 标准打脸流程 |
-| 特制化爽点 | 精心构建的核心情绪 | 修仙版地狱笑话（荒诞感） |
+| 1 | Chegada ao mundo/contexto/caracterização/vantagem/desejo | Cognição básica |
+| 2 | Trama principal clara (poder/dinheiro/posição) | Dizer o tema |
+| 3 | Mostrar a força da vantagem, obter capacidade de ação | Pôr a vantagem para rodar |
+| 4 | Gerar ódio/criar lados/assimetria/preparar expectativa | Puxar expectativa |
+| 5 | Virada de mesa, qualificação para a próxima, novo evento | Primeiro ciclo de recompensa fechado |
 
-两种爽感应该交替循环：ABAB / AAB / BBA 都可以。特制化爽点是区别于同类书的关键。
+A ordem não é absoluta, mas nenhum conteúdo pode faltar.
 
----
+**Enxugar a abertura**: 1) ponha em lista as contradições da primeira estrutura de abertura: tempo, personagens, lugar, núcleo (origem, processo, resultado); 2) ligue cada trecho explicativo, lírico ou descritivo à contradição; 3) o que liga direto: diga com a maior concisão; 4) o que só liga com uma ou várias camadas de lógica intermediária é **informação inútil: cortar**; 5) coadjuvante sem cena depois nem precisa de nome. **Enrolação em diálogo**: o diálogo é a pior fonte de enrolação, e o autor nem percebe; nos dois primeiros capítulos evite diálogo de apresentação e use narração; escreva só diálogos que avançam a trama (diálogo é narração em duas vias e carrega muita informação repetida).
 
-## 土豆式开篇期待感建立法
+| Piso de ritmo | Padrão |
+|------|------|
+| Ponto de recompensa/expectativa | Visível nas primeiras 650 palavras |
+| Luta | Não comece o primeiro capítulo com luta (a luta precisa de muita informação para dar prazer) |
+| Interesse romântico | Entra na primeira estrutura de abertura e é um dos personagens-chave |
+| "Salvar o gato" | Uma cena de abertura que destaque um traço do protagonista (aparência, padrão de comportamento) |
+| Atmosfera | Leve e animada ou fluida e natural; nunca triste e pesada ou de "saudosismo" sem sentido |
+| Mostrar a vantagem | O primeiro conflito é resolvido pela vantagem e ela é detalhada uma vez, por escolha ativa do protagonista (uso passivo perde um grau de prazer) |
 
-天蚕土豆每本书开篇就直接勾勒出家族上下的利益关系和矛盾：
+## 26. Diagnóstico e reparo da quebra de expectativa
 
-1. 第一章交代清楚主角/父亲/爷爷和家族的矛盾仇恨与利益关系
-2. 第二章用父亲教导主角练武，主角进步神速拉期待
-3. 第三到五章主角找到/探索金手指奥秘
-4. 第五六章用金手指修炼进步神速
-5. 第七章反派再惹主角，主角当即报仇
+Quebra de expectativa = o leitor perde a vontade de saber o que vem, o maior ponto de rejeição; não é "escrever mal", é "o leitor deixa de querer saber".
 
-**关键技巧**：在写主角变强复仇（短期待）的过程中，频繁用长期待"挠"读者。如在族比中取胜能拿到疗伤灵药、父亲欣慰主角进步、金手指可以给父亲疗伤等。满足短期待的同时，不断调动长期待。
-
----
-
-## 大纲体系方法论
-
-### 大纲三层结构法
-
-| 层级 | 内容 | 自由度 |
-|------|------|--------|
-| **大纲** | 主体发展方向，几百字 | 必须坚守 |
-| **剧情纲** | 完整故事线，相对细腻 | 既尊重也可适度变化 |
-| **细节纲** | 灵感爆发点、对话、小场景 | 完全独立，可挪到任何位置 |
-
-三层越详细越好，全做细写十万字都是小意思。
-
-**脱缰与收缰**：创作中剧情偏离大纲很常见，关键是能拉回来。例：大纲=主角拜山门→拜师→学艺，临场写了"入山门失败"→解法：再拜一次山门/以另一种形式回归主线。限制越多→想出来的故事反而越好。
-
-### 三种大纲写法
-
-| 方法 | 适用 | 核心操作 | 优缺点 |
-|------|------|----------|--------|
-| **地图式** | 玄幻、新手 | 按地图更换写剧情进度，标注实力变更/配角/大事件/爽点 | 容易上手，缺乏大局观 |
-| **分卷式** | 成熟写手 | 按主干剧情节点分卷，设起始点+终点+重大节点 | 层次明确节奏好，要求较高 |
-| **填鸭式** | 创作初期 | 先建框架（主角/配角/金手指/矛盾/爽点），再往里填内容 | 不必一气呵成，零碎时间构思 |
-
-### 细纲与章纲实操
-
-**细纲写法**：三千字一章拆成三个一千字情节骨架，每章细纲250-350字。写作时只需描述、润色、衔接。有细纲时速稳定四千，无细纲忽高忽低。
-
-**章纲写法**：码字前根据细纲做最后一层设计，具体到每章的情绪节奏、场景笔墨分配、冲突/铺垫/悬念细节。
-
----
-
-## 高潮分类与反推体系
-
-### 高潮的两大类
-
-**1. 现实高潮**（社会热点/都市噱头）：路怒症、出轨、扶弟魔、骗彩礼、霸凌、职场画饼、冤案、道德绑架、碰瓷等。
-- 现实高潮是都市文最容易挣钱的武器
-- 不要照搬现实，要把情绪极限化——让愤怒再增加一层甚至多层
-- 一般不作为书结尾，放在开头吸睛或卡在上架时拉动订阅
-
-**2. 作品高潮**（8类）：
-
-| 类别 | 说明 | 典型 |
+| Causa | Manifestação | Sentimento do leitor |
 |------|------|------|
-| 情绪共鸣类 | 最常见，九成多高潮属此类 | 热血、七情、爱恋、情怀 |
-| 六感冲击类 | 视觉>听觉为主 | 玄幻大场面、恐怖视觉冲击 |
-| 冲突爆发类 | 最容易制造的高潮 | 争权夺势、爱恨情仇、背叛谋利 |
-| 升级收获类 | 每次突破都是高潮 | 境界突破、装备获取 |
-| 反差震惊类 | 信息差暴露后的震惊 | 装逼打脸、身份曝光 |
-| 高智解密类 | 智力博弈的悬念揭晓 | 悬疑推理、计谋揭秘 |
-| 怪诞诡异类 | 满足猎奇期待 | 规则怪谈、克苏鲁 |
-| 其他类 | 无法归类的特殊高潮 | — |
+| **Gratificação adiada demais** | Só prepara e a recompensa não chega | "Quando vai ser bom?" |
+| **Mudança de cenário/fase mal tratada** | O novo ambiente não reconstrói expectativa | "O que eu esperava sumiu; o que isso tem a ver comigo?" |
+| **Conceito central repetido demais** | A mesma fórmula, o leitor adivinha tudo | "De novo, perdeu a graça" |
+| **Recompensa fraca** | A recompensa chega abaixo da expectativa | "Só isso?" |
 
-### 高潮反推四要素
+**Regra de ouro: velocidade de criar expectativa > velocidade de quebrá-la.** 1) antes de cumprir o objetivo atual, plante pistas do próximo (sem "vazio de objetivo"); 2) satisfeita a expectativa, dê logo a nova (o instante da recompensa é o melhor para plantar o próximo gancho); 3) corte subtramas que não servem ao conceito central (cada subtrama irrelevante dilui a expectativa da principal); 4) mantenha sempre claro o objetivo do protagonista (se ele não sabe o que fazer, o leitor não sabe o que esperar); 5) diferencie o conceito central (em cada evolução, o tipo de ganho, a forma de mostrar e os alvos do choque não podem se repetir).
 
-确定高潮后，反推需要同时考虑：①角色 ②背景 ③故事线 ④情绪演变（后两个必须结合）。
+**Primeiros socorros para vazio de expectativa**
 
-以"扮猪吃虎"型高潮为例：
-```
-身份隐藏 → 开始压主（调动憋屈）→ 压主叠加（愤怒递增）→ 最终压主（重要角色背叛→极端愤怒）→ 身份曝光+装逼打脸（情绪释放）
-```
+| Recurso | Operação |
+|------|------|
+| Troca para o ponto de vista do antagonista | Mostra a ação do antagonista, criando assimetria "o leitor sabe, o protagonista não" |
+| Imprevisto | Um evento fora do plano rompe o impasse |
+| Alavanca de coadjuvante | A crise/oportunidade de um coadjuvante recria a urgência de o protagonista agir |
+| Ganho acima do esperado | Um prêmio muito acima do esperado eleva de novo o limiar de expectativa |
 
-**压主角色分配**：全员恶人=爽度最高但真实感缺失；九恶一好=更真实，"好人"角色可引动后续故事线。
+## 27. Conceito central em três tipos; quatro fases do romance; duelo de inteligência
 
-### 逆推锚点法（前提法）
+**Conceito central em três tipos** (a escolha depende da extensão e das exigências)
 
-将一本书分为【世界观】和【剧情】两部分：
-
-**全书锚点设定**：先定开头和结局（如"杂役弟子→推翻统治者→长生不死"）。以锚点为中心开始提问：统治者是谁？为什么要推翻？实力如何？主角用何手段？需要达到什么境界？每个问题衍生一条线，思维导图指数级展开。
-
-**分卷逆推法**：先想几个高潮点→以高潮为锚点逆推→提问（天骄是谁？什么境界？与主角何仇怨？如何结怨？）→逆推得出铺垫和主线→稍作整理→细纲便出。
-
----
-
-## 换地图与地图架构
-
-### 换地图方法论（四代演进）
-
-| 代际 | 名称 | 核心 | 问题 |
+| Tipo | Funcionamento | Cenário | Pontos |
 |------|------|------|------|
-| 1.0 | 飞升流 | 凡间→仙界→神界 | 人际关系全抛弃，追读断崖 |
-| 1.1-1.9 | 改良飞升流 | 自下而上送人 / 自上而下接人 | 有改善但割裂感仍在 |
-| 2.0 | 莲花地图法+历史千层饼 | 莲心核心地图+花瓣分支 / 同一地图叠加多时代历史 | 莲花法空间有局限，千层饼设计难度高 |
-| 3.0 | 新范式 | 家族流 / 模拟器 / 版本迭代 | 需从中期开始铺垫 |
+| **Repetível** | Roda em cada estrutura de primeiro nível, gerando prazer contínuo | Progressão, sistema, entretenimento | Cada repetição se diferencia (tipo de ganho, forma de mostrar) |
+| **Não repetível** | Atravessa o livro, mas explode uma vez só, no clímax geral | Reencontro, identidade revelada, amor proibido que se torna público | Antes da explosão, cada estrutura tem expectativa ligada |
+| **De preparação longa** | Vira ponto de expectativa que atravessa o texto, sem rodar o conceito em si | Suspense, vingança, enigma | Combine com o repetível para desviar a atenção e evitar a espera longa |
 
-**莲花地图法详解**（如《大奉打更人》）：主角活跃于莲心中心地图，瓶颈时去花瓣走一圈，核心人际关系保留在莲心。每个花瓣地位平等，可从任意花瓣进入，不产生割裂感。
+**Ritmo do conceito central**: na primeira estrutura de primeiro nível ele precisa rodar uma vez (repetível) ou ter a primeira preparação (não repetível); na segunda e na terceira, de preferência de novo; o leitor veio pelo conceito: se várias estruturas passam sem rodá-lo, ele sente "perdeu o sabor" e abandona. **Método das duas linhas**: quando o conceito precisa se repetir e há risco de fadiga, monte duas linhas, uma que repete e outra que não; alternadas, o leitor sempre sente novidade.
 
-**宅猪换地图三法**：
-1. **千丝万线法**：两个大地图间不断穿针引线，让旧地图熟人先飞升过去
-2. **不换大地图法**（凡人修仙传法）：只换小地图，都在一个大地图里转，直到完本才飞升
-3. **莲花地图法/千层饼法**：地图像莲花层层展开，每一层都在同一个大框架内
+**Quatro fases da história do romance** (complementar às fases da relação)
 
-### 顶层框架法（防地图崩盘）
-
-**核心**：开书前先设整张地图所有顶尖势力作为"柱子"，从上而下覆盖。
-
-**操作**：
-1. 设置地图中所有顶尖势力（凡人流：四个化神真君坐镇的圣地=四根柱子）
-2. 从顶层向下延展：区域→小家族→小宗门→功法宝物
-3. 每个出场人物都与某个顶层势力挂钩，不知不觉丰富世界观
-
-**刻度尺思维**：提前设计顶层实力表现力作为标杆（化神一击毁大陆=100）。开头boss=5，中期=50，后期才写100。内心有框架束缚，避免前期主角就把整个房子拆了。
-
-**理想状态**：80%字数在一张地图上，最后收尾才跳出地图，主角取代顶层框架之一。
-
-### 人际关系先行法
-
-去下一个地图前，先把人际关系铺出去。例：去郡城前→郡城有人先过来下发奖励→去郡城=升官=有收获爽点。核心：人际关系动了→主角再动→不是主角莫名其妙跑去新地方。
-
----
-
-## 桥段与节奏工程化
-
-### 工程化桥段拆解法
-
-把300万字的书拆成200-300个桥段，每个桥段约4章，每章有明确功能。
-
-**整体拆解**：
-- 300万字≈40-50个单元→每单元6-8万字
-- 每单元包含4-5个桥段→每桥段约1万多字≈4章
-
-**四章一桥段标准结构**：
-
-| 章 | 功能 | 比例 | 要点 |
-|----|------|------|------|
-| 第一章上 | 代入：日常场景+熟悉角色互动 | — | N+1原则，用熟悉内容降低抗拒感 |
-| 第一章下 | 信息差：展示对手/困境/机会 | 5:5 | 切镜头展示对方困境→主角金手指可解 |
-| 第二章 | 拉扯增强：配角反应+神态+心理 | 9:1 | 结尾必须让主角开始装=钩子 |
-| 第三章 | 兑现：把爽感写透，装逼到位 | — | 最好写的一章，不需留钩子 |
-| 第四章 | 承上启下：善后+开启下个目标 | — | 要么收尾上个桥段，要么开启下个，其余皆废 |
-
-**圈内不圈外原则**：先给内容画圈，整本书只在圈内写核心卖点相关，防止跑偏。圈内东西越多样、变化越多，阅读感越好。
-
-### 高潮节奏与日常过渡法
-
-**高潮节奏铁律**（卖报小郎君经验）：
-- 大高潮：7-10天完成（日双更/约14章），超10天读者反感
-- 小高潮：3天左右完成
-- 高潮结束后：1-2章日常过渡，使节奏自然
-
-**高潮间过渡的伏线法**：在高潮情节之前穿插支线人物和剧情作为伏笔，高潮结束后将埋下的伏线拎出来，自然过渡到下一段。例：写长国公高潮前先提"南疆丽娜要来"，高潮后写丽娜途中失踪→天地会营救→丝滑过渡。
-
-### 阶段衔接不崩的三大解法
-
-1. **高潮中埋钩子**：上一段高潮扩散过程中，开始放下一段的钩子，前段结束直接进入下段
-2. **尾巴给目标**：一段剧情结束时给主角明确的下阶段目标，然后直接切入
-3. **连续小期待**：在过渡章持续放小钩子，维持读者的打开欲望
-
-**偏离卖点的自检法**：每写完一段剧情，回头审视——这段是否满足了这个题材的核心情绪？卖点不变，包裹卖点的"故事形式"可以变，但卖点本身不能丢。
-
----
-
-## 多线写长技法
-
-### 多线并进与挖坑填坑法
-
-从开头主线开始就要埋伏笔开支线，不是写完主线再想支线。
-
-**核心操作**：
-- 主线和两条以上支线同时展开→主线一停→支线接入→支线与主线有莫大关系
-- 主角处理一件事时出现新势力/新秘密/新物件→先塑造悬疑感→不马上揭开
-- 有的坑一段时间填，有的贯穿到结尾
-- 不断填坑挖坑=剧情不断延展
-
-**防止卡文的实操**：下副本结束获得收获后卡壳？如果有另外两条线同时进行→直接让其中一条接入主线。理论上同时进行的剧情线越多→主角有写不完的事。
-
-### 多线缓解疲劳法
-
-- 长剧情（十几章的案件）中间插入半章配角视角的无关事件→短暂放松
-- 切换要自然：主线中埋下支线伏笔→适当时候展开→最后回到主线
-- 烧脑剧情尽量只跟主角走——避免过多描写反派破坏未知期待感
-
----
-
-## 卖点与需求理论
-
-### 卖点偏移论与需求分析法
-
-**核心认知**：崩盘的根本原因不是技巧差，而是"卖点偏移"——写着写着，爽点背后满足的需求和读者进来想要的不一样了。
-
-**需求清单**（卖点背后的心理需求）：三情（亲情爱情友情）、成为大人物幻想、不劳而获幻想、被尊重/被认同/被理解、惩恶扬善、公平、优越感、冒险欲、好奇心、成长、收获、暴力欲、安全感、新鲜感、情怀、弥补遗憾。
-
-**爆款公式**：抓住一种需求且一直抓着不偏移。
-- 苟道文→安全感需求
-- 恐怖屋→刺激需求
-- 生活系游戏→亲情需求
-- 家父汉高祖→亲情+大人物幻想+优越感+安全感（覆盖面更大所以更火）
-
-**主题统一性原则**：核心卖点、主线目标、矛盾、每个单元剧情的收获，四者需要高度统一且对应同一个读者群的需求。
-
-### 卖点双层论
-
-- **题材卖点**：读者为什么看这类题材？（如文娱=人前显圣+和女明星暧昧）
-- **书的卖点**：读者为什么看"你这本书"？（接地气/深情/身份流/最穷等差异化标签）
-- 自检：写着写着爽点偏向了另一个题材的卖点=偏题
-
-**核心框架法**：围绕卖点建立固定套路，要素可变但本质不变。例：古玩街文核心套路=主角去古玩街→捡漏→震惊→收获。最小4000字一个故事，最大12万字一个故事，本质一模一样。
-
----
-
-## 开篇与切入点设计
-
-### 双身份双金手指切入点
-
-**显性身份（社会身份/职业）**：摆在明面上的标签=职业+状态（如"穷困山村出来的刚毕业学生"而非仅仅"学生"）。作用：汇集前期矛盾。关键规则：显性身份必须不断变化，一个身份能汇集的矛盾有限。
-
-**隐性身份（身世/来历）**：流落凡尘的皇子、归隐田园的大宗师、穿越者等。作用：汇聚中后期核心矛盾。必须与整本书的核心矛盾联系在一起才有用。
-
-**显性金手指**：系统、玉坠、重生记忆等。必须是能力集合，每次使用有新东西。
-
-**隐性金手指=主角性格**：性格也是金手指——让主角与众不同的就是金手指。前提：必须是读者理想中的性格（勇敢可以，窝囊废不行）。作用：中后期提供爽感。最佳写法：前期以显性金手指装逼为主，剧情推进中逐步清晰主角人设。
-
-**四点统一原则**：社会身份、身世、金手指、性格四个东西都要想清楚、高度统一。
-
-### 书名公式大全
-
-核心原则：≤15字，3秒内看懂核心卖点，关键词精准，书名与内容强相关。
-
-| 类型 | 公式 | 示例 |
+| Fase | Conteúdo | Operação |
 |------|------|------|
-| 身份反差型 | 弱势身份+强势行为 | 《出狱当天，千亿财阀排队接我》 |
-| 行为反差型 | 常规任务+离谱操作 | 《让你当兵戒网瘾，你成就黑客帝国》 |
-| 结果反差型 | 被虐+打脸逆袭 | 《离婚后，前夫跪求我回头》 |
-| 数字对比型 | 极端数字+反常识 | 《修仙五分钟，无敌两千年》 |
-| 情绪悬念型 | 痛点+爽点反转 | 《年夜饭吃到一半，弹出死亡倒计时》 |
-| 系统金手指型 | 普通身份+离谱系统 | 《每天签到1㎡，90天买下整栋楼》 |
-| 疑问反问型 | 陈述+反问 | 《纳税百亿，你管这叫小微企业？》 |
-| 极端设定型 | 极端身份+极端能力 | 《我一个读书人，武功怎么天下无敌了》 |
-| 视角错位型 | 已知信息的我方vs未知信息的敌方 | 《全宗门都以为我是废柴，直到仙尊跪地喊师尊》 |
-| 佛系反差型 | 高压环境+摆烂主角 | 《末世降临，我选择回家种田》 |
-| 被动碰瓷型 | 我只想xx+奈何你们非要作死 | 《我只想安静种田，非要让我当武林盟主》 |
+| **Encontro casual** | Primeiro encontro, primeira impressão | Crie tensão com avaliações diferentes; quanto maior a diferença de posição, mais drama |
+| **Comédia romântica** | Contato forçado/acidental frequente, doçura | A sondagem é o núcleo: 30-50% do enredo; doce e azedo alternam |
+| **Amor entre montanhas e mares (separação)** | Pressão externa/verdade de identidade/mal-entendido separa os dois | Alta intensidade, mas mudança de personalidade parte da original |
+| **Final** | Vencem o maior obstáculo e ficam juntos | Sem novos conflitos: só doçura; o leitor esperou muito, dê o suficiente |
 
----
+**Fase de sondagem**: em histórias cujo atrativo é provar o doce e o azedo do amor, é o mais importante; ocupa 30-50% do enredo (só amor pode chegar a 70%, não recomendado); essência: sem saber o que o outro sente, os dois sondam, puxam, se aproximam e recuam; cada sondagem deve ter leitura "doce" e "azeda" (o leitor decide). **Compensação de mudança de personalidade**: depois do clímax, para a relação subir de nível, o melhor é **os dois mudarem**, de modo que fique o inverso do que era antes; a mudança parte da personalidade original; na nova relação, sem novos conflitos: doçura concreta (ações de casal, cuidado), não "eu te amo" industrial.
 
-## 创作辅助方法论
+**Método das três etapas e duas linhas (duelo de inteligência)**: duas linhas, antagonista e protagonista. 1) o antagonista faz um **plano de três passos** (objetivo → meio → cronograma), cada passo com objetivo e meios próprios; 2) o protagonista tem plano ou interesse próprio; 3) os planos se **enroscam**: quando um completa um passo, o outro não consegue completar o seu. *Formas de enroscar*: disputa de recurso (ambos precisam do mesmo recurso escasso: informação, poção, posição; quem pega primeiro tira a chance do outro); ameaça de interesse (o plano do antagonista não tem a ver com o do protagonista, mas, executado, o ameaça diretamente); choque indireto (o protagonista, ao avançar o seu plano, descobre ou perturba um elo do plano do antagonista).
 
-### 改编法（从积累中提取剧情原型）
+**Sistema de combate (resumo)**: desenhe poder, custo, limite e contraponto de cada lado; faça a luta servir à recompensa e à caracterização; ver `style-modules.md`, seção 19.
 
-**核心观点**：好剧情不是公式推导出来的，是改出来的。
 
-**调集积累三步法**：
-1. 打开书架，盯着看过的书封面回想记忆深刻的剧情片段
-2. 点开目录（不看正文），浏览章节名，把能想起来具体内容的记下来
-3. 这些记下来的内容就是你积累的精华，是可以发掘的宝藏
+## 28. Técnicas concretas de progressão
 
-**改编实操：对照法**：
-1. 通过矛盾寻找目标：确定主角当前面临什么矛盾，在积累库中搜索类似剧情
-2. 对照改编：将找到的剧情拆成细纲放左边，自己的书的情况放右边，逐点改编——世界观不同、人物关系不同、金手指不同，必须大刀阔斧地改
-3. 调整优化：反复修改，做到自己能力的极限
+### 28.1 Preparação antes e depois de subir
+*Antes*: mostre a diferença de tratamento e de acesso a recursos de quem ainda não subiu, e o grau de restrição de suas necessidades básicas. *Depois*: mostre a mudança em várias frentes: não só poder, mas tratamento, relações, acesso a recursos.
 
-**关键认知**：改到不一样就是原创。从一段几万字的小剧情改编成上百万字的大剧情，这种改编值得推崇。
+### 28.2 Controle do número de evoluções
+O protagonista deve evoluir no máximo umas 3 vezes (ganhar em qualidade, não em quantidade empilhada); evoluir deve ficar mais fácil, com menos experiência necessária, mas, para alongar, faça escolhas.
 
-### 同人衍生型大纲法
+### 28.3 Retorno imediato e retorno adiado
+Em sistemas de progressão, construção ou combate, ofereça os dois:
 
-**核心思路=借力创作**：以历史事件/现实经历/内容作品的剧情为基点，演化衍生出新设定、人物、剧情。
+| Tipo | Função | Exemplo |
+|------|------|------|
+| Imediato | Pequeno prêmio a cada ação, mantém a motivação | Monstro derrotado larga recurso/objeto |
+| Adiado | Acumula até uma grande explosão | Experiência cheia sobe o nível; a erva amadurece; a habilidade desbloqueia |
 
-**适用人群**：新人（弥补世界观不完整、设定BUG多、人物单薄、脑中剧情少）；老作者（解决人物脸谱化和剧情套路化）。
+### 28.4 Ligar a evolução a conceitos do mundo real
+Quanto mais cotidiano, mais fácil de entender e mais identificação: ficar forte respirando, dormindo, tomando sol, cuidando da família numerosa. *Exemplo*: uma padeira que ganha poder a cada fornada bem assada.
 
-**类同人题材**：古代历史文、架空历史文、神话系玄幻（西游/封神/山海经）、历史系玄幻（皇朝玄幻，收益上限最高）。
+### 28.5 Três formas de alongar depois de subir
 
-**同人大纲四步法**：
-1. **阅读内容**：看书/看剧/看游戏/看历史
-2. **资料收集**：世界观、人物、设定、时间事件→收集到文件里
-3. **信息提取**：偏重高逼格和极致情绪，提取最适合读者的信息
-4. **衍生创作**：拆分融合→将人物/设定/事件拆分或融合，衍生创新
+| Forma | Operação |
+|------|------|
+| Expandir o mapa | Elevar o teto do sistema de poder e criar mundos em camadas (sem despejar o mundo completo na abertura) |
+| Comprimir o nível e complicar | Quebrar uma meta simples de promoção em três enredos: imprevisto antes → revés no caminho → outras viradas, e só por fim a meta |
+| Trocar o núcleo da escrita | Sair de "subir/virada de mesa" para a caracterização: mais linhas de coadjuvantes e subtramas, da "linha" para a "rede", com interações fortes por fase |
 
-**关键细节**：重要人物经历/年龄/性格必须记录；时间轴对应的重要事件必须记录；力量体系必须提前落定。
+## 29. Estrutura grande e pequena
 
-### 三重重复循环法
+### 29.1 Grande estrutura: trama principal "de isca"
+É um avanço "enganoso" da trama principal: no fundo, o "mais um empurrãozinho":
 
-解决"害怕写重复、总是写歪核心卖点、写不长就太监"的瓶颈。
+| Passo | Operação |
+|------|------|
+| 1 | Definir uma isca como trama principal (por exemplo, "a linha da identidade secreta") |
+| 2 | Parece avançar, mas só avança 99% |
+| 3 | O 1% restante vira o novo 100% e o ciclo recomeça |
+| 4 | Toda vez falta pouco para revelar |
 
-**含金量排序**：看点重复 < 人物重复 < 剧情重复 < 文笔套路重复
+*Operação*: use enredo de mundo (duas forças ou raças em confronto) para criar dúvida contínua; o protagonista a derruba toda vez, mas sempre falta um fio para a identidade se expor.
 
-**一、看点重复（核心卖点循环）**：
-- 抓住读者想看的那个点，不要变动，死死写
-- 不要怕读者看腻——腻了才知道如何改
-- 看点≠金手指本身，而是金手指延伸出的情绪
+### 29.2 Pequena estrutura: ciclo de recompensa
+1) **escolha a recompensa de que você gosta** (se não gosta, não aguenta escrever o ciclo); 2) **estenda sempre**, mantendo a emoção central; 3) **preencha a grande estrutura** com ciclos pequenos que ocupam o espaço dentro do grande.
 
-**二、人物重复点（差异化关键）**：
-- 读者对特定人物行为有偏好：苟、犯贱、挑拨离间、无耻、爱财等
-- 同一个行为可以换场景重复：25章黑虎帮→25章某个家族→25章宗门
-- 反派也需要看点：如男反派因师妹喜欢强者而不断变强，不断和主角对比→可重复刷新剧情
+### 29.3 Dois tipos de recompensa alternados
 
-**三、套路重复点（通用模板）**：
-- 基础模板：男主+男配（对比烘托）+女配（奖励）+名额（看点）+限时（烘托）
-- 场景变化但模板不变：护卫选拔→花魁诗词→宗门壁画→儒家机关术
-- 高级套路=读者看不出有套路但已经被吸引
+| Tipo | Característica | Exemplo |
+|------|------|------|
+| Comum | Virada de mesa de fórmula: todos duvidam → o protagonista vira | Fluxo padrão |
+| Personalizada | Emoção central construída com cuidado | Humor absurdo de um inferno burocrático, por exemplo |
 
-**防歪要点**：主线≠主角的目标，更多是"读者想看的东西"。怕腻→写歪→成绩没了，这是最常见的失败模式。
+Alterne (ABAB / AAB / BBA); a recompensa personalizada é o que diferencia o livro dos do mesmo gênero.
 
-### 极简大纲法（升级体系即骨架）
+## 30. Abertura "de herdade": expectativa na entrada
 
-**核心**：把升级体系本身当作大纲，不需要复杂的人物关系图和剧情走向。
+Um autor de sucesso abre cada livro traçando já os interesses e conflitos da família: 1) capítulo 1: esclarece o conflito e o ódio/interesse entre protagonista, pai, avô e a família; 2) capítulo 2: o pai ensina artes marciais e o protagonista progride rápido (expectativa); 3) capítulos 3 a 5: o protagonista encontra/explora o segredo da vantagem; 4) capítulos 5 e 6: treino acelerado com a vantagem; 5) capítulo 7: o antagonista provoca de novo e o protagonista se vinga na hora. **Técnica-chave**: enquanto o protagonista fica mais forte e se vinga (expectativa curta), "cutuque" o leitor com expectativas longas: vencer o torneio da família dá um remédio, o pai se orgulha, a vantagem pode curar o pai.
 
-**游戏设计思维**：每一卷=一个关卡。关卡有：入口条件（上一卷结尾）→核心挑战（本卷主要矛盾）→Boss战（卷高潮）→通关奖励（新能力/新地图/新关系）。
+## 31. Metodologia do esboço em três camadas
 
-**极简大纲模板**：
-- 全书设定（1页）：世界观/力量体系/核心矛盾/结局方向
-- 分卷大纲（每卷1页）：本卷目标/核心冲突/关键角色/高潮事件/与下一卷衔接
-- 人物卡（主要角色各半页）：核心需求/性格标签/关键转变点/与主角关系变化
+### 31.1 Três camadas
 
-**升级体系表格**：
+| Camada | Conteúdo | Liberdade |
+|------|------|------|
+| **Esboço** | Direção geral, algumas centenas de palavras | Deve ser mantido |
+| **Esboço de enredo** | Linha completa, mais detalhada | Respeita-se, mas pode variar um pouco |
+| **Esboço de detalhes** | Lampejos, diálogos, pequenas cenas | Totalmente independente, pode ir a qualquer ponto |
+
+Quanto mais detalhadas as três, melhor; detalhado, escrever cem mil palavras é fácil. **Desviar e voltar**: sair do esboço é comum; o que importa é conseguir voltar. *Exemplo*: esboço = protagonista entra na ordem → pega um mestre → aprende; no texto escrevi "falha ao entrar" → solução: tentar de novo / entrar de outra forma.
+
+### 31.2 Três modos de escrever esboço
+
+| Método | Indicado | Operação | Prós e contras |
+|------|------|------|------|
+| **Por mapa** | Fantasia, iniciantes | Escreva o progresso do enredo por troca de mapa, marcando evolução de poder, coadjuvantes, eventos e recompensas | Fácil de começar, falta visão geral |
+| **Por volumes** | Autores maduros | Divida por nós da trama principal, com ponto inicial, final e nós importantes | Camadas claras e bom ritmo, exige mais |
+| **De enchimento** | Início da criação | Primeiro o arcabouço (protagonista, coadjuvantes, vantagem, conflito, recompensa), depois preencha | Não precisa de uma só tacada; planeje em tempos picados |
+
+### 31.3 Esboço detalhado e de capítulo na prática
+**Detalhado**: um capítulo de três mil palavras se divide em três esqueletos de mil palavras; cada detalhado de 250 a 350 palavras; ao escrever só falta descrever, polir e ligar; com detalhado, a velocidade estável em quatro mil palavras por dia; sem, oscila. **De capítulo**: antes de escrever, a última camada de desenho: ritmo emocional de cada capítulo, distribuição de texto por cena, detalhes de conflito/preparação/suspense.
+
+## 32. Classificação de clímaxes e dedução inversa
+
+### 32.1 Duas grandes classes
+**1. Clímax realista** (assuntos sociais): fúria no trânsito, traição, irmão parasita, golpe do dote, bullying, promessa vazia no trabalho, injustiça, chantagem moral, golpe do acidente etc. É a arma que mais rende na ficção urbana; não copie a realidade: leve a emoção ao extremo (some uma ou mais camadas de raiva); em geral não serve de final do livro, vai na abertura (chamar a atenção) ou no ponto de lançamento.
+**2. Clímax da obra** (8 tipos)
+
+| Tipo | Explicação | Típico |
+|------|------|------|
+| Ressonância emocional | O mais comum, nove em dez clímaxes | Coragem, sentimentos, amor, nostalgia |
+| Impacto sensorial | Mais visual > auditivo | Grandes cenas de fantasia, terror visual |
+| Explosão de conflito | O mais fácil de criar | Disputa de poder, amor e ódio, traição por interesse |
+| Ganho de progressão | Cada rompimento é um clímax | Rompimento de nível, obter equipamento |
+| Choque de contraste | Choque depois da assimetria exposta | Virada de mesa, identidade revelada |
+| Decifração engenhosa | Suspense do duelo de inteligência | Mistério, dedução, plano revelado |
+| Estranho e sinistro | Satisfaz a busca do bizarro | Terror de regras, horror cósmico |
+| Outros | Clímax inclassificável | — |
+
+### 32.2 Quatro elementos da dedução inversa
+Definido o clímax, deduza considerando: ① personagens ② cenário ③ linha de enredo ④ evolução emocional (os dois últimos precisam estar juntos). *Exemplo* ("subestimado que revela o talento"):
 ```
-等级 | BOSS | 挑战要求 | 关键功法 | 关键装备 | 奖励
+identidade escondida → começa a pressão (emoção de aperto) → pressão se soma (a raiva sobe) → pressão final (traição de alguém importante → raiva extrema) → identidade revelada + virada de mesa (liberação)
 ```
-把一路要干掉的BOSS和精英设定好，主线剧情自然出来。BOSS有目的→对立阵营出现→故事形成。
+**Distribuição dos opressores**: todos maus = maior prazer, mas falta realismo; nove maus e um bom = mais real, e o "bom" abre linhas posteriores.
 
-**关键觉悟**：精心打磨反复修改的书往往扑了，一拍脑门干的反而成绩好——因为冲动=针对某个金手指的冲动，前期自然盯紧这个点。准备越充分越容易沉迷写设定，正文节奏缓慢像裹脚布。
+### 32.3 Âncora de dedução (método da premissa)
+Divida o livro em **mundo** e **enredo**. *Âncora do livro*: defina antes a abertura e o fim (por exemplo, "servo → derrubar o governante → vida longa"); a partir da âncora, pergunte: quem é o governante? Por que derrubá-lo? Qual a força? Que meios usa o protagonista? *Dedução por volume*: pense em alguns clímaxes → use cada um como âncora → pergunte (quem é o gênio rival? em que nível? que rixa tem com o protagonista? como começou?) → daí saem a preparação e a trama principal → uma pequena organização e o esboço detalhado aparece.
+
+## 33. Mudança de cenário e arquitetura do mapa
+
+### 33.1 Quatro gerações de métodos
+
+| Geração | Nome | Núcleo | Problema |
+|------|------|------|------|
+| 1.0 | "Ascensão" | Mundo mortal → céu → divino | Abandona todas as relações, queda brusca de leitura |
+| 1.1-1.9 | Ascensão melhorada | Mandar gente de baixo para cima / receber de cima | Melhora, mas ainda há ruptura |
+| 2.0 | Mapa de lótus + "mil-folhas histórico" | Mapa central (miolo) com ramificações (pétalas) / vários períodos empilhados no mesmo mapa | O lótus tem limite de espaço; o mil-folhas é difícil de desenhar |
+| 3.0 | Novo paradigma | Linhagem familiar / simulador / iterações de versão | Exige preparação desde o meio |
+
+**Mapa de lótus**: o protagonista atua no mapa central; ao esbarrar num limite, dá uma volta por uma pétala e volta; as relações centrais ficam no miolo; todas as pétalas têm o mesmo peso e podem ser entradas por qualquer lado.
+**Três métodos de um autor para mudar de mapa**: 1) **mil fios**: faça pontes sem parar entre dois grandes mapas, deixando os conhecidos do mapa antigo "subirem" primeiro; 2) **sem trocar de grande mapa**: só troque mapas pequenos dentro de um grande, até o fim do livro; 3) **mapa de lótus / mil-folhas**: o mapa se desdobra em camadas dentro do mesmo grande quadro.
+
+### 33.2 Quadro de topo (evitar o colapso do mapa)
+Antes de começar, defina as **forças de topo do mapa inteiro** como "colunas" e cubra de cima para baixo: 1) todas as forças de elite (num gênero de sobrevivente, quatro mestres que governam quatro santuários = quatro colunas); 2) desça: região → famílias pequenas → ordens menores → técnicas e tesouros; 3) todo personagem em cena se liga a uma força de topo, o que enriquece o mundo sem notar. **Pensamento de régua**: desenhe antes o desempenho das forças de topo como referência (um golpe que destrói um continente = 100); o chefe da abertura vale 5, o do meio 50, e só no fim se escreve o 100; o quadro na cabeça impede exageros iniciais. **Estado ideal**: 80% das palavras num único mapa e só no fim sair dele, com o protagonista substituindo uma das colunas.
+
+### 33.3 Relações primeiro
+Antes de ir ao novo mapa, espalhe as relações: antes de ir à capital, alguém de lá já chega e entrega um prêmio; ir à capital = promoção = recompensa. Núcleo: as relações se movem → o protagonista se move → não vai de repente a um lugar por acaso.
+
+## 34. Engenharia de episódios e ritmo de clímax
+
+### 34.1 Desmontagem por episódio
+Divida um livro de 300 mil palavras (equivalente em português: uns 900 mil) em 200-300 episódios de cerca de 4 capítulos, cada capítulo com função clara. **Visão geral**: 40-50 unidades de 6-8 mil palavras (ajuste à sua escala); cada unidade tem 4-5 episódios; cada episódio ocupa ~4 capítulos.
+
+### 34.2 Estrutura-padrão de quatro capítulos por episódio
+
+| Cap. | Função | Proporção | Pontos |
+|------|------|------|------|
+| 1a metade | Imersão: cena cotidiana + interação com personagens conhecidos | — | Princípio N+1: conteúdo familiar reduz a resistência |
+| 1b metade | Assimetria: mostrar o adversário/dilema/oportunidade | 5:5 | Corte para o dilema do outro → a vantagem do protagonista resolve |
+| 2 | Tensão: reação de coadjuvantes, expressão e pensamento | 9:1 | O final precisa fazer o protagonista começar a brilhar = gancho |
+| 3 | Pagamento: escreva o prazer ao máximo | — | O capítulo mais fácil de escrever, sem necessidade de gancho |
+| 4 | Ligação: arrumação + abertura do próximo objetivo | — | Ou encerra o episódio anterior ou abre o próximo; o resto é inútil |
+
+**Princípio "dentro do círculo, não fora"**: trace antes um círculo de conteúdo e escreva só dentro dele o que serve ao atrativo central; quanto mais variado e cheio de mudanças o interior do círculo, melhor a leitura.
+
+### 34.3 Ritmo de clímax e cotidiano de transição
+Regras de um autor de experiência: clímax grande: 7-10 dias de trabalho (cerca de 14 capítulos); passando de 10 dias, o leitor se cansa; clímax pequeno: ~3 dias; depois do clímax, 1-2 capítulos de cotidiano para um ritmo natural. **Linhas de ponte entre clímaxes**: antes do clímax, intercale subtramas e personagens como pista; depois, puxe as pistas plantadas para uma transição natural ao próximo trecho. *Exemplo*: antes do clímax do duque, citar de passagem a rival do sul, que reaparece quando o clímax acaba.
+
+### 34.4 Três soluções para a continuidade entre fases
+1) **plantar gancho dentro do clímax**: enquanto o clímax anterior se espalha, solte o gancho do seguinte, e o fim de um entra direto no outro; 2) **dar um objetivo na cauda**: ao fim de um trecho, dê ao protagonista o objetivo da próxima fase e corte direto; 3) **pequenas expectativas contínuas**: nos capítulos de transição, solte ganchos pequenos para manter a vontade de abrir. **Autoverificação de desvio do atrativo**: a cada trecho, olhe para trás: ele satisfez a emoção central do gênero? O atrativo não muda; a "forma da história" que o envolve pode mudar, o atrativo não se perde.
+
+## 35. Escrita longa em várias linhas
+
+### 35.1 Várias linhas e plantar e colher "buracos"
+Desde a trama principal, plante pistas e abra subtramas, não só depois de acabar a principal. **Operação**: principal e duas ou mais subtramas se abrem ao mesmo tempo; quando a principal para, a subtrama entra, e a subtrama tem grande relação com a principal; ao tratar de algo, surgem nova força/segredo/objeto → crie suspense primeiro, sem revelar logo; alguns buracos se fecham logo, outros atravessam até o fim; plantar e fechar sem parar = o enredo se estende. **Contra o bloqueio**: acabou uma instância, ganhou o prêmio e travou? Se há outras duas linhas em curso, entre direto com uma delas na principal; em teoria, quantas mais linhas em paralelo, mais coisas para o protagonista fazer.
+
+### 35.2 Aliviar a fadiga com várias linhas
+Num enredo longo (um caso de uma dúzia de capítulos), insira meio capítulo de um evento sem relação do ponto de vista de um coadjuvante para relaxar; a troca deve ser natural: planta pista da subtrama na principal, abre quando for hora e volta à principal; enredo que exige raciocínio deve seguir só o protagonista, sem descrever demais o antagonista, para não destruir a expectativa do desconhecido.
+
+## 36. Teoria do atrativo e da necessidade
+
+### 36.1 Desvio do atrativo e análise de necessidade
+**Ideia central**: a causa do colapso não é técnica fraca, é o "desvio do atrativo": ao escrever, a necessidade que a recompensa satisfaz deixa de ser a que o leitor veio buscar. **Lista de necessidades** (por trás do atrativo): três afetos (família, amor, amizade), fantasia de ser alguém grande, fantasia de ganhar sem esforço, ser respeitado/reconhecido/compreendido, punir o mal e premiar o bem, justiça, superioridade, desejo de aventura etc. **Fórmula do sucesso**: pegue uma necessidade e não solte, sem desviar. *Exemplos*: cautela extrema → necessidade de segurança; casa assombrada → estímulo; jogo de vida simples → afeto familiar; uma comédia histórica em que o pai é imperador → afeto + fantasia de grandeza + superioridade + segurança (cobre mais necessidades, por isso vai mais longe). **Princípio da unidade temática**: atrativo central, objetivo da trama principal, contradição e ganho de cada unidade precisam ser altamente consistentes e corresponder à mesma necessidade do mesmo grupo de leitores.
+
+### 36.2 Atrativo em duas camadas
+**Atrativo do gênero**: por que o leitor lê este gênero? (entretenimento: brilhar diante de todos + flerte com celebridades.) **Atrativo do livro**: por que ler *este* livro? (rótulos de diferenciação: pé no chão, afeto profundo, identidade, o mais pobre). **Autoverificação**: se, escrevendo, a recompensa passa ao atrativo de outro gênero, é desvio. **Método do quadro central**: monte uma fórmula fixa em torno do atrativo, com elementos variáveis e essência constante. *Exemplo*: num livro de antiquário, a fórmula é "o protagonista vai à rua dos antiquários → acha uma pechincha → choque → ganho"; a história pode ter de 1.200 palavras a mais de 30 mil.
+
+## 37. Ponto de entrada: duas identidades e duas vantagens
+
+### 37.1 Duas identidades
+
+| Tipo | Definição | Função e regras |
+|------|------|------|
+| Explícita | Identidade social/profissão + estado ("recém-formado de vila pobre", não só "estudante") | Reúne conflitos iniciais; deve evoluir ou mudar |
+| Oculta | Origem/passado (príncipe exilado, mestre aposentado, viajante) | Reúne os conflitos do meio e do fim; precisa ligar-se ao conflito central do livro |
+
+### 37.2 Duas vantagens
+**Explícita**: sistema, amuleto, memória do futuro: precisa ser um conjunto de capacidades, e cada uso traz algo novo. **Oculta = a personalidade do protagonista**: o que o torna diferente é a vantagem; premissa: precisa ser a personalidade que o leitor idealiza (coragem sim, covardia não); dá o prazer do meio e do fim.
+
+### 37.3 Quatro pontos em harmonia
+Identidade social, origem, vantagem e personalidade: pense nos quatro e deixe-os altamente consistentes (ver também `character-design.md`, seção 54).
+
+## 38. Métodos auxiliares
+
+### 38.1 Método de adaptação (extrair arquétipos da bagagem)
+**Ideia**: boa trama não sai de fórmula, é **adaptada**. *Três passos para chamar a bagagem*: 1) abra a estante e olhe as capas dos livros lembrando os trechos marcantes; 2) abra os sumários (sem o texto) e anote o que você lembra de concreto; 3) o que você anotou é a sua essência acumulada, um tesouro a explorar. *Adaptação por comparação*: 1) ache o alvo pela contradição: qual conflito o protagonista enfrenta agora? Busque enredos parecidos na sua bagagem; 2) adapte por comparação: desmonte o enredo achado num esboço detalhado à esquerda e ponha a situação do seu livro à direita, adaptando ponto a ponto (mundo, relações e vantagem diferentes, é preciso mexer pesado); 3) ajuste e otimize até o limite da sua capacidade. **Conhecimento-chave**: adaptado a ponto de ser diferente é original; transformar um pequeno enredo de dezenas de milhares de palavras num grande de centenas de milhares é uma adaptação digna.
+
+### 38.2 Esboço derivado ("fanfic" de fatos e obras)
+**Ideia**: criar com apoio: use um evento histórico, uma experiência real ou o enredo de uma obra como base e derive novas configurações, personagens e tramas. **Para quem serve**: iniciantes (compensa mundo incompleto, buracos de configuração, personagens fracos, pouco enredo na cabeça); veteranos (resolve personagens-tipo e enredos de fórmula). **Gêneros afins**: ficção histórica, história alternativa, fantasia mitológica, fantasia de dinastias (maior teto de retorno). **Esboço derivado em quatro passos**: 1) ler (livro, série, jogo, história); 2) coletar material (mundo, personagens, configurações, eventos e datas em arquivo); 3) extrair informação (priorize nível elevado e emoção máxima, escolha o que mais serve ao público); 4) derivar (desmontar e fundir personagens, configurações e eventos para criar novidade). **Detalhes-chave**: registre história, idade e personalidade de personagens importantes; registre os eventos importantes da linha do tempo; defina antes o sistema de poder.
+
+### 38.3 Ciclo de repetição em três camadas
+O enredo repete padrões em três escalas (cena, episódio, volume), cada uma com variações próprias: quanto mais camadas repetem com variação, mais o livro se estende sem cansar. Ver `story-structure.md`, seção 2.

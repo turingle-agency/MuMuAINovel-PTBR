@@ -91,8 +91,7 @@ def _commit_partial(
     if actual_sha256 != expected_sha256:
         partial.unlink()
         raise OSError(
-            f"{destination.name} SHA256 校验失败: {actual_sha256}，"
-            f"预期 {expected_sha256}"
+            f"{destination.name} SHA256 inválido: {actual_sha256}, esperado {expected_sha256}"
         )
     os.replace(partial, destination)
     logger.info("模型文件下载完成: %s", destination)
@@ -150,7 +149,7 @@ def _download_file(filename: str, target_dir: Path) -> None:
             actual_size = partial.stat().st_size
             if actual_size != expected_size:
                 raise OSError(
-                    f"{filename} 大小校验失败: {actual_size}，预期 {expected_size}"
+                    f"{filename} tamanho inválido: {actual_size}, esperado {expected_size}"
                 )
             if _commit_partial(
                 partial, destination, expected_size, expected_sha256
@@ -158,7 +157,7 @@ def _download_file(filename: str, target_dir: Path) -> None:
                 return
         except (OSError, urllib.error.URLError) as error:
             if attempt == 3:
-                raise RuntimeError(f"从 ModelScope 下载 {filename} 失败") from error
+                raise RuntimeError(f"Falha ao baixar {filename} do ModelScope") from error
             logger.warning("下载 %s 失败，第 %s/3 次重试: %s", filename, attempt, error)
             time.sleep(2**attempt)
 
@@ -178,7 +177,7 @@ def download_model(target_dir: Path | str | None = None) -> Path:
             _download_file(filename, target)
 
     if not _is_model_dir(target):
-        raise RuntimeError(f"ONNX Embedding 模型下载不完整: {target}")
+        raise RuntimeError(f"Download do modelo de embedding ONNX incompleto: {target}")
     return target
 
 
@@ -215,7 +214,7 @@ def resolve_model_dir() -> Path:
     checked = "\n".join(f"  - {candidate}" for candidate in candidates)
     if _is_offline():
         raise FileNotFoundError(
-            f"离线模式下未找到 ONNX Embedding 模型。已检查：\n{checked}"
+            f"Modelo de embedding ONNX não encontrado no modo offline. Locais verificados:\n{checked}"
         )
     return download_model()
 
@@ -228,7 +227,7 @@ class OnnxEmbeddingModel:
             requested_dir = Path(model_dir).resolve()
             if not _is_model_dir(requested_dir):
                 if _is_offline():
-                    raise FileNotFoundError(f"ONNX Embedding 模型不完整: {requested_dir}")
+                    raise FileNotFoundError(f"Modelo de embedding ONNX incompleto: {requested_dir}")
                 requested_dir = download_model(requested_dir)
             self.model_dir = requested_dir
         else:
@@ -239,13 +238,13 @@ class OnnxEmbeddingModel:
         self.max_seq_length = int(config["max_seq_length"])
         self.embedding_dimension = int(config["embedding_dimension"])
         if config.get("pooling") != "mean" or config.get("normalize", False):
-            raise ValueError("当前运行时仅支持不归一化的 Mean Pooling 模型")
+            raise ValueError("O runtime atual só suporta modelos Mean Pooling sem normalização")
 
         self.tokenizer = Tokenizer.from_file(str(self.model_dir / "tokenizer.json"))
         pad_token = str(config.get("pad_token", "<pad>"))
         pad_id = self.tokenizer.token_to_id(pad_token)
         if pad_id is None:
-            raise ValueError(f"tokenizer 中不存在 padding token: {pad_token}")
+            raise ValueError(f"O tokenizer não contém o padding token: {pad_token}")
         self.tokenizer.enable_truncation(max_length=self.max_seq_length)
         self.tokenizer.enable_padding(pad_id=pad_id, pad_token=pad_token)
 
@@ -290,6 +289,6 @@ class OnnxEmbeddingModel:
 
         if embeddings.shape[1] != self.embedding_dimension:
             raise RuntimeError(
-                f"ONNX 模型输出维度异常: {embeddings.shape[1]}，预期 {self.embedding_dimension}"
+                f"Dimensão de saída do modelo ONNX anormal: {embeddings.shape[1]}, esperado {self.embedding_dimension}"
             )
         return embeddings[0] if single_input else embeddings

@@ -10,11 +10,11 @@ from app.services.prompt_service import prompt_service, PromptService
 from app.logger import get_logger
 from app.api.settings import get_user_ai_service
 
-router = APIRouter(prefix="/polish", tags=["AI去味"])
+router = APIRouter(prefix="/polish", tags=["Humanização de texto"])
 logger = get_logger(__name__)
 
 
-@router.post("", response_model=PolishResponse, summary="AI去味")
+@router.post("", response_model=PolishResponse, summary="Humanizar texto com IA")
 async def polish_text(
     request: PolishRequest,
     http_request: Request,
@@ -66,7 +66,7 @@ async def polish_text(
             history = GenerationHistory(
                 project_id=request.project_id,
                 generation_type="polish",
-                prompt=f"原文: {request.original_text[:100]}...",
+                prompt=f"Texto original: {request.original_text[:100]}...",
                 result=polished_text,
                 provider=request.provider or "default",
                 model=request.model or "default"
@@ -83,10 +83,10 @@ async def polish_text(
         
     except Exception as e:
         logger.error(f"AI去味失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"AI去味失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao humanizar o texto: {str(e)}")
 
 
-@router.post("/batch", summary="批量AI去味")
+@router.post("/batch", summary="Humanizar textos em lote com IA")
 async def polish_batch(
     texts: list[str],
     project_id: int = None,
@@ -138,4 +138,4 @@ async def polish_batch(
         
     except Exception as e:
         logger.error(f"批量AI去味失败: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"批量AI去味失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Falha ao humanizar os textos em lote: {str(e)}")

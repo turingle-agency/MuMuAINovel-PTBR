@@ -129,52 +129,52 @@ class AICallMetrics:
 
     def to_log_message(self, title: str) -> str:
         fields = [
-            ("请求类型", self.request_mode),
-            ("提供商", self.provider),
-            ("模型", self.model),
-            ("状态", "成功" if self.success else "失败"),
-            ("首字耗时", self._format_latency(self.ttft_ms, allow_empty=True)),
-            ("总耗时", self._format_latency(self.duration_ms, allow_empty=False)),
-            ("输入字符数", str(self.prompt_length)),
-            ("输出字符数", str(self.response_length)),
-            ("输入Token", self._format_optional_number(self.usage.prompt_tokens)),
-            ("输出Token", self._format_optional_number(self.usage.completion_tokens)),
-            ("总Token", self._format_optional_number(self.usage.total_tokens)),
-            ("流式块数", str(self.chunk_count) if self.stream else "不适用"),
-            ("启用MCP", "是" if self.auto_mcp else "否"),
-            ("工具数", str(self.tools_count)),
-            ("工具调用次数", str(self.tool_metrics.tool_calls_count)),
-            ("MCP轮次", str(self.tool_metrics.mcp_rounds)),
-            ("重试次数", str(self.retry_count) if self.retry_count else "0"),
-            ("JSON解析", self._format_json_parse_result()),
-            ("结束原因", self.finish_reason or "未知"),
+            ("tipo de requisição", self.request_mode),
+            ("provedor", self.provider),
+            ("modelo", self.model),
+            ("status", "sucesso" if self.success else "falha"),
+            ("tempo até o primeiro token", self._format_latency(self.ttft_ms, allow_empty=True)),
+            ("tempo total", self._format_latency(self.duration_ms, allow_empty=False)),
+            ("caracteres de entrada", str(self.prompt_length)),
+            ("caracteres de saída", str(self.response_length)),
+            ("tokens de entrada", self._format_optional_number(self.usage.prompt_tokens)),
+            ("tokens de saída", self._format_optional_number(self.usage.completion_tokens)),
+            ("total de tokens", self._format_optional_number(self.usage.total_tokens)),
+            ("blocos de streaming", str(self.chunk_count) if self.stream else "n/d"),
+            ("MCP habilitado", "sim" if self.auto_mcp else "não"),
+            ("ferramentas", str(self.tools_count)),
+            ("chamadas de ferramentas", str(self.tool_metrics.tool_calls_count)),
+            ("rodadas MCP", str(self.tool_metrics.mcp_rounds)),
+            ("tentativas", str(self.retry_count) if self.retry_count else "0"),
+            ("análise do JSON", self._format_json_parse_result()),
+            ("motivo do término", self.finish_reason or "desconhecido"),
         ]
 
         if self.user_id:
-            fields.append(("用户ID", self.user_id))
+            fields.append(("ID do usuário", self.user_id))
         if self.tool_metrics.tool_names:
-            fields.append(("工具名称", ",".join(self.tool_metrics.tool_names)))
+            fields.append(("nomes das ferramentas", ",".join(self.tool_metrics.tool_names)))
         if self.error_type:
-            fields.append(("异常类型", self.error_type))
+            fields.append(("tipo da exceção", self.error_type))
         if self.error_message:
-            fields.append(("异常摘要", self.error_message))
+            fields.append(("resumo da exceção", self.error_message))
 
-        formatted = "｜".join(f"{key}={value}" for key, value in fields)
-        return f"{title}｜{formatted}"
+        formatted = " | ".join(f"{key}={value}" for key, value in fields)
+        return f"{title} | {formatted}"
 
     def _format_json_parse_result(self) -> str:
         if self.json_parse_success is None:
-            return "不适用"
-        return "成功" if self.json_parse_success else "失败"
+            return "n/d"
+        return "sucesso" if self.json_parse_success else "falha"
 
     @staticmethod
     def _format_optional_number(value: Optional[int]) -> str:
-        return str(value) if value is not None else "未知"
+        return str(value) if value is not None else "desconhecido"
 
     @staticmethod
     def _format_latency(value: Optional[int], allow_empty: bool) -> str:
         if value is None:
-            return "无" if allow_empty else "未知"
+            return "nenhum" if allow_empty else "desconhecido"
         if value < 1000:
             return f"{value}ms"
         return f"{value / 1000:.2f}s"

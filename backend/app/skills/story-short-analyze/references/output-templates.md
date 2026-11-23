@@ -1,130 +1,130 @@
-# 短篇拆文输出模板
+# Modelos de saída da análise de conto
 
-按需加载，配合 SKILL.md 使用。
+Consulte sob demanda, junto com SKILL.md.
 
-## 目录
+## Sumário
 
-1. [Phase 2 全篇结构](#phase-2-全篇结构)
-2. [Phase 3 情绪曲线](#phase-3-情绪曲线)
-3. [Phase 4 反转分析](#phase-4-反转分析)
-4. [Phase 5 开头 / 结尾分析](#phase-5-开头--结尾分析)
-5. [Phase 6 拆文报告](#phase-6-拆文报告)
-6. [短篇结构速查库](#短篇结构速查库)
-7. [质量门控必填字段](#质量门控必填字段)
+1. [Fase 2: estrutura completa](#fase-2-estrutura-completa)
+2. [Fase 3: curva emocional](#fase-3-curva-emocional)
+3. [Fase 4: análise da reviravolta](#fase-4-análise-da-reviravolta)
+4. [Fase 5: análise de abertura e final](#fase-5-análise-de-abertura-e-final)
+5. [Fase 6: relatório de análise](#fase-6-relatório-de-análise)
+6. [Biblioteca de estruturas de conto](#biblioteca-de-estruturas-de-conto)
+7. [Campos obrigatórios do controle de qualidade](#campos-obrigatórios-do-controle-de-qualidade)
 
 ---
 
-## Phase 2 全篇结构
+## Fase 2: estrutura completa
 
-字数{X}字 | 平台{平台} | 类型{题材/情绪类型} | 结局{HE/BE/开放式}
+Palavras {X} | plataforma {plataforma} | tipo {gênero/tipo de emoção} | final {feliz/triste/aberto}
 
-| 段落 | 字数范围 | 功能 | 占比 |
+| Parte | Faixa de palavras | Função | Proporção |
 |------|----------|------|------|
-| 铺垫段 | {X}-{Y} | {功能} | {Z%} |
-| 发展段 | {X}-{Y} | {功能} | {Z%} |
-| 反转段 | {X}-{Y} | {功能} | {Z%} |
-| 高潮段 | {X}-{Y} | {功能} | {Z%} |
-| 结尾段 | {X}-{Y} | {功能} | {Z%} |
+| Preparação | {X}-{Y} | {função} | {Z%} |
+| Desenvolvimento | {X}-{Y} | {função} | {Z%} |
+| Reviravolta | {X}-{Y} | {função} | {Z%} |
+| Clímax | {X}-{Y} | {função} | {Z%} |
+| Final | {X}-{Y} | {função} | {Z%} |
 
-## Phase 3 情绪曲线
+## Fase 3: curva emocional
 
-至少 5 个节点，含字数位置：
+Pelo menos 5 pontos, com a posição em palavras:
 
-| 位置 | 字数 | 情绪 | 强度(1-10) | 触发事件 |
+| Posição | Palavras | Emoção | Intensidade (1-10) | Evento desencadeador |
 |------|------|------|------------|----------|
-| 开头 | {X} | {好奇/紧张/同情} | {N} | {事件} |
-| 反转点 | {X} | {震惊/心疼/愤怒} | {N} | {事件} |
-| 高潮 | {X} | {情绪} | {N} | {事件} |
-| 结尾 | {X} | {满足/意难平/治愈} | {N} | {事件} |
+| Abertura | {X} | {curiosidade/tensão/compaixão} | {N} | {evento} |
+| Ponto de reviravolta | {X} | {choque/dor/raiva} | {N} | {evento} |
+| Clímax | {X} | {emoção} | {N} | {evento} |
+| Final | {X} | {satisfação/amargura/cura} | {N} | {evento} |
 
-曲线特征：起始{...} | 走向{上行/下行/波浪/倒V/V形} | 极值{最高%X 最低%Y} | 反转差{A->B 落差C}
+Características da curva: início {...} | direção {subida/descida/onda/V invertido/V} | extremos {máximo em %X, mínimo em %Y} | contraste da reviravolta {A->B, diferença C}
 
-## Phase 4 反转分析
+## Fase 4: análise da reviravolta
 
-**反转类型**：{视角反转/身份反转/动机反转/时间线反转/信息反转}
+**Tipo de reviravolta**: {de ponto de vista/de identidade/de motivação/de linha do tempo/de informação}
 
-**反转机制**：
-- 铺垫线索：{作者埋了哪些线索}
-- 误导方向：{作者把读者往哪个方向引}
-- 真相揭示：{反转怎么揭开的}
-- 合理性：{反转是否经得起回看}
+**Mecanismo da reviravolta**:
+- Pistas de preparação: {que pistas o autor plantou}
+- Direção do despiste: {para onde o autor conduziu o leitor}
+- Revelação da verdade: {como a reviravolta foi revelada}
+- Plausibilidade: {a reviravolta resiste a uma releitura}
 
-**时机**：全文{X}%位置 | 铺垫:释放 = {X:1}
+**Momento**: posição em {X}% do texto | preparação:liberação = {X:1}
 
-**效果**：惊喜度{1-5} | 合理性{1-5} | 情绪冲击{1-5}
+**Efeito**: surpresa {1-5} | plausibilidade {1-5} | impacto emocional {1-5}
 
-## Phase 5 开头 / 结尾分析
+## Fase 5: análise de abertura e final
 
-### 开头
+### Abertura
 
-**前 3 句**：{原文引用}
-**钩子类型**：{悬念/冲突/反差/代入/信息差}
-**效果**：3 句内产生好奇{是/否} | 信息密度{高/中/低} | 代入感{强/中/弱}
+**Três primeiras frases**: {citação do original}
+**Tipo de gancho**: {suspense/conflito/contraste/identificação/assimetria}
+**Efeito**: gera curiosidade em 3 frases {sim/não} | densidade de informação {alta/média/baixa} | imersão {forte/média/fraca}
 
-### 结尾
+### Final
 
-**最后一段**：{原文引用或概括}
-**结尾类型**：{HE满足/BE遗憾/开放式/反转余韵/留白}
-**效果**：情绪落点{...} | 余韵{是/否} | 传播欲{是/否}
+**Último parágrafo**: {citação ou resumo}
+**Tipo de final**: {feliz/triste/aberto/ressonância de reviravolta/silêncio}
+**Efeito**: ponto emocional de chegada {...} | ressonância {sim/não} | vontade de compartilhar {sim/não}
 
-## Phase 6 拆文报告
+## Fase 6: relatório de análise
 
-**一句话评价**：{成功核心原因}
+**Avaliação em uma frase**: {principal razão do sucesso}
 
-| 维度 | 评分 | 说明 |
+| Dimensão | Nota | Observação |
 |------|------|------|
-| 开头吸引力 | 1-5 | {说明} |
-| 情绪拉扯力 | 1-5 | {说明} |
-| 反转设计 | 1-5 | {说明} |
-| 节奏控制 | 1-5 | {说明} |
-| 结尾余韵 | 1-5 | {说明} |
+| Força da abertura | 1-5 | {observação} |
+| Tensão emocional | 1-5 | {observação} |
+| Desenho da reviravolta | 1-5 | {observação} |
+| Controle de ritmo | 1-5 | {observação} |
+| Ressonância do final | 1-5 | {observação} |
 
-**核心技法**：反转类型{...} | 情绪曲线形态{...} | 关键钩子{...}
-**可借鉴结构**：1.{技法+场景} 2.{...} 3.{...}
-**同类型写作建议**：{具体行动}
+**Técnicas centrais**: tipo de reviravolta {...} | forma da curva emocional {...} | gancho-chave {...}
+**Estruturas aproveitáveis**: 1.{técnica + cena} 2.{...} 3.{...}
+**Sugestão para escrever algo do mesmo tipo**: {ação concreta}
 
 ---
 
-## 短篇结构速查库
+## Biblioteca de estruturas de conto
 
-| 结构 | 特点 | 适合情绪 |
+| Estrutura | Característica | Emoções adequadas |
 |------|------|----------|
-| 三幕反转式 | 铺垫->升级->反转 | 震惊、意难平 |
-| 双线交叉式 | 明线暗线交替推进 | 悬疑、真相揭晓 |
-| 时间跳跃式 | 过去/现在穿插 | 遗憾、成长 |
-| 套娃反转式 | 多层反转嵌套 | 惊讶、烧脑 |
-| 对话驱动式 | 通过对话推进叙事 | 虐恋、人际冲突 |
-| 独白式 | 第一人称内心独白 | 治愈、自省 |
-| 重生反常式 | 重生后做相反的事->对手自乱 | 爽、解气 |
-| 灵魂旁观式 | 死后灵魂看世界->揭露真相 | 意难平、愤怒 |
-| 双重生博弈式 | 两人都重生->信息战 | 紧张、痛快 |
-| 隐忍布局式 | 表面顺从暗中布局->反攻 | 压抑->极致释放 |
-| 非人视角式 | 鬼/系统/灵魂看人间 | 新奇、恐怖、爽 |
+| Reviravolta em três atos | Preparação -> escalada -> reviravolta | Choque, amargura |
+| Duas linhas cruzadas | Linha visível e linha oculta avançam alternadas | Suspense, revelação da verdade |
+| Saltos no tempo | Passado e presente se intercalam | Arrependimento, amadurecimento |
+| Reviravolta em camadas | Várias reviravoltas encaixadas | Surpresa, quebra-cabeça |
+| Conduzido por diálogo | A narrativa avança pelas falas | Romance doloroso, conflito humano |
+| Monólogo | Monólogo interior em primeira pessoa | Cura, autoexame |
+| Recomeço incomum | Depois de renascer, faz o oposto -> o adversário se perde | Catarse, alívio |
+| Alma que observa | A alma vê o mundo depois da morte -> revela a verdade | Amargura, raiva |
+| Jogo de dois renascidos | Os dois renasceram -> guerra de informação | Tensão, satisfação |
+| Paciência e plano | Obediente por fora, preparando em segredo -> contra-ataque | Opressão -> liberação máxima |
+| Ponto de vista não humano | Fantasma/sistema/alma vendo a humanidade | Novidade, terror, recompensa |
 
 ---
 
-## 质量门控必填字段
+## Campos obrigatórios do controle de qualidade
 
-Phase 完成前逐项检查，缺一即不完整。
+Confira item a item antes de concluir cada fase; faltou um, está incompleto.
 
-**Phase 2（结构）**：
-- [ ] 结构划分至少 4 段，每段有字数范围和功能
-- [ ] 结局类型已标注
+**Fase 2 (estrutura)**:
+- [ ] Estrutura dividida em pelo menos 4 partes, cada uma com faixa de palavras e função
+- [ ] Tipo de final indicado
 
-**Phase 3（情绪）**：
-- [ ] 至少 5 个情绪节点，每个有字数位置和强度值
-- [ ] 曲线特征 4 项齐全（起始/走向/极值/反转差）
+**Fase 3 (emoção)**:
+- [ ] Pelo menos 5 pontos emocionais, cada um com posição em palavras e intensidade
+- [ ] As 4 características da curva (início/direção/extremos/contraste da reviravolta)
 
-**Phase 4（反转）**：
-- [ ] 反转类型已识别
-- [ ] 铺垫线索至少 2 条，含原文位置
-- [ ] 误导方向已说明
+**Fase 4 (reviravolta)**:
+- [ ] Tipo de reviravolta identificado
+- [ ] Pelo menos 2 pistas de preparação, com a posição no original
+- [ ] Direção do despiste explicada
 
-**Phase 5（开头+结尾）**：
-- [ ] 前 3 句话原文引用
-- [ ] 钩子类型已识别
-- [ ] 结尾类型和情绪落点已说明
+**Fase 5 (abertura + final)**:
+- [ ] Citação das 3 primeiras frases
+- [ ] Tipo de gancho identificado
+- [ ] Tipo de final e ponto emocional de chegada explicados
 
-**Phase 6（报告）**：
-- [ ] 五维评分每项有具体说明（非泛泛而谈）
-- [ ] 至少 3 条可借鉴结构，每条含适用场景
+**Fase 6 (relatório)**:
+- [ ] As cinco notas têm observação específica (nada genérico)
+- [ ] Pelo menos 3 estruturas aproveitáveis, cada uma com cena de aplicação

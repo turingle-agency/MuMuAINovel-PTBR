@@ -6,28 +6,28 @@ from datetime import datetime
 
 class ChapterBase(BaseModel):
     """章节基础模型"""
-    title: str = Field(..., description="章节标题")
-    chapter_number: int = Field(..., description="章节序号")
-    content: Optional[str] = Field(None, description="章节内容")
-    summary: Optional[str] = Field(None, description="章节摘要")
-    word_count: Optional[int] = Field(0, description="字数")
-    status: Optional[str] = Field("draft", description="章节状态")
-    outline_id: Optional[str] = Field(None, description="关联的大纲ID")
-    sub_index: Optional[int] = Field(1, description="大纲下的子章节序号")
-    expansion_plan: Optional[str] = Field(None, description="展开规划详情(JSON)")
+    title: str = Field(..., description="Título do capítulo")
+    chapter_number: int = Field(..., description="Número do capítulo")
+    content: Optional[str] = Field(None, description="Conteúdo do capítulo")
+    summary: Optional[str] = Field(None, description="Resumo do capítulo")
+    word_count: Optional[int] = Field(0, description="Palavras")
+    status: Optional[str] = Field("draft", description="Status do capítulo")
+    outline_id: Optional[str] = Field(None, description="ID do esboço associado")
+    sub_index: Optional[int] = Field(1, description="Número do subcapítulo dentro do esboço")
+    expansion_plan: Optional[str] = Field(None, description="Detalhes do planejamento de expansão (JSON)")
 
 
 class ChapterCreate(BaseModel):
     """创建章节的请求模型"""
-    project_id: str = Field(..., description="所属项目ID")
-    title: str = Field(..., description="章节标题")
-    chapter_number: int = Field(..., description="章节序号")
-    content: Optional[str] = Field(None, description="章节内容")
-    summary: Optional[str] = Field(None, description="章节摘要")
-    status: Optional[str] = Field("draft", description="章节状态")
-    outline_id: Optional[str] = Field(None, description="关联的大纲ID")
-    sub_index: Optional[int] = Field(1, description="大纲下的子章节序号")
-    expansion_plan: Optional[str] = Field(None, description="展开规划详情(JSON)")
+    project_id: str = Field(..., description="ID do projeto proprietário")
+    title: str = Field(..., description="Título do capítulo")
+    chapter_number: int = Field(..., description="Número do capítulo")
+    content: Optional[str] = Field(None, description="Conteúdo do capítulo")
+    summary: Optional[str] = Field(None, description="Resumo do capítulo")
+    status: Optional[str] = Field("draft", description="Status do capítulo")
+    outline_id: Optional[str] = Field(None, description="ID do esboço associado")
+    sub_index: Optional[int] = Field(1, description="Número do subcapítulo dentro do esboço")
+    expansion_plan: Optional[str] = Field(None, description="Detalhes do planejamento de expansão (JSON)")
 
 
 class ChapterUpdate(BaseModel):
@@ -83,7 +83,7 @@ class AnalysisTaskStatusResponse(BaseModel):
 
 class BatchAnalysisStatusRequest(BaseModel):
     """批量查询分析状态请求"""
-    chapter_ids: Optional[List[str]] = Field(None, description="待查询章节ID列表；为空时查询项目下全部章节")
+    chapter_ids: Optional[List[str]] = Field(None, description="IDs dos capítulos a consultar; se vazio, consulta todos os capítulos do projeto")
 
 
 class BatchAnalysisStatusResponse(BaseModel):
@@ -95,60 +95,60 @@ class BatchAnalysisStatusResponse(BaseModel):
 
 class BatchAnalyzeUnanalyzedRequest(BaseModel):
     """一键分析未分析章节请求"""
-    chapter_ids: Optional[List[str]] = Field(None, description="可选：限定待分析章节ID列表；为空则自动识别项目内全部未分析章节")
+    chapter_ids: Optional[List[str]] = Field(None, description="Opcional: limita a lista de capítulos a analisar; se vazio, identifica automaticamente todos os capítulos ainda não analisados do projeto")
 
 
 class BatchAnalyzeUnanalyzedResponse(BaseModel):
     """一键分析未分析章节响应"""
     project_id: str
-    total_candidates: int = Field(0, description="候选章节总数（有内容章节）")
-    total_started: int = Field(0, description="本次已启动分析任务数")
-    total_skipped_no_content: int = Field(0, description="跳过：无内容章节数")
-    total_skipped_running: int = Field(0, description="跳过：已在分析中的章节数")
-    total_already_completed: int = Field(0, description="跳过：已完成分析章节数")
-    started_tasks: Dict[str, AnalysisTaskStatusResponse] = Field(default_factory=dict, description="本次启动的分析任务状态映射")
+    total_candidates: int = Field(0, description="Total de capítulos candidatos (com conteúdo)")
+    total_started: int = Field(0, description="Tarefas de análise iniciadas agora")
+    total_skipped_no_content: int = Field(0, description="Ignorados: capítulos sem conteúdo")
+    total_skipped_running: int = Field(0, description="Ignorados: capítulos já em análise")
+    total_already_completed: int = Field(0, description="Ignorados: capítulos já analisados")
+    started_tasks: Dict[str, AnalysisTaskStatusResponse] = Field(default_factory=dict, description="Mapa de status das tarefas de análise iniciadas")
 
 
 class ChapterGenerateRequest(BaseModel):
     """AI生成章节内容的请求模型"""
-    style_id: Optional[int] = Field(None, description="写作风格ID，不提供则不使用任何风格")
+    style_id: Optional[int] = Field(None, description="ID do estilo de escrita; se omitido, nenhum estilo é usado")
     target_word_count: Optional[int] = Field(
         3000,
-        description="目标字数，默认3000字",
+        description="Meta de palavras, padrão 3000",
         ge=500,   # 最小500字
         le=10000  # 最大10000字
     )
-    enable_mcp: bool = Field(True, description="是否启用MCP工具增强（搜索参考资料）")
-    model: Optional[str] = Field(None, description="指定使用的AI模型，不提供则使用用户默认模型")
-    narrative_perspective: Optional[str] = Field(None, description="临时人称视角：first_person/third_person/omniscient，不提供则使用项目默认")
-    skill_key: Optional[str] = Field(None, description="Skill 标识，指定后以该 Skill 的工作流指导创作")
+    enable_mcp: bool = Field(True, description="Habilitar reforço com ferramentas MCP (busca de referências)")
+    model: Optional[str] = Field(None, description="Modelo de IA a usar; se omitido, usa o modelo padrão do usuário")
+    narrative_perspective: Optional[str] = Field(None, description="Perspectiva narrativa temporária: primeira pessoa/terceira pessoa/onisciente; se omitida, usa a do projeto")
+    skill_key: Optional[str] = Field(None, description="Identificador do Skill; quando informado, o fluxo desse Skill orienta a criação")
 
 
 class BatchGenerateRequest(BaseModel):
     """批量生成章节的请求模型"""
-    start_chapter_number: int = Field(..., description="起始章节序号")
-    count: int = Field(..., description="生成章节数量", ge=1, le=20)
-    style_id: Optional[int] = Field(None, description="写作风格ID")
+    start_chapter_number: int = Field(..., description="Número do capítulo inicial")
+    count: int = Field(..., description="Quantidade de capítulos a gerar", ge=1, le=20)
+    style_id: Optional[int] = Field(None, description="ID do estilo de escrita")
     target_word_count: Optional[int] = Field(
         3000,
-        description="目标字数，默认3000字",
+        description="Meta de palavras, padrão 3000",
         ge=500,
         le=10000
     )
-    enable_analysis: bool = Field(True, description="是否启用同步分析")
-    enable_mcp: bool = Field(True, description="是否启用MCP工具增强（搜索参考资料）")
-    max_retries: int = Field(3, description="每个章节的最大重试次数", ge=0, le=5)
-    model: Optional[str] = Field(None, description="指定使用的AI模型，不提供则使用用户默认模型")
-    narrative_perspective: Optional[str] = Field(None, description="临时指定叙事人称，不提供则使用项目默认")
-    skill_key: Optional[str] = Field(None, description="Skill 标识，指定后以该 Skill 的工作流指导创作")
+    enable_analysis: bool = Field(True, description="Análise síncrona habilitada")
+    enable_mcp: bool = Field(True, description="Habilitar reforço com ferramentas MCP (busca de referências)")
+    max_retries: int = Field(3, description="Máximo de tentativas por capítulo", ge=0, le=5)
+    model: Optional[str] = Field(None, description="Modelo de IA a usar; se omitido, usa o modelo padrão do usuário")
+    narrative_perspective: Optional[str] = Field(None, description="Perspectiva narrativa temporária; se omitida, usa a do projeto")
+    skill_key: Optional[str] = Field(None, description="Identificador do Skill; quando informado, o fluxo desse Skill orienta a criação")
 
 
 class BatchGenerateResponse(BaseModel):
     """批量生成响应模型"""
-    batch_id: str = Field(..., description="批次ID")
-    message: str = Field(..., description="响应消息")
-    chapters_to_generate: list[dict] = Field(..., description="待生成章节列表")
-    estimated_time_minutes: int = Field(..., description="预估耗时（分钟）")
+    batch_id: str = Field(..., description="ID do lote")
+    message: str = Field(..., description="Mensagem de resposta")
+    chapters_to_generate: list[dict] = Field(..., description="Lista de capítulos a gerar")
+    estimated_time_minutes: int = Field(..., description="Tempo estimado (minutos)")
 
 
 class BatchGenerateStatusResponse(BaseModel):
@@ -170,35 +170,35 @@ class BatchGenerateStatusResponse(BaseModel):
 
 class SceneData(BaseModel):
     """场景数据模型"""
-    location: str = Field(..., description="场景地点")
-    characters: List[str] = Field(..., description="参与角色列表")
-    purpose: str = Field(..., description="场景目的")
+    location: str = Field(..., description="Local da cena")
+    characters: List[str] = Field(..., description="Lista de personagens participantes")
+    purpose: str = Field(..., description="Objetivo da cena")
 
 
 class ExpansionPlanUpdate(BaseModel):
     """章节规划更新模型"""
-    summary: Optional[str] = Field(None, description="章节情节概要")
-    key_events: Optional[List[str]] = Field(None, description="关键事件列表")
-    character_focus: Optional[List[str]] = Field(None, description="涉及角色列表")
-    emotional_tone: Optional[str] = Field(None, description="情感基调")
-    narrative_goal: Optional[str] = Field(None, description="叙事目标")
-    conflict_type: Optional[str] = Field(None, description="冲突类型")
-    estimated_words: Optional[int] = Field(None, description="预估字数", ge=500, le=10000)
-    scenes: Optional[List[SceneData]] = Field(None, description="场景列表")
+    summary: Optional[str] = Field(None, description="Resumo da trama do capítulo")
+    key_events: Optional[List[str]] = Field(None, description="Lista de eventos-chave")
+    character_focus: Optional[List[str]] = Field(None, description="Lista de personagens envolvidos")
+    emotional_tone: Optional[str] = Field(None, description="Tom emocional")
+    narrative_goal: Optional[str] = Field(None, description="Objetivo narrativo")
+    conflict_type: Optional[str] = Field(None, description="Tipo de conflito")
+    estimated_words: Optional[int] = Field(None, description="Estimativa de palavras", ge=500, le=10000)
+    scenes: Optional[List[SceneData]] = Field(None, description="Lista de cenas")
     
     model_config = ConfigDict(json_schema_extra={
             "example": {
-                "key_events": ["主角遇到挑战", "关键决策时刻"],
-                "character_focus": ["张三", "李四"],
-                "emotional_tone": "紧张激烈",
-                "narrative_goal": "推进主线剧情",
-                "conflict_type": "内心冲突",
+                "key_events": ["O protagonista enfrenta um desafio", "Momento de decisão crucial"],
+                "character_focus": ["João", "Pedro"],
+                "emotional_tone": "tenso e intenso",
+                "narrative_goal": "avançar a trama principal",
+                "conflict_type": "conflito interno",
                 "estimated_words": 3000,
                 "scenes": [
                     {
-                        "location": "城市广场",
-                        "characters": ["张三", "李四"],
-                        "purpose": "初次相遇"
+                        "location": "Praça da cidade",
+                        "characters": ["João", "Pedro"],
+                        "purpose": "Primeiro encontro"
                     }
                 ]
             }
@@ -207,43 +207,43 @@ class ExpansionPlanUpdate(BaseModel):
 
 class ExpansionPlanResponse(BaseModel):
     """章节规划响应模型"""
-    id: str = Field(..., description="章节ID")
-    expansion_plan: Optional[Dict[str, Any]] = Field(None, description="规划数据")
-    message: str = Field(..., description="响应消息")
+    id: str = Field(..., description="ID do capítulo")
+    expansion_plan: Optional[Dict[str, Any]] = Field(None, description="Dados de planejamento")
+    message: str = Field(..., description="Mensagem de resposta")
 
 
 class PartialRegenerateRequest(BaseModel):
     """局部重写请求参数"""
-    selected_text: str = Field(..., description="选中的原文内容")
-    start_position: int = Field(..., description="在章节内容中的起始位置（字符索引）", ge=0)
-    end_position: int = Field(..., description="在章节内容中的结束位置（字符索引）", ge=0)
-    user_instructions: str = Field(..., description="用户的修改要求", min_length=1, max_length=1000)
+    selected_text: str = Field(..., description="Trecho original selecionado")
+    start_position: int = Field(..., description="Posição inicial no conteúdo do capítulo (índice de caractere)", ge=0)
+    end_position: int = Field(..., description="Posição final no conteúdo do capítulo (índice de caractere)", ge=0)
+    user_instructions: str = Field(..., description="Instruções de modificação do usuário", min_length=1, max_length=1000)
     
     # 可选参数
     context_chars: int = Field(
         500,
-        description="上下文截取长度（前后各截取多少字符）",
+        description="Tamanho do contexto (caracteres antes e depois)",
         ge=100,
         le=2000
     )
-    style_id: Optional[int] = Field(None, description="写作风格ID，不提供则使用项目默认风格")
+    style_id: Optional[int] = Field(None, description="ID do estilo de escrita; se omitido, usa o estilo padrão do projeto")
     length_mode: Optional[str] = Field(
         "similar",
-        description="字数调整模式：similar(保持相近)/expand(适当扩展)/condense(精简压缩)/custom(自定义)"
+        description="Modo de ajuste de tamanho: similar (manter próximo)/expand (expandir)/condense (condensar)/custom (personalizado)"
     )
     target_word_count: Optional[int] = Field(
         None,
-        description="指定目标字数（仅当length_mode为custom时有效）",
+        description="Meta de palavras (válida apenas quando length_mode é custom)",
         ge=10,
         le=5000
     )
     
     model_config = ConfigDict(json_schema_extra={
         "example": {
-            "selected_text": "林霄挥剑斩向敌人，剑光凌厉，一招制敌。",
+            "selected_text": "Lucas desferiu a espada contra o inimigo; a lâmina cintilou ferozmente e um único golpe bastou.",
             "start_position": 1234,
             "end_position": 1260,
-            "user_instructions": "增加更细腻的打斗描写，加入主角的心理活动",
+            "user_instructions": "Adicionar uma descrição de luta mais detalhada e incluir os pensamentos do protagonista",
             "context_chars": 500,
             "length_mode": "expand"
         }
@@ -252,8 +252,8 @@ class PartialRegenerateRequest(BaseModel):
 
 class PartialRegenerateResponse(BaseModel):
     """局部重写响应模型"""
-    success: bool = Field(..., description="是否成功")
-    new_text: str = Field(..., description="重写后的新内容")
-    word_count: int = Field(..., description="新内容字数")
-    original_word_count: int = Field(..., description="原文字数")
-    message: str = Field("重写成功", description="响应消息")
+    success: bool = Field(..., description="Sucesso")
+    new_text: str = Field(..., description="Novo conteúdo reescrito")
+    word_count: int = Field(..., description="Contagem de palavras do novo conteúdo")
+    original_word_count: int = Field(..., description="Palavras do original")
+    message: str = Field("Reescrita concluída", description="Mensagem de resposta")

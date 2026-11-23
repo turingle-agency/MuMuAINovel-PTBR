@@ -6,6 +6,7 @@ import { useStore } from '../store';
 import { useCharacterSync } from '../store/hooks';
 import axios from 'axios';
 import { eventBus, EventNames } from '../store/eventBus';
+import { useTranslation } from 'react-i18next';
 
 interface Organization {
   id: string;
@@ -41,6 +42,7 @@ interface Character {
 }
 
 export default function Organizations() {
+  const { t } = useTranslation('organizations');
   const { projectId } = useParams<{ projectId: string }>();
   const { currentProject } = useStore();
   const { refreshCharacters } = useCharacterSync();
@@ -80,7 +82,7 @@ export default function Organizations() {
         loadMembers(res.data[0].id);
       }
     } catch (error) {
-      message.error('加载组织列表失败');
+      message.error(t('falhaCarregarLista'));
       console.error(error);
     } finally {
       setLoading(false);
@@ -93,7 +95,7 @@ export default function Organizations() {
       const res = await axios.get(`/api/characters?project_id=${projectId}`);
       setCharacters(res.data.items || []);
     } catch (error) {
-      console.error('加载角色列表失败', error);
+      console.error('Falha ao carregar a lista de personagens:', error);
     }
   }, [projectId]);
 
@@ -123,7 +125,7 @@ export default function Organizations() {
       const res = await axios.get(`/api/organizations/${orgId}/members`);
       setMembers(res.data);
     } catch (error) {
-      message.error('加载成员列表失败');
+      message.error(t('falhaCarregarListaMembros'));
       console.error(error);
     }
   };
@@ -138,35 +140,35 @@ export default function Organizations() {
 
     try {
       await axios.post(`/api/organizations/${selectedOrg.id}/members`, values);
-      message.success('成员添加成功');
+      message.success(t('membroAdicionadoSucesso'));
       setIsAddMemberModalOpen(false);
       form.resetFields();
       loadMembers(selectedOrg.id);
       loadOrganizations(); // 刷新成员计数
     } catch (error) {
-      message.error('添加成员失败');
+      message.error(t('falhaAdicionarMembro'));
       console.error(error);
     }
   };
 
   const handleRemoveMember = async (memberId: string) => {
     modal.confirm({
-      title: '确认移除',
-      content: '确定要移除该成员吗？',
+      title: t('confirmarRemocao'),
+      content: t('temCertezaDeseja'),
       centered: true,
-      okText: '移除',
+      okText: t('remover'),
       okType: 'danger',
-      cancelText: '取消',
+      cancelText: t('cancelar'),
       onOk: async () => {
         try {
           await axios.delete(`/api/organizations/members/${memberId}`);
-          message.success('成员移除成功');
+          message.success(t('membroRemovidoSucesso'));
           if (selectedOrg) {
             loadMembers(selectedOrg.id);
             loadOrganizations(); // 刷新成员计数
           }
         } catch (error) {
-          message.error('移除失败');
+          message.error(t('falhaAoRemover'));
           console.error(error);
         }
       }
@@ -192,7 +194,7 @@ export default function Organizations() {
 
     try {
       await axios.put(`/api/organizations/members/${editingMember.id}`, values);
-      message.success('成员信息更新成功');
+      message.success(t('informacoesMembroAtualizadas'));
       setIsEditMemberModalOpen(false);
       editMemberForm.resetFields();
       setEditingMember(null);
@@ -200,7 +202,7 @@ export default function Organizations() {
         loadMembers(selectedOrg.id);
       }
     } catch (error) {
-      message.error('更新失败');
+      message.error(t('falhaAoAtualizar'));
       console.error(error);
     }
   };
@@ -217,17 +219,17 @@ export default function Organizations() {
 
   const getStatusText = (status: string) => {
     const texts: Record<string, string> = {
-      active: '在职',
-      retired: '退休',
-      expelled: '除名',
-      deceased: '已故'
+      active: t('ativo'),
+      retired: t('aposentado'),
+      expelled: t('expulso'),
+      deceased: t('falecido')
     };
     return texts[status] || status;
   };
 
   const memberColumns = [
     {
-      title: '姓名',
+      title: t('nome'),
       dataIndex: 'character_name',
       key: 'name',
       render: (name: string) => (
@@ -239,16 +241,16 @@ export default function Organizations() {
       width: isMobile ? 100 : undefined,
     },
     {
-      title: '职位',
+      title: t('cargo'),
       dataIndex: 'position',
       key: 'position',
       render: (position: string, record: OrganizationMember) => (
-        <Tag color="blue">{position} {!isMobile && `(级别 ${record.rank})`}</Tag>
+        <Tag color="blue">{position} {!isMobile && t('nivel', { rank: record.rank })}</Tag>
       ),
       width: isMobile ? 120 : undefined,
     },
     {
-      title: '忠诚度',
+      title: t('lealdade'),
       dataIndex: 'loyalty',
       key: 'loyalty',
       render: (loyalty: number) => (
@@ -259,14 +261,14 @@ export default function Organizations() {
       width: isMobile ? 80 : undefined,
     },
     {
-      title: '贡献度',
+      title: t('contribuicao'),
       dataIndex: 'contribution',
       key: 'contribution',
       render: (contribution: number) => `${contribution}%`,
       width: isMobile ? 80 : undefined,
     },
     {
-      title: '状态',
+      title: t('status'),
       dataIndex: 'status',
       key: 'status',
       render: (status: string) => (
@@ -275,14 +277,14 @@ export default function Organizations() {
       width: isMobile ? 80 : undefined,
     },
     {
-      title: '加入时间',
+      title: t('dataDeEntrada'),
       dataIndex: 'joined_at',
       key: 'joined_at',
       render: (time: string) => time || '-',
       width: isMobile ? 120 : undefined,
     },
     {
-      title: '操作',
+      title: t('acoes'),
       key: 'action',
       render: (_: unknown, record: OrganizationMember) => (
         <Space size={isMobile ? 0 : 'small'}>
@@ -293,7 +295,7 @@ export default function Organizations() {
             onClick={() => handleEditMember(record)}
             style={isMobile ? { padding: '4px' } : undefined}
           >
-            {isMobile ? '' : '编辑'}
+            {isMobile ? '' : t('editar')}
           </Button>
           <Button
             type="link"
@@ -303,7 +305,7 @@ export default function Organizations() {
             onClick={() => handleRemoveMember(record.id)}
             style={isMobile ? { padding: '4px' } : undefined}
           >
-            {isMobile ? '' : '移除'}
+            {isMobile ? '' : t('remover')}
           </Button>
         </Space>
       ),
@@ -330,7 +332,7 @@ export default function Organizations() {
         }}>
           <h2 style={{ margin: 0, fontSize: 24 }}>
             <BankOutlined style={{ marginRight: 8 }} />
-            组织管理
+            {t('gerenciamentoDeOrganizacoes')}
           </h2>
         </div>
       )}
@@ -345,14 +347,14 @@ export default function Organizations() {
         {/* 左侧组织列表 - 桌面端 */}
         {!isMobile && (
         <Card
-          title={`组织列表 (${organizations.length})`}
+          title={t('listaDeOrganizacoes', { organizationsCount: organizations.length })}
           style={{ width: 300, height: '100%', overflow: 'hidden' }}
           bodyStyle={{ padding: 0, height: 'calc(100% - 57px)', overflow: 'auto' }}
           loading={loading}
         >
           {organizations.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: token.colorTextTertiary }}>
-              暂无组织
+              {t('nenhumaOrganizacao')}
             </div>
           ) : (
             <Space direction="vertical" style={{ width: '100%', padding: '12px' }}>
@@ -372,7 +374,7 @@ export default function Organizations() {
                     <strong style={{ fontSize: 14 }}>{org.name}</strong>
                     <Tag color="blue">{org.type}</Tag>
                     <div style={{ fontSize: '12px', color: token.colorTextSecondary }}>
-                      成员: {org.member_count} | 势力: {org.power_level}
+                      {t('membrosPoder', { member_count: org.member_count, power_level: org.power_level })}
                     </div>
                   </Space>
                 </Card>
@@ -385,7 +387,7 @@ export default function Organizations() {
         {/* 移动端组织列表抽屉 */}
       {isMobile && (
         <Drawer
-          title="组织列表"
+          title={t('listaDeOrganizacoes2')}
           placement="left"
           onClose={() => setOrgListVisible(false)}
           open={orgListVisible}
@@ -394,7 +396,7 @@ export default function Organizations() {
         >
           {organizations.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: token.colorTextTertiary }}>
-              暂无组织
+              {t('nenhumaOrganizacao')}
             </div>
           ) : (
             <Space direction="vertical" style={{ width: '100%', padding: '12px' }}>
@@ -417,7 +419,7 @@ export default function Organizations() {
                     <strong style={{ fontSize: 14 }}>{org.name}</strong>
                     <Tag color="blue">{org.type}</Tag>
                     <div style={{ fontSize: '12px', color: token.colorTextSecondary }}>
-                      成员: {org.member_count} | 势力: {org.power_level}
+                      {t('membrosPoder', { member_count: org.member_count, power_level: org.power_level })}
                     </div>
                   </Space>
                 </Card>
@@ -439,10 +441,10 @@ export default function Organizations() {
                   onClick={() => setOrgListVisible(true)}
                   style={{ marginBottom: 20 }}
                 >
-                  选择组织
+                  {t('selecioneUmaOrganizacao')}
                 </Button>
               )}
-              <div>请选择一个组织查看详情</div>
+              <div>{t('selecioneOrganizacaoVer')}</div>
             </div>
           </Card>
         ) : (
@@ -454,7 +456,7 @@ export default function Organizations() {
                   <Space>
                     <BankOutlined />
                     <span style={{ fontSize: 14, fontWeight: 600 }}>
-                      组织管理
+                      {t('gerenciamentoDeOrganizacoes')}
                     </span>
                     <Tag color="blue">{currentProject?.title}</Tag>
                   </Space>
@@ -463,7 +465,7 @@ export default function Organizations() {
                     onClick={() => setOrgListVisible(true)}
                     size="small"
                   >
-                    列表
+                    {t('lista')}
                   </Button>
                 </div>
               </Card>
@@ -482,7 +484,7 @@ export default function Organizations() {
               >
                 <Space direction="vertical" style={{ width: '100%' }} size={isMobile ? 'middle' : 'large'}>
                 <Card
-                  title="组织详情"
+                  title={t('detalhesDaOrganizacao')}
                   size="small"
                   extra={
                     <Button
@@ -499,42 +501,42 @@ export default function Organizations() {
                         setIsEditOrgModalOpen(true);
                       }}
                     >
-                      编辑
+                      {t('editar')}
                     </Button>
                   }
                 >
                   <Descriptions column={isMobile ? 1 : 2} size="small">
-                    <Descriptions.Item label="组织名称">{selectedOrg.name}</Descriptions.Item>
-                    <Descriptions.Item label="类型">{selectedOrg.type}</Descriptions.Item>
-                    <Descriptions.Item label="成员数量">{selectedOrg.member_count}</Descriptions.Item>
-                    <Descriptions.Item label="势力等级">
+                    <Descriptions.Item label={t('nomeDaOrganizacao')}>{selectedOrg.name}</Descriptions.Item>
+                    <Descriptions.Item label={t('tipo')}>{selectedOrg.type}</Descriptions.Item>
+                    <Descriptions.Item label={t('numeroDeMembros')}>{selectedOrg.member_count}</Descriptions.Item>
+                    <Descriptions.Item label={t('nivelDePoder')}>
                       <Tag color={selectedOrg.power_level >= 70 ? 'red' : selectedOrg.power_level >= 50 ? 'orange' : 'default'}>
                         {selectedOrg.power_level}
                       </Tag>
                     </Descriptions.Item>
                     {selectedOrg.location && (
-                      <Descriptions.Item label="所在地" span={isMobile ? 1 : 2}>
+                      <Descriptions.Item label={t('localizacao')} span={isMobile ? 1 : 2}>
                         {selectedOrg.location}
                       </Descriptions.Item>
                     )}
                     {selectedOrg.color && (
-                      <Descriptions.Item label="代表颜色">
+                      <Descriptions.Item label={t('corRepresentativa')}>
                         {selectedOrg.color}
                       </Descriptions.Item>
                     )}
                     {selectedOrg.motto && (
-                      <Descriptions.Item label="格言/口号" span={2}>
+                      <Descriptions.Item label={t('lemaSlogan')} span={2}>
                         {selectedOrg.motto}
                       </Descriptions.Item>
                     )}
-                    <Descriptions.Item label="组织目的" span={2}>
+                    <Descriptions.Item label={t('propositoDaOrganizacao')} span={2}>
                       {selectedOrg.purpose}
                     </Descriptions.Item>
                   </Descriptions>
                 </Card>
 
                 <Card
-                  title={`组织成员 (${members.length})`}
+                  title={t('membrosDaOrganizacao', { membersCount: members.length })}
                   extra={
                     <Button
                       type="primary"
@@ -543,7 +545,7 @@ export default function Organizations() {
                       onClick={() => setIsAddMemberModalOpen(true)}
                       disabled={availableCharacters.length === 0}
                     >
-                      添加成员
+                      {t('adicionarMembro')}
                     </Button>
                   }
                 >
@@ -557,7 +559,7 @@ export default function Organizations() {
                           defaultPageSize: 5,
                           showSizeChanger: true,
                           showQuickJumper: !isMobile,
-                          showTotal: (total) => `共 ${total} 名成员`,
+                          showTotal: (total) => t('totalDeMembros', { total }),
                           pageSizeOptions: [5, 10, 20],
                           simple: isMobile,
                           position: ['bottomCenter'],
@@ -581,7 +583,7 @@ export default function Organizations() {
 
       {/* 添加成员模态框 */}
       <Modal
-        title="添加组织成员"
+        title={t('adicionarMembroOrganizacao')}
         open={isAddMemberModalOpen}
         onCancel={() => {
           setIsAddMemberModalOpen(false);
@@ -600,11 +602,11 @@ export default function Organizations() {
         >
           <Form.Item
             name="character_id"
-            label="选择角色"
-            rules={[{ required: true, message: '请选择角色' }]}
+            label={t('selecionarPersonagem')}
+            rules={[{ required: true, message: t('selecioneUmPersonagem') }]}
           >
             <Select
-              placeholder="选择要加入的角色"
+              placeholder={t('selecionePersonagemVai')}
               showSearch
               filterOption={(input, option) =>
                 (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
@@ -618,24 +620,24 @@ export default function Organizations() {
 
           <Form.Item
             name="position"
-            label="职位"
-            rules={[{ required: true, message: '请输入职位' }]}
+            label={t('cargo')}
+            rules={[{ required: true, message: t('informeOCargo') }]}
           >
-            <Input placeholder="如：掌门、长老、弟子" />
+            <Input placeholder={t('exLiderAnciao')} />
           </Form.Item>
 
           <Form.Item
             name="rank"
-            label="职位等级"
+            label={t('nivelDoCargo')}
             initialValue={5}
-            tooltip="数字越大等级越高"
+            tooltip={t('quantoMaiorNumero')}
           >
             <InputNumber min={0} max={10} style={{ width: '100%' }} />
           </Form.Item>
 
           <Form.Item
             name="loyalty"
-            label="初始忠诚度"
+            label={t('lealdadeInicial')}
             initialValue={50}
           >
             <InputNumber min={0} max={100} style={{ width: '100%' }} addonAfter="%" />
@@ -643,28 +645,28 @@ export default function Organizations() {
 
           <Form.Item
             name="status"
-            label="状态"
+            label={t('status')}
             initialValue="active"
           >
             <Select>
-              <Select.Option value="active">在职</Select.Option>
-              <Select.Option value="retired">退休</Select.Option>
-              <Select.Option value="expelled">除名</Select.Option>
+              <Select.Option value="active">{t('ativo')}</Select.Option>
+              <Select.Option value="retired">{t('aposentado')}</Select.Option>
+              <Select.Option value="expelled">{t('expulso')}</Select.Option>
             </Select>
           </Form.Item>
 
           <Form.Item
             name="joined_at"
-            label="加入时间"
+            label={t('dataDeEntrada')}
           >
-            <Input placeholder="如：开山大典时、三年前、建立之初等" />
+            <Input placeholder={t('exCerimoniaFundacao')} />
           </Form.Item>
 
           <Form.Item>
             <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-              <Button onClick={() => setIsAddMemberModalOpen(false)}>取消</Button>
+              <Button onClick={() => setIsAddMemberModalOpen(false)}>{t('cancelar')}</Button>
               <Button type="primary" htmlType="submit">
-                添加
+                {t('adicionar')}
               </Button>
             </Space>
           </Form.Item>
@@ -673,7 +675,7 @@ export default function Organizations() {
 
       {/* 编辑成员模态框 */}
       <Modal
-        title="编辑成员信息"
+        title={t('editarInformacoesMembro')}
         open={isEditMemberModalOpen}
         onCancel={() => {
           setIsEditMemberModalOpen(false);
@@ -702,58 +704,58 @@ export default function Organizations() {
         >
           <Form.Item
             name="position"
-            label="职位"
-            rules={[{ required: true, message: '请输入职位' }]}
+            label={t('cargo')}
+            rules={[{ required: true, message: t('informeOCargo') }]}
           >
-            <Input placeholder="如：掌门、长老、弟子" />
+            <Input placeholder={t('exLiderAnciao')} />
           </Form.Item>
 
           <Form.Item
             name="rank"
-            label="职位等级"
-            tooltip="数字越大等级越高"
+            label={t('nivelDoCargo')}
+            tooltip={t('quantoMaiorNumero')}
           >
             <InputNumber min={0} max={10} style={{ width: '100%' }} />
           </Form.Item>
 
           <Form.Item
             name="loyalty"
-            label="忠诚度"
+            label={t('lealdade')}
           >
             <InputNumber min={0} max={100} style={{ width: '100%' }} addonAfter="%" />
           </Form.Item>
 
           <Form.Item
             name="contribution"
-            label="贡献度"
+            label={t('contribuicao')}
           >
             <InputNumber min={0} max={100} style={{ width: '100%' }} addonAfter="%" />
           </Form.Item>
 
           <Form.Item
             name="status"
-            label="状态"
+            label={t('status')}
           >
             <Select>
-              <Select.Option value="active">在职</Select.Option>
-              <Select.Option value="retired">退休</Select.Option>
-              <Select.Option value="expelled">除名</Select.Option>
-              <Select.Option value="deceased">已故</Select.Option>
+              <Select.Option value="active">{t('ativo')}</Select.Option>
+              <Select.Option value="retired">{t('aposentado')}</Select.Option>
+              <Select.Option value="expelled">{t('expulso')}</Select.Option>
+              <Select.Option value="deceased">{t('falecido')}</Select.Option>
             </Select>
           </Form.Item>
 
           <Form.Item
             name="joined_at"
-            label="加入时间"
+            label={t('dataDeEntrada')}
           >
-            <Input placeholder="如：开山大典时、三年前、建立之初等" />
+            <Input placeholder={t('exCerimoniaFundacao')} />
           </Form.Item>
 
           <Form.Item
             name="notes"
-            label="备注"
+            label={t('observacoes')}
           >
-            <Input.TextArea rows={3} placeholder="成员相关的备注信息" />
+            <Input.TextArea rows={3} placeholder={t('observacoesRelacionadasMembro')} />
           </Form.Item>
 
           <Form.Item>
@@ -763,10 +765,10 @@ export default function Organizations() {
                 editMemberForm.resetFields();
                 setEditingMember(null);
               }}>
-                取消
+                {t('cancelar')}
               </Button>
               <Button type="primary" htmlType="submit">
-                保存
+                {t('salvar')}
               </Button>
             </Space>
           </Form.Item>
@@ -775,7 +777,7 @@ export default function Organizations() {
 
       {/* 编辑组织模态框 */}
       <Modal
-        title="编辑组织信息"
+        title={t('editarInformacoesOrganizacao')}
         open={isEditOrgModalOpen}
         onCancel={() => {
           setIsEditOrgModalOpen(false);
@@ -794,7 +796,7 @@ export default function Organizations() {
             if (!selectedOrg) return;
             try {
               await axios.put(`/api/organizations/${selectedOrg.id}`, values);
-              message.success('组织信息更新成功');
+              message.success(t('informacoesOrganizacaoAtualizadas'));
               setIsEditOrgModalOpen(false);
               editOrgForm.resetFields();
 
@@ -811,46 +813,46 @@ export default function Organizations() {
               // 刷新全局 store
               await refreshCharacters();
             } catch (error) {
-              message.error('更新失败');
+              message.error(t('falhaAoAtualizar'));
               console.error(error);
             }
           }}
         >
           <Form.Item
             name="power_level"
-            label="势力等级"
-            rules={[{ required: true, message: '请输入势力等级' }]}
-            tooltip="0-100的数值，表示组织的影响力"
+            label={t('nivelDePoder')}
+            rules={[{ required: true, message: t('informeNivelPoder') }]}
+            tooltip={t('valor0100')}
           >
             <InputNumber min={0} max={100} style={{ width: '100%' }} />
           </Form.Item>
 
           <Form.Item
             name="location"
-            label="所在地"
+            label={t('localizacao')}
           >
-            <Input placeholder="组织的主要活动区域或总部位置" />
+            <Input placeholder={t('principalAreaAtuacao')} />
           </Form.Item>
 
           <Form.Item
             name="motto"
-            label="格言/口号"
+            label={t('lemaSlogan')}
           >
-            <Input placeholder="组织的宗旨、格言或口号" />
+            <Input placeholder={t('propositoLemaOu')} />
           </Form.Item>
 
           <Form.Item
             name="color"
-            label="代表颜色"
+            label={t('corRepresentativa')}
           >
-            <Input placeholder="如：深红色、金色、黑色等" />
+            <Input placeholder={t('exVermelhoEscuro')} />
           </Form.Item>
 
           <Form.Item>
             <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-              <Button onClick={() => setIsEditOrgModalOpen(false)}>取消</Button>
+              <Button onClick={() => setIsEditOrgModalOpen(false)}>{t('cancelar')}</Button>
               <Button type="primary" htmlType="submit">
-                保存
+                {t('salvar')}
               </Button>
             </Space>
           </Form.Item>

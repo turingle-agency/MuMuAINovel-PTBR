@@ -42,7 +42,7 @@ backend/data/*.db
 postgres_data/
 
 # ChromaDB数据库（不包含在镜像中，会在运行时生成）
-backend/data/chroma_db/
+backend/data/qdrant/
 
 # Embedding 模型由 Dockerfile 从 ModelScope 下载，避免发送本地缓存。
 backend/embedding/

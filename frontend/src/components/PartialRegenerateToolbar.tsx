@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Tooltip, theme } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface PartialRegenerateToolbarProps {
   visible: boolean;
@@ -19,6 +20,7 @@ export const PartialRegenerateToolbar: React.FC<PartialRegenerateToolbarProps> =
   onRegenerate,
   selectedText
 }) => {
+  const { t } = useTranslation('partialRegenerateToolbar');
   const { token } = theme.useToken();
 
   if (!visible || !selectedText) return null;
@@ -47,7 +49,7 @@ export const PartialRegenerateToolbar: React.FC<PartialRegenerateToolbarProps> =
       }}
     >
       <Tooltip
-        title={`AI重写选中内容: "${displayText}"`}
+        title={t('reescreverIaTrechoSelecionado', { displayText })}
         placement="top"
       >
         <Button
@@ -68,7 +70,7 @@ export const PartialRegenerateToolbar: React.FC<PartialRegenerateToolbarProps> =
             boxShadow: token.boxShadowSecondary,
           }}
         >
-          AI重写
+          {t('reescreverComIa')}
         </Button>
       </Tooltip>
       <span style={{ 
@@ -79,7 +81,7 @@ export const PartialRegenerateToolbar: React.FC<PartialRegenerateToolbarProps> =
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
       }}>
-        已选 {selectedText.length} 字
+        {t('palavrasSelecionadas', { selectedTextCount: selectedText.length })}
       </span>
     </div>
   );

@@ -124,9 +124,9 @@ backend/embedding/
 # 提示词工坊实例标识（每个部署实例必须唯一）
 backend/.instance_id
 test.json
-tests/
-# Local test suite (kept outside version control)
-backend/tests/
-**/test_*.py
-**/*_test.py
 tool/
+
+# Superpowers / venv / dados locais
+.superpowers/
+backend/.venv/
+backend/data/

@@ -67,7 +67,7 @@ class GeminiCoverProvider(BaseCoverProvider):
 
         candidates = data.get("candidates") or []
         if not candidates:
-            raise ValueError("Gemini 未返回候选结果")
+            raise ValueError("O Gemini não retornou candidatos")
 
         parts = candidates[0].get("content", {}).get("parts", [])
         for part in parts:
@@ -91,4 +91,4 @@ class GeminiCoverProvider(BaseCoverProvider):
             }
 
         logger.error("Gemini 返回内容中未找到 inlineData 图像数据")
-        raise ValueError("Gemini 未返回图片数据")
+        raise ValueError("O Gemini não retornou dados de imagem")

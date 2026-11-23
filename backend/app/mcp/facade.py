@@ -282,17 +282,17 @@ class MCPClientFacade:
                             session.status = "error"
                             logger.error(f"❌ 会话 {key} 错误率过高 ({session.error_rate:.1%})")
                             await self._emit_status_change(user_id, plugin_name, old_status, "error",
-                                f"错误率过高: {session.error_rate:.1%}")
+                                f"Taxa de erro muito alta: {session.error_rate:.1%}")
                     elif session.error_rate > mcp_config.ERROR_RATE_WARNING:
                         if session.status == "active":
                             session.status = "degraded"
                             logger.warning(f"⚠️ 会话 {key} 健康状况下降 ({session.error_rate:.1%})")
                             await self._emit_status_change(user_id, plugin_name, old_status, "degraded",
-                                f"错误率较高: {session.error_rate:.1%}")
+                                f"Taxa de erro elevada: {session.error_rate:.1%}")
                     elif session.status == "degraded":
                         session.status = "active"
                         logger.info(f"✅ 会话 {key} 恢复正常")
-                        await self._emit_status_change(user_id, plugin_name, old_status, "active", "恢复正常")
+                        await self._emit_status_change(user_id, plugin_name, old_status, "active", "Recuperado")
     
     # ==================== 连接管理 ====================
     
@@ -358,7 +358,7 @@ class MCPClientFacade:
                     self._sessions[key] = info
                 
                 logger.info(f"✅ MCP会话建立成功: {key}")
-                await self._emit_status_change(config.user_id, config.plugin_name, "inactive", "active", "连接成功")
+                await self._emit_status_change(config.user_id, config.plugin_name, "inactive", "active", "Conexão bem-sucedida")
                 return True
 
             except ExceptionGroup as eg:
@@ -401,7 +401,7 @@ class MCPClientFacade:
             await self._close_session_unsafe(key)
             self._invalidate_cache(key)
         
-        await self._emit_status_change(user_id, plugin_name, old_status, "inactive", "已注销")
+        await self._emit_status_change(user_id, plugin_name, old_status, "inactive", "Registro removido")
     
     async def _cleanup_contexts_in_task(self, session, stream_ctx):
         """在当前任务中清理已创建的上下文（异步方法）
@@ -462,7 +462,7 @@ class MCPClientFacade:
         
         info = self._sessions.get(key)
         if not info:
-            raise ValueError(f"MCP会话不存在: {plugin_name}，请先调用register()")
+            raise ValueError(f"Sessão MCP não encontrada: {plugin_name}; chame register() primeiro")
         
         if info.status == "error":
             logger.warning(f"⚠️ 会话 {key} 处于错误状态，可能需要重新注册")
@@ -563,7 +563,7 @@ class MCPClientFacade:
             
             return {
                 "success": True,
-                "message": "连接成功",
+                "message": "Conexão bem-sucedida",
                 "response_time_ms": round((time.time() - start) * 1000, 2),
                 "tools_count": len(tools),
                 "tools": tools
@@ -692,7 +692,7 @@ class MCPClientFacade:
             except asyncio.TimeoutError:
                 duration_ms = (time.time() - start_time) * 1000
                 self._metrics[tool_key].record_failure(duration_ms)
-                raise MCPError(f"工具调用超时（>{actual_timeout}秒）")
+                raise MCPError(f"Tempo esgotado na chamada da ferramenta (>{actual_timeout}s)")
                 
             except ClosedResourceError as e:
                 # 连接已关闭，尝试重连
@@ -731,11 +731,11 @@ class MCPClientFacade:
                 else:
                     duration_ms = (time.time() - start_time) * 1000
                     self._metrics[tool_key].record_failure(duration_ms)
-                    raise MCPError(f"连接已关闭且重连失败 (尝试了{max_reconnect_attempts}次)")
+                    raise MCPError(f"Conexão encerrada e a reconexão falhou ({max_reconnect_attempts} tentativas)")
             
             except ValueError as e:
                 # 会话不存在，尝试重新注册
-                if "MCP会话不存在" in str(e) and attempt < max_reconnect_attempts:
+                if "Sessão MCP não encontrada" in str(e) and attempt < max_reconnect_attempts:
                     logger.warning(f"⚠️ MCP会话不存在，尝试重新注册 (第{attempt + 1}/{max_reconnect_attempts}次)")
                     
                     # 尝试获取会话信息用于重新注册
@@ -762,7 +762,7 @@ class MCPClientFacade:
                 else:
                     duration_ms = (time.time() - start_time) * 1000
                     self._metrics[tool_key].record_failure(duration_ms)
-                    raise MCPError(f"会话不存在: {e}")
+                    raise MCPError(f"Sessão não encontrada: {e}")
                     
             except Exception as e:
                 duration_ms = (time.time() - start_time) * 1000
@@ -780,12 +780,12 @@ class MCPClientFacade:
                         if session_info.error_rate > mcp_config.ERROR_RATE_CRITICAL and old_status != "error":
                             session_info.status = "error"
                             asyncio.create_task(self._emit_status_change(
-                                user_id, plugin_name, old_status, "error", f"错误率过高: {session_info.error_rate:.1%}"
+                                user_id, plugin_name, old_status, "error", f"Taxa de erro muito alta: {session_info.error_rate:.1%}"
                             ))
                         elif session_info.error_rate > mcp_config.ERROR_RATE_WARNING and old_status == "active":
                             session_info.status = "degraded"
                             asyncio.create_task(self._emit_status_change(
-                                user_id, plugin_name, old_status, "degraded", f"错误率较高: {session_info.error_rate:.1%}"
+                                user_id, plugin_name, old_status, "degraded", f"Taxa de erro elevada: {session_info.error_rate:.1%}"
                             ))
                 
                 error_msg = str(e)
@@ -794,12 +794,12 @@ class MCPClientFacade:
                 # 检查是否是 JSON 解析错误（MCP SDK 内部错误）
                 if "parsing JSON" in error_msg.lower() or "json" in error_msg.lower():
                     logger.error(f"❌ 工具调用失败 (JSON解析错误): {tool_key}: {e}")
-                    raise MCPError(f"MCP服务器响应格式错误，请检查服务器状态或稍后重试")
+                    raise MCPError(f"Resposta do servidor MCP em formato inválido; verifique o status do servidor ou tente novamente mais tarde")
                 
                 logger.error(f"❌ 工具调用失败: {tool_key} [{error_type}]: {e}")
-                raise MCPError(f"工具调用失败: {error_msg}")
+                raise MCPError(f"Falha na chamada da ferramenta: {error_msg}")
         
-        raise MCPError("工具调用失败: 未知错误")
+        raise MCPError("Falha na chamada da ferramenta: erro desconhecido")
     
     def _extract_tool_result(self, result) -> Any:
         """从MCP结果中提取实际内容"""
@@ -868,7 +868,7 @@ class MCPClientFacade:
                         "tool_call_id": tc.get("id", f"call_{i+j}"),
                         "role": "tool",
                         "name": tc["function"]["name"],
-                        "content": f"工具调用失败: {str(result)}",
+                        "content": f"Falha na chamada da ferramenta: {str(result)}",
                         "success": False,
                         "error": str(result)
                     })
@@ -922,7 +922,7 @@ class MCPClientFacade:
                 "tool_call_id": tool_call_id,
                 "role": "tool",
                 "name": function_name,
-                "content": f"参数JSON解析失败: {str(e)}",
+                "content": f"Falha ao interpretar o JSON dos parâmetros: {str(e)}",
                 "success": False,
                 "error": str(e)
             }
@@ -931,7 +931,7 @@ class MCPClientFacade:
                 "tool_call_id": tool_call_id,
                 "role": "tool",
                 "name": function_name,
-                "content": f"工具调用失败: {str(e)}",
+                "content": f"Falha na chamada da ferramenta: {str(e)}",
                 "success": False,
                 "error": str(e)
             }
@@ -999,7 +999,7 @@ class MCPClientFacade:
                 logger.debug(f"🔧 工具名使用点号分隔: {function_name} -> plugin={parts[0]}, tool={parts[1]}")
                 return (parts[0], parts[1])
         
-        raise ValueError(f"无效的工具名称格式: {function_name}，应为 'plugin_tool' 或 'plugin.tool' 格式")
+        raise ValueError(f"Formato de nome de ferramenta inválido: {function_name}, o esperado é o formato 'plugin_tool' ou 'plugin.tool'")
     
     def build_tool_context(
         self, 
@@ -1028,7 +1028,7 @@ class MCPClientFacade:
     
     def _build_markdown_context(self, tool_results: List[Dict[str, Any]]) -> str:
         """构建Markdown格式的工具上下文"""
-        lines = ["## 🔧 工具调用结果\n"]
+        lines = ["## 🔧 Resultados das chamadas de ferramentas\n"]
         
         for i, result in enumerate(tool_results, 1):
             tool_name = result.get("name", "unknown")
@@ -1047,22 +1047,22 @@ class MCPClientFacade:
                     pass
                 lines.append(f"```json\n{content}\n```\n")
             else:
-                lines.append(f"**错误**: {content}\n")
+                lines.append(f"**Erro**: {content}\n")
         
         return "\n".join(lines)
     
     def _build_plain_context(self, tool_results: List[Dict[str, Any]]) -> str:
         """构建纯文本格式的工具上下文"""
-        lines = ["=== 工具调用结果 ===\n"]
+        lines = ["=== Resultados das chamadas de ferramentas ===\n"]
         
         for i, result in enumerate(tool_results, 1):
             tool_name = result.get("name", "unknown")
             success = result.get("success", False)
             content = result.get("content", "")
             
-            status = "成功" if success else "失败"
+            status = "sucesso" if success else "falha"
             lines.append(f"{i}. {tool_name} - {status}")
-            lines.append(f"   结果: {content}\n")
+            lines.append(f"   Resultado: {content}\n")
         
         return "\n".join(lines)
     

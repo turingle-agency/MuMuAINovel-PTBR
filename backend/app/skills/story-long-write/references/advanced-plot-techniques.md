@@ -1,1046 +1,270 @@
-# 高级剧情技法
+# Técnicas avançadas de enredo
 
-## 目录
+> **Origem** (adaptação em português do material original, ~44 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - O jogo de algoritmo e tráfego de plataformas chinesas na seção sobre chamarizes (a técnica de tipos de chamariz e extensibilidade está na seção 13) e o trecho de "varredura de rankings" da seção sobre análise de livros.
+> - Exemplos de livros e de músicas chinesas foram trocados por exemplos genéricos; os "sistemas" chineses de pontos (cultivo, "entrar na torre") foram adaptados a "vantagem especial".
+> - O "sistema detalhado de classificação de fichas de história" do original **foi relocado integralmente** (menos exemplos específicos de plataforma) para `outline-arrangement.md`, seção 24: níveis de abstração e cinco fórmulas (24), arquitetura (24.1), fichas pequenas (24.2: cena de rivais, contagem regressiva, mágoa e dívida, dupla identidade, tratamento especial, mudança de afeto, mal-entendido, aprofundamentos de pose e pequeno contra grande), doze fichas de elemento (24.3), fichas de técnica (24.4), dicas de enigma (24.5), combinação e refinamento (24.6) e fichas de expectativa concretas (24.7).
 
-- [小纲四步法](#小纲四步法)
-- [金手指拆分理解与战力防崩](#金手指拆分理解与战力防崩)
-- [高潮逆推法与AB粗纲](#高潮逆推法与ab粗纲)
-- [噱头分类与开篇流程](#噱头分类与开篇流程)
-- [情绪拉扯理论](#情绪拉扯理论)
-- [对标书选择法则](#对标书选择法则)
-- [主线的正确定义](#主线的正确定义)
-- [误会制造拉扯法](#误会制造拉扯法)
-- [脑洞文完整写作框架](#脑洞文完整写作框架)
-- [剧情循环核心要素](#剧情循环核心要素)
-- [日常文大纲框架法](#日常文大纲框架法)
-- [大剧情拉期待法](#大剧情拉期待法)
-- [噱头吸量与流量思维](#噱头吸量与流量思维)
-- [题材边界感](#题材边界感)
-- [信息团概念](#信息团概念)
-- [自嗨判定法](#自嗨判定法)
-- [向人设深化 vs 向故事深化](#向人设深化-vs-向故事深化)
-- [爱情线提纯策略](#爱情线提纯策略)
-- [扫榜与拆书方法论](#扫榜与拆书方法论)
-- [故事卡详细分类体系](#故事卡详细分类体系)
-- [金手指进阶设计](#金手指进阶设计)
-- [连续性追踪与节奏管理](#连续性追踪与节奏管理)
+## Sumário
 
-
----
-
-## 小纲四步法
-
-细纲与正文比例：1:2.5 ~ 1:3（多了啰嗦，少了写不到位）。
-
-**四步流程**：
-1. 分段判断——把大纲按剧情节点分段
-2. 每段标注目的和效果（不展开情节）
-3. 标注详写还是略写
-4. 在创作周期内让自己快速想起要写什么
-
-**核心**：细纲内容只关注目的和效果，不展开情节。
+1. Esboço menor em quatro passos
+2. Vantagem especial: decomposição e como evitar o colapso do poder
+3. Planejamento do clímax de trás para frente e esboço AB
+4. Tipos de chamariz e fluxo de abertura
+5. Teoria da tensão emocional (duelo de cartas, níveis de brilho, estatura, densidade de recompensas)
+6. Como escolher livros de referência
+7. A definição correta de trama principal (objetivo x ação)
+8. Mal-entendidos que criam tensão
+9. Estrutura completa para ideias originais (modelo condição-retorno, quadro, ciclo pequeno, três pontos para escrever longo, ciclos com vários padrões)
+10. Elementos centrais do ciclo de enredo (núcleo por gênero)
+11. Esboço de cotidiano (do lampejo à linha do tempo, formato, dedução, capítulo)
+12. Expectativa em grande enredo (exemplo com concurso de composição)
+13. Fluxo e pensamento de fluxo; extensão do chamariz
+14. Fronteira do gênero
+15. Bloco de informação
+16. Teste de autoindulgência
+17. Aprofundar personagens x aprofundar a história
+18. Purificação da linha romântica
+19. Vantagem especial avançada (sistema fora do lugar, anti-clichê, tipos)
+20. Controle de continuidade e ritmo (rastreamento de "calor")
 
 ---
 
-## 金手指拆分理解与战力防崩
+## 1. Esboço menor em quatro passos
 
-### 金手指本质拆分
+Proporção esboço detalhado : texto = 1:2,5 a 1:3 (mais é prolixo, menos não chega lá).
+**Fluxo**: 1) dividir o esboço por nós de enredo; 2) marcar propósito e efeito de cada trecho (sem desenvolver o enredo); 3) marcar se é para escrever extenso ou resumido; 4) fazer com que, no ciclo de trabalho, você se lembre rápido do que escrever. **Núcleo**: o esboço menor só olha propósito e efeito, sem desenvolver o enredo.
+*Exemplo*: Nó "o protagonista é humilhado na reunião" → propósito: criar a lacuna emocional; efeito: o leitor quer a revanche; extenso (vai ser o ponto de explosão do arco).
 
-金手指看似简单，实际多为复数性质，可以拆成多个元素再拼接：
+## 2. Vantagem especial: decomposição e colapso do poder
 
-| 元素 | 作用 | 示例 |
+**A vantagem não é um bloco: decomponha-a e recombine**
+
+| Elemento | Função | Exemplo |
 |------|------|------|
-| 面板 | 目标感明确，最直观的收获感来源 | 数值/等级/进度条 |
-| 不倒退 | 重复行动获得的提升永续 | 熟练度不会衰减 |
-| 重复提升 | 核心循环机制 | 做A→获得B→继续做A |
+| Painel | Objetivo claro, fonte mais direta de sensação de ganho | Números/níveis/barra de progresso |
+| Não regressão | O que se ganha repetindo não se perde | A proficiência não decai |
+| Melhoria repetida | Mecanismo do ciclo central | Faz A → ganha B → continua fazendo A |
 
-**拼接逻辑**：拆分后可自由组合。如"杀怪+熟练度"=斩妖除魔流，"收集+提升品质"=焚决异火流，"吞噬+精华积累"=水猴子流。
+**Lógica de combinação**: "caçar + proficiência" = caçador de monstros; "coletar + melhorar a qualidade" = colecionador-alquimista; "absorver + acumular essência" = devorador. **Alerta**: se, mais tarde, a vantagem só tiver uma dimensão ("qualidade"), a sensação de progresso some; mantenha várias dimensões crescendo juntas (traços, funções, qualidade).
 
-**核心警示**：如果金手指后期只剩"品质提升"一个维度，提升感会消失。必须保持多个维度的提升（词条、功能、品质同时成长）。
+**Três causas do colapso de poder**
 
-### 战力崩坏三原因
-
-| 原因 | 表现 | 解法 |
+| Causa | Manifestação | Solução |
 |------|------|------|
-| 没写升级线 | 角色提升被忽略，只剩装备提升 | 用经典境界体系（如练气→筑基）提供升级框架 |
-| 金手指设计缺陷 | 每次必须品质提升，数值必崩 | 金手指提升要有多维度，不能只靠单一维度 |
-| 社会环境太简单 | 没有信息来源，无法制造期待 | 设计正经社会关系：酒馆、师门、朋友、情报组织 |
+| Linha de evolução não escrita | O crescimento do personagem é ignorado, só sobra o do equipamento | Use um sistema clássico de níveis (aprendiz → adepto) como estrutura |
+| Falha de desenho da vantagem | Toda vez é preciso subir a qualidade, os números desabam | A evolução tem várias dimensões |
+| Ambiente social simples demais | Sem fonte de informação não há expectativa | Crie relações sociais de verdade: taverna, escola, amigos, redes de informação |
 
-**升级线的核心价值**：让主角有理由和时间去搞法宝、丹药等副线，这些副线本身又可以利用金手指提升，形成良性循环。
+**Valor central da linha de evolução**: dá ao protagonista motivo e tempo para as linhas auxiliares (artefatos, poções), que por sua vez usam a vantagem para crescer, num ciclo virtuoso.
 
----
+## 3. Planejamento do clímax de trás para frente e esboço AB
 
-## 高潮逆推法与AB粗纲
+**Ideia**: parta do clímax e deduza os personagens e enredos que precisam de preparação; depois preencha com a alternância AB.
 
-### 核心思路
-
-从高潮反推前面需要铺垫的人物和情节，再用AB交替法填充。
-
-### AB粗纲法
-
-| 标记 | 含义 | 操作 |
+| Marca | Significado | Operação |
 |------|------|------|
-| A | 压情绪/铺垫/伏笔 | 铺设困难、对手强势、悬念埋线 |
-| B | 抬情绪/擦边/小收获 | 小反转、小进步、读者爽一下 |
+| A | Pressionar a emoção / preparação / pistas | Colocar dificuldades, adversário forte, plantar suspense |
+| B | Elevar a emoção / "encostar na linha" / pequeno ganho | Pequena virada, pequeno avanço, o leitor se satisfaz um pouco |
 
-**操作方法**：确定高潮→反推所需铺垫→ABABAB排列→码字时只关注当前AB段。
+**Operação**: definir o clímax → deduzir a preparação necessária → ordenar ABABAB → ao escrever, olhe só o trecho AB atual. **Indicado** a ritmo rápido e clímax bem definido. **Efeito colateral**: se o clímax em si é difícil de escrever, o quadro AB pode precisar ser refeito.
 
-**适用**：适合节奏快、有明确高潮节点的剧情。副作用是如果高潮本身难写，AB框架可能需要推翻重做。
+## 4. Tipos de chamariz e fluxo de abertura
 
----
+| Chamariz | Característica | Pontos de escrita | Gêneros comuns |
+|------|------|------|------|
+| De evento | Concentrado na abertura, ~5 capítulos | Entra direto no evento, sem preparar viagem/vantagem; evento cotidiano para dar imersão | Ficção rápida, derivados de vídeos curtos |
+| De vantagem | Distribuído, mais no começo | Primeiro protagonista e dificuldade, depois a vantagem; primeiro uso traz pequeno resultado | Progressão, sistema |
+| De personagem | A caracterização afeta o enredo | O personagem em si precisa gerar drama (ex.: um herói excessivamente cauteloso); não recomendado a iniciantes | Cotidiano, romance |
 
-## 噱头分类与开篇流程
+**Distinção-chave**: não misture a escrita de evento com a de vantagem! Se o leitor veio pelo evento e você enrola com o passado do protagonista, ele vai embora.
+**Dois fluxos de abertura**: *de evento*: entrada pelo evento (5 capítulos) → enxertar a trama principal (objetivo do protagonista) → dividir o objetivo → ciclos de recompensa por fase. *De trama principal*: descrever a situação atual → criar imersão → descrever o ambiente social → estabelecer o objetivo → dividir o objetivo (barreiras) → ligar a vantagem → primeira evolução → primeiro ciclo.
 
-### 三种噱头类型
+## 5. Teoria da tensão emocional
 
-| 噱头类型 | 特点 | 写法要点 | 常见题材 |
-|----------|------|----------|----------|
-| 事件噱头 | 集中在开篇，约5章 | 一上来就进入事件，不铺垫穿越/金手指，用日常事件制造代入感 | 飞卢系、短视频衍生 |
-| 金手指噱头 | 分布全文，前期多后期少 | 先写主角和困境，再引出金手指，第一次施展取得少许成果 | 签到流、系统文 |
-| 人设噱头 | 人设直接影响剧情构建 | 要求人设本身能制造戏剧性（如慎重勇者），新手不推荐 | 日常文、恋爱文 |
+**Núcleo**: o duelo entre protagonista e antagonista; a tensão não é esmagamento contínuo: em cada pequeno embate o protagonista leva leve vantagem e, no fim, a grande vitória. **Metáfora do jogo de cartas**: o protagonista joga um trio, o antagonista um quarteto, o protagonista um ás, o antagonista um dois, e por fim o protagonista joga o curinga e fecha.
 
-**关键区别**：事件写法和金手指写法不能混用！读者冲着事件进来时，如果磨磨唧唧写主角背景，读者就走了。
+**Níveis de brilho**
 
-### 两种标准开篇流程
-
-**事件开篇**：事件切入（5章）→ 嫁接主线（主角目标）→ 拆分目标 → 阶段性爽点循环
-
-**主线开篇**（斗破苍穹式）：描写主角现状 → 营造代入感 → 描写社会环境 → 设立主角目标 → 拆分目标（设门槛）→ 绑定金手指 → 获得第一次提升 → 情绪拉扯2-3次 → 事情完成 → 引出下一个目标
-
----
-
-## 情绪拉扯理论
-
-### 核心：主角与反派的角力过程
-
-情绪拉扯不是一路碾压，而是主角在每次小角力中都稍占上风，最后迎来大胜利。
-
-**斗地主比喻**：主角对三，反派对四，主角对A，反派对2，最后主角王炸一锤定音。
-
-### 装逼层级分类
-
-| 层级 | 特点 | 功能 |
+| Nível | Característica | Função |
 |------|------|------|
-| 日常小装逼 | 无需剧情，日常生活展示优势 | 调剂用，距离下个大爽点远时打出来维持读者耐心 |
-| 核心爽点 | 切在主线上，围绕主线目标装逼 | 推进主线的同时让读者爽 |
-| 偏离爽点 | 背离主线去别处装逼 | 应避免，浪费读者耐心 |
+| Brilho cotidiano pequeno | Sem enredo, mostra uma vantagem na vida normal | Tempero: use quando a próxima grande recompensa está longe, para manter a paciência do leitor |
+| Recompensa central | Sobre a trama principal, brilha em torno do objetivo principal | Avança a principal e satisfaz o leitor |
+| Recompensa desviada | Sai da trama principal e brilha em outro lugar | Evitar: gasta a paciência do leitor |
 
-### 逼格理论
+**Estatura**: não se limita à ficção de invencível; a progressão também pode ter. Subir é uma coisa, o estado de espírito é outra. Mesma ofensa: o protagonista revida furioso = ponto de rejeição; sorri, indiferente = estatura. Mantra: imagine o protagonista um grande personagem, que já viu grandes ondas e não briga com mosca.
+**Densidade de recompensas**: não alongue a preparação de uma recompensa; pense em mais recompensas; com prática, uma por capítulo ou mais. **Camadas**: espanto de quem está na hora → de quem está em outro lugar → de especialistas ao ver o método → os coadjuvantes nivelam a assimetria e se espantam de novo.
 
-- 逼格不限于无敌文，升级文也可以写
-- 升级是升级，心态是心态
-- 同样被骂：主角暴怒反击 = 毒点；主角微微一笑毫不在意 = 逼格
-- 核心心法：幻想主角是大人物，见过大风浪，不会和苍蝇计较
+## 6. Como escolher livros de referência
+**Princípio**: livros entre o bom e o muito bom, com arcabouço fácil de entender e gênero validado pelo mercado.
 
-### 爽点密度建议
+| Não escolher | Motivo |
+|------|------|
+| Livros de nomes consagrados de altíssimas vendas | Fôlego esmagador, fórmula quase invisível, não se aprende |
+| Livros que seguem a onda de um gênero recém-explodido | O fluxo foi sugado pelo sucesso, e a cópia mal feita morre |
+| Bons livros de estilo muito pessoal | Mundo e estilo únicos não se copiam |
 
-- 不应拉长单个爽点的铺垫，而应多想几个爽点
-- 熟练后可以一章一个甚至多个爽点
-- 层次划分法：当场观众震惊 → 别处观众震惊 → 专家震惊 → 配角间信息差抹平 → 再震惊
+**Como analisar o livro de referência**: analise uma dimensão por vez (personagem, ritmo, contraste, suspense); compare com e sem contraste e veja a diferença; não analise sem ligar ao gênero, ou fica pior.
 
----
+## 7. A definição correta de trama principal
 
-## 对标书选择法则
+**Trama principal ≠ subir de nível.** A principal é uma coisa; subir é a ação do protagonista para alcançar o objetivo.
 
-### 核心原则
+| Entendimento errado | Entendimento certo |
+|------|------|
+| A trama principal do gênero masculino é subir de nível | Subir é só a ação para alcançar o objetivo, não a trama principal |
+| A principal do romance urbano é ganhar dinheiro e fama | Muitos romances urbanos que não giram em dinheiro também fazem sucesso |
+| Linha profissional é subir passo a passo | Muitas obras de evento não têm subida como principal |
 
-对标书应该是精品到万订之间、套路框架易懂、题材经过市场验证的书。
-
-### 三不选
-
-| 不选类型 | 原因 |
-|----------|------|
-| 十万均以上大神书 | 笔力碾压，套路近乎无形，学不会 |
-| 刚火的题材跟风书 | 流量已被火书吸光，粗制滥造必死 |
-| 个人风格极强的好书 | 独特世界观和风格无法复制 |
-
-### 对标书拆法
-
-- 每次只拆一个维度（人设/节奏/对比手法/悬念等）
-- 有对比和没对比，感受有什么区别
-- 不要脱离题材拆书，否则越拆越乱
-
----
-
-## 主线的正确定义
-
-### 核心认知
-
-**主线≠升级**。主线是一件事，升级是主角达成目标的行动。
-
-| 错误认知 | 正确理解 |
-|----------|----------|
-| 男频主线就是升级 | 升级只是达成目标的行动，不是主线本身 |
-| 都市文主线就是赚钱出名 | 很多不以赚钱为核心的都市文照样火 |
-| 事业线就是步步升级 | 飞卢很多事件噱头文不以升级为主线 |
-
-### 目标与行动分离
-
-| 概念 | 定义 | 示例 |
+| Conceito | Definição | Exemplo |
 |------|------|------|
-| 目标（主线） | 主角要完成的一件事 | 斗破苍穹：上云岚宗复仇 |
-| 行动 | 主角为达成目标做的事 | 努力修炼、不断提升实力 |
+| Objetivo (principal) | Uma coisa que o protagonista quer cumprir | Subir à ordem inimiga para se vingar |
+| Ação | O que faz para alcançar o objetivo | Treinar, evoluir |
 
-**更多案例**：
-- 《全职高手》：目标=重新崛起，行动=从底层打拼
-- 《电子女友》：目标=治疗癌症，行动=提高好感度收获丹药
-- 娱乐文：目标=偿还债务/证明自己，行动=一步步爬上来
+*Mais exemplos*: um livro de esportes eletrônicos: objetivo = voltar a ser grande, ação = lutar de baixo; um romance com sistema: objetivo = curar um câncer, ação = elevar afinidade para ganhar poções; entretenimento: objetivo = pagar uma dívida/provar-se, ação = subir degrau a degrau. **Características**: a principal é uma coisa, não um elemento; terminada, ou se abre a segunda por preparação, ou o livro acaba; **âncora errada desvia todo o enredo seguinte**.
 
-### 主线的特征
+## 8. Mal-entendidos que criam tensão
 
-- 主线是一件事，不是一个元素
-- 主线完成后，要么通过铺垫开启第二条主线，要么完结
-- 锚点错误会导致后续所有剧情偏差
+**Natureza**: "eu achava que era assim, mas não era": a assimetria cria queda emocional.
 
----
-
-## 误会制造拉扯法
-
-### 误会的本质
-
-"我以为事情是这样的，但实际上不是这样的"——信息差制造情绪落差。
-
-### 误会在不同场景的用法
-
-| 场景 | 用法 | 案例 |
+| Cena | Uso | Exemplo |
 |------|------|------|
-| 装逼打脸 | 主角谦虚→配角误以为主角弱→反转打脸更爽 | 《都市修仙》开篇谦虚被误判 |
-| 感情线 | 误会制造两人心有芥蒂→阻碍感情发展→解开时更甜 | 各种恋爱文的误会桥段 |
-| 人设反差 | "我以为主角很弱，但他其实超级强" | 《骨王》《平平无奇大师兄》 |
-| 世界观设定 | "我以为世界能修仙，但其实不能" | 设定层面的信息差 |
+| Virada de mesa | O protagonista é modesto → coadjuvantes o acham fraco → virada mais gostosa | Abertura em que a modéstia é mal avaliada |
+| Linha afetiva | O mal-entendido cria mágoa → trava o romance → mais doce quando resolvido | Mal-entendidos clássicos |
+| Contraste de caracterização | "Achava que era fraco, mas é fortíssimo" | Protagonistas "discretos" |
+| Configuração do mundo | "Achava que o mundo era X, mas não é" | Assimetria de configuração |
 
-### 操作要点
+**Pontos**: o mal-entendido é ótimo para tensão afetiva; no romance, não pode separar de vez (nada de término), só "mágoa" e "esfriar um pouco"; **aproximar com herói que salva, afastar com mal-entendido**; na virada de mesa, a modéstia do protagonista é, ela mesma, uma máquina de mal-entendidos.
 
-- 误会是制造感情拉扯的绝佳方法
-- 感情线中：不能真正扯开（不能分手），而是"心有芥蒂""暂时冷静"
-- 拉近关系用英雄救美，扯开关系用误会
-- 装逼打脸中：主角的谦虚/低调本身就是误会制造器
+## 9. Estrutura completa para ideias originais
 
----
+**Quatro passos do lampejo ao livro**: 1) obter a ideia (embrião da vantagem/imagem/ponto de entrada); 2) casar com um gênero (em que gênero a ideia se funde?); 3) montar o arcabouço (evolução, vantagem e quadro); 4) desenhar o enredo (preencher o quadro com pequenos ciclos).
 
-## 脑洞文完整写作框架
+**Vantagem: modelo condição-retorno**: toda vantagem é "cumprir condição → receber retorno".
 
-### 从灵感到成书的四步流程
-
-1. **得到点子**：一个金手指雏形/画面/切入点
-2. **匹配题材**：思考点子能融合进什么题材
-3. **构建框架**：围绕升级体系、金手指、框架三要素搭建
-4. **设计剧情**：在框架内用小剧情循环填充
-
-### 金手指设计：条件-反馈模型
-
-所有金手指本质都是"达成条件→得到反馈"模式：
-
-| 变体 | 设计 | 示例 |
+| Variante | Desenho | Exemplo |
 |------|------|------|
-| 单条件单反馈 | 摸尸体→得宝物 | 最基础形式 |
-| 单条件阶段反馈 | 摸尸→得摸尸点→升级解锁新功能 | 保留机制，丰富表现形式 |
-| 条件升级反馈 | 击杀→掠夺词条→词条可融合 | 后期天花板更高 |
+| Condição única, retorno único | Revistar um cadáver → obter um tesouro | A forma básica |
+| Condição única, retorno por fases | Revistar → ganhar pontos → evoluir e desbloquear funções | Manter o mecanismo, enriquecer a forma |
+| Condição que evolui o retorno | Derrotar → saquear um traço → traços se fundem | Teto mais alto depois |
 
-**创新手法**：
-- 设置多个条件对应一个反馈
-- 一个条件对应阶段性反馈，完成后升级
-- 一个条件对应概率性反馈
-- 反馈产生新的子能力（如灵魂进入空间，关键时刻施放）
+**Inovações**: várias condições para um retorno; uma condição com retorno por fases e evolução; uma condição com retorno probabilístico; o retorno gera subcapacidades (a alma entra num espaço e é liberada no momento certo).
 
-### 框架设计法
+**Desenho do quadro**: quadro = trama principal + transições entre enredos; pergunta central: qual o propósito de cada enredo? *Passos*: 1) estado inicial (aluno do último ano, vai prestar vestibular); 2) função de cada enredo, ligada ao anterior (simulado → treino seletivo → vestibular → calourada militar → turma de elite → torneio → exército → fronteira → divindade → espaço); 3) enredos posteriores penetram nos anteriores (o resultado da torre atrai um grande nome); 4) intercalar pequenos ciclos conforme o quadro. **Chave**: o material concreto dentro do quadro é substituível (medir força → instância selvagem), mas a função central não muda.
 
-框架 = 主线 + 剧情间的过渡。核心问题：每个剧情存在的目的是什么？
+**Pequeno ciclo (quatro passos)**: a1) preparar o ponto de partida (situação + objetivo do protagonista); a2) surge a dificuldade (contradição concreta); a3) a vantagem/capacidade age; a4) liberar a recompensa (choque/ganho/ruptura de relação). **Ritmo do ciclo de progressão**: 1) cai em dilema; 2) a vantagem evolui; 3) o enredo se desenrola; 4) ganho e cotidiano; 5) preparar o grande objetivo e expandir o mundo. **Encaixe em vários níveis**: pequeno ciclo → médio (objetivo secundário) → grande (objetivo do volume); no pequeno, já plante a expectativa do grande.
 
-**设计步骤**：
-1. 确定主角初始状态（如高三学生、要高考）
-2. 确定每个剧情的功能并向前衔接（模拟考→选拔特训营→高考→大学军训→英才班→擂台赛→军部→边疆→神明→星际）
-3. 后续剧情渗透到前一个剧情（试炼塔结果引出更高级大佬关注）
-4. 根据框架穿插嵌套小剧情循环
+**Três chaves para escrever longo com ideias originais**: 1) **variar dentro da repetição** (ângulos e contradições diferentes do mesmo atrativo); 2) **expandir o mundo** (novos mapas, forças, configurações gradualmente); 3) **acertar o atrativo no mercado** (cobrir necessidades de muitos leitores).
 
-**关键**：框架内的具体素材可以灵活替换（测试拳力→野外副本），但核心功能不变。
+**Ciclos com vários padrões**
 
-### 小剧情循环构思法
-
-框架确定后，用"小循环"填充过程部分：
-
-| 循环步骤 | 内容 |
-|----------|------|
-| a1 | 铺垫起点（主角处境+目标） |
-| a2 | 困难出现（引入具体矛盾） |
-| a3 | 金手指/实力发挥作用 |
-| a4 | 爽点释放（震惊/收获/关系突破） |
-
-**升级流的小循环节奏**：
-1. 遭遇困境
-2. 金手指提升
-3. 剧情展开
-4. 收获和日常
-5. 大目标铺垫、世界观扩展
-
-**多级嵌套**：小循环 → 中循环（次级目标）→ 大循环（卷目标）。注意在小循环里提前铺垫好大循环的期待。
-
-### 脑洞文写长三关键
-
-1. **在重复中变化**：同一核心卖点的不同角度/不同矛盾
-2. **扩展世界观**：新的地图/势力/设定逐步展开
-3. **核心卖点抓准市场**：覆盖足够多的读者需求
-
-### 多套路交织循环模式
-
-| 模式 | 做法 | 效果 |
+| Modo | Como | Efeito |
 |------|------|------|
-| 多角度循环 | 从核心卖点找出若干角度，归纳为不同矛盾的套路，叠加框架 | 每个角度写1-2卷，支撑几百万字 |
-| 设定扩展循环 | 从脑洞设定角度扩展多种套路 | 比第一种简单，适合难以多角度的题材 |
-| 核心不扩展 | 严格围绕一个核心循环 | 最简单，也最容易重复崩盘 |
-| 强情绪事件循环 | 以一个强情绪事件为卖点 | 同上，短命 |
+| Ciclo multiângulo | Do atrativo central, achar vários ângulos, resumi-los em padrões de contradições diferentes e sobrepor ao quadro | Cada ângulo rende 1-2 volumes e sustenta centenas de milhares de palavras |
+| Ciclo de expansão da configuração | Expandir vários padrões a partir da configuração da ideia | Mais simples que o primeiro; serve a gêneros que não aceitam vários ângulos |
+| Núcleo sem expandir | Girar estritamente em torno de um só ciclo | O mais simples, mas o que mais repete e desmorona |
+| Ciclo de evento de forte emoção | Atrativo = um evento de forte emoção | Igual ao anterior, curta duração |
 
----
+## 10. Elementos centrais do ciclo de enredo
 
-## 剧情循环核心要素
+O núcleo do ciclo varia por gênero; enquanto o núcleo não desmorona, o ciclo continua.
 
-不同题材的循环核心不同，只要核心不崩，循环就在持续：
+| Gênero | Núcleo do ciclo | Condição de continuidade |
+|------|------|------|
+| Proficiência/ponto de partida baixo | O mapa | Mapa detalhado, com forças diferentes (academia/senhores locais/bandidos) |
+| Saga longeva | Mudança social | Enquanto a sociedade mudar |
+| Jogo ilimitado (instâncias) | Instância e realidade | Instância e realidade não desabam |
+| Estrada | Relações/personagem | A personalidade não quebra |
+| Invencível | O inimigo | O inimigo não desaba |
+| Vida simples/coleta/estocagem | Destruição do ambiente externo | O ambiente continua piorando |
 
-| 题材类型 | 循环核心 | 循环持续条件 |
-|----------|----------|-------------|
-| 肝熟练度/低位开局 | 地图 | 地图要细，不同势力（武馆/豪绅/山贼） |
-| 长生流 | 社会变迁 | 只要社会持续变迁 |
-| 无限游戏 | 副本与现实 | 副本现实不崩 |
-| 公路文 | 人际交往/人设 | 人物不崩 |
-| 无敌文 | 敌人 | 敌人不崩 |
-| 种田/签到/囤积 | 外部环境破坏 | 环境持续恶化 |
+**Pontos**: desenhe o ciclo em torno do núcleo do gênero; quanto mais detalhado, mais leve a escrita; onde há ciclo há leitor, a diferença é o tamanho do público; o núcleo do ciclo é método, não resposta: cada um precisa resumir o seu.
 
-**关键要点**：
-- 围绕题材核心设计剧情循环，做得越细致，剧情越轻松
-- 只要有循环就有读者，区别在于受众多寡
-- 循环核心是方法而非答案，需要自己针对题材总结
+## 11. Esboço de cotidiano
 
----
+**Caminho de criação**: 1) brotar a ideia (configuração/relação/pano de fundo interessantes da leitura); 2) montar a trama principal ao redor (linha profissional + romântica); 3) definir o ponto de entrada (o nó de ritmo mais rápido e emoção mais cheia); 4) detalhar o esboço (dividir assimetria + relações + emoção de cada fase); 5) montar a linha do tempo e ordenar o detalhado; 6) antes de escrever, esboçar o capítulo (conteúdo e detalhes de cada um).
 
-## 日常文大纲框架法
+**Dedução do esboço (exemplo "senhorio e inquilina")**: 1) objetivo: realizar a relação senhorio-inquilina; 2) dividir necessidades: casa com quarto livre, perto da escola; 3) dedução: quarto livre = boa condição familiar → de preferência financiada, com pressão; 4) mais: com segunda chance, a decisão de comprar vem do protagonista → os pais iam tomar a decisão errada; 5) definir: na vida passada os pais perderam em imóveis → nesta o protagonista inverte → comprar perto da boa escola; 6) razão da virada: a mudança do protagonista + a nota excelente do exame fazem os pais decidirem.
 
-### 创作路径
-
-1. **灵感萌芽**：从阅读中发现有趣的设定/关系/背景
-2. **构建主线框架**：围绕灵感确定事业线+感情线
-3. **确定开头切入点**：选择节奏最快、情绪最足的节点切入
-4. **细化大纲内容**：对每个阶段拆分信息差+人际关系+情绪
-5. **建立时间线，梳理细纲**：按时间顺序排列事件
-6. **码字前勾勒章纲**：具体到每章的内容和细节
-
-### 大纲推演法
-
-以"实现房东租客关系"为例的推演过程：
-1. 目标：实现男女主房东租客关系
-2. 拆分需求点：主角家中要有空房，距离高中近
-3. 推演：有空房=家庭条件好→最好是贷款买，有压力
-4. 继续推演：重生设定，买房决定由主角推动→父母原本要做错误决定
-5. 敲定：父母上世投资房地产失败→这世主角逆转→买学区房
-6. 逆转理由：主角改变+中考优异成绩→父母下定决心
-
-### 大纲内容格式
-
-每个大纲节点包含：
-
+**Formato do nó de esboço**
 ```
-事件名称：
-信息差：
-1. 主角知道什么/配角不知道什么
-2. 读者视角 vs 角色视角
-人际关系与情绪：
-1. 主角情绪
-2. 女主/配角反应
-3. 负面情绪提供者（衬托用）
+Nome do evento:
+Assimetria:
+1. O que o protagonista sabe e o coadjuvante não
+2. Visão do leitor x visão do personagem
+Relações e emoção:
+1. Emoção do protagonista
+2. Reação da heroína/coadjuvantes
+3. Quem fornece a emoção negativa (para contraste)
 ```
 
-### 细纲：时间线梳理
+**Linha do tempo (detalhado)**: os eventos do esboço podem não ocorrer em ordem; o detalhado reordena: `13/6 recomeço, abertura; 14/6 início do exame, apresenta parentes e prepara o investimento em imóveis; 15/6 fim do exame, jantar com conversa de investimento, o protagonista indica o imóvel perto da escola; 22/6 saem as notas, pais chocados e decidem comprar; início de julho formatura, o protagonista brilha`. **Esboço de capítulo**: bússola antes de escrever: conteúdo de cada capítulo pela linha do tempo + assimetria + relações; o essencial é manter o fluxo de ideias e não travar.
 
-大纲事件未必按时间顺序发生，细纲负责重新排列：
+**Princípios**: o esboço serve à escrita, não é algema; no cotidiano, evite grandes eventos que disparam a afinidade, use pequenos eventos encadeados para um crescimento lento; grandes eventos consomem emoção e, se a heroína se rende de vez, fica difícil continuar; ligue a linha profissional à heroína e à família, para cotidiano e carreira se misturarem; ache o jeito que serve a você.
 
-```
-6月13日——重生，开局切入
-6月14日——中考开始——亲戚登场，铺垫房地产投资
-6月15日——中考结束，晚饭聊投资，主角推荐学区房
-6月22日——中考成绩出炉——父母震惊，决定买房
-7月初——初中毕业典礼——主角装逼
-```
+## 12. Expectativa em grande enredo
 
-### 章纲：码字前的指南针
+**Lógica**: a mesma da pequena: a pequena prepara em torno da recompensa; a grande forma o clímax com vários pequenos enredos encadeados. **De cima para baixo**: 1) núcleo e propósito (qual é a recompensa deste grande enredo?); 2) meta de extensão (quantas palavras?); 3) enredos por fase (cada pequeno é preparação do seguinte); 4) técnicas misturadas em cada um (as que não servem, descarta).
 
-按细纲时间线+大纲信息差+人际关系，梳理每章内容。重点在于保持码字思路通畅、不卡文。
+**Exemplo (concurso de composição)**: *Recompensa central*: o protagonista entra e canta uma música que choca. *Extensão*: mais de cem mil palavras. *Fases*: 1) recebe o convite e um prêmio de canto → cantarola uma canção simples no parque → choca um jurado (sugestão prévia); 2) no ensaio, um rival o desafia, dizendo que o eliminará (pressão); 3) véspera → escreve uma canção para uma cantora famosa → ela se espanta (soma demonstração de poder); 4) disputa ao vivo → o rival tira nota alta → o protagonista sobe com o retorno de áudio falhando (pressão) → canta → choque; 5) mas os jurados tiram pontos por "ritmo" → nota empatada (reviravolta que pressiona); 6) a cantora famosa canta a canção do protagonista → melhor nota → o autor é revelado (choque de segundo nível); 7) a equipe explica a falha de equipamento → o protagonista vira o placar (reviravolta em dobro); 8) o jurado pede que cante a canção do começo → é melhor que a campeã? (mantém a expectativa). **Pontos**: primeiro a grande recompensa, depois as fases para chegar nela; cada fase é um elo; pequena recompensa + pequena recompensa + reviravolta = grande; visto de perto, o ritmo é rápido (muitos pequenos enredos), visto de longe, o avanço é lento (só se contou uma coisa); a técnica serve à expressão, não o contrário.
 
-### 关键原则
+## 13. Fluxo e extensão do chamariz
 
-- 大纲为码字服务，不是枷锁
-- 日常文不要有太多猛增好感的大事件，用小事件串联缓慢增长
-- 大事件消耗情绪，女主彻底倾心后不好往后写
-- 事业线要和女主自身及家庭串联，达到日常和事业互相糅合
-- 找到最适合自己的方式，别人的方法只能参考
+**Conhecimento central**: muitos livros não carecem de conteúdo e qualidade, carecem de **visibilidade**. Mesmo livro, mesma qualidade: a diferença é só quantos leitores o veem. **Duas estratégias**: *chamariz estendido* (o chamariz de abertura é o núcleo, e o restante procura chamarizes parecidos); *chamariz que atrai + enredo convencional* (o chamariz da abertura só atrai, o resto segue um gênero normal). Um chamariz na abertura pode multiplicar a atração por dez; depois do objetivo atingido, não é preciso mais firulas. **Estimar a extensibilidade antes de começar**: o chamariz pode render enredos para muitas mais palavras? Se não, use "chamariz que atrai + convencional".
 
----
+## 14. Fronteira do gênero
 
-## 大剧情拉期待法
+- Cada gênero tem uma fronteira de expectativa do leitor; sair dela, o leitor não compra
+- Escolher o rumo errado do gênero = escrever bem e não ganhar
+- A fronteira não limita, aponta: ao chegar ao extremo dentro dela, surge o sucesso
+- *Como julgar*: veja os elementos comuns de livros do mesmo gênero entre o bom e o muito bom: eles são a fronteira; "inovações" fora dela quase sempre são pontos de rejeição; iniciantes devem escrever bem dentro da fronteira antes de microinovar
+- *Fronteira e vantagem*: a vantagem precisa servir ao gênero (acrescentar um sistema romântico a um gênero de ação brutal sai da fronteira); o ciclo central da vantagem não pode se desviar; critério: o leitor entrou por quê? Continue dando isso
 
-### 核心逻辑
+## 15. Bloco de informação
 
-大剧情和小剧情拉期待感原理相同。小剧情围绕爽点铺垫，大剧情通过几个串联的小剧情构成高潮。
+**Definição**: unidade de informação central que um trecho do enredo quer expressar; deve caber em uma frase ("este trecho fala de..."); blocos têm progressão lógica. **Uso**: na abertura, defina antes que blocos os primeiros capítulos devem passar; no esboço, marque o bloco de cada nó; a informação central do bloco tem de atrair o leitor, senão é informação inútil. **Bloco e ritmo**: um bloco que muda a emoção do leitor (do calmo ao tenso) é a unidade de ritmo; controle a velocidade com que aparecem.
 
-### 自上而下的创作逻辑
+## 16. Teste de autoindulgência
+Pergunte: o leitor quer isso ou eu quero isso? Se a cena só agrada ao autor, corte ou encurte. Sinais: longas explicações de configuração que só você ama; cenas que não mudam nada; piadas internas; descrições que servem ao seu estilo e não à emoção.
 
-1. **明确核心和目的**：先确定这段大剧情的爽点是什么
-2. **确定篇幅目标**：我要写多少字
-3. **设计分阶段剧情**：围绕爽点设计若干小剧情，每个小剧情是下一个小剧情的铺垫
-4. **技巧杂糅填充**：每个小剧情内用各种技巧丰富，没用就丢弃
+## 17. Aprofundar personagens x aprofundar a história
 
-### 案例演示：参加好歌曲演唱青花瓷
+| Direção | Como | Vantagem | Desvantagem |
+|------|------|------|------|
+| Aprofundar a história | Complicar enredos simples (várias manobras, reviravoltas em camadas) | Teto teoricamente alto | Custoso e o leitor nem sempre compra |
+| Aprofundar o personagem | Achar graça nos personagens dentro de histórias simples | Menos esforço, o leitor compra | Exige domínio de personagem |
 
-**核心爽点**：主角登台演唱青花瓷，引起震撼
-**篇幅目标**：十万字以上
+**Operação**: em histórias que o público-alvo conhece, ache nos personagens o drama que o leitor curte; passos: 1) pegue uma estrutura simples ou batida; 2) acrescente "drama" aos personagens (traços que deem prazer ao público); 3) gere trama por ciclos de interação entre alguns personagens.
 
-分阶段设计：
-1. 主角收邀请+系统奖励唱功→公园哼唱《送别》→震惊评委王海泉（前置暗示）
-2. 彩排现场华晨宇挑衅→声称要淘汰主角（制造压力）
-3. 节目前夜→给邓紫棋写《泡沫》→邓紫棋震惊（叠加实力展示）
-4. 现场PK→华晨宇高分→主角登台+耳返故障（加压）→演唱青花瓷→震惊
-5. 但评委以节奏问题扣分→主角分数持平（反转压制）
-6. 邓紫棋演唱泡沫→全场最高→曝光作者是主角（二级震惊）
-7. 工作人员说明设备故障→主角得分逆袭（反转翻倍）
-8. 王海泉要求唱《送别》→比青花瓷更牛？（持续拉期待）
+## 18. Purificação da linha romântica
+Cada cena romântica deve mudar a relação (aproximar, afastar, revelar); corte cenas que repetem o mesmo estado; use o mal-entendido ("mágoa") para travar sem separar; use o herói que salva para aproximar. Evite cenas de afeto que só enchem; a doçura deve ser de pequenos eventos encadeados.
 
-**关键要点**：
-- 先有大爽点，再分阶段去抵达
-- 每个阶段都是大爽点的一环
-- 小爽点+小爽点+拉反转=大爽
-- 从局部看节奏快（目不暇接的小剧情），从整体看推进慢（只讲了一件事）
-- 技巧服务表达，不是表达服务技巧
+## 19. Vantagem especial avançada
 
----
+**Sistema fora do lugar**: o sistema não funciona como esperado, e o contraste com a caracterização gera drama. *Tipos*: **de tempo** (o protagonista já é invencível quando o sistema de superação chega; já está na faculdade quando chega o sistema de conquista do jardim de infância); **de espaço** (o protagonista num mundo normal e o sistema que desperta é o do apocalipse; o sistema acha que ele está no apocalipse e recompensa ações normais); **de objeto** (o sistema que devia se hospedar no imperador se hospeda na imperatriz; o que devia ir ao antagonista vai ao protagonista). *Princípio*: o contraste produzido deve ser grande e o drama deve ser o que o público-alvo espera.
+**Sistema anticlichê**: o título deve apontar o "anticlichê" do sistema como chamariz; a sinopse deve explicar o prazer de uma rodada do sistema (o que o protagonista ganha e onde está o prazer); não mostre só o chamariz do "avesso", mostre como o protagonista usa o avesso.
+**Tipos comuns**: sistema de pontos (simples e direto, mas único; serve a mundos de forte opressão); de proficiência (estende emoção e universalidade, o mecanismo pode ter variantes); de sorteio (embalagem familiar e nova); de loja/troca (recursos, serve a construção/gestão).
+**Mundos de hierarquia rígida**: classes imóveis, impossível cruzar a hierarquia só treinando; os níveis são abismos. *Escolhas*: pontos (resolve conflito pela força, função única), variantes de proficiência, funções sofisticadas. *Evolução*: o ponto único está ultrapassado; é preciso fundir elementos (extremo + terror + exploração; extremo + apocalipse + cautela); equilibre o "ortodoxo" e o "iniciante", mantendo o sabor e acrescentando recursos narrativos.
 
-## 噱头吸量与流量思维
+## 20. Controle de continuidade e ritmo
 
-### 核心认知
+**Sistema de rastreamento de "calor"**: gerencia a frequência de entrada de personagens, subtramas e pistas em livros longos, evitando esquecimento e uso excessivo.
 
-很多书缺的不是内容和质量，缺的是足够的流量。
-
-**粗暴结论**：把一本精品3000均订的书放到月票榜第一，一个月后两三万均订不是问题。同一本书，区别只在于能看到它的读者数量。
-
-### 两种噱头策略
-
-| 策略 | 做法 | 示例 |
+| Estado | Definição | Explicação |
 |------|------|------|
-| 噱头延伸型 | 以开头噱头为核心，后续找类似噱头继续构建 | 《开局账号被盗，反手充值一百万》 |
-| 噱头引流+常规型 | 开头噱头只负责吸量，后续走常规题材内容 | 《都重生了谁谈恋爱啊》 |
+| quente (hot) | Elemento central que move o conflito agora | Está impulsionando o enredo |
+| morno (warm) | Elemento ativo recentemente | O leitor ainda lembra |
+| frio (cold) | Passou do limite seguro sem ser tocado | Risco de ser esquecido |
+| arquivado | Fechado de propósito ou concluído | Não precisa mais de rastreio |
 
-**关键**：开头有噱头和没噱头，吸量差距可能有十倍。目的达到后不用再搞花活，正常写即可。
+**Toque efetivo** (mantém o calor): avançar diretamente a linha; pressionar, lembrando sua existência ao leitor; mudar o estado da relação; produzir consequência real; explicar o motivo razoável de uma pausa. **Não vale**: só citar o nome (cumprir tabela); retorno vazio (lembrança sem informação nova); menção aleatória só para satisfazer a regra.
 
-### 噱头延展性评估
-
-开书前要简单预估：
-- 这个噱头能不能延伸出后续更多字数的剧情？
-- 如果不能延伸，就用"噱头引流+常规"策略
-- 女频的噱头主要在"攻受互换"方向（能力/关系上强弱与常态颠倒）
-
----
-
-## 题材边界感
-
-### 核心认知
-- 每个题材都有明确的读者期待边界，超出边界读者不买账
-- 选错题材方向 = 写得再好也拿不到钱
-- 边界感不是限制，是瞄准——在边界内做到极致就是爆款
-
-### 边界感的判断方法
-- 看同题材精品到万订之间的书，它们的共同元素就是边界
-- 超出边界的"创新"大概率是毒点
-- 新人不要试图突破边界——先在边界内写好，再考虑微创新
-
-### 题材边界与金手指的关系
-- 金手指必须配合题材边界——在极道流里给金手指加恋爱系统就超边界了
-- 金手指的核心卖点循环不能偏离题材——写着写着把设定写没了 = 把卖点写丢了
-- 判断标准：读者冲着什么进来的，后续就必须持续给什么
-
----
-
----
-
-## 信息团概念
-
-### 定义
-- 信息团 = 一段剧情要表达的核心信息单元
-- 每个信息团必须能一句话概括"这段在讲什么"
-- 信息团之间要有逻辑递进关系
-
-### 使用方法
-- 写开头时：先明确前几章要传递哪几个信息团
-- 做大纲时：每个节点标注它承载的信息团
-- 信息团的核心信息必须能吸引到读者，否则就是无效信息
-
-### 信息团与节奏
-- 节奏快 = 信息团密集、传递迅速
-- 节奏慢 = 信息团稀疏、传递拖沓
-- 水章节 = 信息团为零或信息团与主线无关
-
----
-
-## 自嗨判定法
-
-### 三个自检问题
-1. 我这书写给谁看？（至少包括目标读者的年龄段、职业、性别、常用平台、人生处境、普遍渴望、主要爱看什么）
-2. 我的目标读者群体在看网文时希望看到什么内容，当下有哪些主要需求？
-3. 我的这本书有哪些内容是目标读者群体想看的？
-
-### 判定标准
-- 三问有一问答不好 = 自嗨
-- 自嗨的本质 = 完全不考虑读者，自己觉得怎么爽怎么写
-
-### 纠正方法
-- 多看同类的书，多看读者评论
-- 学习同类书中什么剧情最容易得到读者正面评论
-- 通过同类书锚定目标读者群体，脱离自嗨
-
----
-
-## 向人设深化 vs 向故事深化
-
-### 两种深化路径
-- **向故事深化**：构思复杂阴谋、多层推理、精心设计的智斗——上限高但难度大，新人不建议
-- **向人设深化**：在人物关系和互动中找戏剧性——更容易上手，当前市场趋势
-
-### 向人设深化的核心
-- 在简单的、读者熟悉的故事框架中，通过人物互动制造"乐子"
-- 关键：让目标读者群体觉得"来看热闹"
-- 操作：捋几个人物的相处关系和互动模式，剧情自然涌出
-
-### 市场趋势
-- 越来越没耐心的读者群体开始排斥向故事深化的方向
-- 所谓的"老白文"越来越不受欢迎
-- 向人设深化比向故事深化构思难度低很多——不需要三天琢磨2000字
-
----
-
-## 爱情线提纯策略
-
-### 爱情线的两种核心梗支撑
-1. **特定的有戏剧性的爱情过程**（如禁忌之恋、追妻后悔流）——整本书的板子固定，不同阶段有不同核心情绪链
-2. **特定的有戏剧性的人设/人设组合/两人关系**——整本书的观感主要由两人互动模式带来
-
-### 互动模式不变的铁律
-- 男女主角的互动模式一旦建立，就要持续到全文最后
-- 例：女主一直主动欺负男主 → 就要一直这样，不能因为"成长了"就改变
-- 改变互动模式 = 改变读者追这本书的核心观感
-
-### 事业线为爱情线服务
-- 以爱情线为主时，所有事业线情节都必须为爱情线服务
-- 事业线可以贯穿全文，但功能是：导致相识 / 引发关系改变 / 情敌/长辈考验
-- 装逼可以写，但装逼后要引出爱情线内容，不要写层层震惊偏离爱情线观感
-
-### 后宫文角色设计原则
-- 女主外表要有相似性——萝莉就全部萝莉，御姐就全部御姐
-- 男主好基友在当前市场已碍眼，用"欢喜冤家青梅竹马妹子"替代
-- 男性向百合/变百文中常出现角色不能有男人
-
----
-
-## 扫榜与拆书方法论
-
-### 扫榜原则
-- 番茄看热销榜和新书榜，起点看三江和各类推荐
-- 夹子上的文看的不是质量好坏，看的是热点元素——为什么能上夹子
-- 金榜是成熟作品，适合已签约作者学习标准
-- 新人看大神出没的那期潜力佳作，代表平台真实水平
-
-### 拆书正确姿势
-- 不要纠结于书好不好看——你不是受众很正常
-- 带着具体问题去拆：怎么冲突拉扯情绪？找十段冲突情节分析
-- 先拆精品到万订的书，不拆大神书（笔力碾压学不会）
-- 不拆刚火的跟风书（流量已被火书吸光）
-- 每次只拆一个维度：人设/节奏/对比手法/悬念等
-
-### 素材积累心法
-- 定期扫榜，带着作者思路看别人怎么写
-- 定期做笔记，拆书积累多了会有"应激反应"——及格线以上作品看多了，不合格情节格外扎眼
-- 没有针对性积累 = 在积累潜意识底蕴，很难被挖掘爆发
-- 写完一本完整作品后回看理论，理解会完全不同
-
----
-
-## 故事卡详细分类体系
-
-### 卡片体系架构
-
-- 大/中故事卡 = 故事线卡（戏剧性的抽象），笼罩整本书或大段剧情的基调
-- 小故事卡 = 情绪核心的抽象，对应具体的情绪爽点
-- 元素卡和技法卡合称"工具卡"：不能独立提供完整故事框架，必须应用在某个完整框架内
-- 元素卡提供故事内的特殊元素，技法卡提供对故事框架的调整思路
-
-### 戏剧性与情绪的关系
-
-- 戏剧性会磨损，情绪不会磨损
-- 读者看的烦的不是套路本身，而是对同一套路的重复利用
-- 避免同质化：用技法卡调整框架，用元素卡增添变化
-- 后续剧情中变换结构、玩出新花样，即使名称相同也是不一样的故事
-
-### 小故事卡补充
-
-#### 修罗场卡
-
-- 多个人喜欢同一个人，并在被喜欢的人面前互相表现、排挤他人、互相竞争
-- 偏轻松写法：轻微吃醋，展现角色"茶艺"
-- 偏带感写法：更强的情感张力
-- 作为中故事卡：1V多写法（4-6个男主，每个定位不同）或1V2写法（聚焦两个角色间竞争）
-- 递进设计：初期（女主跟男1逛街被男2撞见）→ 中期（女主跟男2接吻被男主撞见）→ 后期（男1、男2为女主大打出手）
-
-#### 倒计时卡
-
-- 需要一个计时，且倒计时结束时必须有事情发生
-- 表现方式：数字（几点几分、还剩多少资源）、事件发展的紧迫感
-- 强调"一件不能发生的事马上就要发生了"
-- 常结合实力悬殊的战斗：打不过但必须打，否则发生不可接受的事
-
-#### 恩怨情仇卡（大/中故事卡）
-
-- 两个人因特定事件或设定，形成一方对另一方带有强烈情感或道德伦理枷锁的关系
-- 重点不在"形成恩怨的过程"，而在恩怨形成后的行为和情感
-- 作为大故事卡是一种"基调"，笼罩整本书的风格
-- 不是实体，是笼罩在整本书中的"云雾"，不能像小故事卡那样平铺直叙地写结仇结缘
-
-#### 双重身份卡
-
-- 两个身份重叠的一刹那给读者带来意外
-- 揭示角色的复杂性和动机，将戏剧性瞬间拉满
-- 设计要点：A身份的日常塑造 + 隐藏信息 + B身份揭示时的冲击
-
-#### 特殊对待卡
-
-- 拯救人物OOC的神器
-- 用"特殊对待"来合理化角色在特定情境下的行为偏离
-- 让角色因为特定原因对主角展现出与平时人设不同的态度
-
-#### 好感变化卡
-
-- 核心在于展示情绪链条的质变（好感度Up）
-- 不论事业线还是感情流，都要体现好感度的上升
-- 英雄救美作为好感变化的载体：关键是关系质变，不是怎么救
-
-#### 英雄救美的微调使用
-
-- 基础版：男主英雄救美，女主产生好感
-- 微调版示例：女主其实能强化不怕混混，在钓鱼拿霸凌证据，男主搅黄了计划，女主生气并强化混混，结果男主无敌打败所有人，女主震惊，最终好感但纠结
-- 避免重复：每一卷都写英雄救美不能简单救个美，三卷分开复杂程度上升、收获上升，情绪呈螺旋上升趋势
-
-#### 装逼的深层理解
-
-- 核心在于牛逼和不牛逼之间的对比
-- 反转只是实现装逼的一种工具
-- 可以用"几成力"来对比：对完招再吹用了几成力，蒙眼做危险事情
-- 前期铺垫：嘲讽压抑的情绪、主角扮猪（后面吃老虎）
-- 技法融合：可融合落差（增加对比项）、翻弄风云（强调主角行为对不同角色的意义和影响）
-
-#### 以小搏大的深入理解
-
-- 成本与收获之间的比例要巨大（付出50有1%概率赢10000 > 付出50有20%概率赢5000）
-- 成本包含主角付出的代价 + 失败后承担的结果
-- 过程要有随机性和主观能动性，不能让读者觉得100%成功
-- 可以不成功，但一定通过歪打正着、贵人扶持、好人好报等方式补充情绪缺口
-
-#### 误解卡
-
-- 系列误会的创作步骤：确定核心误会及产生原因 → 自然衍生各小误会 → 确定解除条件和方式 → 给主角必须解开的原因 → 设计障碍
-- 误解消除规则：对事业线/爱情线有负面作用的误解必须消除；没有负面作用或有正面作用的可以不消除
-- "与空气斗智斗勇"是误解卡的一种有趣变体
-
-### 元素卡详解
-
-#### 工具人卡
-
-- 在特定场景满足叙事需求的角色
-- 烘托：体现困难、危险、看不起主角
-- 推动：满足主角/反派的某种需求
-- 提供情报：对事件、世界观、势力、人物设定的解释
-
-#### 迷之少女卡
-
-- 在梦、回忆、幻觉等非现实场景中对剧情发展起关键作用的线索或暗示
-- 可用作一种特殊的望远镜
-- 不能随便放在开头：开头叙事讲究简洁和连贯，插入非现实场景会破坏连贯性
-- 经典用法：主角战斗高潮晕倒，梦中神秘少女给象征物，醒来获得力量，救少女成为后续剧情
-
-#### 失能卡（限制条件卡）
-
-- 角色陷入不能用意识正常控制自己身体或道具的状态
-- 失能原因：病理性（疯狂等）、药理性（醉酒、中毒等）、能力或道具的直接效果或代价
-- 失能类型：永久失去功能 / 暂时失去功能满足条件后恢复 / 特定条件下触发
-- 失能形式不能挑战大部分读者的审美底线，注意作品整体基调
-- 可以把失能和角色人设绑定成为其缺陷
-
-#### 关系卡
-
-- 角色间的特定关系配置（师徒、对手、暗恋、宿敌等）
-- 关系卡决定了两个角色互动的基本模式
-
-#### 秘密卡
-
-- 三种使用方式：角色要保守住某个秘密 / 角色要挖掘他人身上藏着的秘密 / 角色无意间得知他人的秘密
-- 好用的无意得知原因：角色因某原因闯入通常不应该出现的场合
-
-#### 闹矛盾卡
-
-- 常见设计思路：双方就同一件事意见不合、双方之间发生误会、一方有意或无意伤害到另一方
-- 体现方式：争吵、进入对抗状态、团队散伙或暂时散伙
-- 和好原因：后悔反省、和事佬劝解、和谈、出现双方和好才能处理的危机、矛盾原因消灭
-- 结果：关系发生变化（更进一步或产生隔阂）、个人发生人格上的成长
-
-#### 双界联系卡
-
-- 两个差异较大的世界相互联系
-- 三种形式：穿越（一个世界到另一个世界）、联系（两个世界发生关联）、融合
-- 穿越异世界是最常见的形式
-
-#### 紧追其后卡
-
-- 追逐/追击（激烈的紧追其后）
-- 追踪（加入调查元素）
-- 跟踪（隐蔽的紧追其后）
-
-#### 隐蔽行动卡
-
-- 角色进行隐蔽行动：成功好处越多或失败害处越大，期待感越强
-- 角色对他人的隐蔽行动进行调查
-- 他人有针对角色的隐蔽行动，角色不知情（信息差制造紧张感）
-
-#### 未来窥视卡
-
-- 途径：预言、穿越记忆、系统提示等
-- 反应方式：避免特定未来出现 / 争取某种特定未来出现 / 任由未来自然发生 / 利用未来情报行事 / 利用未来情报换取好处
-- 回到过去/改变过去本质上是未来窥视的变体
-
-#### 禁忌卡
-
-- 种类：特定个体、特定群体、物品、场所、特定活动中的禁忌
-- 必须明示或暗示触犯禁忌的下场
-- 触犯方式：为特定目的主动触犯 / 被动或无意间触犯 / 很可能触犯尽力避免
-
-#### 新环境扮演/伪装/试探卡
-
-- 两个人相互或至少主角不知道对方情况
-- 一步步试探、收集信息、了解情况
-- 常用于：卧底、被挟持、被高人收留、失忆来到新环境、穿越
-- 确认要素：对方背景、对方性格喜好、对方技能能力、对方弱点
-
-### 技法卡详解
-
-#### 差异评价卡
-
-- 两种应用思路：打压与反转
-- 借人之手是其中一种变体
-
-#### 戏剧三角卡
-
-- 迫害者、受害者、拯救者三者之间可以转换
-- 在不同情境和时间内角色身份可互换
-
-#### 翻弄风云
-
-- 强调主角行为对不同角色的意义和影响
-- 提升期待感和爽感
-
-### 解谜设计技巧
-
-- 设定两个假设为真的命题P1和P2
-- 加入前提组推导出P3
-- 对前提组中的命题取反推导出P4
-- 综合多个命题推导出P5
-- 隐藏P3，只保留P1、P2、P4、P5，自然产生误导
-- 将结论作为前提继续推理，通过支线完全隐藏主线
-
-### 故事卡的组合与提炼方法
-
-#### 一级提炼与二级提炼
-
-- 一级提炼：从成功作品中提取基本的叙事模式，得到最通用的故事框架
-- 二级提炼：在一级框架上加入特定题材的元素，更容易直接写出故事
-
-#### 组合规则
-
-- 不同类型的卡片可以叠加使用
-- 核心梗卡 + 关系卡 + 限制卡 = 一个完整的剧情单元
-- 技巧服务表达，为了剧情更好看可以杂糅多种技巧
-- 没用的技巧就丢弃，不要为了用技巧而用技巧
-
-#### 重构使用与微调使用
-
-- 重构使用：保留素材名称，替换故事走向（如把美人倾心+英雄救美换成复仇之路）
-- 微调使用：保留故事走向，在三级提炼层面增加新的界故事卡
-
-#### 结构叠加
-
-- 大结构可以套小结构
-- 小故事卡也能组成小A+小B+小C的结构
-- 螺旋上升：同一套路每次出现时复杂程度和收获都上升
-- 压情绪与释放：小情绪可以快速释放，大情绪需要铺垫后爆发
-
-### 期待卡实物化
-
-- 可以做成实体卡片辅助写作
-- 每张卡片写明：期待点、铺垫方式、回收方式
-- 写作时把相关卡片摆在面前，确保不遗漏
-
-### 核心梗与故事卡的关系
-
-- 核心梗与故事卡是相似甚至相同的概念
-- 每张故事卡背后是比较抽象的故事结构，有对应的情绪链条
-- 大故事卡可以直接当核心梗用
-- 拆书提取核心梗与做故事卡作业可以同步练习
-
----
-
-## 金手指进阶设计
-
-### 错位系统设计
-
-- 核心思路：系统没有正确生效，利用系统与主角人设的反差产生戏剧性
-- 时间错位：主角已经无敌了，逆袭系统才来；都上大学了，幼儿园攻略系统才来
-- 空间错位：主角在正常世界，觉醒的是末世系统；系统以为主角在末世，正常行动也给奖励
-- 对象错位：本应寄生在皇帝身上的系统寄生在皇后身上；本应寄生在反派身上的系统寄生在主角身上
-- 关键原则：错位产生的落差要大，且戏剧性必须是目标读者期待的
-
-### 系统反套路写法
-
-- 书名要直接点明系统的"反套路"作为最大噱头
-- 简介要说清楚系统运行一次的爽感——主角获得什么奖励，爽在哪
-- 不要只展示"反"的噱头，要展示反了之后主角怎么用
-
-### 常见系统类型
-
-- 加点系统：简单直观但单一，适合强压迫世界观
-- 熟练度系统：能延伸情绪和普适性，底层机制可做变种
-- 抽卡系统：读者熟悉又新鲜的包装
-- 商城/兑换系统：资源获取型，适合种田经营类
-
-### 极道流金手指的特殊考量
-
-- 极道流世界观特点：绝对的阶级固化，按部就班修炼不可能跨越阶级，大境界之间云泥之别
-- 极道流金手指选择：加点流（暴力解决矛盾，功能单一）、熟练度变种、花哨功能型
-- 极道流的进化方向：单一极道加点已过时，需要元素融合（极道+恐怖+探索、极道+末日+苟道）
-- 写法在滚开原教旨和小白极道之间找平衡，保留风味同时融入更多叙事手法
-
----
-
-## 连续性追踪与节奏管理
-
-### 热度追踪系统
-
-用于管理长篇网文中的人物、支线、伏笔的出场频率，防止遗忘或过度使用。
-
-#### 热度状态
-
-| 状态 | 定义 | 说明 |
+| Tipo de elemento | Intervalo de toque | Observação |
 |------|------|------|
-| hot | 当前驱动冲突的核心元素 | 正在推动剧情 |
-| warm | 近期活跃的元素 | 读者还记得 |
-| cold | 超过安全线未触及 | 有被遗忘的风险 |
-| archived | 已完结/有意关闭的元素 | 不需要再追踪 |
+| Personagem central | 3-5 capítulos | Mais de 5 sem aparecer exige explicar |
+| Subtrama principal | 4-6 capítulos | Mais de 6 exige ao menos um lembrete |
+| Pista ativa | 2 chances perdidas | Houve cena adequada e ela não foi tocada |
+| Relação instável | 2 aparições | A relação está mudando: acompanhe de perto |
+| Configuração do mundo | Depois de longa ausência | Lembrar as regras ao leitor |
 
-#### 有效触碰定义
-
-以下算有效触碰（维持热度）：
-- 直接推进该线索
-- 施加压力提醒读者它的存在
-- 改变该元素的关系状态
-- 产生实际后果
-- 交代合理的休眠原因
-
-不算有效触碰：纯粹提个名字（走过场）、空头回调（没有新信息的回忆）、为了满足规则随机提及
-
-#### 回顾阈值
-
-| 元素类型 | 触及间隔 | 说明 |
-|----------|----------|------|
-| 核心角色 | 3-5 章 | 超过 5 章不出现需要交代原因 |
-| 主要支线 | 4-6 章 | 超过 6 章需要至少一个 reminder |
-| 活跃伏笔 | 2 次错过机会 | 有合适场景却没有触碰 |
-| 不稳定关系 | 2 次出场 | 关系正在变化中，频繁追踪 |
-| 世界设定 | 长时间缺席后 | 补充提醒读者规则 |
-
-#### 每章自检问题
-
-1. 当前 hot 的元素是什么？
-2. 有没有 cold 了但该 warm 的？
-3. 哪些可以合理保持休眠？
-4. 哪条线索的回归能加深压力？
-
-#### 失败信号
-
-- 读者问"那个谁去哪了？"
-- 重要的线索到结尾才突然冒出来
-- cold 的铺垫突然变成 hot 的回报（没有预热）
-- 关系突然剧变但没有前期铺垫
-
-### 反速解机制
-
-防止过早解决冲突的核心规则：
-
-1. **非大结局章节禁止解决核心冲突**——核心冲突由大纲定义，每章必须新增至少一个未解决的次级问题
-2. **章末 200 字必须包含悬念元素**——提问型、危机型、反转型均可
-3. **允许解决的范围**——只能解决次级冲突，主线可以推进但不能关闭，局部胜利必须伴随新的代价或风险
-
-### 事件冷却矩阵
-
-防止同一类型事件连续出现导致节奏单调。
-
-| 事件类型 | 情绪效果 | 冷却（章） | 说明 |
-|----------|----------|-----------|------|
-| conflict_thrill | 紧张→满足 | 2 | 大冲突/打斗/对峙 |
-| bond_deepening | 温暖→感动 | 1 | 关系深化/暖心互动 |
-| faction_building | 成就→掌控 | 2 | 建立势力/获得资源 |
-| world_painting | 沉浸→好奇 | 3 | 世界观展开/新设定 |
-| tension_escalation | 不安→期待 | 2 | 压力升级/危机逼近 |
-
-规则：冷却期内该类型不能作为主 beat；conflict_thrill 最多连续 2 章；每 5 章必须包含 bond_deepening 或 world_painting；非冲突事件中要求埋入微伏笔
-
-### 过渡章节管理
-
-#### 单元故事过渡期目标感消失
-
-- 原因：单元故事结束后没有钩子留住读者
-- 解决方案：结束当前剧情之前先把下一个目标拉出来，过渡章节必须维持至少一条活跃的期待线
-
-#### 换地图期待感延续
-
-| 延续方式 | 做法 | 效果 |
-|----------|------|------|
-| 复仇线 | 未完成的目标跨地图持续 | 成为新地图的大高潮目标 |
-| 旧日关系线 | 老角色在新地图出现 | 关系延续，读者不觉得断裂 |
-| 信息差 | 某方以为某事，实际不是 | 期待"真相揭露"的反应 |
-| 提前铺垫 | 换地图前让新地图角色/传说与主角接触 | 换地图前就有期待感 |
-
-#### 换地图时机判断
-
-- 主角在当前地图地位达到顶点，关系网潜力耗尽
-- 无法再设计新的装逼场景
-- 平级换地图要谨慎：保持切换节奏一致
-
-### 金手指体系生命周期
-
-防止金手指僵化导致后期失去拉期待能力。
-
-| 阶段 | 特征 | 操作要点 |
-|------|------|---------|
-| 基础 | 金手指首次展示，功能单一 | 明确核心作用，建立读者认知 |
-| 发展 | 功能拓展，使用场景增多 | 增加新的使用方式，但核心作用不变 |
-| 成熟 | 功能完善，读者已熟悉运作模式 | 与世界观深度结合，可与其他系统联动 |
-| 升华 | 超越原有框架，格局质变 | 有足够伏笔支撑，形成周期性循环爆发 |
-
-关键规则：金手指重心可转移但必须有足够伏笔；可部分淡化不能完全抛弃；呈现力度应随阶段递增
-
-#### 统合性金手指消弭换地图割裂
-
-用跨越地图的统合性金手指锚定主角团，串联各个区域，避免游记式写法的分散弊病。核心做法：设计一个能跨越空间限制的金手指机制（如聊天群、组织、特殊联系），让换地图时人际关系不断裂。
-
-### 矛盾网设计
-
-#### 并行矛盾线管理
-
-- 同一时刻保持2-3条矛盾线同时运行
-- 矛盾线之间要有关联（因果、利益冲突、信息差）
-- 每次解决一个矛盾，必须激活或加深另一个矛盾
-- 主角获得收益必须损害某方利益，由此自然接引下一阶段剧情
-
-#### 矛盾层级
-
-| 层级 | 范围 | 说明 |
-|------|------|------|
-| 章级 | 2-3章 | 小冲突，服务于当前单元 |
-| 卷级 | 一卷 | 本卷核心矛盾，卷末解决 |
-| 书级 | 全书 | 终极矛盾，大结局解决 |
-
-卷与卷之间的矛盾需要服务于全书矛盾，可以是关联的也可以独立，但都在丰富和推进全书核心矛盾。
-
-### "两长一短"期待法则
-
-每个一级结构中至少应包含：
-- **1个短期期待**：当前单元的明确目标（只能有一个）
-- **1-2个长期期待**：远期目标预告/某个悬念/某个组织/某个人物
-
-短期期待等于限时活动，同一时间最好只有一个。长期期待等于任务列表里的任务，随时可做。
-
-### 持续拉期待的方法
-
-1. 不断在"基底期待"上添加细节，注入新的具体化需求缺口
-2. 设置多个核心梗交替运行（如装逼线A + 解密线B + 感情线C）
-3. 设计世界观层面的"秘密"和"阴谋"，让剧情犹抱琵琶半遮面
-
-### 升级差异化管理
-
-防止升级后读者感受不到变化、失去升级快感。
-
-| 维度 | 说明 | 示例 |
-|------|------|------|
-| 能力差异化 | 每个等级有质变性的新能力 | 凡人纯废物→练气能放法术→筑基能飞行→金丹法天象地 |
-| 待遇差异化 | 不同等级获得不同的社会待遇 | 散修→宗师→老祖→传说神话 |
-| 人际关系网差异化 | 不同等级面对不同层次的人际关系 | 亲朋倵傲→平等对待→崇拜仰望→远离故人化为传说 |
-
-如果升级前后在这三个维度上没有明显差异，读者就不会有升级和收获的快感。
-
-### 单元故事嵌套
-
-解决单元故事结束后过渡期目标感消失的问题。
-
-- 在第一个单元故事高潮前，插入第二个故事的期待线
-- 完成当前目标前，提前给出下一个目标的线索伏笔
-- 完成当前目标后，迅速给出反转或变故，营造新期待
-
-### 抄书训练法
-
-通过手抄+思考+对比的自我训练方法，不是机械抄写。
-
-| 方法 | 操作 | 目的 |
-|------|------|------|
-| 抄前三章 | 手抄对标文前三章→思考行文布局→合上原文用自己的话写→对比差异 | 找出遗漏的信息点、布局差别、用词情绪差异 |
-| 抄人设 | 摘录前20章某人物所有描写和剧情→感受人物如何从各维度建立→参考建立自己的人设 | 学习人物渐进式建立方法 |
-| 抄印象段落 | 摘抄印象深刻的部分→分析哪些词句调动了什么情感 | 积累情绪调动技巧 |
-| 抄结构 | 拆某个不擅长的一级结构为节点→抄作者如何处理每个节点 | 弥补自己的弱项 |
-
-操作要点：手抄而非打字（手写过程能感知到眼睛看时忽略的信息点）；抄完必须思考；不贪多质量重于数量；抄完用自己的话重写再对比差异——这个环节是开窍的关键；新锐作者的畅销文更适合抄
-
-### 融书方法论
-
-找3本同题材成功书，认真看完并各写约2万字故事梗概，然后融合成新故事。
-
-操作步骤：
-1. 找3本同平台百万在读且自己能看进去的书
-2. 认真读完，给每本书写详细故事梗概（含读者评论分析）
-3. 三层理解递进：
-   - "人家讲了这么一个故事，所以有人看"
-   - "人家用这种方式讲了这么一个故事，所以有人看"
-   - "原来这种故事要如此去讲，才让读者更爱看"
-4. 用掌握的理论框架把三本书融成新故事
-5. 拿融合后的故事开书
-
-检验方法：先把想写的东西用200字总结出来，看看是不是好故事、有没有意思、能不能吸引人——如果200字总结不吸引人，写出来也不会吸引人
-
-### 对标书选择和使用完整流程
-
-```
-广泛阅读同题材成绩书（用读者状态看）
-  ↓ 看到不好看直接弃
-确定题材内有哪些方向
-  ↓ 找相似性
-确定自己要写的方向
-  ↓ 
-选5-10本参考书（读2-3遍到基本记下）
-  ↓
-从参考书里选1本对标书
-```
-
-| 思考方向 | 问题 |
-|----------|------|
-| 好看的书 | 哪些书最好看？读者评论总体和自己想法一样吗？ |
-| 方向共性 | 最好看的书大概怎么写？有哪些相似性？ |
-| 不好看的书 | 为什么不好看？成绩如何？是自己不是受众还是写得不好？ |
-
-注意：不能上来就想靠标签或金手指类型筛选对标书，必须先广泛阅读；有些具体方向是互斥的需要做选择；有经验的作者可以一眼判断方向，新人必须走完整流程
-
-### 同人写作经验
-
-- 有固定受众，容易写出信心
-- 经典剧情和人物相对固定，降低创作门槛
-- 逆推高潮的过程中自然学会如何正面构建剧情高潮
-- 写同人人物不OOC就是最好的人物描写练习
-- 标题要吸引人：参考贴吧、知乎讨论最焦灼的点，从讨论度最高的剧情切入
-- 支线人物压缩：标题对准某个经典人物时，支线人物不超过2章
+**Autoverificação por capítulo**: 1) quais elementos estão quentes agora?; 2) algum frio que deveria estar morno?; 3) o capítulo tocou ao menos uma linha de modo efetivo?; 4) alguma promessa ficou sem avanço?

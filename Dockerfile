@@ -103,7 +103,8 @@ RUN mkdir -p /app/data /app/logs
 # 暴露端口
 EXPOSE 8000
 
-# 设置环境变量
+# Variáveis de ambiente (fuso horário padrão: Brasil)
+ENV TZ=America/Sao_Paulo
 ENV PYTHONUNBUFFERED=1
 ENV APP_HOST=0.0.0.0
 ENV APP_PORT=8000

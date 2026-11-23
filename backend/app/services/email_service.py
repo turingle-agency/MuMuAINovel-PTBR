@@ -31,7 +31,7 @@ class EmailService:
         html_body: Optional[str] = None,
     ) -> None:
         if use_tls and use_ssl:
-            raise ValueError("SMTP 配置错误：TLS 和 SSL 不能同时启用")
+            raise ValueError("Configuração SMTP inválida: TLS e SSL não podem ser habilitados ao mesmo tempo")
 
         message = EmailMessage()
         message['From'] = f'{from_name} <{from_email}>' if from_name else from_email

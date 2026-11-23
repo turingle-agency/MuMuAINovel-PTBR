@@ -1,1531 +1,497 @@
-# 题材写作公式
+# Fórmulas de escrita por gênero (contos)
 
-每个公式包含：结构骨架、必选场景、情绪节拍。按题材分类，可直接套用。
+> **Origem** (adaptação em português do material original, ~72 KB). Omitido de propósito, **apenas** material específico de plataformas/mercado chinês:
+> - A análise de "histórias de idosas que renascem" (mercado de baixa renda chinês), as tabelas de títulos e "formas de bastidores de plataforma".
+> - Exemplos de contos chineses e termos de plataforma foram trocados por modelos genéricos; o esqueleto, as batidas, as cenas obrigatórias e a escrita-chave de **todas as 21 fórmulas** foram transpostos (nomes de época/gênero adaptados a equivalentes ocidentais onde preciso).
+> - O restante do original está nas seções 2 a 11 abaixo.
 
-## 目录
+## Sumário
 
-- [公式一：现代复仇/打脸短篇（6章结构）](#公式一现代复仇打脸短篇6章结构)
-  - [结构骨架](#结构骨架)
-  - [情绪节拍](#情绪节拍)
-  - [必选场景](#必选场景)
-  - [关键写法](#关键写法)
-- [公式二：古代宅斗/身份反转](#公式二古代宅斗身份反转)
-  - [结构骨架（8节）](#结构骨架8节)
-  - [情绪节拍](#情绪节拍-1)
-  - [必选场景](#必选场景-1)
-  - [关键写法](#关键写法-1)
-- [公式三：虐恋复仇/灵魂视角](#公式三虐恋复仇灵魂视角)
-  - [结构骨架（7节）](#结构骨架7节)
-  - [情绪节拍](#情绪节拍-2)
-  - [必选场景](#必选场景-2)
-  - [关键写法](#关键写法-2)
-- [公式四：都市系统/逆袭长篇](#公式四都市系统逆袭长篇)
-  - [前3章结构](#前3章结构)
-  - [必选场景](#必选场景-3)
-  - [关键写法](#关键写法-3)
-- [公式五：点众轻喜剧短篇](#公式五点众轻喜剧短篇)
-  - [结构骨架（融合多个点众作品特征）](#结构骨架融合多个点众作品特征)
-  - [关键写法](#关键写法-4)
-- [公式六：玄幻仙侠/重生逆袭](#公式六玄幻仙侠重生逆袭)
-  - [结构骨架（19章）](#结构骨架19章)
-  - [情绪节拍](#情绪节拍-3)
-  - [必选场景](#必选场景-4)
-  - [关键写法](#关键写法-5)
-- [公式七：年代重生/双重复仇](#公式七年代重生双重复仇)
-  - [结构骨架（19章）](#结构骨架19章-1)
-  - [情绪节拍](#情绪节拍-4)
-  - [必选场景](#必选场景-5)
-  - [关键写法](#关键写法-6)
-- [公式八：宫闱宅斗/女帝逆袭](#公式八宫闱宅斗女帝逆袭)
-  - [结构骨架（19章）](#结构骨架19章-2)
-  - [情绪节拍](#情绪节拍-5)
-  - [必选场景](#必选场景-6)
-  - [关键写法](#关键写法-7)
-- [公式九：现代悬疑/超自然视角](#公式九现代悬疑超自然视角)
-  - [结构骨架（18章）](#结构骨架18章)
-  - [情绪节拍](#情绪节拍-6)
-  - [必选场景](#必选场景-7)
-  - [关键写法](#关键写法-8)
-- [公式十：架空历史/性别反转](#公式十架空历史性别反转)
-  - [结构骨架（19章）](#结构骨架19章-3)
-  - [情绪节拍](#情绪节拍-7)
-  - [必选场景](#必选场景-8)
-  - [关键写法](#关键写法-9)
-- [公式十一：点众爆款/假千金心声流](#公式十一点众爆款假千金心声流)
-  - [结构骨架（10章）](#结构骨架10章)
-  - [情绪节拍](#情绪节拍-8)
-  - [必选场景](#必选场景-9)
-  - [关键写法](#关键写法-10)
-- [公式十二：重生复仇/离婚逆袭](#公式十二重生复仇离婚逆袭)
-  - [结构骨架（10章）](#结构骨架10章-1)
-  - [情绪节拍](#情绪节拍-9)
-  - [必选场景](#必选场景-10)
-  - [关键写法](#关键写法-11)
-- [公式十三：总裁豪门/白月光虐恋](#公式十三总裁豪门白月光虐恋)
-  - [结构骨架（8-11章标准）](#结构骨架8-11章标准)
-  - [情绪节拍](#情绪节拍-10)
-  - [必选场景](#必选场景-11)
-  - [简介6步公式](#简介6步公式)
-  - [对话三大功能（占比27.7%）](#对话三大功能占比277)
-  - [高频意象](#高频意象)
-  - [关键写法](#关键写法-12)
-- [公式十四：女频复仇/打脸 vs 男频复仇/打脸](#公式十四女频复仇打脸-vs-男频复仇打脸)
-  - [女频万能公式](#女频万能公式)
-  - [男频万能公式](#男频万能公式)
-  - [性别差异核心数据](#性别差异核心数据)
-  - [关键写法](#关键写法-13)
-- [公式十五：宫闱宅斗/隐忍腹黑型](#公式十五宫闱宅斗隐忍腹黑型)
-  - [结构骨架（8章）](#结构骨架8章)
-  - [情绪节拍](#情绪节拍-11)
-  - [必选场景](#必选场景-12)
-  - [关键写法](#关键写法-14)
-- [公式十六：追夫火葬场/不原谅型](#公式十六追夫火葬场不原谅型)
-  - [结构骨架（8章）](#结构骨架8章-1)
-  - [情绪节拍](#情绪节拍-12)
-  - [必选场景](#必选场景-13)
-  - [关键写法](#关键写法-15)
-- [公式十七：年代重生/医术复仇型](#公式十七年代重生医术复仇型)
-  - [结构骨架（8章）](#结构骨架8章-2)
-  - [情绪节拍](#情绪节拍-13)
-  - [必选场景](#必选场景-14)
-  - [关键写法](#关键写法-16)
-- [通用写作铁律](#通用写作铁律)
-  - [核心梗驱动法](#核心梗驱动法)
-  - [三层标签反差人设法](#三层标签反差人设法)
-  - [展示优于告知](#展示优于告知)
-  - [事件驱动 vs 情感驱动](#事件驱动-vs-情感驱动)
-  - [矛盾冲突抛出公式](#矛盾冲突抛出公式)
-  - [故事卡系统](#故事卡系统)
-  - [升级感三步设计法](#升级感三步设计法)
-  - [开头技法](#开头技法)
-  - [情绪操控高级技法](#情绪操控高级技法)
-  - [结构创新技法](#结构创新技法)
-  - [结尾高级技法（新增）](#结尾高级技法新增)
-  - [对话密度与功能（数据支撑）](#对话密度与功能数据支撑)
-  - [核心金句模板（可直接套用）](#核心金句模板可直接套用)
-  - [短篇写作硬性规范](#短篇写作硬性规范)
-- [公式十八：灵魂视角家庭虐文](#公式十八灵魂视角家庭虐文)
-  - [结构骨架（5章标准）](#结构骨架5章标准)
-  - [情绪节拍](#情绪节拍-14)
-  - [必选场景](#必选场景-15)
-  - [关键写法](#关键写法-17)
-  - [开头金句模板](#开头金句模板)
-- [公式十九：细节线索驱动型复仇](#公式十九细节线索驱动型复仇)
-  - [结构骨架（8-13章超短章节制）](#结构骨架8-13章超短章节制)
-  - [情绪节拍](#情绪节拍-15)
-  - [必选场景](#必选场景-16)
-  - [关键写法](#关键写法-18)
-  - [调查链条模板](#调查链条模板)
-- [公式二十：反套路嫁祸型重生](#公式二十反套路嫁祸型重生)
-  - [结构骨架（7章）](#结构骨架7章)
-  - [情绪节拍](#情绪节拍-16)
-  - [必选场景](#必选场景-17)
-  - [关键写法](#关键写法-19)
-- [公式二十一：公开审判式打脸](#公式二十一公开审判式打脸)
-  - [核心场景设计](#核心场景设计)
-  - [标志性动作库](#标志性动作库)
-  - [驱逐台词库](#驱逐台词库)
-- [情绪操控核心法则](#情绪操控核心法则)
-  - [信息差运用法则](#信息差运用法则)
-  - [毒点排查核心](#毒点排查核心)
-- [感情线写作法则](#感情线写作法则)
-  - [爱情线阶段推进原则](#爱情线阶段推进原则)
-  - [日常文/狗粮文核心](#日常文狗粮文核心)
-  - [好感度与事业线绑定法](#好感度与事业线绑定法)
-- [女频读者心理与写作技法](#女频读者心理与写作技法)
-  - [女频读者心理特征](#女频读者心理特征)
-  - [感情流"扮猪吃虎"写法](#感情流扮猪吃虎写法)
-  - [沙雕风写作分析（女频修真/古言）](#沙雕风写作分析女频修真古言)
-  - [老太重生题材分析（下沉市场爆款）](#老太重生题材分析下沉市场爆款)
-  - [女频平台生态](#女频平台生态)
-  - [女频简介/文案安全法则](#女频简介文案安全法则)
-  - [女频写作关键认知](#女频写作关键认知)
-- [震惊场景九种写法](#震惊场景九种写法)
-  - [三翻四震技法](#三翻四震技法)
-- [比赛场景写作前提（读者才会关心胜负）](#比赛场景写作前提读者才会关心胜负)
-  - [比赛中的胜负设计](#比赛中的胜负设计)
-- [感情线四阶段推进法](#感情线四阶段推进法)
-  - [CP行为八种类型（好感度达标才出现）](#cp行为八种类型好感度达标才出现)
-- [喜剧 flag 机制（轻松文必备）](#喜剧-flag-机制轻松文必备)
-- [核心梗提炼与验证原则](#核心梗提炼与验证原则)
-  - [提炼三原则](#提炼三原则)
-  - [使用时的正确姿势](#使用时的正确姿势)
-  - [男女频核心梗的区别](#男女频核心梗的区别)
-- [短篇视角控制法则](#短篇视角控制法则)
-  - [出场人物控制](#出场人物控制)
-  - [视角数量控制](#视角数量控制)
-- [情绪锚点理论](#情绪锚点理论)
-- [反派嘲讽新思路](#反派嘲讽新思路)
-- [人设拆解从缺点开始](#人设拆解从缺点开始)
-- [以小搏大故事卡四要素](#以小搏大故事卡四要素)
-- [爽点本质与修仙三境界](#爽点本质与修仙三境界)
+1. Fórmulas por gênero (1 a 21)
+2. Regras gerais de escrita (conceito central, três camadas, mostrar x contar, motores, conflito, fichas de história, sensação de progresso, técnicas de abertura, manipulação emocional avançada)
+3. Leis centrais de manipulação emocional; assimetria; pontos de rejeição
+4. Regras da linha romântica; psicologia do público feminino; "fingir-se fraco" romântico; comédia absurda
+5. Nove formas de cenas de choque; três viradas e quatro choques
+6. Cenas de competição
+7. Quatro fases da linha romântica; comportamentos de casal
+8. Mecanismo de promessas na comédia
+9. Extração e validação do conceito central
+10. Controle de ponto de vista no conto
+11. Âncoras emocionais
 
 ---
 
-## 公式一：现代复仇/打脸短篇（6章结构）
+## 1. Fórmulas por gênero
 
-### 结构骨架
-
+### Fórmula 1: vingança contemporânea e virada de mesa (6 partes)
+**Esqueleto**
 ```
-第1节【当众背叛】→ 主角当场冷静反击 → 暂时胜利
-第2节【冷静处理】→ 冻结/收回权力 → 背景交代（为什么这么狠）
-第3节【对方反扑】→ 被反派找上门 → 用证据打脸
-第4节【揭示真相】→ 监控/证据暴露反派真面目 → 读者爽
-第5节【对方求饶】→ 展示更多证据 → 彻底碾压
-第6节【最终加冕】→ 新格局确立 → 最后一刀（隐藏真相揭露）
+1. [Traição pública] → o protagonista reage com calma na hora → vitória provisória
+2. [Calma] → congela/retoma o poder → contexto (por que foi tão duro)
+3. [Contra-ataque] → o antagonista aparece → prova na cara
+4. [Verdade revelada] → câmeras/provas expõem a face real do antagonista → satisfação
+5. [Súplica] → mostra mais provas → esmagamento completo
+6. [Coroação final] → nova ordem → último golpe (verdade escondida)
 ```
+**Batidas emocionais**: raiva (leitor) → satisfação (reação) → tensão (contra-ataque) → mais satisfação (prova) → muita satisfação (esmagamento) → ressonância + choque (última verdade).
+**Cenas obrigatórias**: 1) abertura com humilhação pública (o primeiro parágrafo é a traição por alguém próximo); 2) reação assustadoramente calma (não chora, não grita: quanto mais frio, melhor); 3) um gesto marcante, repetido, vira etiqueta ("pegou o copo d'água e bebeu um gole"); 4) provas reveladas em camadas, uma por capítulo; 5) o antagonista se denuncia (diz a pior frase, e uma câmera registra); 6) pista escondida resgatada: o último capítulo revela algo que muda tudo.
+**Escrita-chave**: o protagonista **nunca perde a compostura**: cada fala é um julgamento frio; **ação no lugar de emoção** ("alisei uma dobra inexistente no paletó"); quanto mais histérico o outro, mais calmo o protagonista; ao revelar cada prova, primeiro deixe o antagonista **se gabar**, depois **vire tudo de uma vez**.
 
-### 情绪节拍
+### Fórmula 2: intriga familiar de época e troca de identidade (8 partes)
 ```
-愤怒(读者) → 爽(反击) → 紧张(反扑) → 更爽(打脸) → 极爽(碾压) → 余韵+震撼(最后真相)
+1. [Volta de quem foi abandonada] → os pais verdadeiros a humilham em público → ela observa fria
+2. [Confronto nos fundos] → incriminada pela irmã → é agredida → a linha oculta começa (pombo-correio/guarda secreto)
+3. [Identidade aflorando] → figura importante (príncipe/duque) a nota → mostra um objeto-sinal
+4. [Prisão domiciliar] → a irmã denuncia → beco sem saída
+5. [Identidade revelada] → chega o decreto → "Eu, fulana, recebo a ordem com gratidão" → todos se chocam
+6. [Contra-ataque] → audita as contas → o outro lado entra em pânico → poderosos escolhem lado
+7. [Reação do outro lado] → espalha boatos → ataque em conjunto → ela é limitada
+8. [Esmagamento final] → audiência com o soberano/verdade vem à tona → o outro lado cai
 ```
+**Batidas**: opressão → opressão → opressão → mais opressão → liberação (explosão) → liberação → breve nova pressão → liberação final.
+**Cenas obrigatórias**: humilhação no retorno (a primeira fala dos pais não é saudade, é desprezo); injustiça e agressão (ao menos uma violência física, para acumular ódio); o objeto-sinal (um selo/joia que muda o rosto de alguém importante); a cena de revelação (todos se ajoelham, em choque); a maldade da irmã (precisa ser forte o bastante para o leitor odiar); a parcialidade dos pais (cada cena pior que a anterior).
+**Escrita-chave**: **revelação adiada** (a identidade não é dita de uma vez; leitor e personagens descobrem juntos); **três de opressão para um de liberação** (3:1); **pais retratados pela parcialidade, não pela maldade** (mais empatia que o mal puro); **a maldade da irmã escala**: da ironia → à armação → ao desejo de matar.
 
-### 必选场景
-1. **当众羞辱开场**：第一段就是主角被亲近之人当众背叛
-2. **冷静到可怕的反击**：主角不能哭、不能怒，越冷越爽
-3. **一个标志性动作**：如"端起水杯，喝了一口"——反复出现，成为人格标签
-4. **逐层揭露证据**：不能一次全给，一章给一个，层层加码
-5. **反派自曝**：让反派自己说出最丑陋的话（如被监控拍下）
-6. **隐藏伏笔回收**：最后一章揭露一个改变全局的信息
-
-### 关键写法
-- 主角**永远不失态**：每句对话都是冷静的审判
-- 用**动作替代情绪**："我理了理西装外套并不存在的褶皱"
-- 对方越**歇斯底里**，主角越**平静**，反差越大越爽
-- 每次揭露证据时，先让反派**得意**，再**瞬间翻转**
-
----
-
-## 公式二：古代宅斗/身份反转
-### 结构骨架（8节）
-
+### Fórmula 3: romance doloroso com vingança e espírito observador (7 partes)
 ```
-第1节【被弃回顾+回归】→ 亲生父母当众羞辱 → 主角冷观
-第2节【后院交锋】→ 被妹妹陷害 → 被打 → 暗线启动（信鸽/暗卫）
-第3节【身份初露】→ 重要人物（太子/王爷）关注 → 展示信物
-第4节【被软禁】→ 妹妹告密 → 陷入绝境
-第5节【身份揭露】→ 圣旨到 → "臣，XX，领旨谢恩" → 全场震惊
-第6节【反击推进】→ 查账 → 对方恐慌 → 权贵开始站队
-第7节【对方反扑】→ 散布谣言 → 联合打压 → 主角被限
-第8节【最终碾压】→ 面圣/真相大白 → 对方彻底覆灭
+1. [Morte revista] → há 3 anos, morta pelo canalha → começa a visão da alma
+2. [Cena de maus-tratos] → o canalha ameaça a família → seguranças batem → ele compra um jato para a amante
+3. [Hipocrisia da amante] → faz-se de coitada → rasga o atestado de óbito
+4. [Abertura do caixão/verdade] → a criança diz "é a mamãe" → carta de sangue → arquivo programado é publicado
+5. [Opinião pública vira] → trending → ações despencam → a amante é largada
+6. [Colapso] → esgana a amante → cobrança da família → o canalha enlouquece
+7. [Fecho] → o irmão arma → a mãe desaba → a última frase do canalha
 ```
+**Batidas**: sufoco → raiva → frieza → coração partido → recompensa → prazer → desolação.
+**Cenas obrigatórias**: a frase mais fria do canalha ("salve o bebê, não ela"); cena de contraste (a mesma hora: família apanhando x canalha comprando presente); a criança (uma frase de uma criança de três anos derruba todas as defesas); publicação programada (provas que a protagonista deixou antes de morrer); abertura do caixão (ver o próprio corpo); colapso do canalha (do poderoso ao joelho, gritando).
+**Escrita-chave**: ponto de vista de espírito (já morta, narra flutuando); "minha alma gritava": o desespero de querer impedir sem poder; intercalar presente e três anos antes; o canalha não é "mau" direto: ele racionaliza ("ela deve estar viva", "o filho não é meu"); cada frase da amante é veneno: inocente na superfície, óleo no fogo.
 
-### 情绪节拍
+### Fórmula 4: ascensão urbana com sistema (romance longo)
+**Estrutura dos três primeiros capítulos**
 ```
-压抑→压抑→压抑→更压抑→释放(爆点)→释放→短暂再压→终极释放
+Cap. 1 [Divórcio + sistema ativa] (~2.000 palavras)
+  → sozinho → mulher inesperada → reviravolta do golpe → divórcio → sistema ativa
+Cap. 2 [Painel + prêmio inicial] (~1.200 palavras)
+  → o painel mostra "à beira da sucata" → resmungo → meta de voltar aos 20 → kit inicial → divórcio
+Cap. 3 [Pós-divórcio + novo equipamento + pai e filho] (~1.200 palavras)
+  → entra a moto → "o banco de trás só leva quem tem 20 anos" → pista do arrependimento da ex → relação pai-filho preparada
 ```
+**Cenas obrigatórias**: crise de meia-idade (divórcio/demissão/ser desprezado: precisa ser bem ruim); painel do sistema (dados sarcásticos: "à beira da sucata", "carisma 5"); kit inicial (efeito visível na hora: 3 anos mais novo, cura de uma doença); pista do arrependimento da ex (no divórcio ela acha indiferente, mas começa a notar a mudança); equipamento escondido (moto/carro/coleção que ele antes não usava); relação com os filhos (prepare uma relação a ser reparada).
+**Escrita-chave**: estilo de resmungo (avaliação do sistema + resmungo interior são a piada central); **todo capítulo termina com um prêmio do sistema** (sensação de evolução); humor autodepreciativo; o contraste é a fonte da recompensa (a ex diz "três segundos" → na verdade "três minutos e três segundos" → o sistema cura a "falha"); detalhes cotidianos (leitor de blu-ray, filmes de arte): realismo.
 
-### 必选场景
-1. **回归时的羞辱**：父母第一句话不是想念而是嫌弃
-2. **被冤枉被打**：必须有一次肉体受虐，积攒仇恨值
-3. **信物展示**：一个让关键人物变色的小物件（金印/玉佩）
-4. **身份揭露的名场面**：所有人跪下/震惊的那一刻
-5. **妹妹的恶毒**：必须足够坏，读者才恨得起来
-6. **父母的偏心**：层层加码，每一节都比上一节更偏心
-
-### 关键写法
-- **延迟揭露**：主角的真实身份不一次说完，让观众和角色一起慢慢知道
-- **压抑三节释放一节**：3:1的压抑释放比
-- **父母不用"坏"来写，用"偏心"来写**：偏心比纯粹的恶更让读者共情
-- **妹妹的恶是递进的**：从"阴阳怪气"→"陷害"→"要杀"
-
----
-
-## 公式三：虐恋复仇/灵魂视角
-### 结构骨架（7节）
-
+### Fórmula 5: comédia leve em contos
 ```
-第1节【死亡回溯】→ 3年前被渣男害死 → 灵魂视角开启
-第2节【虐待现场】→ 渣男威胁家人 → 保镖打人 → 渣男给小三买飞机
-第3节【小三虚伪】→ 小三装可怜 → 撕碎死亡证明
-第4节【开棺/真相初现】→ 孩子"那是妈妈" → 血书 → 定时文件发布
-第5节【舆论反转】→ 热搜 → 股价暴跌 → 小三被甩
-第6节【崩溃现场】→ 掐小三 → 家族问责 → 渣男疯癫
-第7节【收尾】→ 哥哥布局 → 母亲精神崩溃 → 渣男最后一句话
+1. [Entrada no resmungo] → reação fora do comum cria a personalidade
+2. [Piada de percepção trocada] → o que os outros acham incrível, o protagonista nem liga
+3. [Escalada inesperada] → algo feito de passagem tem efeito enorme
+4. [Virada/choque] → a percepção de todos é virada de cabeça para baixo
 ```
+**Escrita-chave**: resmungo em primeira pessoa (o monólogo é a fonte da graça); contraste fofo (algo assustador tratado como bicho de estimação/criança); talento comum que vira absurdo (uma tigela de mingau = elixir dos deuses); percepção trocada (A acha que luta pela vida, B acha que é brincadeira).
 
-### 情绪节拍
+### Fórmula 6: fantasia com segunda chance e reviravolta (19 capítulos)
 ```
-窒息→暴怒→冰冷→心碎→爽→快意→苍凉
+Abertura [panorama da morte anterior] → volta ao ponto-chave → age de modo diferente do passado → o adversário duvida de si e se perde → os que a cercam estranham, mas assistem → o adversário se afunda → uma figura-chave a apoia → desmonta o outro lado aos poucos
 ```
+**Batidas**: aflição (vida passada) → recompensa (volta e não se contém) → suspense (por que não se importa?) → mais recompensa (o adversário se perde) → tensão (duelo) → calor (fecho).
+**Cenas obrigatórias**: 1) a morte da vida anterior descrita com detalhe e crueldade, para despertar a raiva do leitor; 2) a primeira coisa depois de voltar é "anormal": fazer o que na outra vida jamais faria; 3) o adversário se enrola sozinho; 4) a figura-chave que entra na hora certa.
 
-### 必选场景
-1. **"保小不保大"**：渣男最冷酷的那句话
-2. **对比场景**：同一时间，家人被打 vs 渣男给小三买东西
-3. **孩子出场**：3岁小孩一句话击穿所有防线
-4. **定时发布**：主角死后布局的证据定时发布
-5. **开棺**：最极致的场景——亲眼看到自己的遗体
-6. **渣男崩溃**：从不可一世到跪地嘶吼
-
-### 关键写法
-- **灵魂视角**：主角已死，以灵魂飘在半空的视角叙述
-- **"我的灵魂在尖叫"**：表达想阻止却无能为力的绝望
-- **时间线穿插**：现在进行时 + 3年前回忆交替
-- **渣男不直接"坏"**：让他"合理化"自己的恶（"她肯定没死""孩子不是我的"）
-- **小三的每一句话都是毒**：表面无辜，实际在火上浇油
-
----
-
-## 公式四：都市系统/逆袭长篇
-### 前3章结构
-
+### Fórmula 7: renascimento em época passada com dupla vingança (19 capítulos)
 ```
-第1章【离婚+系统激活】（3346字）
-  → 独处 → 意外女人 → 仙人跳反转 → 离婚 → 系统激活
-
-第2章【系统面板+新手奖励】（1996字）
-  → 面板显示"报废边缘" → 吐槽 → 重返20岁目标 → 新手礼包 → 离婚
-
-第3章【离婚后+新装备+父子关系】（2043字）
-  → 机车出场 → "后座只载20岁" → 前妻后悔伏笔 → 父子关系铺垫
+Abertura [panorama da vida anterior em que foi usada] → os dois renascem → ela escolhe um caminho totalmente diferente → entra o protagonista masculino (tido como "defeituoso", gentil) → expõe aos poucos os crimes do canalha na vida passada → o canalha acha que venceu → nova virada → acerto final → o canalha, na ruína, sente o arrependimento
 ```
+**Batidas**: raiva → alívio → doçura → tensão → recompensa máxima (virada) → ressonância + prazer.
+**Cenas obrigatórias**: 1) o sacrifício da vida passada explicado já na abertura (assumir culpa alheia, prisão ou trabalho forçado, ser difamada); 2) o renascimento duplo dá mais jogo: os dois sabem da vida anterior, cada um com a sua jogada; 3) os detalhes da época são a alma (camisa de tecido da época, preços, o médico do bairro, o galpão); 4) o par masculino parece "defeituoso" e na verdade é perfeito (o defeito é fachada, a gentileza é real); 5) o colapso final do canalha precisa ser pleno: ele percebe que perdeu mais que todos; 6) termine pelo ponto de vista do canalha arrependido: tem mais impacto que mostrar a felicidade dela.
+**Escrita-chave**: a imersão de histórias de época vem de **detalhes históricos reais** (preços, políticas, vocabulário); o "bode expiatório" tem mais impacto que a "traição" (ir para a prisão por outro é pior que ser traída); duplo renascimento = dupla guerra de informação, cada embate é jogo psicológico; o final pelo ponto de vista do canalha é o toque final: o desespero dele realça a leveza dela.
 
-### 必选场景
-1. **中年危机**：离婚/失业/被嫌弃，必须够惨
-2. **系统面板**：显示"报废边缘""魅力值5"等讽刺数据
-3. **新手礼包**：立刻给一个可见的效果（年轻3岁/消除疾病）
-4. **前妻/前夫后悔伏笔**：离婚时对方觉得无所谓，但开始察觉主角变了
-5. **隐藏装备**：机车/跑车/收藏品——主角以前不用的好东西
-6. **子女关系**：铺垫一个需要修复的亲子关系线
-
-### 关键写法
-- **吐槽风**：系统评价+主角内心吐槽是核心笑点
-- **每章结尾必有系统奖励**：给读者"升级"的爽感
-- **"你他妈说得好有道理"**：自嘲式幽默
-- **反差是爽点来源**：前妻说"三秒"→实际"三分三秒"→系统消除"不举"
-- **生活化细节**：蓝光播放机、文艺片、西红柿小说——真实感
-
----
-
-## 公式五：点众轻喜剧短篇
-
-### 结构骨架（融合多个点众作品特征）
-
+### Fórmula 8: intriga de corte e ascensão feminina (19 capítulos)
 ```
-第1节【吐糟式出场】→ 用反常规反应建立人设
-第2节【认知错位笑料】→ 对方觉得很厉害的事主角不当回事
-第3节【意外升级】→ 随手做的事产生巨大效果
-第4节【打脸/震惊】→ 所有人的认知被颠覆
+Família destruída → casamento forçado em lugar de outra → obediência por fora, plano em silêncio → leva todos os recursos e parte → acumula força numa nova facção → descobre uma conspiração maior → aliança com novos aliados → ofensiva contra a capital → coroa
 ```
+**Batidas**: dor e raiva → paciência → suspense (o que ela planeja?) → recompensa (o plano se revela) → recompensa máxima (ofensiva) → satisfação (coroação).
+**Cenas obrigatórias**: 1) a destruição da família na abertura precisa ser cruel (pai e irmãos mortos em combate, a mãe morre cuspindo sangue); 2) o casamento forçado mostra a inteligência dela: não aceita às cegas, usa-o para se posicionar; 3) "levar o patrimônio" é o ponto de virada: obediente por fora, esvazia o outro por dentro; 4) cada passo do plano tem motivo razoável (ao reler, o leitor vê pistas); 5) na ofensiva, uma grande cena de impacto (como "tomar o palácio"); 6) as reformas depois da coroa mostram a estatura da protagonista: mais que vingança, mudar a instituição.
+**Escrita-chave**: ela **nunca explica** o plano: deixe o leitor adivinhar, e acertar é mais prazeroso que ser avisado; o diálogo de época tem sabor antigo, sem exagerar na linguagem formal; cada passo do plano deve ter o efeito "ao reler, tudo se encaixa"; o antagonista não é só mau, é "frio por interesse": mais real e mais odioso.
 
-### 关键写法
-- **第一人称吐槽**：内心独白是笑点来源
-- **反差萌**：可怕的存在被当宠物/小孩对待
-- **种田天赋/平凡能力变逆天**：一碗粥=补天神液
-- **认知错位**：A觉得在拼命，B觉得在玩闹
-
----
-
-## 公式六：玄幻仙侠/重生逆袭
-### 结构骨架（19章）
-
+### Fórmula 9: suspense moderno com perspectiva sobrenatural (18 capítulos)
 ```
-导语[前世被害全貌] → 重生回到关键节点 → 故意不按前世行事 → 对手自疑自乱 → 周围人不解但旁观 → 对手越陷越深 → 关键人物出场相助 → 逐步瓦解反派势力 → 最终决战 → 开放式HE（暗示感情线）
+Configuração [um fantasma que se passa por gente] → é enganada e entra no jogo → descobre que o ressentimento a faz evoluir → deixa rolar (não tem pressa de fugir) → revela a rede criminosa aos poucos → o poder do fantasma cresce → derrota os capangas → descobre a causa da própria morte → pune o mandante
 ```
+**Batidas**: curiosidade (ponto de vista do fantasma) → tensão (enganada) → recompensa (fantasma x vilões) → mais recompensa (evolui e castiga) → choque (a causa da morte) → prazer (castigo duplo).
+**Cenas obrigatórias**: 1) a configuração cabe em uma frase: "sou uma assombração de vestido vermelho vivendo disfarçada de gente"; 2) depois de enganada, a reação é "sem pânico, até contente": ela precisa do ressentimento para evoluir; 3) assimetria própria do fantasma: sente ressentimento e vê memórias dos mortos; 4) cada evolução desbloqueia uma memória da vida anterior: é poder e é avanço da trama; 5) a reação dos vilões é o núcleo da graça/prazer ("ela não tem órgãos!"); 6) castigo duplo vale mais que só matar: julgamento da lei + tormento eterno do fantasma.
+**Escrita-chave**: o **ponto de vista do fantasma** é o atrativo (o leitor vê o mundo pelo espírito, não pelo humano); "o fantasma não teme os maus, os maus temem o fantasma" cria recompensa natural; linha de suspense e de vingança se entrelaçam (revela o crime enquanto recupera a memória da vida anterior); cada capítulo termina em reviravolta ou descoberta: 18 capítulos, 18 bombas de informação.
 
-### 情绪节拍
-
+### Fórmula 10: história alternativa com inversão de gênero (19 capítulos)
 ```
-憋屈(前世)→ 爽(重生不劝)→ 悬疑(为什么不管?)→ 更爽(对手自乱)→ 紧张(决战)→ 温暖(收尾)
+Violência doméstica/incompreensão → o cônjuge protege um estranho → o protagonista, decepcionado, desiste → decide partir → o cônjuge não leva a sério → a vida melhora depois da partida → o cônjuge começa a se arrepender → procura desesperadamente / tenta se redimir → final
 ```
+**Batidas**: sufoco → mais sufoco → alívio (desistir) → leveza (partir) → prazer discreto (o outro se arrepende) → amargura sem resolução (final).
+**Cenas obrigatórias**: 1) a abertura já é ser injustiçado/agredido: a primeira cena estabelece a injustiça; 2) a rival "luz da lua" precisa ser branca e hipócrita o bastante para o leitor detestar; 3) a partida é o ponto de virada: limpa, sem um fio de hesitação; 4) o arrependimento do cônjuge escala: de "tanto faz" a "começa a sentir falta" a "desespero"; 5) a recusa em perdoar é a atitude do livro todo: nem todo arrependimento merece perdão; 6) final **sem final feliz**: esse final triste tem mais ressonância que um final feliz forçado.
+**Escrita-chave**: a inversão de gênero é a casca; o núcleo é "quem não é valorizado escolhe partir"; o protagonista masculino num mundo matriarcal é a projeção da leitora no mundo real; cada vez que um coadjuvante diz "aguente, vai passar", soma raiva ao leitor; quanto mais detalhado o arrependimento do cônjuge, mais firme a recusa do leitor em perdoar; a tragédia do final vem de "tarde demais", não de "impossível".
 
-### 必选场景
-
-1. **前世死亡描写必须详细残忍**，激发读者愤怒
-2. **重生后第一件事是"反常"**——做前世绝不会做的事
-3. **对手的自我怀疑是核心爽点**——你不按套路出牌，对手反而慌了
-4. **逐步揭露前世真相**，每次揭露都有新信息
-5. **关键助力者出场要有排面**（如帝级人物主动结盟）
-6. **结尾留白式暗示感情**，不直接写"在一起了"
-
-### 关键写法
-
-- 重生文的核心理念：**不做和前世一样的事**就是最大的金手指
-- 用反常行为制造信息差——读者知道原因，书中角色不知道
-- 仙侠设定服务于情感线，不要为了世界观而堆设定
-
----
-
-## 公式七：年代重生/双重复仇
-### 结构骨架（19章）
-
+### Fórmula 11: voz interior de herdeira trocada (10 capítulos)
 ```
-导语[前世被利用全貌] → 双重生设定 → 女主选择完全不同的路 → 男主(天阉)温柔登场 → 逐步揭发渣男前世罪行 → 渣男自以为赢了 → 更多证据/势力揭露 → 渣男崩溃 → 男主真实身份/能力揭露 → 华丽打脸 → 男主后悔BE收尾
+Abertura de tortura extrema [asfixiada em um caixão] → ponto de vista da alma observando → a frieza da família e a maldade da falsa herdeira → a alma vê mais verdades → expõe uma a uma as traições da família → verdade final
+```
+**Batidas**: raiva extrema → sufoco → coração partido → recompensa (a verdade) → recompensa máxima (a família enlouquece de arrependimento) → desolação/alívio.
+**Cenas obrigatórias**: 1) a abertura "tortura ao extremo": asfixia no caixão, enterrada viva, tomada por atuação; 2) o ponto de vista da alma é a fonte da assimetria: ela vê a verdadeira face de todos; 3) toda vez que a família diz "ela está fingindo", é um soco psicológico no leitor; 4) a satisfação da falsa herdeira precisa ser bem escrita: cada fala dela dá vontade de bater; 5) as revelações são progressivas: um irmão se arrepende mais que o outro; 6) o final pode ter reencarne ou não: a tragédia da alma é mais forte sem.
+**Escrita-chave**: a alma = ponto de vista onisciente que cria o desespero de "ver e não poder mudar"; cada familiar reage diferente (o mais velho violento, o do meio hesitante, o caçula zombeteiro); a maldade da falsa herdeira é "refinada" (inocente por fora, venenosa por dentro); o tema "só amada depois de morrer" derruba as defesas do leitor; use o arrependimento da família para "pagar a dívida": quanto mais doloroso para eles, mais satisfatório para o leitor.
+
+### Fórmula 12: segunda chance, vingança e divórcio (10 capítulos)
+```
+Revisão da vida passada → volta ao ponto-chave → aceita o divórcio com calma → leva o que lhe é devido → investe num projeto de sucesso conhecido da vida passada → estuda com um sistema/método para se elevar → o ex começa a se arrepender → recusa completa
+```
+**Batidas**: aperto (vida anterior) → alívio (assina) → prazer (investimento) → mais prazer (o ex se arrepende) → máximo (recusa total) → satisfação (vida nova).
+**Cenas obrigatórias**: 1) a morte da vida anterior ligada diretamente ao ex (ele estava ao lado escolhendo convites com outra); 2) a primeira reação depois de voltar não é choro, é rir: o contraste cria a nova imagem; 3) divórcio seco: dinheiro e direitos sim, a pessoa não; 4) a decisão de investir mostra a inteligência dela: o conhecimento da vida passada é a vantagem; 5) o arrependimento do ex escala: "tanto faz" → "quer voltar" → colapso; 6) a transformação final precisa ser concreta: não só dinheiro, também capacidade e estatura.
+**Escrita-chave**: o núcleo da segunda chance: "conheço o fim, agora mudo o processo"; a calma da protagonista é a maior arma: quanto mais calma, mais o ex se desespera; cada decisão tem sustentação na memória da vida passada: o leitor sente que "ela realmente aprendeu"; o ex não é só mau, é "o que ignora como se fosse natural": mais real e mais odioso; separe a linha de investimento da romântica: primeiro dinheiro, depois sentimento.
+
+### Fórmula 13: milionário e amor impossível (ex idealizado), 8 a 11 capítulos
+```
+Caps. 1-2 [Dor: estabelecer a contradição] → o dano escala (palavras → atitudes → corpo) → dor
+Caps. 3-4 [Despertar: coração morto e partida] → evento crítico (vê a traição / limite do corpo) → decisão
+Caps. 5-6 [Virada: verdade revelada] → câmera/provas expostas / a ex idealizada se denuncia → recompensa
+Caps. 7-8 [Castigo: arrependimento recusado] → o canalha desaba / o antagonista cai → recompensa máxima
+Caps. 9-10 [Cura: vida nova] → a protagonista independente / novo amor → final caloroso
+```
+**Batidas**: dor (30%) → despertar (15%) → recompensa (35%) → cura (20%); a dor em três níveis (dano verbal → de atitudes → físico); a recompensa em ordem: verdade revelada → colapso do canalha → queda do antagonista → novo amor.
+**Cenas obrigatórias**: 1) a traição na abertura: a primeira frase já é uma bomba de informação ("há três anos, dei à luz um filho com deficiência numa maternidade e virei piada da alta sociedade"); 2) entra a "luz da lua" (a ex idealizada): metade das obras a tem, e cada fala dela é uma humilhação para a protagonista; 3) o evento crítico: um instante que mata o coração dela (ver a gravação / a mãe morre e o marido viaja com a secretária); 4) a "morte fingida"/desaparecimento: em cerca de 30% das obras, só depois de "morta" a verdade aflora; 5) o canalha arrependido recusado: o prazer central ("e por que você não morre?"); 6) sugestão de novo amor: metade das obras termina com um.
+**Fórmula de sinopse em seis passos**: 1) situação (1-2 frases): "meu namorado não gosta de limites"; 2) estouro do conflito (2-3 frases): "para me castigar, ele viaja o mundo com a secretária"; 3) frase-chave de diálogo (1-2 frases): "uma pescadora ordinária acha que pode ocupar o lugar de Ana?"; 4) a virada da protagonista (1 frase): "não aguentei e dei um riso frio"; 5) gancho de suspense (1 frase): "comprei a passagem para o país F"; 6) prévia de identidade (1 frase, opcional): "pela hierarquia, ela ainda teria de me chamar de tia!".
+**Três funções do diálogo (27,7% do texto)**: *mostrar o dano* (40%): violência fria + negação de valores, não xingamento, mas golpe preciso; *criar reviravolta* (30%): câmeras, escuta, grupos de conversa, telefone explodem a verdade; *mostrar crescimento* (30%): falas dela "curtas, frias, duras": quanto menos, mais força. **Imagens frequentes**: a ex idealizada (50%), gravidez/aborto (40%), câmeras/gravações (30%), hospital (60%), incêndio (20%).
+**Escrita-chave**: 100% em primeira pessoa; o dano é "golpe preciso" (frieza + negação de valores); a reviravolta ocorre com a protagonista **ausente** (câmeras, escuta, grupo de conversa, telefone); o despertar é um instante: não é refletir devagar, é um evento concreto que mata o coração; a recompensa em ordem: pequena → média → grande → calor, sem inverter.
+
+### Fórmula 14: vingança feminina x masculina
+
+**Fórmula universal feminina**
+```
+Abertura (primeiros 10%):
+  - narração em primeira pessoa "eu"
+  - em 3 frases, a contradição central (dedicação x traição / acusada injustamente x verdade)
+  - se há segunda chance, a tragédia anterior em até 80 palavras
+Desenvolvimento (10-50%):
+  - o antagonista piora sem parar (escalada a cada 250 palavras)
+  - a protagonista aguenta e coopera na superfície
+  - a voz interior cria assimetria
+  - a cada 400 palavras, uma pequena virada (muda de cor, fica sem fala)
+Clímax (50-80%):
+  - verdade/identidade revelada
+  - virada em julgamento público
+  - os antagonistas são acertados um a um
+  - a cada 250 palavras, uma grande virada (de joelhos, colapso, súplica)
+Fechamento (80-100%):
+  - o antagonista recebe o que merece
+  - vida nova / sugestão de um futuro melhor
+  - fecho caloroso de até 100 palavras
+```
+**Fórmula universal masculina**
+```
+Abertura (primeiros 10%):
+  - o primeiro parágrafo já mostra a maior humilhação (de preferência em diálogo)
+  - sem preparação, entra a cena mais explosiva
+  - dados específicos (189 mil, nove mil reais, três da madrugada)
+Desenvolvimento (10-40%):
+  - o protagonista aguenta/planeja (mais curto que no feminino)
+  - o antagonista continua arrogante (escalada mais rápida)
+  - mostra a capacidade por ações, não por voz interior
+Contra-ataque (40-70%):
+  - primeira demonstração de poder (esmaga direto, sem explicar)
+  - o antagonista não acredita → esmagado de novo
+  - chave: o esmagamento tem de ser em público
+Clímax (70-90%):
+  - identidade escondida/poder final revelado
+  - fala-chave no formato "X... Sr. X?!" (a mudança de tratamento revela a identidade)
+  - todos se chocam juntos
+Fechamento (90-100%):
+  - o antagonista é aniquilado
+  - 100 a 200 palavras da linha afetiva (família, esposa, filhos no cotidiano)
 ```
 
-### 情绪节拍
-
-```
-愤怒→ 解气→ 甜→ 紧张→ 极爽(打脸)→ 余韵+痛快
-```
-
-### 必选场景
-
-1. **前世付出必须在导语中交代清楚**：替人背锅、坐牢/劳改、被谣言中伤
-2. **双重生设定让博弈更有看点**——两人都知道前世但各有算盘
-3. **年代细节是灵魂**：的确良衬衫、大团结、赤脚医生、牛棚
-4. **男主看似"缺陷"实则完美**——天阉是假，温柔是真
-5. **渣男的最后崩溃必须写足**——他发现自己才是输得最惨的人
-6. **结尾用渣男视角写后悔**，比直接写女主幸福更有冲击力
-
-### 关键写法
-
-- 年代文的代入感来自**真实历史细节**：物价、政策、用语
-- "替罪羊"设定比"被出轨"更有冲击力——替人坐牢比被绿更惨
-- 双重生=双重信息战，每次交锋都是心理博弈
-- 结尾的渣男视角是点睛之笔——用他的绝望反衬女主的洒脱
-
----
-
-## 公式八：宫闱宅斗/女帝逆袭
-### 结构骨架（19章）
-
-```
-家族被害 → 被迫替嫁 → 表面顺从暗中布局 → 带走所有资源离开 → 在新势力中积蓄力量 → 发现更大的阴谋 → 联合新盟友 → 反攻京城 → 旧势力崩溃 → 称帝+改革+HE
-```
-
-### 情绪节拍
-
-```
-悲愤→ 隐忍→ 悬念(她在计划什么?)→ 爽(布局揭晓)→ 极爽(反攻)→ 满足(称帝)
-```
-
-### 必选场景
-
-1. **开篇家族被害必须足够惨**——父兄战死、母亲呕血而亡
-2. **替嫁场景展现主角智慧**——不是盲目接受而是借机布局
-3. **"带走家产"是转折点**——表面顺从实则掏空对方
-4. **每一步布局都有合理动机**——读者回看发现处处伏笔
-5. **反攻时必须有一场震撼的名场面**——如"血洗皇城"
-6. **称帝后的改革体现主角格局**——不止报仇更要改变制度
-
-### 关键写法
-
-- 主角**从不解释**自己的计划——让读者自己猜，猜对了比被告知更爽
-- 古文对话要有古味但不能太文言——"母后""儿臣"等称呼足够
-- 布局的每一步都要有"回顾时恍然大悟"的效果
-- 反派不是纯粹的坏，而是"利益驱动的冷漠"——更真实更可恨
-
----
-
-## 公式九：现代悬疑/超自然视角
-### 结构骨架（18章）
-
-```
-设定建立[鬼伪装成人] → 被骗入局 → 发现怨气能升级 → 顺水推舟(不急着逃) → 逐步揭露犯罪网络 → 鬼能力升级 → 对付小喽啰 → 找到幕后黑手 → 揭露自己前世死因 → 最终对决 → 法律+超自然双重惩罚
-```
-
-### 情绪节拍
-
-```
-好奇(鬼视角)→ 紧张(被骗)→ 爽(鬼vs恶人)→ 更爽(升级虐反派)→ 震撼(死因揭露)→ 痛快(双重惩罚)
-```
-
-### 必选场景
-
-1. **设定必须一句话说清**："我是红衣厉鬼，伪装成人生活"
-2. **被骗后主角的反应是"不慌反喜"**——因为她需要怨气升级
-3. **鬼视角的独特信息差**——她能感知怨气、看到死者的记忆
-4. **每次升级都解锁一段前世记忆**——既是能力提升也是剧情推进
-5. **反派的反应是核心笑点/爽点**："她没有器官！"
-6. **双重惩罚比单纯杀更解气**——法律审判+鬼的永恒折磨
-
-### 关键写法
-
-- **鬼视角**是独特卖点——读者跟着鬼而不是人看世界
-- "鬼不怕恶人，恶人怕鬼"的反转制造天然爽点
-- 悬疑线和复仇线交织——一边揭露犯罪一边找回前世记忆
-- 每章结尾要有反转或新发现——18章18个信息炸弹
-
----
-
-## 公式十：架空历史/性别反转
-### 结构骨架（19章）
-
-```
-被家暴/被误解 → 配偶偏心外人 → 主角失望到放弃 → 决定离开 → 配偶不以为然 → 离开后生活变好 → 配偶开始后悔 → 配偶疯狂寻找/赎罪 → 主角不原谅 → 悲剧/开放式结局
-```
-
-### 情绪节拍
-
-```
-憋屈→ 更憋屈→ 释然(放弃)→ 轻松(离开)→ 暗爽(对方后悔)→ 意难平(结局)
-```
-
-### 必选场景
-
-1. **开篇就是被冤枉/被打**——第一个场景就建立不公
-2. **"白月光"型情敌必须足够白莲花**——让读者恨得牙痒
-3. **主角离开是转折点**——干净利落，不带一丝犹豫
-4. **配偶的后悔必须递进**——从"无所谓"到"开始想念"到"疯狂"
-5. **主角的不原谅是全文态度**——不是所有后悔都值得原谅
-6. **结局不HE**——这种BE比强行HE更有余韵
-
-### 关键写法
-
-- 性别反转是外壳，核心是"不被珍惜的人选择离开"
-- 男主视角在女尊世界=女频读者在现实世界的投射
-- 每次配角劝"忍忍就好了"都是对读者的愤怒加码
-- 配偶的后悔写得越详细，读者的"不原谅"越坚决
-- 结局的悲剧性来自"来不及了"而非"不可能"
-
----
-
-## 公式十一：点众爆款/假千金心声流
-### 结构骨架（10章）
-
-```
-极致虐待开场[被关棺材窒息而死] → 灵魂视角旁观 → 家人的冷漠和假千金的恶毒 → 灵魂视角看到更多真相 → 逐个揭露家人的背叛 → 最终真相揭露（假千金策划一切）→ 家人悔恨 → 灵魂安息或重生
-```
-
-### 情绪节拍
-
-```
-极度愤怒→ 窒息→ 心碎→ 爽(真相揭露)→ 极爽(家人悔疯)→ 苍凉/释然
-```
-
-### 必选场景
-
-1. **开场必须"虐到极致"**——棺材窒息、被活埋、被当成演戏
-2. **灵魂视角是信息差来源**——她能看到所有人的真面目
-3. **家人每次说"她在演戏"**都是对读者的心理暴击
-4. **假千金的得意必须写足**——她的每一句话都让读者想打人
-5. **真相揭露是层层递进**——一个哥哥比一个哥哥后悔
-6. **结尾可以重生也可以不重生**——灵魂视角的悲剧性更震撼
-
-### 关键写法
-
-- 灵魂视角=全知视角，制造"能看到但无法改变"的绝望感
-- 每个家人的反应都不同——大哥暴力、二哥犹豫、三哥嘲讽
-- 假千金的恶必须"精致的恶"——表面无辜暗地毒辣
-- "死后才被爱"的主题击穿读者防线
-- 用家人的后悔来"还债"——他们越痛，读者越解气
-
----
-
-## 公式十二：重生复仇/离婚逆袭
-### 结构骨架（10章）
-
-```
-前世被害回顾 → 重生到关键节点 → 冷静接受离婚 → 拿走应得的财富 → 投资前世已知的成功项目 → 系统学习提升自己 → 前夫开始后悔 → 前夫试图挽回 → 坚决拒绝 → 华丽蜕变
-```
-
-### 情绪节拍
-
-```
-憋屈(前世)→ 释然(签字)→ 爽(投资)→ 更爽(前夫后悔)→ 极爽(彻底拒绝)→ 满足(新生活)
-```
-
-### 必选场景
-
-1. **前世死法必须和前夫直接相关**——他在隔壁和别的女人挑选请帖
-2. **重生后第一反应不是哭闹而是"笑了"**——反差建立新形象
-3. **离婚要干脆**——不拖泥带水，要钱要利不要人
-4. **投资决策展示主角智慧**——前世的知识就是金手指
-5. **前夫的后悔必须递进**——从"无所谓"到"想复合"到"崩溃"
-6. **最终蜕变要有具体体现**——不只是有钱更要有能力和格局
-
-### 关键写法
-
-- 重生文的核心："知道了结局，现在要改变过程"
-- 主角的冷静是最大武器——越冷静越让前夫慌
-- 每个决定都有前世记忆的支撑——让读者觉得"她真的学到了"
-- 前夫不是纯坏而是"理所当然地忽视"——更真实更可恨
-- 投资线和感情线分开——先有钱再谈情
-
----
-
-## 公式十三：总裁豪门/白月光虐恋
-### 结构骨架（8-11章标准）
-
-```
-第1-2章【虐：建立矛盾】→ 伤害层层升级（言语→行为→身体）→ 虐
-第3-4章【觉醒：心死离开】→ 临界事件（目睹背叛/身体极限）→ 决心
-第5-6章【反转：真相揭露】→ 监控/证据曝光/白月光自曝 → 爽
-第7-8章【惩罚：追悔被拒】→ 渣男崩溃/反派落败 → 极爽
-第9-10章【治愈：新生活】→ 女主独立/新恋情 → 温暖收尾
-```
-
-### 情绪节拍
-
-```
-虐(30%) → 觉醒(15%) → 爽(35%) → 治愈(20%)
-虐三层递进：言语伤害 → 行为伤害 → 身体伤害
-爽按序释放：真相揭露 → 渣男崩溃 → 反派落败 → 新恋情
-```
-
-### 必选场景
-
-1. **开篇背叛场景**：第一句话就是信息炸弹（"三年前，我在产房生下痴傻儿子，沦为京圈笑柄"）
-2. **白月光出场**：50%作品有白月光，她的每句话都是对女主的羞辱
-3. **临界事件**：一个瞬间让女主彻底心死（看到监控/母亲去世丈夫还带秘书旅行）
-4. **死遁/消失**：30%作品使用，女主"死"后真相才浮出水面
-5. **渣男追悔被拒**：核心爽点——"那你怎么不去死呢？"
-6. **新恋情暗示**：50%作品以新恋情收尾
-
-### 简介6步公式
-
-1. 情境设定（1-2句）："男朋友不喜欢我给他的约束"
-2. 冲突引爆（2-3句）："为了惩罚我，他带着秘书去周游世界"
-3. 对话金句（1-2句）："一个低贱的渔女，真以为你能顶替颜安？"
-4. 女主转折（1句）："我忍不住冷笑"
-5. 悬念钩子（1句）："我订了前往F国的机票"
-6. 身份预告（1句可选）："按照辈分，她还得叫我一句表姑！"
-
-### 对话三大功能（占比27.7%）
-
-| 功能 | 占比 | 要点 |
+| Indicador | Feminino | Masculino |
 |------|------|------|
-| 展示伤害 | 40% | 冷暴力+价值观否定，不是谩骂而是精准刺痛 |
-| 制造反转 | 30% | 通过监控/偷听/群聊引爆真相 |
-| 展示成长 | 30% | 女主对话"短、冷、狠"，越少越有力量 |
+| Densidade de gatilhos emocionais | 3,23 por mil palavras | 2,50 |
+| Densidade de reviravoltas | 1,77 por mil palavras | 1,21 |
+| Densidade de diálogo | 14,76 falas por mil | 14,29 |
+| Tipo de reviravolta | Assimetria (voz interior/verdade) | Força (identidade/poder) |
+| Tipo de antagonista | Canalha + falsa boazinha + pais parciais | Irmão + chefe + esnobe |
+| Forma de vingança | Por assimetria (verdade que humilha) | Por força (poder/identidade esmaga) |
 
-### 高频意象
+**Escrita-chave**: o prazer central da virada feminina é o instante em que a verdade é revelada (o leitor espera ver o antagonista descoberto); o da masculina é a inversão da correlação de forças (o leitor espera ver o protagonista mostrar poder); a feminina tem uma pequena oscilação emocional a cada 150-250 palavras; a masculina pode oprimir por 500-1.000 palavras antes de uma grande explosão; "escolher outro/ir embora" x "revidar": duas filosofias de reação totalmente diferentes.
 
-白月光(50%)、怀孕/流产(40%)、监控/录像(30%)、医院(60%)、火灾(20%)
-
-### 关键写法
-
-- 100%第一人称叙事，"我"字密度3.4%
-- 伤害性对话要"精准刺痛"——不是谩骂，而是冷暴力+价值观否定
-- 反转对话发生在"主角不在场"——监控、偷听、聊天群、电话
-- 觉醒是一瞬间的：不是慢慢想通，而是一个具体事件导致彻底心死
-- 爽要按顺序：先小爽→中爽→大爽→温暖，不能乱序
-
----
-
-## 公式十四：女频复仇/打脸 vs 男频复仇/打脸
-### 女频万能公式
-
+### Fórmula 15: intriga de corte, paciência e cálculo (8 capítulos)
 ```
-开头（前10%）：
-  - 第一人称「我」叙事
-  - 3句内建立核心矛盾（付出vs背叛 / 被冤枉vs真相）
-  - 如有重生：前世悲剧回顾在150字内完成
-
-发展（10-50%）：
-  - 反派持续作死（每500字升级一次）
-  - 主角表面隐忍/配合
-  - 心声/内心独白制造信息差
-  - 每800字一次小型打脸（脸色变了/不敢说话了）
-
-高潮（50-80%）：
-  - 终极真相/身份揭露
-  - 公开审判式打脸
-  - 反派逐一被清算
-  - 每500字一次大型打脸（跪地/崩溃/求饶）
-
-收尾（80-100%）：
-  - 反派得到应有下场
-  - 新生活开启/暗示更好的未来
-  - 不超过200字的温情收尾
+Cap. 1 [Entra no jogo de propósito] → sabendo que o marido ama a viúva do irmão, casa-se por vontade própria → comportamento fora do comum desperta curiosidade
+Cap. 2 [Recuar para avançar] → diante da sogra, é mais prestimosa que a rival → a rival se descontrola de inveja
+Cap. 3 [Usar a força do outro] → a rival finge desmaio para enganar o marido → o marido descobre → começa a se decepcionar com a rival
+Cap. 4 [Esperar a autodestruição] → a rival fala demais em evento social e se mete em encrenca → a protagonista observa
+Cap. 5 [Surpresa feliz] → a rival engravida → a protagonista fica feliz → o filho é entregue a ela para criar
+Cap. 6 [Tirar a lenha do fogo] → a rival nunca mais poderá ter filhos depois do parto → a protagonista vira oficialmente a mãe da criança
+Cap. 7 [Armar e fechar a rede] → aproveita um banquete para afastar o marido → a rival mata a sogra → a protagonista "por acaso" presencia
+Cap. 8 [Reviravolta final] → revela-se que a protagonista manipulou tudo desde o começo → fica sozinha com o patrimônio
 ```
+**Batidas**: curiosidade (por que ela casou?) → prazer (cada autodestruição da rival) → mais prazer (a protagonista sem se mexer) → choque (a virada final).
+**Cenas obrigatórias**: 1) o comportamento fora do comum na abertura: sabendo que o marido não a ama, casa-se e, no primeiro dia, manda-o procurar a rival; 2) a tríade de autodestruição da rival (desmaio falso → gafe em evento social → matar a sogra, em escalada); 3) cada "cedência" da protagonista é jogada (deixa o marido acompanhar a rival, deixa a rival brilhar, deixa o filho ficar com ela); 4) a reviravolta no final revela que cada gesto "prestimoso" tinha um propósito profundo.
+**Escrita-chave**: a protagonista **nunca ataca**, todos os golpes são buscados pela rival; sempre que a rival erra, a protagonista é "vítima" ou "boazinha"; o leitor acha, no começo, que é uma mulher que sofre calada e só no fim vê que é calculista; o final precisa de monólogo interior da protagonista que revele a verdade e crie reviravolta cognitiva.
 
-### 男频万能公式
-
+### Fórmula 16: arrependimento sem perdão (8 capítulos)
 ```
-开头（前10%）：
-  - 第一段直接展示最大屈辱（对白式最佳）
-  - 不需要铺垫，直接上最炸裂的场景
-  - 关键数据要具体（189万/九万块/凌晨三点）
-
-发展（10-40%）：
-  - 主角隐忍/计划（篇幅比女频短）
-  - 反派继续嚣张（升级速度更快）
-  - 靠行动而非心声展示能力
-
-反击（40-70%）：
-  - 第一次实力展示（直接碾压，不解释）
-  - 反派不信→再次碾压
-  - 关键：碾压必须「当众」进行
-
-高潮（70-90%）：
-  - 隐藏身份/终极实力揭露
-  - 关键台词格式：「X...X总？！」（称呼改变=身份揭露）
-  - 所有人集体震惊
-
-收尾（90-100%）：
-  - 反派彻底覆灭
-  - 200-400字温情线（家人/妻子/孩子的日常）
+Cap. 1 [Descobre a verdade] → 999 tentativas de seduzir a esposa falham → descobre que ela ama em segredo o padrasto → decide divorciar-se
+... [Calma: decide partir] → [Recomeço: conhece um novo amor] → [Prazer: a esposa se arrepende] → [Desolação: não perdoa]
 ```
+**Batidas**: desespero (descobre a verdade) → calma (decide partir) → renascimento (novo amor) → prazer (a esposa se arrepende) → desolação (não perdoa).
+**Cenas obrigatórias**: 1) lista de tentativas fracassadas ("a enésima vez") cria desespero progressivo; 2) flagrar a verdade: vê o outro lado da esposa (no quarto escuro, a sós, chama outro nome); 3) o "tanto faz" da esposa: depois que ele sai, ela acha que ele volta: preparação do arrependimento; 4) a baixeza do padrasto: na hora decisiva a entrega, acelerando o colapso dela; 5) o contraste do novo amor: gentil e atento x a esposa que nunca se importou; 6) confronto final/no terraço: final triste: nem todo arrependimento merece perdão.
+**Escrita-chave**: o protagonista é **mais forte quanto mais calmo**: sem choro nem escândalo, vai embora; quanto mais detalhado o arrependimento da esposa, mais o leitor acha "bem feito"; o novo amor não existe para criar triângulo, mas para provar que "alguém me valorizaria"; o final sem perdão é mais forte que um final feliz forçado: "nem todo pedido de desculpa merece perdão".
 
-### 性别差异核心数据
-
-| 指标 | 女频 | 男频 |
-|------|------|------|
-| 情绪触发密度 | 3.23次/千字 | 2.50次/千字 |
-| 反转密度 | 1.77次/千字 | 1.21次/千字 |
-| 对话密度 | 14.76条/千字 | 14.29条/千字 |
-| 反转类型 | 信息差型（心声/真相） | 力量型（身份/实力） |
-| 反派类型 | 渣男+绿茶+偏心父母 | 兄弟+老板+势利眼 |
-| 复仇方式 | 信息差式（真相揭露打脸） | 力量式（实力/身份碾压） |
-
-### 关键写法
-
-- 女频打脸核心快感：真相被揭露的那一刻（读者期待反派被发现）
-- 男频打脸核心快感：力量对比的逆转（读者期待主角展示实力）
-- 女频每300-500字一次小型情绪波动；男频可能压抑1000-2000字后一次大爆发
-- 女频的「改选/离开」vs 男频的「打回去」——两种完全不同的反击哲学
-
----
-
-## 公式十五：宫闱宅斗/隐忍腹黑型
-### 结构骨架（8章）
-
+### Fórmula 17: renascer em outra época com medicina (8 capítulos)
 ```
-第1章【主动入局】→ 明知丈夫爱寡嫂，主动嫁入 → 反常行为引起好奇
-第2章【以退为进】→ 在婆婆面前比情敌更贤惠 → 情敌嫉妒失控
-第3章【借力打力】→ 情敌假晕骗丈夫→丈夫发现被骗 → 丈夫开始对情敌失望
-第4章【静待自毁】→ 情敌在社交场合口无遮拦闯祸 → 主角旁观
-第5章【意外之喜】→ 情敌怀孕→主角反而高兴 → 孩子被交给主角扶养
-第6章【釜底抽薪】→ 情敌生产后再不能育 → 主角正式成为孩子母亲
-第7章【设局收网】→ 利用宫宴支开丈夫→情敌杀婆婆 → 主角"恰好"撞见
-第8章【终极反转】→ 揭示主角从头到尾都在操纵 → 成功独占家产
+Cap. 1 [Vida passada cruel + renascimento] → vendida por 500 → vira instrumento de reprodução → expulsa para a montanha → queimada → volta ao tempo antes do casamento
+Cap. 2 [Mostrar a vantagem] → medicina (agulhas) → trata o marido em coma → desfaz a crise anterior
+Cap. 3 [Recuar para avançar] → diante da provocação da cunhada, não se irrita → ganha a confiança de uma benfeitora pela medicina
+Cap. 4 [Virada-chave] → o marido acorda → usa as ações dadas pela benfeitora para cobrar → obtém participação na empresa
+Cap. 5 [Passo a passo] → a proteção do marido → ela baixa a guarda aos poucos → avança a linha afetiva
+Cap. 6 [Fecha a rede] → descobre que o sogro foi envenenado → o marido confessa que foi ele → revela-se que o marido também se vingava
+Cap. 7 [Clímax da vingança] → velório do sogro → a empresa de navegação não dá nada ao ramo maior → a polícia prende o ramo maior → o ramo maior foge
+Cap. 8 [Final triste, porém completo] → o marido morre de câncer → vingança feita → filhos e negócio ficam para a protagonista
 ```
+**Batidas**: raiva (vida anterior) → prazer (revide depois de renascer) → tensão (passo a passo) → prazer máximo (vingança cumprida) → desolação (morte do protagonista masculino).
+**Cenas obrigatórias**: 1) a vida passada precisa ser cruel, em camadas: vendida → instrumento → expulsa → queimada; 2) a primeira anomalia depois de renascer: não tem mais medo, enfrenta com calma; 3) a vantagem da medicina (agulhas, receitas, diagnóstico): um ofício é a base da vingança; 4) a benfeitora: alguém importante conhecido pela medicina; 5) a reviravolta do marido: o "em coma" na verdade finge/está semiconsciente e arma seus planos; 6) final triste: vingança cumprida, mas afeto incompleto: o final característico desse gênero.
+**Escrita-chave**: o sabor da época vem de detalhes (500 reais, casamento para afastar a má sorte, agulhas, galo no lugar do noivo); a medicina da protagonista precisa ter **rigor profissional** (pontos das agulhas, processo diagnóstico); a maldade do ramo maior precisa ser **concreta**: cada ação má específica, sem dizer "é mau"; a dupla identidade do marido é uma surpresa: ele também se vingava pela família; final triste não é fracasso: "obteve tudo, perdeu a pessoa mais importante".
 
-### 情绪节拍
-
+### Fórmula 18: drama familiar com alma observadora (5 capítulos)
 ```
-好奇(她为什么要嫁?) → 爽(每次情敌自毁) → 更爽(主角不动声色) → 震撼(结尾反转)
+Cap. 1 [Maltratada doente] → forçada a trabalhar depois de cirurgia grave → humilhada em público → o corpo cede → a alma se ergue
+Cap. 2 [Verdade observada] → a alma vê a frieza da família → um coadjuvante atiça → a mãe, por "imagem", piora
+Cap. 3 [Provas afloram] → uma figura-chave (o pai) descobre → celular/diário/câmera expõem a verdade → a família desaba
+Cap. 4 [Julgamento e acerto] → uma autoridade expulsa do clã → o coadjuvante é punido → o antagonista recebe castigo
+Cap. 5 [Renascimento caloroso] → nasce numa família carinhosa → um detalhe terno ecoa a falta da vida passada
 ```
+**Batidas**: sufoco (obrigada) → coração partido (a alma observa) → liberação (verdade revelada) → prazer (acerto) → cura (renascimento).
+**Cenas obrigatórias**: 1) **maltrato na doença**: obrigada a participar de um ritual depois de cirurgia na coluna, a cozinhar depois da cesárea, trancada num depósito durante uma crise de asma: o dano maior quando o corpo está mais frágil; 2) **o instante em que a alma se ergue**: "minha alma se levantou devagar" marca a troca de ponto de vista e é a virada mais importante; 3) **o coadjuvante que atiça**: uma prima/cunhada ao lado soprando o fogo, cada fala deixa a mãe mais furiosa; 4) **a obsessão da mãe pela "imagem"**: a mãe não é má por ser má, é por "reputação da família", o que gera mais empatia que o mal puro; 5) **celular/diário como prova**: o que a morta deixou vira a prova do julgamento; 6) **renascer numa família calorosa**: a nova mãe diz "filha, está apertado? Incomoda?", em contraste fatal com a vida anterior ("fique reta!").
+**Escrita-chave**: a força da alma: ver a verdade de todos sem poder impedir: "tudo o que eu queria era ouvir 'dói?'"; **detalhes físicos concretos**: o estalo da coluna fora do lugar, o rasgar da cinta ortopédica, a pupila dilatada: cada detalhe físico é uma bomba emocional; **o arrependimento da mãe precisa ser longo**: de "impossível, ela é ótima em fingir" a "filha, a mamãe chegou" a uivos de colapso; **final de contraste**: vida anterior "mãos frias e fortes arrancaram a cinta" x agora "gestos suaves, perguntando de novo e de novo se está apertado"; **a última frase tem de ser calorosa**: dissolve a dor e dá saída: "nesta vida, a cinta é quente e a mamãe é boa".
+**Modelos de abertura**: *doença*: "Eu tinha acabado de fazer uma cirurgia na coluna, o médico mandou repousar três meses. Minha mãe apertou meu pulso: anda logo, o ritual vai começar."; *pós-parto*: "Fazia sete dias da minha cesárea, a cicatriz doía. Meu marido abriu a porta: hoje tem visita, vá fazer uns pratos."; *alergia*: "Acabei de sair da cirurgia, fui pegar a bombinha, minha prima tomou: tia, olha, ela finge doença para fugir do serviço!"; *doação forçada*: "Mamãe me levou para doar sangue ao meu irmão; na porta do hospital procurei o doce de emergência. A nora tomou e jogou no lixo."
 
-### 必选场景
-
-1. **开篇反常行为**：明知丈夫不爱自己，主动嫁入且第一天就让丈夫去找情敌
-2. **情敌自毁三连**：假晕骗人→社交场合失言→杀婆婆（逐步升级）
-3. **主角的"每次让步"都是布局**：让丈夫去陪情敌→让情敌出风头→让孩子归自己
-4. **结尾反转**：最后一段揭示主角的每一个"贤惠"举动都有深层目的
-
-### 关键写法
-
-- 主角**从不主动出手**，所有打击都是情敌自找的
-- 每次情敌犯错后，主角都是"受害者"或"好人"的角色
-- 读者一开始以为主角是忍辱负重型，结尾才知是腹黑布局型
-- 结尾必须用主角的内心独白揭示真相，形成认知反转
-
----
-
-## 公式十六：追夫火葬场/不原谅型
-### 结构骨架（8章）
-
+### Fórmula 19: vingança movida por pista de detalhe (8 a 13 capítulos de poucas palavras)
 ```
-第1章【发现真相】→ 999次引诱妻子失败→发现她暗恋继父 → 决定离婚
-第2章【彻底死心】→ 回忆过去的付出→被拒的屈辱 → 最后的温柔
-第3章【妻子失控】→ 妻子看到继父给别的女人号码后暴怒（但不为男主）
-第4章【被虐】→ 继父绑架男主→妻子和继父开心聊天 → 彻底绝望
-第5章【决然离开】→ 男主离开→妻子以为欲擒故纵→烧了他的东西
-第6章【丑闻曝光】→ 半年后举报信→继父出卖妻子→妻子身败名裂
-第7章【重逢】→ 妻子找到男主→发现已有新恋人 → 眼神陌生
-第8章【不原谅】→ 妻子疯狂跟踪→天台对峙 → 男主坚决不回头
+Cap. 1 [Descobre a anomalia] → um detalhe mínimo (chaveiro/marca do preservativo/perfume) → reage com calma
+Caps. 2-3 [Investigação em segredo] → usa a vantagem profissional para reunir provas → descobre uma conspiração maior por trás da traição
+Caps. 4-5 [Prepara o contra-ataque] → prepara documentos legais em segredo → armadilhas de provas → pressão de terceiros
+Caps. 6-7 [Confronto público] → entrega documentos em público → o outro colapsa → a verdade aflora
+Cap. 8+ [Contra-ataque em cadeia] → o outro reage → ela desmonta tudo → o adversário cai de vez → ela recomeça
 ```
+**Batidas**: alerta (acha a pista) → opressão (reúne em segredo) → calma (arma) → prazer (entrega a bomba) → prazer máximo (contra-ataques em cadeia) → desprendimento (vida nova).
+**Cenas obrigatórias**: 1) **um detalhe-gatilho**: não vem do nada, é um objeto concreto, cotidiano, discreto (chaveiro, marca, nota fiscal, cheiro de perfume); 2) **vantagem profissional**: a diretora jurídica escreve a denúncia, a médica sabe de um tipo sanguíneo raro, a executiva do banco consulta o extrato: esmaga pela competência; 3) **cadeia de provas construída com sistema**: não uma ou duas, uma cadeia completa: transferências + imagens de câmera + extratos de compras + depoimentos; 4) **o momento do "sorriso e aceno"**: depois da verdade, a primeira reação não é desabar, é calma: quanto mais calma, mais o leitor espera a explosão; 5) **usar os peões do outro lado**: contratar atores para fazer os pais da amante, usar a ganância dela como armadilha; 6) **encerrar com "o calor humano é caro"**: ela não é fria: guarda o calor para quem merece, até ajuda a antiga amante a endireitar a vida.
+**Escrita-chave**: **capítulos curtíssimos** (500-1.000 palavras, 13 capítulos em dez mil palavras: ritmo que não deixa parar); **a protagonista sempre calma**: nunca perde o controle, cada passo tem plano; **as provas saem capítulo a capítulo**: nunca todas juntas (chaveiro → clínica → extrato bancário → câmera → rede social, uma descoberta por capítulo); **escrita de dupla face**: toda mensagem de cuidado do outro é cópia de modelo, todo "te amo para sempre" esconde engano; **a traição em camadas**: não só infidelidade: a mãe morreu porque o sangue foi desviado, e no velório ele jantava com os pais da amante; **grande emoção por "descrição fria"**: não escreva "doeu", escreva "as unhas se cravaram na palma".
+**Modelo de cadeia de investigação**: `objeto anômalo → busca de confirmação → investigação de campo → coleta sistemática (banco/câmeras/redes) → plano de contra-ataque → julgamento público`.
 
-### 情绪节拍
-
+### Fórmula 20: armadilha invertida em segunda chance (7 capítulos)
 ```
-绝望(发现真相) → 平静(决定离开) → 新生(遇到新恋人) → 痛快(妻子后悔) → 苍凉(不原谅)
+Cap. 1 [Renasce + falsa submissão] → volta ao ponto-chave → sabe que a herança é uma armadilha → finge aceitar transferi-la → "se você quer, leve tudo"
+Cap. 2 [Preparação em segredo] → assume a herança e confirma a identidade do herdeiro → prepara a documentação de imigração → finge aproximar-se do canalha
+Cap. 3 [Primeiro teste] → não aguenta mais a "luz da lua" → mostra comportamento fora do comum (sabe dirigir, não cede mais) → cria suspense
+Cap. 4 [Conflito escala] → é incriminada pela "luz da lua" → castigada → contra-ataca com condições ("se você ajoelhar cinco horas, eu salvo")
+Cap. 5 [Identidade revelada] → no momento-chave surge uma autoridade → "a chefe da casa é, claramente, fulana" → o outro lado colapsa
+Cap. 6 [Fecha a rede] → dá ao outro a escolha "quero os dois" → vê o outro cavar a própria cova → observa friamente
+Cap. 7 [Saída esplêndida] → o último golpe revela toda a verdade → emigra → não olha para trás
 ```
+**Batidas**: lucidez (sabe tudo) → prazer (falsa submissão) → mais prazer (não cede mais) → prazer máximo (identidade revelada) → satisfação (vê o outro se arruinar) → desprendimento (parte).
+**Cenas obrigatórias**: 1) **o momento do "tome"**: depois de renascer, não confronta: obedece, porque sabe que o que o outro quer é veneno; 2) **a tríplice sondagem da "luz da lua"**: dengo → choro → ameaça, cada vez revertida pela protagonista; 3) **o canalha "quer os dois"**: quer a herança e a ex idealizada, e perde as duas; 4) **a grande cena de revelação**: uma autoridade (o avô/o grande ancião) chega e uma frase reescreve tudo; 5) **ver o outro se destruir**: a protagonista não age diretamente: a ganância do outro destrói tudo; 6) **sair "sem olhar para trás"**: nada de insistir, vingar ou voltar: o maior desprezo é a indiferença.
+**Escrita-chave**: **técnica central: "dar é o maior castigo"**: a herança é uma maldição, quem a pegar morre: ceder na superfície é o contra-ataque mais duro; **contraste entre leal e traidor**: o guardião fiel x o que usa e trai, o mesmo sobrenome e destinos opostos; **memórias da vida passada** entram aos poucos, uma pequena por capítulo, para o leitor entender de onde vem o ódio; **cada escolha do canalha escrita por inteiro**: cada vez que ele escolhe a ex idealizada é uma facada nela: "como esperado: entre a vida e a morte, ele ainda escolhe a outra"; **emoção da protagonista = sorriso desolado**: não é raiva nem tristeza, é a calma de quem "viu tudo".
 
-### 必选场景
-
-1. **引诱失败清单**：用"第N次"制造递进绝望感
-2. **撞见真相**：亲眼看到妻子的另一面（暗室/独处时喊别人的名字）
-3. **妻子的"无所谓"**：男主离开后妻子以为他会回来——这是追悔的铺垫
-4. **继父的卑鄙**：关键时刻出卖妻子，加速她的崩溃
-5. **新恋人的对比**：温柔体贴的新恋人 vs 从不在意的妻子
-6. **天台/最终对峙**：BE结局——不是所有后悔都值得原谅
-
-### 关键写法
-
-- 男主**越冷静越有力**——不哭不闹，直接离开
-- 妻子的后悔写得越详细，读者越觉得"活该"
-- 新恋人的出现不是为了制造三角恋，而是为了证明"有人会珍惜我"
-- 结局不原谅比强行HE更有力量——"不是所有道歉都值得原谅"
-
----
-
-## 公式十七：年代重生/医术复仇型
-### 结构骨架（8章）
-
+### Fórmula 21: julgamento público (cena central)
 ```
-第1章【前世极惨+重生】→ 被500块卖→沦为生育工具→被赶进山→火烧死 → 重生回到结婚前
-第2章【金手指展示】→ 医术（银针）→ 给植物人丈夫治疗 → 化解前世危机
-第3章【以退为进】→ 面对大嫂挑衅不怒 → 用医术赢得贵人（沈夫人）信任
-第4章【关键转折】→ 丈夫醒来→利用沈夫人给的股权要价 → 获得公司股份
-第5章【步步为营】→ 丈夫的保护→逐渐放下心防 → 感情线推进
-第6章【收网布局】→ 发现公公被毒杀→丈夫坦白是他下的毒 → 揭示丈夫也在复仇
-第7章【复仇高潮】→ 公公葬礼→海轮公司不给大房→警察抓大房 → 大房逃亡
-第8章【BE但圆满】→ 丈夫癌症去世→复仇成功 → 孩子和事业留给主角
+1. Defina a "arena": assembleia de acionistas / banquete da família / saguão da empresa / corredor do hospital: precisa ser público
+2. O antagonista "vence" primeiro: anuncia a vitória, ostenta, humilha o protagonista
+3. Calma marcante do protagonista: pegar o copo e beber / ajeitar o paletó / sorrir
+4. Revelação em camadas: não tudo de uma vez, uma prova por vez
+5. O antagonista desmorona por degraus: convencido → inquieto → desesperado → colapsado
+6. Fala de expulsão marcante: "cães não entram" / "a partir de hoje ela é pessoa não bem-vinda de nível máximo"
+7. Saída de costas: no silêncio de morte do salão, vai embora sem olhar para trás
 ```
+**Biblioteca de gestos marcantes**
 
-### 情绪节拍
-
-```
-愤怒(前世) → 爽(重生反击) → 紧张(步步为营) → 极爽(复仇成功) → 苍凉(男主去世)
-```
-
-### 必选场景
-
-1. **前世要极惨**：被卖→沦为工具→被赶→火烧，层层递进
-2. **重生后第一个反常**：不再害怕，而是冷静面对
-3. **医术金手指**：银针/药方/诊断，一技之长是复仇的基础
-4. **贵人相助**：通过医术结识的关键人物（沈夫人）
-5. **丈夫的反转**：植物人丈夫其实在装/半清醒，也在暗中布局
-6. **BE结局**：复仇成功但感情不圆满——年代重生的独特结局模式
-
-### 关键写法
-
-- 年代感靠细节：500块、冲喜、银针、公鸡拜堂
-- 主角的医术要**有专业性**（银针穴位、诊断过程）
-- 大房的恶要**具体**：不抽象说坏，而是每一件具体的恶行
-- 丈夫的双重身份是意外惊喜——他也在为家族复仇
-- BE不是失败，是"得到了一切但失去了最重要的人"
-
----
-
-## 通用写作铁律
-
-### 核心梗驱动法
-
-核心梗 = 完整的情绪链条（特定期待 → 特定满足）。一本小说的核心由几代核心梗融合。
-
-**三代核心梗：**
-- 一代 = 主题/中心思想（如：改变命运）
-- 二代 = 题材核心（如：升级修炼）
-- 三代 = 核心情绪（如：莫欺少年穷 — 现在瞧不起我，以后高攀不起）
-
-**剧情构建顺序：** 先确定核心卖点 → 设计情绪套路 → 根据套路设计剧情
-
-> 剧情存在的目的是让读者通过剧情体验到你想让他们体验的某种情绪。
-
-### 三层标签反差人设法
-
-1. **身份标签** — 大众刻板印象（合欢宗圣女→蛇蝎美人）
-2. **表现标签** — 普通关系中展现的特质（高冷、不食人间烟火）
-3. **内在标签** — 突发事件/亲密关系揭示（底色善良、勤俭持家）
-
-越反差越好。角色进入第三层关系后，以前第一二层的行为做不出来了——行为反差也是人设反差的一部分。
-
-### 展示优于告知
-
-展示情节必须包含：
-- **铺垫、期待、爽点** 三者最好都存在
-- 人物目的、人物行动、人物态度
-- 情节铺垫、情节反转、情节后续
-
-> 展示不仅仅是视觉性的描述，场景只是最基本的要素。
-
-### 事件驱动 vs 情感驱动
-
-两种叙事本质相同：给读者带来"情绪的波动"。
-
-| 类型 | 驱动来源 | 读者关心 | 特点 |
-|------|----------|----------|------|
-| 事件驱动 | 外部冲突 | 他能不能打赢？ | 节奏快、爽点明确 |
-| 情感驱动 | 内部冲突 | 她为什么会这么想？ | 持续拉扯、人物悬念 |
-
-> 事件的悬念是一次性的，人物的悬念是持续性的。
-
-### 矛盾冲突抛出公式
-
-【反派人设】+【动机】+【行为】+【态度】+【主角受伤害程度】
-
-三种冲突类型：
-1. **利益掠夺型** — 反派需要资源，将代价转移给主角
-2. **祸害转移型** — 反派受惩罚，让主角承受代价
-3. **针锋相对型**（矛盾最激烈） — 主角特质打破反派秩序
-
-### 故事卡系统
-
-短篇写作的核心结构工具——每个场景都是一个"故事卡"：
-
-| 故事卡 | 情绪核心 | 必备要素 | 爽点来源 |
-|--------|----------|----------|----------|
-| 英雄救美 | 关系质变 | 危机→拯救→评价上升 | 被救者好感UP |
-| 装逼 | 落差对比 | 展示能力→他人震惊 | 优越感 |
-| 以小搏大 | 赌博赢利 | 小代价→搏的过程→大收获 | 占便宜心理 |
-| 少年热血 | 明知不可为而为之 | 不公→善良之人受苦→主角决心→成功 | 正义感 |
-| 临危受命 | 超越众人 | 突发危机→众人无法→主角出手 | 孤胆英雄感 |
-| 好人好报 | 善有善报 | 善举→暗示回报→兑现 | 因果报应爽感 |
-
-**核心原则：戏剧性会磨损，情绪不会磨损。**
-
-故事卡组合规则：
-- 上升卡可单独使用（英雄救美、装逼）
-- 下行卡后面必须接上升卡（陷入困境→装逼）
-- 组合效果 > 单独使用（以小搏大+英雄救美=双重爽感）
-
-### 升级感三步设计法
-
-短篇中的"升级感"不是等级，而是主角能力的质变：
-
-**第一步：列出起点** — 主角当前的身份、资源、处境
-**第二步：列出终点** — 这个场景/章节结束后主角的收获
-**第三步：反向设置情绪缺口** — 针对终点的收获，在前文铺垫需求
-
-| 获得什么 | 铺垫什么 |
-|----------|----------|
-| 关键证据 | 配角强调证据稀缺、别人求而不得 |
-| 地位提升 | 展示该地位的权力威势、资源获取能力 |
-| 人物帮助 | 展示该人物的价值、别人对他的态度 |
-| 金手指觉醒 | 展示主角此前的无力、对力量的渴望 |
-
-**多角度对比法**：用多个维度体现升级前后差异
-- 伤害输出：打不过 → 一招秒
-- 社会地位：没人理 → 主动来巴结
-- 他人评价：嘲讽 → 震惊
-- 自身感受：憋屈 → 痛快
-
-### 开头技法
-
-| 技法 | 说明 | 真实范例 |
-|------|------|----------|
-| 病中被逼 | 第一句就是身体最脆弱时被逼做最累的事 | "我刚做完脊椎手术，医生再三嘱咐要静养三个月。妈妈却攥着我的手腕：快点，祭祀要开始了。" |
-| 异常物件 | 一个不该出现在这里的物件引发全局 | "避孕套日期突然变了，连味道也变成了我以前过敏的芒果味。" |
-| 旁观死亡 | 第一句就是灵魂飘起 | "我的魂魄慢慢飘起来，看着妈妈铁青的脸。对不起妈妈，我没能站直。" |
-| 公开背叛 | 第一句就是被当众背刺 | "我亲手养大的妹妹，拿着价值百亿的签字笔，越过了我。" |
-| 假意顺从 | 重生后主动给出前世拼死保护的东西 | "你既然想要，就都给你吧。反正谁拿到这笔遗产谁就大祸临头。" |
-| 死亡回溯 | 第一句就交代死法和凶手 | "孕八月时发现老公出轨，我情绪崩溃导致早产。手术台上大出血。" |
-| 冷发现 | 发现异常后第一反应不是哭闹而是冷笑 | "我笑着点头。当天就去月子中心记下预约单，转身给公司法务部写了封举报信。" |
-
-### 情绪操控高级技法
-
-1. **阶梯式背叛**：不是一次性揭露所有恶行，而是每一章揭露一个更大的背叛
-   - 第一层：出轨（道德背叛）
-   - 第二层：挪用共同财产（经济背叛）
-   - 第三层：害死亲人（生命背叛）
-   - 例：线索发现 → 出轨 → 买月子中心 → 妈妈的血被调走
-
-2. **冷热对比法**：主角越冷，对方越歇斯底里，反差越大越爽
-   - 主角："端起水杯，喝了一口。温的。正好。"
-   - 反派："苏灵凄厉的哭喊和林子航气急败坏的咒骂"
-
-3. **双面人剥皮术**：先写对方表面的好，再一层层剥开真相
-   - 表面：每天发"永远爱你~"+爱心表情
-   - 真相：复制粘贴的模板，对每个人都一样
-   - 关键句："原来这些年她给予我的关心，不过是从不断重复的模板里，冷冰冰复制粘贴出来的东西"
-
-4. **前世记忆穿插法**：不一次倒完前世，而是每章穿插一小段
-   - 用"前世"二字开头，简短回忆一个具体事件
-   - 然后回到现在，主角的"反常行为"就有了读者的理解
-   - 例：每章回忆一段前世被虐经历，让读者理解为什么主角"不再忍了"
-
-5. **审判式对话**：不解释不争辩，用提问让对方自己暴露
-   - "你的职位是什么？" → "不是员工"
-   - "那你用什么身份，在这里对我的家事指手画脚？"
-   - 核心原则：主角永远在提问，永远在审判，永远居高临下
-
-### 结构创新技法
-
-1. **超短章节制**
-   - 每章500-1000字，全文8-13章仅万字
-   - 每章一个小爆点，章章有钩子
-   - 适合手机阅读，一滑一章，停不下来
-
-2. **线索物贯穿法**
-   - 一个物件贯穿全文，承载情绪和剧情双重功能
-   - 病中被虐型 → 医用护腰（保护→被扯掉→证据→重生后新护腰）
-   - 线索发现型 → 钥匙扣（发现→调查→证据链起点）
-   - 当众背叛型 → 签字笔（被夺→夺回→签字废除一切）
-
-3. **时空对照法**
-   - 同一时间，两个空间对比
-   - 例：哥哥在家被打得满身是血 vs 渣男在公寓给小三挑飞机
-   - 核心效果：同一时刻的天堂与地狱，制造最强撕裂感
-
-4. **定时炸弹式证据**
-   - 主角生前/离开前设置的自动发送证据
-   - 3年后自动发送给所有股东和媒体
-   - 在最关键时刻引爆，与现场证据形成双重打击
-
-### 结尾高级技法（新增）
-
-1. **重生暖心式**
-   - 投胎到温暖家庭，用温馨细节呼应前世的缺失
-   - "这一世，护腰很暖，妈妈也很好"
-   - 核心效果：用温暖消解全文的虐，给读者一个情绪出口
-
-2. **余韵道具式**
-   - 用一个物件暗示未来，不说破
-   - "她要给我的那场盛大婚礼，享不尽的荣华富贵——我都给了别人"
-   - 核心效果：物件本身比言语更有力量
-
-3. **大长镜头式**
-   - 主角一步步走向大门，身后是所有人的震惊
-   - "厚重的隔音门彻底关上，将两个世界，永远地隔绝"
-   - 核心效果：电影感收场，仪式感极强
-
-4. **反讽对位式**
-   - 用反派的视角写出最讽刺的结局
-   - "周驰和林薇，将带着彼此的伤痕和不堪，在琐碎平凡的日子里继续他们的人生。那是他们的故事了，与我再无瓜葛。"
-   - 核心效果：不是胜利宣言，而是漠然——漠视比报复更有力
-
-### 对话密度与功能（数据支撑）
-
-| 平台 | 对话占比 | 对话功能分布 |
-|------|----------|-------------|
-| 黑岩女频 | 55-65% | 展示伤害40%、制造反转30%、展示成长30% |
-| 点众短篇 | 45-55% | 审判式对话50%、拱火式对话30%、冷回击20% |
-| 知乎盐言 | 50-60% | 情绪推动40%、信息揭露35%、人物塑造25% |
-
-### 核心金句模板（可直接套用）
-
-| 场景 | 金句模板 |
-|------|----------|
-| 冷静审判 | "你的人情味不是用来原谅背叛和欺骗的。我的温情很贵，只给值得的人。" |
-| 彻底决裂 | "血缘，原来并不可靠。" |
-| 身份揭露 | "一派胡言！我沈家家主明明是简希。" |
-| 旁观死亡 | "她不知道，我想要的，只是一句疼不疼。" |
-| 最终漠视 | "那是他们的故事了，与我再无瓜葛。" |
-| 居高临下 | "外科医生最忌讳什么？是心软。毒瘤，就该连根拔起。" |
-| 讽刺审判 | "你三十三岁了，不是十三岁。一句被迷惑，就能把责任推干净？" |
-
-### 短篇写作硬性规范
-
-| 规范 | 要求 | 违规示例 |
-|------|------|----------|
-| 开头100字内制造冲突 | 第一句就是信息炸弹 | "在一个阳光明媚的早晨..." |
-| 对话占正文50-70% | 每个对话推进剧情或揭示性格 | 大段独白/旁白 |
-| 每段不超过3句话 | 1句=强调/停顿，2-3句=正常，4句+拆分 | 超过4句的段落 |
-| 情绪用动作展示 | 不写"她很心痛"，写"她慢慢放下了手中的香槟杯" | "他很愤怒" |
-| 每个场景两个功能 | 推进剧情+揭示人物 / 铺垫反转+推高情绪 / 呈现信息炸弹 | 单功能场景删除 |
-| 结尾用动作/对话收尾 | 不升华、不总结、不感慨 | "从此以后，她明白了一个道理..." |
-| 主角有标志性动作 | 复仇型="端起水杯，喝一口"；系统型=吐槽面板；宅斗型="冷眼看着" | 无辨识度的主角 |
-| 每章一个信息炸弹 | 改变读者认知的新信息（揭露真相/发现秘密/证实猜测） | 章尾无新信息 |
-
-**结尾三种黄金模式**：A. 反派视角收尾（用反派的绝望反衬主角的洒脱）；B. 开放式暗示（物件/细节暗示未来）；C. 仪式感收场（电影感离场）。
-
-**重生文核心**：第一件事做"前世绝不会做的事"，制造双重信息差——对手自疑自乱比当面打脸更爽。
-
-**灵魂/鬼视角**：全知但无力改变，能看到所有人真面目但无法阻止——旁观者的残忍比直接参与更震撼。
-
----
-
-## 公式十八：灵魂视角家庭虐文
-### 结构骨架（5章标准）
-
-```
-第1章【病中被虐】→ 重病/术后被逼做事 → 被当众羞辱 → 身体崩溃 → 灵魂飘起
-第2章【旁观真相】→ 灵魂视角看到家人的冷漠 → 配角拱火 → 母亲为了"面子"变本加厉
-第3章【证据浮出】→ 关键人物（父亲）发现 → 手机/日记/监控暴露真相 → 全家崩溃
-第4章【审判清算】→ 权威人物逐出族谱 → 配角被惩 → 反派得到报应
-第5章【重生暖心】→ 投胎到温暖家庭 → 一个温馨细节呼应前世的缺失
-```
-
-### 情绪节拍
-
-```
-窒息(被逼) → 心碎(灵魂旁观) → 释放(真相大白) → 痛快(清算) → 治愈(重生)
-```
-
-### 必选场景
-
-1. **病中被逼**：脊椎手术后被逼祭祖、剖腹产后被逼做饭、哮喘发作被锁储藏室——身体最脆弱时遭受最大伤害
-2. **灵魂飘起的那一刻**：用"我的魂魄慢慢飘起来"标志视角转换，是全文最重要的转折点
-3. **配角拱火**：一个堂妹/表妹/嫂子型角色在旁边煽风点火，每句话都让母亲更愤怒
-4. **母亲的"面子"执念**：母亲不是为了坏而坏，是为了"门风""面子""不丢人"——这比纯粹的恶更让读者共情
-5. **手机/日记作为证据**：死者留下的文字/记录成为最后的审判证据
-6. **重生到温暖家庭**：新妈妈的"宝宝，紧不紧？会不会不舒服？"与前世的"给我站直了！"形成致命对比
-
-### 关键写法
-
-- **灵魂视角的核心力**：能看到所有人的真面目但无法阻止——"我想要的，只是一句疼不疼"
-- **身体细节必须具体**：脊椎错位的"脆响"、护腰被扯下的"刺啦"、瞳孔扩散——每一个物理细节都是情绪炸弹
-- **母亲的后悔要写够**：从"不可能，她最会装了"到"若若，妈妈来了"到嚎叫崩溃
-- **重生结尾用对比**：前世"冰冷的手，很用力地扯掉护腰"vs今生"动作很轻很轻，一遍遍问紧不紧"
-- **最后一句必须是温暖的**：消解全文的虐，给读者一个出口——"这一世，护腰很暖，妈妈也很好"
-
-### 开头金句模板
-
-| 模板 | 示例 |
+| Gesto | Efeito |
 |------|------|
-| 病中被逼 | "我刚做完脊椎手术，医生再三嘱咐要静养三个月。妈妈却攥着我的手腕：快点，祭祀要开始了。" |
-| 产后被逼 | "我刚剖腹产七天，刀口泛着疼。老公推开门：今天家里来客，你去做几个菜。" |
-| 过敏被锁 | "我刚做完手术，想拿急救吸入器，就被表妹抢了过去：舅妈你看，她又装病想偷懒！" |
-| 被逼献血 | "被妈妈拉去给弟弟献血，刚走到医院门口，我赶紧去掏应急糖果。弟媳一把抢过去扔进垃圾桶。" |
+| Pegar o copo e beber um gole | Calma assustadora: quanto mais calmo, mais prazer |
+| Ajeitar uma dobra inexistente no paletó | Sentenciar com elegância |
+| Girar a chave do carro e entrar devagar | A tranquilidade de quem venceu |
+| Pegar uma taça de champanhe | A elegância no campo de batalha |
+| Agachar-se devagar, olhos na altura dos dela | A piedade de quem olha de cima |
 
----
+**Biblioteca de falas de expulsão**
 
-## 公式十九：细节线索驱动型复仇
-### 结构骨架（8-13章超短章节制）
-
-```
-第1章【发现异常】→ 一个微小细节（钥匙扣/避孕套品牌变了/香水味）→ 主角冷静应对
-第2-3章【暗中调查】→ 利用职业优势系统收集证据→发现出轨背后的更大阴谋
-第4-5章【布局反击】→ 暗中准备法律文件→设置证据陷阱→利用第三方施压
-第6-7章【公开对峙】→ 在公开场合递交文件→对方崩溃→真相逐步浮出
-第8章+【连环反击】→ 对方反扑→逐一破解→对手彻底覆灭→主角全新开始
-```
-
-### 情绪节拍
-
-```
-警觉(发现线索) → 压抑(暗中收集) → 冷静(布局) → 爽(递交炸弹) → 极爽(连环反杀) → 豁达(新生活)
-```
-
-### 必选场景
-
-1. **一个触发细节**：不是凭空发现，而是一个具体的、日常的、不起眼的物件——钥匙扣、避孕套品牌、发票、香水味
-2. **职业优势展示**：法务总监写举报信、医生知道血型稀有、银行高管查流水——用专业能力碾压
-3. **证据链系统构建**：不是一两个证据，而是完整的证据链——转账记录+监控截图+消费记录+证人证词
-4. **"笑着点头"时刻**：发现真相后第一反应不是崩溃而是平静——越冷静越让读者期待爆发
-5. **反向利用对方的棋子**：雇演员扮演小三父母、利用小三的贪心设陷阱
-6. **"人情味很贵"收尾**：主角不是无情，而是把温情留给值得的人——甚至帮曾经的小三走上正路
-
-### 关键写法
-
-- **超短章节制**：每章500-1000字，13章仅万字，节奏快到让人停不下来
-- **主角永远冷静**：从不失控，每一步都有计划——"我的温情很贵，只给值得的人"
-- **证据要逐章释放**：不能一次全给。钥匙扣→月子中心→银行流水→监控→社交账号，一章一个新发现
-- **双面人写法**：对方的每一条关心消息都是模板复制的，每句"永远爱你"背后都是欺骗
-- **背叛要层层加码**：不只是出轨——妈妈死了因为血被调走、葬礼上她在陪别人父母吃饭
-- **用"冷描写"写大情绪**：不写"我很心痛"，而是写"我指甲掐进掌心"——动作替代情绪
-
-### 调查链条模板
-
-```
-异常物件 → 搜索确认 → 实地调查 → 系统取证（银行/监控/社交） → 布局反击 → 公开审判
-```
-
----
-
-## 公式二十：反套路嫁祸型重生
-### 结构骨架（7章）
-
-```
-第1章【重生+假意顺从】→ 回到关键节点 → 知道遗产是陷阱 → 假意答应转让 → "你既然想要，就都给你吧"
-第2章【暗中布局】→ 接手遗产确认继承人身份 → 准备移民材料 → 假意与渣男亲近
-第3章【小试锋芒】→ 不再忍耐白月光 → 展示反常行为（会开车、不再忍让）→ 制造悬念
-第4章【冲突升级】→ 被白月光陷害 → 被惩罚 → 用条件反击（"跪满五小时我就救人"）
-第5章【身份揭露】→ 关键时刻权威人物出现 → "我沈家家主明明是简希"→ 对方崩溃
-第6章【收网】→ 给对方"既要又要"的选择 → 看他自掘坟墓 → 冷眼旁观
-第7章【华丽退场】→ 最后一击揭露所有真相 → 移民离开 → 头也不回
-```
-
-### 情绪节拍
-
-```
-了然(知道一切) → 爽(假意顺从) → 更爽(不再忍让) → 极爽(身份揭露) → 痛快(看对方自毁) → 豁达(离开)
-```
-
-### 必选场景
-
-1. **"给你吧"时刻**：重生后不是对抗而是顺从——因为知道对方要的东西其实是毒药
-2. **白月光的三连试探**：撒娇→哭闹→威胁，每次都被主角反将一军
-3. **渣男"既要又要"**：要遗产也要白月光，结果两头落空
-4. **身份揭露的名场面**：权威人物（老爷子/大长老）到场，一句话改写全局
-5. **冷眼旁观对方自毁**：主角不亲自动手，让对方自己的贪婪毁掉一切
-6. **"头也不回"式离开**：最终不纠缠、不报复、不回头——最大的蔑视是漠视
-
-### 关键写法
-
-- **核心技法："给你就是最好的惩罚"**：遗产是催命符，谁拿谁死——表面让步实则是最狠的反击
-- **忠诚者 vs 背叛者对比**：沈怀商（忠诚守护）vs 顾砚辞（利用背叛），同姓不同命
-- **"前世记忆"穿插**：不一次倒完，而是每章穿插一小段，让读者慢慢理解主角的恨从何来
-- **渣男每次选择都写足**：他选择白明月的每一次都是对主角的一刀——"果然啊，生死面前，他依旧会选择盛明月"
-- **主角的情绪是"苍凉的笑"**：不是愤怒不是悲伤，是"看透了一切"的淡然
-
----
-
-## 公式二十一：公开审判式打脸
-### 核心场景设计
-
-```
-1. 设定"竞技场"：股东大会/家族寿宴/公司大堂/医院走廊——必须公开
-2. 反派先"赢"：当众宣布胜利、炫耀成果、羞辱主角
-3. 主角标志性冷静：端起水杯喝一口 / 整理西装 / 笑了笑
-4. 逐层揭露：不是一次全说，而是一张一张甩证据
-5. 反派逐级崩溃：得意→慌张→绝望→崩溃
-6. 标志性驱逐台词："与狗，不得入内" / "从今天起，她被列为最高等级不受欢迎人士"
-7. 背影离场：在全场死寂中头也不回地离开
-```
-
-### 标志性动作库
-
-| 动作 | 效果 |
+| Fala | Cena |
 |------|------|
-| 端起水杯，喝了一口 | 冷静到可怕，越冷静越爽 |
-| 理了理西装外套并不存在的褶皱 | 优雅地宣判 |
-| 转着车钥匙悠悠往里走 | 胜利者的从容 |
-| 顺手拿起一杯香槟 | 在战场上的优雅 |
-| 慢慢地蹲下身，与她平视 | 居高临下的慈悲 |
-
-### 驱逐台词库
-
-| 台词 | 场景 |
-|------|------|
-| "与狗，不得入内" | 逐出公司 |
-| "从今天起，她连这栋大楼的大门都不能再踏进半步" | 永久驱逐 |
-| "你的人脉可能看到的渠道，不用特意通知他" | 提供工作但不主动 |
-| "厚重的隔音门彻底关上，将两个世界，永远地隔绝" | 最终离场 |
+| "Cães não entram" | Expulsão da empresa |
+| "A partir de hoje, ela não pode pisar nem na porta deste prédio" | Banimento permanente |
+| "Os canais que a sua rede pode ver, não precisa avisar a ele" | Oferecer trabalho sem se envolver |
+| "A pesada porta acústica se fechou e isolou os dois mundos para sempre" | Saída final |
 
 ---
 
-## 情绪操控核心法则
+## 2. Regras gerais de escrita
 
-1. **情绪对等释放**：反派做了多恶劣的事，主角的反击就应该有多爽。投入多大的负面情绪，释放时就要有对应量级的正面释放
-2. **情绪缺口制造**：非同人文的情绪满足来自"情绪缺口"的制造——先让读者渴望，再满足
-3. **该爽不爽比毒点还毒**：放了底牌后反派必须受到对应压制，金手指效果必须清清楚楚展示
-4. **情绪是地基**：网文一切技法的底层逻辑都是围绕情绪做文章。有情绪才有故事
+### Conceito central como motor
+Conceito central = cadeia emocional completa (expectativa específica → satisfação específica). O núcleo de um livro é a fusão de vários "conceitos centrais" de gerações diferentes: **geração 1** = tema (ex.: mudar o destino); **geração 2** = núcleo do gênero (ex.: subir de nível); **geração 3** = emoção central (ex.: "nunca subestime quem começa por baixo"). **Ordem de construção**: primeiro o atrativo central → desenhe o padrão emocional → desenhe o enredo a partir do padrão. O enredo existe para o leitor viver a emoção que você quer.
 
-### 信息差运用法则
-- 信息差是期待感的核心工具：读者知道但角色不知道
-- 在信息差基础上，反派恰好被克制——期待叠加
-- 信息差最终抹平时就是爽点爆发
-- 传递信息差的重点不是信息本身，而是关系网角色前后情绪反转
-- 震惊熟人比震惊陌生人更爽
+### Personalidade em três camadas de etiquetas
+1) **identidade** (estereótipo: "a santa → mulher fatal"); 2) **comportamento** (o que mostra em relações comuns: fria, distante); 3) **núcleo** (revelado por eventos súbitos/intimidade: bondade de fundo, economia). Quanto maior o contraste, melhor. Ao entrar na terceira camada de relação, o que antes fazia nas duas primeiras deixa de ser possível; o contraste de comportamento também é parte da caracterização.
 
-### 毒点排查核心
-- 爽文不爽就是毒——金手指效果必须展示得清清楚楚
-- 连续多次破坏读者期待会引发信任危机
-- 主角行为读者必须能理解、能共鸣、能接受
-- 反派死亡太简单或与主角无关 = 完读率杀手
-- 氛围感被突兀的梗破坏 = 除乐子文外都要避免
+### Mostrar em vez de contar
+Cenas de "mostrar" devem conter preparação, expectativa e recompensa (idealmente as três); objetivo, ação e atitude do personagem; preparação, virada e consequência do enredo. Mostrar não é só descrição visual: a cena é só o elemento básico.
 
----
+### Evento ou emoção como motor
+Os dois dão ao leitor "oscilação emocional".
 
-## 感情线写作法则
-
-### 爱情线阶段推进原则
-- 爱情线推进 = 爱情阶段的推进（萍水相逢→怦然心动→暧昧→确认→深化）
-- 好感度质变事件在细纲/章纲层面设计，不在大纲层面
-- 日常文好感度提升：小事件串联缓慢增长，不要猛增大事件
-- 开头前期不要写太暧昧的内容，要符合当前阶段
-
-### 日常文/狗粮文核心
-- 狗粮文核心是男女主之间感情引发的**细节互动**，不是涩涩
-- 读者嘴上说要看涩涩，但这绝不是狗粮文的重点
-- 从男女主人设入手构建关系进展的感情主线
-- 情绪变化 + 细节互动 = 狗粮文受众想看的
-- 新鲜舞台 + 稳定的人设 + 重复的亲密接触 = 有效循环
-
-### 好感度与事业线绑定法
-- 帮助女主和事业线目标完全绑定，本质上是同一件事
-- 事业线推进自然带动好感度提升，不需额外设计感情戏
-- 主事业线的文：读者能忍受关系突破前较长的接触
-- 主爱情线的文：尽快进入女主能主动给予情绪价值的阶段
-
----
-
-## 女频读者心理与写作技法
-
-### 女频读者心理特征
-
-1. **围观八卦心态为主**：女频读者并非简单的代入心态，更多是"围观八卦"——看别人的故事产生共鸣和情绪
-2. **安全感需求极高**：女频读者需要明确知道主角不会一直被虐，文案/简介中必须暗示成功或希望
-3. **主体性敏感**：女主如果缺乏主体性（被动、被安排、无选择权），收藏涨幅普遍低于预期
-4. **情绪产品导向**：不论什么风格（沙雕/正剧/甜文），本质都是情绪产品，核心是满足读者的情感需求
-
-### 感情流"扮猪吃虎"写法
-
-通过隐藏真实身份或能力制造情感张力，利用反差制造性张力，推动关系发展。
-
-**核心机制**：通过能力反差，打破传统的强弱定位，反转"被保护者"与"保护者"的身份，制造性张力。
-
-**关键原则**：
-- 扮猪的理由必须合理——不是为了装弱而装弱，要有明确动机
-- 能力揭露的时机要精准——在对方最需要保护的时刻反转
-- 反差越大越有张力——从"以为需要保护"到"其实她/他才是最强的"
-- 隐藏身份的线索要提前埋——不能突然冒出来，要有回顾时的恍然大悟
-
-### 沙雕风写作分析（女频修真/古言）
-
-**核心特征**：
-- 人物之间的互动、反应、玩梗是主要看点
-- 传统"升级"只是不起眼的元素
-- 轻松搞笑的表面下，主线可能严谨甚至带刀
-
-**人设设计要点**：
-- 角色喜欢调侃，即使有上下尊卑关系也几乎没有"正经感"
-- 被主角"调侃"的对象不会硬刚，而是宠着让着——形成"团宠"
-- 团宠逻辑：我弱小、我调皮、但我能给身边人带来好处甚至救大命
-- 主角"不正经"但实力在线，反差是魅力来源
-
-**写作建议**：
-- 不必勉强写到极致沙雕，轻度沙雕也可火
-- 沙雕表面背后主线最好不沙雕——严谨中带甜，甜中带刀
-- 对话造梗是核心技能，可参考台湾综艺（如《康熙来了》）的对话节奏
-
-### 老太重生题材分析（下沉市场爆款）
-
-**核心套路**：不孝子女推诿养老→老人冻死/饿死→重生回到40-50岁→改掉对家人掏心掏肺的习惯→越过越好
-
-**爽点来源**：
-- 母亲扇自私儿子巴掌（大快人心）
-- 对付不作为的丈夫（情感共鸣）
-- 拯救苦难的女儿（母爱投射）
-- 后期离婚后当妇女主任帮助其他女性（格局升级）
-
-**受众心理**：年长女性看到自己，年轻女性看到自己的母亲/奶奶。极致下沉但情绪精准。
-
-### 女频平台生态
-
-| 平台 | 定位 | 特点 |
-|------|------|------|
-| 晋江 | 证道之地 | 稿费尚可，女频主战场，质量要求高 |
-| 云起（QQ阅读） | 快钱 | 流量最高，适合快节奏商业文 |
-| 起点女频 | 养老 | 流量极低，即使拿到推荐均订也难破百 |
-| 番茄 | 下沉市场 | 流量大但单价低，适合吸量型作品 |
-| 七猫 | 女频玄幻 | 沙雕风盛行，修真女频有市场 |
-
-### 女频简介/文案安全法则
-
-从晋江扫榜实战数据验证：
-- 文案中缺少女主成功剧情 → 读者缺乏安全感 → 收藏涨幅低于预期
-- 悬疑型文案叠加过多 → 读者理解不了 → 收藏涨幅低于预期
-- 文案和文名货不对板 → 劝退读者
-- 女主被虐过重（如守寡后被强取豪夺）→ 整体偏虐 → 收藏涨幅远低于预期
-- 冷门历史朝代 → 劝退不了解该历史的读者
-- 事业线突出的文 → 文案必须体现事业成功暗示
-
-### 女频写作关键认知
-
-1. **不要死抱着理论**：方向问题上没有理论。方向不对，理论再多都是累赘。找到对标书，做功课比看理论更重要
-2. **对标书至少三本**：一本不够，至少三本同题材出过成绩的书，才能产生比较、总结出核心特点
-3. **读者是最好的向导**：翻看对标书的评论，读者很会找同类书，跟着读者走是捷径
-4. **写提纲的粗细节奏**：越远的剧情越模糊（粗纲），越近的越清晰（细纲）。近期细纲要详细但不锁死，留临场发挥空间
-5. **文风服务于情绪**：不论沙雕/正剧/文艺，都是情绪产品。关键是精准满足目标读者的情感需求
-
----
-
-## 震惊场景九种写法
-
-震惊是短篇爽文的核心爽点之一，不同写法带来不同层级的爽感。
-
-| 类型 | 手法 | 示例 |
-|------|------|------|
-| 普通震惊 | 事件 + 一人震惊 | 配角目睹主角实力，直接反应 |
-| 多人递进震惊 | A震惊 → B震惊（B身份/实力高于A） | 小人物先惊，大佬更惊，层级递进 |
-| 解说式震惊 | 旁白解说 + 角色震惊 | 先用旁白渲染一击的精妙，再写观者反应 |
-| 画面式震惊 | 宏大画面 + 角色震惊 | 天地变色的特效描写后接观者跪拜 |
-| 对比式震惊 | 角色与自身对比后震惊 | "这还是刚把我按在地上的那头魔猿？" |
-| 问号式震惊 | 角色自问自答后震惊 | "我扪心自问能做到吗？不可能！这就是他的实力？" |
-| 变换地点震惊 | 地点1震惊 → 地点2震惊 → 地点3震惊 | 消息扩散式，多方势力依次被震撼 |
-| 身心分层震惊 | 身体反应 + 心理反应 | "浑身冰寒"（身） + "心神俱震"（心）分层写 |
-| 人设反差震惊 | 角色先不屑后震惊 | 前一秒"不过如此"，后一秒"我一定是在做梦" |
-
-**核心原则**：震惊的爽感来自"落差"——角色的预期与现实的差距越大，震惊越爽。写震惊时先铺垫角色的原有认知（轻蔑/自信/不在意），再打破它。
-
-### 三翻四震技法
-
-在关键高潮场景中，用"三翻四震"制造情绪递进：
-
-```
-翻1：主角宣布选择 → 众人反应
-翻2：具体选择内容（出人意料）→ 众人再反应
-翻3：追问原因/更深反转 → 更大反应
-震终：权威角色给出最高评价 → 落选者黯然退场（压一压情绪）
-```
-
-每一"翻"都要比前一"翻"的震惊层级更高，观众的反应也逐级递升。关键是每次反转都要有新的信息量，不能重复同一层级的震惊。
-
----
-
-## 比赛场景写作前提（读者才会关心胜负）
-
-写比赛/对决场景前，必须向读者披露以下信息，否则读者不会对结果感兴趣：
-
-1. **赌注/代价**：输了会失去什么？赢了会得到什么？
-2. **双方实力对比**：至少暗示双方的优劣势所在
-3. **主角的获胜路径**：读者至少能看到一条主角有可能赢的路径（哪怕很窄）
-4. **对手的特殊性**：这个对手和之前的不同在哪？为什么这一战值得写？
-
-### 比赛中的胜负设计
-
-| 模式 | 难度 | 效果 | 要点 |
+| Tipo | Origem | O que o leitor quer saber | Característica |
 |------|------|------|------|
-| 以强击弱 | 低 | 好，性价比最高 | 信息差制造落差，搭配装逼使用 |
-| 势均力敌 | 中 | 紧张感强 | 一个中故事只写一次，用在大高潮 |
-| 以弱胜强 | 高 | 爽感最强但风险大 | 必须有合理解释，不能用降智 |
+| Movido por evento | Conflito externo | "Ele vai vencer?" | Ritmo rápido, recompensa clara |
+| Movido por emoção | Conflito interno | "Por que ela pensa assim?" | Tensão contínua, suspense de personagem |
 
-**强强对决最难写，一个大高潮写一次就够。以强击弱是性价比之王，多用。**
+O suspense do evento é pontual, o do personagem é contínuo.
 
----
+### Fórmula de apresentação do conflito
+`[perfil do antagonista] + [motivação] + [comportamento] + [atitude] + [grau de dano ao protagonista]`. Três tipos: **por interesse** (precisa de recursos e transfere o custo ao protagonista); **por transferência de culpa** (será punido e joga o custo no protagonista); **de confronto direto** (o mais intenso: a característica do protagonista quebra a ordem do antagonista).
 
-## 感情线四阶段推进法
+### Sistema de fichas de história
+Cada cena do conto é uma "ficha":
 
-```
-熟悉阶段 → 试探阶段 → 暧昧阶段 → 确认关系
-```
+| Ficha | Núcleo emocional | Elementos | Fonte do prazer |
+|------|------|------|------|
+| Herói que salva | Mudança de qualidade da relação | Crise → resgate → avaliação sobe | A afinidade do salvo sobe |
+| Virada de mesa | Contraste | Mostrar capacidade → choque | Superioridade |
+| Pequeno contra grande | Aposta que paga | Pequeno custo → processo → grande ganho | Sensação de "levou vantagem" |
+| Jovem fervoroso | Fazer o que se sabe difícil | Injustiça → boa pessoa sofre → decisão → sucesso | Senso de justiça |
+| Chamado em crise | Superar todos | Crise súbita → ninguém consegue → o protagonista age | Herói solitário |
+| Bem recompensado | Quem faz o bem recebe o bem | Boa ação → sugestão de retorno → cumprimento | Prazer de causa e efeito |
 
-| 阶段 | 状态 | 核心写法 | 禁忌 |
-|------|------|----------|------|
-| 熟悉 | 朋友/陌生人，知道对方基本信息 | 展示人设，制造初印象 | 不能做恋人行为 |
-| 试探 | 有好感但不确定对方心意 | 各种试探行为，制造误会和甜蜜 | 不能直接表白 |
-| 暧昧 | 朋友以上恋人以下 | 偶尔做恋人事，脸红心跳 | 女频此阶段必须尽可能拉长 |
-| 确认 | 正式情侣 | 撒狗粮 + 最大阻力事件 | 不能再退回试探 |
+**Princípio central: o drama se desgasta, a emoção não.** Regras de combinação: fichas de subida valem sozinhas (herói que salva, virada); fichas de descida precisam ser seguidas por uma de subida (cair em dilema → virada); combinações > uso isolado (pequeno contra grande + herói que salva = dupla recompensa).
 
-**铁律：必须什么阶段干什么事。跨越阶段做事（如熟悉阶段就壁咚）只会显得油腻。**
+### Sensação de progresso em três passos
+No conto, o "progresso" não é nível, é salto de qualidade de capacidade: 1) liste o ponto de partida (identidade, recursos, situação); 2) liste o ponto de chegada (o ganho ao fim da cena/capítulo); 3) **crie a lacuna emocional de trás para frente**:
 
-### CP行为八种类型（好感度达标才出现）
+| O que se ganha | O que preparar |
+|------|------|
+| Prova-chave | Coadjuvante enfatiza a escassez da prova |
+| Elevação de posição | Mostrar o poder e a capacidade de obter recursos daquela posição |
+| Ajuda de alguém | Mostrar o valor da pessoa e a atitude dos outros em relação a ela |
+| Despertar da vantagem | Mostrar a impotência anterior e o desejo de poder |
 
-| 行为类型 | 说明 | 适用好感度 |
-|----------|------|-----------|
-| 亲密行为 | 肢体接触及以上 | 高好感 |
-| 主权行为 | 争风吃醋、宣示主权、危机感 | 中高好感 |
-| 信赖行为 | 无条件信任、分享秘密、信守承诺 | 中好感+ |
-| 护短行为 | 对方犯错也优先维护 | 中好感+ |
-| 特殊待遇 | 对待对方与对待其他人完全不同 | 中好感 |
-| 安抚行为 | 敏锐察觉对方不好情绪并安抚 | 中好感+ |
-| 优先特权 | 做决定时对方是最重要因素 | 中高好感 |
-| 默契行为 | 不约而同做同一件事、养成对方习惯 | 高好感 |
+**Comparação em várias dimensões**: dano: não vencia → um golpe; posição social: ninguém ligava → vêm bajular; avaliação alheia: zombaria → choque; sensação própria: sufoco → alívio.
 
-**注意：好感度不足时出现CP行为是违反常理的。好感度必须通过剧情积累，不能凭空跳级。**
-
----
-
-## 喜剧 flag 机制（轻松文必备）
-
-| 角色 | flag 规则 |
-|------|-----------|
-| 主角 | 不收 flag，或搞笑地收（不搞笑就变毒点） |
-| 反派 | 必收 flag（说了大话必须被打脸） |
-| 其他角色 | 一般收 flag |
-
-**核心**：反派的 flag 是爽点预告——他说"没有人能……"就是在告诉读者"主角马上就要做到了"。主角的 flag 是喜剧张力——"我绝不会……"后面紧跟被打脸才好笑，否则就是毒点。
-
----
-
-## 核心梗提炼与验证原则
-
-### 提炼三原则
-
-1. **尽可能抽象化和本质化**：越本质，能构造的故事变化越多
-2. **尽可能精简**（奥卡姆剃刀）：能用3个要素说清楚的不要用5个，要素越少变化越多
-3. **系统性审查**：任何两个核心梗在本质上不能重叠、交叉、冲突
-
-### 使用时的正确姿势
-
-- 核心梗 + 素材 + 灵感 = 具体故事。三者缺一不可
-- 核心梗辅助确定灵感方向，辅助检索素材库
-- 遇到卡文时回到核心梗，检查是否偏离
-
-### 男女频核心梗的区别
-
-| 维度 | 女频 | 男频 |
+### Técnicas de abertura
+| Técnica | Descrição | Exemplo |
 |------|------|------|
-| 本质 | 一句话故事梗概（用一句话讲清最精彩部分） | 一本书爆火的底层逻辑 |
-| 追求 | 把一个核心梗写得更精彩 | 把核心梗从表面元素深化到情绪底层 |
-| 扩展方向 | 精细化、细节化 | 可复制、可循环、可支撑百万字 |
-| 创新路径 | 大众梗 + 新要素扩充 = 自己的独特卖点 | 情绪 → 具体情节模板 → 不断循环变化 |
+| Pressão com o corpo frágil | A primeira frase já é ser forçada a fazer o mais cansativo no pior momento de saúde | "Eu tinha acabado de fazer uma cirurgia na coluna e o médico mandou repousar três meses. Minha mãe apertou meu pulso: anda logo, o ritual vai começar." |
+| Objeto anômalo | Um objeto que não devia estar ali desencadeia tudo | "A validade da caixa tinha mudado, e o sabor era o da manga que me dá alergia." |
+| Morte observada | A primeira frase é a alma se erguendo | "Minha alma subiu devagar e vi o rosto lívido da minha mãe. Desculpa, mãe, não consegui ficar de pé." |
+| Traição pública | A primeira frase já é ser apunhalada em público | "A irmã que eu criei pegou a caneta de cem milhões e passou por cima de mim." |
+| Falsa submissão | Depois de renascer, entrega o que antes defendia com a vida | "Se você quer tanto, leve tudo. Quem ficar com essa herança está condenado." |
+| Morte revista | A primeira frase diz como morreu e quem matou | "Com oito meses de gravidez, descobri a traição do meu marido. Entrei em colapso, tive parto prematuro, hemorragia na mesa de cirurgia." |
+| Descoberta fria | Depois de achar a anomalia, a reação é um sorriso frio | "Concordei sorrindo. Naquele dia marquei a consulta e mandei ao jurídico da empresa uma denúncia." |
 
-**建议**：男频作者也可以学习女频的"一句话梗概"法，一举三得——保受众下限、突出精彩点、直接从核心梗扩展全文。
+### Manipulação emocional avançada
+1. **Traição em escada**: não revele todas as maldades de uma vez, revele uma traição maior a cada capítulo (moral → financeira → de vida; exemplo: pista → infidelidade → compra de uma maternidade de luxo → o sangue da mãe desviado).
+2. **Contraste frio/quente**: quanto mais frio o protagonista, mais histérico o outro; maior o contraste, maior o prazer. Protagonista: "pegou o copo d'água e bebeu um gole. Morna. Na medida." Antagonista: gritos e xingamentos de raiva.
+3. **Descascar a pessoa de dupla face**: primeiro escreva a bondade aparente, depois descasque a verdade em camadas (aparência: mensagens diárias de "te amo sempre ♥"; verdade: modelo copiado e colado, igual a todo mundo; frase-chave: "o cuidado que ela me dava, afinal, era algo copiado e colado, friamente, de um modelo repetido").
+4. **Memórias de vida passada intercaladas**: não despeje de uma vez, ponha um trecho curto por capítulo, começando com "na vida passada", sobre um evento concreto; depois volte ao presente e o "comportamento estranho" da protagonista ganha a compreensão do leitor.
 
----
+## 3. Leis centrais de manipulação emocional
 
-## 短篇视角控制法则
+1. **Liberação emocional equivalente**: quanto mais cruel foi o antagonista, mais gostosa deve ser a reação do protagonista; a carga negativa investida pede liberação positiva de mesma ordem.
+2. **Criar lacuna emocional**: em obras que não são fanfic, a satisfação nasce da lacuna: primeiro deixe o leitor desejar, depois satisfaça.
+3. **Recompensa devida e não entregue é pior que ponto de rejeição**: revelada a carta, o antagonista tem de ser contido, e o efeito da vantagem, mostrado com clareza.
+4. **A emoção é o alicerce**: toda técnica gira em torno da emoção; sem emoção, não há história.
 
-### 出场人物控制
+**Assimetria**: ferramenta central da expectativa (o leitor sabe, o personagem não); somada a um antagonista que "cai de bandeja", as expectativas se empilham; quando a assimetria se desfaz, a recompensa explode; o ponto é a **reviravolta emocional da rede de personagens** depois da informação, não a informação em si; chocar conhecidos vale mais que chocar desconhecidos.
 
-- 开篇主要人物最好一对一或一对二，场景用"小"不用"大"
-- 一对多时，按重要程度降低配角存在感，注意出场时机和顺序
-- 切忌一拥而上出场，对所有人一言一行都详细描写
-- 配角的目光和心理描写都应集中在主角身上，服务于主角人设
+**Pontos de rejeição**: recompensa sem recompensa; quebrar expectativas várias vezes seguidas gera crise de confiança; as ações do protagonista precisam ser compreensíveis, identificáveis e aceitáveis; morte fácil do antagonista ou sem relação com o protagonista mata a taxa de leitura até o fim; atmosfera quebrada por piada fora de hora (evitar, exceto em comédia).
 
-### 视角数量控制
+## 4. Regras da linha romântica e psicologia do público feminino
 
-- 推荐使用2-3个视角推进，不超过3个
-- 超过3个视角且各写各的没有联系，大概率掉追读
-- 敌人视角写不写看需求：让读者更清楚就写，让读者更多猜测就不写
-- 如果写敌人视角，一般只写一个，占掉三个视角之一的名额
+**Linha romântica**: evoluir a linha = evoluir as fases do amor (desconhecidos → coração acelerado → ambiguidade → confirmação → aprofundamento); eventos de salto de afinidade se desenham no esboço detalhado ou de capítulo, não no do livro; no cotidiano, pequenos eventos encadeados, sem saltos grandes; no começo, nada de ambiguidade demais, siga a fase. **Romance de "doçura" (cotidiano)**: o núcleo é o **detalhe de interação** causado pelo sentimento do casal, não o erotismo (o leitor diz querer erotismo, mas esse não é o ponto); parta da caracterização do casal para criar a linha principal; emoção + detalhe de interação é o que o público quer; cenário novo + caracterização estável + contato íntimo repetido = ciclo eficaz. **Afinidade e linha profissional**: ajudar a heroína e o objetivo profissional são a mesma coisa; a evolução profissional leva a afinidade sem precisar de cenas românticas extras; num livro de linha profissional, o leitor tolera contato mais longo antes da virada; num de linha romântica, chegue logo à fase em que a heroína dá valor emocional ativo.
 
----
+**Psicologia do público feminino**: 1) **leitura de "fofoca"**: não é só identificação, é "assistir à história dos outros" e se identificar; 2) **necessidade altíssima de segurança**: o leitor precisa saber que a protagonista não será torturada para sempre; a sinopse deve sugerir sucesso ou esperança; 3) **sensibilidade à agência**: se falta autonomia (passiva, comandada, sem escolha), o crescimento de favoritos fica abaixo do esperado; 4) **produto emocional**: qualquer estilo (absurdo/drama/doce) é um produto emocional, e o núcleo é satisfazer a necessidade afetiva do leitor.
 
-## 情绪锚点理论
+**"Fingir-se fraco" no romance**: esconder a identidade ou a capacidade cria tensão afetiva, e o contraste inverte o par "protegido/protetor". *Princípios*: o motivo de fingir precisa ser razoável; o momento da revelação precisa ser preciso (quando o outro mais precisa de proteção); quanto maior o contraste, mais tensão ("achava que precisava de proteção, mas ela é a mais forte"); as pistas sobre a identidade ocultada vêm antes (ao reler, o leitor tem o "ah!").
 
-#### 情绪的三层分离
+**Comédia absurda (público feminino)**: a interação, a reação e as piadas dos personagens são o atrativo; a "evolução" é um elemento discreto; por baixo do tom leve, a trama pode ser séria ou até cortante. *Personagens*: gostam de provocar, sem "seriedade" mesmo com hierarquia; quem é provocado não revida duro: mima ("queridinha do grupo"); lógica da "queridinha": sou fraca, travessa, mas trago benefícios e até salvo vidas; "não séria", mas com força em dia: o contraste é o charme. *Sugestões*: não precisa levar ao extremo, o absurdo leve também funciona; a trama principal, por trás do absurdo, de preferência não é absurda: rigor com doçura, doçura com lâmina; o diálogo-piada é a habilidade central, estude o ritmo de diálogo de programas de variedades.
 
-写情绪时必须区分三个层次：
+## 5. Nove formas de cenas de choque
 
-| 层次 | 说明 | 示例 |
+O choque é um dos pontos de recompensa centrais do conto; formas diferentes dão graus diferentes de prazer.
+
+| Tipo | Técnica | Exemplo |
 |------|------|------|
-| 角色情绪 | 角色自己感受到的 | 女角色被欺压→压抑 |
-| 作者传递情绪 | 作者想传达给读者的 | 用隐晦描写传达一丝兴奋 |
-| 读者感受情绪 | 读者实际感受到的 | 有不忿但更多是好奇 |
+| Choque comum | Evento + uma pessoa se choca | Um coadjuvante vê a força do protagonista e reage direto |
+| Choque em cadeia | A se choca → B (de status maior) se choca | O pequeno se espanta, o grande mais ainda: níveis progressivos |
+| Choque por explicação | Narração + personagem se choca | Primeiro a narração enaltece a sutileza de um golpe, depois a reação |
+| Choque por imagem | Imagem grandiosa + personagem se choca | O céu muda de cor e os observadores se ajoelham |
+| Choque por comparação | O personagem compara com seu estado anterior | "Este é o mesmo macaco que me prendeu no chão?" |
+| Choque por pergunta | O personagem pergunta e responde a si mesmo | "Eu conseguiria? Impossível! É essa a força dele?" |
+| Choque em vários lugares | Lugar 1 → lugar 2 → lugar 3 | A notícia se espalha e várias forças se chocam em sequência |
+| Choque corpo e mente | Reação do corpo + da mente | "Frio por todo o corpo" + "mente abalada", escritos em camadas |
+| Choque de contraste de caráter | Primeiro despreza, depois se choca | "Não é grande coisa" → "devo estar sonhando" |
 
-三者不能混为一谈。同一场景可以角色在哭、作者在撩、读者在爽。
+**Princípio**: o prazer do choque vem da **queda**: quanto maior a distância entre expectativa e realidade, mais gostoso; primeiro prepare a percepção do personagem (desdém, autoconfiança, descaso) e depois a quebre.
+**Três viradas e quatro choques**: `virada 1: o protagonista anuncia a escolha → reação geral; virada 2: o conteúdo (inesperado) → nova reação; virada 3: pergunta o motivo/virada mais profunda → reação maior; choque final: figura de autoridade dá a melhor avaliação → os recusados saem abatidos ("apertar" a emoção)`. Cada virada tem informação nova e nível de choque maior.
 
-#### 情绪锚点
+## 6. Cenas de competição
 
-**定义**：能引起读者内心共鸣的具体桥段。情绪不是描写出来的，而是通过锚点"触碰"读者内心的。
+Antes de escrever, revele ao leitor: 1) **a aposta** (o que perde e o que ganha); 2) **a comparação de forças** (ao menos sugerir pontos fortes e fracos); 3) **o caminho de vitória** do protagonista (ao menos um possível, ainda que estreito); 4) **a particularidade do adversário** (por que esta luta merece ser escrita?).
 
-**特征**：
-- 发生在现实世界、大众经常经历或感受的东西
-- 不需要细致描写，几个关键细节就够了
-- 好的情绪锚点，作者自己想想都觉得有意思
+| Modelo | Dificuldade | Efeito | Pontos |
+|------|------|------|------|
+| Forte vence fraco | Baixa | Bom, melhor custo-benefício | A assimetria gera queda, use com virada de mesa |
+| Equilíbrio | Média | Tensão forte | Uma só vez numa história média, no grande clímax |
+| Fraco vence forte | Alta | Maior prazer, mas arriscado | Explicação razoável, nunca por burrice do outro |
 
-**示例对比**：
+Duelos de iguais são os mais difíceis: um por grande clímax basta; forte contra fraco é o rei do custo-benefício.
 
-| 传递情绪 | 差的写法 | 好的情绪锚点 |
-|----------|----------|-------------|
-| 母爱伟大 | 母亲天天在家煮饭搞家务 | 母亲偷偷给每个同学鞠躬拜托，拜托他们善待自己失明的孩子 |
-| 生存很难 | 主角挖草根吃树皮 | 主角看到招工，众人争相压低价格，主角直接举手"我不要钱，只要一顿饭" |
-| 师生情深 | 老师认真上课的日常 | 老师把自己唯一的棉袄给了学生，自己穿着单衣在雪地里走 |
+## 7. Quatro fases da linha romântica e comportamentos de casal
 
-#### 好钢用在刀刃上
+`Familiaridade → Sondagem → Ambiguidade → Confirmação`
 
-好的情绪锚点不要一笔带过，要融入大剧情的情绪爆发点：
+| Fase | Estado | Escrita | Proibição |
+|------|------|------|------|
+| Familiaridade | Amigos/desconhecidos | Mostrar a caracterização, primeira impressão | Sem comportamento de casal |
+| Sondagem | Gostam, mas não sabem do outro | Sondagens, mal-entendidos e doçura | Sem declaração direta |
+| Ambiguidade | Mais que amigos, menos que casal | De vez em quando, gestos de casal, rosto vermelho | No público feminino, estique o máximo |
+| Confirmação | Namoro | Doçura + maior evento de resistência | Sem voltar à sondagem |
 
-1. 先构思大剧情（最大矛盾→中矛盾→小矛盾）
-2. 在大剧情的高潮处放置最精彩的锚点
-3. 其他部分可以稍平淡，不必处处完美
-4. 情绪铺垫过程 = 剧情推进过程
+**Regra de ferro**: cada fase tem as suas ações; saltar (um encosto na parede na fase de familiaridade) só fica cafona. **Comportamentos de casal (só quando a afinidade permite)**: aproximação física; ato de posse (ciúme, marcar território); confiança (confiar sem condições, partilhar segredos, cumprir a palavra); defesa do outro (mesmo quando erra); tratamento especial; consolo; prioridade nas decisões; sintonia (fazer a mesma coisa sem combinar, adquirir manias). Com afinidade insuficiente, o comportamento de casal é antinatural; a afinidade precisa ser acumulada pela trama, sem pular de nível.
 
-**设计路径**：矛盾→情绪要求→人物/背景/设定→具体桥段
-**反向路径**：先有好的锚点桥段→倒推矛盾去设计
+## 8. Mecanismo de promessas na comédia
 
----
+| Personagem | Regra de "promessa" (flag) |
+|------|------|
+| Protagonista | Não cumpre a promessa, ou cumpre de modo engraçado (se não for engraçado, vira ponto de rejeição) |
+| Antagonista | Sempre cumpre a "promessa" (disse bravatas, será desmentido) |
+| Outros | Em geral cumprem |
 
-### 反派嘲讽新思路
+**Núcleo**: a bravata do antagonista é aviso de recompensa ("ninguém jamais conseguiria...") diz ao leitor que o protagonista está prestes a conseguir; a promessa do protagonista é tensão cômica ("eu nunca vou...") seguida de quebra.
 
-传统嘲讽 vs 现代读者偏好的嘲讽：
+## 9. Extração e validação do conceito central
 
-| 类型 | 传统做法 | 新思路 |
-|------|----------|--------|
-| 目的 | 戳主角痛点，引发读者不爽 | 显露反派无知，引发读者看乐子 |
-| 读者反应 | 替主角委屈 | 看笑话等反转 |
-| 主角回应 | 需要绞尽脑汁想怎么反击 | 放松、不在意即可 |
+**Três princípios de extração**: 1) **o mais abstrato e essencial possível**: quanto mais essencial, mais variações de história; 2) **o mais enxuto possível** (navalha de Ockham): o que cabe em três elementos não deve usar cinco; 3) **auditoria sistemática**: dois conceitos centrais não podem se sobrepor, cruzar ou conflitar em essência. **Uso correto**: conceito central + material + inspiração = história concreta, e nenhum dos três pode faltar; o conceito ajuda a definir a direção da inspiração e a buscar material; quando travar, volte ao conceito e verifique o desvio.
 
-**操作方法**：确定主角优势，让反派极尽所能嘲讽主角的优势点。反派越嘲讽，读者越知道反派是无知的。
+| Dimensão | Público feminino | Público masculino |
+|------|------|------|
+| Natureza | Resumo da história em uma frase (a parte mais bonita) | A lógica de base do sucesso de um livro |
+| Busca | Escrever melhor um conceito | Levar o conceito da superfície à emoção de base |
+| Expansão | Refinar, detalhar | Reprodutível, repetível, capaz de sustentar centenas de milhares de palavras |
+| Inovação | Ideia popular + novos elementos = atrativo próprio | Emoção → modelo de enredo → ciclo com variações |
 
-**戳痛点写法的保留**：对象换为主角的亲朋好友——让反派攻击他们的弱点，伤害他们，引发读者的不爽和愤怒。
+**Sugestão**: autores de qualquer público podem aprender o "resumo em uma frase", que traz três ganhos: garante o piso de público, destaca o ponto alto e expande o texto todo a partir do conceito.
 
----
+## 10. Controle de ponto de vista no conto
 
-### 人设拆解从缺点开始
+**Controle de personagens em cena**: na abertura, de preferência um a um ou um a dois, cenas "pequenas"; com muitos, reduza a presença dos coadjuvantes por importância, cuide do momento e da ordem; nunca entrem todos de uma vez com tudo o que fazem e dizem descrito; o olhar e o pensamento dos coadjuvantes devem se concentrar no protagonista, servindo à sua caracterização. **Número de pontos de vista**: recomendados dois ou três, nunca mais de três; mais de três, cada um por si, sem ligação, provavelmente derruba a leitura; o ponto de vista do inimigo: se ajudar o leitor a entender, escreva; se quiser que ele adivinhe, não; se escrever, em geral um só, que ocupa uma das três vagas.
 
-**核心原则**：拆解人物应该从缺点开始。
+## 11. Âncoras emocionais
 
-- 正面人物 = 优点掩盖了缺点
-- 负面人物 = 缺点掩盖了优点
-- 关键要素：角色有什么「不平之气」
+**Três camadas separadas da emoção**
 
-**不平之气**必须能引起共鸣，否则就是失败的。读者允许主角有微瑕，这种微瑕带来真实感。
+| Camada | Explicação | Exemplo |
+|------|------|------|
+| Emoção do personagem | O que ele sente | A personagem oprimida sente sufoco |
+| Emoção transmitida pelo autor | O que o autor quer passar | Com descrição velada, passar um toque de excitação |
+| Emoção sentida pelo leitor | O que o leitor realmente sente | Alguma indignação, mais curiosidade |
 
-**人设丰富法**：
-- 用杀伐果断的人设为例：正向 = 干净利落不拖泥带水；反向 = 没有人情味
-- 强化或弱化「人情味」来区分主角/配角
-- 角色有血有肉 = 优缺点共存，甚至毁誉参半
-
----
-
-### 以小搏大故事卡四要素
-
-以小搏大的关键要素：
-
-1. **主角独有的手段或优势**：为什么主角能以小搏大，这个手段必须是主角独有的
-2. **搏的过程**：关键在于过程，不是结果
-3. **赚翻了的感觉**：收获要远超预期
-4. **明确的搏的目标**：主角必须清楚自己要什么（补充要素）
-
----
-
-### 爽点本质与修仙三境界
-
-**爽点本质** = 改变人际关系
-
-修仙界三大境界的本质是人际关系的改变：
-- 蝼蚁 → 道友 → 前辈
-
-主角不断前进，与小剧情点形成失衡，产生爽感。小剧情小爽，大剧情大爽。
-
-**邪修写作法**：在保证剧情主脉络不断推进的前提下，仿照一本好书的剧情节奏。主要大方向没问题，小剧情的起落就是情绪点。
+As três não se confundem: na mesma cena, o personagem chora, o autor provoca, o leitor se diverte.
+**Âncora emocional**: trecho concreto que desperta ressonância no leitor; a emoção não se descreve, é "tocada" por âncoras: acontece no mundo real, em coisas que muita gente vive ou sente; não precisa de descrição minuciosa, alguns detalhes bastam; uma boa âncora faz o próprio autor achar interessante. *Exemplo*: para passar o amor de mãe: *fraco*: a mãe cozinha e faz o serviço de casa todo dia; *âncora boa*: a mãe, em segredo, faz uma reverência a cada colega pedindo que tratem bem seu filho cego.

@@ -14,6 +14,8 @@ class TxtParserService:
 
     STRONG_CHAPTER_PATTERNS = [
         re.compile(r"^第[一二三四五六七八九十百千万零〇两\d]+[章节回卷集部篇].*$"),
+        re.compile(r"^cap[íi]tulo\s+[\divxlcdm]+.*$", re.IGNORECASE),
+        re.compile(r"^parte\s+\d+.*$", re.IGNORECASE),
         re.compile(r"^chapter\s*\d+.*$", re.IGNORECASE),
         re.compile(r"^chap\.\s*\d+.*$", re.IGNORECASE),
     ]
@@ -81,7 +83,7 @@ class TxtParserService:
             if len(preface) >= 200:
                 chapters.append(
                     {
-                        "title": "前言",
+                        "title": "Prefácio",
                         "content": preface,
                         "chapter_number": chapter_no,
                     }
@@ -90,7 +92,7 @@ class TxtParserService:
 
         for i, start_idx in enumerate(heading_indexes):
             end_idx = heading_indexes[i + 1] if i + 1 < len(heading_indexes) else len(lines)
-            title = lines[start_idx].strip()[:200] or f"第{chapter_no}章"
+            title = lines[start_idx].strip()[:200] or f"Capítulo {chapter_no}"
             body = "\n".join(lines[start_idx + 1 : end_idx]).strip()
             # 防止空标题/空正文完全丢失
             if not body and i + 1 < len(heading_indexes):
@@ -156,7 +158,7 @@ class TxtParserService:
             if chunk:
                 chapters.append(
                     {
-                        "title": f"第{chapter_no}章",
+                        "title": f"Capítulo {chapter_no}",
                         "content": chunk,
                         "chapter_number": chapter_no,
                     }

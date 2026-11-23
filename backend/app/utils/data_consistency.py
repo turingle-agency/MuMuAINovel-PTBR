@@ -201,7 +201,7 @@ async def validate_relationships(
             issues.append({
                 "issue_type": "missing_from_character",
                 "relationship_id": rel.id,
-                "details": f"关系 {rel.id} 的源角色 {rel.character_from_id} 不存在"
+                "details": f"Relação {rel.id} com personagem de origem {rel.character_from_id} inexistente"
             })
         
         # 检查to角色
@@ -212,7 +212,7 @@ async def validate_relationships(
             issues.append({
                 "issue_type": "missing_to_character",
                 "relationship_id": rel.id,
-                "details": f"关系 {rel.id} 的目标角色 {rel.character_to_id} 不存在"
+                "details": f"Relação {rel.id} com personagem de destino {rel.character_to_id} inexistente"
             })
     
     if issues:
@@ -262,7 +262,7 @@ async def validate_organization_members(
             issues.append({
                 "issue_type": "missing_organization",
                 "member_id": member.id,
-                "details": f"成员 {member.id} 的组织 {member.organization_id} 不存在"
+                "details": f"Membro {member.id} com organização {member.organization_id} inexistente"
             })
         
         # 检查角色
@@ -273,7 +273,7 @@ async def validate_organization_members(
             issues.append({
                 "issue_type": "missing_character",
                 "member_id": member.id,
-                "details": f"成员 {member.id} 的角色 {member.character_id} 不存在"
+                "details": f"Membro {member.id} com personagem {member.character_id} inexistente"
             })
     
     if issues:

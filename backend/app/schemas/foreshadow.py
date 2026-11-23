@@ -33,41 +33,41 @@ class ForeshadowCategory(str, Enum):
 
 class ForeshadowBase(BaseModel):
     """伏笔基础信息"""
-    title: str = Field(..., min_length=1, max_length=200, description="伏笔标题")
-    content: str = Field(..., min_length=1, description="伏笔详细内容/描述")
-    hint_text: Optional[str] = Field(None, description="埋伏笔时的暗示文本")
-    resolution_text: Optional[str] = Field(None, description="回收伏笔时的揭示文本")
+    title: str = Field(..., min_length=1, max_length=200, description="Título do foreshadowing")
+    content: str = Field(..., min_length=1, description="Conteúdo/descrição detalhada do foreshadowing")
+    hint_text: Optional[str] = Field(None, description="Texto de sugestão ao plantar")
+    resolution_text: Optional[str] = Field(None, description="Texto de revelação ao resolver")
     
     # 章节关联
-    plant_chapter_number: Optional[int] = Field(None, ge=1, description="计划埋入章节号")
-    target_resolve_chapter_number: Optional[int] = Field(None, ge=1, description="计划回收章节号")
+    plant_chapter_number: Optional[int] = Field(None, ge=1, description="Capítulo planejado para plantar")
+    target_resolve_chapter_number: Optional[int] = Field(None, ge=1, description="Número do capítulo de resolução planejada")
     
     # 状态
-    is_long_term: bool = Field(False, description="是否长线伏笔")
+    is_long_term: bool = Field(False, description="Foreshadowing de longo prazo")
     
     # 重要性
-    importance: float = Field(0.5, ge=0.0, le=1.0, description="重要性评分 0.0-1.0")
-    strength: int = Field(5, ge=1, le=10, description="伏笔强度 1-10")
-    subtlety: int = Field(5, ge=1, le=10, description="隐藏度 1-10")
+    importance: float = Field(0.5, ge=0.0, le=1.0, description="Pontuação de importância 0.0-1.0")
+    strength: int = Field(5, ge=1, le=10, description="Intensidade 1-10")
+    subtlety: int = Field(5, ge=1, le=10, description="Sutileza 1-10")
     
     # 关联信息
-    related_characters: Optional[List[str]] = Field(None, description="关联角色名列表")
-    tags: Optional[List[str]] = Field(None, description="标签列表")
-    category: Optional[str] = Field(None, description="分类")
+    related_characters: Optional[List[str]] = Field(None, description="Nomes dos personagens relacionados")
+    tags: Optional[List[str]] = Field(None, description="Lista de etiquetas")
+    category: Optional[str] = Field(None, description="Categoria")
     
     # 备注
-    notes: Optional[str] = Field(None, description="创作备注")
-    resolution_notes: Optional[str] = Field(None, description="回收方式说明")
+    notes: Optional[str] = Field(None, description="Notas de criação")
+    resolution_notes: Optional[str] = Field(None, description="Descrição da forma de resolução")
     
     # AI辅助设置
-    auto_remind: bool = Field(True, description="是否自动提醒")
-    remind_before_chapters: int = Field(5, ge=1, le=20, description="提前几章提醒")
-    include_in_context: bool = Field(True, description="是否包含在生成上下文中")
+    auto_remind: bool = Field(True, description="Lembrar automaticamente")
+    remind_before_chapters: int = Field(5, ge=1, le=20, description="Capítulos de antecedência para o lembrete")
+    include_in_context: bool = Field(True, description="Incluído no contexto de geração")
 
 
 class ForeshadowCreate(ForeshadowBase):
     """创建伏笔请求"""
-    project_id: str = Field(..., description="项目ID")
+    project_id: str = Field(..., description="ID do projeto")
 
 
 class ForeshadowUpdate(BaseModel):
@@ -150,24 +150,24 @@ class ForeshadowStatsResponse(BaseModel):
 
 class PlantForeshadowRequest(BaseModel):
     """标记伏笔埋入请求"""
-    chapter_id: str = Field(..., description="埋入章节ID")
-    chapter_number: int = Field(..., ge=1, description="埋入章节号")
-    hint_text: Optional[str] = Field(None, description="暗示文本")
+    chapter_id: str = Field(..., description="ID do capítulo de plantio")
+    chapter_number: int = Field(..., ge=1, description="Número do capítulo de plantio")
+    hint_text: Optional[str] = Field(None, description="Texto de sugestão")
 
 
 class ResolveForeshadowRequest(BaseModel):
     """标记伏笔回收请求"""
-    chapter_id: str = Field(..., description="回收章节ID")
-    chapter_number: int = Field(..., ge=1, description="回收章节号")
-    resolution_text: Optional[str] = Field(None, description="揭示文本")
-    is_partial: bool = Field(False, description="是否部分回收")
+    chapter_id: str = Field(..., description="ID do capítulo de resolução")
+    chapter_number: int = Field(..., ge=1, description="Número do capítulo de resolução")
+    resolution_text: Optional[str] = Field(None, description="Texto de revelação")
+    is_partial: bool = Field(False, description="Resolução parcial")
 
 
 class SyncFromAnalysisRequest(BaseModel):
     """从分析同步伏笔请求"""
-    chapter_ids: Optional[List[str]] = Field(None, description="指定章节ID列表，为空则同步全部")
-    overwrite_existing: bool = Field(False, description="是否覆盖已存在的伏笔")
-    auto_set_planted: bool = Field(True, description="自动设置为已埋入状态")
+    chapter_ids: Optional[List[str]] = Field(None, description="IDs dos capítulos a sincronizar; se vazio, sincroniza todos")
+    overwrite_existing: bool = Field(False, description="Sobrescrever foreshadowings existentes")
+    auto_set_planted: bool = Field(True, description="Definir automaticamente como plantado")
 
 
 class SyncFromAnalysisResponse(BaseModel):
@@ -181,10 +181,10 @@ class SyncFromAnalysisResponse(BaseModel):
 
 class ForeshadowContextRequest(BaseModel):
     """获取章节伏笔上下文请求"""
-    chapter_number: int = Field(..., ge=1, description="章节号")
-    include_pending: bool = Field(True, description="包含待埋入伏笔")
-    include_overdue: bool = Field(True, description="包含超期伏笔")
-    lookahead: int = Field(5, ge=1, le=20, description="向前看几章")
+    chapter_number: int = Field(..., ge=1, description="Número do capítulo")
+    include_pending: bool = Field(True, description="Incluir foreshadowings a plantar")
+    include_overdue: bool = Field(True, description="Incluir foreshadowings atrasados")
+    lookahead: int = Field(5, ge=1, le=20, description="Quantos capítulos à frente considerar")
 
 
 class ForeshadowContextResponse(BaseModel):
